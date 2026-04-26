@@ -83,7 +83,6 @@ export async function POST(req: NextRequest) {
     shipping_address_collection: {
       allowed_countries: [...SUPPORTED_COUNTRIES],
     },
-    shipping_options: buildShippingOptions(),
     success_url: parsed.success_url,
     cancel_url: parsed.cancel_url,
     metadata: parsed.metadata,
@@ -91,7 +90,12 @@ export async function POST(req: NextRequest) {
     allow_promotion_codes: true,
   };
 
-  if (mode === 'subscription') {
+  // Stripe rejects shipping_options outside of payment mode. For subscriptions
+  // we still collect shipping address (above) but recurring shipping cost is
+  // handled at the subscription / invoice level, not the checkout session.
+  if (mode === 'payment') {
+    params.shipping_options = buildShippingOptions();
+  } else if (mode === 'subscription') {
     params.subscription_data = { metadata: parsed.metadata };
   }
 
