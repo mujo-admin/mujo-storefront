@@ -1,20 +1,110 @@
 // Shopify Admin API GraphQL client. Separate from lib/shopify (Storefront API)
 // because Admin uses a different endpoint, different auth header, and writes
 // orders/customers/metafields that the storefront read-side never touches.
+//
+// Auth: supports both legacy static tokens AND OAuth Client Credentials.
+// - If SHOPIFY_ADMIN_API_ACCESS_TOKEN is set → use it directly (legacy path)
+// - Else if SHOPIFY_ADMIN_CLIENT_ID + SHOPIFY_ADMIN_CLIENT_SECRET are set →
+//   exchange for a short-lived access token, cache in-memory until expiry,
+//   refresh-on-401, single-flight via in-flight promise to avoid stampedes
+//
+// Static custom-app tokens were deprecated by Shopify on 2026-01-01. Stores
+// that already had Develop apps enabled may still issue static tokens to
+// existing apps, but new app creation now goes through OAuth. The code below
+// works either way without changes — Kinga reports back what Shopify gave us
+// and the right env vars get populated in .env.local.
 
 const ADMIN_API_VERSION = process.env.SHOPIFY_ADMIN_API_VERSION ?? '2025-01';
 
-function getAdminEndpoint(): string {
+function getAdminHost(): string {
   const domain = process.env.SHOPIFY_STORE_DOMAIN;
   if (!domain) throw new Error('SHOPIFY_STORE_DOMAIN is not set');
-  const host = domain.replace(/^https?:\/\//, '').replace(/\/$/, '');
-  return `https://${host}/admin/api/${ADMIN_API_VERSION}/graphql.json`;
+  return domain.replace(/^https?:\/\//, '').replace(/\/$/, '');
 }
 
-function getAdminToken(): string {
-  const token = process.env.SHOPIFY_ADMIN_API_ACCESS_TOKEN;
-  if (!token) throw new Error('SHOPIFY_ADMIN_API_ACCESS_TOKEN is not set');
-  return token;
+function getAdminEndpoint(): string {
+  return `https://${getAdminHost()}/admin/api/${ADMIN_API_VERSION}/graphql.json`;
+}
+
+// --- Token management -------------------------------------------------------
+
+type CachedToken = { token: string; expiresAt: number };
+let cachedToken: CachedToken | null = null;
+let inflightExchange: Promise<CachedToken> | null = null;
+
+const TOKEN_REFRESH_BUFFER_MS = 60_000; // refresh 60s before expiry
+
+async function exchangeClientCredentials(): Promise<CachedToken> {
+  const clientId = process.env.SHOPIFY_ADMIN_CLIENT_ID;
+  const clientSecret = process.env.SHOPIFY_ADMIN_CLIENT_SECRET;
+  if (!clientId || !clientSecret) {
+    throw new Error(
+      'Shopify Admin auth not configured: set either SHOPIFY_ADMIN_API_ACCESS_TOKEN (legacy static) ' +
+        'or SHOPIFY_ADMIN_CLIENT_ID + SHOPIFY_ADMIN_CLIENT_SECRET (OAuth Client Credentials).',
+    );
+  }
+
+  const res = await fetch(`https://${getAdminHost()}/admin/oauth/access_token`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      client_id: clientId,
+      client_secret: clientSecret,
+      grant_type: 'client_credentials',
+    }),
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Shopify OAuth token exchange failed: HTTP ${res.status} ${text.slice(0, 200)}`);
+  }
+
+  const body = (await res.json()) as {
+    access_token: string;
+    expires_in?: number; // seconds
+    scope?: string;
+  };
+
+  if (!body.access_token) {
+    throw new Error('Shopify OAuth response missing access_token');
+  }
+
+  // Default to 1 hour if Shopify doesn't return expires_in (defensive — current
+  // Client Credentials grants in early 2026 return ~3600s tokens).
+  const ttlSec = body.expires_in ?? 3600;
+  return {
+    token: body.access_token,
+    expiresAt: Date.now() + ttlSec * 1000,
+  };
+}
+
+async function getAdminAccessToken(forceRefresh = false): Promise<string> {
+  // Path 1: static token (legacy)
+  const staticToken = process.env.SHOPIFY_ADMIN_API_ACCESS_TOKEN;
+  if (staticToken) return staticToken;
+
+  // Path 2: cached OAuth token
+  if (
+    !forceRefresh &&
+    cachedToken &&
+    cachedToken.expiresAt > Date.now() + TOKEN_REFRESH_BUFFER_MS
+  ) {
+    return cachedToken.token;
+  }
+
+  // Path 3: exchange (single-flight — multiple concurrent calls share one fetch)
+  if (!inflightExchange) {
+    inflightExchange = exchangeClientCredentials()
+      .then((next) => {
+        cachedToken = next;
+        return next;
+      })
+      .finally(() => {
+        inflightExchange = null;
+      });
+  }
+  const fresh = await inflightExchange;
+  return fresh.token;
 }
 
 export class ShopifyAdminError extends Error {
@@ -35,15 +125,27 @@ export async function adminFetch<TData>({
   query: string;
   variables?: Record<string, unknown>;
 }): Promise<TData> {
-  const res = await fetch(getAdminEndpoint(), {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Shopify-Access-Token': getAdminToken(),
-    },
-    body: JSON.stringify({ query, variables }),
-    cache: 'no-store',
-  });
+  const doFetch = async (token: string): Promise<Response> =>
+    fetch(getAdminEndpoint(), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Access-Token': token,
+      },
+      body: JSON.stringify({ query, variables }),
+      cache: 'no-store',
+    });
+
+  let token = await getAdminAccessToken();
+  let res = await doFetch(token);
+
+  // OAuth path: retry once on 401 with a freshly-exchanged token (handles the
+  // edge case where our cached token expired exactly at the wire). For the
+  // static-token path this is harmless — the retry will use the same env token.
+  if (res.status === 401) {
+    token = await getAdminAccessToken(true);
+    res = await doFetch(token);
+  }
 
   if (!res.ok) {
     const text = await res.text();

@@ -41,8 +41,15 @@ if (!process.env.STRIPE_SECRET_KEY) {
   console.error('STRIPE_SECRET_KEY not set');
   process.exit(1);
 }
-if (!process.env.SHOPIFY_ADMIN_API_ACCESS_TOKEN) {
-  console.error('SHOPIFY_ADMIN_API_ACCESS_TOKEN not set');
+const hasStaticAdminToken = Boolean(process.env.SHOPIFY_ADMIN_API_ACCESS_TOKEN);
+const hasAdminOAuth = Boolean(
+  process.env.SHOPIFY_ADMIN_CLIENT_ID && process.env.SHOPIFY_ADMIN_CLIENT_SECRET,
+);
+if (!hasStaticAdminToken && !hasAdminOAuth) {
+  console.error(
+    'Shopify Admin auth not configured. Set either SHOPIFY_ADMIN_API_ACCESS_TOKEN ' +
+      '(legacy static) or SHOPIFY_ADMIN_CLIENT_ID + SHOPIFY_ADMIN_CLIENT_SECRET (OAuth).',
+  );
   process.exit(1);
 }
 

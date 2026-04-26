@@ -1,6 +1,7 @@
 import { db } from 'db';
 import { sql } from 'drizzle-orm';
 import { stripe } from 'lib/stripe';
+import { adminFetch } from 'lib/shopify-admin';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -30,14 +31,12 @@ export async function GET() {
       await stripe.balance.retrieve();
     }),
     timed(async () => {
-      const domain = process.env.SHOPIFY_STORE_DOMAIN;
-      const token = process.env.SHOPIFY_ADMIN_API_ACCESS_TOKEN;
-      if (!domain || !token) throw new Error('Shopify Admin env not configured');
-      const res = await fetch(
-        `https://${domain.replace(/^https?:\/\//, '')}/admin/api/${process.env.SHOPIFY_ADMIN_API_VERSION ?? '2025-01'}/shop.json`,
-        { headers: { 'X-Shopify-Access-Token': token }, cache: 'no-store' },
-      );
-      if (!res.ok) throw new Error(`Shopify Admin HTTP ${res.status}`);
+      // Goes through the unified token resolver (legacy static OR OAuth Client
+      // Credentials) so the healthcheck reflects the real auth path, not just
+      // the legacy env var.
+      await adminFetch<{ shop: { name: string } }>({
+        query: /* GraphQL */ `query { shop { name } }`,
+      });
     }),
   ]);
 
