@@ -8,7 +8,6 @@ import {
   SUPPORTED_COUNTRIES,
 } from 'lib/stripe-constants';
 
-export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 type SessionCreateParams = NonNullable<

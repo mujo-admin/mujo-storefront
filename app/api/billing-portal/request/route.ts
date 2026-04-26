@@ -18,7 +18,6 @@ import { checkRateLimit, generateToken } from 'lib/magic-link';
 import { resend, RESEND_FROM } from 'lib/resend';
 import { MagicLinkEmail } from 'emails/magic-link';
 
-export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 const requestSchema = z.object({

@@ -3,7 +3,6 @@ import { sql } from 'drizzle-orm';
 import { stripe } from 'lib/stripe';
 import { adminFetch } from 'lib/shopify-admin';
 
-export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 type CheckResult = { ok: boolean; latency_ms?: number; error?: string };

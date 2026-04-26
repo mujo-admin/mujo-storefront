@@ -19,7 +19,6 @@ import { handleCheckoutCompleted } from 'lib/webhook-handlers/checkout-completed
 import { handleInvoicePaid } from 'lib/webhook-handlers/invoice-paid';
 import { handleSubscriptionUpdated } from 'lib/webhook-handlers/subscription-updated';
 
-export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest) {

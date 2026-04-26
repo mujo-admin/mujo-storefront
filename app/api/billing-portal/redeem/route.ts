@@ -10,7 +10,6 @@ import type { NextRequest } from 'next/server';
 import { stripe } from 'lib/stripe';
 import { verifyAndConsumeToken } from 'lib/magic-link';
 
-export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 const ERROR_PATHS: Record<string, string> = {
