@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mujo · Nav + Cart System v1.0</title>
+<meta name="description" content="The canonical nav, mobile menu, and cart drawer pattern. Used on every page.">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   MUJO NAV + CART SYSTEM v1.0 · used everywhere
+   Mobile-first. Logo left · center links collapse to hamburger
+   on mobile · cart and account always visible.
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --orange: #F2682F;
+  --orange-deep: #D85A22;
+  --orange-soft: #FDEFE6;
+  --cream: #F3F2E9;
+  --sand: #EEE9E0;
+  --sand-deep: #D4C4A8;
+  --sage: #2F3D33;
+  --sage-mid: #3D4D40;
+  --sage-light: #8FA396;
+  --sage-tint: rgba(47, 61, 51, 0.08);
+  --ink: #1A1A1A;
+  --ink-soft: #4A4845;
+  --mute: #5C5854;
+  --line: rgba(26, 26, 26, 0.09);
+  --line-soft: rgba(26, 26, 26, 0.06);
+  --f-display: 'General Sans', -apple-system, sans-serif;
+  --f-body: 'General Sans', 'Helvetica Neue', sans-serif;
+  --f-serif: 'Instrument Serif', 'Times New Roman', serif;
+  --f-mono: 'DM Mono', monospace;
+  --nav-h: 64px;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--f-body);
+  background: var(--cream);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.55;
+}
+
+.eyebrow {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--orange-deep);
+  display: inline-block;
+  font-weight: 500;
+}
+.serif-accent { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+
+h1, h2, h3 { font-family: var(--f-display); font-weight: 500; letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+@media (min-width: 768px) { .container { padding: 0 32px; } }
+
+/* ============================================================
+   ANNOUNCEMENT BAR
+   ============================================================ */
+.announce {
+  background: var(--sage);
+  color: #fff;
+  text-align: center;
+  padding: 9px 16px;
+  font-size: 12px;
+  letter-spacing: 0.01em;
+  position: relative;
+  z-index: 200;
+  line-height: 1.4;
+}
+.announce strong { color: var(--orange); font-weight: 500; }
+.announce .sep { opacity: 0.4; margin: 0 8px; }
+@media (max-width: 640px) { .announce-secondary { display: none; } }
+@media (min-width: 768px) {
+  .announce { padding: 10px 24px; font-size: 13px; }
+  .announce .sep { margin: 0 10px; }
+}
+
+/* ============================================================
+   NAV · three-column grid
+   Mobile (<1024px): [hamburger] [logo center] [account, cart]
+   Desktop (≥1024px): [logo] [center links] [account, cart]
+   ============================================================ */
+nav.mujo-nav {
+  position: sticky;
+  top: 0;
+  z-index: 150;
+  background: rgba(243, 242, 233, 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--line-soft);
+  padding: 12px 16px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  height: var(--nav-h);
+  transition: box-shadow 0.3s;
+}
+nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+@media (min-width: 1024px) {
+  nav.mujo-nav { padding: 14px 32px; grid-template-columns: 1fr auto 1fr; gap: 24px; }
+}
+
+.nav-hamburger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--ink);
+  margin-left: -8px;
+}
+.nav-hamburger svg { width: 22px; height: 22px; }
+@media (min-width: 1024px) { .nav-hamburger { display: none; } }
+
+.nav-logo {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  justify-self: center;
+}
+.nav-logo img { height: 26px; width: auto; display: block; }
+@media (min-width: 1024px) {
+  .nav-logo { justify-self: start; }
+  .nav-logo img { height: 30px; }
+}
+
+.nav-center {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+}
+.nav-link {
+  font-family: var(--f-body);
+  font-size: 14px;
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: color 0.2s;
+  position: relative;
+  padding: 4px 0;
+}
+.nav-link:hover { color: var(--sage); }
+.nav-link.active { color: var(--sage); }
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -2px;
+  height: 2px;
+  background: var(--orange);
+}
+@media (min-width: 1024px) { .nav-center { display: flex; } }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  justify-self: end;
+}
+.nav-icon {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+.nav-icon:hover { background: var(--sage-tint); }
+.nav-icon svg { width: 20px; height: 20px; }
+.cart-count {
+  position: absolute;
+  top: 4px; right: 4px;
+  background: var(--orange);
+  color: #fff;
+  font-family: var(--f-mono);
+  font-size: 9px;
+  font-weight: 500;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  line-height: 1;
+}
+.cart-count.hidden { display: none; }
+
+/* ============================================================
+   MOBILE MENU · slide from left, full-height
+   ============================================================ */
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 26, 26, 0.5);
+  z-index: 998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.menu-overlay.open { opacity: 1; pointer-events: auto; }
+
+.mobile-menu {
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  width: min(360px, 88vw);
+  background: var(--cream);
+  z-index: 999;
+  transform: translateX(-100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+.mobile-menu.open { transform: translateX(0); }
+
+.mm-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.mm-head img { height: 26px; width: auto; }
+.mm-close {
+  width: 40px; height: 40px;
+  background: transparent; border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+  margin-right: -8px;
+}
+.mm-close svg { width: 20px; height: 20px; }
+
+.mm-links {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 0;
+  flex: 1;
+}
+.mm-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  font-family: var(--f-display);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line-soft);
+  transition: background 0.15s, color 0.15s;
+}
+.mm-link:hover { color: var(--orange-deep); background: rgba(242, 104, 47, 0.04); }
+.mm-link svg { width: 16px; height: 16px; opacity: 0.4; }
+
+.mm-foot {
+  padding: 24px;
+  background: var(--sage);
+  color: #fff;
+}
+.mm-foot-eyebrow {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 10px;
+}
+.mm-foot p {
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 16px;
+}
+.mm-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--orange);
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 20px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--f-body);
+}
+.mm-cta:hover { background: var(--orange-deep); }
+
+/* ============================================================
+   CART DRAWER · slide from right
+   ============================================================ */
+.cart-drawer {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: min(440px, 100vw);
+  background: var(--cream);
+  z-index: 999;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  box-shadow: -20px 0 60px rgba(0,0,0,0.1);
+}
+.cart-drawer.open { transform: translateX(0); }
+
+.cart-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.cart-head-title {
+  font-family: var(--f-display);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.cart-head-title span {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--mute);
+  letter-spacing: 0.1em;
+  margin-left: 8px;
+  font-weight: 400;
+}
+.cart-close {
+  width: 36px; height: 36px;
+  background: transparent; border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+  border-radius: 50%;
+  margin-right: -6px;
+}
+.cart-close:hover { background: var(--sage-tint); }
+.cart-close svg { width: 18px; height: 18px; }
+
+.cart-progress {
+  background: var(--sand);
+  padding: 14px 20px 16px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.cart-progress-msg {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+.cart-progress-msg strong { color: var(--ink); font-weight: 500; }
+.cart-progress-msg .accent { color: var(--orange-deep); font-weight: 500; }
+.cart-progress-track {
+  height: 6px;
+  background: rgba(26, 26, 26, 0.08);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.cart-progress-fill {
+  height: 100%;
+  background: var(--orange);
+  border-radius: 3px;
+  width: 0%;
+  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cart-progress-fill.full { background: var(--sage); }
+
+.cart-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 20px;
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 72px 1fr auto;
+  gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+.cart-item-img {
+  width: 72px; height: 72px;
+  background: var(--sand);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  flex-shrink: 0;
+}
+.cart-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.cart-item-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.cart-item-variant {
+  font-size: 12px;
+  color: var(--mute);
+  margin-bottom: 6px;
+}
+.cart-item-controls {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  background: #fff;
+  width: fit-content;
+  margin-top: auto;
+}
+.qty-btn {
+  width: 28px; height: 28px;
+  background: transparent; border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--ink-soft);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.qty-btn:hover { color: var(--orange-deep); }
+.qty-val {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  min-width: 24px;
+  text-align: center;
+  color: var(--ink);
+}
+.cart-item-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  text-align: right;
+}
+.cart-item-price {
+  font-family: var(--f-mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.cart-item-remove {
+  background: transparent; border: none;
+  cursor: pointer;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: var(--mute);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 4px 0;
+}
+.cart-item-remove:hover { color: var(--orange-deep); }
+
+.cart-empty {
+  text-align: center;
+  padding: 56px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.cart-empty-illo { font-size: 52px; opacity: 0.5; }
+.cart-empty h3 { font-size: 22px; font-weight: 500; }
+.cart-empty p {
+  font-size: 14px;
+  color: var(--mute);
+  max-width: 260px;
+  line-height: 1.5;
+}
+.cart-empty a {
+  margin-top: 6px;
+  background: var(--orange);
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 22px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.cart-empty a:hover { background: var(--orange-deep); }
+
+.cart-upsell {
+  margin: 12px 0 8px;
+  padding: 14px;
+  background: var(--orange-soft);
+  border-radius: 12px;
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  gap: 12px;
+  align-items: center;
+}
+.cart-upsell-eyebrow {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--orange-deep);
+  margin-bottom: 2px;
+}
+.cart-upsell-img {
+  width: 56px; height: 56px;
+  background: #fff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+.cart-upsell-info { min-width: 0; }
+.cart-upsell-name {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+.cart-upsell-price {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--ink-soft);
+}
+.cart-upsell-add {
+  background: var(--sage);
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: var(--f-body);
+  cursor: pointer;
+}
+.cart-upsell-add:hover { background: var(--sage-mid); }
+
+.cart-foot {
+  border-top: 1px solid var(--line-soft);
+  padding: 16px 20px 20px;
+  background: var(--cream);
+}
+.cart-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 4px 0;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+.cart-row.total {
+  padding-top: 10px;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--ink);
+  font-family: var(--f-display);
+}
+.cart-row .price { font-family: var(--f-mono); }
+.cart-shipping-note {
+  font-size: 11px;
+  color: var(--mute);
+  font-family: var(--f-mono);
+  letter-spacing: 0.04em;
+  margin: 8px 0 14px;
+  line-height: 1.4;
+}
+.cart-checkout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  background: var(--orange);
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  padding: 16px 24px;
+  border-radius: 100px;
+  font-family: var(--f-body);
+  font-size: 15px;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+.cart-checkout:hover { background: var(--orange-deep); }
+.cart-secure {
+  text-align: center;
+  font-size: 11px;
+  color: var(--mute);
+  font-family: var(--f-mono);
+  letter-spacing: 0.08em;
+  margin-top: 10px;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   DEMO PAGE STYLES
+   ============================================================ */
+.demo-hero {
+  padding: 56px 0 40px;
+  text-align: center;
+}
+.demo-hero h1 {
+  font-size: clamp(32px, 5.5vw, 52px);
+  margin: 14px 0 14px;
+  line-height: 1.05;
+}
+.demo-hero p {
+  font-size: 16px;
+  color: var(--ink-soft);
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.6;
+  padding: 0 8px;
+}
+
+.demo-section {
+  padding: 48px 0;
+  border-top: 1px solid var(--line-soft);
+}
+.demo-section h2 {
+  font-size: clamp(24px, 3.4vw, 32px);
+  margin-bottom: 10px;
+}
+.demo-lede {
+  font-size: 15px;
+  color: var(--ink-soft);
+  max-width: 640px;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+.demo-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 768px) { .demo-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
+.demo-card {
+  padding: 22px;
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid var(--line-soft);
+}
+.demo-card .eyebrow { display: block; margin-bottom: 12px; }
+.demo-card h3 { font-size: 17px; margin-bottom: 8px; }
+.demo-card p { font-size: 14px; color: var(--ink-soft); line-height: 1.55; }
+.demo-card button {
+  margin-top: 14px;
+  background: var(--sage);
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: var(--f-body);
+  cursor: pointer;
+  width: 100%;
+}
+@media (min-width: 480px) { .demo-card button { width: auto; } }
+.demo-card button:hover { background: var(--sage-mid); }
+
+.note {
+  background: var(--sand);
+  border-left: 4px solid var(--orange);
+  padding: 18px 20px;
+  border-radius: 4px;
+  margin-top: 28px;
+}
+.note .eyebrow { display: block; margin-bottom: 6px; }
+.note p { font-size: 14px; color: var(--ink-soft); line-height: 1.55; }
+.note code {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  background: rgba(26,26,26,0.06);
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: var(--ink);
+}
+
+footer.mujo-foot {
+  background: var(--sage);
+  color: rgba(255,255,255,0.5);
+  padding: 56px 0 28px;
+  margin-top: 56px;
+}
+.foot-grid {
+  display: grid;
+  gap: 32px;
+  grid-template-columns: 1fr;
+  margin-bottom: 32px;
+}
+@media (min-width: 640px) { .foot-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1024px) { .foot-grid { grid-template-columns: 1.6fr 1fr 1fr 1fr; } }
+.foot-brand img { height: 28px; width: auto; margin-bottom: 14px; }
+.foot-tagline {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.6);
+  max-width: 320px;
+}
+.foot-col-title {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 16px;
+}
+.foot-links { display: flex; flex-direction: column; gap: 10px; }
+.foot-link { font-size: 14px; color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
+.foot-link:hover { color: var(--sage-light); }
+.foot-bottom {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+@media (min-width: 768px) {
+  .foot-bottom { flex-direction: row; justify-content: space-between; align-items: flex-start; gap: 32px; }
+}
+.foot-fda {
+  font-size: 11px;
+  line-height: 1.55;
+  color: rgba(255,255,255,0.3);
+  max-width: 680px;
+  font-family: var(--f-mono);
+  letter-spacing: 0.02em;
+}
+.foot-copy {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.3);
+}
+
+body.locked { overflow: hidden; }
+</style>
+</head>
+<body>
+
+<div class="announce">
+  Free shipping over <strong>$100</strong>
+  <span class="sep announce-secondary">·</span>
+  <span class="announce-secondary">Use <strong>WELCOME10</strong> for 10% off your first order</span>
+</div>
+
+<nav class="mujo-nav" id="nav">
+  <button class="nav-hamburger" aria-label="Open menu" onclick="openMenu()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+      <line x1="3" y1="7" x2="21" y2="7"/>
+      <line x1="3" y1="12" x2="21" y2="12"/>
+      <line x1="3" y1="17" x2="21" y2="17"/>
+    </svg>
+  </button>
+
+  <a href="/" class="nav-logo" aria-label="Mujo home">
+    <img src="Mujo_logo_orange.png" alt="Mujo">
+  </a>
+
+  <div class="nav-center">
+    <a href="/shop" class="nav-link">Shop</a>
+    <a href="/science" class="nav-link">Science</a>
+    <a href="/ingredients" class="nav-link">Ingredients</a>
+    <a href="/journal" class="nav-link">Journal</a>
+    <a href="/rebel-club" class="nav-link">Rebel Club</a>
+  </div>
+
+  <div class="nav-right">
+    <a href="/account" class="nav-icon" aria-label="Account">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="4"/>
+        <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
+      </svg>
+    </a>
+    <button class="nav-icon" aria-label="Cart" onclick="openCart()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 7h14l-1.4 11.2a2 2 0 0 1-2 1.8H8.4a2 2 0 0 1-2-1.8L5 7z"/>
+        <path d="M9 7V5a3 3 0 0 1 6 0v2"/>
+      </svg>
+      <span class="cart-count" id="cartCount">2</span>
+    </button>
+  </div>
+</nav>
+
+<div class="menu-overlay" id="overlay" onclick="closeAll()"></div>
+
+<aside class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <div class="mm-head">
+    <a href="/" aria-label="Mujo home"><img src="Mujo_logo_orange.png" alt="Mujo"></a>
+    <button class="mm-close" aria-label="Close menu" onclick="closeMenu()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+        <line x1="6" y1="6" x2="18" y2="18"/>
+        <line x1="18" y1="6" x2="6" y2="18"/>
+      </svg>
+    </button>
+  </div>
+  <div class="mm-links">
+    <a href="/shop" class="mm-link">Shop <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    <a href="/science" class="mm-link">Science <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    <a href="/ingredients" class="mm-link">Ingredients <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    <a href="/journal" class="mm-link">Journal <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    <a href="/rebel-club" class="mm-link">Rebel Club <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    <a href="/about" class="mm-link">About <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    <a href="/account" class="mm-link">Account <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+  </div>
+  <div class="mm-foot">
+    <div class="mm-foot-eyebrow">New here</div>
+    <p>10% off your first order. Take 60 seconds, get a Reset Plan tuned to your specific pattern.</p>
+    <a href="/quiz" class="mm-cta">Take the audit →</a>
+  </div>
+</aside>
+
+<aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
+  <div class="cart-head">
+    <div class="cart-head-title">Your cart <span id="cartHeadCount">2 items</span></div>
+    <button class="cart-close" aria-label="Close cart" onclick="closeCart()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+        <line x1="6" y1="6" x2="18" y2="18"/>
+        <line x1="18" y1="6" x2="6" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="cart-progress">
+    <div class="cart-progress-msg" id="progressMsg"><span class="accent">$46</span> away from <strong>free shipping</strong>.</div>
+    <div class="cart-progress-track">
+      <div class="cart-progress-fill" id="progressFill" style="width: 54%;"></div>
+    </div>
+  </div>
+
+  <div class="cart-body" id="cartBody">
+    <div class="cart-item" data-id="ritual-25">
+      <div class="cart-item-img">🍵</div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">Mujo Ritual</div>
+        <div class="cart-item-variant">25 servings · subscription</div>
+        <div class="cart-item-controls">
+          <button class="qty-btn" onclick="updateQty('ritual-25', -1)">−</button>
+          <span class="qty-val" id="qty-ritual-25">1</span>
+          <button class="qty-btn" onclick="updateQty('ritual-25', 1)">+</button>
+        </div>
+      </div>
+      <div class="cart-item-meta">
+        <div class="cart-item-price" id="price-ritual-25">$55.25</div>
+        <button class="cart-item-remove" onclick="removeItem('ritual-25')">Remove</button>
+      </div>
+    </div>
+
+    <div class="cart-item" data-id="bar-pb">
+      <div class="cart-item-img">🥜</div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">Lemna Bar · PB Crunch</div>
+        <div class="cart-item-variant">12 pack · vegan</div>
+        <div class="cart-item-controls">
+          <button class="qty-btn" onclick="updateQty('bar-pb', -1)">−</button>
+          <span class="qty-val" id="qty-bar-pb">1</span>
+          <button class="qty-btn" onclick="updateQty('bar-pb', 1)">+</button>
+        </div>
+      </div>
+      <div class="cart-item-meta">
+        <div class="cart-item-price" id="price-bar-pb">·</div>
+        <button class="cart-item-remove" onclick="removeItem('bar-pb')">Remove</button>
+      </div>
+    </div>
+
+    <div class="cart-upsell" id="cartUpsell">
+      <div class="cart-upsell-img">🍫</div>
+      <div class="cart-upsell-info">
+        <div class="cart-upsell-eyebrow">Pair it</div>
+        <div class="cart-upsell-name">Lemna Bar · Cashew Chocolate</div>
+        <div class="cart-upsell-price">$42 · 12 pack</div>
+      </div>
+      <button class="cart-upsell-add" onclick="addUpsell()">Add</button>
+    </div>
+  </div>
+
+  <div class="cart-foot">
+    <div class="cart-row"><span>Subtotal</span><span class="price" id="subtotalDisplay">$54</span></div>
+    <div class="cart-row"><span>Shipping</span><span class="price" id="shippingDisplay">Calculated at checkout</span></div>
+    <div class="cart-row total"><span>Total</span><span class="price" id="totalDisplay">$54</span></div>
+    <div class="cart-shipping-note">Taxes calculated at checkout. Subscription orders renew at 25% off retail.</div>
+    <button class="cart-checkout" onclick="checkout()">
+      Checkout
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="5" y1="12" x2="19" y2="12"/>
+        <polyline points="13 6 19 12 13 18"/>
+      </svg>
+    </button>
+    <div class="cart-secure">Secure · Stripe checkout</div>
+  </div>
+</aside>
+
+<section class="demo-hero">
+  <div class="container">
+    <span class="eyebrow">Foundation · v1.0</span>
+    <h1>The nav and cart system. <span class="serif-accent">Used everywhere.</span></h1>
+    <p>This is the canonical pattern. Open the menu, the cart, resize the window. The same markup ships on every page from here on.</p>
+  </div>
+</section>
+
+<section class="demo-section">
+  <div class="container">
+    <span class="eyebrow">Try it</span>
+    <h2>Three things to test.</h2>
+    <p class="demo-lede">Every interaction is wired. Tap the cart icon, the hamburger, the upsell. Resize the window and watch the nav reorganize. Below 1024px the center links collapse to the hamburger and the logo centers.</p>
+    <div class="demo-grid">
+      <div class="demo-card">
+        <span class="eyebrow">Cart drawer</span>
+        <h3>$100 free-shipping bar</h3>
+        <p>The progress bar fills toward $100. When you cross it, the fill turns sage and the message switches to "free shipping unlocked." Adjust quantities and watch it move.</p>
+        <button onclick="openCart()">Open cart</button>
+      </div>
+      <div class="demo-card">
+        <span class="eyebrow">Mobile menu</span>
+        <h3>Slide-from-left drawer</h3>
+        <p>The hamburger opens a full-height side drawer. It includes every link from the desktop nav, plus an account shortcut and a "new here" capture card at the bottom.</p>
+        <button onclick="openMenu()">Open menu</button>
+      </div>
+      <div class="demo-card">
+        <span class="eyebrow">Empty state</span>
+        <h3>What it looks like dry</h3>
+        <p>Remove both items from the cart and you'll see the empty state. Considered, not gloomy. A line back to the shop and a small ritual nudge.</p>
+        <button onclick="emptyCart(); openCart();">Empty the cart</button>
+      </div>
+    </div>
+    <div class="note">
+      <span class="eyebrow">Implementation note</span>
+      <p>Logo file in nav: <code>Mujo_logo_orange.png</code>, expected at the theme root. The logo height locks at 26px on mobile and 30px on desktop. Icon touch targets are 40px to meet WCAG mobile standards. Below 1024px the center links collapse to the hamburger so tablets get the same drawer experience as phones.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="mujo-foot">
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="Mujo_logo_orange.png" alt="Mujo">
+        <p class="foot-tagline">Conscious performance nutrition for people who read the label. Built in Portugal. Shipped globally.</p>
+      </div>
+      <div>
+        <div class="foot-col-title">Shop</div>
+        <div class="foot-links">
+          <a href="/products/mujo-ritual" class="foot-link">Mujo Ritual</a>
+          <a href="/products/lemna-bar" class="foot-link">Lemna Bar</a>
+          <a href="/shop" class="foot-link">Subscribe & save</a>
+          <a href="/rebel-club" class="foot-link">Rebel Club</a>
+        </div>
+      </div>
+      <div>
+        <div class="foot-col-title">Learn</div>
+        <div class="foot-links">
+          <a href="/ingredients" class="foot-link">Ingredients</a>
+          <a href="/science" class="foot-link">The Science</a>
+          <a href="/about" class="foot-link">Our story</a>
+          <a href="/journal" class="foot-link">Journal</a>
+        </div>
+      </div>
+      <div>
+        <div class="foot-col-title">Support</div>
+        <div class="foot-links">
+          <a href="/contact" class="foot-link">Contact</a>
+          <a href="/policies/shipping" class="foot-link">Shipping & returns</a>
+          <a href="/account" class="foot-link">Manage subscription</a>
+          <a href="/affiliate" class="foot-link">Affiliate program</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div class="foot-fda">*These statements have not been evaluated by the FDA. This product is not intended to diagnose, treat, cure, or prevent any disease. Individual results may vary.</div>
+      <div class="foot-copy">© 2026 Mujo</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const PRICES = { 'ritual-25': 55.25, 'ritual-10': 27, 'bar-pb': 54, 'bar-cashew': 42 };
+let cart = { 'ritual-25': 1, 'bar-pb': 1 };
+
+function openMenu() {
+  document.getElementById('mobileMenu').classList.add('open');
+  document.getElementById('overlay').classList.add('open');
+  document.getElementById('mobileMenu').setAttribute('aria-hidden', 'false');
+  document.body.classList.add('locked');
+}
+function closeMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+  document.getElementById('mobileMenu').setAttribute('aria-hidden', 'true');
+  if (!document.getElementById('cartDrawer').classList.contains('open')) {
+    document.body.classList.remove('locked');
+  }
+}
+function openCart() {
+  document.getElementById('cartDrawer').classList.add('open');
+  document.getElementById('overlay').classList.add('open');
+  document.getElementById('cartDrawer').setAttribute('aria-hidden', 'false');
+  document.body.classList.add('locked');
+}
+function closeCart() {
+  document.getElementById('cartDrawer').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+  document.getElementById('cartDrawer').setAttribute('aria-hidden', 'true');
+  if (!document.getElementById('mobileMenu').classList.contains('open')) {
+    document.body.classList.remove('locked');
+  }
+}
+function closeAll() { closeMenu(); closeCart(); }
+
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAll(); });
+
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('nav');
+  if (window.scrollY > 8) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+});
+
+function updateQty(id, delta) {
+  cart[id] = Math.max(0, (cart[id] || 0) + delta);
+  if (cart[id] === 0) delete cart[id];
+  renderCart();
+}
+function removeItem(id) { delete cart[id]; renderCart(); }
+function addUpsell() { cart['bar-cashew'] = (cart['bar-cashew'] || 0) + 1; renderCart(); }
+function emptyCart() { cart = {}; renderCart(); }
+
+function getSubtotal() { return Object.entries(cart).reduce((s, [id, q]) => s + (PRICES[id] || 0) * q, 0); }
+function getCount() { return Object.values(cart).reduce((s, q) => s + q, 0); }
+function fmt(n) { return '$' + (Math.round(n * 100) / 100).toFixed(n % 1 === 0 ? 0 : 2); }
+
+function renderCart() {
+  const subtotal = getSubtotal();
+  const count = getCount();
+  const remaining = Math.max(0, 100 - subtotal);
+  const pct = Math.min(100, (subtotal / 100) * 100);
+
+  document.getElementById('cartHeadCount').textContent = count + (count === 1 ? ' item' : ' items');
+
+  const badge = document.getElementById('cartCount');
+  if (count === 0) badge.classList.add('hidden');
+  else { badge.classList.remove('hidden'); badge.textContent = count; }
+
+  const fill = document.getElementById('progressFill');
+  const msg = document.getElementById('progressMsg');
+  fill.style.width = pct + '%';
+  if (remaining <= 0 && count > 0) {
+    fill.classList.add('full');
+    msg.innerHTML = '<strong>Free shipping</strong> unlocked. Nice work.';
+  } else if (count === 0) {
+    fill.classList.remove('full');
+    msg.innerHTML = 'Free shipping at <strong>$100</strong>.';
+  } else {
+    fill.classList.remove('full');
+    msg.innerHTML = '<span class="accent">' + fmt(remaining) + '</span> away from <strong>free shipping</strong>.';
+  }
+
+  Object.keys(PRICES).forEach(id => {
+    const p = document.getElementById('price-' + id);
+    const q = document.getElementById('qty-' + id);
+    if (p && q) {
+      const qty = cart[id] || 0;
+      q.textContent = qty;
+      p.textContent = qty > 0 ? fmt(PRICES[id] * qty) : '·';
+    }
+  });
+
+  document.querySelectorAll('.cart-item').forEach(el => {
+    const id = el.dataset.id;
+    el.style.display = (cart[id] && cart[id] > 0) ? '' : 'none';
+  });
+
+  const body = document.getElementById('cartBody');
+  let empty = body.querySelector('.cart-empty');
+  if (count === 0) {
+    if (!empty) {
+      empty = document.createElement('div');
+      empty.className = 'cart-empty';
+      empty.innerHTML = '<div class="cart-empty-illo">🍵</div><h3>Nothing in here yet.</h3><p>Your ritual is one click away. The Mujo Ritual is the place most people start.</p><a href="/shop">Browse the shop →</a>';
+      body.appendChild(empty);
+    }
+    document.getElementById('cartUpsell').style.display = 'none';
+  } else {
+    if (empty) empty.remove();
+    document.getElementById('cartUpsell').style.display = cart['bar-cashew'] ? 'none' : 'grid';
+  }
+
+  document.getElementById('subtotalDisplay').textContent = count === 0 ? '$0' : fmt(subtotal);
+  document.getElementById('shippingDisplay').textContent = remaining <= 0 && count > 0 ? 'Free' : 'Calculated at checkout';
+  document.getElementById('totalDisplay').textContent = count === 0 ? '$0' : fmt(subtotal);
+}
+
+function checkout() { alert('Checkout: hand off to Shopify checkout in production.'); }
+
+renderCart();
+</script>
+
+</body>
+</html>

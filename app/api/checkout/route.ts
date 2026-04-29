@@ -7,6 +7,9 @@ import {
   SHIPPING_RATE_FREE_ID,
   SUPPORTED_COUNTRIES,
 } from 'lib/stripe-constants';
+import { trackStartedCheckout } from 'lib/klaviyo';
+import { sendCapiEvent } from 'lib/meta-capi';
+import { randomUUID } from 'node:crypto';
 
 export const dynamic = 'force-dynamic';
 
@@ -104,7 +107,48 @@ export async function POST(req: NextRequest) {
     if (!session.url) {
       return Response.json({ error: 'stripe_no_url' }, { status: 502 });
     }
-    return Response.json({ url: session.url, session_id: session.id });
+
+    // Fire-and-forget analytics — never block Stripe response.
+    const eventId = randomUUID();
+    const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim();
+    const userAgent = req.headers.get('user-agent') ?? undefined;
+    const cartValue = parsed.line_items.reduce((s, li) => s + li.quantity, 0);
+
+    if (parsed.customer_email) {
+      void trackStartedCheckout({
+        email: parsed.customer_email,
+        value: cartValue,
+        currency: 'USD',
+        items: parsed.line_items.map((li) => ({
+          name: li.stripe_price_id,
+          quantity: li.quantity,
+          priceId: li.stripe_price_id,
+          isSubscription: li.is_subscription === true,
+        })),
+      }).catch((err) => console.error('[checkout] Klaviyo track failed', err));
+    }
+
+    void sendCapiEvent({
+      eventName: 'InitiateCheckout',
+      eventId,
+      eventSourceUrl: parsed.cancel_url,
+      userData: {
+        email: parsed.customer_email,
+        clientIpAddress: ip,
+        clientUserAgent: userAgent,
+      },
+      customData: {
+        currency: 'USD',
+        num_items: parsed.line_items.length,
+        content_ids: parsed.line_items.map((li) => li.stripe_price_id),
+      },
+    }).catch((err) => console.error('[checkout] Meta CAPI failed', err));
+
+    return Response.json({
+      url: session.url,
+      session_id: session.id,
+      event_id: eventId,
+    });
   } catch (err) {
     if (err instanceof Stripe.errors.StripeError) {
       const code = err.code ?? 'stripe_error';

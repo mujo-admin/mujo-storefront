@@ -1,0 +1,1587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ingredients · Mujo. Every dose disclosed, every source cited</title>
+<meta name="description" content="The full ingredient dossier for Mujo Ritual and the Lemna Bar. Clinical citations, dose disclosure, sourcing transparency. No proprietary blends.">
+
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --orange: #F2682F;
+  --orange-deep: #D85A22;
+  --orange-soft: #FDEFE6;
+  --cream: #F3F2E9;
+  --sand: #EEE9E0;
+  --sand-deep: #D4C4A8;
+  --sage: #2F3D33;
+  --sage-mid: #3D4D40;
+  --sage-light: #8FA396;
+  --sage-tint: rgba(47, 61, 51, 0.08);
+  --ink: #1A1A1A;
+  --ink-soft: #4A4845;
+  --mute: #5C5854;
+  --line: rgba(26, 26, 26, 0.09);
+  --line-soft: rgba(26, 26, 26, 0.06);
+  --f-display: 'General Sans', -apple-system, sans-serif;
+  --f-body: 'General Sans', 'Helvetica Neue', sans-serif;
+  --f-serif: 'Instrument Serif', 'Times New Roman', serif;
+  --f-mono: 'DM Mono', monospace;
+  --s1: 0 2px 8px rgba(0,0,0,0.04);
+  --s2: 0 12px 40px rgba(0,0,0,0.08);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--f-body);
+  background: var(--cream);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.55;
+  overflow-x: hidden;
+}
+
+.reveal { opacity: 0; transform: translateY(20px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+.reveal.on { opacity: 1; transform: translateY(0); }
+.d1 { transition-delay: 0.08s; }
+.d2 { transition-delay: 0.16s; }
+.d3 { transition-delay: 0.24s; }
+.d4 { transition-delay: 0.32s; }
+
+.eyebrow {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--orange-deep);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+}
+.eyebrow::before {
+  content: '';
+  display: block;
+  width: 22px;
+  height: 1px;
+  background: var(--orange-deep);
+}
+.eyebrow.light { color: var(--sage-light); }
+.eyebrow.light::before { background: var(--sage-light); }
+.eyebrow.center { justify-content: center; }
+.eyebrow.center::before { display: none; }
+
+h1, h2, h3 {
+  font-family: var(--f-display);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--ink);
+}
+h1 { font-size: clamp(36px, 4.2vw, 56px); line-height: 1.05; }
+h2 { font-size: clamp(26px, 2.8vw, 36px); line-height: 1.15; }
+h3 { font-size: clamp(18px, 1.6vw, 20px); line-height: 1.25; }
+
+.serif-accent {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--orange);
+}
+.serif-accent.cream { color: var(--cream); }
+.serif-accent.sage { color: var(--sage); }
+
+.body-lg {
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+.container-sm { max-width: 760px; margin: 0 auto; padding: 0 32px; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 220px;
+  min-height: 54px;
+  padding: 0 28px;
+  border-radius: 100px;
+  font-family: var(--f-body);
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+.btn-primary { background: var(--orange); color: #fff; border-color: var(--orange); }
+.btn-primary:hover { background: var(--orange-deep); border-color: var(--orange-deep); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(242,104,47,0.3); }
+.btn-ghost { background: transparent; color: var(--sage); border-color: var(--sage); }
+.btn-ghost:hover { background: var(--sage); color: #fff; }
+.btn-arrow { transition: transform 0.25s; }
+.btn:hover .btn-arrow { transform: translateX(4px); }
+@media (max-width: 560px) { .btn { width: 100%; min-width: 0; } }
+
+/* ═══ NAV ═══ */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 150;
+  background: rgba(243, 242, 233, 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--line-soft);
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: box-shadow 0.3s;
+}
+.nav-logo {
+  font-family: var(--f-display);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--orange);
+  text-decoration: none;
+}
+.nav-links { display: flex; gap: 28px; align-items: center; }
+.nav-link {
+  font-size: 14px;
+  color: var(--ink-soft);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-link:hover { color: var(--sage); }
+.nav-cta {
+  background: var(--orange);
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.nav-cta:hover { background: var(--orange-deep); }
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  nav { padding: 14px 20px; }
+}
+
+/* ═══════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════ */
+.hero {
+  padding: 96px 0 64px;
+  background: var(--cream);
+  position: relative;
+}
+.hero-eye {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--orange-deep);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  font-weight: 500;
+}
+.hero h1 {
+  max-width: 820px;
+  margin-bottom: 24px;
+}
+.hero-sub {
+  font-size: 19px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 680px;
+  margin-bottom: 36px;
+}
+.hero-sub strong { color: var(--ink); font-weight: 500; }
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  max-width: 840px;
+  margin-top: 48px;
+  padding-top: 36px;
+  border-top: 1px solid var(--line);
+}
+.hs-item { }
+.hs-num {
+  font-family: var(--f-display);
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.hs-num span { color: var(--orange); }
+.hs-lbl {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: var(--mute);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+@media (max-width: 700px) {
+  .hero { padding: 64px 0 48px; }
+  .hero-stats { grid-template-columns: 1fr 1fr; gap: 20px; }
+  .hs-num { font-size: 24px; }
+}
+
+/* ═══════════════════════════════════════════
+   FILTER BAR
+   ═══════════════════════════════════════════ */
+.filter-bar {
+  background: var(--sand);
+  border-top: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+  padding: 20px 0;
+  position: sticky;
+  top: 66px;
+  z-index: 50;
+  backdrop-filter: blur(12px);
+}
+.filter-inner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.filter-label {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mute);
+  font-weight: 500;
+  margin-right: 8px;
+}
+.filter-pill {
+  font-family: var(--f-body);
+  font-size: 13px;
+  padding: 8px 16px;
+  border-radius: 100px;
+  background: #fff;
+  border: 1px solid var(--line);
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+}
+.filter-pill:hover { border-color: var(--sage); color: var(--sage); }
+.filter-pill.active {
+  background: var(--sage);
+  color: #fff;
+  border-color: var(--sage);
+}
+
+/* ═══════════════════════════════════════════
+   PRODUCT SECTIONS
+   ═══════════════════════════════════════════ */
+.product-section {
+  padding: 80px 0;
+}
+.product-section.alt { background: var(--cream); }
+.product-section.sand { background: var(--sand); }
+
+.product-header {
+  max-width: 720px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+.product-header h2 { margin-top: 14px; margin-bottom: 14px; }
+
+.ps-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--sage-tint);
+  color: var(--sage);
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+.ps-pill.launch {
+  background: var(--orange-soft);
+  color: var(--orange-deep);
+}
+.ps-pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--sage);
+}
+.ps-pill.launch .ps-pill-dot { background: var(--orange); }
+
+/* ═══════════════════════════════════════════
+   INGREDIENT CARDS — Full detail for dossier page
+   ═══════════════════════════════════════════ */
+.ing-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.ing-card {
+  background: #fff;
+  border: 1px solid var(--line-soft);
+  border-radius: 18px;
+  overflow: hidden;
+  transition: all 0.3s;
+  display: flex;
+}
+.ing-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--s2);
+  border-color: var(--sage-light);
+}
+.ing-card.feat {
+  grid-column: span 2;
+  background: linear-gradient(135deg, #fff 0%, var(--orange-soft) 100%);
+  border-color: var(--orange);
+}
+.ing-card.feat:hover { border-color: var(--orange); }
+
+.ing-img {
+  /*
+    IMAGE PLACEHOLDER: Ingredient macro photography
+    — 1:1 aspect, raw-form macro on warm neutral background
+    — Replace gradient + emoji with real ingredient photo
+    — Shoot spec: natural light, shallow DoF, warm palette
+  */
+  width: 40%;
+  flex-shrink: 0;
+  background: linear-gradient(145deg, var(--sand-deep) 0%, var(--sand) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-height: 220px;
+  border-right: 1px solid var(--line-soft);
+}
+.ing-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.25) 0%, transparent 60%);
+  pointer-events: none;
+}
+.ing-img-emoji {
+  font-size: 52px;
+  filter: saturate(0.75) opacity(0.85);
+  position: relative;
+  z-index: 1;
+}
+.ing-card.feat .ing-img {
+  background: linear-gradient(145deg, var(--sand-deep) 0%, #fff 100%);
+}
+.ing-card.feat .ing-img-emoji { font-size: 64px; }
+
+.ing-content {
+  flex: 1;
+  padding: 28px 28px 24px;
+  display: flex;
+  flex-direction: column;
+}
+.ing-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+}
+.ing-name {
+  font-family: var(--f-display);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.ing-card.feat .ing-name { font-size: 24px; }
+.ing-badge {
+  background: var(--orange);
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.ing-badge.sage { background: var(--sage); }
+.ing-latin {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: var(--sage);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.ing-desc {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+  margin-bottom: 14px;
+  flex: 1;
+}
+.ing-desc strong { color: var(--ink); font-weight: 500; }
+.ing-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line-soft);
+  margin-top: 4px;
+}
+.ing-meta-item {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--mute);
+  letter-spacing: 0.04em;
+}
+.ing-meta-item strong {
+  color: var(--sage);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 10px;
+  display: block;
+  margin-bottom: 2px;
+}
+.ing-pills {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.ing-pill {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--sage);
+  background: var(--sage-tint);
+  padding: 3px 9px;
+  border-radius: 100px;
+  font-weight: 500;
+}
+.ing-refs {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--line);
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: var(--mute);
+  letter-spacing: 0.02em;
+  line-height: 1.55;
+}
+.ing-refs a {
+  color: var(--sage);
+  text-decoration: none;
+  margin-right: 4px;
+}
+.ing-refs a:hover { color: var(--orange-deep); }
+
+
+/* Hide filtered-out cards */
+.ing-card.hidden { display: none; }
+
+@media (max-width: 900px) {
+  .ing-grid { grid-template-columns: 1fr; gap: 14px; }
+  .ing-card.feat { grid-column: span 1; }
+  .ing-card { flex-direction: column; }
+  .ing-img { width: 100%; min-height: 180px; border-right: none; border-bottom: 1px solid var(--line-soft); }
+  .ing-content { padding: 24px 22px; }
+}
+
+/* ═══════════════════════════════════════════
+   PHILOSOPHY
+   ═══════════════════════════════════════════ */
+.philosophy {
+  background: var(--sage);
+  color: #fff;
+  padding: 88px 0;
+  position: relative;
+  overflow: hidden;
+}
+.philosophy::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  right: -200px;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(242,104,47,0.1) 0%, transparent 60%);
+  pointer-events: none;
+}
+.philosophy .container { position: relative; z-index: 1; }
+.philosophy-head {
+  max-width: 720px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+.philosophy-head h2 { color: #fff; margin-top: 14px; margin-bottom: 16px; }
+.philosophy-head h2 em {
+  font-family: var(--f-serif);
+  font-style: italic;
+  color: var(--orange);
+  font-weight: 400;
+}
+.philosophy-head .eyebrow { color: var(--sage-light); justify-content: center; }
+.philosophy-head .eyebrow::before { display: none; }
+.philosophy-sub {
+  font-size: 17px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.75);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.principles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 48px;
+  max-width: 1080px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.principle {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 18px;
+  padding: 28px 26px;
+}
+.principle-num {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--orange);
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+.principle-h {
+  font-family: var(--f-display);
+  font-size: 19px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+.principle-b {
+  font-size: 13px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.7);
+}
+.principle-b strong { color: #fff; font-weight: 500; }
+@media (max-width: 900px) {
+  .principles { grid-template-columns: 1fr; }
+  .philosophy { padding: 64px 0; }
+}
+
+/* ═══════════════════════════════════════════
+   LEMNA BAR — Coming soon section
+   ═══════════════════════════════════════════ */
+.lemna {
+  background: var(--sand);
+  padding: 88px 0;
+  position: relative;
+}
+.lemna-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.lemna-content .ps-pill {
+  margin-bottom: 16px;
+}
+.lemna h2 { margin-bottom: 18px; }
+.lemna h2 em {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--orange);
+}
+.lemna-body {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+  margin-bottom: 18px;
+}
+.lemna-body strong { color: var(--ink); font-weight: 500; }
+.lemna-notify {
+  margin-top: 24px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.lemna-input {
+  flex: 1;
+  min-width: 220px;
+  padding: 14px 18px;
+  border-radius: 100px;
+  border: 1.5px solid var(--line);
+  background: #fff;
+  font-family: var(--f-body);
+  font-size: 14px;
+  color: var(--ink);
+  outline: none;
+}
+.lemna-input:focus { border-color: var(--orange); }
+.lemna-input::placeholder { color: var(--mute); }
+
+.lemna-visual {
+  /*
+    IMAGE PLACEHOLDER: Lemna Bar product reveal
+    — Sketch/render of bar packaging or ingredient — dreamy, editorial
+    — Replace with actual product photography when available
+  */
+  aspect-ratio: 4 / 3;
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--sand-deep) 0%, var(--sand) 100%);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lemna-visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3) 0%, transparent 60%);
+  pointer-events: none;
+}
+.lemna-visual-label {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sage);
+  position: absolute;
+  top: 16px;
+  left: 20px;
+  z-index: 2;
+}
+.lemna-visual-emoji {
+  font-size: 88px;
+  filter: saturate(0.7) opacity(0.75);
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 900px) {
+  .lemna-grid { grid-template-columns: 1fr; gap: 32px; }
+  .lemna { padding: 64px 0; }
+}
+
+/* ═══════════════════════════════════════════
+   SOURCING/TRUST STRIP
+   ═══════════════════════════════════════════ */
+.trust {
+  background: var(--cream);
+  padding: 64px 0;
+  border-top: 1px solid var(--line-soft);
+}
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.trust-item {
+  text-align: center;
+}
+.trust-num {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--orange-deep);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+.trust-h {
+  font-family: var(--f-display);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+.trust-b {
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+@media (max-width: 800px) {
+  .trust-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+  .trust { padding: 48px 0; }
+}
+
+/* ═══════════════════════════════════════════
+   CTA BAND
+   ═══════════════════════════════════════════ */
+.cta-band {
+  background: var(--sage);
+  color: #fff;
+  padding: 80px 0;
+  text-align: center;
+}
+.cta-band h2 { color: #fff; margin-bottom: 16px; max-width: 680px; margin-left: auto; margin-right: auto; }
+.cta-band h2 em {
+  font-family: var(--f-serif);
+  font-style: italic;
+  color: var(--orange);
+  font-weight: 400;
+}
+.cta-band-sub {
+  font-size: 16px;
+  color: rgba(255,255,255,0.7);
+  max-width: 540px;
+  margin: 0 auto 32px;
+  line-height: 1.6;
+}
+.cta-band .btn-ghost {
+  color: #fff;
+  border-color: rgba(255,255,255,0.3);
+}
+.cta-band .btn-ghost:hover {
+  background: #fff;
+  color: var(--sage);
+  border-color: #fff;
+}
+.cta-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════ */
+footer {
+  background: var(--sage);
+  color: rgba(255,255,255,0.5);
+  padding: 48px 0 32px;
+  text-align: center;
+}
+.flogo {
+  font-family: var(--f-display);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--orange);
+  margin-bottom: 14px;
+  text-decoration: none;
+  display: inline-block;
+}
+.flinks {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.flink {
+  font-size: 13px;
+  color: rgba(255,255,255,0.35);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.flink:hover { color: var(--sage-light); }
+.fcopy {
+  font-size: 11px;
+  max-width: 680px;
+  margin: 0 auto;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.28);
+  font-family: var(--f-mono);
+  letter-spacing: 0.02em;
+}
+
+</style>
+<style id="mujo-canonical-nav">
+:root {
+  --orange: #F2682F; --orange-deep: #D85A22; --orange-soft: #FDEFE6;
+  --cream: #F3F2E9; --sand: #EEE9E0; --sand-deep: #D4C4A8;
+  --sage: #2F3D33; --sage-mid: #3D4D40; --sage-light: #8FA396;
+  --sage-tint: rgba(47, 61, 51, 0.08);
+  --ink: #1A1A1A; --ink-soft: #4A4845; --mute: #5C5854;
+  --line: rgba(26, 26, 26, 0.09); --line-soft: rgba(26, 26, 26, 0.06);
+  --f-display: 'General Sans', -apple-system, sans-serif;
+  --f-body: 'General Sans', 'Helvetica Neue', sans-serif;
+  --f-serif: 'Instrument Serif', 'Times New Roman', serif;
+  --f-mono: 'DM Mono', monospace;
+  --nav-h: 64px;
+}
+.announce { background: var(--sage); color: #fff; text-align: center; padding: 9px 16px; font-size: 12px; letter-spacing: 0.01em; position: relative; z-index: 200; line-height: 1.4; }
+.announce strong { color: var(--orange); font-weight: 500; }
+.announce .sep { opacity: 0.4; margin: 0 8px; }
+@media (max-width: 640px) { .announce-secondary { display: none; } }
+@media (min-width: 768px) { .announce { padding: 10px 24px; font-size: 13px; } .announce .sep { margin: 0 10px; } }
+nav.mujo-nav { position: sticky; top: 0; z-index: 150; background: rgba(243, 242, 233, 0.94); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--line-soft); padding: 12px 16px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; height: var(--nav-h); transition: box-shadow 0.3s; }
+nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+@media (min-width: 1024px) { nav.mujo-nav { padding: 14px 32px; grid-template-columns: 1fr auto 1fr; gap: 24px; } }
+.nav-hamburger { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; color: var(--ink); margin-left: -8px; }
+.nav-hamburger svg { width: 22px; height: 22px; }
+@media (min-width: 1024px) { .nav-hamburger { display: none; } }
+.nav-logo { display: inline-flex; align-items: center; text-decoration: none; justify-self: center; }
+.nav-logo img { height: 26px; width: auto; display: block; }
+@media (min-width: 1024px) { .nav-logo { justify-self: start; } .nav-logo img { height: 30px; } }
+.nav-center { display: none; justify-content: center; align-items: center; gap: 32px; }
+.nav-link { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-weight: 500; letter-spacing: 0.01em; transition: color 0.2s; position: relative; padding: 4px 0; }
+.nav-link:hover { color: var(--sage); }
+.nav-link.active { color: var(--sage); }
+.nav-link.active::after { content: ''; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px; background: var(--orange); }
+@media (min-width: 1024px) { .nav-center { display: flex; } }
+.nav-right { display: flex; align-items: center; gap: 4px; justify-self: end; }
+.nav-icon { width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; border: none; background: transparent; color: var(--ink); cursor: pointer; text-decoration: none; position: relative; border-radius: 50%; transition: background 0.2s; }
+.nav-icon:hover { background: var(--sage-tint); }
+.nav-icon svg { width: 20px; height: 20px; }
+.cart-count { position: absolute; top: 4px; right: 4px; background: var(--orange); color: #fff; font-family: var(--f-mono); font-size: 9px; font-weight: 500; min-width: 16px; height: 16px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; padding: 0 4px; line-height: 1; }
+.cart-count.hidden { display: none; }
+.menu-overlay { position: fixed; inset: 0; background: rgba(26,26,26,0.5); z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+.menu-overlay.open { opacity: 1; pointer-events: auto; }
+.mobile-menu { position: fixed; top: 0; left: 0; bottom: 0; width: min(360px, 88vw); background: var(--cream); z-index: 999; transform: translateX(-100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; overflow-y: auto; }
+.mobile-menu.open { transform: translateX(0); }
+.mm-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); }
+.mm-head img { height: 26px; width: auto; }
+.mm-close { width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); margin-right: -8px; }
+.mm-close svg { width: 20px; height: 20px; }
+.mm-links { display: flex; flex-direction: column; padding: 4px 0; flex: 1; }
+.mm-link { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; font-family: var(--f-display); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-soft); transition: background 0.15s, color 0.15s; }
+.mm-link:hover { color: var(--orange-deep); background: rgba(242,104,47,0.04); }
+.mm-link svg { width: 16px; height: 16px; opacity: 0.4; }
+.mm-foot { padding: 24px; background: var(--sage); color: #fff; }
+.mm-foot-eyebrow { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); margin-bottom: 10px; }
+.mm-foot p { font-size: 14px; line-height: 1.55; color: rgba(255,255,255,0.7); margin-bottom: 16px; }
+.mm-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--orange); color: #fff; text-decoration: none; padding: 12px 20px; border-radius: 100px; font-size: 14px; font-weight: 500; }
+.cart-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(440px, 100vw); background: var(--cream); z-index: 999; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; box-shadow: -20px 0 60px rgba(0,0,0,0.1); }
+.cart-drawer.open { transform: translateX(0); }
+.cart-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); }
+.cart-head-title { font-family: var(--f-display); font-size: 18px; font-weight: 500; letter-spacing: -0.01em; }
+.cart-head-title span { font-family: var(--f-mono); font-size: 11px; color: var(--mute); letter-spacing: 0.1em; margin-left: 8px; font-weight: 400; }
+.cart-close { width: 36px; height: 36px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); border-radius: 50%; margin-right: -6px; }
+.cart-close:hover { background: var(--sage-tint); }
+.cart-close svg { width: 18px; height: 18px; }
+.cart-progress { background: var(--sand); padding: 14px 20px 16px; border-bottom: 1px solid var(--line-soft); }
+.cart-progress-msg { font-size: 13px; color: var(--ink-soft); margin-bottom: 8px; line-height: 1.4; }
+.cart-progress-msg strong { color: var(--ink); font-weight: 500; }
+.cart-progress-msg .accent { color: var(--orange-deep); font-weight: 500; }
+.cart-progress-track { height: 6px; background: rgba(26,26,26,0.08); border-radius: 3px; overflow: hidden; }
+.cart-progress-fill { height: 100%; background: var(--orange); border-radius: 3px; width: 0%; transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+.cart-progress-fill.full { background: var(--sage); }
+.cart-body { flex: 1; overflow-y: auto; padding: 8px 20px; }
+.cart-item { display: grid; grid-template-columns: 72px 1fr auto; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--line-soft); }
+.cart-item-img { width: 72px; height: 72px; background: var(--sand); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; }
+.cart-item-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.cart-item-name { font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.3; }
+.cart-item-variant { font-size: 12px; color: var(--mute); margin-bottom: 6px; }
+.cart-item-controls { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 100px; background: #fff; width: fit-content; margin-top: auto; }
+.qty-btn { width: 28px; height: 28px; background: transparent; border: none; cursor: pointer; font-size: 14px; color: var(--ink-soft); display: inline-flex; align-items: center; justify-content: center; }
+.qty-val { font-family: var(--f-mono); font-size: 12px; min-width: 24px; text-align: center; }
+.cart-item-meta { display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; text-align: right; }
+.cart-item-price { font-family: var(--f-mono); font-size: 13px; font-weight: 500; }
+.cart-item-remove { background: transparent; border: none; cursor: pointer; font-family: var(--f-mono); font-size: 10px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; padding: 4px 0; }
+.cart-empty { text-align: center; padding: 56px 24px; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.cart-empty-illo { font-size: 52px; opacity: 0.5; }
+.cart-empty h3 { font-size: 22px; font-weight: 500; }
+.cart-empty p { font-size: 14px; color: var(--mute); max-width: 260px; line-height: 1.5; }
+.cart-empty a { margin-top: 6px; background: var(--orange); color: #fff; text-decoration: none; padding: 12px 22px; border-radius: 100px; font-size: 14px; font-weight: 500; }
+.cart-foot { border-top: 1px solid var(--line-soft); padding: 16px 20px 20px; }
+.cart-row { display: flex; justify-content: space-between; align-items: baseline; padding: 4px 0; font-size: 14px; color: var(--ink-soft); }
+.cart-row.total { padding-top: 10px; font-size: 18px; font-weight: 500; color: var(--ink); font-family: var(--f-display); }
+.cart-row .price { font-family: var(--f-mono); }
+.cart-shipping-note { font-size: 11px; color: var(--mute); font-family: var(--f-mono); letter-spacing: 0.04em; margin: 8px 0 14px; line-height: 1.4; }
+.cart-checkout { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: var(--orange); color: #fff; text-decoration: none; border: none; cursor: pointer; padding: 16px 24px; border-radius: 100px; font-size: 15px; font-weight: 500; transition: background 0.2s; }
+.cart-checkout:hover { background: var(--orange-deep); }
+.cart-secure { text-align: center; font-size: 11px; color: var(--mute); font-family: var(--f-mono); letter-spacing: 0.08em; margin-top: 10px; text-transform: uppercase; }
+body.locked { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="announce">
+  Free shipping over <strong>$100</strong>
+  <span class="sep announce-secondary">·</span>
+  <span class="announce-secondary">Use <strong>WELCOME10</strong> for 10% off your first order</span>
+</div>
+
+<nav class="mujo-nav" id="nav">
+  <button class="nav-hamburger" aria-label="Open menu" onclick="openMenu()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg></button>
+  <a href="/" class="nav-logo" aria-label="Mujo home"><img src="Mujo_logo_orange.png" alt="Mujo"></a>
+  <div class="nav-center">
+    <a href="/shop" class="nav-link">Shop</a>
+    <a href="/science" class="nav-link">Science</a>
+    <a href="/ingredients" class="nav-link active">Ingredients</a>
+    <a href="/journal" class="nav-link">Journal</a>
+    <a href="/rebel-club" class="nav-link">Rebel Club</a>
+  </div>
+  <div class="nav-right">
+    <a href="/account" class="nav-icon" aria-label="Account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></a>
+    <button class="nav-icon" aria-label="Cart" onclick="openCart()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h14l-1.4 11.2a2 2 0 0 1-2 1.8H8.4a2 2 0 0 1-2-1.8L5 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg><span class="cart-count hidden" id="cartCount">0</span></button>
+  </div>
+</nav>
+
+<div class="menu-overlay" id="overlay" onclick="closeAll()"></div>
+<aside class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <div class="mm-head">
+    <a href="/" aria-label="Mujo home"><img src="Mujo_logo_orange.png" alt="Mujo"></a>
+    <button class="mm-close" aria-label="Close menu" onclick="closeMenu()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>
+  </div>
+  <div class="mm-links">
+    <a href="/shop" class="mm-link">Shop <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    <a href="/science" class="mm-link">Science <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    <a href="/ingredients" class="mm-link">Ingredients <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    <a href="/journal" class="mm-link">Journal <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    <a href="/rebel-club" class="mm-link">Rebel Club <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    <a href="/about" class="mm-link">About <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    <a href="/account" class="mm-link">Account <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+  </div>
+  <div class="mm-foot">
+    <div class="mm-foot-eyebrow">New here</div>
+    <p>10% off your first order. Take 60 seconds, get a Reset Plan tuned to your specific pattern.</p>
+    <a href="/quiz" class="mm-cta">Take the audit →</a>
+  </div>
+</aside>
+<aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
+  <div class="cart-head">
+    <div class="cart-head-title">Your cart <span id="cartHeadCount">0 items</span></div>
+    <button class="cart-close" aria-label="Close cart" onclick="closeCart()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>
+  </div>
+  <div class="cart-progress">
+    <div class="cart-progress-msg" id="progressMsg">Free shipping at <strong>$100</strong>.</div>
+    <div class="cart-progress-track"><div class="cart-progress-fill" id="progressFill" style="width: 0%;"></div></div>
+  </div>
+  <div class="cart-body" id="cartBody"></div>
+  <div class="cart-foot">
+    <div class="cart-row"><span>Subtotal</span><span class="price" id="subtotalDisplay">$0</span></div>
+    <div class="cart-row"><span>Shipping</span><span class="price" id="shippingDisplay">Calculated at checkout</span></div>
+    <div class="cart-row total"><span>Total</span><span class="price" id="totalDisplay">$0</span></div>
+    <div class="cart-shipping-note">Taxes calculated at checkout. Subscription orders renew at 25% off retail.</div>
+    <button class="cart-checkout" onclick="checkout()">Checkout <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></button>
+    <div class="cart-secure">Secure · Stripe checkout</div>
+  </div>
+</aside>
+
+
+<!-- ═══ NAV ═══ -->
+<!-- ═══════════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════════ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-eye reveal">The full dossier</div>
+    <h1 class="reveal d1">The full formula. <span class="serif-accent">Disclosed where it matters.</span></h1>
+    <p class="hero-sub reveal d2">This is the complete ingredient dossier for every Mujo product. We disclose <strong>exact doses for the ingredients where clinical research depends on precise amounts</strong>. KSM-66® at 300mg, Longvida® at its researched ratio, RhodioLife® at premium standardization. Supporting ingredients are listed with form, source, and role, plus category totals for the formula as a whole. <strong>Proprietary blends hide what's in them. Craftsmanship doesn't show its exact margins.</strong></p>
+
+    <div class="hero-stats reveal d3">
+      <div class="hs-item">
+        <div class="hs-num">1,200<span>mg</span></div>
+        <div class="hs-lbl">Functional mushrooms<br>(9,600mg at 8:1)</div>
+      </div>
+      <div class="hs-item">
+        <div class="hs-num">3,000<span>mg</span></div>
+        <div class="hs-lbl">Clinical adaptogens</div>
+      </div>
+      <div class="hs-item">
+        <div class="hs-num">3,400<span>mg</span></div>
+        <div class="hs-lbl">Natural nootropics</div>
+      </div>
+      <div class="hs-item">
+        <div class="hs-num">0<span>.</span></div>
+        <div class="hs-lbl">Proprietary blends</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     FILTER BAR
+     ═══════════════════════════════════════════ -->
+<div class="filter-bar">
+  <div class="container">
+    <div class="filter-inner">
+      <span class="filter-label">Filter by benefit:</span>
+      <button class="filter-pill active" data-filter="all" onclick="filterIngredients('all', this)">All</button>
+      <button class="filter-pill" data-filter="focus" onclick="filterIngredients('focus', this)">Focus</button>
+      <button class="filter-pill" data-filter="energy" onclick="filterIngredients('energy', this)">Energy</button>
+      <button class="filter-pill" data-filter="stress" onclick="filterIngredients('stress', this)">Stress &amp; Sleep</button>
+      <button class="filter-pill" data-filter="recovery" onclick="filterIngredients('recovery', this)">Recovery</button>
+      <button class="filter-pill" data-filter="immunity" onclick="filterIngredients('immunity', this)">Immunity</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     MUJO RITUAL — Active formula
+     ═══════════════════════════════════════════ -->
+<section class="product-section">
+  <div class="container">
+    <div class="product-header reveal">
+      <div class="ps-pill">
+        <span class="ps-pill-dot"></span>
+        Mujo Ritual · Shipping now
+      </div>
+      <h2>The mushroom-adaptogen cacao blend.</h2>
+      <p class="body-lg">Every ingredient at its clinically validated form and dose. Three are disclosed at exact clinical doses (KSM-66®, Longvida®, RhodioLife®). The rest share category totals and sourcing. Every one earns its place, or it wouldn't be here.</p>
+    </div>
+
+    <div class="ing-grid">
+
+      <!-- ═══════ HERO INGREDIENT: Longvida Curcumin ═══════ -->
+      <div class="ing-card feat reveal" data-benefits="focus recovery">
+        <div class="ing-img"><span class="ing-img-emoji">✨</span></div>
+        <div class="ing-content">
+          <div class="ing-top">
+            <div class="ing-name">Longvida® Curcumin</div>
+            <div class="ing-badge">Unique to Mujo</div>
+          </div>
+          <div class="ing-latin">Curcuma longa · Solid-lipid particle · Verdure Sciences</div>
+          <div class="ing-pills">
+            <span class="ing-pill">Cognition</span>
+            <span class="ing-pill">Mood</span>
+            <span class="ing-pill">Inflammation</span>
+            <span class="ing-pill">Brain health</span>
+          </div>
+          <div class="ing-desc">Standard curcumin is 99% wasted, your body can't absorb or deliver it past the blood-brain barrier. <strong>Longvida® is a patented solid-lipid curcumin formulation clinically shown to achieve 285x greater free-curcumin bioavailability and a 7.5-hour half-life.</strong> It's one of the few curcumin forms proven to cross the blood-brain barrier, and is the subject of 29+ human clinical trials. Virtually no competitor in the mushroom-cacao category uses it, because it costs roughly 10x more than standard curcumin. We use it because the alternative doesn't actually work.</div>
+          <div class="ing-meta">
+            <div class="ing-meta-item"><strong>Dose</strong>At researched SLCP ratio</div>
+            <div class="ing-meta-item"><strong>Form</strong>Solid-lipid curcumin particle (SLCP)</div>
+            <div class="ing-meta-item"><strong>Source</strong>Verdure Sciences (patented)</div>
+            <div class="ing-meta-item"><strong>Evidence</strong>29+ human trials · PubMed 23832433, 29914268</div>
+          </div>
+          <div class="ing-refs">
+            Clinical references: <a href="#">Gota 2010</a>, <a href="#">DiSilvestro 2012</a>, <a href="#">Cox 2015 (healthy older adults)</a>, <a href="#">Small 2018</a>.
+          </div>
+        </div>
+      </div>
+
+      <!-- Lion's Mane -->
+      <div class="ing-card reveal d1" data-benefits="focus">
+        <div class="ing-img"><span class="ing-img-emoji">🦁</span></div>
+        <div class="ing-content">
+          <div class="ing-top">
+            <div class="ing-name">Lion's Mane</div>
+            <div class="ing-badge sage">FB 8:1</div>
+          </div>
+          <div class="ing-latin">Hericium erinaceus · Fruiting body only</div>
+          <div class="ing-pills">
+            <span class="ing-pill">Focus</span>
+            <span class="ing-pill">Memory</span>
+            <span class="ing-pill">Neuroplasticity</span>
+          </div>
+          <div class="ing-desc"><strong>Stimulates Nerve Growth Factor (NGF)</strong>, the protein that signals your brain to grow and maintain neural connections. Studied in humans for cognitive function, memory, and mild cognitive impairment. Mujo uses <strong>double-extracted fruiting body at 8:1 concentration, never mycelium grown on grain</strong>, which is what makes most mushroom coffees so weak. Beta-glucan content is lab-verified each batch.*</div>
+          <div class="ing-meta">
+            <div class="ing-meta-item"><strong>Form</strong>Fruiting body, dual-extracted 8:1</div>
+            <div class="ing-meta-item"><strong>Source</strong>Organic, lab-verified</div>
+            <div class="ing-meta-item"><strong>Evidence</strong>Mori 2009 · Saitsu 2019</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- KSM-66 Ashwagandha -->
+      <div class="ing-card reveal d2" data-benefits="stress recovery">
+        <div class="ing-img"><span class="ing-img-emoji">🌿</span></div>
+        <div class="ing-content">
+          <div class="ing-top">
+            <div class="ing-name">KSM-66® Ashwagandha</div>
+            <div class="ing-badge sage">300mg</div>
+          </div>
+          <div class="ing-latin">Withania somnifera · Root extract · Ixoreal Biomed</div>
+          <div class="ing-pills">
+            <span class="ing-pill">Stress</span>
+            <span class="ing-pill">Sleep</span>
+            <span class="ing-pill">Recovery</span>
+          </div>
+          <div class="ing-desc"><strong>At the clinical trial dose, 300mg, twice daily equivalent.</strong> KSM-66 is the most clinically studied branded ashwagandha extract, with 24+ published human trials covering stress, sleep, recovery, and cortisol response. The Chandrasekhar 2012 randomized controlled trial showed cortisol reduction of up to 27.9% at this exact dose. Most competitors use a fraction of the clinical dose, we use what the research actually measured.*</div>
+          <div class="ing-meta">
+            <div class="ing-meta-item"><strong>Dose</strong>300mg · clinical trial dose</div>
+            <div class="ing-meta-item"><strong>Form</strong>Root extract, 5% withanolides</div>
+            <div class="ing-meta-item"><strong>Source</strong>KSM-66® (Ixoreal Biomed)</div>
+            <div class="ing-meta-item"><strong>Evidence</strong>24+ human trials · PubMed 23439798</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RhodioLife Rhodiola -->
+      <div class="ing-card reveal" data-benefits="stress energy">
+        <div class="ing-img"><span class="ing-img-emoji">🌸</span></div>
+        <div class="ing-content">
+          <div class="ing-top">
+            <div class="ing-name">RhodioLife® Rhodiola</div>
+            <div class="ing-badge sage">Altai Mountain</div>
+          </div>
+          <div class="ing-latin">Rhodiola rosea · Root · Nektium</div>
+          <div class="ing-pills">
+            <span class="ing-pill">Performance</span>
+            <span class="ing-pill">Stress resilience</span>
+            <span class="ing-pill">Endurance</span>
+          </div>
+          <div class="ing-desc">Standardised to <strong>5% rosavins and 1.5% salidrosides, the highest standardization available in clinical-grade rhodiola</strong>, and significantly above the 3% / 1% ratio used in most published trials. RhodioLife® is wild-crafted from sustainable Altai Mountain harvests, the ancestral source cited across centuries of Siberian and Scandinavian use. Works on the HPA axis for mental performance under chronic stress and fatigue resistance. Studied in military personnel, physicians on night shifts, and students during exams.*</div>
+          <div class="ing-meta">
+            <div class="ing-meta-item"><strong>Dose</strong>At premium standardization</div>
+            <div class="ing-meta-item"><strong>Form</strong>5% rosavins / 1.5% salidrosides</div>
+            <div class="ing-meta-item"><strong>Source</strong>RhodioLife® (Nektium), Altai Mountain</div>
+            <div class="ing-meta-item"><strong>Evidence</strong>Darbinyan 2000 · Olsson 2009</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cordyceps -->
+      <div class="ing-card reveal d1" data-benefits="energy recovery">
+        <div class="ing-img"><span class="ing-img-emoji">⚡</span></div>
+        <div class="ing-content">
+          <div class="ing-top">
+            <div class="ing-name">Cordyceps</div>
+            <div class="ing-badge sage">Militaris FB 8:1</div>
+          </div>
+          <div class="ing-latin">Cordyceps militaris · Fruiting body</div>
+          <div class="ing-pills">
+            <span class="ing-pill">Energy</span>
+            <span class="ing-pill">Endurance</span>
+            <span class="ing-pill">VO₂ support</span>
+          </div>
+          <div class="ing-desc"><strong>Militaris fruiting body, not fermented mycelium.</strong> Cordyceps supports cellular ATP production (the energy molecule every cell runs on) and has been studied for VO₂ max and exercise tolerance in healthy adults. Cordycepin content is lab-verified each batch. Most mushroom coffees use cheaper mycelium-on-grain, which tests show contains a tiny fraction of the bioactive compounds.*</div>
+          <div class="ing-meta">
+            <div class="ing-meta-item"><strong>Form</strong>Militaris fruiting body, 8:1</div>
+            <div class="ing-meta-item"><strong>Source</strong>Organic, cordycepin-verified</div>
+            <div class="ing-meta-item"><strong>Evidence</strong>Chen 2010 · Hirsch 2017</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chaga -->
+      <div class="ing-card reveal d2" data-benefits="immunity">
+        <div class="ing-img"><span class="ing-img-emoji">🍂</span></div>
+        <div class="ing-content">
+          <div class="ing-top">
+            <div class="ing-name">Chaga</div>
+            <div class="ing-badge sage">Wild-harvested</div>
+          </div>
+          <div class="ing-latin">Inonotus obliquus · Whole mushroom</div>
+          <div class="ing-pills">
+            <span class="ing-pill">Immunity</span>
+            <span class="ing-pill">Antioxidant</span>
+            <span class="ing-pill">Daily defence</span>
+          </div>
+          <div class="ing-desc">Wild-harvested from sustainably managed Siberian birch forests, chaga cannot be farmed commercially and retains its characteristic bioactive profile only when wild. Used in Eastern European and Russian folk traditions for centuries, chaga is one of the most antioxidant-dense foods on record. <strong>Rich in beta-glucans, triterpenes, and melanin compounds.</strong> Immune-modulating rather than immune-stimulating, supports balance, not overactivation.*</div>
+          <div class="ing-meta">
+            <div class="ing-meta-item"><strong>Form</strong>Whole mushroom, dual-extracted</div>
+            <div class="ing-meta-item"><strong>Source</strong>Wild-harvested, sustainable</div>
+            <div class="ing-meta-item"><strong>Evidence</strong>Glamoclija 2015 · Szychowski 2018</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bacopa Monnieri -->
+      <div class="ing-card reveal d1" data-benefits="focus">
+        <div class="ing-img"><span class="ing-img-emoji">🌱</span></div>
+        <div class="ing-content">
+          <div class="ing-top">
+            <div class="ing-name">Bacopa Monnieri</div>
+            <div class="ing-badge sage">55% bacosides</div>
+          </div>
+          <div class="ing-latin">Bacopa monnieri · Leaf extract</div>
+          <div class="ing-pills">
+            <span class="ing-pill">Memory</span>
+            <span class="ing-pill">Processing speed</span>
+            <span class="ing-pill">Learning</span>
+          </div>
+          <div class="ing-desc">Standardised to 55% bacosides, the active compounds studied in published human trials for memory consolidation, processing speed, and learning outcomes. <strong>Bacopa works slowly and compounds over weeks</strong>, which is why it pairs with Lion's Mane rather than competing with it. The Ayurvedic tradition called it "Brahmi" and used it for 3,000 years as a cognitive tonic. Modern research supports a meaningful chunk of those claims.*</div>
+          <div class="ing-meta">
+            <div class="ing-meta-item"><strong>Form</strong>Leaf extract, 55% bacosides</div>
+            <div class="ing-meta-item"><strong>Source</strong>Standardised herbal extract</div>
+            <div class="ing-meta-item"><strong>Evidence</strong>Stough 2001 · Morgan 2010</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cacao -->
+      <div class="ing-card reveal d2" data-benefits="energy">
+        <div class="ing-img"><span class="ing-img-emoji">🍫</span></div>
+        <div class="ing-content">
+          <div class="ing-top">
+            <div class="ing-name">Organic Peruvian Cacao</div>
+            <div class="ing-badge sage">Ceremonial grade</div>
+          </div>
+          <div class="ing-latin">Theobroma cacao · Single-origin Peru</div>
+          <div class="ing-pills">
+            <span class="ing-pill">Gentle energy</span>
+            <span class="ing-pill">Mood</span>
+            <span class="ing-pill">Magnesium</span>
+            <span class="ing-pill">Flavanols</span>
+          </div>
+          <div class="ing-desc">Not there for taste alone. <strong>Theobromine for gentle 6-hour energy, no jitters, no crash.</strong> Plus PQQ (supports mitochondrial biogenesis), magnesium, flavanols for vascular and cognitive support, and PEA (the "bliss molecule" that naturally elevates mood). Single-origin, ceremonial-grade Peruvian cacao. The reason Mujo tastes like something you'd choose.*</div>
+          <div class="ing-meta">
+            <div class="ing-meta-item"><strong>Form</strong>Single-origin ceremonial cacao</div>
+            <div class="ing-meta-item"><strong>Source</strong>Peruvian cooperative, direct trade</div>
+            <div class="ing-meta-item"><strong>Evidence</strong>Scholey 2010 · Sorond 2013</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carob -->
+      <div class="ing-card reveal" data-benefits="energy">
+        <div class="ing-img"><span class="ing-img-emoji">🫘</span></div>
+        <div class="ing-content">
+          <div class="ing-top">
+            <div class="ing-name">Carob</div>
+            <div class="ing-badge sage">Mediterranean</div>
+          </div>
+          <div class="ing-latin">Ceratonia siliqua · Pod</div>
+          <div class="ing-pills">
+            <span class="ing-pill">Natural sweetness</span>
+            <span class="ing-pill">Fiber</span>
+          </div>
+          <div class="ing-desc">Mediterranean carob adds <strong>natural sweetness without added sugar or sweeteners</strong>, soluble fiber for gut support, and depth to the cacao's richness. Caffeine-free by nature (carob is often used as a cacao alternative for those sensitive to stimulants). Mujo uses both together because the flavor profiles complement rather than compete.</div>
+          <div class="ing-meta">
+            <div class="ing-meta-item"><strong>Form</strong>Roasted carob pod powder</div>
+            <div class="ing-meta-item"><strong>Source</strong>Mediterranean origin</div>
+            <div class="ing-meta-item"><strong>Role</strong>Flavor depth, natural sweetness</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MCT Oil Powder -->
+      <div class="ing-card reveal d1" data-benefits="focus energy">
+        <div class="ing-img"><span class="ing-img-emoji">🥥</span></div>
+        <div class="ing-content">
+          <div class="ing-top">
+            <div class="ing-name">MCT Oil Powder</div>
+            <div class="ing-badge sage">C8 / C10 coconut</div>
+          </div>
+          <div class="ing-latin">Medium-chain triglycerides · Coconut-derived</div>
+          <div class="ing-pills">
+            <span class="ing-pill">Sustained energy</span>
+            <span class="ing-pill">Cognition</span>
+            <span class="ing-pill">Ketone support</span>
+          </div>
+          <div class="ing-desc">C8 and C10 medium-chain triglycerides from coconut, <strong>rapidly converted to ketones for sustained mental energy without a glucose spike</strong>. The creaminess you taste in Mujo comes partly from the MCT powder dispersing. Unlike liquid MCT, the powder form won't break the emulsion or cause GI discomfort at sensible doses.</div>
+          <div class="ing-meta">
+            <div class="ing-meta-item"><strong>Form</strong>Powdered C8/C10 MCT (acacia-bound)</div>
+            <div class="ing-meta-item"><strong>Source</strong>Coconut, non-palm</div>
+            <div class="ing-meta-item"><strong>Role</strong>Sustained cognitive energy, texture</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tapioca Fiber -->
+      <div class="ing-card reveal d2" data-benefits="recovery">
+        <div class="ing-img"><span class="ing-img-emoji">🌾</span></div>
+        <div class="ing-content">
+          <div class="ing-top">
+            <div class="ing-name">FiberSmart™ Tapioca Fiber</div>
+            <div class="ing-badge sage">Premium prebiotic</div>
+          </div>
+          <div class="ing-latin">FiberSmart™ · Soluble prebiotic fiber from cassava</div>
+          <div class="ing-pills">
+            <span class="ing-pill">Gut microbiome</span>
+            <span class="ing-pill">Prebiotic</span>
+            <span class="ing-pill">Texture</span>
+          </div>
+          <div class="ing-desc"><strong>FiberSmart™ is a premium branded tapioca fiber</strong>, a soluble prebiotic that supports the gut microbiome (increasingly recognized as the brain's second nervous system) and gives the Ritual its smooth, clump-free texture. Non-FODMAP sensitive for most people, unlike chicory root or inulin. Most bars and powders use unbranded tapioca fiber; we use the branded form because quality and consistency matter at the batch level.</div>
+          <div class="ing-meta">
+            <div class="ing-meta-item"><strong>Form</strong>FiberSmart™ soluble tapioca fiber</div>
+            <div class="ing-meta-item"><strong>Source</strong>Cassava root · branded premium grade</div>
+            <div class="ing-meta-item"><strong>Role</strong>Prebiotic, gut-brain support, texture</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gelatinized Maca -->
+      <div class="ing-card reveal" data-benefits="energy stress">
+        <div class="ing-img"><span class="ing-img-emoji">🟤</span></div>
+        <div class="ing-content">
+          <div class="ing-top">
+            <div class="ing-name">Gelatinized Maca</div>
+            <div class="ing-badge sage">Peruvian root</div>
+          </div>
+          <div class="ing-latin">Lepidium meyenii · Root · Gelatinized</div>
+          <div class="ing-pills">
+            <span class="ing-pill">Energy</span>
+            <span class="ing-pill">Hormonal balance</span>
+            <span class="ing-pill">Endurance</span>
+          </div>
+          <div class="ing-desc">Peruvian maca root, <strong>gelatinized for improved digestibility and absorption</strong>, then milled to fine powder. Traditionally used by Andean populations at high altitude for energy, endurance, and hormonal balance. Studied for its role in reducing perceived fatigue and supporting healthy stress response, particularly in women.*</div>
+          <div class="ing-meta">
+            <div class="ing-meta-item"><strong>Form</strong>Gelatinized (pre-cooked) root powder</div>
+            <div class="ing-meta-item"><strong>Source</strong>Peruvian Andes, 4,000m+ altitude</div>
+            <div class="ing-meta-item"><strong>Evidence</strong>Gonzales 2014</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cinnamon -->
+      <div class="ing-card reveal d1" data-benefits="recovery">
+        <div class="ing-img"><span class="ing-img-emoji">🟫</span></div>
+        <div class="ing-content">
+          <div class="ing-top">
+            <div class="ing-name">Cinnamon</div>
+            <div class="ing-badge sage">Ceylon</div>
+          </div>
+          <div class="ing-latin">Cinnamomum verum · Ceylon variety</div>
+          <div class="ing-pills">
+            <span class="ing-pill">Warmth</span>
+            <span class="ing-pill">Flavor</span>
+          </div>
+          <div class="ing-desc">Ceylon cinnamon, the "true" cinnamon, not the Cassia variety that's used in most commercial products (and which contains higher levels of coumarin). <strong>Adds warmth, subtle sweetness, and traditional digestive support.</strong> Every bit of flavor in Mujo is doing functional work too.</div>
+          <div class="ing-meta">
+            <div class="ing-meta-item"><strong>Form</strong>Ceylon cinnamon powder</div>
+            <div class="ing-meta-item"><strong>Source</strong>Sri Lankan origin</div>
+            <div class="ing-meta-item"><strong>Role</strong>Flavor, traditional warming</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Allspice -->
+      <div class="ing-card reveal d2" data-benefits="recovery">
+        <div class="ing-img"><span class="ing-img-emoji">🫚</span></div>
+        <div class="ing-content">
+          <div class="ing-top">
+            <div class="ing-name">Allspice &amp; Ginger</div>
+            <div class="ing-badge sage">Whole spice</div>
+          </div>
+          <div class="ing-latin">Pimenta dioica · Zingiber officinale</div>
+          <div class="ing-pills">
+            <span class="ing-pill">Warming spice</span>
+            <span class="ing-pill">Depth</span>
+          </div>
+          <div class="ing-desc">Whole allspice and fresh-dried ginger round out the Ritual's flavor profile. Allspice brings notes of clove, cinnamon, and nutmeg. Ginger brings gentle warmth and traditional digestive support. <strong>Every spice is whole-ingredient, never "natural flavors."</strong></div>
+          <div class="ing-meta">
+            <div class="ing-meta-item"><strong>Form</strong>Whole ground spice</div>
+            <div class="ing-meta-item"><strong>Source</strong>Organic, traceable origin</div>
+            <div class="ing-meta-item"><strong>Role</strong>Flavor depth, warming</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     PHILOSOPHY — Why these choices matter
+     ═══════════════════════════════════════════ -->
+<section class="philosophy">
+  <div class="container">
+    <div class="philosophy-head">
+      <div class="eyebrow reveal">The principles</div>
+      <h2 class="reveal d1">Why these forms. <em>Why these doses.</em></h2>
+      <p class="philosophy-sub reveal d2">Three rules govern every ingredient decision at Mujo. They're not marketing copy, they're the reason the formula looks the way it does.</p>
+    </div>
+
+    <div class="principles">
+      <div class="principle reveal">
+        <div class="principle-num">01 / Fruiting body only</div>
+        <div class="principle-h">Never mycelium on grain.</div>
+        <div class="principle-b">Most mushroom coffees use mycelium (the root system) grown on sterilized oats or sorghum. The resulting powder is mostly starch with trace bioactive compounds. <strong>Mujo uses only fruiting body, the part of the mushroom people have actually eaten for thousands of years</strong>, and tests every batch for beta-glucans and triterpenes.</div>
+      </div>
+      <div class="principle reveal d1">
+        <div class="principle-num">02 / Disclosure where it matters</div>
+        <div class="principle-h">Clinical ingredients named, supporting ones categorized.</div>
+        <div class="principle-b">For ingredients where <strong>precise dose drives the outcome</strong>. KSM-66® at its 300mg clinical trial dose, Longvida® at its researched SLCP ratio, RhodioLife® at its premium 5% / 1.5% standardization, we disclose exactly what's in the formula. For the supporting cast, we share category totals and let the recipe stay the recipe. Proprietary blends hide what's in them. <strong>Craftsmanship doesn't show its exact margins.</strong></div>
+      </div>
+      <div class="principle reveal d2">
+        <div class="principle-num">03 / Branded when it matters</div>
+        <div class="principle-h">The research uses the brand.</div>
+        <div class="principle-b">For ingredients where form matters. Longvida®, KSM-66®, RhodioLife®, we use the specific branded extract the clinical research tested. Generic "curcumin" or "ashwagandha" aren't the same compounds. <strong>Paying for the research means paying for the specific form the research validated.</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     LEMNA BAR — Coming summer 2026
+     ═══════════════════════════════════════════ -->
+<section class="lemna">
+  <div class="container">
+    <div class="lemna-grid">
+      <div class="lemna-content">
+        <div class="ps-pill launch">
+          <span class="ps-pill-dot"></span>
+          Lemna Bar · Launching Summer 2026
+        </div>
+        <h2>The world's first <em>Lemna leaf protein bar.</em></h2>
+        <p class="lemna-body">The Lemna Bar will be the first consumer protein bar built around <strong>Rubi Protein™ from Plantible Foods</strong>, a water-grown Lemna leaf protein with a complete amino acid profile, a DIAAS score close to 1.0, and an environmental footprint 10x lower than soy.</p>
+        <p class="lemna-body">The full ingredient dossier will publish here when the bar launches. For now, <strong>it uses the same transparency principles as the Ritual: every ingredient disclosed, every dose stated, no proprietary blends, no bar-industry shortcuts.</strong></p>
+        <form class="lemna-notify" onsubmit="handleNotify(event)">
+          <input type="email" class="lemna-input" placeholder="your@email.com" required>
+          <button type="submit" class="btn btn-primary">Notify me when it launches</button>
+        </form>
+      </div>
+      <div class="lemna-visual">
+        <div class="lemna-visual-label">Lemna Bar · Coming soon</div>
+        <span class="lemna-visual-emoji">🌱</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SOURCING / TRUST STRIP
+     ═══════════════════════════════════════════ -->
+<section class="trust">
+  <div class="container">
+    <div class="trust-grid">
+      <div class="trust-item reveal">
+        <div class="trust-num">01</div>
+        <div class="trust-h">Third-party batch tested</div>
+        <div class="trust-b">Every production run independently tested for potency, heavy metals, and microbial contamination.</div>
+      </div>
+      <div class="trust-item reveal d1">
+        <div class="trust-num">02</div>
+        <div class="trust-h">Certificates of analysis</div>
+        <div class="trust-b">COAs available on request. If you're a practitioner or clinician, email us for the current batch.</div>
+      </div>
+      <div class="trust-item reveal d2">
+        <div class="trust-num">03</div>
+        <div class="trust-h">No proprietary blends</div>
+        <div class="trust-b">Every dose on the label, in the amount it appears at. We don't hide behind "active blend" language.</div>
+      </div>
+      <div class="trust-item reveal d3">
+        <div class="trust-num">04</div>
+        <div class="trust-h">Sustainable sourcing</div>
+        <div class="trust-b">Direct-trade cacao. Wild-harvested chaga. Altai rhodiola. Traceable origin for every ingredient.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     CTA BAND
+     ═══════════════════════════════════════════ -->
+<section class="cta-band">
+  <div class="container">
+    <h2>Now you know what's in it. <em>See how it works.</em></h2>
+    <p class="cta-band-sub">The Mujo Ritual puts all of this to work in one clinically dosed morning ritual. Subscribe and save 15%, or try a single pouch, we stand behind a 30-day money-back guarantee.</p>
+    <div class="cta-actions">
+      <a href="/products/the-ritual" class="btn btn-primary">Shop The Ritual <span class="btn-arrow">→</span></a>
+      <a href="/rebel-club" class="btn btn-ghost">Join the Rebel Club</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <a href="/" class="flogo">MUJO</a>
+  <div class="flinks">
+    <a href="/" class="flink">mujoworld.com</a>
+    <a href="/shop" class="flink">Shop</a>
+    <a href="/ingredients" class="flink">Ingredients</a>
+    <a href="/rebel-club" class="flink">Rebel Club</a>
+    <a href="/contact" class="flink">Contact</a>
+    <a href="/privacy" class="flink">Privacy</a>
+  </div>
+  <div class="fcopy">© 2026 Mujo World · *These statements have not been evaluated by the FDA. This product is not intended to diagnose, treat, cure, or prevent any disease.</div>
+</footer>
+
+<script>
+// Scroll reveal
+const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); }), { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// Filter ingredients
+function filterIngredients(filter, btn) {
+  // Update active pill
+  document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+
+  // Show/hide cards
+  const cards = document.querySelectorAll('.ing-card');
+  cards.forEach(card => {
+    if (filter === 'all') {
+      card.classList.remove('hidden');
+    } else {
+      const benefits = (card.dataset.benefits || '').split(' ');
+      if (benefits.includes(filter)) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    }
+  });
+}
+
+// Nav shadow
+window.addEventListener('scroll', () => {
+  document.querySelector('nav').style.boxShadow = window.scrollY > 40 ? '0 2px 20px rgba(0,0,0,0.06)' : 'none';
+});
+
+function handleNotify(e) {
+  e.preventDefault();
+  alert('In production: submit to Klaviyo "Lemna Bar Launch" list with launch notification flow.');
+}
+</script>
+
+<script id="mujo-canonical-nav-js">
+const PRICES = { 'ritual-25': 55.25, 'ritual-10': 27, 'bar-pb': 54, 'bar-cashew': 54, 'mug': 24, 'tee': 38, 'tote': 22 };
+const NAMES = { 'ritual-25': 'Mujo Ritual · 25 servings', 'ritual-10': 'Mujo Ritual · 10 servings', 'bar-pb': 'Lemna Bar · PB Crunch', 'bar-cashew': 'Lemna Bar · Cashew Chocolate', 'mug': 'Ritual Mug', 'tee': 'Rebel Club Tee', 'tote': 'Market Tote' };
+const ICONS = { 'ritual-25': '🍵', 'ritual-10': '🍵', 'bar-pb': '🥜', 'bar-cashew': '🍫', 'mug': '☕', 'tee': '👕', 'tote': '🛍️' };
+let cart = {};
+function openMenu() { document.getElementById('mobileMenu').classList.add('open'); document.getElementById('overlay').classList.add('open'); document.body.classList.add('locked'); }
+function closeMenu() { document.getElementById('mobileMenu').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); if (!document.getElementById('cartDrawer').classList.contains('open')) document.body.classList.remove('locked'); }
+function openCart() { document.getElementById('cartDrawer').classList.add('open'); document.getElementById('overlay').classList.add('open'); document.body.classList.add('locked'); }
+function closeCart() { document.getElementById('cartDrawer').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); if (!document.getElementById('mobileMenu').classList.contains('open')) document.body.classList.remove('locked'); }
+function closeAll() { closeMenu(); closeCart(); }
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAll(); });
+window.addEventListener('scroll', () => { const nav = document.getElementById('nav'); if (window.scrollY > 8) nav.classList.add('scrolled'); else nav.classList.remove('scrolled'); });
+function updateQty(id, delta) { cart[id] = Math.max(0, (cart[id] || 0) + delta); if (cart[id] === 0) delete cart[id]; renderCart(); }
+function removeItem(id) { delete cart[id]; renderCart(); }
+function getSubtotal() { return Object.entries(cart).reduce((s, [id, q]) => s + (PRICES[id] || 0) * q, 0); }
+function getCount() { return Object.values(cart).reduce((s, q) => s + q, 0); }
+function fmt(n) { return '$' + (Math.round(n * 100) / 100).toFixed(n % 1 === 0 ? 0 : 2); }
+function renderCart() {
+  const subtotal = getSubtotal(); const count = getCount();
+  const remaining = Math.max(0, 100 - subtotal); const pct = Math.min(100, (subtotal / 100) * 100);
+  document.getElementById('cartHeadCount').textContent = count + (count === 1 ? ' item' : ' items');
+  const badge = document.getElementById('cartCount');
+  if (count === 0) badge.classList.add('hidden'); else { badge.classList.remove('hidden'); badge.textContent = count; }
+  const fill = document.getElementById('progressFill'); const msg = document.getElementById('progressMsg');
+  fill.style.width = pct + '%';
+  if (count === 0) { fill.classList.remove('full'); msg.innerHTML = 'Free shipping at <strong>$100</strong>.'; }
+  else if (remaining <= 0) { fill.classList.add('full'); msg.innerHTML = '<strong>Free shipping</strong> unlocked. Nice work.'; }
+  else { fill.classList.remove('full'); msg.innerHTML = '<span class="accent">' + fmt(remaining) + '</span> away from <strong>free shipping</strong>.'; }
+  const body = document.getElementById('cartBody'); body.innerHTML = '';
+  if (count === 0) { body.innerHTML = '<div class="cart-empty"><div class="cart-empty-illo">🍵</div><h3>Nothing in here yet.</h3><p>Your ritual is one click away. The Mujo Ritual is the place most people start.</p><a href="/shop">Browse the shop →</a></div>'; }
+  else { Object.entries(cart).forEach(([id, qty]) => { const row = document.createElement('div'); row.className = 'cart-item'; row.innerHTML = `<div class="cart-item-img">${ICONS[id]||'·'}</div><div class="cart-item-info"><div class="cart-item-name">${NAMES[id]}</div><div class="cart-item-variant">One-time</div><div class="cart-item-controls"><button class="qty-btn" onclick="updateQty('${id}',-1)">−</button><span class="qty-val">${qty}</span><button class="qty-btn" onclick="updateQty('${id}',1)">+</button></div></div><div class="cart-item-meta"><div class="cart-item-price">${fmt(PRICES[id]*qty)}</div><button class="cart-item-remove" onclick="removeItem('${id}')">Remove</button></div>`; body.appendChild(row); }); }
+  document.getElementById('subtotalDisplay').textContent = count === 0 ? '$0' : fmt(subtotal);
+  document.getElementById('shippingDisplay').textContent = (remaining <= 0 && count > 0) ? 'Free' : 'Calculated at checkout';
+  document.getElementById('totalDisplay').textContent = count === 0 ? '$0' : fmt(subtotal);
+}
+function checkout() { alert('Checkout: hand off to Shopify checkout in production.'); }
+renderCart();
+</script>
+</body>
+</html>

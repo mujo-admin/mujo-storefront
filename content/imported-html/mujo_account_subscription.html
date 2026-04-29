@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Subscription · Mujo</title>
+<meta name="description" content="Skip, swap, pause, or cancel anytime. One click, no salt.">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--f-body); background: var(--cream); color: var(--ink); -webkit-font-smoothing: antialiased; line-height: 1.55; }
+.eyebrow { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange-deep); display: inline-block; font-weight: 500; }
+.serif-accent { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 500; letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); }
+.container { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
+.container-narrow { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+@media (min-width: 768px) { .container { padding: 0 32px; } .container-narrow { padding: 0 32px; } }
+body.locked { overflow: hidden; }
+
+:root {
+  --orange: #F2682F; --orange-deep: #D85A22; --orange-soft: #FDEFE6;
+  --cream: #F3F2E9; --sand: #EEE9E0; --sand-deep: #D4C4A8;
+  --sage: #2F3D33; --sage-mid: #3D4D40; --sage-light: #8FA396;
+  --sage-tint: rgba(47, 61, 51, 0.08);
+  --ink: #1A1A1A; --ink-soft: #4A4845; --mute: #5C5854;
+  --line: rgba(26, 26, 26, 0.09); --line-soft: rgba(26, 26, 26, 0.06);
+  --f-display: 'General Sans', -apple-system, sans-serif;
+  --f-body: 'General Sans', 'Helvetica Neue', sans-serif;
+  --f-serif: 'Instrument Serif', 'Times New Roman', serif;
+  --f-mono: 'DM Mono', monospace;
+  --nav-h: 64px;
+}
+
+.announce { background: var(--sage); color: #fff; text-align: center; padding: 9px 16px; font-size: 12px; letter-spacing: 0.01em; position: relative; z-index: 200; line-height: 1.4; }
+.announce strong { color: var(--orange); font-weight: 500; }
+.announce .sep { opacity: 0.4; margin: 0 8px; }
+@media (max-width: 640px) { .announce-secondary { display: none; } }
+@media (min-width: 768px) { .announce { padding: 10px 24px; font-size: 13px; } .announce .sep { margin: 0 10px; } }
+nav.mujo-nav { position: sticky; top: 0; z-index: 150; background: rgba(243, 242, 233, 0.94); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--line-soft); padding: 12px 16px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; height: var(--nav-h); transition: box-shadow 0.3s; }
+nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+@media (min-width: 1024px) { nav.mujo-nav { padding: 14px 32px; grid-template-columns: 1fr auto 1fr; gap: 24px; } }
+.nav-hamburger { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; color: var(--ink); margin-left: -8px; }
+.nav-hamburger svg { width: 22px; height: 22px; }
+@media (min-width: 1024px) { .nav-hamburger { display: none; } }
+.nav-logo { display: inline-flex; align-items: center; text-decoration: none; justify-self: center; }
+.nav-logo img { height: 26px; width: auto; display: block; }
+@media (min-width: 1024px) { .nav-logo { justify-self: start; } .nav-logo img { height: 30px; } }
+.nav-center { display: none; justify-content: center; align-items: center; gap: 32px; }
+.nav-link { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-weight: 500; letter-spacing: 0.01em; transition: color 0.2s; position: relative; padding: 4px 0; }
+.nav-link:hover { color: var(--sage); }
+.nav-link.active { color: var(--sage); }
+.nav-link.active::after { content: ''; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px; background: var(--orange); }
+@media (min-width: 1024px) { .nav-center { display: flex; } }
+.nav-right { display: flex; align-items: center; gap: 4px; justify-self: end; }
+.nav-icon { width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; border: none; background: transparent; color: var(--ink); cursor: pointer; text-decoration: none; position: relative; border-radius: 50%; transition: background 0.2s; }
+.nav-icon:hover { background: var(--sage-tint); }
+.nav-icon svg { width: 20px; height: 20px; }
+.cart-count { position: absolute; top: 4px; right: 4px; background: var(--orange); color: #fff; font-family: var(--f-mono); font-size: 9px; font-weight: 500; min-width: 16px; height: 16px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; padding: 0 4px; line-height: 1; }
+.cart-count.hidden { display: none; }
+.menu-overlay { position: fixed; inset: 0; background: rgba(26,26,26,0.5); z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+.menu-overlay.open { opacity: 1; pointer-events: auto; }
+.mobile-menu { position: fixed; top: 0; left: 0; bottom: 0; width: min(360px, 88vw); background: var(--cream); z-index: 999; transform: translateX(-100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; overflow-y: auto; }
+.mobile-menu.open { transform: translateX(0); }
+.mm-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); }
+.mm-head img { height: 26px; width: auto; }
+.mm-close { width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); margin-right: -8px; }
+.mm-close svg { width: 20px; height: 20px; }
+.mm-links { display: flex; flex-direction: column; padding: 4px 0; flex: 1; }
+.mm-link { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; font-family: var(--f-display); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-soft); transition: background 0.15s, color 0.15s; }
+.mm-link:hover { color: var(--orange-deep); background: rgba(242,104,47,0.04); }
+.mm-link svg { width: 16px; height: 16px; opacity: 0.4; }
+.mm-foot { padding: 24px; background: var(--sage); color: #fff; }
+.mm-foot-eyebrow { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); margin-bottom: 10px; }
+.mm-foot p { font-size: 14px; line-height: 1.55; color: rgba(255,255,255,0.7); margin-bottom: 16px; }
+.mm-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--orange); color: #fff; text-decoration: none; padding: 12px 20px; border-radius: 100px; font-size: 14px; font-weight: 500; }
+.cart-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(440px, 100vw); background: var(--cream); z-index: 999; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; box-shadow: -20px 0 60px rgba(0,0,0,0.1); }
+.cart-drawer.open { transform: translateX(0); }
+.cart-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); }
+.cart-head-title { font-family: var(--f-display); font-size: 18px; font-weight: 500; letter-spacing: -0.01em; }
+.cart-head-title span { font-family: var(--f-mono); font-size: 11px; color: var(--mute); letter-spacing: 0.1em; margin-left: 8px; font-weight: 400; }
+.cart-close { width: 36px; height: 36px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); border-radius: 50%; margin-right: -6px; }
+.cart-close:hover { background: var(--sage-tint); }
+.cart-close svg { width: 18px; height: 18px; }
+.cart-progress { background: var(--sand); padding: 14px 20px 16px; border-bottom: 1px solid var(--line-soft); }
+.cart-progress-msg { font-size: 13px; color: var(--ink-soft); margin-bottom: 8px; line-height: 1.4; }
+.cart-progress-msg strong { color: var(--ink); font-weight: 500; }
+.cart-progress-msg .accent { color: var(--orange-deep); font-weight: 500; }
+.cart-progress-track { height: 6px; background: rgba(26,26,26,0.08); border-radius: 3px; overflow: hidden; }
+.cart-progress-fill { height: 100%; background: var(--orange); border-radius: 3px; width: 0%; transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+.cart-progress-fill.full { background: var(--sage); }
+.cart-body { flex: 1; overflow-y: auto; padding: 8px 20px; }
+.cart-item { display: grid; grid-template-columns: 72px 1fr auto; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--line-soft); }
+.cart-item-img { width: 72px; height: 72px; background: var(--sand); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; }
+.cart-item-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.cart-item-name { font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.3; }
+.cart-item-variant { font-size: 12px; color: var(--mute); margin-bottom: 6px; }
+.cart-item-controls { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 100px; background: #fff; width: fit-content; margin-top: auto; }
+.qty-btn { width: 28px; height: 28px; background: transparent; border: none; cursor: pointer; font-size: 14px; color: var(--ink-soft); display: inline-flex; align-items: center; justify-content: center; }
+.qty-val { font-family: var(--f-mono); font-size: 12px; min-width: 24px; text-align: center; }
+.cart-item-meta { display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; text-align: right; }
+.cart-item-price { font-family: var(--f-mono); font-size: 13px; font-weight: 500; }
+.cart-item-remove { background: transparent; border: none; cursor: pointer; font-family: var(--f-mono); font-size: 10px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; padding: 4px 0; }
+.cart-empty { text-align: center; padding: 56px 24px; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.cart-empty-illo { font-size: 52px; opacity: 0.5; }
+.cart-empty h3 { font-size: 22px; font-weight: 500; }
+.cart-empty p { font-size: 14px; color: var(--mute); max-width: 260px; line-height: 1.5; }
+.cart-empty a { margin-top: 6px; background: var(--orange); color: #fff; text-decoration: none; padding: 12px 22px; border-radius: 100px; font-size: 14px; font-weight: 500; }
+.cart-foot { border-top: 1px solid var(--line-soft); padding: 16px 20px 20px; }
+.cart-row { display: flex; justify-content: space-between; align-items: baseline; padding: 4px 0; font-size: 14px; color: var(--ink-soft); }
+.cart-row.total { padding-top: 10px; font-size: 18px; font-weight: 500; color: var(--ink); font-family: var(--f-display); }
+.cart-row .price { font-family: var(--f-mono); }
+.cart-shipping-note { font-size: 11px; color: var(--mute); font-family: var(--f-mono); letter-spacing: 0.04em; margin: 8px 0 14px; line-height: 1.4; }
+.cart-checkout { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: var(--orange); color: #fff; text-decoration: none; border: none; cursor: pointer; padding: 16px 24px; border-radius: 100px; font-size: 15px; font-weight: 500; transition: background 0.2s; }
+.cart-checkout:hover { background: var(--orange-deep); }
+.cart-secure { text-align: center; font-size: 11px; color: var(--mute); font-family: var(--f-mono); letter-spacing: 0.08em; margin-top: 10px; text-transform: uppercase; }
+
+footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); padding: 56px 0 28px; }
+.foot-grid { display: grid; gap: 32px; grid-template-columns: 1fr; margin-bottom: 32px; }
+@media (min-width: 640px) { .foot-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1024px) { .foot-grid { grid-template-columns: 1.6fr 1fr 1fr 1fr; } }
+.foot-brand img { height: 28px; width: auto; margin-bottom: 14px; }
+.foot-tagline { font-size: 14px; line-height: 1.6; color: rgba(255,255,255,0.6); max-width: 320px; }
+.foot-col-title { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); margin-bottom: 16px; }
+.foot-links { display: flex; flex-direction: column; gap: 10px; }
+.foot-link { font-size: 14px; color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
+.foot-link:hover { color: var(--sage-light); }
+.foot-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; display: flex; flex-direction: column; gap: 16px; }
+@media (min-width: 768px) { .foot-bottom { flex-direction: row; justify-content: space-between; align-items: flex-start; gap: 32px; } }
+.foot-fda { font-size: 11px; line-height: 1.55; color: rgba(255,255,255,0.3); max-width: 680px; font-family: var(--f-mono); letter-spacing: 0.02em; }
+.foot-copy { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.08em; color: rgba(255,255,255,0.3); }
+
+
+.acc-hero { padding: 32px 0 20px; }
+@media (min-width: 768px) { .acc-hero { padding: 48px 0 28px; } }
+.acc-hero .eyebrow { margin-bottom: 12px; }
+.acc-hero h1 { font-size: clamp(28px, 5vw, 42px); margin-bottom: 8px; line-height: 1.05; }
+.acc-hero h1 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.acc-hero p { font-size: 15px; color: var(--ink-soft); line-height: 1.55; max-width: 540px; }
+.acc-tabs { border-bottom: 1px solid var(--line-soft); margin-bottom: 28px; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
+.acc-tabs::-webkit-scrollbar { display: none; }
+.acc-tabs-row { display: flex; gap: 4px; min-width: max-content; }
+.acc-tab { padding: 12px 16px; font-family: var(--f-body); font-size: 14px; color: var(--ink-soft); text-decoration: none; font-weight: 500; border-bottom: 2px solid transparent; margin-bottom: -1px; white-space: nowrap; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; }
+.acc-tab:hover { color: var(--ink); }
+.acc-tab.active { color: var(--ink); border-bottom-color: var(--orange); }
+.acc-tab svg { width: 14px; height: 14px; }
+.acc-signout { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mute); text-decoration: none; padding: 12px 16px; }
+.acc-signout:hover { color: var(--orange-deep); }
+
+.sub-wrap { padding-bottom: 80px; }
+
+/* Promise card at top */
+.sub-promise { background: var(--sage); color: rgba(255,255,255,0.85); border-radius: 14px; padding: 20px 24px; display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+.sub-promise-icon { flex-shrink: 0; width: 44px; height: 44px; background: rgba(242,104,47,0.18); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: var(--orange); }
+.sub-promise-icon svg { width: 22px; height: 22px; }
+.sub-promise-text { flex: 1; font-size: 14px; line-height: 1.55; }
+.sub-promise-text strong { color: #fff; font-weight: 500; display: block; margin-bottom: 4px; font-family: var(--f-display); font-size: 16px; letter-spacing: -0.01em; }
+
+/* Main subscription card */
+.sub-main { background: #fff; border: 1px solid var(--line-soft); border-radius: 16px; padding: 24px; margin-bottom: 20px; }
+@media (min-width: 768px) { .sub-main { padding: 32px; } }
+
+.sub-main-head { display: grid; grid-template-columns: auto 1fr; gap: 16px; margin-bottom: 24px; align-items: center; }
+@media (min-width: 640px) { .sub-main-head { grid-template-columns: 80px 1fr auto; } }
+.sub-main-img { width: 64px; height: 64px; background: var(--sand); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; }
+@media (min-width: 640px) { .sub-main-img { width: 80px; height: 80px; font-size: 40px; } }
+.sub-main-info h2 { font-size: 20px; margin-bottom: 4px; line-height: 1.25; letter-spacing: -0.01em; }
+.sub-main-info p { font-size: 13px; color: var(--ink-soft); }
+.sub-status-pill { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; padding: 5px 12px; border-radius: 100px; background: rgba(47,61,51,0.08); color: var(--sage); font-weight: 500; align-self: start; grid-column: 1 / -1; justify-self: start; }
+@media (min-width: 640px) { .sub-status-pill { grid-column: auto; align-self: center; } }
+
+/* Next delivery banner */
+.next-delivery { background: linear-gradient(135deg, rgba(242,104,47,0.08) 0%, rgba(242,104,47,0.03) 100%); border: 1px solid rgba(242,104,47,0.2); border-radius: 12px; padding: 16px 20px; margin-bottom: 24px; display: grid; grid-template-columns: 1fr; gap: 12px; }
+@media (min-width: 560px) { .next-delivery { grid-template-columns: 1fr auto; gap: 16px; align-items: center; } }
+.next-delivery-text .eyebrow { margin-bottom: 4px; }
+.next-delivery-text strong { font-family: var(--f-display); font-size: 19px; font-weight: 500; letter-spacing: -0.01em; display: block; }
+.next-delivery-text span { font-size: 13px; color: var(--ink-soft); }
+.next-delivery-skip { display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; background: #fff; border: 1px solid var(--line); border-radius: 100px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); cursor: pointer; transition: all 0.2s; font-weight: 500; }
+.next-delivery-skip:hover { border-color: var(--orange); color: var(--orange-deep); }
+
+/* Field grid for editable subscription details */
+.sub-fields { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 640px) { .sub-fields { grid-template-columns: 1fr 1fr; } }
+.sub-field { padding: 16px; background: var(--cream); border-radius: 10px; }
+.sub-field-label { display: block; font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mute); margin-bottom: 6px; font-weight: 500; }
+.sub-field-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.sub-field-value { font-size: 15px; font-weight: 500; line-height: 1.3; flex: 1; min-width: 0; }
+.sub-field-value-meta { font-size: 12px; color: var(--ink-soft); margin-top: 2px; }
+.sub-field-edit { background: transparent; border: none; cursor: pointer; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange-deep); padding: 4px 8px; flex-shrink: 0; font-weight: 500; }
+.sub-field-edit:hover { color: var(--orange); }
+
+/* Action grid */
+.sub-actions-section { background: #fff; border: 1px solid var(--line-soft); border-radius: 16px; padding: 24px; margin-bottom: 20px; }
+@media (min-width: 768px) { .sub-actions-section { padding: 32px; } }
+.sub-actions-section-head { margin-bottom: 18px; }
+.sub-actions-section-head .eyebrow { margin-bottom: 8px; }
+.sub-actions-section-head h3 { font-size: 22px; line-height: 1.2; }
+.sub-actions-section-head h3 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.sub-actions-section-head p { font-size: 14px; color: var(--ink-soft); margin-top: 6px; line-height: 1.55; max-width: 480px; }
+
+.sub-action-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+@media (min-width: 640px) { .sub-action-grid { grid-template-columns: 1fr 1fr; } }
+.sub-action-btn { display: flex; align-items: center; gap: 14px; padding: 16px 18px; background: var(--cream); border: 1px solid transparent; border-radius: 12px; text-decoration: none; color: var(--ink); cursor: pointer; transition: all 0.2s; text-align: left; font-family: var(--f-body); width: 100%; }
+.sub-action-btn:hover { border-color: var(--orange); background: #fff; }
+.sub-action-icon { width: 40px; height: 40px; background: #fff; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--orange-deep); }
+.sub-action-icon svg { width: 18px; height: 18px; }
+.sub-action-text { flex: 1; min-width: 0; }
+.sub-action-text strong { display: block; font-size: 14px; font-weight: 500; line-height: 1.3; margin-bottom: 2px; }
+.sub-action-text span { font-size: 12px; color: var(--ink-soft); line-height: 1.4; }
+
+/* Pause / cancel zone */
+.sub-danger { background: #fff; border: 1px solid var(--line-soft); border-radius: 16px; padding: 24px; }
+@media (min-width: 768px) { .sub-danger { padding: 32px; } }
+.sub-danger-head { margin-bottom: 14px; }
+.sub-danger-head .eyebrow { margin-bottom: 8px; color: var(--mute); }
+.sub-danger-head h3 { font-size: 18px; }
+.sub-danger-head h3 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.sub-danger p { font-size: 13px; color: var(--ink-soft); margin-bottom: 14px; line-height: 1.6; max-width: 540px; }
+.sub-danger-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.sub-danger-btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; background: transparent; border: 1px solid var(--line); border-radius: 100px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); cursor: pointer; transition: all 0.2s; font-weight: 500; text-decoration: none; }
+.sub-danger-btn:hover { border-color: var(--ink); color: var(--ink); }
+
+/* Modal styles */
+.modal-overlay { position: fixed; inset: 0; background: rgba(26,26,26,0.5); z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+.modal-overlay.open { opacity: 1; pointer-events: auto; }
+.modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -45%); background: var(--cream); border-radius: 16px; padding: 28px; max-width: 440px; width: calc(100% - 32px); z-index: 999; opacity: 0; pointer-events: none; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 20px 60px rgba(0,0,0,0.18); }
+.modal.open { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%); }
+.modal h3 { font-size: 22px; margin-bottom: 8px; line-height: 1.2; }
+.modal h3 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.modal p { font-size: 14px; color: var(--ink-soft); line-height: 1.55; margin-bottom: 20px; }
+.modal-options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+.modal-option { padding: 12px 16px; background: #fff; border: 1px solid var(--line); border-radius: 10px; cursor: pointer; font-family: var(--f-body); font-size: 14px; text-align: left; transition: all 0.15s; color: var(--ink); }
+.modal-option:hover { border-color: var(--orange); }
+.modal-foot { display: flex; gap: 8px; justify-content: flex-end; }
+.modal-btn { padding: 10px 18px; border-radius: 100px; font-family: var(--f-body); font-size: 13px; font-weight: 500; cursor: pointer; border: none; transition: all 0.2s; }
+.modal-btn-primary { background: var(--orange); color: #fff; }
+.modal-btn-primary:hover { background: var(--orange-deep); }
+.modal-btn-secondary { background: transparent; color: var(--ink-soft); border: 1px solid var(--line); }
+.modal-btn-secondary:hover { color: var(--ink); border-color: var(--ink); }
+
+</style>
+</head>
+<body>
+
+<div class="announce">
+  Free shipping over <strong>$100</strong>
+  <span class="sep announce-secondary">·</span>
+  <span class="announce-secondary">Use <strong>WELCOME10</strong> for 10% off your first order</span>
+</div>
+
+<nav class="mujo-nav" id="nav">
+  <button class="nav-hamburger" aria-label="Open menu" onclick="openMenu()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg></button>
+  <a href="/" class="nav-logo" aria-label="Mujo home"><img src="Mujo_logo_orange.png" alt="Mujo"></a>
+  <div class="nav-center">
+    <a href="/shop" class="nav-link">Shop</a>
+    <a href="/science" class="nav-link">Science</a>
+    <a href="/ingredients" class="nav-link">Ingredients</a>
+    <a href="/journal" class="nav-link">Journal</a>
+    <a href="/rebel-club" class="nav-link">Rebel Club</a>
+  </div>
+  <div class="nav-right">
+    <a href="/account" class="nav-icon" aria-label="Account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></a>
+    <button class="nav-icon" aria-label="Cart" onclick="openCart()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h14l-1.4 11.2a2 2 0 0 1-2 1.8H8.4a2 2 0 0 1-2-1.8L5 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg><span class="cart-count hidden" id="cartCount">0</span></button>
+  </div>
+</nav>
+
+<div class="menu-overlay" id="overlay" onclick="closeAll()"></div>
+<aside class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <div class="mm-head">
+    <a href="/" aria-label="Mujo home"><img src="Mujo_logo_orange.png" alt="Mujo"></a>
+    <button class="mm-close" aria-label="Close menu" onclick="closeMenu()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>
+  </div>
+  <div class="mm-links">
+    <a href="/shop" class="mm-link">Shop <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    <a href="/science" class="mm-link">Science <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    <a href="/ingredients" class="mm-link">Ingredients <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    <a href="/journal" class="mm-link">Journal <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    <a href="/rebel-club" class="mm-link">Rebel Club <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    <a href="/about" class="mm-link">About <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    <a href="/account" class="mm-link">Account <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+  </div>
+  <div class="mm-foot">
+    <div class="mm-foot-eyebrow">New here</div>
+    <p>10% off your first order. Take 60 seconds, get a Reset Plan tuned to your specific pattern.</p>
+    <a href="/quiz" class="mm-cta">Take the audit →</a>
+  </div>
+</aside>
+<aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
+  <div class="cart-head">
+    <div class="cart-head-title">Your cart <span id="cartHeadCount">0 items</span></div>
+    <button class="cart-close" aria-label="Close cart" onclick="closeCart()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>
+  </div>
+  <div class="cart-progress">
+    <div class="cart-progress-msg" id="progressMsg">Free shipping at <strong>$100</strong>.</div>
+    <div class="cart-progress-track"><div class="cart-progress-fill" id="progressFill" style="width: 0%;"></div></div>
+  </div>
+  <div class="cart-body" id="cartBody"></div>
+  <div class="cart-foot">
+    <div class="cart-row"><span>Subtotal</span><span class="price" id="subtotalDisplay">$0</span></div>
+    <div class="cart-row"><span>Shipping</span><span class="price" id="shippingDisplay">Calculated at checkout</span></div>
+    <div class="cart-row total"><span>Total</span><span class="price" id="totalDisplay">$0</span></div>
+    <div class="cart-shipping-note">Taxes calculated at checkout. Subscription orders renew at 25% off retail.</div>
+    <button class="cart-checkout" onclick="checkout()">Checkout <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></button>
+    <div class="cart-secure">Secure · Stripe checkout</div>
+  </div>
+</aside>
+
+
+<section class="acc-hero">
+  <div class="container">
+    <span class="eyebrow">Account · Subscription</span>
+    <h1>Your <em>subscription.</em></h1>
+    <p>Skip, swap, change frequency, change address, pause, cancel. All in two taps. No salt. No "are you sure?" maze.</p>
+  </div>
+</section>
+
+<div class="container sub-wrap">
+  <div class="acc-tabs">
+    <div class="acc-tabs-row">
+      <a href="/account" class="acc-tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Overview</a>
+      <a href="/account/subscription" class="acc-tab active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><polyline points="3 16 3 21 8 21"/><polyline points="21 8 21 3 16 3"/></svg>Subscription</a>
+      <a href="/account/orders" class="acc-tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h14l-1.4 11.2a2 2 0 0 1-2 1.8H8.4a2 2 0 0 1-2-1.8L5 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>Orders</a>
+      <a href="/account/addresses" class="acc-tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Addresses</a>
+      <a href="/account/profile" class="acc-tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>Profile</a>
+      <a href="#" class="acc-signout" onclick="signOut(event)">Sign out</a>
+    </div>
+  </div>
+
+  <!-- The promise -->
+  <div class="sub-promise">
+    <div class="sub-promise-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+    </div>
+    <div class="sub-promise-text">
+      <strong>The promise.</strong>
+      Skip, swap, pause, or cancel anytime. One click, no salt, no five-step exit interview. We build subscriptions we'd want to be on ourselves.
+    </div>
+  </div>
+
+  <!-- Main subscription card -->
+  <div class="sub-main">
+    <div class="sub-main-head">
+      <div class="sub-main-img">🍵</div>
+      <div class="sub-main-info">
+        <h2>Mujo Ritual · 25 servings</h2>
+        <p>Active since February 2026</p>
+      </div>
+      <div class="sub-status-pill">Active</div>
+    </div>
+
+    <!-- Next delivery callout -->
+    <div class="next-delivery">
+      <div class="next-delivery-text">
+        <span class="eyebrow">Next delivery</span>
+        <strong>May 15, 2026</strong>
+        <span>Charges your card on May 13. Ships from Lisbon.</span>
+      </div>
+      <button class="next-delivery-skip" onclick="openModal('skipModal')">
+        Skip this one
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 17 18 12 13 7"/><line x1="6" y1="12" x2="18" y2="12"/></svg>
+      </button>
+    </div>
+
+    <!-- Editable details -->
+    <div class="sub-fields">
+      <div class="sub-field">
+        <span class="sub-field-label">Frequency</span>
+        <div class="sub-field-row">
+          <div>
+            <div class="sub-field-value">Every 4 weeks</div>
+            <div class="sub-field-value-meta">~12 deliveries per year</div>
+          </div>
+          <button class="sub-field-edit" onclick="openModal('frequencyModal')">Change</button>
+        </div>
+      </div>
+
+      <div class="sub-field">
+        <span class="sub-field-label">Quantity</span>
+        <div class="sub-field-row">
+          <div>
+            <div class="sub-field-value">1 bag · 25 servings</div>
+            <div class="sub-field-value-meta">$41.44 / delivery (25% off)</div>
+          </div>
+          <button class="sub-field-edit" onclick="openModal('qtyModal')">Change</button>
+        </div>
+      </div>
+
+      <div class="sub-field">
+        <span class="sub-field-label">Shipping to</span>
+        <div class="sub-field-row">
+          <div>
+            <div class="sub-field-value">Kinga · Lisbon</div>
+            <div class="sub-field-value-meta">Rua das Flores 12, 1200-194</div>
+          </div>
+          <a href="/account/addresses" class="sub-field-edit" style="text-decoration: none;">Change</a>
+        </div>
+      </div>
+
+      <div class="sub-field">
+        <span class="sub-field-label">Paying with</span>
+        <div class="sub-field-row">
+          <div>
+            <div class="sub-field-value">Visa · 4242</div>
+            <div class="sub-field-value-meta">Expires 09/28</div>
+          </div>
+          <button class="sub-field-edit">Change</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick actions -->
+  <div class="sub-actions-section">
+    <div class="sub-actions-section-head">
+      <span class="eyebrow">Quick changes</span>
+      <h3>One tap. <em>That's it.</em></h3>
+      <p>Anything here updates instantly. We'll send a confirmation email so you have a record.</p>
+    </div>
+    <div class="sub-action-grid">
+      <button class="sub-action-btn" onclick="openModal('skipModal')">
+        <span class="sub-action-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 17 18 12 13 7"/><line x1="6" y1="12" x2="18" y2="12"/></svg></span>
+        <span class="sub-action-text"><strong>Skip the next delivery</strong><span>We'll bump it forward and resume on schedule.</span></span>
+      </button>
+      <button class="sub-action-btn" onclick="openModal('swapModal')">
+        <span class="sub-action-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/></svg></span>
+        <span class="sub-action-text"><strong>Swap to a different SKU</strong><span>Try the 10-serving size, or add a Lemna Bar pack.</span></span>
+      </button>
+      <button class="sub-action-btn" onclick="openModal('expediteModal')">
+        <span class="sub-action-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 13 10 19 10 11 22 11 14 5 14 13 2"/></svg></span>
+        <span class="sub-action-text"><strong>Send my next box now</strong><span>Run out early? We'll ship today and reset the cycle.</span></span>
+      </button>
+      <button class="sub-action-btn" onclick="openModal('giftModal')">
+        <span class="sub-action-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></span>
+        <span class="sub-action-text"><strong>Send one as a gift</strong><span>Same subscription benefits, sent to a friend.</span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Pause / cancel -->
+  <div class="sub-danger">
+    <div class="sub-danger-head">
+      <span class="eyebrow">Need a break</span>
+      <h3>Pause or cancel. <em>No interrogation.</em></h3>
+    </div>
+    <p>Going on holiday, switching to one-time only, or stepping away for a while? Pause for up to 3 months without losing your member rate. Cancelling is fine too. We'd rather you actually want what you're getting than feel locked in.</p>
+    <div class="sub-danger-btns">
+      <button class="sub-danger-btn" onclick="openModal('pauseModal')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+        Pause subscription
+      </button>
+      <button class="sub-danger-btn" onclick="openModal('cancelModal')">
+        Cancel subscription
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modals -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal()"></div>
+
+<div class="modal" id="skipModal">
+  <h3>Skip this <em>delivery?</em></h3>
+  <p>Your May 15 delivery will move to June 12. No charge in May. Resume as normal after.</p>
+  <div class="modal-foot">
+    <button class="modal-btn modal-btn-secondary" onclick="closeModal()">Never mind</button>
+    <button class="modal-btn modal-btn-primary" onclick="confirmAction('Skipped May delivery')">Yes, skip</button>
+  </div>
+</div>
+
+<div class="modal" id="frequencyModal">
+  <h3>Change <em>frequency.</em></h3>
+  <p>How often would you like a fresh box?</p>
+  <div class="modal-options">
+    <button class="modal-option" onclick="confirmAction('Frequency set to every 2 weeks')">Every 2 weeks</button>
+    <button class="modal-option" onclick="confirmAction('Frequency set to every 4 weeks')">Every 4 weeks · current</button>
+    <button class="modal-option" onclick="confirmAction('Frequency set to every 6 weeks')">Every 6 weeks</button>
+    <button class="modal-option" onclick="confirmAction('Frequency set to every 8 weeks')">Every 8 weeks</button>
+  </div>
+  <div class="modal-foot">
+    <button class="modal-btn modal-btn-secondary" onclick="closeModal()">Cancel</button>
+  </div>
+</div>
+
+<div class="modal" id="qtyModal">
+  <h3>Change <em>quantity.</em></h3>
+  <p>How many bags per delivery?</p>
+  <div class="modal-options">
+    <button class="modal-option" onclick="confirmAction('Set to 1 bag')">1 bag · $41.44 / delivery</button>
+    <button class="modal-option" onclick="confirmAction('Set to 2 bags')">2 bags · $82.88 / delivery</button>
+    <button class="modal-option" onclick="confirmAction('Set to 3 bags')">3 bags · $124.32 / delivery</button>
+  </div>
+  <div class="modal-foot">
+    <button class="modal-btn modal-btn-secondary" onclick="closeModal()">Cancel</button>
+  </div>
+</div>
+
+<div class="modal" id="swapModal">
+  <h3>Swap to <em>a different SKU.</em></h3>
+  <p>Pick the new product. Same subscription rate, same frequency.</p>
+  <div class="modal-options">
+    <button class="modal-option" onclick="confirmAction('Swapped to Mujo Ritual · 10 servings')">Mujo Ritual · 10 servings · $20.25 / delivery</button>
+    <button class="modal-option" onclick="confirmAction('Swapped to Lemna Bar pack')">Lemna Bar · 12-pack · $40.50 / delivery</button>
+  </div>
+  <div class="modal-foot">
+    <button class="modal-btn modal-btn-secondary" onclick="closeModal()">Cancel</button>
+  </div>
+</div>
+
+<div class="modal" id="expediteModal">
+  <h3>Send the next box <em>now?</em></h3>
+  <p>We'll ship today and reset your cycle. Your next delivery after this one will be 4 weeks from now.</p>
+  <div class="modal-foot">
+    <button class="modal-btn modal-btn-secondary" onclick="closeModal()">Never mind</button>
+    <button class="modal-btn modal-btn-primary" onclick="confirmAction('Order being prepared. Ships today.')">Ship today</button>
+  </div>
+</div>
+
+<div class="modal" id="giftModal">
+  <h3>Send one <em>as a gift.</em></h3>
+  <p>Pop their address into the next page. We'll send your usual delivery to them, and resume sending to you next cycle.</p>
+  <div class="modal-foot">
+    <button class="modal-btn modal-btn-secondary" onclick="closeModal()">Cancel</button>
+    <button class="modal-btn modal-btn-primary" onclick="confirmAction('Open gift form (production wires to gift flow)')">Continue</button>
+  </div>
+</div>
+
+<div class="modal" id="pauseModal">
+  <h3>Pause <em>subscription.</em></h3>
+  <p>Pick how long. We'll keep your member rate. Pick up where you left off when you come back.</p>
+  <div class="modal-options">
+    <button class="modal-option" onclick="confirmAction('Paused for 1 month')">Pause for 1 month</button>
+    <button class="modal-option" onclick="confirmAction('Paused for 2 months')">Pause for 2 months</button>
+    <button class="modal-option" onclick="confirmAction('Paused for 3 months')">Pause for 3 months</button>
+  </div>
+  <div class="modal-foot">
+    <button class="modal-btn modal-btn-secondary" onclick="closeModal()">Cancel</button>
+  </div>
+</div>
+
+<div class="modal" id="cancelModal">
+  <h3>Cancel <em>subscription.</em></h3>
+  <p>That's fine. No questions, no five-step exit. If something went sideways and you want to tell us, we read every reply, but we won't ask you to. Click below and you're done.</p>
+  <div class="modal-foot">
+    <button class="modal-btn modal-btn-secondary" onclick="closeModal()">Keep it active</button>
+    <button class="modal-btn modal-btn-primary" onclick="confirmAction('Subscription cancelled. Confirmation sent to your email.')">Cancel subscription</button>
+  </div>
+</div>
+
+
+<footer class="mujo-foot">
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="Mujo_logo_orange.png" alt="Mujo">
+        <p class="foot-tagline">Conscious performance nutrition for people who read the label. Built in Portugal. Shipped globally.</p>
+      </div>
+      <div>
+        <div class="foot-col-title">Shop</div>
+        <div class="foot-links">
+          <a href="/products/mujo-ritual" class="foot-link">Mujo Ritual</a>
+          <a href="/products/lemna-bar" class="foot-link">Lemna Bar</a>
+          <a href="/shop" class="foot-link">Subscribe & save</a>
+          <a href="/rebel-club" class="foot-link">Rebel Club</a>
+        </div>
+      </div>
+      <div>
+        <div class="foot-col-title">Learn</div>
+        <div class="foot-links">
+          <a href="/ingredients" class="foot-link">Ingredients</a>
+          <a href="/science" class="foot-link">The Science</a>
+          <a href="/about" class="foot-link">Our story</a>
+          <a href="/journal" class="foot-link">Journal</a>
+        </div>
+      </div>
+      <div>
+        <div class="foot-col-title">Support</div>
+        <div class="foot-links">
+          <a href="/contact" class="foot-link">Contact</a>
+          <a href="/policies/shipping" class="foot-link">Shipping & returns</a>
+          <a href="/account" class="foot-link">Manage subscription</a>
+          <a href="/affiliate" class="foot-link">Affiliate program</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div class="foot-fda">*These statements have not been evaluated by the FDA. This product is not intended to diagnose, treat, cure, or prevent any disease. Individual results may vary.</div>
+      <div class="foot-copy">© 2026 Mujo</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const PRICES = { 'ritual-25': 55.25, 'ritual-10': 27, 'bar-pb': 54, 'bar-cashew': 54, 'mug': 24, 'tee': 38, 'tote': 22 };
+const NAMES = { 'ritual-25': 'Mujo Ritual · 25 servings', 'ritual-10': 'Mujo Ritual · 10 servings', 'bar-pb': 'Lemna Bar · PB Crunch', 'bar-cashew': 'Lemna Bar · Cashew Chocolate', 'mug': 'Ritual Mug', 'tee': 'Rebel Club Tee', 'tote': 'Market Tote' };
+const ICONS = { 'ritual-25': '🍵', 'ritual-10': '🍵', 'bar-pb': '🥜', 'bar-cashew': '🍫', 'mug': '☕', 'tee': '👕', 'tote': '🛍️' };
+let cart = {};
+function openMenu() { document.getElementById('mobileMenu').classList.add('open'); document.getElementById('overlay').classList.add('open'); document.body.classList.add('locked'); }
+function closeMenu() { document.getElementById('mobileMenu').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); if (!document.getElementById('cartDrawer').classList.contains('open')) document.body.classList.remove('locked'); }
+function openCart() { document.getElementById('cartDrawer').classList.add('open'); document.getElementById('overlay').classList.add('open'); document.body.classList.add('locked'); }
+function closeCart() { document.getElementById('cartDrawer').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); if (!document.getElementById('mobileMenu').classList.contains('open')) document.body.classList.remove('locked'); }
+function closeAll() { closeMenu(); closeCart(); }
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAll(); });
+window.addEventListener('scroll', () => { const nav = document.getElementById('nav'); if (window.scrollY > 8) nav.classList.add('scrolled'); else nav.classList.remove('scrolled'); });
+function updateQty(id, delta) { cart[id] = Math.max(0, (cart[id] || 0) + delta); if (cart[id] === 0) delete cart[id]; renderCart(); }
+function removeItem(id) { delete cart[id]; renderCart(); }
+function getSubtotal() { return Object.entries(cart).reduce((s, [id, q]) => s + (PRICES[id] || 0) * q, 0); }
+function getCount() { return Object.values(cart).reduce((s, q) => s + q, 0); }
+function fmt(n) { return '$' + (Math.round(n * 100) / 100).toFixed(n % 1 === 0 ? 0 : 2); }
+function renderCart() {
+  const subtotal = getSubtotal(); const count = getCount();
+  const remaining = Math.max(0, 100 - subtotal); const pct = Math.min(100, (subtotal / 100) * 100);
+  document.getElementById('cartHeadCount').textContent = count + (count === 1 ? ' item' : ' items');
+  const badge = document.getElementById('cartCount');
+  if (count === 0) badge.classList.add('hidden'); else { badge.classList.remove('hidden'); badge.textContent = count; }
+  const fill = document.getElementById('progressFill'); const msg = document.getElementById('progressMsg');
+  fill.style.width = pct + '%';
+  if (count === 0) { fill.classList.remove('full'); msg.innerHTML = 'Free shipping at <strong>$100</strong>.'; }
+  else if (remaining <= 0) { fill.classList.add('full'); msg.innerHTML = '<strong>Free shipping</strong> unlocked. Nice work.'; }
+  else { fill.classList.remove('full'); msg.innerHTML = '<span class="accent">' + fmt(remaining) + '</span> away from <strong>free shipping</strong>.'; }
+  const body = document.getElementById('cartBody'); body.innerHTML = '';
+  if (count === 0) { body.innerHTML = '<div class="cart-empty"><div class="cart-empty-illo">🍵</div><h3>Nothing in here yet.</h3><p>Your ritual is one click away. The Mujo Ritual is the place most people start.</p><a href="/shop">Browse the shop →</a></div>'; }
+  else { Object.entries(cart).forEach(([id, qty]) => { const row = document.createElement('div'); row.className = 'cart-item'; row.innerHTML = `<div class="cart-item-img">${ICONS[id]||'·'}</div><div class="cart-item-info"><div class="cart-item-name">${NAMES[id]}</div><div class="cart-item-variant">One-time</div><div class="cart-item-controls"><button class="qty-btn" onclick="updateQty('${id}',-1)">−</button><span class="qty-val">${qty}</span><button class="qty-btn" onclick="updateQty('${id}',1)">+</button></div></div><div class="cart-item-meta"><div class="cart-item-price">${fmt(PRICES[id]*qty)}</div><button class="cart-item-remove" onclick="removeItem('${id}')">Remove</button></div>`; body.appendChild(row); }); }
+  document.getElementById('subtotalDisplay').textContent = count === 0 ? '$0' : fmt(subtotal);
+  document.getElementById('shippingDisplay').textContent = (remaining <= 0 && count > 0) ? 'Free' : 'Calculated at checkout';
+  document.getElementById('totalDisplay').textContent = count === 0 ? '$0' : fmt(subtotal);
+}
+function checkout() { alert('Checkout: hand off to Shopify checkout in production.'); }
+renderCart();
+
+function openModal(id) {
+  document.getElementById('modalOverlay').classList.add('open');
+  document.getElementById(id).classList.add('open');
+  document.body.classList.add('locked');
+}
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.querySelectorAll('.modal').forEach(m => m.classList.remove('open'));
+  document.body.classList.remove('locked');
+}
+function confirmAction(msg) {
+  closeModal();
+  setTimeout(() => alert(msg + '\n(Production: this fires the Loop Subscriptions API call.)'), 200);
+}
+function signOut(e) { e.preventDefault(); alert('Sign out: clear session in production.'); }
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeModal(); closeAll(); } });
+</script>
+</body>
+</html>

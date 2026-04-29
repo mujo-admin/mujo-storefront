@@ -1,0 +1,2359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Lemna Bar · Mujo · Founding Member Access</title>
+<meta name="description" content="The world's first protein bar made with Lemna leaf. 14-17g protein. 7g fiber. Real ingredients. No natural flavors, no sugar alcohols, no isolates. Summer 2026. Founding members get 15% off first order.">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --orange: #F2682F;
+  --orange-deep: #D85A22;
+  --orange-soft: #FDEFE6;
+  --cream: #F3F2E9;
+  --sand: #EEE9E0;
+  --sand-deep: #D4C4A8;
+  --sage: #2F3D33;
+  --sage-mid: #3D4D40;
+  --sage-light: #8FA396;
+  --sage-tint: rgba(47, 61, 51, 0.08);
+  --ink: #1A1A1A;
+  --ink-soft: #4A4845;
+  --mute: #5C5854;
+  --line: rgba(26, 26, 26, 0.09);
+  --line-soft: rgba(26, 26, 26, 0.06);
+
+  --f-display: 'General Sans', -apple-system, sans-serif;
+  --f-body: 'General Sans', 'Helvetica Neue', sans-serif;
+  --f-serif: 'Instrument Serif', 'Times New Roman', serif;
+  --f-mono: 'DM Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--f-body);
+  background: var(--cream);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+/* Paper grain, whole-page atmosphere */
+.paper-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  z-index: 9999;
+}
+
+/* Comic frame, used only on hand-drawn illustrations + charts */
+.comic-frame {
+  border: 2px solid var(--ink);
+  border-radius: 20px;
+  box-shadow: 8px 8px 0 var(--sage);
+  background: var(--sand);
+  position: relative;
+  overflow: hidden;
+}
+.comic-frame.orange-shadow { box-shadow: 8px 8px 0 var(--orange); }
+.comic-frame.cream-shadow { box-shadow: 8px 8px 0 var(--cream); }
+.comic-frame.rotate-left { transform: rotate(-1deg); }
+.comic-frame.rotate-right { transform: rotate(1deg); }
+.comic-frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, var(--sage) 0.8px, transparent 0);
+  background-size: 16px 16px;
+  opacity: 0.14;
+  mask-image: radial-gradient(ellipse at center, transparent 30%, black 75%);
+  -webkit-mask-image: radial-gradient(ellipse at center, transparent 30%, black 75%);
+  pointer-events: none;
+}
+
+/* Eyebrow, clean, no dash */
+.eyebrow {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--orange-deep);
+  font-weight: 500;
+  display: inline-block;
+  margin-bottom: 24px;
+}
+
+h1, h2, h3 {
+  font-family: var(--f-display);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+h1 em, h2 em, h3 em {
+  font-family: var(--f-serif);
+  font-style: italic;
+  color: var(--orange);
+  font-weight: 400;
+}
+
+.placeholder-label {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+}
+.placeholder-label .title {
+  display: block;
+  font-family: var(--f-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--sage);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+.placeholder-label .spec {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--mute);
+  text-transform: uppercase;
+  display: block;
+  line-height: 1.6;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+/* ═══════════ NAV ═══════════ */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(243, 242, 233, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line-soft);
+}
+.nav-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 16px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.nav-logo {
+  font-family: var(--f-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--orange);
+  letter-spacing: -0.04em;
+  text-decoration: none;
+}
+.nav-tag {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--sage);
+}
+.nav-cta {
+  font-family: var(--f-body);
+  font-size: 13px;
+  color: #fff;
+  background: var(--orange);
+  padding: 9px 20px;
+  border-radius: 100px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+.nav-cta:hover { background: var(--orange-deep); }
+
+@media (max-width: 600px) {
+  .nav-tag { display: none; }
+}
+
+/* ═══════════ PANEL 1, HERO ═══════════ */
+.hero {
+  position: relative;
+  padding: 80px 32px 100px;
+  overflow: hidden;
+}
+.hero-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--orange-deep);
+  font-weight: 500;
+  background: var(--orange-soft);
+  padding: 8px 16px;
+  border-radius: 100px;
+  margin-bottom: 28px;
+}
+.hero-tag-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--orange);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.hero h1 {
+  font-size: clamp(36px, 5vw, 64px);
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 28px;
+}
+.hero-lede {
+  font-size: clamp(16px, 1.6vw, 19px);
+  line-height: 1.6;
+  color: var(--ink-soft);
+  max-width: 540px;
+  margin-bottom: 36px;
+}
+.hero-lede strong { color: var(--ink); font-weight: 500; }
+
+/* Hero email form, first capture */
+.signup-form {
+  max-width: 480px;
+}
+.signup-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.signup-input {
+  flex: 1;
+  font-family: var(--f-body);
+  font-size: 15px;
+  color: var(--ink);
+  background: #fff;
+  border: 1.5px solid var(--ink);
+  border-radius: 100px;
+  padding: 14px 22px;
+  transition: border-color 0.2s;
+}
+.signup-input:focus {
+  outline: none;
+  border-color: var(--orange);
+}
+.signup-input::placeholder { color: var(--mute); }
+.signup-btn {
+  font-family: var(--f-display);
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+  background: var(--orange);
+  border: none;
+  border-radius: 100px;
+  padding: 14px 28px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  white-space: nowrap;
+}
+.signup-btn:hover {
+  background: var(--orange-deep);
+  transform: translateY(-1px);
+}
+.signup-incentive {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--sage);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.signup-incentive::before {
+  content: '✓';
+  color: var(--orange);
+  font-weight: 700;
+  font-size: 14px;
+}
+.signup-fineprint {
+  font-size: 12px;
+  color: var(--mute);
+  margin-top: 8px;
+  font-style: italic;
+}
+
+.hero-success, .final-success {
+  background: rgba(143, 163, 150, 0.18);
+  color: var(--sage, #2F3D33);
+  padding: 16px 22px;
+  border-radius: 12px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  margin-top: 18px;
+  text-align: left;
+}
+.hero-success strong, .final-success strong { color: var(--ink); }
+.final-success { text-align: center; max-width: 480px; margin-left: auto; margin-right: auto; }
+
+
+/* Hero visual, photography (quiet luxury treatment) */
+.hero-visual {
+  aspect-ratio: 4 / 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 24px;
+  background: linear-gradient(160deg, var(--sand-deep) 0%, var(--sand) 100%);
+  box-shadow: 0 24px 48px rgba(47, 61, 51, 0.12), 0 8px 16px rgba(47, 61, 51, 0.06);
+}
+.hero-visual .placeholder-label .title { color: var(--sage); }
+
+/* Trust row under hero */
+.hero-trust {
+  margin-top: 64px;
+  padding-top: 36px;
+  border-top: 1px solid var(--line-soft);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px 48px;
+  align-items: center;
+}
+.trust-item {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sage);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.trust-item::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--sage);
+}
+
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+  .hero-visual { order: -1; max-width: 420px; margin: 0 auto; }
+}
+
+/* ═══════════ PANEL 2, RECOGNITION ═══════════ */
+.recognition {
+  background: var(--sand);
+  padding: 110px 32px 120px;
+}
+.recog-inner { max-width: 1180px; margin: 0 auto; }
+.recog-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.recog-header h2 {
+  font-size: clamp(32px, 4.2vw, 50px);
+  letter-spacing: -0.025em;
+  margin-bottom: 16px;
+}
+.recog-sub {
+  font-size: 16px;
+  color: var(--ink-soft);
+  max-width: 540px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+.recog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 48px;
+}
+.recog-bubble {
+  background: var(--cream);
+  border-radius: 24px;
+  padding: 28px 28px 30px;
+  position: relative;
+  transition: transform 0.3s;
+  border: 1px solid var(--line-soft);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+}
+.recog-bubble:nth-child(odd) { transform: rotate(-1deg); }
+.recog-bubble:nth-child(even) { transform: rotate(0.8deg); }
+.recog-bubble:nth-child(3) { transform: rotate(-0.4deg); }
+.recog-bubble:nth-child(5) { transform: rotate(0.5deg); }
+.recog-bubble:hover {
+  transform: rotate(0) translateY(-3px);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.06);
+}
+.recog-sketch {
+  width: 72px;
+  height: 72px;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: var(--sand);
+  position: relative;
+}
+.recog-sketch.placeholder::after {
+  content: '[ sketch ]';
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--sage-light);
+}
+.recog-line {
+  font-family: var(--f-display);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+.recog-why {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--sage);
+  padding-top: 12px;
+  border-top: 1px dashed var(--sage-light);
+  font-style: italic;
+}
+.recog-tag {
+  position: absolute;
+  top: -14px;
+  right: 16px;
+  background: var(--orange);
+  color: #fff;
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-weight: 500;
+  transform: rotate(3deg);
+}
+.recog-bubble:nth-child(2) .recog-tag,
+.recog-bubble:nth-child(4) .recog-tag,
+.recog-bubble:nth-child(6) .recog-tag {
+  background: var(--sage);
+  transform: rotate(-3deg);
+}
+.recog-conclusion {
+  text-align: center;
+  font-family: var(--f-display);
+  font-size: clamp(20px, 2.2vw, 26px);
+  font-style: italic;
+  color: var(--ink);
+  max-width: 720px;
+  margin: 0 auto;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+  padding: 24px 0;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+@media (max-width: 900px) {
+  .recog-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .recog-grid { grid-template-columns: 1fr; gap: 18px; }
+}
+
+/* ═══════════ PANEL 3, LEMNA STORY ═══════════ */
+.lemna-story {
+  background: var(--cream);
+  padding: 130px 32px;
+  position: relative;
+}
+.lemna-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+.lemna-header {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 80px;
+}
+.lemna-header h2 {
+  font-size: clamp(36px, 4.8vw, 60px);
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+  line-height: 1.05;
+}
+.lemna-header p {
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+.lemna-header p strong { color: var(--ink); font-weight: 500; }
+
+.lemna-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  margin-bottom: 80px;
+}
+.lemna-illustration {
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 24px;
+  background: linear-gradient(160deg, var(--sand-deep) 0%, var(--sand) 100%);
+  box-shadow: 0 24px 48px rgba(47, 61, 51, 0.12), 0 8px 16px rgba(47, 61, 51, 0.06);
+  padding: 32px;
+}
+.lemna-illustration .placeholder-label .title { color: var(--sage); }
+.lemna-text h3 {
+  font-size: clamp(24px, 2.6vw, 32px);
+  margin-bottom: 18px;
+  letter-spacing: -0.02em;
+}
+.lemna-text p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  margin-bottom: 16px;
+}
+.lemna-text strong { color: var(--ink); font-weight: 500; }
+
+/* Lemna stat cards */
+.lemna-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.lemna-stat {
+  background: var(--sand);
+  border-radius: 18px;
+  padding: 28px 24px;
+  text-align: center;
+}
+.lemna-stat-num {
+  font-family: var(--f-display);
+  font-size: clamp(26px, 3vw, 36px);
+  font-weight: 700;
+  color: var(--orange-deep);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.lemna-stat-label {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sage);
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+.lemna-stat-desc {
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+@media (max-width: 800px) {
+  .lemna-grid { grid-template-columns: 1fr; gap: 48px; }
+  .lemna-illustration { max-width: 380px; margin: 0 auto; }
+  .lemna-stats { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ═══════════ PANEL 4, MACROS REVEAL ═══════════ */
+.macros {
+  background: var(--sage);
+  color: #fff;
+  padding: 130px 32px;
+  position: relative;
+}
+.macros-inner { max-width: 1180px; margin: 0 auto; }
+.macros-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+.macros-header .eyebrow { color: var(--orange); }
+.macros-header h2 {
+  font-size: clamp(36px, 4.8vw, 56px);
+  color: #fff;
+  letter-spacing: -0.025em;
+  margin-bottom: 18px;
+}
+.macros-header h2 em { color: var(--orange); }
+.macros-header p {
+  font-size: 17px;
+  color: rgba(255,255,255,0.75);
+  max-width: 580px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Macro stat cards */
+.macro-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 56px;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.macro-card {
+  background: var(--sage-mid);
+  border-radius: 20px;
+  padding: 36px 28px;
+  text-align: center;
+  position: relative;
+}
+.macro-num {
+  font-family: var(--f-display);
+  font-size: clamp(36px, 4.5vw, 56px);
+  font-weight: 700;
+  color: var(--orange);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.macro-unit {
+  font-family: var(--f-display);
+  font-size: 22px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 18px;
+  letter-spacing: -0.01em;
+}
+.macro-label {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--sage-light);
+  font-weight: 500;
+}
+.macro-flavor-note {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.4);
+  margin-top: 8px;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+/* Comparison subline */
+.macros-vs {
+  text-align: center;
+  margin-top: 40px;
+  padding: 32px 32px;
+  background: var(--sage-mid);
+  border-radius: 16px;
+  max-width: 880px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.macros-vs-label {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sage-light);
+  margin-bottom: 18px;
+  font-weight: 500;
+}
+.vs-row {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 16px 32px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.85);
+}
+.vs-item strong { color: var(--orange); font-weight: 500; }
+
+@media (max-width: 800px) {
+  .macro-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ═══════════ PANEL 5, INGREDIENTS ═══════════ */
+.ingredients {
+  background: var(--cream);
+  padding: 130px 32px;
+}
+.ing-inner { max-width: 1180px; margin: 0 auto; }
+.ing-header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 60px;
+}
+.ing-header h2 {
+  font-size: clamp(36px, 4.8vw, 56px);
+  margin-bottom: 18px;
+  letter-spacing: -0.025em;
+}
+.ing-header p {
+  font-size: 16px;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+
+.ing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.ing-row {
+  background: #fff;
+  border-radius: 14px;
+  padding: 22px 26px;
+  border: 1px solid var(--line-soft);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 18px;
+  align-items: flex-start;
+  transition: all 0.2s;
+}
+.ing-row:hover {
+  border-color: var(--sage-light);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+.ing-row.hero-ing {
+  background: var(--sage);
+  color: #fff;
+  border-color: var(--sage);
+  grid-column: span 2;
+}
+.ing-row.hero-ing .ing-name { color: #fff; font-size: 19px; }
+.ing-row.hero-ing .ing-purpose { color: rgba(255,255,255,0.78); }
+.ing-row.hero-ing .ing-tag { background: var(--orange); color: #fff; }
+.ing-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: var(--sand);
+  font-family: var(--f-mono);
+  font-size: 8px;
+  color: var(--sage-light);
+  letter-spacing: 0.1em;
+  flex-shrink: 0;
+}
+.ing-row.hero-ing .ing-icon {
+  background: var(--sage-mid);
+  color: var(--sage-light);
+}
+.ing-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.ing-namerow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.ing-name {
+  font-family: var(--f-display);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.ing-tag {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--sage-tint);
+  color: var(--sage);
+  padding: 3px 8px;
+  border-radius: 100px;
+  font-weight: 500;
+}
+.ing-purpose {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+.ing-honest {
+  margin-top: 32px;
+  background: var(--orange-soft);
+  border-left: 4px solid var(--orange);
+  border-radius: 8px;
+  padding: 22px 28px;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--ink);
+}
+.ing-honest strong { font-weight: 500; }
+
+@media (max-width: 800px) {
+  .ing-grid { grid-template-columns: 1fr; }
+  .ing-row.hero-ing { grid-column: span 1; }
+}
+
+/* ═══════════ PANEL 6, WHAT'S NOT IN IT ═══════════ */
+.not-in-it {
+  background: var(--sand);
+  padding: 110px 32px;
+}
+.not-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  text-align: center;
+}
+.not-header {
+  margin-bottom: 56px;
+}
+.not-header h2 {
+  font-size: clamp(34px, 4.5vw, 52px);
+  margin-bottom: 18px;
+  letter-spacing: -0.025em;
+}
+.not-header p {
+  font-size: 16px;
+  color: var(--ink-soft);
+  max-width: 560px;
+  margin: 0 auto;
+}
+.not-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  max-width: 880px;
+  margin: 0 auto;
+}
+.not-item {
+  background: var(--cream);
+  border: 1px solid var(--line-soft);
+  border-radius: 12px;
+  padding: 20px 22px;
+  text-align: left;
+  position: relative;
+  font-size: 14px;
+  font-family: var(--f-display);
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.not-item::before {
+  content: '✕';
+  font-family: var(--f-mono);
+  font-weight: 700;
+  color: var(--orange);
+  font-size: 16px;
+  flex-shrink: 0;
+}
+@media (max-width: 700px) {
+  .not-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .not-grid { grid-template-columns: 1fr; }
+}
+
+/* ═══════════ PANEL 7, FLAVORS ═══════════ */
+.flavors {
+  background: var(--cream);
+  padding: 130px 32px;
+}
+.flav-inner { max-width: 1180px; margin: 0 auto; }
+.flav-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+.flav-header h2 {
+  font-size: clamp(34px, 4.5vw, 52px);
+  margin-bottom: 16px;
+  letter-spacing: -0.025em;
+}
+.flav-header p {
+  font-size: 16px;
+  color: var(--ink-soft);
+  max-width: 580px;
+  margin: 0 auto;
+}
+.flav-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.flav-card {
+  background: #fff;
+  border-radius: 24px;
+  border: 1px solid var(--line-soft);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+  transition: transform 0.3s;
+}
+.flav-card:hover { transform: translateY(-4px); }
+.flav-image {
+  aspect-ratio: 4 / 3;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flav-card.pb .flav-image { background: linear-gradient(140deg, #C9A87C 0%, #8B6F47 100%); }
+.flav-card.cc .flav-image { background: linear-gradient(140deg, #6B4F3F 0%, #3A2A20 100%); }
+.flav-image .placeholder-label .title { color: rgba(255,255,255,0.95); }
+.flav-image .placeholder-label .spec { color: rgba(255,255,255,0.6); }
+.flav-body {
+  padding: 32px 32px 36px;
+}
+.flav-tag-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.flav-diet {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sage);
+  background: var(--sage-tint);
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-weight: 500;
+}
+.flav-diet.vegan {
+  color: var(--orange-deep);
+  background: var(--orange-soft);
+}
+.flav-name {
+  font-family: var(--f-display);
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  letter-spacing: -0.02em;
+}
+.flav-tagline {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-size: 17px;
+  color: var(--orange);
+  margin-bottom: 20px;
+}
+.flav-macros {
+  display: flex;
+  gap: 18px;
+  padding: 16px 0;
+  border-top: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+  margin-bottom: 18px;
+}
+.flav-macro {
+  flex: 1;
+  text-align: center;
+}
+.flav-macro-num {
+  font-family: var(--f-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  display: block;
+}
+.flav-macro-label {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: var(--mute);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+.flav-desc {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+.flav-desc strong { color: var(--ink); font-weight: 500; }
+
+/* Side-by-side differences table */
+.flav-differences {
+  margin-top: 56px;
+  background: var(--sand);
+  border-radius: 18px;
+  padding: 36px 40px;
+  max-width: 1080px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.flav-diff-header {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--orange-deep);
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 24px;
+}
+.flav-diff-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.flav-diff-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 24px;
+  padding: 14px 0;
+  border-bottom: 1px dashed var(--sage-light);
+  align-items: center;
+}
+.flav-diff-row:last-child { border-bottom: none; }
+.flav-diff-label {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sage);
+  font-weight: 500;
+}
+.flav-diff-pb,
+.flav-diff-cc {
+  font-family: var(--f-display);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+}
+@media (max-width: 700px) {
+  .flav-grid { grid-template-columns: 1fr; }
+  .flav-differences { padding: 28px 24px; }
+  .flav-diff-row { grid-template-columns: 1fr; gap: 4px; padding: 12px 0; }
+  .flav-diff-label { color: var(--orange-deep); margin-bottom: 4px; }
+  .flav-diff-pb::before { content: 'Peanut Butter Crunch: '; font-family: var(--f-mono); font-size: 9px; letter-spacing: 0.1em; color: var(--mute); text-transform: uppercase; display: inline-block; margin-right: 6px; }
+  .flav-diff-cc::before { content: 'Cashew Chocolate: '; font-family: var(--f-mono); font-size: 9px; letter-spacing: 0.1em; color: var(--mute); text-transform: uppercase; display: inline-block; margin-right: 6px; }
+}
+@media (min-width: 701px) and (max-width: 900px) {
+  .flav-grid { grid-template-columns: 1fr; }
+}
+
+/* ═══════════ PANEL 8, MIDWAY EMAIL CAPTURE ═══════════ */
+.mid-capture {
+  background: var(--sage);
+  color: #fff;
+  padding: 110px 32px;
+  text-align: center;
+  position: relative;
+}
+.mid-capture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, rgba(242,104,47,0.4) 1px, transparent 0);
+  background-size: 24px 24px;
+  opacity: 0.12;
+}
+.mid-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  position: relative;
+}
+.mid-inner .eyebrow { color: var(--orange); }
+.mid-inner h2 {
+  font-size: clamp(32px, 4.4vw, 48px);
+  color: #fff;
+  margin-bottom: 20px;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+.mid-inner h2 em { color: var(--orange); }
+.mid-inner > p {
+  font-size: 17px;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+.mid-inner .signup-form {
+  margin: 0 auto;
+}
+.mid-inner .signup-input {
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  border-color: rgba(255,255,255,0.2);
+}
+.mid-inner .signup-input::placeholder { color: rgba(255,255,255,0.5); }
+.mid-inner .signup-input:focus { border-color: var(--orange); background: rgba(255,255,255,0.12); }
+.mid-inner .signup-incentive { color: var(--sage-light); justify-content: center; }
+.mid-inner .signup-fineprint { color: rgba(255,255,255,0.4); }
+
+/* Founding member benefits */
+.fm-benefits {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 720px;
+  margin: 40px auto 0;
+}
+.fm-benefit {
+  text-align: center;
+  padding: 18px 14px;
+  background: var(--sage-mid);
+  border-radius: 12px;
+}
+.fm-benefit-num {
+  font-family: var(--f-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--orange);
+  letter-spacing: -0.03em;
+  display: block;
+}
+.fm-benefit-label {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--sage-light);
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+@media (max-width: 600px) {
+  .fm-benefits { grid-template-columns: 1fr; }
+}
+
+/* ═══════════ PANEL 9, SISTERS' STORY ═══════════ */
+.story {
+  background: var(--cream);
+  padding: 130px 32px;
+}
+.story-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 80px;
+  align-items: center;
+}
+.story-image {
+  aspect-ratio: 4 / 5;
+  background: linear-gradient(160deg, var(--sand-deep) 0%, var(--sand) 100%);
+  border-radius: 24px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 24px 48px rgba(47, 61, 51, 0.12), 0 8px 16px rgba(47, 61, 51, 0.06);
+}
+.story-image .placeholder-label .title { color: var(--sage); }
+.story-text h2 {
+  font-size: clamp(32px, 4.2vw, 48px);
+  margin-bottom: 28px;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+.story-text p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  margin-bottom: 18px;
+}
+.story-text strong { color: var(--ink); font-weight: 500; }
+.story-pull {
+  font-family: var(--f-display);
+  font-size: clamp(20px, 2.4vw, 28px);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  padding: 24px 0 24px 28px;
+  border-left: 4px solid var(--orange);
+  margin: 28px 0;
+}
+.story-sign {
+  margin-top: 32px;
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--sage);
+}
+.story-sign-name {
+  font-family: var(--f-display);
+  font-style: normal;
+  font-weight: 600;
+  color: var(--ink);
+  font-size: 15px;
+  margin-top: 4px;
+  letter-spacing: 0.04em;
+}
+@media (max-width: 800px) {
+  .story-inner { grid-template-columns: 1fr; gap: 48px; }
+  .story-image { max-width: 380px; margin: 0 auto; order: -1; }
+}
+
+/* ═══════════ PANEL 10, FINAL CTA ═══════════ */
+.final-cta {
+  background: var(--sage);
+  color: #fff;
+  padding: 140px 32px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.final-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(242,104,47,0.12) 0%, transparent 70%);
+}
+.final-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  position: relative;
+}
+.final-inner .eyebrow { color: var(--orange); }
+.final-inner h2 {
+  font-size: clamp(36px, 5vw, 60px);
+  color: #fff;
+  margin-bottom: 24px;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+.final-inner h2 em { color: var(--orange); }
+.final-inner > p {
+  font-size: 17px;
+  color: rgba(255,255,255,0.78);
+  margin-bottom: 36px;
+  line-height: 1.6;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.final-inner .signup-form { margin: 0 auto; }
+.final-inner .signup-input {
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  border-color: rgba(255,255,255,0.25);
+}
+.final-inner .signup-input::placeholder { color: rgba(255,255,255,0.5); }
+.final-inner .signup-input:focus { border-color: var(--orange); background: rgba(255,255,255,0.12); }
+.final-inner .signup-incentive { color: var(--sage-light); justify-content: center; }
+.final-inner .signup-fineprint { color: rgba(255,255,255,0.4); text-align: center; }
+.final-social {
+  margin-top: 40px;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--sage-light);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.final-social strong { color: var(--orange); font-weight: 500; }
+
+/* ═══════════ PANEL 11, FAQ ═══════════ */
+.faq {
+  background: var(--cream);
+  padding: 100px 32px;
+}
+.faq-inner { max-width: 820px; margin: 0 auto; }
+.faq-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.faq-header h2 {
+  font-size: clamp(28px, 3.5vw, 40px);
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+.faq-header p {
+  font-size: 15px;
+  color: var(--ink-soft);
+}
+.faq-list { display: flex; flex-direction: column; gap: 10px; }
+.faq-item {
+  background: var(--sand);
+  border-radius: 14px;
+  padding: 20px 28px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+}
+.faq-item:hover { border-color: var(--sage-light); }
+.faq-item summary {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-family: var(--f-display);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: '+';
+  font-size: 22px;
+  color: var(--orange);
+  transition: transform 0.2s;
+  font-weight: 400;
+}
+.faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-answer {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--sage-light);
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+.faq-answer strong { color: var(--ink); font-weight: 500; }
+
+/* ═══════════ FOOTER ═══════════ */
+.footer {
+  background: var(--sage);
+  color: rgba(255,255,255,0.7);
+  padding: 60px 32px 40px;
+  text-align: center;
+}
+.footer-logo {
+  font-family: var(--f-display);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--orange);
+  letter-spacing: -0.04em;
+  margin-bottom: 12px;
+}
+.footer-tag {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--sage-light);
+  margin-bottom: 28px;
+}
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+.footer-links a {
+  font-family: var(--f-body);
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--orange); }
+.footer-fineprint {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+</style>
+<style id="mujo-canonical-nav">
+:root {
+  --orange: #F2682F; --orange-deep: #D85A22; --orange-soft: #FDEFE6;
+  --cream: #F3F2E9; --sand: #EEE9E0; --sand-deep: #D4C4A8;
+  --sage: #2F3D33; --sage-mid: #3D4D40; --sage-light: #8FA396;
+  --sage-tint: rgba(47, 61, 51, 0.08);
+  --ink: #1A1A1A; --ink-soft: #4A4845; --mute: #5C5854;
+  --line: rgba(26, 26, 26, 0.09); --line-soft: rgba(26, 26, 26, 0.06);
+  --f-display: 'General Sans', -apple-system, sans-serif;
+  --f-body: 'General Sans', 'Helvetica Neue', sans-serif;
+  --f-serif: 'Instrument Serif', 'Times New Roman', serif;
+  --f-mono: 'DM Mono', monospace;
+  --nav-h: 64px;
+}
+.announce { background: var(--sage); color: #fff; text-align: center; padding: 9px 16px; font-size: 12px; letter-spacing: 0.01em; position: relative; z-index: 200; line-height: 1.4; }
+.announce strong { color: var(--orange); font-weight: 500; }
+.announce .sep { opacity: 0.4; margin: 0 8px; }
+@media (max-width: 640px) { .announce-secondary { display: none; } }
+@media (min-width: 768px) { .announce { padding: 10px 24px; font-size: 13px; } .announce .sep { margin: 0 10px; } }
+nav.mujo-nav { position: sticky; top: 0; z-index: 150; background: rgba(243, 242, 233, 0.94); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--line-soft); padding: 12px 16px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; height: var(--nav-h); transition: box-shadow 0.3s; }
+nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+@media (min-width: 1024px) { nav.mujo-nav { padding: 14px 32px; grid-template-columns: 1fr auto 1fr; gap: 24px; } }
+.nav-hamburger { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; color: var(--ink); margin-left: -8px; }
+.nav-hamburger svg { width: 22px; height: 22px; }
+@media (min-width: 1024px) { .nav-hamburger { display: none; } }
+.nav-logo { display: inline-flex; align-items: center; text-decoration: none; justify-self: center; }
+.nav-logo img { height: 26px; width: auto; display: block; }
+@media (min-width: 1024px) { .nav-logo { justify-self: start; } .nav-logo img { height: 30px; } }
+.nav-center { display: none; justify-content: center; align-items: center; gap: 32px; }
+.nav-link { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-weight: 500; letter-spacing: 0.01em; transition: color 0.2s; position: relative; padding: 4px 0; }
+.nav-link:hover { color: var(--sage); }
+.nav-link.active { color: var(--sage); }
+.nav-link.active::after { content: ''; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px; background: var(--orange); }
+@media (min-width: 1024px) { .nav-center { display: flex; } }
+.nav-right { display: flex; align-items: center; gap: 4px; justify-self: end; }
+.nav-icon { width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; border: none; background: transparent; color: var(--ink); cursor: pointer; text-decoration: none; position: relative; border-radius: 50%; transition: background 0.2s; }
+.nav-icon:hover { background: var(--sage-tint); }
+.nav-icon svg { width: 20px; height: 20px; }
+.cart-count { position: absolute; top: 4px; right: 4px; background: var(--orange); color: #fff; font-family: var(--f-mono); font-size: 9px; font-weight: 500; min-width: 16px; height: 16px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; padding: 0 4px; line-height: 1; }
+.cart-count.hidden { display: none; }
+.menu-overlay { position: fixed; inset: 0; background: rgba(26,26,26,0.5); z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+.menu-overlay.open { opacity: 1; pointer-events: auto; }
+.mobile-menu { position: fixed; top: 0; left: 0; bottom: 0; width: min(360px, 88vw); background: var(--cream); z-index: 999; transform: translateX(-100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; overflow-y: auto; }
+.mobile-menu.open { transform: translateX(0); }
+.mm-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); }
+.mm-head img { height: 26px; width: auto; }
+.mm-close { width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); margin-right: -8px; }
+.mm-close svg { width: 20px; height: 20px; }
+.mm-links { display: flex; flex-direction: column; padding: 4px 0; flex: 1; }
+.mm-link { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; font-family: var(--f-display); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-soft); transition: background 0.15s, color 0.15s; }
+.mm-link:hover { color: var(--orange-deep); background: rgba(242,104,47,0.04); }
+.mm-link svg { width: 16px; height: 16px; opacity: 0.4; }
+.mm-foot { padding: 24px; background: var(--sage); color: #fff; }
+.mm-foot-eyebrow { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); margin-bottom: 10px; }
+.mm-foot p { font-size: 14px; line-height: 1.55; color: rgba(255,255,255,0.7); margin-bottom: 16px; }
+.mm-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--orange); color: #fff; text-decoration: none; padding: 12px 20px; border-radius: 100px; font-size: 14px; font-weight: 500; }
+.cart-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(440px, 100vw); background: var(--cream); z-index: 999; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; box-shadow: -20px 0 60px rgba(0,0,0,0.1); }
+.cart-drawer.open { transform: translateX(0); }
+.cart-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); }
+.cart-head-title { font-family: var(--f-display); font-size: 18px; font-weight: 500; letter-spacing: -0.01em; }
+.cart-head-title span { font-family: var(--f-mono); font-size: 11px; color: var(--mute); letter-spacing: 0.1em; margin-left: 8px; font-weight: 400; }
+.cart-close { width: 36px; height: 36px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); border-radius: 50%; margin-right: -6px; }
+.cart-close:hover { background: var(--sage-tint); }
+.cart-close svg { width: 18px; height: 18px; }
+.cart-progress { background: var(--sand); padding: 14px 20px 16px; border-bottom: 1px solid var(--line-soft); }
+.cart-progress-msg { font-size: 13px; color: var(--ink-soft); margin-bottom: 8px; line-height: 1.4; }
+.cart-progress-msg strong { color: var(--ink); font-weight: 500; }
+.cart-progress-msg .accent { color: var(--orange-deep); font-weight: 500; }
+.cart-progress-track { height: 6px; background: rgba(26,26,26,0.08); border-radius: 3px; overflow: hidden; }
+.cart-progress-fill { height: 100%; background: var(--orange); border-radius: 3px; width: 0%; transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+.cart-progress-fill.full { background: var(--sage); }
+.cart-body { flex: 1; overflow-y: auto; padding: 8px 20px; }
+.cart-item { display: grid; grid-template-columns: 72px 1fr auto; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--line-soft); }
+.cart-item-img { width: 72px; height: 72px; background: var(--sand); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; }
+.cart-item-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.cart-item-name { font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.3; }
+.cart-item-variant { font-size: 12px; color: var(--mute); margin-bottom: 6px; }
+.cart-item-controls { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 100px; background: #fff; width: fit-content; margin-top: auto; }
+.qty-btn { width: 28px; height: 28px; background: transparent; border: none; cursor: pointer; font-size: 14px; color: var(--ink-soft); display: inline-flex; align-items: center; justify-content: center; }
+.qty-val { font-family: var(--f-mono); font-size: 12px; min-width: 24px; text-align: center; }
+.cart-item-meta { display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; text-align: right; }
+.cart-item-price { font-family: var(--f-mono); font-size: 13px; font-weight: 500; }
+.cart-item-remove { background: transparent; border: none; cursor: pointer; font-family: var(--f-mono); font-size: 10px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; padding: 4px 0; }
+.cart-empty { text-align: center; padding: 56px 24px; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.cart-empty-illo { font-size: 52px; opacity: 0.5; }
+.cart-empty h3 { font-size: 22px; font-weight: 500; }
+.cart-empty p { font-size: 14px; color: var(--mute); max-width: 260px; line-height: 1.5; }
+.cart-empty a { margin-top: 6px; background: var(--orange); color: #fff; text-decoration: none; padding: 12px 22px; border-radius: 100px; font-size: 14px; font-weight: 500; }
+.cart-foot { border-top: 1px solid var(--line-soft); padding: 16px 20px 20px; }
+.cart-row { display: flex; justify-content: space-between; align-items: baseline; padding: 4px 0; font-size: 14px; color: var(--ink-soft); }
+.cart-row.total { padding-top: 10px; font-size: 18px; font-weight: 500; color: var(--ink); font-family: var(--f-display); }
+.cart-row .price { font-family: var(--f-mono); }
+.cart-shipping-note { font-size: 11px; color: var(--mute); font-family: var(--f-mono); letter-spacing: 0.04em; margin: 8px 0 14px; line-height: 1.4; }
+.cart-checkout { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: var(--orange); color: #fff; text-decoration: none; border: none; cursor: pointer; padding: 16px 24px; border-radius: 100px; font-size: 15px; font-weight: 500; transition: background 0.2s; }
+.cart-checkout:hover { background: var(--orange-deep); }
+.cart-secure { text-align: center; font-size: 11px; color: var(--mute); font-family: var(--f-mono); letter-spacing: 0.08em; margin-top: 10px; text-transform: uppercase; }
+body.locked { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="announce">
+  Free shipping over <strong>$100</strong>
+  <span class="sep announce-secondary">·</span>
+  <span class="announce-secondary">Use <strong>WELCOME10</strong> for 10% off your first order</span>
+</div>
+
+<nav class="mujo-nav" id="nav">
+  <button class="nav-hamburger" aria-label="Open menu" onclick="openMenu()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg></button>
+  <a href="/" class="nav-logo" aria-label="Mujo home"><img src="Mujo_logo_orange.png" alt="Mujo"></a>
+  <div class="nav-center">
+    <a href="/shop" class="nav-link">Shop</a>
+    <a href="/science" class="nav-link">Science</a>
+    <a href="/ingredients" class="nav-link">Ingredients</a>
+    <a href="/journal" class="nav-link">Journal</a>
+    <a href="/rebel-club" class="nav-link">Rebel Club</a>
+  </div>
+  <div class="nav-right">
+    <a href="/account" class="nav-icon" aria-label="Account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></a>
+    <button class="nav-icon" aria-label="Cart" onclick="openCart()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h14l-1.4 11.2a2 2 0 0 1-2 1.8H8.4a2 2 0 0 1-2-1.8L5 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg><span class="cart-count hidden" id="cartCount">0</span></button>
+  </div>
+</nav>
+
+<div class="menu-overlay" id="overlay" onclick="closeAll()"></div>
+<aside class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <div class="mm-head">
+    <a href="/" aria-label="Mujo home"><img src="Mujo_logo_orange.png" alt="Mujo"></a>
+    <button class="mm-close" aria-label="Close menu" onclick="closeMenu()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>
+  </div>
+  <div class="mm-links">
+    <a href="/shop" class="mm-link">Shop <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    <a href="/science" class="mm-link">Science <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    <a href="/ingredients" class="mm-link">Ingredients <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    <a href="/journal" class="mm-link">Journal <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    <a href="/rebel-club" class="mm-link">Rebel Club <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    <a href="/about" class="mm-link">About <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    <a href="/account" class="mm-link">Account <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+  </div>
+  <div class="mm-foot">
+    <div class="mm-foot-eyebrow">New here</div>
+    <p>10% off your first order. Take 60 seconds, get a Reset Plan tuned to your specific pattern.</p>
+    <a href="/quiz" class="mm-cta">Take the audit →</a>
+  </div>
+</aside>
+<aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
+  <div class="cart-head">
+    <div class="cart-head-title">Your cart <span id="cartHeadCount">0 items</span></div>
+    <button class="cart-close" aria-label="Close cart" onclick="closeCart()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>
+  </div>
+  <div class="cart-progress">
+    <div class="cart-progress-msg" id="progressMsg">Free shipping at <strong>$100</strong>.</div>
+    <div class="cart-progress-track"><div class="cart-progress-fill" id="progressFill" style="width: 0%;"></div></div>
+  </div>
+  <div class="cart-body" id="cartBody"></div>
+  <div class="cart-foot">
+    <div class="cart-row"><span>Subtotal</span><span class="price" id="subtotalDisplay">$0</span></div>
+    <div class="cart-row"><span>Shipping</span><span class="price" id="shippingDisplay">Calculated at checkout</span></div>
+    <div class="cart-row total"><span>Total</span><span class="price" id="totalDisplay">$0</span></div>
+    <div class="cart-shipping-note">Taxes calculated at checkout. Subscription orders renew at 25% off retail.</div>
+    <button class="cart-checkout" onclick="checkout()">Checkout <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></button>
+    <div class="cart-secure">Secure · Stripe checkout</div>
+  </div>
+</aside>
+
+
+<div class="paper-grain"></div>
+
+<!-- ═══════════ NAV ═══════════ -->
+<!-- ═══════════ PANEL 1, HERO ═══════════ -->
+<section class="hero" id="signup">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-tag">
+        <span class="hero-tag-dot"></span>
+        Founding member access · Summer 2026
+      </div>
+      <h1>The world's first protein bar made with <em>Lemna leaf.</em></h1>
+      <p class="hero-lede">14 to 17g of complete protein. Real ingredients you can name. <strong>No natural flavors. No sugar alcohols. No isolates.</strong> Built around a plant most people have never heard of, that quietly outperforms every protein source on the planet.</p>
+
+      <form class="signup-form" id="heroForm" onsubmit="return submitHeroForm(event);">
+        <div class="signup-row">
+          <input type="email" class="signup-input" id="heroEmail" placeholder="your@email.com" aria-label="Email address" required>
+          <button type="submit" class="signup-btn">Reserve →</button>
+        </div>
+        <div class="signup-incentive">15% off your first order as a founding member</div>
+        <p class="signup-fineprint">No spam. We'll only email you for the launch and the occasional honest update.</p>
+        <div class="hero-success" id="heroSuccess" style="display:none;">
+          <strong>You're on the founding list.</strong> Check your inbox for confirmation, the launch link arrives summer 2026.
+        </div>
+      </form>
+    </div>
+
+    <div class="hero-visual">
+      <div class="placeholder-label">
+        <span class="title">The Lemna Bar, hero photograph</span>
+        <span class="spec">Product photography · two bars staged with natural light · macro detail of texture · cream or sage backdrop · NOT illustration</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-trust">
+    <div class="trust-item">14-17g complete protein</div>
+    <div class="trust-item">Under 250 calories</div>
+    <div class="trust-item">7g real fiber</div>
+    <div class="trust-item">No natural flavors</div>
+    <div class="trust-item">No isolates</div>
+  </div>
+</section>
+
+<!-- ═══════════ PANEL 2, RECOGNITION ═══════════ -->
+<section class="recognition">
+  <div class="recog-inner">
+    <div class="recog-header">
+      <div class="eyebrow">Why we built this</div>
+      <h2>Most protein bars have a problem.</h2>
+      <p class="recog-sub">You've probably noticed. You just haven't named it.</p>
+    </div>
+
+    <div class="recog-grid">
+      <div class="recog-bubble">
+        <div class="recog-tag">Texture</div>
+        <div class="recog-sketch placeholder"></div>
+        <div class="recog-line">It tastes like chalk pretending to be chocolate.</div>
+        <div class="recog-why">Whey isolate + sucralose, every time.</div>
+      </div>
+
+      <div class="recog-bubble">
+        <div class="recog-tag">Gut</div>
+        <div class="recog-sketch placeholder"></div>
+        <div class="recog-line">Your stomach knows something is wrong by 2pm.</div>
+        <div class="recog-why">Sugar alcohols don't actually digest.</div>
+      </div>
+
+      <div class="recog-bubble">
+        <div class="recog-tag">Label</div>
+        <div class="recog-sketch placeholder"></div>
+        <div class="recog-line">17 ingredients. You can pronounce six.</div>
+        <div class="recog-why">"Natural flavors" is hiding a lot.</div>
+      </div>
+
+      <div class="recog-bubble">
+        <div class="recog-tag">Energy</div>
+        <div class="recog-sketch placeholder"></div>
+        <div class="recog-line">A protein bar that needs caffeine to land.</div>
+        <div class="recog-why">Sucralose hits dopamine, not real energy.</div>
+      </div>
+
+      <div class="recog-bubble">
+        <div class="recog-tag">Soy</div>
+        <div class="recog-sketch placeholder"></div>
+        <div class="recog-line">Even the "clean" ones lean on soy isolate.</div>
+        <div class="recog-why">Industrial extraction, environmental footprint.</div>
+      </div>
+
+      <div class="recog-bubble">
+        <div class="recog-tag">After</div>
+        <div class="recog-sketch placeholder"></div>
+        <div class="recog-line">Heavy after. Tired by 4. You ate the bar to avoid this.</div>
+        <div class="recog-why">Cheap protein, slow digestion, blood sugar swing.</div>
+      </div>
+    </div>
+
+    <div class="recog-conclusion">
+      Every "performance bar" you've tried is solving the wrong problem with the wrong ingredients.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PANEL 3, LEMNA STORY ═══════════ -->
+<section class="lemna-story">
+  <div class="lemna-inner">
+    <div class="lemna-header">
+      <div class="eyebrow">The hero ingredient</div>
+      <h2>Meet <em>Lemna leaf.</em></h2>
+      <p>The smallest flowering plant in the world. <strong>A complete protein with a PDCAAS of 1.0, equivalent to egg and whey.</strong> Grown on water in closed systems, not on land. Less than ten years ago, almost no one was eating it. Now it's quietly the most efficient protein source on the planet, and we built our bar around it.</p>
+    </div>
+
+    <div class="lemna-grid">
+      <div class="lemna-illustration">
+        <div class="placeholder-label">
+          <span class="title">Lemna leaf</span>
+          <span class="spec">Product photography · macro detail of fresh Lemna leaf<br>natural light · cream or sage backdrop · NOT illustration</span>
+        </div>
+      </div>
+
+      <div class="lemna-text">
+        <h3>Why nobody else has it.</h3>
+        <p>Lemna leaf has been studied for decades but only recently became commercially viable for human nutrition. We use Rubi Protein™ from Plantible Foods, the only producer of food-grade Lemna leaf protein available at meaningful scale.</p>
+        <p>Lemna leaf has a <strong>complete amino acid profile</strong>, comparable to whey on every metric that matters for muscle protein synthesis. <strong>It actually has a perfect digestibility score of 1.0, like eggs and whey.</strong> But unlike whey, soy, or pea, Lemna grows on water in closed tanks, requires no arable land, and doubles its biomass every 24 to 48 hours.</p>
+        <p>The bar isn't a protein bar with Lemna added. It's <strong>a Lemna bar</strong>. The plant is the point.</p>
+      </div>
+    </div>
+
+    <div class="lemna-stats">
+      <div class="lemna-stat">
+        <div class="lemna-stat-num">9</div>
+        <div class="lemna-stat-label">Essential amino acids</div>
+        <div class="lemna-stat-desc">Complete amino acid profile, on par with whey and eggs + PDCAAS 1.0.</div>
+      </div>
+      <div class="lemna-stat">
+        <div class="lemna-stat-num">10×</div>
+        <div class="lemna-stat-label">Less land</div>
+        <div class="lemna-stat-desc">Than soy, per gram of protein produced.</div>
+      </div>
+      <div class="lemna-stat">
+        <div class="lemna-stat-num">24h</div>
+        <div class="lemna-stat-label">Doubling</div>
+        <div class="lemna-stat-desc">The fastest-multiplying plant we eat.</div>
+      </div>
+      <div class="lemna-stat">
+        <div class="lemna-stat-num">0</div>
+        <div class="lemna-stat-label">Arable land</div>
+        <div class="lemna-stat-desc">Grows on water in closed-loop systems.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PANEL 4, MACROS ═══════════ -->
+<section class="macros">
+  <div class="macros-inner">
+    <div class="macros-header">
+      <div class="eyebrow">The macros, fully revealed</div>
+      <h2>What's in every bar. <em>The full count.</em></h2>
+      <p>We don't hide the numbers. The bar earns its place on macros, not just on the ingredient story.</p>
+    </div>
+
+    <div class="macro-grid">
+      <div class="macro-card">
+        <div class="macro-num">14-17</div>
+        <div class="macro-unit">g protein</div>
+        <div class="macro-label">Complete</div>
+        <div class="macro-flavor-note">14g cashew chocolate · 17g peanut butter crunch</div>
+      </div>
+      <div class="macro-card">
+        <div class="macro-num">7</div>
+        <div class="macro-unit">g fiber</div>
+        <div class="macro-label">Real, food-based</div>
+        <div class="macro-flavor-note">Tapioca, chicory, real food</div>
+      </div>
+      <div class="macro-card">
+        <div class="macro-num">7-8</div>
+        <div class="macro-unit">g sugar</div>
+        <div class="macro-label">From dates &amp; honey</div>
+        <div class="macro-flavor-note">No sugar alcohols, no syrups</div>
+      </div>
+      <div class="macro-card">
+        <div class="macro-num">&lt;250</div>
+        <div class="macro-unit">calories</div>
+        <div class="macro-label">Per bar</div>
+        <div class="macro-flavor-note">Real food density</div>
+      </div>
+    </div>
+
+    <div class="macros-vs">
+      <div class="macros-vs-label">How that compares to the category average</div>
+      <div class="vs-row">
+        <div class="vs-item">Mujo: <strong>14-17g protein</strong> from Lemna + nut butters</div>
+        <div class="vs-item">Most bars: <strong>10-15g protein</strong> from whey or soy isolate</div>
+        <div class="vs-item">Mujo: <strong>0 sugar alcohols</strong></div>
+        <div class="vs-item">Most bars: <strong>5-15g sugar alcohols</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PANEL 5, INGREDIENTS BREAKDOWN ═══════════ -->
+<section class="ingredients">
+  <div class="ing-inner">
+    <div class="ing-header">
+      <div class="eyebrow">The full ingredient list</div>
+      <h2>Every ingredient. <em>And what it's doing there.</em></h2>
+      <p>Real food, in real amounts, with a reason for being in the bar. If we can't explain why an ingredient is in the formula, it's not in the formula.</p>
+    </div>
+
+    <div class="ing-grid">
+      <!-- Hero ingredient -->
+      <div class="ing-row hero-ing">
+        <div class="ing-icon">[ ic-lemna ]</div>
+        <div class="ing-content">
+          <div class="ing-namerow">
+            <span class="ing-name">Lemna leaf (Rubi Protein™)</span>
+            <span class="ing-tag">The hero</span>
+          </div>
+          <div class="ing-purpose">Complete plant protein. PDCAAS of 1.0. The reason this bar exists.</div>
+        </div>
+      </div>
+
+      <div class="ing-row">
+        <div class="ing-icon">[ icon ]</div>
+        <div class="ing-content">
+          <div class="ing-namerow">
+            <span class="ing-name">Cashew butter / peanut butter</span>
+            <span class="ing-tag">Base</span>
+          </div>
+          <div class="ing-purpose">The body of the bar. Real nut butter, never powdered. Healthy fats and structure.</div>
+        </div>
+      </div>
+
+      <div class="ing-row">
+        <div class="ing-icon">[ icon ]</div>
+        <div class="ing-content">
+          <div class="ing-namerow">
+            <span class="ing-name">Dates</span>
+            <span class="ing-tag">Sweetener</span>
+          </div>
+          <div class="ing-purpose">Whole-food sweetness with fiber and minerals. Slower glucose response than refined sugar.</div>
+        </div>
+      </div>
+
+      <div class="ing-row">
+        <div class="ing-icon">[ icon ]</div>
+        <div class="ing-content">
+          <div class="ing-namerow">
+            <span class="ing-name">Honey or date syrup</span>
+            <span class="ing-tag">Bind</span>
+          </div>
+          <div class="ing-purpose">Honey in the Cashew Chocolate (vegetarian). Date syrup in the Peanut Butter Crunch (vegan). Single-source sweetness, no corn syrup, no agave, no maltitol.</div>
+        </div>
+      </div>
+
+      <div class="ing-row">
+        <div class="ing-icon">[ icon ]</div>
+        <div class="ing-content">
+          <div class="ing-namerow">
+            <span class="ing-name">Coconut butter</span>
+            <span class="ing-tag">Texture</span>
+          </div>
+          <div class="ing-purpose">MCT-rich fat that gives the bar its melt and richness. Smooth without seed oils.</div>
+        </div>
+      </div>
+
+      <div class="ing-row">
+        <div class="ing-icon">[ icon ]</div>
+        <div class="ing-content">
+          <div class="ing-namerow">
+            <span class="ing-name">Pea crisps</span>
+            <span class="ing-tag">Crunch</span>
+          </div>
+          <div class="ing-purpose">A small amount, for texture. Adds bite without compromising the macro profile.</div>
+        </div>
+      </div>
+
+      <div class="ing-row">
+        <div class="ing-icon">[ icon ]</div>
+        <div class="ing-content">
+          <div class="ing-namerow">
+            <span class="ing-name">Unsweetened chocolate chips</span>
+            <span class="ing-tag">Flavor</span>
+          </div>
+          <div class="ing-purpose">Real cacao. No added sugar in the chips. The flavor comes from quality, not from sweetness.</div>
+        </div>
+      </div>
+
+      <div class="ing-row">
+        <div class="ing-icon">[ icon ]</div>
+        <div class="ing-content">
+          <div class="ing-namerow">
+            <span class="ing-name">Mesquite powder</span>
+            <span class="ing-tag">Depth</span>
+          </div>
+          <div class="ing-purpose">Adds caramel-like depth and trace minerals. The reason the bar tastes like food, not like a supplement.</div>
+        </div>
+      </div>
+
+      <div class="ing-row">
+        <div class="ing-icon">[ icon ]</div>
+        <div class="ing-content">
+          <div class="ing-namerow">
+            <span class="ing-name">FiberSmart™ tapioca fiber</span>
+            <span class="ing-tag">Fiber</span>
+          </div>
+          <div class="ing-purpose">Branded prebiotic fiber that digests cleanly. No bloat, no GI distress. The fiber that doesn't punish you.</div>
+        </div>
+      </div>
+
+      <div class="ing-row">
+        <div class="ing-icon">[ icon ]</div>
+        <div class="ing-content">
+          <div class="ing-namerow">
+            <span class="ing-name">Chicory root fiber</span>
+            <span class="ing-tag">Cashew only</span>
+          </div>
+          <div class="ing-purpose">Inulin from chicory root. Feeds gut bacteria. Pairs with FiberSmart in the Cashew Chocolate to hit 7g of fiber. The Peanut Butter Crunch reaches 7g with FiberSmart alone.</div>
+        </div>
+      </div>
+
+      <div class="ing-row">
+        <div class="ing-icon">[ icon ]</div>
+        <div class="ing-content">
+          <div class="ing-namerow">
+            <span class="ing-name">Sunflower lecithin</span>
+            <span class="ing-tag">Bind</span>
+          </div>
+          <div class="ing-purpose">Organic, non-GMO emulsifier. Replaces the soy lecithin most bars use. Keeps everything cohesive.</div>
+        </div>
+      </div>
+
+      <div class="ing-row">
+        <div class="ing-icon">[ icon ]</div>
+        <div class="ing-content">
+          <div class="ing-namerow">
+            <span class="ing-name">Sea salt</span>
+            <span class="ing-tag">Cashew only</span>
+          </div>
+          <div class="ing-purpose">A pinch in the Cashew Chocolate. Lifts the cacao, sharpens the contrast. The single most underrated ingredient in food.</div>
+        </div>
+      </div>
+
+      <div class="ing-row">
+        <div class="ing-icon">[ icon ]</div>
+        <div class="ing-content">
+          <div class="ing-namerow">
+            <span class="ing-name">Vegetable glycerin</span>
+            <span class="ing-tag">Shelf life</span>
+          </div>
+          <div class="ing-purpose">From coconut. Keeps the bar soft without refrigeration. The honest tradeoff for a shelf-stable bar made without preservatives.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ing-honest">
+      <strong>About the glycerin.</strong> A careful reader will notice it on the label. Vegetable glycerin (from coconut) is what keeps a real-ingredient bar soft on the shelf without refrigeration or preservatives. It's the cleanest workable solution we found. We could have skipped explaining it. We'd rather you knew.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PANEL 6, WHAT'S NOT IN IT ═══════════ -->
+<section class="not-in-it">
+  <div class="not-inner">
+    <div class="not-header">
+      <div class="eyebrow">What's not in it</div>
+      <h2>The list of <em>nope.</em></h2>
+      <p>What's missing from this bar is as deliberate as what's in it. None of these are in any Lemna Bar, in any flavor, ever.</p>
+    </div>
+
+    <div class="not-grid">
+      <div class="not-item">Natural flavors</div>
+      <div class="not-item">Sugar alcohols</div>
+      <div class="not-item">Sucralose</div>
+      <div class="not-item">Soy isolate</div>
+      <div class="not-item">Whey isolate</div>
+      <div class="not-item">Synthetic fibers</div>
+      <div class="not-item">Seed oils</div>
+      <div class="not-item">Maltitol</div>
+      <div class="not-item">Corn syrup</div>
+      <div class="not-item">Stevia extracts</div>
+      <div class="not-item">Erythritol</div>
+      <div class="not-item">Preservatives</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PANEL 7, FLAVORS ═══════════ -->
+<section class="flavors">
+  <div class="flav-inner">
+    <div class="flav-header">
+      <div class="eyebrow">Two flavors at launch</div>
+      <h2>Two bars. <em>Two approaches.</em></h2>
+      <p>Same Lemna leaf foundation. Two ingredient stacks built for different palates and dietary needs. Pick the one that fits, or rotate.</p>
+    </div>
+
+    <div class="flav-grid">
+      <div class="flav-card pb">
+        <div class="flav-image">
+          <div class="placeholder-label">
+            <span class="title">Peanut Butter Crunch</span>
+            <span class="spec">Product photography · single bar staged · macro texture detail · NOT illustration</span>
+          </div>
+        </div>
+        <div class="flav-body">
+          <div class="flav-tag-row">
+            <span class="flav-diet vegan">Vegan</span>
+            <span class="flav-diet">Gluten-free</span>
+          </div>
+          <h3 class="flav-name">Peanut Butter Crunch</h3>
+          <p class="flav-tagline">The grown-up version of the bar you used to love.</p>
+          <div class="flav-macros">
+            <div class="flav-macro">
+              <span class="flav-macro-num">17g</span>
+              <span class="flav-macro-label">Protein</span>
+            </div>
+            <div class="flav-macro">
+              <span class="flav-macro-num">7g</span>
+              <span class="flav-macro-label">Fiber</span>
+            </div>
+            <div class="flav-macro">
+              <span class="flav-macro-num">8g</span>
+              <span class="flav-macro-label">Sugar</span>
+            </div>
+            <div class="flav-macro">
+              <span class="flav-macro-num">240</span>
+              <span class="flav-macro-label">Calories</span>
+            </div>
+          </div>
+          <p class="flav-desc">Roasted peanut butter, dates, dark chocolate chips, pea crisps for crunch, FiberSmart™ tapioca fiber. <strong>Sweetened with date syrup, not honey</strong>, which makes it our fully vegan option.</p>
+        </div>
+      </div>
+
+      <div class="flav-card cc">
+        <div class="flav-image">
+          <div class="placeholder-label">
+            <span class="title">Cashew Chocolate</span>
+            <span class="spec">Product photography · single bar staged · macro texture detail · NOT illustration</span>
+          </div>
+        </div>
+        <div class="flav-body">
+          <div class="flav-tag-row">
+            <span class="flav-diet">Vegetarian</span>
+            <span class="flav-diet">Gluten-free</span>
+          </div>
+          <h3 class="flav-name">Cashew Chocolate</h3>
+          <p class="flav-tagline">Smoother. Richer. Quieter. The afternoon bar.</p>
+          <div class="flav-macros">
+            <div class="flav-macro">
+              <span class="flav-macro-num">14g</span>
+              <span class="flav-macro-label">Protein</span>
+            </div>
+            <div class="flav-macro">
+              <span class="flav-macro-num">7g</span>
+              <span class="flav-macro-label">Fiber</span>
+            </div>
+            <div class="flav-macro">
+              <span class="flav-macro-num">7g</span>
+              <span class="flav-macro-label">Sugar</span>
+            </div>
+            <div class="flav-macro">
+              <span class="flav-macro-num">230</span>
+              <span class="flav-macro-label">Calories</span>
+            </div>
+          </div>
+          <p class="flav-desc">Cashew butter, dates, dark chocolate chips, mesquite for caramel depth, sea salt to lift the cacao, coconut butter for the melt, plus chicory root fiber for prebiotic depth. <strong>Bound with raw honey</strong>, which makes it vegetarian, not vegan.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Side-by-side differences table -->
+    <div class="flav-differences">
+      <div class="flav-diff-header">How they differ, line by line</div>
+      <div class="flav-diff-grid">
+        <div class="flav-diff-row">
+          <div class="flav-diff-label">Sweetener</div>
+          <div class="flav-diff-pb">Date syrup</div>
+          <div class="flav-diff-cc">Raw honey</div>
+        </div>
+        <div class="flav-diff-row">
+          <div class="flav-diff-label">Diet</div>
+          <div class="flav-diff-pb">Vegan</div>
+          <div class="flav-diff-cc">Vegetarian</div>
+        </div>
+        <div class="flav-diff-row">
+          <div class="flav-diff-label">Protein</div>
+          <div class="flav-diff-pb">17g</div>
+          <div class="flav-diff-cc">14g</div>
+        </div>
+        <div class="flav-diff-row">
+          <div class="flav-diff-label">Sugar</div>
+          <div class="flav-diff-pb">8g</div>
+          <div class="flav-diff-cc">7g</div>
+        </div>
+        <div class="flav-diff-row">
+          <div class="flav-diff-label">Fiber source</div>
+          <div class="flav-diff-pb">FiberSmart™ tapioca only</div>
+          <div class="flav-diff-cc">FiberSmart™ + chicory root</div>
+        </div>
+        <div class="flav-diff-row">
+          <div class="flav-diff-label">Sea salt</div>
+          <div class="flav-diff-pb">No</div>
+          <div class="flav-diff-cc">Yes (lifts the cacao)</div>
+        </div>
+        <div class="flav-diff-row">
+          <div class="flav-diff-label">Texture</div>
+          <div class="flav-diff-pb">Crunchy (pea crisps)</div>
+          <div class="flav-diff-cc">Smooth, melt-forward</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PANEL 9, STORY ═══════════ -->
+<section class="story">
+  <div class="story-inner">
+    <div class="story-image">
+      <div class="placeholder-label">
+        <span class="title">Founder photograph</span>
+        <span class="spec">Kinga in the kitchen<br>or with the bar<br>natural light, warm</span>
+      </div>
+    </div>
+    <div class="story-text">
+      <div class="eyebrow">Why this bar exists</div>
+      <h2>It started with my sisters.</h2>
+      <p>One has celiac. One has multiple food allergies. Between us, the family snack drawer is a graveyard of bars we couldn't eat, bars that made someone sick, and bars that technically met the spec but tasted like a science experiment.</p>
+      <p>I started developing this bar because I couldn't find one I'd actually buy for them. The first formulation was wrong. So was the second. Forty-seven batches later, we had the texture, the macros, and the ingredient list I was willing to stand behind.</p>
+
+      <div class="story-pull">
+        Lemna isn't a buzzword for us. It's the ingredient that finally let us make a bar that did everything we needed it to.
+      </div>
+
+      <p>The bar launches in <strong>summer 2026</strong>. Founding members get the launch link 24 hours before public, plus 15% off the first order. There won't be a second round of founding member pricing. If you want in, this is the moment.</p>
+
+      <div class="story-sign">
+       Kinga
+        <div class="story-sign-name">Founder, Mujo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PANEL 10, FINAL CTA — Be first to taste it ═══════════ -->
+<section class="final-cta">
+  <div class="final-inner">
+    <div class="eyebrow">Last chance to sign up early</div>
+    <h2>Be first <em>to taste it.</em></h2>
+    <p>Drop your email. We'll send the launch link the moment the bar is live, your 15% discount locked in.</p>
+
+    <div class="fm-benefits">
+      <div class="fm-benefit">
+        <span class="fm-benefit-num">15%</span>
+        <span class="fm-benefit-label">Off first order</span>
+      </div>
+      <div class="fm-benefit">
+        <span class="fm-benefit-num">24h</span>
+        <span class="fm-benefit-label">Early access</span>
+      </div>
+      <div class="fm-benefit">
+        <span class="fm-benefit-num">∞</span>
+        <span class="fm-benefit-label">Founding rate, locked</span>
+      </div>
+    </div>
+
+    <form class="signup-form" id="finalCtaForm" onsubmit="return submitFinalCta(event);">
+      <div class="signup-row">
+        <input type="email" class="signup-input" id="finalCtaEmail" placeholder="your@email.com" aria-label="Email address" required>
+        <button type="submit" class="signup-btn">Reserve →</button>
+      </div>
+      <p class="signup-fineprint">Summer 2026 launch. No spam, no cross-promotions, no nonsense.</p>
+    </form>
+
+    <div class="final-success" id="finalCtaSuccess" style="display:none;">
+      <strong>You're on the list.</strong> Watch your inbox for the launch link and your founding member code.
+    </div>
+    <div class="final-social">
+      Join <strong>the founding list</strong> · Building the cleanest protein bar we know how to make
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PANEL 11, FAQ ═══════════ -->
+<section class="faq">
+  <div class="faq-inner">
+    <div class="faq-header">
+      <h2>Quick questions, quick answers.</h2>
+      <p>The things people ask most.</p>
+    </div>
+
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>What is Lemna leaf, actually?</summary>
+        <div class="faq-answer">Lemna minor is the smallest flowering plant in the world. It's a complete protein source with a PDCAAS of 1.0, equivalent to egg and whey, comparable to whey for muscle protein synthesis. We source ours from Plantible Foods (Rubi Protein™), grown in closed-loop water systems with no arable land and no pesticides. <strong>It's a leaf with a complete amino acid profile.</strong> The naming matters because the plant matters.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>When does the bar ship?</summary>
+        <div class="faq-answer">Summer 2026. Founding members get the launch link 24 hours before public, with 15% off your first order locked in. We'll email you the moment the launch goes live.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Is it gluten-free?</summary>
+        <div class="faq-answer">Yes. Both flavors are <strong>gluten-free</strong>. The bar is produced in a facility that handles other allergens, so we'll publish the full allergen statement at launch.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Is it vegan?</summary>
+        <div class="faq-answer">The <strong>Peanut Butter Crunch is fully vegan</strong>, it uses date syrup as the binder. The <strong>Cashew Chocolate is vegetarian but not vegan</strong>, it uses raw honey. Full nutritional and allergen breakdown will be on each PDP at launch.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Why is there vegetable glycerin in a "clean" bar?</summary>
+        <div class="faq-answer">Honest answer: vegetable glycerin (from coconut) is what keeps a real-ingredient bar soft on the shelf without refrigeration or preservatives. It's the cleanest workable solution we found. We could have left it off the marketing copy. We'd rather you knew before you bought.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>How much will it cost?</summary>
+        <div class="faq-answer">Pricing locks in closer to launch, but expect to pay a touch more than category-average bars. We're using real nut butters, real chocolate, branded fibers, and Lemna leaf, none of which are cheap. Founding members get 15% off the first order.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Will there be more flavors?</summary>
+        <div class="faq-answer">Two flavors at launch (Peanut Butter Crunch + Cashew Chocolate). Future flavors depend on what founding members ask for. Reply to any of our launch emails with what you'd want next.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>What about subscriptions?</summary>
+        <div class="faq-answer">Subscription will be available at launch, with a small additional discount on top of the founding member rate. Cancel any time, change your cadence any time.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="footer">
+  <div class="footer-logo">MUJO</div>
+  <div class="footer-tag">Conscious Performance Nutrition</div>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/products/mujo-ritual">Mujo Ritual</a>
+    <a href="/science">The Science</a>
+    <a href="/ingredients">Ingredients</a>
+    <a href="/rebel-club">Rebel Club</a>
+  </div>
+  <p class="footer-fineprint">The Lemna Bar launches summer 2026. Sign up for founding member access. No spam, no cross-promotions, no nonsense. We email you for the launch and the occasional honest update.</p>
+</footer>
+
+
+<script id="lemna-klaviyo-handlers">
+// ─────────────────────────────────────────────────────────
+// LEMNA LANDING — Klaviyo email capture wiring
+//
+// Drop your real Klaviyo keys into the constants below to go live.
+// Until then, the forms run in DEV MODE: the email is validated, the
+// success message is shown, and the payload is logged to console for
+// you to verify the structure before going live.
+//
+// KLAVIYO_PUBLIC_KEY: your 6-char company ID
+//   → Klaviyo → Account → Settings → API Keys → Public Key
+// KLAVIYO_LEMNA_LIST_ID: list ID for the Lemna early access waitlist
+//   → Lists & Segments → [Your List] → Settings → List ID
+// ─────────────────────────────────────────────────────────
+const KLAVIYO_PUBLIC_KEY = 'YOUR_KLAVIYO_PUBLIC_KEY';
+const KLAVIYO_LEMNA_LIST_ID = 'YOUR_LEMNA_LIST_ID';
+
+function lemnaSubscribe(email, sourcePage, customSource, extraProps) {
+  const profileProps = {
+    email: email,
+    properties: Object.assign({
+      source: 'lemna_landing',
+      source_page: sourcePage,
+      lemna_early_access: true,
+      lemna_signup_at: new Date().toISOString(),
+      discount_code_issued: 'LEMNA15',
+      page_url: window.location.href
+    }, extraProps || {})
+  };
+
+  if (KLAVIYO_PUBLIC_KEY !== 'YOUR_KLAVIYO_PUBLIC_KEY') {
+    return fetch(`https://a.klaviyo.com/client/subscriptions/?company_id=${KLAVIYO_PUBLIC_KEY}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'revision': '2024-10-15' },
+      body: JSON.stringify({
+        data: {
+          type: 'subscription',
+          attributes: {
+            profile: { data: { type: 'profile', attributes: profileProps } },
+            custom_source: customSource
+          },
+          relationships: {
+            list: { data: { type: 'list', id: KLAVIYO_LEMNA_LIST_ID } }
+          }
+        }
+      })
+    }).catch(err => console.warn('Klaviyo subscribe error:', err));
+  } else {
+    console.log('[DEV MODE] Lemna Klaviyo payload would be:', { profileProps, customSource });
+    console.log('[DEV MODE] Replace KLAVIYO_PUBLIC_KEY and KLAVIYO_LEMNA_LIST_ID to go live.');
+    return Promise.resolve();
+  }
+}
+
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function submitHeroForm(e) {
+  if (e && e.preventDefault) e.preventDefault();
+  const email = document.getElementById('heroEmail').value.trim();
+  if (!email || !isValidEmail(email)) {
+    document.getElementById('heroEmail').style.borderColor = 'var(--orange)';
+    document.getElementById('heroEmail').focus();
+    return false;
+  }
+  lemnaSubscribe(
+    email,
+    'lemna_landing_hero',
+    'Lemna Landing Hero Form',
+    { signup_position: 'hero_above_fold' }
+  );
+  // UI: hide the form row and incentive, show the success message
+  const form = document.getElementById('heroForm');
+  form.querySelector('.signup-row').style.display = 'none';
+  const incentive = form.querySelector('.signup-incentive');
+  if (incentive) incentive.style.display = 'none';
+  const fineprint = form.querySelector('.signup-fineprint');
+  if (fineprint) fineprint.style.display = 'none';
+  document.getElementById('heroSuccess').style.display = 'block';
+  return false;
+}
+
+function submitFinalCta(e) {
+  if (e && e.preventDefault) e.preventDefault();
+  const email = document.getElementById('finalCtaEmail').value.trim();
+  if (!email || !isValidEmail(email)) {
+    document.getElementById('finalCtaEmail').style.borderColor = 'var(--orange)';
+    document.getElementById('finalCtaEmail').focus();
+    return false;
+  }
+  lemnaSubscribe(
+    email,
+    'lemna_landing_final_cta',
+    'Lemna Landing Final CTA',
+    { signup_position: 'final_cta_below_fold' }
+  );
+  // UI: hide form row + fineprint, show success
+  const form = document.getElementById('finalCtaForm');
+  form.querySelector('.signup-row').style.display = 'none';
+  const fineprint = form.querySelector('.signup-fineprint');
+  if (fineprint) fineprint.style.display = 'none';
+  document.getElementById('finalCtaSuccess').style.display = 'block';
+  return false;
+}
+</script>
+<script id="mujo-canonical-nav-js">
+const PRICES = { 'ritual-25': 55.25, 'ritual-10': 27, 'bar-pb': 54, 'bar-cashew': 54, 'mug': 24, 'tee': 38, 'tote': 22 };
+const NAMES = { 'ritual-25': 'Mujo Ritual · 25 servings', 'ritual-10': 'Mujo Ritual · 10 servings', 'bar-pb': 'Lemna Bar · PB Crunch', 'bar-cashew': 'Lemna Bar · Cashew Chocolate', 'mug': 'Ritual Mug', 'tee': 'Rebel Club Tee', 'tote': 'Market Tote' };
+const ICONS = { 'ritual-25': '🍵', 'ritual-10': '🍵', 'bar-pb': '🥜', 'bar-cashew': '🍫', 'mug': '☕', 'tee': '👕', 'tote': '🛍️' };
+let cart = {};
+function openMenu() { document.getElementById('mobileMenu').classList.add('open'); document.getElementById('overlay').classList.add('open'); document.body.classList.add('locked'); }
+function closeMenu() { document.getElementById('mobileMenu').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); if (!document.getElementById('cartDrawer').classList.contains('open')) document.body.classList.remove('locked'); }
+function openCart() { document.getElementById('cartDrawer').classList.add('open'); document.getElementById('overlay').classList.add('open'); document.body.classList.add('locked'); }
+function closeCart() { document.getElementById('cartDrawer').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); if (!document.getElementById('mobileMenu').classList.contains('open')) document.body.classList.remove('locked'); }
+function closeAll() { closeMenu(); closeCart(); }
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAll(); });
+window.addEventListener('scroll', () => { const nav = document.getElementById('nav'); if (window.scrollY > 8) nav.classList.add('scrolled'); else nav.classList.remove('scrolled'); });
+function updateQty(id, delta) { cart[id] = Math.max(0, (cart[id] || 0) + delta); if (cart[id] === 0) delete cart[id]; renderCart(); }
+function removeItem(id) { delete cart[id]; renderCart(); }
+function getSubtotal() { return Object.entries(cart).reduce((s, [id, q]) => s + (PRICES[id] || 0) * q, 0); }
+function getCount() { return Object.values(cart).reduce((s, q) => s + q, 0); }
+function fmt(n) { return '$' + (Math.round(n * 100) / 100).toFixed(n % 1 === 0 ? 0 : 2); }
+function renderCart() {
+  const subtotal = getSubtotal(); const count = getCount();
+  const remaining = Math.max(0, 100 - subtotal); const pct = Math.min(100, (subtotal / 100) * 100);
+  document.getElementById('cartHeadCount').textContent = count + (count === 1 ? ' item' : ' items');
+  const badge = document.getElementById('cartCount');
+  if (count === 0) badge.classList.add('hidden'); else { badge.classList.remove('hidden'); badge.textContent = count; }
+  const fill = document.getElementById('progressFill'); const msg = document.getElementById('progressMsg');
+  fill.style.width = pct + '%';
+  if (count === 0) { fill.classList.remove('full'); msg.innerHTML = 'Free shipping at <strong>$100</strong>.'; }
+  else if (remaining <= 0) { fill.classList.add('full'); msg.innerHTML = '<strong>Free shipping</strong> unlocked. Nice work.'; }
+  else { fill.classList.remove('full'); msg.innerHTML = '<span class="accent">' + fmt(remaining) + '</span> away from <strong>free shipping</strong>.'; }
+  const body = document.getElementById('cartBody'); body.innerHTML = '';
+  if (count === 0) { body.innerHTML = '<div class="cart-empty"><div class="cart-empty-illo">🍵</div><h3>Nothing in here yet.</h3><p>Your ritual is one click away. The Mujo Ritual is the place most people start.</p><a href="/shop">Browse the shop →</a></div>'; }
+  else { Object.entries(cart).forEach(([id, qty]) => { const row = document.createElement('div'); row.className = 'cart-item'; row.innerHTML = `<div class="cart-item-img">${ICONS[id]||'·'}</div><div class="cart-item-info"><div class="cart-item-name">${NAMES[id]}</div><div class="cart-item-variant">One-time</div><div class="cart-item-controls"><button class="qty-btn" onclick="updateQty('${id}',-1)">−</button><span class="qty-val">${qty}</span><button class="qty-btn" onclick="updateQty('${id}',1)">+</button></div></div><div class="cart-item-meta"><div class="cart-item-price">${fmt(PRICES[id]*qty)}</div><button class="cart-item-remove" onclick="removeItem('${id}')">Remove</button></div>`; body.appendChild(row); }); }
+  document.getElementById('subtotalDisplay').textContent = count === 0 ? '$0' : fmt(subtotal);
+  document.getElementById('shippingDisplay').textContent = (remaining <= 0 && count > 0) ? 'Free' : 'Calculated at checkout';
+  document.getElementById('totalDisplay').textContent = count === 0 ? '$0' : fmt(subtotal);
+}
+function checkout() { alert('Checkout: hand off to Shopify checkout in production.'); }
+renderCart();
+</script>
+</body>
+</html>

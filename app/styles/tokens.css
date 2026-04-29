@@ -1,0 +1,372 @@
+/* Mujo tokens.css — Brand Guide v1.0 source of truth.
+   Every page + component reads from this. Zero inline re-derivation.
+   Authority:
+     - context/brand-positioning.md §13 + §14 (v1.2)
+     - context/import/branding and positioning assets/mujo_brand_guide_final_updated.html
+     - content/marketing/visual-system/typography-and-mobile-floor.md
+   Fonts loaded via <link> in app/layout.tsx (Fontshare for General Sans, Google for Instrument Serif + DM Mono).
+*/
+
+
+/* ==========================================================================
+   :root — tokens
+   ========================================================================== */
+
+:root {
+
+  /* ----- Palette — Brand Guide v1.0 + brand-positioning §13 ----- */
+
+  /* Orange system */
+  --orange:        #F2682F;
+  --orange-deep:   #D85A22;
+  --orange-soft:   #FDEFE6;
+
+  /* Sage system */
+  --sage:          #2F3D33;
+  --sage-mid:      #3D4D40;
+  --sage-light:    #8FA396;
+  --sage-tint:     rgba(47, 61, 51, 0.08);
+
+  /* Neutrals */
+  --cream:         #F3F2E9;
+  --sand:          #EEE9E0;
+  --sand-deep:     #D4C4A8;
+  --ink:           #1A1A1A;
+  --ink-soft:      #4A4845;
+  --mute:          #5C5854;
+  --line:          rgba(26, 26, 26, 0.09);
+
+
+  /* ----- Font families — General Sans primary for display AND body ----- */
+
+  --f-display: 'General Sans', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --f-body:    'General Sans', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --f-serif:   'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --f-mono:    'DM Mono', 'SF Mono', 'Menlo', 'Courier New', monospace;
+
+
+  /* ----- Type scale — Brand Guide v1.0 ----- */
+
+  --h1:       clamp(34px, 5vw, 56px);
+  --h2:       clamp(24px, 3.2vw, 38px);
+  --h3:       clamp(20px, 1.8vw, 22px);
+  --body:     18px;
+  --body-sm:  16px;
+  --eyebrow:  11px;
+  --stat:     clamp(40px, 6vw, 96px);
+  --caption:  14px;
+  --legal:    12px;
+
+
+  /* ----- Line-heights ----- */
+
+  --lh-tight:  1.15;
+  --lh-head:   1.25;
+  --lh-body:   1.65;
+  --lh-ui:     1.4;
+
+
+  /* ----- Tracking ----- */
+
+  --track-eyebrow:  0.2em;
+  --track-pill:     0.06em;
+  --track-cta:      0.04em;
+
+
+  /* ----- Spacing — 8px baseline grid ----- */
+
+  --space-1:   8px;
+  --space-2:   16px;
+  --space-3:   24px;
+  --space-4:   32px;
+  --space-5:   40px;
+  --space-6:   48px;
+  --space-7:   56px;
+  --space-8:   64px;
+  --space-9:   72px;
+  --space-10:  80px;
+  --space-11:  96px;
+  --space-12:  120px;
+
+
+  /* ----- Radii ----- */
+
+  --radius-pill:   999px;
+  --radius-card:   12px;
+  --radius-input:  8px;
+  --radius-cta:    999px;
+  --radius-image:  4px;
+
+  /* Free-shipping threshold (cents). Cart drawer reads this to compute progress-to-free-shipping. */
+  --shipping-threshold-cents: 6000;
+
+
+  /* ----- Shadow + divider tokens ----- */
+
+  --line-soft:     1px solid var(--line);
+  --shadow-card:   0 2px 18px rgba(47, 61, 51, 0.06);
+  --shadow-drawer: -12px 0 48px rgba(26, 26, 26, 0.14);
+
+  /* PDP shadow scale aliases (some imported HTMLs use --s1/--s2/--s3 inline) */
+  --s1:            0 2px 8px rgba(0, 0, 0, 0.04);
+  --s2:            0 12px 40px rgba(0, 0, 0, 0.08);
+  --s3:            0 24px 64px rgba(0, 0, 0, 0.14);
+
+
+  /* ----- Breakpoint constants (documentation — media queries are hand-authored) ----- */
+
+  --bp-mobile:   480px;
+  --bp-tablet:   768px;
+  --bp-desktop:  1024px;
+  --bp-wide:     1440px;
+
+
+  /* ----- Container widths ----- */
+
+  --container-wide:   1200px;
+  --container-read:    760px;
+  --container-narrow:  600px;
+
+  /* ----- Nav height (sticky nav reserves this much space at top) ----- */
+  --nav-h:  64px;
+}
+
+
+/* ==========================================================================
+   Base layer — sensible defaults every page can rely on
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: var(--body);
+  font-weight: 400;
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4 {
+  margin: 0 0 var(--space-3);
+  font-family: var(--f-display);
+  font-weight: 500;
+  line-height: var(--lh-head);
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+h1 { font-size: var(--h1); line-height: var(--lh-tight); }
+h2 { font-size: var(--h2); }
+h3 { font-size: var(--h3); }
+
+p { margin: 0 0 var(--space-3); }
+
+a {
+  color: var(--orange-deep);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+}
+a:hover { color: var(--orange); }
+a:focus-visible {
+  outline: 2px solid var(--orange-deep);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+img, svg, video { max-width: 100%; height: auto; display: block; }
+
+hr {
+  border: 0;
+  border-top: var(--line-soft);
+  margin: var(--space-6) 0;
+}
+
+/* Italic-serif accent — the Mujo signature. Always orange. */
+em.accent,
+.accent-serif {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--orange);
+}
+
+/* Eyebrow pattern — DM Mono 11px uppercase with 0.2em tracking */
+.eyebrow {
+  display: inline-block;
+  font-family: var(--f-mono);
+  font-size: var(--eyebrow);
+  font-weight: 500;
+  letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+/* Primary CTA pattern */
+.cta-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 18px 32px;
+  background: var(--orange);
+  color: var(--cream);
+  font-family: var(--f-display);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: var(--track-cta);
+  text-decoration: none;
+  border: 0;
+  border-radius: var(--radius-cta);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.cta-primary:hover { background: var(--orange-deep); color: var(--cream); }
+.cta-primary:focus-visible { outline: 2px solid var(--sage); outline-offset: 3px; }
+
+/* Benefit pill */
+.pill {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--sage-tint);
+  color: var(--sage);
+  font-family: var(--f-display);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: var(--track-pill);
+  text-transform: uppercase;
+}
+.pill--orange { background: var(--orange-soft); color: var(--orange-deep); }
+
+/* Image placeholder. Dashed orange on sand. */
+.image-placeholder {
+  background: var(--sand);
+  border: 4px dashed var(--orange);
+  min-height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--orange-deep);
+  padding: 24px;
+  text-align: center;
+  border-radius: var(--radius-image);
+}
+.image-placeholder.hero   { min-height: 480px; }
+.image-placeholder.card   { min-height: 320px; }
+.image-placeholder.inline { min-height: 160px; }
+.image-placeholder.sm { min-height: 48px;  padding: 8px;  border-width: 2px; }
+.image-placeholder.md { min-height: 96px;  padding: 12px; border-width: 3px; }
+.image-placeholder.lg { min-height: 160px; padding: 16px; }
+
+
+@media (min-width: 768px) {
+  body { font-size: 18px; }
+}
+
+@media (min-width: 1024px) {
+  body { font-size: 18px; }
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+
+
+/* ==========================================================================
+   Shared reveal-on-scroll pattern (IntersectionObserver toggles .on)
+   Used across all pages via the useReveal() hook.
+   ========================================================================== */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.on {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal.d1 { transition-delay: 80ms; }
+.reveal.d2 { transition-delay: 160ms; }
+.reveal.d3 { transition-delay: 240ms; }
+.reveal.d4 { transition-delay: 320ms; }
+.reveal.d5 { transition-delay: 400ms; }
+.reveal.d6 { transition-delay: 480ms; }
+
+
+/* ==========================================================================
+   Shared keyframes (deduplicated from inline @keyframes across 28 source HTMLs)
+   ========================================================================== */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+
+@keyframes drift {
+  0%, 100% { transform: translateX(0); }
+  50%      { transform: translateX(6px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50%      { opacity: 1; }
+}
+
+@keyframes pulseOrange {
+  0%, 100% { color: var(--orange); }
+  50%      { color: var(--orange-deep); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(6px); }
+}
+
+@keyframes slideUp {
+  0%   { transform: translateY(100%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes drawLine {
+  0%   { stroke-dashoffset: 1000; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes quizIn {
+  0%   { transform: translateX(16px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes scaleIn {
+  0%   { transform: scale(0.92); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}

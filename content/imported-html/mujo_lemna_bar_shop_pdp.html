@@ -1,0 +1,1984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Lemna Bar · Pre-order · Mujo</title>
+<meta name="description" content="Two flavors. 14-17g protein. Real ingredients. Pre-order open, ships July 2026.">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--f-body); background: var(--cream); color: var(--ink); -webkit-font-smoothing: antialiased; line-height: 1.55; }
+.eyebrow { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange-deep); display: inline-block; font-weight: 500; }
+.serif-accent { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 500; letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); }
+.container { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
+.container-narrow { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+@media (min-width: 768px) { .container { padding: 0 32px; } .container-narrow { padding: 0 32px; } }
+body.locked { overflow: hidden; }
+
+:root {
+  --orange: #F2682F; --orange-deep: #D85A22; --orange-soft: #FDEFE6;
+  --cream: #F3F2E9; --sand: #EEE9E0; --sand-deep: #D4C4A8;
+  --sage: #2F3D33; --sage-mid: #3D4D40; --sage-light: #8FA396;
+  --sage-tint: rgba(47, 61, 51, 0.08);
+  --ink: #1A1A1A; --ink-soft: #4A4845; --mute: #5C5854;
+  --line: rgba(26, 26, 26, 0.09); --line-soft: rgba(26, 26, 26, 0.06);
+  --f-display: 'General Sans', -apple-system, sans-serif;
+  --f-body: 'General Sans', 'Helvetica Neue', sans-serif;
+  --f-serif: 'Instrument Serif', 'Times New Roman', serif;
+  --f-mono: 'DM Mono', monospace;
+  --nav-h: 64px;
+}
+
+.announce { background: var(--sage); color: #fff; text-align: center; padding: 9px 16px; font-size: 12px; letter-spacing: 0.01em; position: relative; z-index: 200; line-height: 1.4; }
+.announce strong { color: var(--orange); font-weight: 500; }
+.announce .sep { opacity: 0.4; margin: 0 8px; }
+@media (max-width: 640px) { .announce-secondary { display: none; } }
+@media (min-width: 768px) { .announce { padding: 10px 24px; font-size: 13px; } .announce .sep { margin: 0 10px; } }
+nav.mujo-nav { position: sticky; top: 0; z-index: 150; background: rgba(243, 242, 233, 0.94); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--line-soft); padding: 12px 16px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; height: var(--nav-h); transition: box-shadow 0.3s; }
+nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+@media (min-width: 1024px) { nav.mujo-nav { padding: 14px 32px; grid-template-columns: 1fr auto 1fr; gap: 24px; } }
+.nav-hamburger { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; color: var(--ink); margin-left: -8px; }
+.nav-hamburger svg { width: 22px; height: 22px; }
+@media (min-width: 1024px) { .nav-hamburger { display: none; } }
+.nav-logo { display: inline-flex; align-items: center; text-decoration: none; justify-self: center; }
+.nav-logo img { height: 26px; width: auto; display: block; }
+@media (min-width: 1024px) { .nav-logo { justify-self: start; } .nav-logo img { height: 30px; } }
+.nav-center { display: none; justify-content: center; align-items: center; gap: 32px; }
+.nav-link { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-weight: 500; letter-spacing: 0.01em; transition: color 0.2s; position: relative; padding: 4px 0; }
+.nav-link:hover { color: var(--sage); }
+.nav-link.active { color: var(--sage); }
+.nav-link.active::after { content: ''; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px; background: var(--orange); }
+@media (min-width: 1024px) { .nav-center { display: flex; } }
+.nav-right { display: flex; align-items: center; gap: 4px; justify-self: end; }
+.nav-icon { width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; border: none; background: transparent; color: var(--ink); cursor: pointer; text-decoration: none; position: relative; border-radius: 50%; transition: background 0.2s; }
+.nav-icon:hover { background: var(--sage-tint); }
+.nav-icon svg { width: 20px; height: 20px; }
+.cart-count { position: absolute; top: 4px; right: 4px; background: var(--orange); color: #fff; font-family: var(--f-mono); font-size: 9px; font-weight: 500; min-width: 16px; height: 16px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; padding: 0 4px; line-height: 1; }
+.cart-count.hidden { display: none; }
+.menu-overlay { position: fixed; inset: 0; background: rgba(26,26,26,0.5); z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+.menu-overlay.open { opacity: 1; pointer-events: auto; }
+.mobile-menu { position: fixed; top: 0; left: 0; bottom: 0; width: min(360px, 88vw); background: var(--cream); z-index: 999; transform: translateX(-100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; overflow-y: auto; }
+.mobile-menu.open { transform: translateX(0); }
+.mm-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); }
+.mm-head img { height: 26px; width: auto; }
+.mm-close { width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); margin-right: -8px; }
+.mm-close svg { width: 20px; height: 20px; }
+.mm-links { display: flex; flex-direction: column; padding: 4px 0; flex: 1; }
+.mm-link { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; font-family: var(--f-display); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-soft); transition: background 0.15s, color 0.15s; }
+.mm-link:hover { color: var(--orange-deep); background: rgba(242,104,47,0.04); }
+.mm-link svg { width: 16px; height: 16px; opacity: 0.4; }
+.mm-foot { padding: 24px; background: var(--sage); color: #fff; }
+.mm-foot-eyebrow { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); margin-bottom: 10px; }
+.mm-foot p { font-size: 14px; line-height: 1.55; color: rgba(255,255,255,0.7); margin-bottom: 16px; }
+.mm-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--orange); color: #fff; text-decoration: none; padding: 12px 20px; border-radius: 100px; font-size: 14px; font-weight: 500; }
+.cart-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(440px, 100vw); background: var(--cream); z-index: 999; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; box-shadow: -20px 0 60px rgba(0,0,0,0.1); }
+.cart-drawer.open { transform: translateX(0); }
+.cart-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); }
+.cart-head-title { font-family: var(--f-display); font-size: 18px; font-weight: 500; letter-spacing: -0.01em; }
+.cart-head-title span { font-family: var(--f-mono); font-size: 11px; color: var(--mute); letter-spacing: 0.1em; margin-left: 8px; font-weight: 400; }
+.cart-close { width: 36px; height: 36px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); border-radius: 50%; margin-right: -6px; }
+.cart-close:hover { background: var(--sage-tint); }
+.cart-close svg { width: 18px; height: 18px; }
+.cart-progress { background: var(--sand); padding: 14px 20px 16px; border-bottom: 1px solid var(--line-soft); }
+.cart-progress-msg { font-size: 13px; color: var(--ink-soft); margin-bottom: 8px; line-height: 1.4; }
+.cart-progress-msg strong { color: var(--ink); font-weight: 500; }
+.cart-progress-msg .accent { color: var(--orange-deep); font-weight: 500; }
+.cart-progress-track { height: 6px; background: rgba(26,26,26,0.08); border-radius: 3px; overflow: hidden; }
+.cart-progress-fill { height: 100%; background: var(--orange); border-radius: 3px; width: 0%; transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+.cart-progress-fill.full { background: var(--sage); }
+.cart-body { flex: 1; overflow-y: auto; padding: 8px 20px; }
+.cart-item { display: grid; grid-template-columns: 72px 1fr auto; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--line-soft); }
+.cart-item-img { width: 72px; height: 72px; background: var(--sand); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; }
+.cart-item-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.cart-item-name { font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.3; }
+.cart-item-variant { font-size: 12px; color: var(--mute); margin-bottom: 6px; }
+.cart-item-controls { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 100px; background: #fff; width: fit-content; margin-top: auto; }
+.qty-btn { width: 28px; height: 28px; background: transparent; border: none; cursor: pointer; font-size: 14px; color: var(--ink-soft); display: inline-flex; align-items: center; justify-content: center; }
+.qty-val { font-family: var(--f-mono); font-size: 12px; min-width: 24px; text-align: center; }
+.cart-item-meta { display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; text-align: right; }
+.cart-item-price { font-family: var(--f-mono); font-size: 13px; font-weight: 500; }
+.cart-item-remove { background: transparent; border: none; cursor: pointer; font-family: var(--f-mono); font-size: 10px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; padding: 4px 0; }
+.cart-empty { text-align: center; padding: 56px 24px; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.cart-empty-illo { font-size: 52px; opacity: 0.5; }
+.cart-empty h3 { font-size: 22px; font-weight: 500; }
+.cart-empty p { font-size: 14px; color: var(--mute); max-width: 260px; line-height: 1.5; }
+.cart-empty a { margin-top: 6px; background: var(--orange); color: #fff; text-decoration: none; padding: 12px 22px; border-radius: 100px; font-size: 14px; font-weight: 500; }
+.cart-foot { border-top: 1px solid var(--line-soft); padding: 16px 20px 20px; }
+.cart-row { display: flex; justify-content: space-between; align-items: baseline; padding: 4px 0; font-size: 14px; color: var(--ink-soft); }
+.cart-row.total { padding-top: 10px; font-size: 18px; font-weight: 500; color: var(--ink); font-family: var(--f-display); }
+.cart-row .price { font-family: var(--f-mono); }
+.cart-shipping-note { font-size: 11px; color: var(--mute); font-family: var(--f-mono); letter-spacing: 0.04em; margin: 8px 0 14px; line-height: 1.4; }
+.cart-checkout { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: var(--orange); color: #fff; text-decoration: none; border: none; cursor: pointer; padding: 16px 24px; border-radius: 100px; font-size: 15px; font-weight: 500; transition: background 0.2s; }
+.cart-checkout:hover { background: var(--orange-deep); }
+.cart-secure { text-align: center; font-size: 11px; color: var(--mute); font-family: var(--f-mono); letter-spacing: 0.08em; margin-top: 10px; text-transform: uppercase; }
+
+footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); padding: 56px 0 28px; }
+.foot-grid { display: grid; gap: 32px; grid-template-columns: 1fr; margin-bottom: 32px; }
+@media (min-width: 640px) { .foot-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1024px) { .foot-grid { grid-template-columns: 1.6fr 1fr 1fr 1fr; } }
+.foot-brand img { height: 28px; width: auto; margin-bottom: 14px; }
+.foot-tagline { font-size: 14px; line-height: 1.6; color: rgba(255,255,255,0.6); max-width: 320px; }
+.foot-col-title { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); margin-bottom: 16px; }
+.foot-links { display: flex; flex-direction: column; gap: 10px; }
+.foot-link { font-size: 14px; color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
+.foot-link:hover { color: var(--sage-light); }
+.foot-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; display: flex; flex-direction: column; gap: 16px; }
+@media (min-width: 768px) { .foot-bottom { flex-direction: row; justify-content: space-between; align-items: flex-start; gap: 32px; } }
+.foot-fda { font-size: 11px; line-height: 1.55; color: rgba(255,255,255,0.3); max-width: 680px; font-family: var(--f-mono); letter-spacing: 0.02em; }
+.foot-copy { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.08em; color: rgba(255,255,255,0.3); }
+
+
+/* ===== BREADCRUMB ===== */
+.breadcrumb { padding: 14px 0 4px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute); }
+.breadcrumb a { color: var(--mute); text-decoration: none; transition: color 0.2s; }
+.breadcrumb a:hover { color: var(--ink); }
+.breadcrumb .sep { margin: 0 8px; opacity: 0.4; }
+.breadcrumb .current { color: var(--ink); }
+
+/* ===== PRE-ORDER BANNER ===== */
+.preorder-banner { background: linear-gradient(135deg, var(--orange-soft) 0%, #FFE5D6 100%); padding: 14px 18px; text-align: center; font-size: 13px; color: var(--ink); border-radius: 12px; margin: 12px 20px 0; line-height: 1.5; border: 1px solid rgba(242,104,47,0.18); }
+.preorder-banner strong { font-weight: 500; color: var(--orange-deep); }
+.preorder-banner .accent { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+@media (min-width: 768px) { .preorder-banner { font-size: 14px; padding: 16px 24px; margin: 12px 32px 0; } }
+
+/* ===== PRODUCT HERO ===== */
+.pdp-hero { padding: 20px 0 56px; }
+@media (min-width: 1024px) { .pdp-hero { padding: 28px 0 80px; } }
+.pdp-hero-grid { display: grid; gap: 28px; grid-template-columns: 1fr; }
+@media (min-width: 1024px) { .pdp-hero-grid { grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: start; } }
+
+/* Gallery */
+.pdp-gallery { display: flex; flex-direction: column; gap: 10px; }
+.pdp-gallery-main { aspect-ratio: 1 / 1; background: linear-gradient(135deg, #5C432F 0%, #3A2A1C 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: clamp(120px, 26vw, 220px); color: rgba(255,255,255,0.32); position: relative; overflow: hidden; transition: background 0.5s ease; }
+.pdp-gallery-main.cashew { background: linear-gradient(135deg, #B89878 0%, #7A6248 100%); }
+.pdp-gallery-badge { position: absolute; top: 16px; left: 16px; background: rgba(255,255,255,0.95); color: var(--orange-deep); padding: 6px 12px; border-radius: 100px; font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500; }
+.pdp-gallery-thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.pdp-thumb { aspect-ratio: 1 / 1; border-radius: 10px; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; display: flex; align-items: center; justify-content: center; font-size: 28px; }
+.pdp-thumb:hover { border-color: rgba(26,26,26,0.2); }
+.pdp-thumb.active { border-color: var(--orange); }
+.pdp-thumb.t-pb-main { background: linear-gradient(135deg, #5C432F 0%, #3A2A1C 100%); color: rgba(255,255,255,0.4); }
+.pdp-thumb.t-pb-cross { background: linear-gradient(135deg, #8A6A4A 0%, #5C4530 100%); color: rgba(255,255,255,0.45); }
+.pdp-thumb.t-pb-pack { background: linear-gradient(135deg, #F0E5D5 0%, #D4C4A8 100%); color: var(--ink-soft); }
+.pdp-thumb.t-pb-life { background: linear-gradient(135deg, #D4E4CC 0%, #8FA396 100%); color: rgba(47,61,51,0.5); }
+.pdp-thumb.t-cs-main { background: linear-gradient(135deg, #B89878 0%, #7A6248 100%); color: rgba(255,255,255,0.4); }
+.pdp-thumb.t-cs-cross { background: linear-gradient(135deg, #C8A580 0%, #8E7458 100%); color: rgba(255,255,255,0.45); }
+.pdp-thumb.t-cs-pack { background: linear-gradient(135deg, #EEE9E0 0%, #C8B89C 100%); color: var(--ink-soft); }
+.pdp-thumb.t-cs-life { background: linear-gradient(135deg, #FDEFE6 0%, #F2C8AB 100%); color: var(--ink-soft); }
+
+/* Conversion panel */
+.pdp-info-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange-deep); margin-bottom: 12px; font-weight: 500; }
+.pdp-info-eyebrow .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--orange); display: inline-block; }
+
+.pdp-title { font-size: clamp(32px, 6vw, 48px); margin-bottom: 10px; line-height: 1.02; letter-spacing: -0.025em; }
+.pdp-title em { font-family: var(--f-serif); font-style: italic; color: var(--orange); font-weight: 400; }
+.pdp-deck { font-family: var(--f-serif); font-size: 18px; font-style: italic; color: var(--ink-soft); line-height: 1.45; margin-bottom: 18px; max-width: 480px; }
+@media (min-width: 768px) { .pdp-deck { font-size: 20px; } }
+
+.pdp-rating { display: flex; align-items: center; gap: 8px; margin-bottom: 24px; }
+.pdp-rating-stars { display: inline-flex; gap: 2px; color: var(--orange); }
+.pdp-rating-stars svg { width: 14px; height: 14px; fill: currentColor; }
+.pdp-rating-text { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; color: var(--ink-soft); text-transform: uppercase; }
+.pdp-rating-text strong { color: var(--ink); font-weight: 500; }
+
+/* Quick highlights */
+.pdp-highlights { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+.pdp-pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background: var(--sand); border-radius: 100px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.08em; color: var(--ink); text-transform: uppercase; font-weight: 500; }
+.pdp-pill svg { width: 12px; height: 12px; color: var(--orange-deep); }
+
+/* Variant selector - flavor */
+.pdp-section-label { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.pdp-section-label strong { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft); font-weight: 500; }
+.pdp-section-label-current { font-family: var(--f-body); font-size: 13px; color: var(--ink); font-weight: 500; }
+
+.flavor-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 24px; }
+.flavor-card { padding: 14px 16px; border: 1.5px solid var(--line); border-radius: 12px; cursor: pointer; background: #fff; transition: all 0.2s; text-align: left; font-family: var(--f-body); position: relative; }
+.flavor-card:hover { border-color: rgba(26,26,26,0.3); }
+.flavor-card.active { border-color: var(--orange); background: var(--orange-soft); }
+.flavor-card .f-name { font-size: 15px; font-weight: 500; line-height: 1.25; margin-bottom: 4px; letter-spacing: -0.01em; }
+.flavor-card .f-protein { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; color: var(--ink-soft); text-transform: uppercase; }
+.flavor-card .f-protein strong { color: var(--orange-deep); }
+.flavor-card .f-diet { display: inline-block; font-family: var(--f-mono); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sage); background: rgba(47,61,51,0.08); padding: 2px 7px; border-radius: 100px; margin-top: 6px; font-weight: 500; }
+
+/* Purchase mode toggle (subscribe vs one-time) */
+.purchase-options { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 24px; }
+.purchase-card { padding: 16px 18px; border: 1.5px solid var(--line); border-radius: 12px; cursor: pointer; background: #fff; transition: all 0.2s; position: relative; display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: center; }
+.purchase-card:hover { border-color: rgba(26,26,26,0.3); }
+.purchase-card.active { border-color: var(--orange); background: var(--orange-soft); }
+.purchase-radio { width: 20px; height: 20px; border: 2px solid var(--line); border-radius: 50%; position: relative; flex-shrink: 0; transition: border-color 0.2s; }
+.purchase-card.active .purchase-radio { border-color: var(--orange); }
+.purchase-card.active .purchase-radio::after { content: ''; position: absolute; inset: 3px; background: var(--orange); border-radius: 50%; }
+.purchase-info { min-width: 0; }
+.purchase-info .p-name { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; line-height: 1.3; margin-bottom: 3px; flex-wrap: wrap; }
+.purchase-info .p-name .save-tag { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #fff; background: var(--orange); padding: 3px 8px; border-radius: 100px; font-weight: 500; }
+.purchase-info .p-meta { font-size: 12px; color: var(--ink-soft); line-height: 1.4; }
+.purchase-price { text-align: right; flex-shrink: 0; }
+.purchase-price-now { font-family: var(--f-mono); font-size: 17px; font-weight: 500; color: var(--ink); line-height: 1; }
+.purchase-price-strike { font-family: var(--f-mono); font-size: 12px; color: var(--mute); text-decoration: line-through; margin-top: 4px; }
+
+/* Subscription frequency selector (only shows when subscribe is active) */
+.sub-freq { display: none; margin-top: -14px; margin-bottom: 24px; padding: 14px 16px; background: var(--cream); border-radius: 0 0 12px 12px; border: 1.5px solid var(--orange); border-top: none; }
+.sub-freq.show { display: block; }
+.sub-freq-label { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 8px; font-weight: 500; }
+.sub-freq-options { display: flex; flex-wrap: wrap; gap: 6px; }
+.sub-freq-chip { padding: 6px 12px; background: #fff; border: 1px solid var(--line); border-radius: 100px; font-family: var(--f-body); font-size: 12px; cursor: pointer; transition: all 0.2s; color: var(--ink-soft); font-weight: 500; }
+.sub-freq-chip:hover { border-color: var(--ink); color: var(--ink); }
+.sub-freq-chip.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+/* Quantity + ATC */
+.atc-row { display: grid; grid-template-columns: auto 1fr; gap: 10px; margin-bottom: 16px; }
+.qty-stepper { display: inline-flex; align-items: center; border: 1.5px solid var(--line); border-radius: 100px; background: #fff; }
+.qty-stepper button { width: 44px; height: 48px; background: transparent; border: none; cursor: pointer; font-size: 18px; color: var(--ink-soft); display: inline-flex; align-items: center; justify-content: center; }
+.qty-stepper button:hover { color: var(--ink); }
+.qty-stepper .qty-display { font-family: var(--f-mono); font-size: 14px; font-weight: 500; min-width: 28px; text-align: center; }
+
+.atc-btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 24px; background: var(--orange); color: #fff; border: none; border-radius: 100px; font-family: var(--f-body); font-size: 15px; font-weight: 500; cursor: pointer; transition: all 0.2s; height: 48px; }
+.atc-btn:hover { background: var(--orange-deep); }
+.atc-btn .price-tag { font-family: var(--f-mono); margin-left: 4px; opacity: 0.85; }
+
+/* Guarantee callout */
+.pdp-guarantee { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: var(--sand); border-radius: 10px; font-size: 13px; color: var(--ink-soft); line-height: 1.5; margin-bottom: 24px; }
+.pdp-guarantee-icon { width: 32px; height: 32px; background: #fff; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--orange-deep); }
+.pdp-guarantee-icon svg { width: 16px; height: 16px; }
+.pdp-guarantee strong { color: var(--ink); font-weight: 500; }
+
+/* Expandable info accordions */
+.pdp-acc { border-top: 1px solid var(--line-soft); }
+.pdp-acc summary { padding: 16px 0; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px; font-family: var(--f-display); font-size: 15px; font-weight: 500; color: var(--ink); list-style: none; letter-spacing: -0.005em; }
+.pdp-acc summary::-webkit-details-marker { display: none; }
+.pdp-acc summary::after { content: '+'; font-family: var(--f-mono); font-size: 18px; color: var(--orange-deep); font-weight: 400; transition: transform 0.2s; }
+.pdp-acc[open] summary::after { transform: rotate(45deg); }
+.pdp-acc-body { padding: 0 0 18px; font-size: 14px; line-height: 1.65; color: var(--ink-soft); }
+.pdp-acc-body p { margin-bottom: 0.8em; }
+.pdp-acc-body p:last-child { margin-bottom: 0; }
+.pdp-acc-body ul { margin: 0.4em 0 0.8em 1.2em; padding: 0; }
+.pdp-acc-body li { margin-bottom: 0.3em; }
+.pdp-acc-body li::marker { color: var(--orange); }
+.pdp-acc-body strong { color: var(--ink); font-weight: 500; }
+
+/* ===== STAT STRIP ===== */
+.stat-strip { background: var(--sage); color: #fff; padding: 40px 0; }
+@media (min-width: 768px) { .stat-strip { padding: 56px 0; } }
+.stat-grid { display: grid; gap: 32px; grid-template-columns: 1fr 1fr; text-align: center; }
+@media (min-width: 768px) { .stat-grid { grid-template-columns: repeat(4, 1fr); gap: 24px; } }
+.stat-num { font-family: var(--f-display); font-size: clamp(36px, 7vw, 56px); line-height: 1; color: var(--orange); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; }
+.stat-label { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.6); line-height: 1.4; }
+
+/* ===== NUTRITION SECTION ===== */
+.nutrition-section { padding: 56px 0; background: var(--cream); }
+@media (min-width: 768px) { .nutrition-section { padding: 88px 0; } }
+.nutrition-head { text-align: center; max-width: 640px; margin: 0 auto 40px; }
+.nutrition-head .eyebrow { margin-bottom: 12px; }
+.nutrition-head h2 { font-size: clamp(28px, 5vw, 42px); margin-bottom: 14px; line-height: 1.05; }
+.nutrition-head h2 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.nutrition-head p { font-size: 15px; color: var(--ink-soft); line-height: 1.6; }
+@media (min-width: 768px) { .nutrition-head p { font-size: 16px; } }
+
+.nutrition-grid { display: grid; gap: 24px; grid-template-columns: 1fr; max-width: 880px; margin: 0 auto; }
+@media (min-width: 768px) { .nutrition-grid { grid-template-columns: 1fr 1fr; gap: 28px; } }
+
+.nutrition-card { background: #fff; border-radius: 16px; padding: 28px 24px; border: 1px solid var(--line-soft); }
+@media (min-width: 768px) { .nutrition-card { padding: 32px 28px; } }
+.nutrition-card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-bottom: 16px; margin-bottom: 16px; border-bottom: 2px solid var(--ink); flex-wrap: wrap; }
+.nutrition-card-name { font-family: var(--f-display); font-size: 18px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.25; }
+.nutrition-card-name em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.nutrition-card-protein { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange-deep); font-weight: 500; }
+
+.nutrition-row { display: flex; justify-content: space-between; align-items: baseline; padding: 8px 0; border-bottom: 1px solid var(--line-soft); font-size: 13px; }
+.nutrition-row:last-of-type { border-bottom: none; }
+.nutrition-row.bold { font-weight: 500; color: var(--ink); border-bottom-width: 2px; padding: 10px 0; }
+.nutrition-row .label { color: var(--ink-soft); }
+.nutrition-row.bold .label { color: var(--ink); }
+.nutrition-row .value { font-family: var(--f-mono); color: var(--ink); }
+.nutrition-row .indent { padding-left: 14px; color: var(--mute); }
+
+.nutrition-foot { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.06em; color: var(--mute); margin-top: 14px; line-height: 1.5; }
+
+/* ===== INGREDIENTS SECTION ===== */
+
+/* ═══ Ingredients grid (matches Lemna landing page) ═══ */
+.lpdp-ing-inner { max-width: 1180px; margin: 0 auto; }
+.lpdp-ing-header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 60px;
+}
+.lpdp-ing-header h2 {
+  font-size: clamp(36px, 4.8vw, 56px);
+  margin-bottom: 18px;
+  letter-spacing: -0.025em;
+}
+.lpdp-ing-header h2 em {
+  font-family: var(--f-serif);
+  font-style: italic;
+  color: var(--orange);
+  font-weight: 400;
+}
+.lpdp-ing-header p {
+  font-size: 16px;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+.lpdp-ing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.lpdp-ing-row {
+  background: #fff;
+  border-radius: 14px;
+  padding: 22px 26px;
+  border: 1px solid var(--line-soft);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 18px;
+  align-items: flex-start;
+  transition: all 0.2s;
+}
+.lpdp-ing-row:hover {
+  border-color: var(--sage-light);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+.lpdp-ing-row.hero-ing {
+  background: var(--sage);
+  color: #fff;
+  border-color: var(--sage);
+  grid-column: span 2;
+}
+.lpdp-ing-row.hero-ing .lpdp-ing-name { color: #fff; font-size: 19px; }
+.lpdp-ing-row.hero-ing .lpdp-ing-purpose { color: rgba(255,255,255,0.78); }
+.lpdp-ing-row.hero-ing .lpdp-ing-tag { background: var(--orange); color: #fff; }
+.lpdp-ing-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: var(--sand);
+  font-family: var(--f-mono);
+  font-size: 8px;
+  color: var(--sage-light);
+  letter-spacing: 0.1em;
+  flex-shrink: 0;
+}
+.lpdp-ing-row.hero-ing .lpdp-ing-icon {
+  background: var(--sage-mid);
+  color: var(--sage-light);
+}
+.lpdp-ing-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.lpdp-ing-namerow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.lpdp-ing-name {
+  font-family: var(--f-display);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.lpdp-ing-tag {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--sage-tint);
+  color: var(--sage);
+  padding: 3px 8px;
+  border-radius: 100px;
+  font-weight: 500;
+}
+.lpdp-ing-purpose {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+.lpdp-ing-honest {
+  margin-top: 32px;
+  background: var(--orange-soft);
+  border-left: 4px solid var(--orange);
+  border-radius: 8px;
+  padding: 22px 28px;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--ink);
+}
+.lpdp-ing-honest strong { font-weight: 500; }
+@media (max-width: 800px) {
+  .lpdp-ing-grid { grid-template-columns: 1fr; }
+  .lpdp-ing-row.hero-ing { grid-column: span 1; }
+}
+
+.ingredients-section { padding: 56px 0; }
+@media (min-width: 768px) { .ingredients-section { padding: 88px 0; } }
+.ingredients-head { text-align: center; max-width: 600px; margin: 0 auto 40px; }
+.ingredients-head .eyebrow { margin-bottom: 12px; }
+.ingredients-head h2 { font-size: clamp(28px, 5vw, 42px); margin-bottom: 14px; line-height: 1.05; }
+.ingredients-head h2 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.ingredients-head p { font-size: 15px; color: var(--ink-soft); line-height: 1.6; }
+
+.ing-compact-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+@media (min-width: 640px) { .ing-compact-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
+@media (min-width: 1100px) { .ing-compact-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+
+.ing-compact {
+  background: #fff;
+  border: 1px solid var(--line-soft);
+  border-radius: 16px;
+  padding: 24px 26px;
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@media (min-width: 768px) { .ing-compact { padding: 28px; gap: 20px; } }
+.ing-compact:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+  border-color: var(--sage-light);
+}
+.ing-compact.feat {
+  background: linear-gradient(135deg, #fff 0%, var(--orange-soft) 100%);
+  border-color: var(--orange);
+}
+.ing-compact.feat:hover { border-color: var(--orange); }
+
+.ing-compact-img {
+  width: 64px;
+  height: 64px;
+  background: var(--sand);
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 30px;
+}
+@media (min-width: 768px) { .ing-compact-img { width: 72px; height: 72px; font-size: 34px; } }
+.ing-compact-emoji { line-height: 1; }
+
+.ing-compact-body { flex: 1; min-width: 0; }
+.ing-compact-top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+.ing-compact-name {
+  font-family: var(--f-display);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.ing-compact-name em { font-family: var(--f-serif); font-style: italic; color: var(--orange); font-weight: 400; }
+.ing-compact-badge {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  background: var(--orange);
+  color: #fff;
+  padding: 3px 8px;
+  border-radius: 100px;
+  font-weight: 500;
+}
+.ing-compact-badge.sage { background: rgba(47,61,51,0.08); color: var(--sage); }
+.ing-compact-sub {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+/* ===== LEMNA STORY STRIP ===== */
+.lemna-story { background: linear-gradient(135deg, var(--sage) 0%, #243029 100%); color: #fff; padding: 64px 0; }
+@media (min-width: 768px) { .lemna-story { padding: 96px 0; } }
+.lemna-story-grid { display: grid; gap: 40px; grid-template-columns: 1fr; align-items: center; }
+@media (min-width: 900px) { .lemna-story-grid { grid-template-columns: 1fr 1fr; gap: 56px; } }
+.lemna-story-text .eyebrow { color: var(--orange); margin-bottom: 14px; }
+.lemna-story-text h2 { color: #fff; font-size: clamp(28px, 5vw, 44px); margin-bottom: 16px; line-height: 1.05; }
+.lemna-story-text h2 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.lemna-story-text p { color: rgba(255,255,255,0.72); font-size: 15px; line-height: 1.65; margin-bottom: 14px; max-width: 520px; }
+@media (min-width: 768px) { .lemna-story-text p { font-size: 16px; } }
+.lemna-story-text p strong { color: #fff; font-weight: 500; }
+.lemna-story-cta { display: inline-flex; align-items: center; gap: 6px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--orange); text-decoration: none; margin-top: 8px; padding: 10px 0; border-bottom: 1px solid var(--orange); }
+.lemna-story-cta:hover { color: #fff; border-color: #fff; }
+.lemna-story-cta svg { width: 12px; height: 12px; }
+
+.lemna-story-visual { aspect-ratio: 4 / 3; background: linear-gradient(135deg, #4A6249 0%, #2F3D33 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: clamp(100px, 22vw, 180px); color: rgba(143,163,150,0.3); position: relative; overflow: hidden; }
+.lemna-story-stat { position: absolute; bottom: 20px; left: 20px; right: 20px; background: rgba(255,255,255,0.95); border-radius: 12px; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.lemna-story-stat-num { font-family: var(--f-display); font-weight: 700; font-size: 22px; color: var(--orange); line-height: 1; letter-spacing: -0.02em; white-space: nowrap; }
+.lemna-story-stat-label { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); line-height: 1.4; text-align: right; }
+.lemna-story-stat-label strong { color: var(--ink); display: block; font-weight: 500; }
+
+/* ===== HOW TO EAT IT ===== */
+.howto-section { padding: 56px 0; background: var(--sand); }
+@media (min-width: 768px) { .howto-section { padding: 88px 0; } }
+.howto-head { text-align: center; max-width: 600px; margin: 0 auto 40px; }
+.howto-head .eyebrow { margin-bottom: 12px; }
+.howto-head h2 { font-size: clamp(28px, 5vw, 40px); margin-bottom: 14px; line-height: 1.05; }
+.howto-head h2 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.howto-head p { font-size: 15px; color: var(--ink-soft); line-height: 1.6; }
+
+.howto-grid { display: grid; gap: 20px; grid-template-columns: 1fr; max-width: 880px; margin: 0 auto; }
+@media (min-width: 640px) { .howto-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .howto-grid { grid-template-columns: repeat(4, 1fr); gap: 18px; } }
+.howto-card { background: #fff; border-radius: 14px; padding: 24px 22px; }
+.howto-card-num { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.14em; color: var(--orange-deep); text-transform: uppercase; margin-bottom: 14px; font-weight: 500; }
+.howto-card-icon { font-size: 36px; margin-bottom: 12px; }
+.howto-card h3 { font-size: 17px; margin-bottom: 8px; line-height: 1.25; letter-spacing: -0.005em; }
+.howto-card p { font-size: 13px; color: var(--ink-soft); line-height: 1.55; }
+
+/* ===== REVIEWS ===== */
+.reviews-section { padding: 56px 0; }
+@media (min-width: 768px) { .reviews-section { padding: 88px 0; } }
+.reviews-head { text-align: center; max-width: 640px; margin: 0 auto 40px; }
+.reviews-head .eyebrow { margin-bottom: 12px; }
+.reviews-head h2 { font-size: clamp(28px, 5vw, 42px); margin-bottom: 14px; line-height: 1.05; }
+.reviews-head h2 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.reviews-head .summary { display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px; background: var(--sand); border-radius: 100px; font-size: 13px; }
+.reviews-head .summary strong { font-family: var(--f-mono); font-weight: 500; }
+
+.reviews-grid { display: grid; gap: 20px; grid-template-columns: 1fr; max-width: 1180px; margin: 0 auto; }
+@media (min-width: 768px) { .reviews-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; } }
+@media (min-width: 1100px) { .reviews-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.review-card {
+  background: #fff;
+  border: 1px solid var(--line-soft);
+  border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.review-card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
+
+.review-photo {
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(135deg, #D4C4A8 0%, #8FA396 100%);
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  padding: 16px 18px;
+  color: rgba(255,255,255,0.45);
+  font-size: 56px;
+  line-height: 1;
+}
+.review-photo.bg-cocoa { background: linear-gradient(135deg, #6B4F3A 0%, #4A3526 100%); }
+.review-photo.bg-sage { background: linear-gradient(135deg, #4A6249 0%, #2F3D33 100%); }
+.review-photo.bg-cream { background: linear-gradient(135deg, #F0E5D5 0%, #C8B89C 100%); color: var(--ink-soft); }
+.review-photo-tag {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: rgba(255,255,255,0.95);
+  color: var(--ink);
+  padding: 5px 11px;
+  border-radius: 100px;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.review-photo-tag .dot { display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: var(--orange); margin-right: 6px; }
+
+.review-body {
+  padding: 24px 26px 26px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.review-stars {
+  color: var(--orange);
+  display: inline-flex;
+  gap: 2px;
+  margin-bottom: 12px;
+}
+.review-stars svg { width: 14px; height: 14px; fill: currentColor; }
+.review-headline {
+  font-family: var(--f-display);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 10px;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+}
+.review-headline em { font-family: var(--f-serif); font-style: italic; color: var(--orange); font-weight: 400; }
+.review-body-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin-bottom: 18px;
+}
+.review-body-text strong {
+  font-weight: 500;
+  color: var(--ink);
+  background: linear-gradient(180deg, transparent 60%, rgba(242,104,47,0.18) 60%);
+}
+.review-attr {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: var(--sage);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  margin-top: auto;
+}
+.review-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line-soft);
+}
+.review-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(47,61,51,0.08);
+  color: var(--sage);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+  font-weight: 500;
+}
+.review-name { font-size: 14px; font-weight: 500; color: var(--ink); }
+.review-role { font-size: 12px; color: var(--mute); margin-top: 2px; }
+
+/* ===== FAQ ===== */
+.faq-section { padding: 56px 0; background: var(--cream); }
+@media (min-width: 768px) { .faq-section { padding: 88px 0; } }
+.faq-section .container { max-width: 820px; }
+.faq-section h2 { font-size: clamp(28px, 5vw, 40px); margin-bottom: 8px; text-align: center; }
+.faq-section h2 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.faq-section .faq-lede { font-size: 15px; color: var(--ink-soft); margin-bottom: 32px; line-height: 1.6; text-align: center; max-width: 540px; margin-left: auto; margin-right: auto; }
+.faq-list { max-width: 720px; margin: 0 auto; }
+.faq-item { border-bottom: 1px solid var(--line-soft); }
+.faq-item summary { padding: 18px 0; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px; font-family: var(--f-display); font-size: 16px; font-weight: 500; color: var(--ink); list-style: none; letter-spacing: -0.01em; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after { content: '+'; font-family: var(--f-mono); font-size: 18px; color: var(--orange-deep); flex-shrink: 0; transition: transform 0.2s; font-weight: 400; }
+.faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-item .faq-body { padding: 0 0 18px; font-size: 14px; line-height: 1.65; color: var(--ink-soft); max-width: 640px; }
+
+/* ===== CROSS-SELL ===== */
+.crosssell-section { padding: 56px 0 80px; }
+@media (min-width: 768px) { .crosssell-section { padding: 88px 0 112px; } }
+.crosssell-head { text-align: center; margin-bottom: 32px; }
+.crosssell-head .eyebrow { margin-bottom: 10px; }
+.crosssell-head h2 { font-size: clamp(24px, 4vw, 32px); }
+.crosssell-head h2 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.crosssell-grid { display: grid; gap: 20px; grid-template-columns: 1fr; max-width: 880px; margin: 0 auto; }
+@media (min-width: 640px) { .crosssell-grid { grid-template-columns: 1fr 1fr; } }
+.crosssell-card { background: #fff; border: 1px solid var(--line-soft); border-radius: 14px; padding: 20px; display: grid; grid-template-columns: 100px 1fr; gap: 16px; align-items: center; text-decoration: none; color: inherit; transition: all 0.2s; }
+.crosssell-card:hover { border-color: var(--orange); transform: translateY(-2px); }
+.crosssell-img { aspect-ratio: 1 / 1; background: var(--sand); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 44px; }
+.crosssell-img.bg-cocoa { background: linear-gradient(135deg, #6B4F3A 0%, #4A3526 100%); color: rgba(255,255,255,0.4); }
+.crosssell-info .c-tag { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.14em; color: var(--orange-deep); text-transform: uppercase; margin-bottom: 4px; font-weight: 500; }
+.crosssell-info h3 { font-size: 16px; margin-bottom: 4px; line-height: 1.25; }
+.crosssell-info p { font-size: 12px; color: var(--ink-soft); line-height: 1.45; margin-bottom: 8px; }
+.crosssell-info .c-price { font-family: var(--f-mono); font-size: 13px; font-weight: 500; }
+
+
+/* Accordion link to nutrition modal */
+.pdp-acc-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--orange-deep);
+  background: transparent;
+  border: none;
+  padding: 8px 0;
+  cursor: pointer;
+  font-weight: 500;
+}
+.pdp-acc-link:hover { color: var(--orange); }
+
+/* Nutrition modal */
+.nutri-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26,26,26,0.55);
+  z-index: 998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.nutri-overlay.open { opacity: 1; pointer-events: auto; }
+
+.nutri-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -45%);
+  background: var(--cream);
+  border-radius: 18px;
+  width: calc(100% - 24px);
+  max-width: 720px;
+  max-height: 85vh;
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 28px 64px rgba(0,0,0,0.22);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.nutri-modal.open { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%); }
+
+.nutri-head {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--line-soft);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.nutri-head h3 {
+  font-family: var(--f-display);
+  font-size: 19px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+.nutri-head h3 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.nutri-close {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+  flex-shrink: 0;
+  margin-right: -6px;
+}
+.nutri-close:hover { background: rgba(0,0,0,0.05); }
+.nutri-close svg { width: 18px; height: 18px; }
+
+/* Flavor tabs inside modal */
+.nutri-tabs {
+  display: flex;
+  gap: 0;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--line-soft);
+  background: var(--cream);
+}
+.nutri-tab {
+  background: transparent;
+  border: none;
+  padding: 14px 18px;
+  font-family: var(--f-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  letter-spacing: -0.005em;
+  transition: color 0.2s;
+}
+.nutri-tab:hover { color: var(--ink); }
+.nutri-tab.active { color: var(--ink); border-bottom-color: var(--orange); }
+
+.nutri-body {
+  padding: 20px 24px 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.nutri-panel { display: none; }
+.nutri-panel.active { display: block; }
+
+.nutri-protein-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(242,104,47,0.1);
+  color: var(--orange-deep);
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border-radius: 100px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.nutri-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line-soft);
+  font-size: 13px;
+}
+.nutri-row:last-of-type { border-bottom: none; }
+.nutri-row.bold {
+  font-weight: 500;
+  color: var(--ink);
+  border-bottom-width: 2px;
+  border-bottom-color: var(--ink);
+  padding: 10px 0;
+}
+.nutri-row .label { color: var(--ink-soft); }
+.nutri-row.bold .label { color: var(--ink); }
+.nutri-row .value { font-family: var(--f-mono); color: var(--ink); }
+.nutri-row .indent { padding-left: 14px; color: var(--mute); }
+.nutri-foot {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--mute);
+  margin-top: 16px;
+  line-height: 1.5;
+  padding-top: 14px;
+  border-top: 1px solid var(--line-soft);
+}
+
+/* Body lock when modal open */
+body.nutri-locked { overflow: hidden; }
+
+/* ============================================================
+   KINGA VIDEO BLOCK (Lemna PDP version)
+   ============================================================ */
+.kinga-video {
+  background: var(--cream);
+  padding: 64px 0;
+}
+@media (min-width: 768px) { .kinga-video { padding: 88px 0; } }
+.kinga-video-wrap {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+@media (min-width: 768px) { .kinga-video-wrap { padding: 0 32px; } }
+.kinga-video-head {
+  text-align: center;
+  margin-bottom: 28px;
+}
+.kinga-video-head .eyebrow { margin-bottom: 12px; }
+.kinga-video-head h2 {
+  font-size: clamp(26px, 4.5vw, 38px);
+  margin-bottom: 10px;
+  line-height: 1.1;
+}
+.kinga-video-head h2 em, .kinga-video-head h2 .serif-accent { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.kinga-video-head p {
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+  max-width: 480px;
+  margin: 0 auto;
+}
+.kinga-video-player {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: linear-gradient(135deg, #4A6249 0%, #243029 100%);
+  border-radius: 18px;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.kinga-video-player:hover { transform: scale(1.005); }
+.kinga-video-player::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 50%, rgba(242,104,47,0.18) 0%, transparent 60%);
+  pointer-events: none;
+}
+.kinga-video-emoji {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(80px, 18vw, 140px);
+  color: rgba(255,255,255,0.18);
+  pointer-events: none;
+}
+.kinga-video-play {
+  position: relative;
+  z-index: 2;
+  width: 72px;
+  height: 72px;
+  background: var(--orange);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+  transition: transform 0.2s, background 0.2s;
+}
+.kinga-video-player:hover .kinga-video-play { transform: scale(1.08); background: var(--orange-deep); }
+.kinga-video-play svg { width: 28px; height: 28px; margin-left: 4px; }
+.kinga-video-meta {
+  position: absolute;
+  bottom: 18px;
+  left: 22px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.kinga-video-tag {
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: rgba(255,255,255,0.85);
+  padding: 6px 12px;
+  border-radius: 100px;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.kinga-video-duration {
+  background: rgba(0,0,0,0.65);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  font-weight: 500;
+}
+.kinga-video-ph-tag {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 2;
+  background: rgba(255,255,255,0.95);
+  color: var(--ink);
+  padding: 6px 12px;
+  border-radius: 100px;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Okendo slot */
+.okendo-slot {
+  background: var(--cream);
+  padding: 56px 0;
+  border-top: 1px solid var(--line-soft);
+}
+@media (min-width: 768px) { .okendo-slot { padding: 80px 0; } }
+.okendo-note {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0 20px;
+}
+.okendo-note .eyebrow { margin-bottom: 12px; }
+.okendo-note h3 { font-size: clamp(22px, 3.5vw, 28px); margin-bottom: 10px; line-height: 1.2; }
+.okendo-note h3 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.okendo-note p { font-size: 14px; color: var(--ink-soft); line-height: 1.55; }
+.okendo-marker {
+  margin-top: 24px;
+  padding: 24px 28px;
+  background: rgba(242,104,47,0.04);
+  border: 1px dashed rgba(242,104,47,0.4);
+  border-radius: 12px;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  color: var(--orange-deep);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+</style>
+</head>
+<body>
+
+<div class="announce">
+  Free shipping over <strong>$100</strong>
+  <span class="sep announce-secondary">·</span>
+  <span class="announce-secondary">Use <strong>WELCOME10</strong> for 10% off your first order</span>
+</div>
+
+<nav class="mujo-nav" id="nav">
+  <button class="nav-hamburger" aria-label="Open menu" onclick="openMenu()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg></button>
+  <a href="/" class="nav-logo" aria-label="Mujo home"><img src="Mujo_logo_orange.png" alt="Mujo"></a>
+  <div class="nav-center">
+    <a href="/shop" class="nav-link active">Shop</a>
+    <a href="/science" class="nav-link">Science</a>
+    <a href="/ingredients" class="nav-link">Ingredients</a>
+    <a href="/journal" class="nav-link">Journal</a>
+    <a href="/rebel-club" class="nav-link">Rebel Club</a>
+  </div>
+  <div class="nav-right">
+    <a href="/account" class="nav-icon" aria-label="Account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></a>
+    <button class="nav-icon" aria-label="Cart" onclick="openCart()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h14l-1.4 11.2a2 2 0 0 1-2 1.8H8.4a2 2 0 0 1-2-1.8L5 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg><span class="cart-count hidden" id="cartCount">0</span></button>
+  </div>
+</nav>
+
+<div class="menu-overlay" id="overlay" onclick="closeAll()"></div>
+<aside class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <div class="mm-head">
+    <a href="/" aria-label="Mujo home"><img src="Mujo_logo_orange.png" alt="Mujo"></a>
+    <button class="mm-close" aria-label="Close menu" onclick="closeMenu()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>
+  </div>
+  <div class="mm-links">
+    <a href="/shop" class="mm-link">Shop <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    <a href="/science" class="mm-link">Science <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    <a href="/ingredients" class="mm-link">Ingredients <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    <a href="/journal" class="mm-link">Journal <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    <a href="/rebel-club" class="mm-link">Rebel Club <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    <a href="/about" class="mm-link">About <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    <a href="/account" class="mm-link">Account <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+  </div>
+  <div class="mm-foot">
+    <div class="mm-foot-eyebrow">New here</div>
+    <p>10% off your first order. Take 60 seconds, get a Reset Plan tuned to your specific pattern.</p>
+    <a href="/quiz" class="mm-cta">Take the audit →</a>
+  </div>
+</aside>
+<aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
+  <div class="cart-head">
+    <div class="cart-head-title">Your cart <span id="cartHeadCount">0 items</span></div>
+    <button class="cart-close" aria-label="Close cart" onclick="closeCart()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>
+  </div>
+  <div class="cart-progress">
+    <div class="cart-progress-msg" id="progressMsg">Free shipping at <strong>$100</strong>.</div>
+    <div class="cart-progress-track"><div class="cart-progress-fill" id="progressFill" style="width: 0%;"></div></div>
+  </div>
+  <div class="cart-body" id="cartBody"></div>
+  <div class="cart-foot">
+    <div class="cart-row"><span>Subtotal</span><span class="price" id="subtotalDisplay">$0</span></div>
+    <div class="cart-row"><span>Shipping</span><span class="price" id="shippingDisplay">Calculated at checkout</span></div>
+    <div class="cart-row total"><span>Total</span><span class="price" id="totalDisplay">$0</span></div>
+    <div class="cart-shipping-note">Taxes calculated at checkout. Subscription orders renew at 25% off retail.</div>
+    <button class="cart-checkout" onclick="checkout()">Checkout <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></button>
+    <div class="cart-secure">Secure · Stripe checkout</div>
+  </div>
+</aside>
+
+
+<!-- Pre-order banner -->
+<div class="preorder-banner">
+  <strong>Pre-order open.</strong> First boxes ship <span class="accent">July 2026.</span> Lock in founding member pricing today, charge only when it ships.
+</div>
+
+<!-- Breadcrumb -->
+<div class="container">
+  <div class="breadcrumb">
+    <a href="/">Home</a><span class="sep">/</span><a href="/shop">Shop</a><span class="sep">/</span><span class="current">Lemna Bar</span>
+  </div>
+</div>
+
+<!-- ============================================================
+     PRODUCT HERO
+     ============================================================ -->
+<section class="pdp-hero">
+  <div class="container">
+    <div class="pdp-hero-grid">
+
+      <!-- Gallery -->
+      <div class="pdp-gallery">
+        <div class="pdp-gallery-main" id="galleryMain">
+          🥜
+          <span class="pdp-gallery-badge">Pre-order · July 2026</span>
+        </div>
+        <div class="pdp-gallery-thumbs">
+          <button class="pdp-thumb t-pb-main active" onclick="setMain(this, '🥜', false)">🥜</button>
+          <button class="pdp-thumb t-pb-cross" onclick="setMain(this, '🍫', false)">🍫</button>
+          <button class="pdp-thumb t-pb-pack" onclick="setMain(this, '📦', false)">📦</button>
+          <button class="pdp-thumb t-pb-life" onclick="setMain(this, '🌿', false)">🌿</button>
+        </div>
+      </div>
+
+      <!-- Conversion panel -->
+      <div class="pdp-info">
+        <div class="pdp-info-eyebrow"><span class="dot"></span>The Lemna Bar · 12-pack</div>
+        <h1 class="pdp-title">A protein bar <em>that actually tastes like food.</em></h1>
+        <p class="pdp-deck">Built around Lemna leaf of Rubi Protein™. Real ingredients. Honest macros. No gut-disrupting fillers, no sugar alcohols, no chalky aftertaste.</p>
+
+        <div class="pdp-rating">
+          <div class="pdp-rating-stars">
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
+          </div>
+          <div class="pdp-rating-text"><strong>4.9</strong> · 87 founding member reviews</div>
+        </div>
+
+        <div class="pdp-highlights">
+          <span class="pdp-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>14–17g protein</span>
+          <span class="pdp-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>PDCAAS of 1.0</span>
+          <span class="pdp-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>No sugar alcohols</span>
+          <span class="pdp-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>10× less land than soy</span>
+        </div>
+
+        <!-- Flavor selector -->
+        <div class="pdp-section-label">
+          <strong>Flavor</strong>
+          <span class="pdp-section-label-current" id="flavourCurrent">PB Crunch</span>
+        </div>
+        <div class="flavor-options">
+          <button class="flavor-card active" data-flavor="pb" onclick="selectFlavour(this)">
+            <div class="f-name">PB Crunch</div>
+            <div class="f-protein"><strong>17g</strong> protein</div>
+            <span class="f-diet">Vegan · Date syrup</span>
+          </button>
+          <button class="flavor-card" data-flavor="cashew" onclick="selectFlavour(this)">
+            <div class="f-name">Cashew Chocolate</div>
+            <div class="f-protein"><strong>14g</strong> protein</div>
+            <span class="f-diet">Vegetarian · Raw honey</span>
+          </button>
+        </div>
+
+        <!-- Purchase mode -->
+        <div class="pdp-section-label">
+          <strong>How often?</strong>
+        </div>
+        <div class="purchase-options">
+          <button class="purchase-card active" data-mode="sub" onclick="selectMode(this)">
+            <span class="purchase-radio"></span>
+            <span class="purchase-info">
+              <span class="p-name">Subscribe <span class="save-tag">Save 25%</span></span>
+              <span class="p-meta">Skip, swap, or cancel anytime. No salt.</span>
+            </span>
+            <span class="purchase-price">
+              <span class="purchase-price-now">$40.50</span>
+              <span class="purchase-price-strike">$54.00</span>
+            </span>
+          </button>
+          <button class="purchase-card" data-mode="once" onclick="selectMode(this)">
+            <span class="purchase-radio"></span>
+            <span class="purchase-info">
+              <span class="p-name">Just the once</span>
+              <span class="p-meta">12 bars · One-time order</span>
+            </span>
+            <span class="purchase-price">
+              <span class="purchase-price-now">$54.00</span>
+            </span>
+          </button>
+        </div>
+
+        <!-- Subscription frequency (only when subscribe is active) -->
+        <div class="sub-freq show" id="subFreq">
+          <div class="sub-freq-label">Deliver every</div>
+          <div class="sub-freq-options">
+            <button class="sub-freq-chip active" onclick="selectFreq(this)">2 weeks</button>
+            <button class="sub-freq-chip" onclick="selectFreq(this)">8 weeks</button>
+          </div>
+        </div>
+
+        <!-- Quantity + ATC -->
+        <div class="atc-row">
+          <div class="qty-stepper">
+            <button onclick="changeQty(-1)" aria-label="Decrease">−</button>
+            <span class="qty-display" id="qtyDisplay">1</span>
+            <button onclick="changeQty(1)" aria-label="Increase">+</button>
+          </div>
+          <button class="atc-btn" onclick="atc()">
+            <span>Pre-order</span>
+            <span class="price-tag" id="priceTag">· $40.50</span>
+          </button>
+        </div>
+
+        <!-- Guarantee -->
+        <div class="pdp-guarantee">
+          <span class="pdp-guarantee-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+          </span>
+          <div><strong>The 30-day promise.</strong> First-time orders are covered. If it's not for you, we refund or swap. No flavor interrogation.</div>
+        </div>
+
+        <!-- Expandable info rows -->
+        <details class="pdp-acc">
+          <summary>What's actually in it</summary>
+          <div class="pdp-acc-body">
+            <p><strong>PB Crunch:</strong> Lemna leaf of Rubi Protein™, peanut butter, date syrup, oats, sunflower lecithin, coconut butter, sea salt, natural vanilla.</p>
+            <p><strong>Cashew Chocolate:</strong> Lemna leaf of Rubi Protein™, cashews, raw honey, oats, dark chocolate (70%), chicory root, sunflower lecithin, sea salt, natural vanilla.</p>
+            <p>That's it. Eight or nine ingredients per bar. You can pronounce all of them.</p>
+            <button class="pdp-acc-link" onclick="openNutritionModal('pb')">View nutrition facts <span aria-hidden="true">→</span></button>
+          </div>
+        </details>
+
+        <details class="pdp-acc">
+          <summary>What's not in it</summary>
+          <div class="pdp-acc-body">
+            <ul>
+              <li>No sugar alcohols (the things that cause the bloat and the bathroom run)</li>
+              <li>No soy protein or pea isolate</li>
+              <li>No artificial sweeteners</li>
+              <li>No "natural flavors" code for industrial flavor systems</li>
+              <li>No gluten, no dairy in PB Crunch (Cashew uses honey, so it's vegetarian not vegan)</li>
+              <li>No coconut oil pretending to be cocoa butter</li>
+            </ul>
+            <button class="pdp-acc-link" onclick="openNutritionModal('pb')">View nutrition facts <span aria-hidden="true">→</span></button>
+          </div>
+        </details>
+
+        <details class="pdp-acc">
+          <summary>How it ships</summary>
+          <div class="pdp-acc-body">
+            <p>From our warehouse in Lisbon. EU orders 2–4 working days, US orders 4–7 working days, UK 3–5 working days. Free over $100.</p>
+            <p>Pre-order charges only when your box ships in July 2026. We email you a tracking link the moment it leaves the warehouse.</p>
+          </div>
+        </details>
+
+        <details class="pdp-acc">
+          <summary>Subscription details</summary>
+          <div class="pdp-acc-body">
+            <p>Subscribe and you save 25% on every box. We charge your card 2 days before each shipment.</p>
+            <p>Skip a delivery, change frequency, swap to the other flavor, pause for up to 3 months, or cancel, all in two taps from your account. No phone calls. No exit interview.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     STAT STRIP
+     ============================================================ -->
+<section class="stat-strip">
+  <div class="container">
+    <div class="stat-grid">
+      <div><div class="stat-num">14–17g</div><div class="stat-label">Protein per bar</div></div>
+      <div><div class="stat-num">~1.0</div><div class="stat-label">PDCAAS score</div></div>
+      <div><div class="stat-num">10×</div><div class="stat-label">Less land than soy</div></div>
+      <div><div class="stat-num">47</div><div class="stat-label">Test batches</div></div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ============================================================
+     INGREDIENTS BREAKDOWN
+     ============================================================ -->
+<section class="ingredients-section">
+  <div class="lpdp-ing-inner">
+    <div class="lpdp-ing-header">
+      <span class="eyebrow">The full ingredient list</span>
+      <h2>Every ingredient. <em>And what it's doing there.</em></h2>
+      <p>Real food, in real amounts, with a reason for being in the bar. If we can't explain why an ingredient is in the formula, it's not in the formula.</p>
+    </div>
+
+    <div class="lpdp-ing-grid">
+      <!-- Hero ingredient -->
+      <div class="lpdp-ing-row hero-ing">
+        <div class="lpdp-ing-icon">[ ic-lemna ]</div>
+        <div class="lpdp-ing-content">
+          <div class="lpdp-ing-namerow">
+            <span class="lpdp-ing-name">Lemna leaf (Rubi Protein™)</span>
+            <span class="lpdp-ing-tag">The hero</span>
+          </div>
+          <div class="lpdp-ing-purpose">Complete plant protein. PDCAAS of 1.0, equivalent to egg and whey. The reason this bar exists.</div>
+        </div>
+      </div>
+
+      <div class="lpdp-ing-row">
+        <div class="lpdp-ing-icon">[ icon ]</div>
+        <div class="lpdp-ing-content">
+          <div class="lpdp-ing-namerow">
+            <span class="lpdp-ing-name">Cashew butter / peanut butter</span>
+            <span class="lpdp-ing-tag">Base</span>
+          </div>
+          <div class="lpdp-ing-purpose">The body of the bar. Real nut butter, never powdered. Healthy fats and structure.</div>
+        </div>
+      </div>
+
+      <div class="lpdp-ing-row">
+        <div class="lpdp-ing-icon">[ icon ]</div>
+        <div class="lpdp-ing-content">
+          <div class="lpdp-ing-namerow">
+            <span class="lpdp-ing-name">Dates</span>
+            <span class="lpdp-ing-tag">Sweetener</span>
+          </div>
+          <div class="lpdp-ing-purpose">Whole-food sweetness with fiber and minerals. Slower glucose response than refined sugar.</div>
+        </div>
+      </div>
+
+      <div class="lpdp-ing-row">
+        <div class="lpdp-ing-icon">[ icon ]</div>
+        <div class="lpdp-ing-content">
+          <div class="lpdp-ing-namerow">
+            <span class="lpdp-ing-name">Honey or date syrup</span>
+            <span class="lpdp-ing-tag">Bind</span>
+          </div>
+          <div class="lpdp-ing-purpose">Honey in the Cashew Chocolate (vegetarian). Date syrup in the Peanut Butter Crunch (vegan). Single-source sweetness, no corn syrup, no agave, no maltitol.</div>
+        </div>
+      </div>
+
+      <div class="lpdp-ing-row">
+        <div class="lpdp-ing-icon">[ icon ]</div>
+        <div class="lpdp-ing-content">
+          <div class="lpdp-ing-namerow">
+            <span class="lpdp-ing-name">Coconut butter</span>
+            <span class="lpdp-ing-tag">Texture</span>
+          </div>
+          <div class="lpdp-ing-purpose">MCT-rich fat that gives the bar its melt and richness. Smooth without seed oils.</div>
+        </div>
+      </div>
+
+      <div class="lpdp-ing-row">
+        <div class="lpdp-ing-icon">[ icon ]</div>
+        <div class="lpdp-ing-content">
+          <div class="lpdp-ing-namerow">
+            <span class="lpdp-ing-name">Pea crisps</span>
+            <span class="lpdp-ing-tag">Crunch</span>
+          </div>
+          <div class="lpdp-ing-purpose">A small amount, for texture. Adds bite without compromising the macro profile.</div>
+        </div>
+      </div>
+
+      <div class="lpdp-ing-row">
+        <div class="lpdp-ing-icon">[ icon ]</div>
+        <div class="lpdp-ing-content">
+          <div class="lpdp-ing-namerow">
+            <span class="lpdp-ing-name">Unsweetened chocolate chips</span>
+            <span class="lpdp-ing-tag">Flavor</span>
+          </div>
+          <div class="lpdp-ing-purpose">Real cacao. No added sugar in the chips. The flavor comes from quality, not from sweetness.</div>
+        </div>
+      </div>
+
+      <div class="lpdp-ing-row">
+        <div class="lpdp-ing-icon">[ icon ]</div>
+        <div class="lpdp-ing-content">
+          <div class="lpdp-ing-namerow">
+            <span class="lpdp-ing-name">Mesquite powder</span>
+            <span class="lpdp-ing-tag">Depth</span>
+          </div>
+          <div class="lpdp-ing-purpose">Adds caramel-like depth and trace minerals. The reason the bar tastes like food, not like a supplement. Only on Cashew Chocolate flavor.</div>
+        </div>
+      </div>
+
+      <div class="lpdp-ing-row">
+        <div class="lpdp-ing-icon">[ icon ]</div>
+        <div class="lpdp-ing-content">
+          <div class="lpdp-ing-namerow">
+            <span class="lpdp-ing-name">Tapioca Fiber</span>
+            <span class="lpdp-ing-tag">Fiber</span>
+          </div>
+          <div class="lpdp-ing-purpose">Branded prebiotic fiber that digests cleanly. No bloat, no GI distress. The fiber that doesn't punish you.</div>
+        </div>
+      </div>
+
+      <div class="lpdp-ing-row">
+        <div class="lpdp-ing-icon">[ icon ]</div>
+        <div class="lpdp-ing-content">
+          <div class="lpdp-ing-namerow">
+            <span class="lpdp-ing-name">Chicory root fiber</span>
+            <span class="lpdp-ing-tag">Cashew only</span>
+          </div>
+          <div class="lpdp-ing-purpose">Inulin from chicory root. Feeds gut bacteria. Pairs with Tapioca Fiber in the Cashew Chocolate.</div>
+        </div>
+      </div>
+
+      <div class="lpdp-ing-row">
+        <div class="lpdp-ing-icon">[ icon ]</div>
+        <div class="lpdp-ing-content">
+          <div class="lpdp-ing-namerow">
+            <span class="lpdp-ing-name">Sunflower lecithin</span>
+            <span class="lpdp-ing-tag">Bind</span>
+          </div>
+          <div class="lpdp-ing-purpose">Organic, non-GMO emulsifier. Replaces the soy lecithin most bars use. Keeps everything cohesive. Also a natural source of choline.</div>
+        </div>
+      </div>
+
+      <div class="lpdp-ing-row">
+        <div class="lpdp-ing-icon">[ icon ]</div>
+        <div class="lpdp-ing-content">
+          <div class="lpdp-ing-namerow">
+            <span class="lpdp-ing-name">Sea salt</span>
+            <span class="lpdp-ing-tag">Cashew only</span>
+          </div>
+          <div class="lpdp-ing-purpose">A pinch. Lifts the cacao, sharpens the contrast. The single most underrated ingredient in food.</div>
+        </div>
+      </div>
+
+      <div class="lpdp-ing-row">
+        <div class="lpdp-ing-icon">[ icon ]</div>
+        <div class="lpdp-ing-content">
+          <div class="lpdp-ing-namerow">
+            <span class="lpdp-ing-name">Vegetable glycerin</span>
+            <span class="lpdp-ing-tag">Shelf life</span>
+          </div>
+          <div class="lpdp-ing-purpose">From coconut. Keeps the bar soft without refrigeration. The honest tradeoff for a shelf-stable bar made without preservatives.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lpdp-ing-honest">
+      <strong>About the glycerin.</strong> A careful reader will notice it on the label. Vegetable glycerin (from coconut) is what keeps a real-ingredient bar soft on the shelf without refrigeration or preservatives. It's the cleanest workable solution we found. We could have skipped explaining it. We'd rather you knew.
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LEMNA STORY STRIP
+     ============================================================ -->
+<section class="lemna-story">
+  <div class="container">
+    <div class="lemna-story-grid">
+      <div class="lemna-story-text">
+        <span class="eyebrow">The hero ingredient</span>
+        <h2>Lemna leaf. <em>The protein you've never heard of.</em></h2>
+        <p>The smallest flowering plant in the world doubles its biomass every 36 hours. <strong>Rubi Protein™</strong> is extracted from it through a clean water process, with a complete amino acid profile and a PDCAAS score of 1.0, like whey and eggs.</p>
+        <p>It uses about <strong>10× less land than soy</strong>, no pesticides, no arable soil. The protein source quietly fixing one of food production's biggest problems, dropped into a bar that tastes like a snack instead of a chore.</p>
+        <a href="/lemna" class="lemna-story-cta">
+          Read the Lemna chapter
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+        </a>
+      </div>
+      <div class="lemna-story-visual">
+        🌿
+        <div class="lemna-story-stat">
+          <div class="lemna-story-stat-num">All 9 EAAs</div>
+          <div class="lemna-story-stat-label">EAA = essential amino acids<strong>Perfect digestibility score</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ KINGA VIDEO — Why this bar exists, 30 seconds ═══ -->
+<section class="kinga-video">
+  <div class="kinga-video-wrap">
+    <div class="kinga-video-head">
+      <span class="eyebrow center">From the founder</span>
+      <h2>30 seconds with <span class="serif-accent">Kinga.</span></h2>
+      <p>Why this bar exists, and what makes Lemna leaf so different.</p>
+    </div>
+    <div class="kinga-video-player" onclick="alert('Video: hand off to your video host (e.g. Mux, Vimeo, YouTube embed) in production.')">
+      <span class="kinga-video-emoji" aria-hidden="true">🎬</span>
+      <span class="kinga-video-ph-tag">Image · Kinga thumbnail</span>
+      <span class="kinga-video-play">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+      <div class="kinga-video-meta">
+        <span class="kinga-video-tag">Founder · Kinga</span>
+        <span class="kinga-video-duration">0:30</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     HOW TO EAT IT
+     ============================================================ -->
+<section class="howto-section">
+  <div class="container">
+    <div class="howto-head">
+      <span class="eyebrow">How people use it</span>
+      <h2>Endless ways to <em>fold it into your routine.</em></h2>
+      <p>Not a meal replacement. Not a workout supplement. A serious snack that pulls its weight, whenever it earns the moment.</p>
+    </div>
+    <div class="howto-grid">
+      <div class="howto-card">
+        <div class="howto-card-num">01</div>
+        <div class="howto-card-icon">🌅</div>
+        <h3>The 11am shift</h3>
+        <p>Between breakfast and lunch when blood sugar dips. Protein steadies it without slowing you down.</p>
+      </div>
+      <div class="howto-card">
+        <div class="howto-card-num">02</div>
+        <div class="howto-card-icon">🎒</div>
+        <h3>School pickup</h3>
+        <p>In the car, on the walk, between drop-off and dinner. The hour where everyone is hungry and nothing is ready.</p>
+      </div>
+      <div class="howto-card">
+        <div class="howto-card-num">03</div>
+        <div class="howto-card-icon">🎾</div>
+        <h3>Post-padel</h3>
+        <p>Recovery protein that isn't a shake. Eat one in the car, talk to your knees about it later.</p>
+      </div>
+      <div class="howto-card">
+        <div class="howto-card-num">04</div>
+        <div class="howto-card-icon">✈️</div>
+        <h3>The travel back-up</h3>
+        <p>Two in the bag for the airport, the road trip, the conference where lunch is salty pasta and a sad pastry.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     REVIEWS
+     ============================================================ -->
+<section class="reviews-section">
+  <div class="container">
+    <div class="reviews-head">
+      <span class="eyebrow">Founding member reviews</span>
+      <h2>What people <em>actually said.</em></h2>
+      <div class="summary">
+        <span style="color: var(--orange);">★★★★★</span>
+        <span><strong>4.9</strong> from 87 reviews · 94% would buy again</span>
+      </div>
+    </div>
+
+    <div class="reviews-grid">
+
+      <div class="review-card">
+        <div class="review-photo bg-cream">
+          <span class="review-photo-tag"><span class="dot"></span>Verified · 3 months on</span>
+          🥜
+        </div>
+        <div class="review-body">
+          <div class="review-stars">
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
+          </div>
+          <div class="review-headline">"The first one that <em>doesn't taste like protein.</em>"</div>
+          <p class="review-body-text">No chalky aftertaste. No weird sweetness. <strong>The PB Crunch tastes like an actual peanut bar.</strong> My kids steal them, which is a problem and a compliment. The label is the shortest in my pantry and the macros are honest.</p>
+          <div class="review-attr">Verified purchase · Trustpilot</div>
+          <div class="review-author">
+            <div class="review-avatar">S</div>
+            <div>
+              <div class="review-name">Sara K.</div>
+              <div class="review-role">PB Crunch · Subscriber</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-photo bg-sage">
+          <span class="review-photo-tag"><span class="dot"></span>Verified · 4 months on</span>
+          🥼
+        </div>
+        <div class="review-body">
+          <div class="review-stars">
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
+          </div>
+          <div class="review-headline">"Finally, <em>no sugar alcohols.</em>"</div>
+          <p class="review-body-text">I have IBS and most protein bars are a no-go for me. <strong>These are the first ones in years that don't wreck my afternoon.</strong> The Cashew Chocolate is genuinely a treat. I'd been resigned to making my own. Not anymore.</p>
+          <div class="review-attr">Verified purchase · Google</div>
+          <div class="review-author">
+            <div class="review-avatar">M</div>
+            <div>
+              <div class="review-name">Marcus T.</div>
+              <div class="review-role">Cashew · Subscriber</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-photo bg-cocoa">
+          <span class="review-photo-tag"><span class="dot"></span>Verified · 5 months on</span>
+          🎾
+        </div>
+        <div class="review-body">
+          <div class="review-stars">
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
+          </div>
+          <div class="review-headline">"Padel recovery, <em>sorted.</em>"</div>
+          <p class="review-body-text">Two of these in the gym bag. <strong>Eat one after a match, eat the other on the drive home.</strong> Real food texture, real protein numbers, no stomach drama. I'm subscribed for the long haul. Already converted half my padel club.</p>
+          <div class="review-attr">Verified purchase · Shopify</div>
+          <div class="review-author">
+            <div class="review-avatar">A</div>
+            <div>
+              <div class="review-name">Ana M.</div>
+              <div class="review-role">PB Crunch · Subscriber</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ OKENDO REVIEW FEED SLOT ═══ -->
+<!-- Live Okendo widget will mount here when integrated.
+     Replace the .okendo-marker with your Okendo embed snippet
+     (e.g. <div data-oke-reviews-product-listing></div>) -->
+<section class="okendo-slot">
+  <div class="container">
+    <div class="okendo-note">
+      <span class="eyebrow">All reviews</span>
+      <h3>Read everything <em>everyone said.</em></h3>
+      <p>Filter, sort, and read the full review stream. Updated in real time. Verified purchases only.</p>
+      <div class="okendo-marker">
+        <!-- DEV NOTE: Replace this block with the Okendo embed snippet -->
+        Okendo review feed mounts here.
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FAQ
+     ============================================================ -->
+<section class="faq-section">
+  <div class="container">
+    <h2>Common questions. <em>Direct answers.</em></h2>
+    <p class="faq-lede">If yours isn't here, the contact form is two clicks away and a real human will answer.</p>
+
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>What does "PDCAAS close to 1.0" actually mean?</summary>
+        <div class="faq-body">PDCAAS is the modern measure of how well your body can use a protein. Whey is around 1.1, soy is around 0.9, most plant proteins sit between 0.5 and 0.8. Lemna leaf comes in close to 1.0, which means almost every gram you eat gets put to use, the same way it would with whey.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Why no sugar alcohols?</summary>
+        <div class="faq-body">Sugar alcohols (erythritol, maltitol, sorbitol, xylitol) are how most "low sugar" protein bars hit their numbers. They also cause bloating and digestive issues for a large portion of people. We use real sweeteners (date syrup, raw honey) at lower amounts. The macros are honest. Your gut is calmer.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Why is one vegan and one not?</summary>
+        <div class="faq-body">PB Crunch uses date syrup. Cashew Chocolate uses raw honey, because honey lifts the cashew and chocolate flavors in a way nothing plant-based did, after 47 batches. So PB Crunch is fully vegan; Cashew is vegetarian. We could have forced both into vegan, but the bar would have been worse, so we didn't.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>How is this different from a Larabar or RXBAR?</summary>
+        <div class="faq-body">More protein, and the protein source is different. RXBARs use egg white, which is great if you eat eggs and not great if you don't. Larabars are mostly date and nut, around 6g protein. The Lemna Bar gives you 14–17g of complete-amino-acid plant protein with a similarly short ingredient list. Different goal, different bar.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>When does pre-order ship?</summary>
+        <div class="faq-body">First boxes ship in July 2026. We charge your card the day your box leaves Lisbon, not before. You'll get a tracking link the moment it ships.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Allergens?</summary>
+        <div class="faq-body">PB Crunch contains peanuts and oats. Cashew Chocolate contains cashews, oats, and traces of dairy (in the dark chocolate). Both are made in a facility that handles tree nuts. Full allergen statement on every box.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Can I get a sample first?</summary>
+        <div class="faq-body">Pre-order is the sample. The 30-day promise covers your first box: if it's not for you, we refund or swap, no flavor interrogation. Easier than mailing single bars and gives you a real read on it.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Is Lemna leaf safe in pregnancy?</summary>
+        <div class="faq-body">Lemna leaf protein is a food, not a supplement, and there are no known concerns. As always with anything new during pregnancy, run it past your midwife or doctor first.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CROSS-SELL
+     ============================================================ -->
+<section class="crosssell-section">
+  <div class="container">
+    <div class="crosssell-head">
+      <span class="eyebrow">Pairs well with</span>
+      <h2>The other half <em>of the ritual.</em></h2>
+    </div>
+    <div class="crosssell-grid">
+      <a href="/products/mujo-ritual" class="crosssell-card">
+        <div class="crosssell-img bg-cocoa">🍵</div>
+        <div class="crosssell-info">
+          <div class="c-tag">Best seller</div>
+          <h3>Mujo Ritual · 25 servings</h3>
+          <p>Caffeine-free morning cacao. KSM-66, lion's mane, rhodiola, Bioavailable Curcuma. The other thing you might want.</p>
+          <div class="c-price">From $41.44 · subscribe</div>
+        </div>
+      </a>
+      <a href="/rebel-club" class="crosssell-card">
+        <div class="crosssell-img" style="background: linear-gradient(135deg, var(--orange-soft) 0%, #F2C8AB 100%);">🎁</div>
+        <div class="crosssell-info">
+          <div class="c-tag">Membership</div>
+          <h3>Rebel Club</h3>
+          <p>Subscribers get the bars at 25% off, early access to new flavors, and the monthly drop. Free to join.</p>
+          <div class="c-price">Included with subscription</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<footer class="mujo-foot">
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="Mujo_logo_orange.png" alt="Mujo">
+        <p class="foot-tagline">Conscious performance nutrition for people who read the label. Built in Portugal. Shipped globally.</p>
+      </div>
+      <div>
+        <div class="foot-col-title">Shop</div>
+        <div class="foot-links">
+          <a href="/products/mujo-ritual" class="foot-link">Mujo Ritual</a>
+          <a href="/products/lemna-bar" class="foot-link">Lemna Bar</a>
+          <a href="/shop" class="foot-link">Subscribe & save</a>
+          <a href="/rebel-club" class="foot-link">Rebel Club</a>
+        </div>
+      </div>
+      <div>
+        <div class="foot-col-title">Learn</div>
+        <div class="foot-links">
+          <a href="/ingredients" class="foot-link">Ingredients</a>
+          <a href="/science" class="foot-link">The Science</a>
+          <a href="/about" class="foot-link">Our story</a>
+          <a href="/journal" class="foot-link">Journal</a>
+        </div>
+      </div>
+      <div>
+        <div class="foot-col-title">Support</div>
+        <div class="foot-links">
+          <a href="/contact" class="foot-link">Contact</a>
+          <a href="/policies/shipping" class="foot-link">Shipping & returns</a>
+          <a href="/account" class="foot-link">Manage subscription</a>
+          <a href="/affiliate" class="foot-link">Affiliate program</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div class="foot-fda">*These statements have not been evaluated by the FDA. This product is not intended to diagnose, treat, cure, or prevent any disease. Individual results may vary.</div>
+      <div class="foot-copy">© 2026 Mujo</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const PRICES = { 'ritual-25': 55.25, 'ritual-10': 27, 'bar-pb': 54, 'bar-cashew': 54, 'mug': 24, 'tee': 38, 'tote': 22 };
+const NAMES = { 'ritual-25': 'Mujo Ritual · 25 servings', 'ritual-10': 'Mujo Ritual · 10 servings', 'bar-pb': 'Lemna Bar · PB Crunch', 'bar-cashew': 'Lemna Bar · Cashew Chocolate', 'mug': 'Ritual Mug', 'tee': 'Rebel Club Tee', 'tote': 'Market Tote' };
+const ICONS = { 'ritual-25': '🍵', 'ritual-10': '🍵', 'bar-pb': '🥜', 'bar-cashew': '🍫', 'mug': '☕', 'tee': '👕', 'tote': '🛍️' };
+let cart = {};
+function openMenu() { document.getElementById('mobileMenu').classList.add('open'); document.getElementById('overlay').classList.add('open'); document.body.classList.add('locked'); }
+function closeMenu() { document.getElementById('mobileMenu').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); if (!document.getElementById('cartDrawer').classList.contains('open')) document.body.classList.remove('locked'); }
+function openCart() { document.getElementById('cartDrawer').classList.add('open'); document.getElementById('overlay').classList.add('open'); document.body.classList.add('locked'); }
+function closeCart() { document.getElementById('cartDrawer').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); if (!document.getElementById('mobileMenu').classList.contains('open')) document.body.classList.remove('locked'); }
+function closeAll() { closeMenu(); closeCart(); }
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAll(); });
+window.addEventListener('scroll', () => { const nav = document.getElementById('nav'); if (window.scrollY > 8) nav.classList.add('scrolled'); else nav.classList.remove('scrolled'); });
+function updateQty(id, delta) { cart[id] = Math.max(0, (cart[id] || 0) + delta); if (cart[id] === 0) delete cart[id]; renderCart(); }
+function removeItem(id) { delete cart[id]; renderCart(); }
+function getSubtotal() { return Object.entries(cart).reduce((s, [id, q]) => s + (PRICES[id] || 0) * q, 0); }
+function getCount() { return Object.values(cart).reduce((s, q) => s + q, 0); }
+function fmt(n) { return '$' + (Math.round(n * 100) / 100).toFixed(n % 1 === 0 ? 0 : 2); }
+function renderCart() {
+  const subtotal = getSubtotal(); const count = getCount();
+  const remaining = Math.max(0, 100 - subtotal); const pct = Math.min(100, (subtotal / 100) * 100);
+  document.getElementById('cartHeadCount').textContent = count + (count === 1 ? ' item' : ' items');
+  const badge = document.getElementById('cartCount');
+  if (count === 0) badge.classList.add('hidden'); else { badge.classList.remove('hidden'); badge.textContent = count; }
+  const fill = document.getElementById('progressFill'); const msg = document.getElementById('progressMsg');
+  fill.style.width = pct + '%';
+  if (count === 0) { fill.classList.remove('full'); msg.innerHTML = 'Free shipping at <strong>$100</strong>.'; }
+  else if (remaining <= 0) { fill.classList.add('full'); msg.innerHTML = '<strong>Free shipping</strong> unlocked. Nice work.'; }
+  else { fill.classList.remove('full'); msg.innerHTML = '<span class="accent">' + fmt(remaining) + '</span> away from <strong>free shipping</strong>.'; }
+  const body = document.getElementById('cartBody'); body.innerHTML = '';
+  if (count === 0) { body.innerHTML = '<div class="cart-empty"><div class="cart-empty-illo">🍵</div><h3>Nothing in here yet.</h3><p>Your ritual is one click away. The Mujo Ritual is the place most people start.</p><a href="/shop">Browse the shop →</a></div>'; }
+  else { Object.entries(cart).forEach(([id, qty]) => { const row = document.createElement('div'); row.className = 'cart-item'; row.innerHTML = `<div class="cart-item-img">${ICONS[id]||'·'}</div><div class="cart-item-info"><div class="cart-item-name">${NAMES[id]}</div><div class="cart-item-variant">One-time</div><div class="cart-item-controls"><button class="qty-btn" onclick="updateQty('${id}',-1)">−</button><span class="qty-val">${qty}</span><button class="qty-btn" onclick="updateQty('${id}',1)">+</button></div></div><div class="cart-item-meta"><div class="cart-item-price">${fmt(PRICES[id]*qty)}</div><button class="cart-item-remove" onclick="removeItem('${id}')">Remove</button></div>`; body.appendChild(row); }); }
+  document.getElementById('subtotalDisplay').textContent = count === 0 ? '$0' : fmt(subtotal);
+  document.getElementById('shippingDisplay').textContent = (remaining <= 0 && count > 0) ? 'Free' : 'Calculated at checkout';
+  document.getElementById('totalDisplay').textContent = count === 0 ? '$0' : fmt(subtotal);
+}
+function checkout() { alert('Checkout: hand off to Shopify checkout in production.'); }
+renderCart();
+
+
+// Variant + purchase state
+let state = {
+  flavor: 'pb',
+  mode: 'sub',
+  qty: 1,
+  freq: '2 weeks'
+};
+
+const PRICES = {
+  sub: 40.50,
+  once: 54.00
+};
+
+function fmtPrice(n) { return '$' + n.toFixed(2); }
+
+function selectFlavour(btn) {
+  document.querySelectorAll('.flavor-card').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  state.flavor = btn.dataset.flavor;
+  document.getElementById('flavourCurrent').textContent = btn.querySelector('.f-name').textContent;
+  // Switch gallery palette
+  const main = document.getElementById('galleryMain');
+  if (state.flavor === 'cashew') {
+    main.classList.add('cashew');
+    main.firstChild.textContent = '🍫';
+    // Switch thumb palette too
+    document.querySelectorAll('.pdp-thumb').forEach((t, i) => {
+      t.className = ['pdp-thumb t-cs-main','pdp-thumb t-cs-cross','pdp-thumb t-cs-pack','pdp-thumb t-cs-life'][i];
+    });
+  } else {
+    main.classList.remove('cashew');
+    main.firstChild.textContent = '🥜';
+    document.querySelectorAll('.pdp-thumb').forEach((t, i) => {
+      t.className = ['pdp-thumb t-pb-main','pdp-thumb t-pb-cross','pdp-thumb t-pb-pack','pdp-thumb t-pb-life'][i];
+    });
+  }
+  // Reset active thumb to first
+  document.querySelectorAll('.pdp-thumb')[0].classList.add('active');
+}
+
+function setMain(thumb, icon, isCashew) {
+  document.querySelectorAll('.pdp-thumb').forEach(t => t.classList.remove('active'));
+  thumb.classList.add('active');
+  document.getElementById('galleryMain').firstChild.textContent = icon;
+}
+
+function selectMode(btn) {
+  document.querySelectorAll('.purchase-card').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  state.mode = btn.dataset.mode;
+  // Show/hide frequency picker
+  const freq = document.getElementById('subFreq');
+  if (state.mode === 'sub') freq.classList.add('show');
+  else freq.classList.remove('show');
+  updatePrice();
+}
+
+function selectFreq(btn) {
+  document.querySelectorAll('.sub-freq-chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  state.freq = btn.textContent;
+}
+
+function changeQty(delta) {
+  state.qty = Math.max(1, state.qty + delta);
+  document.getElementById('qtyDisplay').textContent = state.qty;
+  updatePrice();
+}
+
+function updatePrice() {
+  const total = PRICES[state.mode] * state.qty;
+  document.getElementById('priceTag').textContent = '· ' + fmtPrice(total);
+}
+
+function atc() {
+  // Add to cart in our shared cart system
+  const id = state.flavor === 'pb' ? 'bar-pb' : 'bar-cashew';
+  cart[id] = (cart[id] || 0) + state.qty;
+  renderCart();
+  openCart();
+}
+
+</script>
+
+<!-- ═══ NUTRITION MODAL ═══ -->
+<div class="nutri-overlay" id="nutriOverlay" onclick="closeNutritionModal()"></div>
+<div class="nutri-modal" id="nutriModal" role="dialog" aria-labelledby="nutriTitle">
+  <div class="nutri-head">
+    <h3 id="nutriTitle">Nutrition <em>per bar</em></h3>
+    <button class="nutri-close" aria-label="Close" onclick="closeNutritionModal()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="nutri-tabs">
+    <button class="nutri-tab active" data-flavor="pb" onclick="selectNutriFlavour(this)">PB Crunch</button>
+    <button class="nutri-tab" data-flavor="cashew" onclick="selectNutriFlavour(this)">Cashew Chocolate</button>
+  </div>
+  <div class="nutri-body">
+
+    <div class="nutri-panel active" data-flavor="pb">
+      <span class="nutri-protein-pill">17g protein · Vegan</span>
+      <div class="nutri-row bold"><span class="label">Per bar (~55g)</span><span class="value"></span></div>
+      <div class="nutri-row"><span class="label">Calories</span><span class="value">220 kcal</span></div>
+      <div class="nutri-row bold"><span class="label">Protein</span><span class="value">17g</span></div>
+      <div class="nutri-row bold"><span class="label">Fat</span><span class="value">11g</span></div>
+      <div class="nutri-row"><span class="label indent">of which saturated</span><span class="value">2.4g</span></div>
+      <div class="nutri-row bold"><span class="label">Carbohydrate</span><span class="value">14g</span></div>
+      <div class="nutri-row"><span class="label indent">of which sugars</span><span class="value">8g</span></div>
+      <div class="nutri-row"><span class="label">Fiber</span><span class="value">4g</span></div>
+      <div class="nutri-row"><span class="label">Salt</span><span class="value">0.3g</span></div>
+      <div class="nutri-foot">Sweetened with date syrup. No added sugar, no sugar alcohols, no artificial sweeteners.</div>
+    </div>
+
+    <div class="nutri-panel" data-flavor="cashew">
+      <span class="nutri-protein-pill">14g protein · Vegetarian</span>
+      <div class="nutri-row bold"><span class="label">Per bar (~55g)</span><span class="value"></span></div>
+      <div class="nutri-row"><span class="label">Calories</span><span class="value">210 kcal</span></div>
+      <div class="nutri-row bold"><span class="label">Protein</span><span class="value">14g</span></div>
+      <div class="nutri-row bold"><span class="label">Fat</span><span class="value">10g</span></div>
+      <div class="nutri-row"><span class="label indent">of which saturated</span><span class="value">3.1g</span></div>
+      <div class="nutri-row bold"><span class="label">Carbohydrate</span><span class="value">15g</span></div>
+      <div class="nutri-row"><span class="label indent">of which sugars</span><span class="value">9g</span></div>
+      <div class="nutri-row"><span class="label">Fiber</span><span class="value">3g</span></div>
+      <div class="nutri-row"><span class="label">Salt</span><span class="value">0.4g</span></div>
+      <div class="nutri-foot">Sweetened with raw honey. Chicory root for natural sweetness. No sugar alcohols.</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function openNutritionModal(flavor) {
+  if (flavor) {
+    selectNutriFlavour(document.querySelector('.nutri-tab[data-flavor="' + flavor + '"]'));
+  }
+  document.getElementById('nutriOverlay').classList.add('open');
+  document.getElementById('nutriModal').classList.add('open');
+  document.body.classList.add('nutri-locked');
+}
+function closeNutritionModal() {
+  document.getElementById('nutriOverlay').classList.remove('open');
+  document.getElementById('nutriModal').classList.remove('open');
+  document.body.classList.remove('nutri-locked');
+}
+function selectNutriFlavour(btn) {
+  if (!btn) return;
+  document.querySelectorAll('.nutri-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  const flav = btn.dataset.flavor;
+  document.querySelectorAll('.nutri-panel').forEach(p => p.classList.remove('active'));
+  document.querySelector('.nutri-panel[data-flavor="' + flav + '"]').classList.add('active');
+}
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeNutritionModal(); });
+</script>
+
+</body>
+</html>

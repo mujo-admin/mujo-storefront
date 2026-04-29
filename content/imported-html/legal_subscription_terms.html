@@ -1,0 +1,357 @@
+<!-- Page: /legal/subscription-terms | Gates cleared: N/A (utility) | Canon: v1.2 | DRAFT -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subscription Terms · Mujo Co.</title>
+  <meta name="description" content="How Mujo subscriptions work — billing cycle, pricing, skip, pause, cancel, and payment-failure handling.">
+  <link rel="stylesheet" href="../_components/tokens.css">
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&f[]=dm-mono@400,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: var(--f-body); font-size: 16px; line-height: 1.65; color: var(--ink); background: var(--cream); }
+    .legal-container { max-width: 760px; margin: 0 auto; padding: var(--space-8) var(--space-4); }
+    .draft-banner { background: var(--sage-tint); color: var(--orange-deep); border: 2px solid var(--orange); padding: var(--space-4); border-radius: var(--radius-card); margin-bottom: var(--space-6); font-weight: 600; font-family: var(--f-mono); font-size: 14px; letter-spacing: 0.05em; }
+    .legal-meta { font-family: var(--f-mono); font-size: 12px; color: var(--mute); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: var(--space-4); }
+    h1 { font-family: var(--f-display); font-size: clamp(34px, 5vw, 56px); line-height: 1.1; margin-bottom: var(--space-4); }
+    h2 { font-family: var(--f-display); font-size: 28px; line-height: 1.15; margin: var(--space-8) 0 var(--space-4); }
+    h3 { font-family: var(--f-display); font-size: 20px; line-height: 1.2; margin: var(--space-6) 0 var(--space-3); }
+    p, ul, ol { margin-bottom: var(--space-4); }
+    ul, ol { padding-left: var(--space-6); }
+    li { margin-bottom: var(--space-2); }
+    .toc { background: var(--sand); padding: var(--space-5); border-radius: var(--radius-card); margin-bottom: var(--space-6); }
+    .toc h2 { font-size: 16px; margin: 0 0 var(--space-3); font-family: var(--f-mono); text-transform: uppercase; letter-spacing: 0.1em; color: var(--mute); }
+    .toc ul { padding-left: var(--space-5); margin: 0; }
+    .toc a { color: var(--orange-deep); text-decoration: none; }
+    .toc a:hover { text-decoration: underline; }
+    .callout { background: var(--sage-tint); border-radius: var(--radius-card); padding: var(--space-4); margin-bottom: var(--space-4); }
+    .callout strong { color: var(--sage); }
+  </style>
+</head>
+<body>
+
+  <!-- BEGIN COMPONENT: announcement-bar ====================================== -->
+  <style>
+    .mujo-announcement { position: relative; width: 100%; background: var(--sage); color: var(--cream); font-family: var(--f-mono); font-size: 12px; line-height: 1; letter-spacing: 0.12em; text-transform: uppercase; overflow: hidden; }
+    .mujo-announcement__track { position: relative; height: 40px; margin: 0; padding: 0; list-style: none; }
+    .mujo-announcement__line { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 0 16px; text-align: center; opacity: 0; transform: translateY(6px); transition: opacity 0.5s ease, transform 0.5s ease; pointer-events: none; }
+    .mujo-announcement__line.is-active { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    @media (max-width: 480px) { .mujo-announcement__track { height: 36px; } .mujo-announcement { font-size: 11px; letter-spacing: 0.1em; } }
+    @media (prefers-reduced-motion: reduce) { .mujo-announcement__line { transition: none; } }
+  </style>
+  <aside class="mujo-announcement" aria-label="Site announcements" role="region">
+    <ul class="mujo-announcement__track" aria-live="polite" aria-atomic="false">
+      <li class="mujo-announcement__line is-active" data-line="0">Free US shipping on orders $50+</li>
+      <li class="mujo-announcement__line" data-line="1">Made in Portugal &middot; Clinically dosed</li>
+      <li class="mujo-announcement__line" data-line="2">Rebel Club members get early Lemna access</li>
+    </ul>
+  </aside>
+  <script>(function () { var bar = document.querySelector('.mujo-announcement'); if (!bar) return; var lines = bar.querySelectorAll('.mujo-announcement__line'); if (lines.length < 2) return; if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return; var idx = 0; setInterval(function () { lines[idx].classList.remove('is-active'); idx = (idx + 1) % lines.length; lines[idx].classList.add('is-active'); }, 4000); })();</script>
+  <!-- END COMPONENT: announcement-bar ======================================== -->
+
+  <!-- BEGIN COMPONENT: nav =================================================== -->
+  <style>
+    .mujo-nav { position: sticky; top: 0; z-index: 50; width: 100%; background: var(--cream); border-bottom: var(--line-soft); font-family: var(--f-display); color: var(--ink); }
+    .mujo-nav__inner { max-width: var(--container-wide); margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    @media (min-width: 1024px) { .mujo-nav__inner { height: 80px; padding: 0 48px; } }
+    .mujo-nav__logo img { height: 28px; width: auto; display: block; }
+    @media (min-width: 1024px) { .mujo-nav__logo img { height: 32px; } }
+    .mujo-nav__links { display: none; gap: 28px; align-items: center; margin: 0; padding: 0; list-style: none; }
+    @media (min-width: 900px) { .mujo-nav__links { display: flex; } }
+    .mujo-nav__links a, .mujo-nav__dropdown-toggle { color: var(--ink); font-family: var(--f-display); font-size: 15px; font-weight: 500; text-decoration: none; background: none; border: 0; padding: 0; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; }
+    .mujo-nav__shop { position: relative; }
+    .mujo-nav__dropdown-toggle::after { content: ""; width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 5px solid currentColor; margin-left: 2px; }
+    .mujo-nav__dropdown { position: absolute; top: calc(100% + 12px); left: -12px; min-width: 220px; background: var(--cream); border: var(--line-soft); border-radius: var(--radius-card); box-shadow: var(--shadow-card); padding: 8px; margin: 0; list-style: none; opacity: 0; transform: translateY(-4px); visibility: hidden; transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s; }
+    .mujo-nav__shop[data-open="true"] .mujo-nav__dropdown { opacity: 1; transform: translateY(0); visibility: visible; }
+    .mujo-nav__dropdown a { display: block; padding: 10px 16px; color: var(--ink); text-decoration: none; border-radius: 6px; }
+    .mujo-nav__dropdown .status { display: block; font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mute); margin-top: 2px; }
+    .mujo-nav__actions { display: flex; align-items: center; gap: 16px; }
+    .mujo-nav__cart { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 0; background: transparent; cursor: pointer; color: var(--ink); position: relative; }
+    .mujo-nav__cart-count { position: absolute; top: 6px; right: 6px; min-width: 18px; height: 18px; padding: 0 4px; background: var(--orange); color: var(--cream); border-radius: 999px; font-family: var(--f-mono); font-size: 10px; display: inline-flex; align-items: center; justify-content: center; }
+    .mujo-nav__cta { display: none; padding: 10px 20px; background: var(--orange); color: var(--cream); font-size: 14px; font-weight: 500; letter-spacing: var(--track-cta); border-radius: var(--radius-cta); text-decoration: none; }
+    @media (min-width: 640px) { .mujo-nav__cta { display: inline-flex; align-items: center; } }
+    .mujo-nav__hamburger { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 0; background: transparent; cursor: pointer; color: var(--ink); }
+    @media (min-width: 900px) { .mujo-nav__hamburger { display: none; } }
+    .mujo-nav-drawer { position: fixed; inset: 0; background: var(--sage); color: var(--cream); z-index: 100; display: flex; flex-direction: column; padding: 24px; transform: translateX(100%); transition: transform 0.3s ease; overflow-y: auto; }
+    .mujo-nav-drawer[data-open="true"] { transform: translateX(0); }
+    .mujo-nav-drawer__top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 48px; }
+    .mujo-nav-drawer__close { width: 44px; height: 44px; border: 0; background: transparent; color: var(--cream); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+    .mujo-nav-drawer__links { list-style: none; padding: 0; margin: 0 0 48px; display: flex; flex-direction: column; gap: 20px; }
+    .mujo-nav-drawer__links > li > a { display: block; color: var(--cream); font-family: var(--f-display); font-size: 28px; font-weight: 500; text-decoration: none; padding: 8px 0; border-bottom: 1px solid rgba(243, 242, 233, 0.14); }
+    .mujo-nav-drawer__sub { list-style: none; padding-left: 16px; margin-top: 12px; display: flex; flex-direction: column; gap: 10px; }
+    .mujo-nav-drawer__sub a { font-size: 18px; font-weight: 400; border-bottom: 0; color: rgba(243, 242, 233, 0.85); }
+    .mujo-nav-drawer__cta { display: inline-flex; align-items: center; justify-content: center; padding: 16px 24px; background: var(--orange); color: var(--cream); font-family: var(--f-display); font-size: 16px; font-weight: 500; letter-spacing: var(--track-cta); border-radius: var(--radius-cta); text-decoration: none; margin-bottom: 32px; }
+    .mujo-nav-drawer__socials { display: flex; gap: 16px; margin-top: auto; padding-top: 32px; }
+    .mujo-nav-drawer__socials a { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid rgba(243, 242, 233, 0.24); border-radius: 999px; color: var(--cream); text-decoration: none; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; }
+  </style>
+  <nav class="mujo-nav" aria-label="Primary">
+    <div class="mujo-nav__inner">
+      <a href="/" class="mujo-nav__logo" aria-label="Mujo — home"><img src="../_components/_assets/mujo-logo-orange.png" alt="Mujo" /></a>
+      <ul class="mujo-nav__links">
+        <li class="mujo-nav__shop" data-open="false">
+          <button type="button" class="mujo-nav__dropdown-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="mujo-shop-dropdown">Shop</button>
+          <ul class="mujo-nav__dropdown" id="mujo-shop-dropdown">
+            <li><a href="/products/mujo-ritual">Mujo Ritual</a></li>
+            <li><a href="/products/lemna">Lemna Bar<span class="status">Coming soon</span></a></li>
+            <li><a href="/shop?c=merch">Merch</a></li>
+            <li><a href="/shop">Shop all</a></li>
+          </ul>
+        </li>
+        <li><a href="/science">Science</a></li>
+        <li><a href="/ingredients">Ingredients</a></li>
+        <li><a href="/rebel-club">Rebel Club</a></li>
+      </ul>
+      <div class="mujo-nav__actions">
+        <button type="button" class="mujo-nav__cart" aria-label="Open cart" data-cart-trigger>
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16l-1.5 10.5a2 2 0 0 1-2 1.7H7.5a2 2 0 0 1-2-1.7L4 6z"/><path d="M9 6V4a3 3 0 0 1 6 0v2"/></svg>
+          <span class="mujo-nav__cart-count" data-cart-count hidden>0</span>
+        </button>
+        <a href="/shop" class="mujo-nav__cta">Shop Now</a>
+        <button type="button" class="mujo-nav__hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mujo-nav-drawer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="13" x2="20" y2="13"/><line x1="4" y1="19" x2="20" y2="19"/></svg></button>
+      </div>
+    </div>
+  </nav>
+  <aside class="mujo-nav-drawer" id="mujo-nav-drawer" data-open="false" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="mujo-nav-drawer__top"><a href="/" aria-label="Mujo — home"><img src="../_components/_assets/mujo-logo-bone.png" alt="Mujo" style="height: 28px;" /></a><button type="button" class="mujo-nav-drawer__close" aria-label="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg></button></div>
+    <ul class="mujo-nav-drawer__links"><li><a href="/shop">Shop</a><ul class="mujo-nav-drawer__sub"><li><a href="/products/mujo-ritual">Mujo Ritual</a></li><li><a href="/products/lemna">Lemna Bar &middot; coming soon</a></li><li><a href="/shop?c=merch">Merch</a></li></ul></li><li><a href="/science">Science</a></li><li><a href="/ingredients">Ingredients</a></li><li><a href="/rebel-club">Rebel Club</a></li><li><a href="/ambassador">Ambassador</a></li></ul>
+    <a href="/rebel-club" class="mujo-nav-drawer__cta">Join the Rebel Club</a>
+    <div class="mujo-nav-drawer__socials"><a href="https://instagram.com/mujoworld">IG</a><a href="https://tiktok.com/@mujoworld">TT</a><a href="https://youtube.com/@mujoworld">YT</a></div>
+  </aside>
+  <script>
+    (function () {
+      var shop = document.querySelector('.mujo-nav__shop');
+      if (shop) { var toggle = shop.querySelector('.mujo-nav__dropdown-toggle'); var setOpen = function (open) { shop.setAttribute('data-open', open ? 'true' : 'false'); toggle.setAttribute('aria-expanded', open ? 'true' : 'false'); }; toggle.addEventListener('click', function () { setOpen(shop.getAttribute('data-open') !== 'true'); }); shop.addEventListener('mouseenter', function () { setOpen(true); }); shop.addEventListener('mouseleave', function () { setOpen(false); }); }
+      var hamburger = document.querySelector('.mujo-nav__hamburger'); var drawer = document.getElementById('mujo-nav-drawer'); var closeBtn = drawer && drawer.querySelector('.mujo-nav-drawer__close');
+      var setDrawer = function (open) { if (!drawer) return; drawer.setAttribute('data-open', open ? 'true' : 'false'); if (hamburger) hamburger.setAttribute('aria-expanded', open ? 'true' : 'false'); document.body.style.overflow = open ? 'hidden' : ''; };
+      if (hamburger) hamburger.addEventListener('click', function () { setDrawer(true); });
+      if (closeBtn) closeBtn.addEventListener('click', function () { setDrawer(false); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && drawer && drawer.getAttribute('data-open') === 'true') setDrawer(false); });
+      var cartBtn = document.querySelector('[data-cart-trigger]');
+      if (cartBtn) { cartBtn.addEventListener('click', function () { document.dispatchEvent(new CustomEvent('mujo:cart:open')); }); }
+    })();
+  </script>
+  <!-- END COMPONENT: nav ===================================================== -->
+
+  <main class="legal-container">
+    <div class="draft-banner">DRAFT — LAWYER REVIEW REQUIRED BEFORE PUBLISH</div>
+    <div class="legal-meta">Last updated: 2026-04-23 · Version: 0.1 — draft</div>
+
+    <h1>Subscription Terms</h1>
+    <p>These Subscription Terms apply to Mujo Ritual and any other Mujo product sold on a recurring basis. They form part of our <a href="/legal/terms">Terms of Service</a>.</p>
+
+    <nav class="toc" aria-label="Table of contents">
+      <h2>Contents</h2>
+      <ul>
+        <li><a href="#how">1. How Mujo subscriptions work</a></li>
+        <li><a href="#pricing">2. Pricing</a></li>
+        <li><a href="#shipping">3. Shipping</a></li>
+        <li><a href="#managing">4. Managing your subscription</a></li>
+        <li><a href="#payment-failures">5. Payment failures</a></li>
+        <li><a href="#cancellation">6. Cancellation</a></li>
+        <li><a href="#refunds">7. Refunds on subscription products</a></li>
+        <li><a href="#changes">8. Changes to subscription terms</a></li>
+        <li><a href="#contact">9. Contact</a></li>
+      </ul>
+    </nav>
+
+    <h2 id="how">1. How Mujo subscriptions work</h2>
+    <p>When you sign up for a Mujo subscription, you authorize us to automatically bill your chosen payment method and ship a new order on a recurring cycle.</p>
+    <ul>
+      <li><strong>Billing cycle:</strong> every 30 days, by default. (If we add additional cadences in the future, you can choose one when you subscribe.)</li>
+      <li><strong>Billing amount:</strong> the current subscription price at the time of each renewal.</li>
+      <li><strong>Payment processor:</strong> all subscriptions are processed via <strong>Stripe Billing</strong>. Mujo does not store credit or debit card details.</li>
+    </ul>
+
+    <h2 id="pricing">2. Pricing</h2>
+    <div class="callout">
+      <strong>Price lock.</strong> The subscription price you sign up at is locked for your active subscription. If we change subscription pricing, we notify you at least 30 days before the change takes effect, and you can cancel before the change if you prefer.
+    </div>
+    <p>Taxes (VAT, sales tax) are calculated at the time of each renewal and may vary based on your shipping address. Current pricing is shown on the <a href="/products/mujo-ritual">Mujo Ritual product page</a> and the <a href="/shop">shop</a>.</p>
+
+    <h2 id="shipping">3. Shipping</h2>
+    <p>Subscription orders ship using the same timing and carrier options as non-subscription orders. See the <a href="/legal/shipping">Shipping Policy</a> for delivery windows, carriers, and regional specifics. Subscription orders contribute to the free-shipping threshold the same way one-time orders do.</p>
+
+    <h2 id="managing">4. Managing your subscription</h2>
+    <p>You manage your subscription through the <strong>Stripe Billing Portal</strong>. To access the portal, request an email magic link from your account page. We send it to the email on file, and clicking the link opens your portal for a short secure session.</p>
+    <p>From the portal you can:</p>
+    <ul>
+      <li><strong>Skip</strong> your next shipment</li>
+      <li><strong>Pause</strong> your subscription (resume any time)</li>
+      <li><strong>Change your shipping address</strong></li>
+      <li><strong>Update your payment method</strong></li>
+      <li><strong>Change frequency</strong> (pre-launch feature flag — may be limited to the 30-day default at launch)</li>
+      <li><strong>Cancel</strong> your subscription</li>
+    </ul>
+    <p>Changes apply to your next renewal if you make them before the renewal date. Changes made after renewal apply to the cycle after that.</p>
+
+    <h2 id="payment-failures">5. Payment failures</h2>
+    <p>If your payment method fails to charge on renewal, Stripe retries the payment automatically.</p>
+    <ul>
+      <li><strong>Retry schedule:</strong> Stripe retries the payment 3 times over approximately 7 days per the Stripe Billing default.</li>
+      <li><strong>Notifications:</strong> you receive an email from Stripe on each retry attempt so you can update your payment method in time.</li>
+      <li><strong>After 3 failed retries:</strong> your subscription is paused and we email you to update your payment method.</li>
+      <li><strong>After 14 days with no update:</strong> the subscription is cancelled automatically. You can resubscribe at any time.</li>
+    </ul>
+
+    <h2 id="cancellation">6. Cancellation</h2>
+    <p>You can cancel your subscription at any time via the Stripe Billing Portal. Cancellation takes effect at the end of your current billing period, so you receive the product you have already been billed for. There are no cancellation fees.</p>
+    <p>If you cancel mid-cycle, your subscription remains active until the end of the cycle, then ends automatically. No further charges apply.</p>
+
+    <h2 id="refunds">7. Refunds on subscription products</h2>
+    <ul>
+      <li><strong>First order:</strong> covered by our 30-day satisfaction guarantee per the <a href="/legal/returns">Returns Policy</a>.</li>
+      <li><strong>Subsequent renewals:</strong> final. However, we review cancellation-adjacent refund requests on a case-by-case basis — for example, if a renewal charged after you believed you had cancelled, or if there is a shipping or product issue.</li>
+    </ul>
+    <p>To request a review, email <a href="mailto:kinga@mujo.life">kinga@mujo.life</a> with your order number and a short description.</p>
+
+    <h2 id="changes">8. Changes to subscription terms</h2>
+    <p>We may update these Subscription Terms from time to time. Material changes — including price changes, billing-cycle changes, or changes that affect your rights as a subscriber — are notified at least 30 days in advance by email. Continued subscription after the notice period constitutes acceptance.</p>
+
+    <h2 id="contact">9. Contact</h2>
+    <p>Subscription questions, billing issues, portal access problems? Email <a href="mailto:kinga@mujo.life">kinga@mujo.life</a>.</p>
+    <p><strong>Registered entity:</strong> Mujo Co., Portugal.</p>
+
+    <p style="margin-top: var(--space-8); font-family: var(--f-mono); font-size: 12px; color: var(--mute); letter-spacing: 0.05em;">*These statements have not been evaluated by the Food and Drug Administration. Mujo products are not intended to diagnose, treat, cure, or prevent any disease.</p>
+  </main>
+
+  <!-- BEGIN COMPONENT: footer ================================================ -->
+  <style>
+    .mujo-footer { background: var(--sage); color: var(--cream); font-family: var(--f-body); font-size: 15px; line-height: var(--lh-ui); }
+    .mujo-footer a { color: var(--cream); text-decoration: none; }
+    .mujo-footer a:hover { color: var(--orange); }
+    .mujo-footer__inner { max-width: var(--container-wide); margin: 0 auto; padding: 64px 24px 32px; }
+    @media (min-width: 1024px) { .mujo-footer__inner { padding: 96px 48px 48px; } }
+    .mujo-footer__grid { display: grid; grid-template-columns: 1fr; gap: 40px; }
+    @media (min-width: 720px) { .mujo-footer__grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .mujo-footer__grid { grid-template-columns: 1.4fr 1fr 1fr 1fr 1.4fr; gap: 48px; } }
+    .mujo-footer__col h3 { font-family: var(--f-mono); font-size: 11px; font-weight: 500; letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--sage-light); margin: 0 0 16px; }
+    .mujo-footer__col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+    .mujo-footer__brand-pitch { font-family: var(--f-body); font-size: 15px; line-height: 1.55; color: rgba(243, 242, 233, 0.8); margin: 0 0 20px; max-width: 320px; }
+    .mujo-footer__brand-pitch em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+    .mujo-footer__logo img { height: 36px; width: auto; display: block; }
+    .mujo-footer__socials { display: flex; gap: 12px; margin-top: 8px; }
+    .mujo-footer__socials a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid rgba(243, 242, 233, 0.24); border-radius: 999px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; }
+    .mujo-footer__form { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+    .mujo-footer__form input { padding: 14px 16px; background: rgba(243, 242, 233, 0.06); color: var(--cream); border: 1px solid rgba(243, 242, 233, 0.24); border-radius: var(--radius-input); font-family: var(--f-body); font-size: 15px; }
+    .mujo-footer__form button { padding: 14px 20px; background: var(--orange); color: var(--cream); font-family: var(--f-display); font-size: 15px; font-weight: 500; letter-spacing: var(--track-cta); border: 0; border-radius: var(--radius-cta); cursor: pointer; }
+    .mujo-footer__rebel-cta { display: inline-flex; align-items: center; justify-content: center; padding: 12px 20px; background: transparent; color: var(--cream); border: 1px solid var(--cream); border-radius: var(--radius-cta); font-family: var(--f-display); font-size: 14px; font-weight: 500; margin-top: 8px; letter-spacing: var(--track-cta); }
+    .mujo-footer__bottom { margin-top: 56px; padding-top: 24px; border-top: 1px solid rgba(243, 242, 233, 0.16); display: flex; flex-direction: column; gap: 16px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(243, 242, 233, 0.6); }
+    @media (min-width: 720px) { .mujo-footer__bottom { flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: wrap; } }
+    .mujo-footer__fda { font-family: var(--f-body); font-size: 11px; line-height: 1.5; letter-spacing: 0; text-transform: none; color: rgba(243, 242, 233, 0.5); max-width: 720px; margin-top: 16px; }
+    .mujo-footer__legal-links { display: flex; flex-wrap: wrap; gap: 20px; list-style: none; margin: 0; padding: 0; }
+  </style>
+  <footer class="mujo-footer" role="contentinfo">
+    <div class="mujo-footer__inner">
+      <div class="mujo-footer__grid">
+        <div class="mujo-footer__col">
+          <a href="/" class="mujo-footer__logo" aria-label="Mujo — home"><img src="../_components/_assets/mujo-logo-bone.png" alt="Mujo" /></a>
+          <p class="mujo-footer__brand-pitch">A ritual for people whose nervous system has been <em>running hot</em>. Conscious performance nutrition. Made in Portugal.</p>
+          <div class="mujo-footer__socials"><a href="https://instagram.com/mujoworld">IG</a><a href="https://tiktok.com/@mujoworld">TT</a><a href="https://youtube.com/@mujoworld">YT</a></div>
+        </div>
+        <div class="mujo-footer__col"><h3>Shop</h3><ul><li><a href="/products/mujo-ritual">Mujo Ritual</a></li><li><a href="/products/lemna">Lemna Bar</a></li><li><a href="/shop?c=merch">Merch</a></li><li><a href="/shop">Shop all</a></li></ul></div>
+        <div class="mujo-footer__col"><h3>Learn</h3><ul><li><a href="/science">Science</a></li><li><a href="/ingredients">Ingredients</a></li><li><a href="/journal">Journal</a></li><li><a href="/rebel-club">Rebel Club</a></li><li><a href="/about">About</a></li></ul></div>
+        <div class="mujo-footer__col"><h3>Support</h3><ul><li><a href="/contact">Contact</a></li><li><a href="/legal/shipping">Shipping</a></li><li><a href="/legal/returns">Returns</a></li><li><a href="/legal/accessibility">Accessibility</a></li><li><a href="/ambassador">Ambassador program</a></li></ul></div>
+        <div class="mujo-footer__col">
+          <h3>Join the Rebel Club</h3>
+          <p class="mujo-footer__brand-pitch" style="margin-bottom: 8px;">Monthly notes on clarity, sleep, nervous-system recalibration. First in line for Lemna.</p>
+          <form class="mujo-footer__form" action="#" method="post" data-klaviyo-list="rebel-club">
+            <label for="footer-email" style="font-family: var(--f-mono); font-size: 11px; letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--sage-light);">Email</label>
+            <input id="footer-email" type="email" name="email" placeholder="you@example.com" required autocomplete="email" />
+            <button type="submit">Subscribe</button>
+          </form>
+          <a href="/rebel-club" class="mujo-footer__rebel-cta">Join the Rebel Club</a>
+        </div>
+      </div>
+      <div class="mujo-footer__bottom">
+        <div>&copy; 2026 Mujo Co. &middot; Made in Portugal</div>
+        <ul class="mujo-footer__legal-links">
+          <li><a href="/legal/privacy">Privacy</a></li>
+          <li><a href="/legal/terms">Terms</a></li>
+          <li><a href="/legal/cookies">Cookies</a></li>
+          <li><a href="/legal/privacy#do-not-sell">Do Not Sell My Info</a></li>
+        </ul>
+      </div>
+      <p class="mujo-footer__fda">*These statements have not been evaluated by the FDA. This product is not intended to diagnose, treat, cure, or prevent any disease.</p>
+    </div>
+  </footer>
+  <!-- END COMPONENT: footer ================================================== -->
+
+  <!-- BEGIN COMPONENT: cart-drawer =========================================== -->
+  <style>
+    .mujo-cart-backdrop { position: fixed; inset: 0; background: rgba(26, 26, 26, 0.4); z-index: 110; opacity: 0; visibility: hidden; transition: opacity 0.25s ease, visibility 0.25s; }
+    .mujo-cart-backdrop[data-open="true"] { opacity: 1; visibility: visible; }
+    .mujo-cart { position: fixed; top: 0; right: 0; height: 100vh; width: 100%; max-width: 420px; background: var(--cream); color: var(--ink); z-index: 120; display: flex; flex-direction: column; box-shadow: var(--shadow-drawer); transform: translateX(100%); transition: transform 0.3s ease; font-family: var(--f-body); }
+    .mujo-cart[data-open="true"] { transform: translateX(0); }
+    .mujo-cart__header { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; border-bottom: var(--line-soft); }
+    .mujo-cart__title { font-family: var(--f-display); font-size: 18px; font-weight: 500; margin: 0; }
+    .mujo-cart__close { width: 44px; height: 44px; border: 0; background: transparent; cursor: pointer; color: var(--ink); }
+    .mujo-cart__body { flex: 1; overflow-y: auto; padding: 16px 24px; }
+    .mujo-cart__shipping { display: flex; flex-direction: column; gap: 8px; padding: 14px 16px; margin-bottom: 16px; background: var(--sage-tint); border-radius: var(--radius-card); }
+    .mujo-cart__shipping[data-unlocked="true"] { background: var(--orange-soft); }
+    .mujo-cart__shipping-label { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-family: var(--f-display); font-size: 13px; font-weight: 500; line-height: 1.3; color: var(--sage); }
+    .mujo-cart__shipping[data-unlocked="true"] .mujo-cart__shipping-label { color: var(--orange-deep); }
+    .mujo-cart__shipping-label em { font-family: var(--f-serif); font-style: italic; font-weight: 400; color: var(--orange); }
+    .mujo-cart__shipping-amount { font-family: var(--f-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; }
+    .mujo-cart__shipping-bar { position: relative; height: 4px; background: rgba(47, 61, 51, 0.12); border-radius: 999px; overflow: hidden; }
+    .mujo-cart__shipping-fill { position: absolute; top: 0; left: 0; height: 100%; width: 0%; background: var(--orange); border-radius: 999px; transition: width 0.35s ease; }
+    .mujo-cart__shipping[data-unlocked="true"] .mujo-cart__shipping-fill { width: 100% !important; background: var(--orange); }
+    .mujo-cart__empty { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 48px 24px; gap: 16px; }
+    .mujo-cart__empty h4 { font-family: var(--f-display); font-size: 22px; font-weight: 500; margin: 0; }
+    .mujo-cart__empty p { color: var(--mute); margin: 0 0 8px; }
+    .mujo-cart__items { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px; }
+    .mujo-cart__footer { padding: 20px 24px 24px; border-top: var(--line-soft); background: var(--cream); }
+    .mujo-cart__subtotal { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; font-family: var(--f-display); font-weight: 500; }
+    .mujo-cart__subtotal-value { font-family: var(--f-mono); }
+    .mujo-cart__note { font-family: var(--f-mono); font-size: 11px; color: var(--mute); letter-spacing: 0.06em; margin: 0 0 16px; }
+    .mujo-cart__checkout { display: inline-flex; align-items: center; justify-content: center; width: 100%; padding: 16px; background: var(--orange); color: var(--cream); border: 0; border-radius: var(--radius-cta); font-family: var(--f-display); font-size: 16px; font-weight: 500; letter-spacing: var(--track-cta); cursor: pointer; text-decoration: none; }
+    .mujo-cart__checkout[disabled] { opacity: 0.5; cursor: not-allowed; }
+    .mujo-cart__trust { display: flex; justify-content: center; gap: 8px; margin-top: 12px; font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute); }
+  </style>
+  <div class="mujo-cart-backdrop" data-open="false" aria-hidden="true"></div>
+  <aside class="mujo-cart" data-open="false" role="dialog" aria-modal="true" aria-labelledby="mujo-cart-title" aria-hidden="true">
+    <header class="mujo-cart__header"><h2 class="mujo-cart__title" id="mujo-cart-title">Your cart (<span data-cart-count>0</span>)</h2><button type="button" class="mujo-cart__close" aria-label="Close cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg></button></header>
+    <div class="mujo-cart__body">
+      <div class="mujo-cart__shipping" data-cart-shipping data-unlocked="false" hidden>
+        <div class="mujo-cart__shipping-label"><span data-shipping-copy>You're <em>$0.00</em> away from free shipping</span><span class="mujo-cart__shipping-amount" data-shipping-threshold>$60 threshold</span></div>
+        <div class="mujo-cart__shipping-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-shipping-progressbar><div class="mujo-cart__shipping-fill" data-shipping-fill></div></div>
+      </div>
+      <div class="mujo-cart__empty" data-cart-empty>
+        <h4>Your cart is empty</h4>
+        <p>Clarity, sleep, calm — all in a morning ritual.</p>
+        <a href="/shop" class="cta-primary" style="margin-top: 8px;">Shop now</a>
+      </div>
+      <ul class="mujo-cart__items" data-cart-items hidden></ul>
+    </div>
+    <footer class="mujo-cart__footer">
+      <div class="mujo-cart__subtotal"><span>Subtotal</span><span class="mujo-cart__subtotal-value" data-cart-subtotal>$0.00</span></div>
+      <p class="mujo-cart__note">Shipping calculated at checkout</p>
+      <button type="button" class="mujo-cart__checkout" data-cart-checkout disabled>Checkout</button>
+      <div class="mujo-cart__trust"><span>Stripe</span><span>&middot;</span><span>Apple Pay</span><span>&middot;</span><span>Google Pay</span></div>
+    </footer>
+  </aside>
+  <script>
+    (function () {
+      var backdrop = document.querySelector('.mujo-cart-backdrop'); var drawer = document.querySelector('.mujo-cart'); if (!backdrop || !drawer) return;
+      var closeBtn = drawer.querySelector('.mujo-cart__close');
+      var setOpen = function (open) { backdrop.setAttribute('data-open', open ? 'true' : 'false'); drawer.setAttribute('data-open', open ? 'true' : 'false'); drawer.setAttribute('aria-hidden', open ? 'false' : 'true'); document.body.style.overflow = open ? 'hidden' : ''; };
+      document.addEventListener('mujo:cart:open', function () { setOpen(true); });
+      if (closeBtn) closeBtn.addEventListener('click', function () { setOpen(false); });
+      backdrop.addEventListener('click', function () { setOpen(false); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && drawer.getAttribute('data-open') === 'true') setOpen(false); });
+      var shippingBlock = drawer.querySelector('[data-cart-shipping]');
+      var thresholdCents = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--shipping-threshold-cents'), 10) || 0;
+      var formatDollars = function (cents) { var v = Math.max(0, cents) / 100; return '$' + v.toFixed(2); };
+      var formatThresholdLabel = function (cents) { var v = cents / 100; return '$' + (v % 1 === 0 ? v.toFixed(0) : v.toFixed(2)) + ' threshold'; };
+      var setShippingState = function (subtotalCents, itemCount) { if (!shippingBlock || thresholdCents <= 0) return; if (!itemCount) { shippingBlock.hidden = true; return; } shippingBlock.hidden = false; var remaining = Math.max(0, thresholdCents - subtotalCents); var unlocked = remaining === 0; var pct = Math.min(100, Math.round((subtotalCents / thresholdCents) * 100)); var copy = shippingBlock.querySelector('[data-shipping-copy]'); var thr = shippingBlock.querySelector('[data-shipping-threshold]'); var fill = shippingBlock.querySelector('[data-shipping-fill]'); var bar = shippingBlock.querySelector('[data-shipping-progressbar]'); if (unlocked) { shippingBlock.setAttribute('data-unlocked', 'true'); if (copy) copy.innerHTML = "You've <em>unlocked</em> free shipping"; if (thr) thr.textContent = 'Free shipping on'; } else { shippingBlock.setAttribute('data-unlocked', 'false'); if (copy) copy.innerHTML = "You're <em>" + formatDollars(remaining) + "</em> away from free shipping"; if (thr) thr.textContent = formatThresholdLabel(thresholdCents); } if (fill) fill.style.width = pct + '%'; if (bar) bar.setAttribute('aria-valuenow', String(pct)); };
+      window.mujoCart = window.mujoCart || {};
+      window.mujoCart.setSubtotal = function (subtotalCents, itemCount) { var st = drawer.querySelector('[data-cart-subtotal]'); if (st) st.textContent = formatDollars(subtotalCents); setShippingState(subtotalCents, itemCount || 0); };
+      window.mujoCart.getThreshold = function () { return thresholdCents; };
+      setShippingState(0, 0);
+    })();
+  </script>
+  <!-- END COMPONENT: cart-drawer ============================================= -->
+
+</body>
+</html>

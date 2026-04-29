@@ -1,19 +1,22 @@
 import { ImageResponse } from "next/og";
-import LogoIcon from "./icons/logo";
 import { join } from "path";
 import { readFile } from "fs/promises";
 
 export type Props = {
   title?: string;
+  subtitle?: string;
 };
+
+const CREAM = "#F3F2E9";
+const INK = "#1A1A1A";
+const ORANGE = "#F2682F";
 
 export default async function OpengraphImage(
   props?: Props,
 ): Promise<ImageResponse> {
-  const { title } = {
-    ...{
-      title: process.env.SITE_NAME,
-    },
+  const { title, subtitle } = {
+    title: process.env.SITE_NAME ?? "Mujo",
+    subtitle: "Modern performance without the crash.",
     ...props,
   };
 
@@ -22,11 +25,54 @@ export default async function OpengraphImage(
 
   return new ImageResponse(
     (
-      <div tw="flex h-full w-full flex-col items-center justify-center bg-black">
-        <div tw="flex flex-none items-center justify-center border border-neutral-700 h-[160px] w-[160px] rounded-3xl">
-          <LogoIcon width="64" height="58" fill="white" />
+      <div
+        style={{
+          height: "100%",
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          padding: "80px",
+          background: CREAM,
+          color: INK,
+        }}
+      >
+        <div
+          style={{
+            fontSize: 22,
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            color: ORANGE,
+            marginBottom: 32,
+            fontWeight: 700,
+          }}
+        >
+          MUJO
         </div>
-        <p tw="mt-12 text-6xl font-bold text-white">{title}</p>
+        <div
+          style={{
+            fontSize: 84,
+            lineHeight: 1.05,
+            fontWeight: 700,
+            maxWidth: 980,
+            letterSpacing: "-0.02em",
+            color: INK,
+          }}
+        >
+          {title}
+        </div>
+        {subtitle && (
+          <div
+            style={{
+              fontSize: 30,
+              marginTop: 24,
+              color: "#4A4845",
+              maxWidth: 980,
+            }}
+          >
+            {subtitle}
+          </div>
+        )}
       </div>
     ),
     {

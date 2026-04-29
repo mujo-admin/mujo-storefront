@@ -1,21 +1,36 @@
-import { Carousel } from "components/carousel";
-import { ThreeItemGrid } from "components/grid/three-items";
-import Footer from "components/layout/footer";
+import type { Metadata } from "next";
+import { ImportedPage } from "components/imported-page";
+import {
+  websiteSchema,
+  organizationSchema,
+  jsonLdScript,
+} from "lib/schema";
 
-export const metadata = {
+export const metadata: Metadata = {
+  title: "Mujo · Modern performance without the crash",
   description:
-    "High-performance ecommerce store built with Next.js, Vercel, and Shopify.",
+    "Mushroom cacao adaptogen ritual + clean-label fuel. For people who read the label.",
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
+    title: "Mujo · Modern performance without the crash",
+    description:
+      "Mushroom cacao adaptogen ritual + clean-label fuel. For people who read the label.",
   },
 };
 
 export default function HomePage() {
   return (
     <>
-      <ThreeItemGrid />
-      <Carousel />
-      <Footer />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLdScript(websiteSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLdScript(organizationSchema) }}
+      />
+      <ImportedPage filename="mujo_homepage.html" />
     </>
   );
 }

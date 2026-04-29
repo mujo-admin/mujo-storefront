@@ -1,78 +1,178 @@
 import Link from "next/link";
+import { ManageSubscriptionButton } from "components/ManageSubscriptionButton";
 
-import FooterMenu from "components/layout/footer-menu";
-import LogoSquare from "components/logo-square";
-import { getMenu } from "lib/shopify";
-import { Suspense } from "react";
-
-const { COMPANY_NAME, SITE_NAME } = process.env;
-
-export default async function Footer() {
-  const currentYear = new Date().getFullYear();
-  const copyrightDate = 2023 + (currentYear > 2023 ? `-${currentYear}` : "");
-  const skeleton =
-    "w-full h-6 animate-pulse rounded-sm bg-neutral-200 dark:bg-neutral-700";
-  const menu = await getMenu("next-js-frontend-footer-menu");
-  const copyrightName = COMPANY_NAME || SITE_NAME || "";
-
+/**
+ * <Footer /> — canonical 4-column sage footer used on every page.
+ * Source: extracted from mujo_nav_system.html v1.0.
+ * URL patches per W3 plan: /products/lemna-bar → /products/lemna,
+ * /policies/* → /legal/*, /affiliate → /ambassador.
+ */
+export function Footer() {
   return (
-    <footer className="text-sm text-neutral-500 dark:text-neutral-400">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 border-t border-neutral-200 px-6 py-12 text-sm md:flex-row md:gap-12 md:px-4 min-[1320px]:px-0 dark:border-neutral-700">
-        <div>
-          <Link
-            className="flex items-center gap-2 text-black md:pt-1 dark:text-white"
-            href="/"
+    <footer
+      className="mujo-foot"
+      style={{
+        background: "var(--sage)",
+        color: "rgba(255,255,255,0.5)",
+        padding: "56px 0 28px",
+        marginTop: 56,
+      }}
+    >
+      <div
+        style={{ maxWidth: 1200, margin: "0 auto", padding: "0 20px" }}
+      >
+        <div className="foot-grid">
+          <div className="foot-brand">
+            <img
+              src="/images/logo/mujo-logo-orange.png"
+              alt="Mujo"
+              style={{ height: 28, width: "auto", marginBottom: 14 }}
+            />
+            <p
+              style={{
+                fontSize: 14,
+                lineHeight: 1.6,
+                color: "rgba(255,255,255,0.6)",
+                maxWidth: 320,
+              }}
+            >
+              Conscious performance nutrition for people who read the label.
+              Built in Portugal. Shipped globally.
+            </p>
+          </div>
+          <FooterColumn
+            title="Shop"
+            links={[
+              { href: "/products/mujo-ritual", label: "Mujo Ritual" },
+              { href: "/products/lemna", label: "Lemna Bar" },
+              { href: "/shop", label: "Subscribe & save" },
+              { href: "/rebel-club", label: "Rebel Club" },
+            ]}
+          />
+          <FooterColumn
+            title="Learn"
+            links={[
+              { href: "/ingredients", label: "Ingredients" },
+              { href: "/science", label: "The Science" },
+              { href: "/about", label: "Our story" },
+              { href: "/journal", label: "Journal" },
+            ]}
+          />
+          <FooterColumn
+            title="Support"
+            links={[
+              { href: "/contact", label: "Contact" },
+              { href: "/legal/shipping", label: "Shipping & returns" },
+              { href: "/ambassador", label: "Ambassador program" },
+            ]}
           >
-            <LogoSquare size="sm" />
-            <span className="uppercase">{SITE_NAME}</span>
-          </Link>
+            <ManageSubscriptionButton />
+          </FooterColumn>
         </div>
-        <Suspense
-          fallback={
-            <div className="flex h-[188px] w-[200px] flex-col gap-2">
-              <div className={skeleton} />
-              <div className={skeleton} />
-              <div className={skeleton} />
-              <div className={skeleton} />
-              <div className={skeleton} />
-              <div className={skeleton} />
-            </div>
-          }
+        <div
+          className="foot-bottom"
+          style={{
+            borderTop: "1px solid rgba(255,255,255,0.08)",
+            paddingTop: 24,
+            display: "flex",
+            flexDirection: "column",
+            gap: 16,
+          }}
         >
-          <FooterMenu menu={menu} />
-        </Suspense>
-        <div className="md:ml-auto">
-          <a
-            className="flex h-8 w-max flex-none items-center justify-center rounded-md border border-neutral-200 bg-white text-xs text-black dark:border-neutral-700 dark:bg-black dark:text-white"
-            aria-label="Deploy on Vercel"
-            href="https://vercel.com/templates/next.js/nextjs-commerce"
+          <div
+            style={{
+              fontSize: 11,
+              lineHeight: 1.55,
+              color: "rgba(255,255,255,0.3)",
+              maxWidth: 680,
+              fontFamily: "var(--f-mono)",
+              letterSpacing: "0.02em",
+            }}
           >
-            <span className="px-3">▲</span>
-            <hr className="h-full border-r border-neutral-200 dark:border-neutral-700" />
-            <span className="px-3">Deploy</span>
-          </a>
+            *These statements have not been evaluated by the FDA. This product
+            is not intended to diagnose, treat, cure, or prevent any disease.
+            Individual results may vary.
+          </div>
+          <div
+            style={{
+              fontFamily: "var(--f-mono)",
+              fontSize: 11,
+              letterSpacing: "0.08em",
+              color: "rgba(255,255,255,0.3)",
+            }}
+          >
+            © {new Date().getFullYear()} Mujo
+          </div>
         </div>
       </div>
-      <div className="border-t border-neutral-200 py-6 text-sm dark:border-neutral-700">
-        <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-1 px-4 md:flex-row md:gap-0 md:px-4 min-[1320px]:px-0">
-          <p>
-            &copy; {copyrightDate} {copyrightName}
-            {copyrightName.length && !copyrightName.endsWith(".")
-              ? "."
-              : ""}{" "}
-            All rights reserved.
-          </p>
-          <hr className="mx-4 hidden h-4 w-[1px] border-l border-neutral-400 md:inline-block" />
-          <p>
-            <a href="https://github.com/vercel/commerce">View the source</a>
-          </p>
-          <p className="md:ml-auto">
-            <a href="https://vercel.com" className="text-black dark:text-white">
-              Created by ▲ Vercel
-            </a>
-          </p>
-        </div>
-      </div>
+      <style>{`
+        .mujo-foot .foot-grid {
+          display: grid;
+          gap: 32px;
+          grid-template-columns: 1fr;
+          margin-bottom: 32px;
+        }
+        @media (min-width: 640px) {
+          .mujo-foot .foot-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (min-width: 1024px) {
+          .mujo-foot .foot-grid { grid-template-columns: 1.6fr 1fr 1fr 1fr; }
+        }
+        @media (min-width: 768px) {
+          .mujo-foot .foot-bottom {
+            flex-direction: row !important;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 32px;
+          }
+        }
+        .mujo-foot .foot-link:hover { color: var(--sage-light) !important; }
+      `}</style>
     </footer>
+  );
+}
+
+function FooterColumn({
+  title,
+  links,
+  children,
+}: {
+  title: string;
+  links: { href: string; label: string }[];
+  children?: React.ReactNode;
+}) {
+  return (
+    <div>
+      <div
+        style={{
+          fontFamily: "var(--f-mono)",
+          fontSize: 11,
+          letterSpacing: "0.14em",
+          textTransform: "uppercase",
+          color: "var(--orange)",
+          marginBottom: 16,
+        }}
+      >
+        {title}
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+        {links.map((l) => (
+          <Link
+            key={l.href}
+            href={l.href}
+            className="foot-link"
+            style={{
+              fontSize: 14,
+              color: "rgba(255,255,255,0.55)",
+              textDecoration: "none",
+              transition: "color 0.2s",
+            }}
+          >
+            {l.label}
+          </Link>
+        ))}
+        {children}
+      </div>
+    </div>
   );
 }
