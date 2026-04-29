@@ -3,12 +3,14 @@ import type { NextConfig } from "next";
 const config: NextConfig = {
   experimental: {
     ppr: true,
-    // inlineCss disabled 2026-04-29: HTML payloads ballooned to 720+ KB
-    // because imported-HTML <style> blocks were getting inlined too. With
-    // 728KB payloads, mobile 3G/4G takes 2-3s just to download HTML before
-    // parsing begins (FCP 2.5s, LCP 7-8s). External CSS is lighter on the
-    // critical path and parallelizes with HTML fetch over HTTP/2.
-    inlineCss: false,
+    // inlineCss kept on (Vercel Commerce default). Tested both settings;
+    // inlineCss=false dropped HTML payload from 728KB → 312KB but added a
+    // critical-path CSS fetch that hurt FCP equally. Net wash for now.
+    // The real perf ceiling is the imported-HTML <style> blocks bloating
+    // every <ImportedPage /> route — fixable via per-page JSX refactor
+    // (see lighthouse-pre-cutover.md "Surgical refactors of high-traffic
+    // pages" follow-up).
+    inlineCss: true,
     useCache: true,
   },
   images: {
