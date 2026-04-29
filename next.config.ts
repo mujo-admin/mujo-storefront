@@ -3,11 +3,12 @@ import type { NextConfig } from "next";
 const config: NextConfig = {
   experimental: {
     ppr: true,
-    // inlineCss re-enabled 2026-04-29: critical for LCP. Originally disabled
-    // because of broken next/font/local relative URLs, but we've since moved
-    // General Sans to absolute /fonts/ paths in tokens.css so the URLs
-    // resolve correctly whether CSS is inlined or external.
-    inlineCss: true,
+    // inlineCss disabled 2026-04-29: HTML payloads ballooned to 720+ KB
+    // because imported-HTML <style> blocks were getting inlined too. With
+    // 728KB payloads, mobile 3G/4G takes 2-3s just to download HTML before
+    // parsing begins (FCP 2.5s, LCP 7-8s). External CSS is lighter on the
+    // critical path and parallelizes with HTML fetch over HTTP/2.
+    inlineCss: false,
     useCache: true,
   },
   images: {
