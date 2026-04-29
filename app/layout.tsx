@@ -34,27 +34,13 @@ export default async function RootLayout({
     <html lang="en">
       <head>
         {/*
-          Preload the LCP-critical General Sans weights (400 + 500 cover the
-          vast majority of body + UI text). The other weights load lazily as
-          the browser encounters them.
-        */}
-        <link
-          rel="preload"
-          href="/fonts/general-sans/GeneralSans-400.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/fonts/general-sans/GeneralSans-500.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        {/*
-          Instrument Serif (italic accent) + DM Mono (eyebrow / footer) — Google
-          CDN with display=swap. Not LCP-critical so we don't preload them.
+          General Sans is self-hosted via @font-face in tokens.css with
+          font-display: swap. No preload needed — same-origin fonts get
+          prioritized automatically once CSS parses; explicit preload caused
+          double-fetches that hurt perf.
+
+          Instrument Serif (italic accent) + DM Mono (eyebrow / footer) come
+          from Google Fonts via <link> — not LCP-critical.
         */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link

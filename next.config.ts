@@ -28,6 +28,19 @@ const config: NextConfig = {
       },
     ],
   },
+  async headers() {
+    return [
+      {
+        // Self-hosted fonts in public/fonts/ — cache aggressively.
+        // Filenames don't change, so 1-year cache is safe.
+        source: "/fonts/:path*",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+          { key: "Cross-Origin-Resource-Policy", value: "cross-origin" },
+        ],
+      },
+    ];
+  },
   async redirects() {
     return [
       // Shopify Liquid → headless route map.
