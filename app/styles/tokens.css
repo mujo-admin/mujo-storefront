@@ -4,8 +4,52 @@
      - context/brand-positioning.md §13 + §14 (v1.2)
      - context/import/branding and positioning assets/mujo_brand_guide_final_updated.html
      - content/marketing/visual-system/typography-and-mobile-floor.md
-   Fonts loaded via <link> in app/layout.tsx (Fontshare for General Sans, Google for Instrument Serif + DM Mono).
+   Fonts: General Sans is self-hosted via @font-face below (absolute /fonts/ paths
+   to public/ files), preloaded for LCP-critical weights from layout.tsx.
+   Instrument Serif + DM Mono come from Google Fonts via <link> in layout.tsx
+   (italic accent + monospace eyebrow — not LCP-critical).
 */
+
+/* ==========================================================================
+   Self-hosted General Sans @font-face declarations
+   Absolute paths so the URLs work whether CSS is inlined OR external.
+   ========================================================================== */
+
+@font-face {
+  font-family: 'General Sans';
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/general-sans/GeneralSans-300.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'General Sans';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/general-sans/GeneralSans-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'General Sans';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/general-sans/GeneralSans-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'General Sans';
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/general-sans/GeneralSans-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'General Sans';
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/general-sans/GeneralSans-700.woff2') format('woff2');
+}
 
 
 /* ==========================================================================
@@ -37,15 +81,15 @@
   --line:          rgba(26, 26, 26, 0.09);
 
 
-  /* ----- Font families — General Sans primary for display AND body
-     Variables (--font-*) are injected by next/font/local + next/font/google
-     in app/layout.tsx; they fall through to native fallbacks if the host font
-     fails to load. Self-hosting General Sans is the LCP-critical move. ----- */
+  /* ----- Font families — General Sans primary for display AND body.
+     General Sans is self-hosted via @font-face (above). Instrument Serif +
+     DM Mono come from Google Fonts via <link> in layout.tsx. Native fallbacks
+     last so something always renders if the network is slow. ----- */
 
-  --f-display: var(--font-general-sans), -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --f-body:    var(--font-general-sans), -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --f-serif:   var(--font-instrument-serif), Georgia, 'Times New Roman', serif;
-  --f-mono:    var(--font-dm-mono), 'SF Mono', 'Menlo', 'Courier New', monospace;
+  --f-display: 'General Sans', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --f-body:    'General Sans', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --f-serif:   'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --f-mono:    'DM Mono', 'SF Mono', 'Menlo', 'Courier New', monospace;
 
 
   /* ----- Type scale — Brand Guide v1.0 ----- */

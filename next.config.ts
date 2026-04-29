@@ -3,11 +3,11 @@ import type { NextConfig } from "next";
 const config: NextConfig = {
   experimental: {
     ppr: true,
-    // inlineCss disabled 2026-04-29: breaks next/font/local relative URL
-    // resolution. The inlined CSS references `../media/GeneralSans_*.woff2`
-    // which resolves to /media/* (404) instead of /_next/static/media/* (200).
-    // External CSS adds one HTTP/2 request but fixes the broken fonts.
-    inlineCss: false,
+    // inlineCss re-enabled 2026-04-29: critical for LCP. Originally disabled
+    // because of broken next/font/local relative URLs, but we've since moved
+    // General Sans to absolute /fonts/ paths in tokens.css so the URLs
+    // resolve correctly whether CSS is inlined or external.
+    inlineCss: true,
     useCache: true,
   },
   images: {
