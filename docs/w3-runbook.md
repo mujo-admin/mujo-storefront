@@ -72,11 +72,38 @@ Or via dashboard: Project → Settings → Domains → Add.
 
 ### Step 5 — DNS records at registrar (Kinga, 10 min)
 
-At your registrar (GoDaddy), update:
-- `mujoworld.com` → A record → `76.76.21.21` (Vercel-issued; Vercel UI shows the exact target)
-- `www.mujoworld.com` → CNAME → `cname.vercel-dns.com`
+Vercel-recommended values (pulled from the project config 2026-04-29):
 
-**Verify:** screenshot of new records. `dig mujoworld.com +short` returns Vercel IP within 5 min (TTL 300).
+**Apex `mujoworld.com`** — A record. Use ONE of these IPs (all valid; pick the first):
+- `216.150.1.1` (Vercel rank 1, newest infrastructure)
+- `76.76.21.21` (rank 2, fallback)
+
+**`www.mujoworld.com`** — CNAME to:
+- `27bb3766a1fd1238.vercel-dns-017.com.` (project-specific, rank 1)
+- OR `cname.vercel-dns.com.` (generic, rank 2 — this is what most Vercel docs show)
+
+GoDaddy steps:
+1. DNS settings for `mujoworld.com` → Records
+2. Edit existing A record `@` → set Value to `216.150.1.1` (delete duplicate A records pointing to Shopify)
+3. Edit/create CNAME `www` → set Points to to `cname.vercel-dns.com.` (trailing dot)
+4. TTL on both → `1/2 hour` (close to 300s — registrar may not accept exact 300)
+5. Save
+
+**Verify (Claude can run this for you):**
+```sh
+dig mujoworld.com +short        # should return 216.150.1.1 within 5 min
+dig www.mujoworld.com +short    # should return cname.vercel-dns.com → Vercel IP
+curl -sI https://mujoworld.com | head -3   # should return 200 OK once SSL provisions
+```
+
+**Alternative — full Vercel-managed DNS (heavier, only if you want everything at Vercel):**
+Update the registrar's nameservers (NOT individual records) to:
+- `ns1.vercel-dns-3.com`
+- `ns2.vercel-dns-3.com`
+- `ns3.vercel-dns-3.com`
+- `ns4.vercel-dns-3.com`
+
+Don't do this unless you're committing email DNS to Vercel as well — currently your Resend MX is on `send.mujoworld.com` and Google Workspace MX is on the apex. Keeping records at GoDaddy preserves that.
 
 ### Step 6 — SSL provisions (5-15 min, automatic)
 
