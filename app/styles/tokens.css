@@ -296,15 +296,22 @@ em.accent,
 /* ==========================================================================
    Shared reveal-on-scroll pattern (IntersectionObserver toggles .on)
    Used across all pages via the useReveal() hook.
+
+   Note: opacity stays at 1 by default — only transform animates. Hiding
+   above-the-fold content with opacity:0 until JS hydrates pins LCP at the
+   IntersectionObserver attach time (~500ms+ post-hydration), which torpedos
+   Lighthouse perf scores. The transform-only reveal keeps the polish
+   (gentle slide-up) without delaying first paint of the LCP element.
+
+   If JS fails or is disabled entirely, content still renders at full opacity.
    ========================================================================== */
 
 .reveal {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(12px);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
 }
 .reveal.on {
-  opacity: 1;
   transform: translateY(0);
 }
 .reveal.d1 { transition-delay: 80ms; }
