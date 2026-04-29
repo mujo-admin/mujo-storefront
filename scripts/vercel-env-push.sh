@@ -36,6 +36,17 @@ VARS=(
   RESEND_API_KEY
   RESEND_FROM_EMAIL
   MAGIC_LINK_SECRET
+  # --- W3 (Klaviyo + Meta Pixel + CAPI + Okendo + site URL) ---
+  NEXT_PUBLIC_KLAVIYO_PUBLIC_KEY
+  KLAVIYO_PRIVATE_API_KEY
+  KLAVIYO_NEWSLETTER_LIST_ID
+  KLAVIYO_LEMNA_LIST_ID
+  KLAVIYO_RITUAL_FORM_ID
+  KLAVIYO_LEMNA_FORM_ID
+  NEXT_PUBLIC_META_PIXEL_ID
+  META_CONVERSIONS_API_TOKEN
+  # META_TEST_EVENT_CODE intentionally NOT pushed to production —
+  # auto-included only when NODE_ENV !== production by lib/meta-capi.ts
 )
 
 ENV_SCOPE="${VERCEL_ENV:-production}"

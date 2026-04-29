@@ -6,15 +6,20 @@
  *
  * Env vars expected:
  *   NEXT_PUBLIC_KLAVIYO_PUBLIC_KEY  (6-char alphanumeric, exposed to client)
- *   KLAVIYO_PRIVATE_KEY             (full read/write scope, server only)
- *   KLAVIYO_LIST_ID_*               (named list IDs, server only)
+ *   KLAVIYO_PRIVATE_API_KEY         (full read/write scope, server only)
+ *   KLAVIYO_NEWSLETTER_LIST_ID      (single master list — different sources tagged via profile properties)
+ *   KLAVIYO_LEMNA_LIST_ID           (alias of master list — Lemna signups land here w/ `lemna_early_access: true`)
  */
 
 const KLAVIYO_API_BASE = "https://a.klaviyo.com/api";
 const KLAVIYO_REVISION = "2024-10-15";
 
 function privateKey(): string | null {
-  return process.env.KLAVIYO_PRIVATE_KEY?.trim() || null;
+  return (
+    process.env.KLAVIYO_PRIVATE_API_KEY?.trim() ||
+    process.env.KLAVIYO_PRIVATE_KEY?.trim() ||
+    null
+  );
 }
 
 function authHeaders(): Record<string, string> {

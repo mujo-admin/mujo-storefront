@@ -6,6 +6,7 @@ export const dynamic = "force-dynamic";
 
 const requestSchema = z.object({
   email: z.string().email(),
+  /** Logical source — routed to a single master list with profile properties. */
   list: z
     .enum([
       "lemna_waitlist",
@@ -18,17 +19,24 @@ const requestSchema = z.object({
   properties: z.record(z.string(), z.unknown()).optional(),
 });
 
-const LIST_ID_BY_NAME: Record<string, string | undefined> = {
-  lemna_waitlist: process.env.KLAVIYO_LIST_ID_LEMNA_WAITLIST,
-  ambassador_applications: process.env.KLAVIYO_LIST_ID_AMBASSADOR_APPLICATIONS,
-  contact_form: process.env.KLAVIYO_LIST_ID_CONTACT_FORM,
-  journal_newsletter: process.env.KLAVIYO_LIST_ID_JOURNAL_NEWSLETTER,
+/**
+ * Single-master-list pattern:
+ *   - All signups go to KLAVIYO_NEWSLETTER_LIST_ID (defaulting to KLAVIYO_LEMNA_LIST_ID
+ *     since they're often the same master list).
+ *   - Source is captured via Klaviyo profile properties so segmentation in flows
+ *     still works (e.g. lemna_early_access=true, ambassador_applicant=true).
+ */
+const MASTER_LIST_ID = (): string | undefined =>
+  process.env.KLAVIYO_NEWSLETTER_LIST_ID?.trim() ||
+  process.env.KLAVIYO_LEMNA_LIST_ID?.trim();
+
+const PROPERTIES_BY_SOURCE: Record<string, Record<string, unknown>> = {
+  lemna_waitlist: { lemna_early_access: true, source: "Lemna waitlist" },
+  ambassador_applications: { ambassador_applicant: true, source: "Ambassador" },
+  contact_form: { contact_form_submitted: true, source: "Contact form" },
+  journal_newsletter: { journal_subscriber: true, source: "Journal" },
 };
 
-/**
- * Public Klaviyo subscribe endpoint for non-Klaviyo-embed waitlist forms
- * (Lemna trio, ambassador, journal newsletter footer).
- */
 export async function POST(req: NextRequest) {
   let parsed: z.infer<typeof requestSchema>;
   try {
@@ -43,19 +51,32 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const listId = LIST_ID_BY_NAME[parsed.list ?? "lemna_waitlist"];
+  const listId = MASTER_LIST_ID();
   if (!listId) {
-    // Anti-enumeration: never reveal "list not configured" to the client.
-    console.warn("[klaviyo/subscribe] list not configured", parsed.list);
-    return Response.json({ ok: true });
+    console.warn("[klaviyo/subscribe] KLAVIYO_NEWSLETTER_LIST_ID not configured");
+    return Response.json({ ok: true }); // anti-enumeration: same response shape
   }
+
+  const sourceKey = parsed.list ?? "lemna_waitlist";
+  const baseProperties = PROPERTIES_BY_SOURCE[sourceKey] ?? {};
+  const merged = {
+    ...baseProperties,
+    ...((parsed.properties as Record<string, unknown>) ?? {}),
+  };
+
+  const sourceLabel =
+    parsed.source ??
+    (typeof baseProperties.source === "string"
+      ? baseProperties.source
+      : undefined) ??
+    "Mujo Website";
 
   try {
     await subscribeToList({
       email: parsed.email,
       listId,
-      customSource: parsed.source ?? "Mujo Website",
-      properties: (parsed.properties as Record<string, unknown>) ?? {},
+      customSource: sourceLabel,
+      properties: merged,
     });
   } catch (err) {
     console.error("[klaviyo/subscribe] failed", err);

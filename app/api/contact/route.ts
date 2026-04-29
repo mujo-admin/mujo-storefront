@@ -33,7 +33,11 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const listId = process.env.KLAVIYO_LIST_ID_CONTACT_FORM;
+  // Single-master-list pattern: contact form submissions go to the master
+  // newsletter list with `contact_form_submitted: true` for segmentation.
+  const listId =
+    process.env.KLAVIYO_NEWSLETTER_LIST_ID?.trim() ||
+    process.env.KLAVIYO_LEMNA_LIST_ID?.trim();
   if (listId) {
     try {
       await subscribeToList({
@@ -42,6 +46,8 @@ export async function POST(req: NextRequest) {
         customSource: "Contact form",
         properties: {
           $first_name: parsed.name,
+          contact_form_submitted: true,
+          source: "Contact form",
           ContactTopic: parsed.topic,
           ContactOrderNumber: parsed.orderNumber ?? null,
           ContactMessageExcerpt: parsed.message.slice(0, 240),

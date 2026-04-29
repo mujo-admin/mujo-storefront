@@ -4,9 +4,9 @@
  * so Meta's deduplication keeps post-iOS-14 attribution at ~95%+.
  *
  * Env:
- *   NEXT_PUBLIC_META_PIXEL_ID  (Pixel ID, used here for the API URL)
- *   META_CAPI_TOKEN            (Conversions API access token, server only)
- *   META_CAPI_TEST_EVENT_CODE  (Test Events code; remove from prod env post-cutover)
+ *   NEXT_PUBLIC_META_PIXEL_ID         (Pixel ID, used here for the API URL)
+ *   META_CONVERSIONS_API_TOKEN        (Conversions API access token, server only)
+ *   META_TEST_EVENT_CODE              (Test Events code; auto-included only when NODE_ENV !== production)
  */
 
 import { createHash } from "node:crypto";
@@ -17,7 +17,19 @@ function pixelId(): string | null {
   return process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim() || null;
 }
 function capiToken(): string | null {
-  return process.env.META_CAPI_TOKEN?.trim() || null;
+  return (
+    process.env.META_CONVERSIONS_API_TOKEN?.trim() ||
+    process.env.META_CAPI_TOKEN?.trim() ||
+    null
+  );
+}
+function testEventCode(): string | undefined {
+  if (process.env.NODE_ENV === "production") return undefined;
+  return (
+    process.env.META_TEST_EVENT_CODE?.trim() ||
+    process.env.META_CAPI_TEST_EVENT_CODE?.trim() ||
+    undefined
+  );
 }
 
 function sha256(value: string | undefined): string | undefined {
@@ -67,7 +79,7 @@ export async function sendCapiEvent(event: CapiEvent): Promise<void> {
         custom_data: event.customData,
       },
     ],
-    test_event_code: process.env.META_CAPI_TEST_EVENT_CODE || undefined,
+    test_event_code: testEventCode(),
   };
 
   const res = await fetch(
