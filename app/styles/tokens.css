@@ -37,12 +37,15 @@
   --line:          rgba(26, 26, 26, 0.09);
 
 
-  /* ----- Font families — General Sans primary for display AND body ----- */
+  /* ----- Font families — General Sans primary for display AND body
+     Variables (--font-*) are injected by next/font/local + next/font/google
+     in app/layout.tsx; they fall through to native fallbacks if the host font
+     fails to load. Self-hosting General Sans is the LCP-critical move. ----- */
 
-  --f-display: 'General Sans', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --f-body:    'General Sans', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --f-serif:   'Instrument Serif', Georgia, 'Times New Roman', serif;
-  --f-mono:    'DM Mono', 'SF Mono', 'Menlo', 'Courier New', monospace;
+  --f-display: var(--font-general-sans), -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --f-body:    var(--font-general-sans), -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --f-serif:   var(--font-instrument-serif), Georgia, 'Times New Roman', serif;
+  --f-mono:    var(--font-dm-mono), 'SF Mono', 'Menlo', 'Courier New', monospace;
 
 
   /* ----- Type scale — Brand Guide v1.0 ----- */
