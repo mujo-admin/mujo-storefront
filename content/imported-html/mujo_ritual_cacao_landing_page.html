@@ -1214,26 +1214,7 @@ nav {
   gap: 10px;
   padding: 40px;
 }
-.fbadge {
-  position: absolute;
-  bottom: -14px;
-  right: -14px;
-  background: var(--sage);
-  color: #fff;
-  padding: 12px 16px;
-  border-radius: 13px;
-  box-shadow: var(--s2);
-}
-.fbn {
-  font-family: var(--f-display);
-  font-size: 15px;
-  font-weight: 600;
-}
-.fbs {
-  font-size: 11px;
-  color: var(--sage-light);
-  margin-top: 2px;
-}
+/* fbadge removed (sign block in body now carries the founder name). */
 .fpull {
   font-family: var(--f-display);
   font-size: 20px;
@@ -1520,13 +1501,15 @@ nav {
 }
 
 /* ═══════════════════════════════════════════
-   FINAL CTA
+   FINAL CTA. Cream background, orange CTA pops against it.
+   Breaks up the long sage stretch from the pricing section so the
+   green doesn't run all the way to the footer.
    ═══════════════════════════════════════════ */
 .fcta {
-  background: var(--orange);
+  background: var(--cream);
   padding: 108px 0;
   text-align: center;
-  color: #fff;
+  color: var(--ink);
   position: relative;
   overflow: hidden;
 }
@@ -1539,28 +1522,29 @@ nav {
   width: 600px;
   height: 600px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(242, 104, 47, 0.08) 0%, transparent 70%);
   pointer-events: none;
 }
 .fcta .container { position: relative; z-index: 1; }
+.fcta .eyebrow.center { color: var(--orange-deep); }
 .fctah {
   font-family: var(--f-display);
   font-size: clamp(26px, 2.8vw, 36px);
   font-weight: 500;
   line-height: 1.15;
-  color: #fff;
+  color: var(--ink);
   margin-bottom: 14px;
   letter-spacing: -0.02em;
 }
 .fctah em {
   font-family: var(--f-serif);
   font-style: italic;
-  color: var(--cream);
+  color: var(--orange);
   font-weight: 400;
 }
 .fctas {
   font-size: 16px;
-  color: rgba(255, 255, 255, 0.88);
+  color: var(--ink-soft);
   margin-bottom: 30px;
   max-width: 460px;
   margin-left: auto;
@@ -1568,13 +1552,14 @@ nav {
   line-height: 1.6;
 }
 .fcta .btn-primary {
-  background: var(--sage);
+  background: var(--orange);
   color: #fff;
-  border-color: var(--sage);
+  border-color: var(--orange);
 }
 .fcta .btn-primary:hover {
-  background: var(--ink);
-  border-color: var(--ink);
+  background: var(--orange-deep);
+  border-color: var(--orange-deep);
+  box-shadow: 0 8px 24px rgba(242, 104, 47, 0.3);
 }
 .ftrust {
   margin-top: 24px;
@@ -1589,11 +1574,11 @@ nav {
   align-items: center;
   gap: 6px;
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--mute);
   font-family: var(--f-mono);
   letter-spacing: 0.04em;
 }
-.fti::before { content: '✓'; color: #fff; font-weight: 700; }
+.fti::before { content: '✓'; color: var(--sage); font-weight: 700; }
 
 /* FOOTER */
 footer {
@@ -2260,79 +2245,29 @@ footer {
 }
 
 
-/* ═══ MID-PAGE EMAIL GATE, scroll-triggered after ingredients ═══ */
-.mpgate {
-  background: var(--sand);
-  padding: 56px 0;
-  border-top: 1px solid var(--line-soft);
-  border-bottom: 1px solid var(--line-soft);
+/* Mid-page email gate CSS removed (section deleted). */
+
+/* ═══════════════════════════════════════════
+   MOBILE TIGHTENING (≤560px)
+   - Patch sections with no mobile override
+   - Bump close-button tap targets to ≥40×40 (iOS HIG)
+   ═══════════════════════════════════════════ */
+@media (max-width: 560px) {
+  .video,
+  .quiz-cta { padding: 56px 0; }
+  .fcta { padding: 64px 0; }
+
+  .sb-x,
+  .geo-close,
+  .ecl {
+    padding: 10px 14px;
+    min-width: 40px;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
-@media (min-width: 768px) { .mpgate { padding: 80px 0; } }
-.mpgate-wrap {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 0 20px;
-  text-align: center;
-}
-.mpgate .eyebrow { color: var(--orange); margin-bottom: 14px; display: inline-block; }
-.mpgate h2 { font-size: clamp(26px, 4.5vw, 36px); margin-bottom: 12px; line-height: 1.1; }
-.mpgate h2 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); font-weight: 400; }
-.mpgate p { font-size: 15px; color: var(--ink-soft); line-height: 1.55; max-width: 540px; margin: 0 auto 24px; }
-.mpgate-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-width: 460px;
-  margin: 0 auto;
-}
-@media (min-width: 560px) { .mpgate-form { flex-direction: row; } }
-.mpgate-input {
-  flex: 1;
-  height: 48px;
-  border: 1px solid var(--line);
-  border-radius: 100px;
-  padding: 0 22px;
-  font-family: var(--f-body);
-  font-size: 14px;
-  background: #fff;
-  outline: none;
-  transition: border-color 0.2s;
-}
-.mpgate-input:focus { border-color: var(--orange); }
-.mpgate-btn {
-  height: 48px;
-  border: none;
-  border-radius: 100px;
-  background: var(--orange);
-  color: #fff;
-  font-family: var(--f-body);
-  font-size: 14px;
-  font-weight: 500;
-  padding: 0 28px;
-  cursor: pointer;
-  transition: background 0.2s;
-  white-space: nowrap;
-}
-.mpgate-btn:hover { background: var(--orange-deep); }
-.mpgate-meta {
-  margin-top: 14px;
-  font-family: var(--f-mono);
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  color: var(--mute);
-}
-.mpgate-success {
-  background: rgba(143, 163, 150, 0.15);
-  color: var(--sage);
-  padding: 14px 20px;
-  border-radius: 10px;
-  font-size: 14px;
-  margin: 0 auto;
-  max-width: 460px;
-  display: none;
-}
-.mpgate-success.on { display: block; }
-.mpgate-success strong { color: var(--ink); }
 
 </style>
 <style id="mujo-canonical-nav">
@@ -2354,7 +2289,7 @@ footer {
 .announce .sep { opacity: 0.4; margin: 0 8px; }
 @media (max-width: 640px) { .announce-secondary { display: none; } }
 @media (min-width: 768px) { .announce { padding: 10px 24px; font-size: 13px; } .announce .sep { margin: 0 10px; } }
-nav.mujo-nav { position: sticky; top: 0; z-index: 150; background: rgba(243, 242, 233, 0.94); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--line-soft); padding: 12px 16px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; height: var(--nav-h); transition: box-shadow 0.3s; }
+nav.mujo-nav { position: sticky; top: 0; z-index: 150; background: rgba(243, 242, 233, 0.94); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--line-soft); padding: 12px 16px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; height: var(--nav-h); transition: box-shadow 0.3s; }
 nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 @media (min-width: 1024px) { nav.mujo-nav { padding: 14px 32px; grid-template-columns: 1fr auto 1fr; gap: 24px; } }
 .nav-hamburger { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; color: var(--ink); margin-left: -8px; }
@@ -2379,12 +2314,12 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .menu-overlay.open { opacity: 1; pointer-events: auto; }
 .mobile-menu { position: fixed; top: 0; left: 0; bottom: 0; width: min(360px, 88vw); background: var(--cream); z-index: 999; transform: translateX(-100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; overflow-y: auto; }
 .mobile-menu.open { transform: translateX(0); }
-.mm-head { display: flex; align-items: center; justify-content: center; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); position: relative; }
+.mm-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); }
 .mm-head img { height: 26px; width: auto; }
-.mm-close { width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); position: absolute; right: 12px; top: 50%; transform: translateY(-50%); }
+.mm-close { width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); margin-right: -8px; }
 .mm-close svg { width: 20px; height: 20px; }
 .mm-links { display: flex; flex-direction: column; padding: 4px 0; flex: 1; }
-.mm-link { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; font-family: var(--f-display); font-size: 18px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-soft); transition: background 0.15s, color 0.15s; }
+.mm-link { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; font-family: var(--f-display); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-soft); transition: background 0.15s, color 0.15s; }
 .mm-link:hover { color: var(--orange-deep); background: rgba(242,104,47,0.04); }
 .mm-link svg { width: 16px; height: 16px; opacity: 0.4; }
 .mm-foot { padding: 24px; background: var(--sage); color: #fff; }
@@ -2507,12 +2442,11 @@ body.locked { overflow: hidden; }
 <section class="hero">
   <div class="hero-grid">
     <div>
-      <div class="hero-eyebrow eyebrow reveal">Neurowellness · Rebel against the crash</div>
+      <div class="hero-eyebrow eyebrow reveal">Neurowellness · Conscious Performance</div>
       <h1 class="reveal d1">
-        You track your sleep, do the zone 2 &amp; read the labels.<br>
-        <span class="serif-accent">But still crashing at 3pm.</span>
+        You've optimized your routine, but <span class="serif-accent">you're still crashing at 3pm.</span>
       </h1>
-      <p class="hero-sub reveal d2"><strong>81% of US workers experience the afternoon slump 3+ days a week.</strong> The problem isn't discipline. <strong>Caffeine keeps you functional, at the cost of long-term recovery.</strong> Find out what's actually driving your pattern, and get a personalized plan to fix it.</p>
+      <p class="hero-sub reveal d2">81% of US workers experience the afternoon slump 3+ days a week. The reason isn't lack of discipline. It's nervous system regulation. Find out what's driving your pattern and get a personalized plan to fix it.</p>
       <div class="hero-rating reveal d2">
         <div class="hero-stars">★★★★★</div>
         <div class="hero-rating-text"><strong>4.9/5</strong> · 340+ verified reviews</div>
@@ -2535,15 +2469,14 @@ body.locked { overflow: hidden; }
         <div><strong>Neurowellness</strong> was named the <strong>#1 wellness trend of 2026</strong> by the Global Wellness Summit, the category Mujo was built for, <em>18 months before it had a name.</em></div>
       </div>
       <div class="scroll-cue reveal d4">
-        <span>Scroll to understand why</span>
+        <span>Scroll to meet the Ritual</span>
         <div class="scroll-arr">↓</div>
       </div>
     </div>
     <div class="hero-visual reveal d2">
       <div class="hero-card">
-        <!-- IMAGE: Mujo Ritual pouch + prepared mug of cacao · 3:4 portrait · natural light -->
         <div class="ph-label">Image Placeholder</div>
-        <div class="ph-icon">Hero product</div>
+        <div class="ph-icon">🍄</div>
         <div class="ph-text">Hero product shot</div>
         <div class="ph-sub">Mujo Ritual pouch + prepared mug of cacao. 3:4 portrait.</div>
       </div>
@@ -2566,7 +2499,7 @@ body.locked { overflow: hidden; }
   <div class="container">
     <div class="problem-header">
       <div class="eyebrow light reveal">The hidden tax of high performance</div>
-      <h2 class="reveal d1">What's actually happening when you've done everything right and still crashed at 3pm.</h2>
+      <h2 class="reveal d1">What's <span class="serif-accent">actually happening</span> when you're optimized but still depleted.</h2>
     </div>
     <div class="problem-grid">
       <div class="pitems">
@@ -2641,31 +2574,28 @@ body.locked { overflow: hidden; }
     </div>
     <div>
       <div class="eyebrow sage reveal">The solution</div>
-      <h2 class="reveal d1">A ritual that <span class="serif-accent">actually</span> earns its place.</h2>
-      <p class="body-lg reveal d2" style="margin-top: 16px;">Eight ingredients. Every one selected because it has human clinical data. Every one dosed to the studies, not the margin. No proprietary blends. No hiding.</p>
+      <h2 class="reveal d1">A ritual that <span class="serif-accent">earns its place.</span></h2>
+      <p class="body-lg reveal d2" style="margin-top: 16px;">A functional cacao with eight mushrooms and adaptogens. Every one mindfully chosen and dosed for impact. Tastes so good you won't want to skip it.</p>
       <div class="sol-pts">
         <div class="sp reveal">
-          <!-- ICON: target / clinical-dose · sage · 28px · botanical-line -->
-          <div class="sp-i" data-icon="dose-target">Dose</div>
+          <div class="sp-i">🎯</div>
           <div>
             <div class="sp-t">Dosed to the research, not the margin</div>
-            <div class="sp-b">300mg KSM-66 Ashwagandha. That's the dose used in the Chandrasekhar 2012 RCT, which reported cortisol reduction of up to 27.9%. Not 50mg with "ashwagandha" on the label.</div>
+            <div class="sp-b">300mg KSM-66 Ashwagandha. That's the clinical trial dose that reduced cortisol by up to 27.9%.</div>
           </div>
         </div>
         <div class="sp reveal d1">
-          <!-- ICON: mushroom / fruiting-body · sage · 28px · botanical-line -->
-          <div class="sp-i" data-icon="fruiting-body">Mushroom</div>
+          <div class="sp-i">🍄</div>
           <div>
             <div class="sp-t">Fruiting body extracts, never mycelium on grain</div>
-            <div class="sp-b">Beta-glucans live in the fruiting body. Most brands use mycelium because it's 7x cheaper. We use 8:1 fruiting body, that's where the active compounds are.</div>
+            <div class="sp-b">Beta-(3,1)-glucans live in the fruiting body. Most brands use mycelium because it's 7x cheaper. We use 8:1 fruiting body, dual extract.</div>
           </div>
         </div>
         <div class="sp reveal d2">
-          <!-- ICON: brain / nervous-system · sage · 28px · botanical-line -->
-          <div class="sp-i" data-icon="nervous-system">Brain</div>
+          <div class="sp-i">🧠</div>
           <div>
             <div class="sp-t">HPA axis support, not stimulation</div>
-            <div class="sp-b">KSM-66 and Rhodiola Rosea calibrate your stress response. Small fires stop feeling like big ones. Energy from your own cells, not a drug.</div>
+            <div class="sp-b">Clinically studied adaptogens calibrate your stress response. Energy comes from your own cells, not a drug.</div>
           </div>
         </div>
       </div>
@@ -2680,7 +2610,7 @@ body.locked { overflow: hidden; }
   <div class="container">
     <div class="proof-header">
       <div class="eyebrow reveal">Real reviews</div>
-      <h2 class="reveal d1" style="margin-top: 16px;">From people who also read the label before they buy.</h2>
+      <h2 class="reveal d1" style="margin-top: 16px;">From people who also <span class="serif-accent">read the label</span> before they buy.</h2>
     </div>
     <div class="proof-grid">
       <div class="pc reveal">
@@ -2752,26 +2682,22 @@ body.locked { overflow: hidden; }
   <div class="qcs-inner">
     <div class="qcs-eye reveal">Free · For you</div>
     <h2 class="qcs-h reveal d1">Find out what's <em>actually holding back your energy</em>, and get your free 5-step plan.</h2>
-    <div class="qcs-body reveal d2">60 seconds. Four questions. We analyze your pattern and build you a personalized protocol, emailed to you instantly.</div>
+    <div class="qcs-body reveal d2">60 seconds. Six questions. We analyze your pattern and build you a personalized protocol, emailed to you instantly.</div>
     <div class="qcs-what reveal d3">
       <div class="qcs-item">
-        <!-- ICON: magnifying-glass / diagnose · sage · 24px · botanical-line -->
-        <div class="qcs-item-icon" data-icon="diagnose">Diagnose</div>
+        <div class="qcs-item-icon">🔍</div>
         <div class="qcs-item-text"><strong>The root cause</strong>Why your specific pattern is happening, not a generic explanation</div>
       </div>
       <div class="qcs-item">
-        <!-- ICON: clock / sequence · sage · 24px · botanical-line -->
-        <div class="qcs-item-icon" data-icon="sequence">Sequence</div>
+        <div class="qcs-item-icon">⏰</div>
         <div class="qcs-item-text"><strong>Your morning sequence</strong>Exact timing built around your answers</div>
       </div>
       <div class="qcs-item">
-        <!-- ICON: capsule / ingredient · sage · 24px · botanical-line -->
-        <div class="qcs-item-icon" data-icon="ingredient">Ingredient</div>
+        <div class="qcs-item-icon">💊</div>
         <div class="qcs-item-text"><strong>Your key ingredients</strong>The 2–3 that matter most for your pattern</div>
       </div>
       <div class="qcs-item">
-        <!-- ICON: target / focus · sage · 24px · botanical-line -->
-        <div class="qcs-item-icon" data-icon="focus">Focus</div>
+        <div class="qcs-item-icon">🎯</div>
         <div class="qcs-item-text"><strong>One thing to stop</strong>The habit that's quietly making it worse</div>
       </div>
     </div>
@@ -2791,79 +2717,70 @@ body.locked { overflow: hidden; }
     <div class="iintro">
       <div>
         <div class="eyebrow reveal">The formula</div>
-        <h2 class="reveal d1" style="margin-top: 16px;">Every ingredient earned its place.</h2>
+        <h2 class="reveal d1" style="margin-top: 16px;">Every ingredient <span class="serif-accent">earned</span> its place.</h2>
       </div>
-      <p class="body-lg reveal d2">Peer-reviewed research behind them, work in combination, and dosed to the studies, not the label. 9,600mg raw mushroom equivalent + 3,000mg adaptogens raw equivalent + 3,400mg nootropics raw equivalent per serving.</p>
+      <p class="body-lg reveal d2">Peer-reviewed research behind them, work in combination, and dosed to the studies, not the label. 9,600mg mushroom equivalent + 3,000mg adaptogens equivalent + 3,400mg nootropics equivalent per serving.</p>
     </div>
 
     <div class="igrid">
       <div class="ic hero-ing reveal">
-        <!-- ICON: bioavailable curcumin · sage · 26px · botanical-line -->
-        <span class="ie" data-icon="curcumin">Curcumin</span>
+        <span class="ie">✨</span>
         <div class="in">Bioavailable Curcumin</div>
         <div class="ia">285x bioavailable · 29+ trials</div>
         <div class="ib">Standard curcumin is 99% wasted. Bioavailable Curcuma is clinically shown to <strong>cross the blood-brain barrier</strong> with 7.5hr half-life. Supports cognition, mood, inflammation.*</div>
         <div class="id-tag unique">Unique to Mujo</div>
       </div>
       <div class="ic reveal">
-        <!-- ICON: lion's mane mushroom · sage · 26px · botanical-line -->
-        <span class="ie" data-icon="lions-mane">Lion's Mane</span>
+        <span class="ie">🦁</span>
         <div class="in">Lion's Mane</div>
         <div class="ia">Hericium erinaceus · FB 8:1</div>
         <div class="ib">Stimulates Nerve Growth Factor, signals your brain to build new neural connections. Clinically studied for focus, memory, neuroplasticity.</div>
         <div class="id-tag">Fruiting body · 8:1</div>
       </div>
       <div class="ic reveal d1">
-        <!-- ICON: ashwagandha leaf · sage · 26px · botanical-line -->
-        <span class="ie" data-icon="ashwagandha">Ashwagandha</span>
+        <span class="ie">🌿</span>
         <div class="in">KSM-66 Ashwagandha</div>
         <div class="ia">300mg · Clinical dose</div>
-        <div class="ib">The most clinically studied ashwagandha on the market. At the exact 300mg dose used in the Chandrasekhar 2012 RCT, which reported cortisol reduction of up to 27.9%. Not 50mg for the label.</div>
+        <div class="ib">The most clinically studied ashwagandha on the market. At the exact 300mg dose that reduced cortisol by up to 27.9% in RCTs. Not 50mg for the label.</div>
         <div class="id-tag">300mg · KSM-66®</div>
       </div>
       <div class="ic reveal d2">
-        <!-- ICON: rhodiola rosea flower · sage · 26px · botanical-line -->
-        <span class="ie" data-icon="rhodiola">Rhodiola</span>
+        <span class="ie">🌸</span>
         <div class="in">Rhodiola Rosea</div>
         <div class="ia">Altai Mountain harvest</div>
         <div class="ib">One of the most studied adaptogens in the world. <strong>Rhodiola Rosea from Altai Mountain peak-potency harvests.</strong> Works on the HPA axis alongside KSM-66 for stress resilience.*</div>
         <div class="id-tag">Altai harvest · 5%/1.5%</div>
       </div>
       <div class="ic reveal">
-        <!-- ICON: cordyceps militaris · sage · 26px · botanical-line -->
-        <span class="ie" data-icon="cordyceps">Cordyceps</span>
+        <span class="ie">⚡</span>
         <div class="in">Cordyceps militaris</div>
         <div class="ia">Fruiting body 8:1</div>
         <div class="ib">Supports ATP synthesis, the energy molecule every cell runs on. Human VO₂ max trials. Militaris fruiting body, not fermented mycelium.</div>
         <div class="id-tag">Militaris FB · 8:1</div>
       </div>
       <div class="ic reveal d1">
-        <!-- ICON: chaga / wild birch · sage · 26px · botanical-line -->
-        <span class="ie" data-icon="chaga">Chaga</span>
+        <span class="ie">⛰️</span>
         <div class="in">Chaga</div>
         <div class="ia">Wild Siberia · FB 8:1</div>
         <div class="ib">ORAC 146,700, 4x acai. Beta-glucans and antioxidant compounds, wild birch-harvested fruiting body. Counters oxidative stress amplified by chronic cortisol.</div>
         <div class="id-tag">Wild FB · 8:1</div>
       </div>
       <div class="ic reveal d2">
-        <!-- ICON: bacopa monnieri · sage · 26px · botanical-line -->
-        <span class="ie" data-icon="bacopa">Bacopa</span>
+        <span class="ie">🌼</span>
         <div class="in">Bacopa Monnieri</div>
         <div class="ia">Standardized · India</div>
         <div class="ib">Ayurvedic nootropic studied for memory consolidation and processing speed. <strong>Works synergistically with Lion's Mane</strong>, growth and retention together.*</div>
         <div class="id-tag">Standardized</div>
       </div>
       <div class="ic reveal d3">
-        <!-- ICON: cacao pod · sage · 26px · botanical-line -->
-        <span class="ie" data-icon="cacao">Cacao</span>
+        <span class="ie">🍫</span>
         <div class="in">Cacao</div>
         <div class="ia">Single-origin Peru · Ceremonial</div>
         <div class="ib">Theobromine for gentle 6-hour energy. PQQ for mitochondrial support. Magnesium, flavanols, and the reason this tastes like something you'd choose.</div>
         <div class="id-tag">Ceremonial · Organic</div>
       </div>
       <div class="ic reveal d4">
-        <!-- ICON: maca root · sage · 26px · botanical-line -->
-        <span class="ie" data-icon="maca">Maca</span>
+        <span class="ie">🌼</span>
         <div class="in">Maca</div>
         <div class="ia">Single-origin Peru · Gelatinized</div>
         <div class="ib">Grown in Peru, our yellow maca is gelatinized to remove starch and make it easier on digestion. Delivers natural energy.</div>
@@ -2872,8 +2789,7 @@ body.locked { overflow: hidden; }
     </div>
 
     <div class="inote reveal">
-      <!-- ICON: microscope / lab · orange · 18px · botanical-line -->
-      <div class="ico" data-icon="lab">Lab</div>
+      <div class="ico">🔬</div>
       <div class="itxt"><strong>The mycelium problem:</strong> Most products use mycelium on grain, not actual mushrooms. Beta-glucans live in the fruiting body. A product can legally say "mushroom extract" using mycelium with under 5% beta-glucan content. Mujo Ritual uses fruiting body at 8:1, standardized for beta-glucans. <strong>If the label doesn't say "fruiting body", it probably isn't.</strong></div>
     </div>
   </div>
@@ -2882,22 +2798,8 @@ body.locked { overflow: hidden; }
 
 
 
-<!-- ═══ MID-PAGE EMAIL GATE, scroll-triggered Klaviyo capture ═══ -->
-<section class="mpgate">
-  <div class="mpgate-wrap">
-    <span class="eyebrow">For people who read the label</span>
-    <h2>Want the <em>full ingredient dossier?</em></h2>
-    <p>Sourcing, clinical citations, the actual amounts, and what we left out and why. PDF, dropped straight into your inbox. No purchase needed.</p>
-    <div class="mpgate-form" id="mpgateForm">
-      <input type="email" class="mpgate-input" id="mpgateEmail" placeholder="your@email.com">
-      <button class="mpgate-btn" onclick="submitMpGate()">Send the dossier →</button>
-    </div>
-    <div class="mpgate-success" id="mpgateSuccess">
-      <strong>On its way.</strong> Check your inbox in the next minute or two.
-    </div>
-    <div class="mpgate-meta">No spam. Unsubscribe any time.</div>
-  </div>
-</section>
+<!-- Mid-page email gate (full ingredient dossier) removed.
+     The quiz handles the primary email capture flow. -->
 
 <!-- ═══════════════════════════════════════════
      FOUNDER
@@ -2906,24 +2808,19 @@ body.locked { overflow: hidden; }
   <div class="fgrid">
     <div class="fimgw reveal">
       <div class="fimgph">
-        <!-- IMAGE: Kinga portrait · 3:4 · half-body, holding mug, natural light -->
         <div class="ph-label">Image Placeholder</div>
-        <div class="ph-icon">Founder portrait</div>
+        <div class="ph-icon">📸</div>
         <div class="ph-text">Kinga portrait</div>
         <div class="ph-sub">Half-body, holding mug, natural light. 3:4.</div>
-      </div>
-      <div class="fbadge">
-        <div class="fbn">Kinga</div>
-        <div class="fbs">Founder, Mujo</div>
       </div>
     </div>
     <div>
       <div class="eyebrow reveal">Our story</div>
-      <div class="fpull reveal d1" style="margin-top: 20px;">"I didn't build Mujo to sell a product. <em>I built it because I needed it, and nothing like it existed.</em>"</div>
-      <p class="fbody reveal d2">I'm a mom of three, building a company, playing padel three mornings a week. Coffee was burning me out. Exhausted and anxious. Wired at 11pm. Waking up tired and depleted. I knew caffeine wasn't the answer, but nothing else was working either.</p>
-      <p class="fbody reveal d2">Every "mushroom cacao" on the market used mycelium instead of fruiting bodies. Every adaptogen was underdosed or fake. So I started mixing in my kitchen. Real fruiting body extracts. Organic Peruvian cacao. Clinically studied adaptogens at their research-validated doses.</p>
-      <p class="fbody reveal d3">Mujo came from a refusal to accept that high performance should leave you depleted. I built it as a ritual for my nervous system: <strong>neurowellness</strong>. Your morning should restore you, not run you down.</p>
-      <div class="fsig reveal d3">Kinga<div class="fsigs">Founder, Mujo World · mujoworld.com</div></div>
+      <div class="fpull reveal d1" style="margin-top: 20px;">"I built Mujo Cacao because I wanted <em>a ritual that brought me nervous system regulation</em> and <em>joy.</em>"</div>
+      <p class="fbody reveal d2">When I became a mom, I began to shift from treating my body like a machine that needed to be hacked towards emotional repair, nervous system support, and just simple joy. Coffee was contributing to my near burnout and constant anxiety, so I had to quit.</p>
+      <p class="fbody reveal d2">To fill the void coffee left, I started mixing the most remarkable plants and mushrooms into a coffee-like drink. Real fruiting body extracts. Clinically studied adaptogens. I <em>obsessed</em> over the research.</p>
+      <p class="fbody reveal d3">I drank it every day. I felt sharper. Mentally clearer. Not tired. And my sleep was never better. I even <em>looked</em> younger. While my nervous system was shifting to a regulated mode, a Ritual for <strong>neurowellness</strong> was born. <em>And it was born to be shared.</em></p>
+      <div class="fsig reveal d3">Kinga<div class="fsigs">Founder, Mujo</div></div>
     </div>
   </div>
 </section>
@@ -2934,26 +2831,22 @@ body.locked { overflow: hidden; }
 <section class="obj">
   <div class="container">
     <div class="eyebrow reveal">The honest answers</div>
-    <h2 class="reveal d1" style="margin-top: 16px;">The questions we'd ask if we were you.</h2>
+    <h2 class="reveal d1" style="margin-top: 16px;">The questions we'd ask <span class="serif-accent">if we were you.</span></h2>
     <div class="obj-grid">
       <div class="objcard reveal">
-        <!-- ICON: question / curiosity · orange · 17px · botanical-line -->
-        <div class="objq"><span class="objqi" data-icon="question">Q</span>Do I need to quit coffee to drink Mujo?</div>
+        <div class="objq"><span class="objqi">🤔</span>Do I need to quit coffee to drink Mujo?</div>
         <div class="obja">No, but you might naturally want to drink less coffee. <strong>We recommend reducing caffeine gradually over 1–2 weeks</strong> while introducing Mujo Ritual. Caffeine withdrawal is a real thing. A tough morning in those first days is your adenosine receptors coming back online. Most people find the clarity around day 6–14 was worth the caffeine detox.</div>
       </div>
       <div class="objcard reveal d1">
-        <!-- ICON: microscope / verify · orange · 17px · botanical-line -->
-        <div class="objq"><span class="objqi" data-icon="verify">Verify</span>How do I verify the dosing independently?</div>
+        <div class="objq"><span class="objqi">🔬</span>How do I verify the dosing independently?</div>
         <div class="obja">We invite you to. <strong>Google "KSM-66 ashwagandha 300mg clinical trial", you'll find the Chandrasekhar 2012 RCT. Google "Bioavailable Curcumin bioavailability", you'll find 285x.</strong> Every ingredient is on the label with its exact dose and form. We built this to make verification easy, not prevent it.</div>
       </div>
       <div class="objcard reveal d2">
-        <!-- ICON: clock / timeline · orange · 17px · botanical-line -->
-        <div class="objq"><span class="objqi" data-icon="timeline">Time</span>How quickly will I notice a difference?</div>
+        <div class="objq"><span class="objqi">⏱️</span>How quickly will I notice a difference?</div>
         <div class="obja">Adaptogens work over weeks. <strong>Sleep quality usually shifts within 7–10 days.</strong> Reduced afternoon crash in weeks 2–3. Cognitive clarity and anxiety baseline in weeks 3–6, although every body is different because it's started from a different baseline.</div>
       </div>
       <div class="objcard reveal d3">
-        <!-- ICON: cacao / taste · orange · 17px · botanical-line -->
-        <div class="objq"><span class="objqi" data-icon="taste">Taste</span>What does it taste like?</div>
+        <div class="objq"><span class="objqi">🍫</span>What does it taste like?</div>
         <div class="obja">Warm, rich cacao latte, genuinely good, not something you're tolerating. <strong>No mushroom taste. No aftertaste.</strong> Oat or coconut milk recommended. It's the first functional drink most people say they look forward to.</div>
       </div>
     </div>
@@ -2966,7 +2859,7 @@ body.locked { overflow: hidden; }
 <section class="pric" id="pricing">
   <div class="container">
     <div class="eyebrow reveal">Start your ritual</div>
-    <h2 class="reveal d1" style="margin-top: 16px; max-width: 440px;">Your morning ritual, finally on your side.</h2>
+    <h2 class="reveal d1" style="margin-top: 16px; max-width: 440px;">Your morning ritual, <span class="serif-accent">finally on your side.</span></h2>
     <div class="panchor reveal d2"><strong>In perspective:</strong> A daily flat white is $5–7 and keeps your cortisol elevated. Mujo Ritual on subscription is <strong>$1.73 per serving</strong>. One swap that stops costing you how you feel.</div>
     <div class="priced">
       <div>
@@ -2975,19 +2868,18 @@ body.locked { overflow: hidden; }
           <div class="ptype">Subscribe & Save</div>
           <div class="pprice"><sup>$</sup>55<span style="font-size: 24px;">.25</span></div>
           <div class="pwas">$65.00 one-time price</div>
-          <div class="pper">per month · cancel anytime · $1.73/serving</div>
+          <div class="pper">per month · 2-cycle min · $1.73/serving</div>
           <div class="pdiv"></div>
           <div class="pfeats">
             <div class="pfeat"><span class="pfck">✓</span>25-serving bag, monthly delivery</div>
             <div class="pfeat"><span class="pfck">✓</span>15% off every order, forever</div>
             <div class="pfeat"><span class="pfck">✓</span>Free shipping on every order</div>
-            <div class="pfeat"><span class="pfck">✓</span>Skip or cancel anytime, no penalty</div>
+            <div class="pfeat"><span class="pfck">✓</span>Min commitment of 2 delivery cycles</div>
             <div class="pfeat"><span class="pfck">✓</span>Priority access to Lemna Bar launch</div>
           </div>
           <button class="btwh primary">Subscribe & Save. Start Today</button>
           <div class="gbox">
-            <!-- ICON: shield / guarantee · orange · 19px · botanical-line -->
-            <div class="gicon" data-icon="guarantee">Shield</div>
+            <div class="gicon">🛡</div>
             <div class="gtxt">
               <strong>30-day money-back guarantee</strong>
               No difference after 30 days? Full refund. No forms. No questions. We carry the risk.
@@ -3022,7 +2914,7 @@ body.locked { overflow: hidden; }
      ═══════════════════════════════════════════ -->
 <section class="fcta">
   <div class="container">
-    <div class="eyebrow center reveal" style="color: rgba(255,255,255,0.8);">The decision</div>
+    <div class="eyebrow center reveal">The decision</div>
     <h2 class="fctah reveal d1" style="margin-top: 16px;">Less noise. <em>More honest ingredients.</em></h2>
     <p class="fctas reveal d2">30 days. If your 3pm doesn't feel different, we'll refund you.</p>
     <div class="cta-stack reveal d3" style="justify-content: center;">
@@ -3034,14 +2926,15 @@ body.locked { overflow: hidden; }
     <div class="ftrust reveal d4">
       <div class="fti">Free shipping over $60</div>
       <div class="fti">30-day money-back guarantee</div>
-      <div class="fti">Cancel anytime</div>
+      <div class="fti">2-cycle minimum</div>
       <div class="fti">Ships within 48hrs</div>
     </div>
   </div>
 </section>
 
 <!-- ═══ FOOTER ═══ -->
-<footer>
+<!-- mujo-foot class signals the import helper to strip this; layout-level <Footer> renders instead. -->
+<footer class="mujo-foot">
   <a href="/" class="flogo">MUJO</a>
   <div class="flinks">
     <a href="/" class="flink">mujoworld.com</a>
@@ -3057,8 +2950,7 @@ body.locked { overflow: hidden; }
 <!-- ═══ STICKY BAR ═══ -->
 <div class="sbar" id="stickyBar">
   <div class="sb-l">
-    <!-- ICON: mushroom / Mujo Ritual · sage · 22px · botanical-line -->
-    <div class="sb-emoji" data-icon="ritual">Ritual</div>
+    <div class="sb-emoji">🍄</div>
     <div>
       <div class="sb-name">Mujo Ritual</div>
       <div class="sb-sub"><span class="sb-stars">★★★★★</span> 4.9 · 340+ reviews</div>
@@ -3073,8 +2965,7 @@ body.locked { overflow: hidden; }
 
 <!-- ═══ FLOATING QUIZ PILL ═══ -->
 <button class="quiz-pill" id="quizPill" onclick="openQuizSheet()">
-  <!-- ICON: mushroom / quiz · sage · 17px · botanical-line -->
-  <span class="qp-icon" data-icon="quiz" aria-hidden="true"></span>
+  <span class="qp-icon">🍄</span>
   Get your free Reset Plan
 </button>
 
@@ -3093,23 +2984,19 @@ body.locked { overflow: hidden; }
       <div class="qs-hint">Be honest, this is the first clue to your pattern.</div>
       <div class="qs-tiles">
         <div class="qs-tile" onclick="qNext(1,'crash')">
-          <!-- ICON: downward arrow / afternoon crash · sage · 22px · botanical-line -->
-          <div class="qt-em" data-icon="crash">Crash</div>
+          <div class="qt-em">📉</div>
           <div><div class="qt-l">I hit a wall at 2–3pm and can't think past it</div><div class="qt-s">Reliable. Predictable. Frustrating.</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(1,'wired')">
-          <!-- ICON: lightning / wired · sage · 22px · botanical-line -->
-          <div class="qt-em" data-icon="wired">Wired</div>
+          <div class="qt-em">⚡</div>
           <div><div class="qt-l">Wired and exhausted at the same time</div><div class="qt-s">Can't focus. Can't switch off.</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(1,'fog')">
-          <!-- ICON: fog / brain fog · sage · 22px · botanical-line -->
-          <div class="qt-em" data-icon="fog">Fog</div>
+          <div class="qt-em">🌫️</div>
           <div><div class="qt-l">Functional but foggy, like 70% showed up</div><div class="qt-s">Words take longer. Recall is slower.</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(1,'anxious')">
-          <!-- ICON: tension / anxious · sage · 22px · botanical-line -->
-          <div class="qt-em" data-icon="anxious">Anxious</div>
+          <div class="qt-em">😤</div>
           <div><div class="qt-l">Anxious underneath everything</div><div class="qt-s">Even when things are going well.</div></div>
         </div>
       </div>
@@ -3122,23 +3009,19 @@ body.locked { overflow: hidden; }
       <div class="qs-hint">This tells us how deep the pattern runs.</div>
       <div class="qs-tiles">
         <div class="qs-tile" onclick="qNext(2,'new')">
-          <!-- ICON: calendar / recent · sage · 22px · botanical-line -->
-          <div class="qt-em" data-icon="recent">Recent</div>
+          <div class="qt-em">📅</div>
           <div><div class="qt-l">Less than a year, it's gotten worse lately</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(2,'mid')">
-          <!-- ICON: calendar / mid-term · sage · 22px · botanical-line -->
-          <div class="qt-em" data-icon="mid-term">Years</div>
+          <div class="qt-em">🗓️</div>
           <div><div class="qt-l">1–3 years, it's become my normal</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(2,'long')">
-          <!-- ICON: hourglass / long-term · sage · 22px · botanical-line -->
-          <div class="qt-em" data-icon="long-term">Long</div>
+          <div class="qt-em">⏳</div>
           <div><div class="qt-l">3+ years. I can't remember without it</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(2,'free')">
-          <!-- ICON: sprout / caffeine-free · sage · 22px · botanical-line -->
-          <div class="qt-em" data-icon="caffeine-free">Free</div>
+          <div class="qt-em">🌱</div>
           <div><div class="qt-l">I've already quit, looking for what fills the gap</div></div>
         </div>
       </div>
@@ -3151,23 +3034,19 @@ body.locked { overflow: hidden; }
       <div class="qs-hint">No judgement, this shapes which steps matter most.</div>
       <div class="qs-tiles">
         <div class="qs-tile" onclick="qNext(3,'performer')">
-          <!-- ICON: chart / performer · sage · 22px · botanical-line -->
-          <div class="qt-em" data-icon="performer">Track</div>
+          <div class="qt-em">📊</div>
           <div><div class="qt-l">Coffee first, then I check my metrics</div><div class="qt-s">HRV, sleep score, readiness</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(3,'burnout')">
-          <!-- ICON: laptop / work · sage · 22px · botanical-line -->
-          <div class="qt-em" data-icon="work">Work</div>
+          <div class="qt-em">💻</div>
           <div><div class="qt-l">Coffee and straight into work</div><div class="qt-s">No warm-up. Just output.</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(3,'mama')">
-          <!-- ICON: family / caregiver · sage · 22px · botanical-line -->
-          <div class="qt-em" data-icon="caregiver">Family</div>
+          <div class="qt-em">👶</div>
           <div><div class="qt-l">The morning belongs to everyone else first</div><div class="qt-s">Kids, logistics, then maybe me</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(3,'calm')">
-          <!-- ICON: stillness / slow start · sage · 22px · botanical-line -->
-          <div class="qt-em" data-icon="slow-start">Slow</div>
+          <div class="qt-em">🧘</div>
           <div><div class="qt-l">I try to start slow, it just rarely works</div><div class="qt-s">The day hijacks the intention</div></div>
         </div>
       </div>
@@ -3180,23 +3059,19 @@ body.locked { overflow: hidden; }
       <div class="qs-hint">This becomes the goal of your personalized plan.</div>
       <div class="qs-tiles">
         <div class="qs-tile" onclick="qNext(4,'focus')">
-          <!-- ICON: target / focus · sage · 22px · botanical-line -->
-          <div class="qt-em" data-icon="focus">Focus</div>
+          <div class="qt-em">🎯</div>
           <div><div class="qt-l">Calm, clear focus that doesn't need a spike</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(4,'calm')">
-          <!-- ICON: calm / steady · sage · 22px · botanical-line -->
-          <div class="qt-em" data-icon="calm">Calm</div>
+          <div class="qt-em">😌</div>
           <div><div class="qt-l">No anxiety underneath the productivity</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(4,'energy')">
-          <!-- ICON: lightning / energy · sage · 22px · botanical-line -->
-          <div class="qt-em" data-icon="energy">Energy</div>
+          <div class="qt-em">⚡</div>
           <div><div class="qt-l">Enough in the tank to still be present at 7pm</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(4,'sleep')">
-          <!-- ICON: moon / sleep · sage · 22px · botanical-line -->
-          <div class="qt-em" data-icon="sleep">Sleep</div>
+          <div class="qt-em">🌙</div>
           <div><div class="qt-l">Sleep that actually means something</div></div>
         </div>
       </div>
@@ -3209,23 +3084,19 @@ body.locked { overflow: hidden; }
       <div class="qs-hint">This is the first place adaptogens usually move the needle.</div>
       <div class="qs-tiles">
         <div class="qs-tile" onclick="qNext(5,'broken')">
-          <!-- ICON: depleted / unrested · sage · 22px · botanical-line -->
-          <div class="qt-em" data-icon="unrested">Tired</div>
+          <div class="qt-em">🥱</div>
           <div><div class="qt-l">I wake up feeling like I didn't sleep</div><div class="qt-s">7+ hours and still depleted</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(5,'fragmented')">
-          <!-- ICON: broken sleep / 3am wake · sage · 22px · botanical-line -->
-          <div class="qt-em" data-icon="3am-wake">Wake</div>
+          <div class="qt-em">😴</div>
           <div><div class="qt-l">I fall asleep fine, but wake up at 3am</div><div class="qt-s">Cortisol hijacks the second half of the night</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(5,'sleep_anx')">
-          <!-- ICON: brain / racing thoughts · sage · 22px · botanical-line -->
-          <div class="qt-em" data-icon="racing-mind">Mind</div>
+          <div class="qt-em">🧠</div>
           <div><div class="qt-l">My mind won't switch off when I get into bed</div><div class="qt-s">Wired tired, even at midnight</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(5,'okay')">
-          <!-- ICON: spark / good sleep · sage · 22px · botanical-line -->
-          <div class="qt-em" data-icon="rested">Rested</div>
+          <div class="qt-em">🌟</div>
           <div><div class="qt-l">Sleep is alright, energy is the real issue</div></div>
         </div>
       </div>
@@ -3238,23 +3109,19 @@ body.locked { overflow: hidden; }
       <div class="qs-hint">No judgement. This sets the right pace for the transition.</div>
       <div class="qs-tiles">
         <div class="qs-tile" onclick="qNext(6,'light')">
-          <!-- ICON: single coffee cup · sage · 22px · botanical-line -->
-          <div class="qt-em" data-icon="coffee-1">1 cup</div>
+          <div class="qt-em">☕</div>
           <div><div class="qt-l">One in the morning</div><div class="qt-s">Just the ritual, never more</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(6,'mid')">
-          <!-- ICON: two coffee cups · sage · 22px · botanical-line -->
-          <div class="qt-em" data-icon="coffee-2">2–3 cups</div>
+          <div class="qt-em">☕☕</div>
           <div><div class="qt-l">Two or three across the day</div><div class="qt-s">Morning + a 3pm pickup</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(6,'heavy')">
-          <!-- ICON: three coffee cups · sage · 22px · botanical-line -->
-          <div class="qt-em" data-icon="coffee-3">4+ cups</div>
+          <div class="qt-em">☕☕☕</div>
           <div><div class="qt-l">Four or more, and I'm still tired</div><div class="qt-s">Cortisol's already running the show</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(6,'free')">
-          <!-- ICON: sprout / caffeine-free · sage · 22px · botanical-line -->
-          <div class="qt-em" data-icon="caffeine-free">Free</div>
+          <div class="qt-em">🌱</div>
           <div><div class="qt-l">Caffeine-free already</div><div class="qt-s">Looking for what fills the gap</div></div>
         </div>
       </div>
@@ -3266,8 +3133,7 @@ body.locked { overflow: hidden; }
       <div class="qs-q">We've built your plan.</div>
       <div class="qs-hint">Based on your answers, here's what we're sending you:</div>
       <div class="qs-offer">
-        <!-- ICON: clipboard / plan · sage · inline · botanical-line -->
-        <div class="qs-offer-title">Your 5-Step Nervous System Reset Plan</div>
+        <div class="qs-offer-title">📋 Your 5-Step Nervous System Reset Plan</div>
         <div class="qs-offer-items">
           <div class="qs-offer-item"><span class="qs-offer-ck">✓</span>The root cause driving your specific pattern</div>
           <div class="qs-offer-item"><span class="qs-offer-ck">✓</span>Your personalized morning sequence with timing</div>
@@ -3281,20 +3147,18 @@ body.locked { overflow: hidden; }
         Send me my plan
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
-      <div class="qs-privacy">No spam. Unsubscribe any time.</div>
+      <div class="qs-privacy">🔒 No spam. Unsubscribe any time.</div>
       <div class="qs-nav"><button class="qs-back" onclick="qBack(7)">← Back</button><div class="qs-ct">Almost there</div></div>
     </div>
 
     <!-- Result -->
     <div class="qs-result" id="qsResult">
-      <!-- ICON: check / sent · sage · 36px · botanical-line -->
-      <span class="res-check" data-icon="sent" aria-hidden="true"></span>
-      <div style="text-align: center;"><span class="res-tag">Plan sent to your inbox</span></div>
+      <span class="res-check">✅</span>
+      <div style="text-align: center;"><span class="res-tag">✓ Plan sent to your inbox</span></div>
       <div class="res-h" id="resH"></div>
       <div class="res-body" id="resBody"></div>
       <div class="res-pdf">
-        <!-- ICON: clipboard / plan PDF · sage · 24px · botanical-line -->
-        <div class="res-pdf-icon" data-icon="plan-pdf">PDF</div>
+        <div class="res-pdf-icon">📋</div>
         <div class="res-pdf-text">
           <strong id="resPdfTitle">Your 5-Step Reset Plan</strong>
           Check your inbox, it's on its way. Usually arrives within 2 minutes.
@@ -3315,11 +3179,10 @@ body.locked { overflow: hidden; }
   <div class="geo-pre">Quick question</div>
   <div class="geo-q">Where are you shipping to?</div>
   <div class="geo-opts">
-    <!-- ICONS: country flags / globe · sage · 14px · botanical-line (replace flag glyphs in production) -->
-    <div class="geo-opt" onclick="showGeoFact(event, 'us')">US</div>
-    <div class="geo-opt" onclick="showGeoFact(event, 'uk')">UK</div>
-    <div class="geo-opt" onclick="showGeoFact(event, 'eu')">Europe</div>
-    <div class="geo-opt" onclick="showGeoFact(event, 'other')">Other</div>
+    <div class="geo-opt" onclick="showGeoFact(event, 'us')">🇺🇸 US</div>
+    <div class="geo-opt" onclick="showGeoFact(event, 'uk')">🇬🇧 UK</div>
+    <div class="geo-opt" onclick="showGeoFact(event, 'eu')">🇪🇺 Europe</div>
+    <div class="geo-opt" onclick="showGeoFact(event, 'other')">🌍 Other</div>
   </div>
   <div class="geo-fact" id="geoFact"></div>
 </div>
@@ -3328,8 +3191,7 @@ body.locked { overflow: hidden; }
 <div class="eov" id="exitOverlay">
   <div class="epop">
     <button class="ecl" onclick="closeExit()" aria-label="Close">✕</button>
-    <!-- ICON: gift / discount · orange · 36px · botanical-line -->
-    <span class="eemoji" data-icon="gift" aria-hidden="true"></span>
+    <span class="eemoji">🎁</span>
     <div class="eh">Wait. <em>15% off</em> on us.</div>
     <div class="es">Drop your email and we'll send you a one-time discount code, plus founder notes from Kinga, member-only essays on the physiology of modern stress, and early access to drops.</div>
     <div class="eform">
@@ -3371,53 +3233,7 @@ window.addEventListener('scroll', () => {
 });
 
 
-function submitMpGate() {
-  const email = document.getElementById('mpgateEmail').value.trim();
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    document.getElementById('mpgateEmail').style.borderColor = 'var(--orange)';
-    document.getElementById('mpgateEmail').focus();
-    return;
-  }
-
-  const profileProps = {
-    email: email,
-    properties: {
-      source: 'ritual_landing',
-      source_page: 'ritual_landing_dossier_gate',
-      dossier_requested: true,
-      dossier_requested_at: new Date().toISOString(),
-      page_url: window.location.href
-    }
-  };
-
-  // KLAVIYO INTEGRATION (uses same keys as quiz/exit popup)
-  const KLAVIYO_PUBLIC_KEY = 'YOUR_KLAVIYO_PUBLIC_KEY';
-  const KLAVIYO_NEWSLETTER_LIST_ID = 'YOUR_NEWSLETTER_LIST_ID';
-
-  if (KLAVIYO_PUBLIC_KEY !== 'YOUR_KLAVIYO_PUBLIC_KEY') {
-    fetch(`https://a.klaviyo.com/client/subscriptions/?company_id=${KLAVIYO_PUBLIC_KEY}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'revision': '2024-10-15' },
-      body: JSON.stringify({
-        data: {
-          type: 'subscription',
-          attributes: {
-            profile: { data: { type: 'profile', attributes: profileProps } },
-            custom_source: 'Ritual Landing Mid-Page Dossier Gate'
-          },
-          relationships: {
-            list: { data: { type: 'list', id: KLAVIYO_NEWSLETTER_LIST_ID } }
-          }
-        }
-      })
-    }).catch(err => console.warn('Klaviyo subscribe error:', err));
-  } else {
-    console.log('[DEV MODE] Mid-page gate Klaviyo payload:', profileProps);
-  }
-
-  document.getElementById('mpgateForm').style.display = 'none';
-  document.getElementById('mpgateSuccess').classList.add('on');
-}
+// Mid-page email gate function removed (section deleted).
 
 // Quiz sheet
 const overlay = document.getElementById('qsOverlay');
@@ -3460,7 +3276,7 @@ function showResult() {
     return;
   }
 
-  // Determine persona from Q3 (morning pattern) — drives the result copy
+  // Determine persona from Q3 (morning pattern). Drives the result copy.
   const persona = qAnswers.q3 || 'burnout';
 
   // Build profile properties for Klaviyo
@@ -3521,7 +3337,7 @@ function showResult() {
   // Render the result panel with persona-specific copy
   const results = {
     performer: {
-      h: 'Your pattern is <em>The Try-Everything Caffeinator.</em>',
+      h: 'Your pattern is <em>The Optimized but Overcaffeinated.</em>',
       body: `You've done the hard work, tracking, training, dialing in the inputs. But caffeine is quietly capping your ceiling. It's keeping your cortisol elevated when it should be recovering, disrupting the deep sleep your metrics are measuring, and creating the 3pm wall your zone 2 sessions can't fix. <strong>Your plan targets the HPA axis recalibration your nervous system is ready for.</strong>`,
       pdf: 'Your 5-Step Reset Plan, Performer Edition'
     },
@@ -3557,10 +3373,10 @@ function showResult() {
 
 // Geo banner
 const geoFacts = {
-  us: '<strong>Free shipping on US orders over $60.</strong> US orders ship in 3–5 working days from our US warehouse.',
-  uk: '<strong>International shipping in development.</strong> Sign up for updates on UK launch.',
-  eu: '<strong>International shipping in development.</strong> Sign up for updates on EU launch.',
-  other: '<strong>Currently shipping in the United States only.</strong> Sign up for updates on international launches.'
+  us: '<strong>Free shipping, 2–4 day delivery.</strong> US orders ship from our fulfilment partner. Free on all orders over $60.',
+  uk: '<strong>Ships to the UK tracked.</strong> Most orders arrive in 5–7 days. Orders under £135 are duty-free.',
+  eu: '<strong>Ships to the EU tracked.</strong> Most orders arrive in 5-7 days. Take the quiz and we\'ll confirm your exact shipping cost before you commit.',
+  other: '<strong>We ship internationally.</strong> Take the quiz and we\'ll confirm your exact shipping cost before you commit.'
 };
 function showGeoFact(e, region) {
   const f = document.getElementById('geoFact');
@@ -3657,8 +3473,7 @@ document.getElementById('exitOverlay').addEventListener('click', e => {
 <script id="mujo-canonical-nav-js">
 const PRICES = { 'ritual-25': 55.25, 'ritual-10': 27, 'bar-pb': 54, 'bar-cashew': 54, 'mug': 24, 'tee': 38, 'tote': 22 };
 const NAMES = { 'ritual-25': 'Mujo Ritual · 25 servings', 'ritual-10': 'Mujo Ritual · 10 servings', 'bar-pb': 'Lemna Bar · PB Crunch', 'bar-cashew': 'Lemna Bar · Cashew Chocolate', 'mug': 'Ritual Mug', 'tee': 'Rebel Club Tee', 'tote': 'Market Tote' };
-// ICONS map renders product line items in cart drawer · replace text labels with botanical-line icons in production
-const ICONS = { 'ritual-25': 'Ritual', 'ritual-10': 'Ritual', 'bar-pb': 'PB Bar', 'bar-cashew': 'Cashew Bar', 'mug': 'Mug', 'tee': 'Tee', 'tote': 'Tote' };
+const ICONS = { 'ritual-25': '🍵', 'ritual-10': '🍵', 'bar-pb': '🥜', 'bar-cashew': '🍫', 'mug': '☕', 'tee': '👕', 'tote': '🛍️' };
 let cart = {};
 function openMenu() { document.getElementById('mobileMenu').classList.add('open'); document.getElementById('overlay').classList.add('open'); document.body.classList.add('locked'); }
 function closeMenu() { document.getElementById('mobileMenu').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); if (!document.getElementById('cartDrawer').classList.contains('open')) document.body.classList.remove('locked'); }
@@ -3684,7 +3499,7 @@ function renderCart() {
   else if (remaining <= 0) { fill.classList.add('full'); msg.innerHTML = '<strong>Free shipping</strong> unlocked. Nice work.'; }
   else { fill.classList.remove('full'); msg.innerHTML = '<span class="accent">' + fmt(remaining) + '</span> away from <strong>free shipping</strong>.'; }
   const body = document.getElementById('cartBody'); body.innerHTML = '';
-  if (count === 0) { body.innerHTML = '<div class="cart-empty"><div class="cart-empty-illo" data-icon="empty-cart" aria-hidden="true"></div><h3>Nothing in here yet.</h3><p>Your ritual is one click away. The Mujo Ritual is the place most people start.</p><a href="/shop">Browse the shop →</a></div>'; }
+  if (count === 0) { body.innerHTML = '<div class="cart-empty"><div class="cart-empty-illo">🍵</div><h3>Nothing in here yet.</h3><p>Your ritual is one click away. The Mujo Ritual is the place most people start.</p><a href="/shop">Browse the shop →</a></div>'; }
   else { Object.entries(cart).forEach(([id, qty]) => { const row = document.createElement('div'); row.className = 'cart-item'; row.innerHTML = `<div class="cart-item-img">${ICONS[id]||'·'}</div><div class="cart-item-info"><div class="cart-item-name">${NAMES[id]}</div><div class="cart-item-variant">One-time</div><div class="cart-item-controls"><button class="qty-btn" onclick="updateQty('${id}',-1)">−</button><span class="qty-val">${qty}</span><button class="qty-btn" onclick="updateQty('${id}',1)">+</button></div></div><div class="cart-item-meta"><div class="cart-item-price">${fmt(PRICES[id]*qty)}</div><button class="cart-item-remove" onclick="removeItem('${id}')">Remove</button></div>`; body.appendChild(row); }); }
   document.getElementById('subtotalDisplay').textContent = count === 0 ? '$0' : fmt(subtotal);
   document.getElementById('shippingDisplay').textContent = (remaining <= 0 && count > 0) ? 'Free' : 'Calculated at checkout';
