@@ -44,6 +44,10 @@ function dedupeChrome(html: string): string {
     [/<div[^>]*class="menu-overlay"[\s\S]*?<\/div>/, ""],
     [/<footer[^>]*class="mujo-foot"[\s\S]*?<\/footer>/, ""],
     [/<script[\s\S]*?<\/script>/g, ""],
+    // Note: the static `.quiz-pill` button + `.qs-overlay` modal in the
+    // source HTMLs stay opacity:0/pointer-events:none by default (they only
+    // animated in via the stripped <script>). They're invisible dead
+    // markup. The React <QuizPill /> + <QuizSheet /> render on top.
   ].reduce<string>((acc, [re, sub]) => acc.replace(re as RegExp, sub as string), html);
 }
 
@@ -61,6 +65,9 @@ function tagInteractionHooks(html: string): string {
     .replace(/onclick="closeAll\(\)"/g, 'data-mujo-action="close-all"')
     .replace(/onclick="closeMenu\(\)"/g, 'data-mujo-action="close-menu"')
     .replace(/onclick="closeCart\(\)"/g, 'data-mujo-action="close-cart"')
+    // Quiz triggers — both standalone and the mobile-menu compound form.
+    .replace(/onclick="closeMenu\(\);\s*openQuizSheet\(\);\s*return false;"/g, 'data-mujo-action="open-quiz"')
+    .replace(/onclick="openQuizSheet\(\)"/g, 'data-mujo-action="open-quiz"')
     .replace(/onclick="addToCart\(([^)]*)\)"/g, 'data-mujo-action="add-to-cart" data-mujo-args="$1"')
     .replace(/onsubmit="handle[A-Za-z]+\(\)"/g, 'data-mujo-form="generic"')
     .replace(/onsubmit="handle[A-Za-z]+\(event\)"/g, 'data-mujo-form="generic"')

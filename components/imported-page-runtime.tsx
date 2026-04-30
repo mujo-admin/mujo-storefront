@@ -2,6 +2,7 @@
 
 import { useEffect, type ReactNode } from "react";
 import { useReveal } from "lib/hooks/use-reveal";
+import { useQuizSheet } from "components/MujoQuiz";
 
 type ImportedPageRuntimeProps = {
   children: ReactNode;
@@ -15,6 +16,7 @@ type ImportedPageRuntimeProps = {
  */
 export function ImportedPageRuntime({ children }: ImportedPageRuntimeProps) {
   useReveal();
+  const { open: openQuiz } = useQuizSheet();
 
   useEffect(() => {
     function onClick(ev: MouseEvent) {
@@ -36,6 +38,13 @@ export function ImportedPageRuntime({ children }: ImportedPageRuntimeProps) {
         case "close-all":
           ev.preventDefault();
           window.dispatchEvent(new CustomEvent("mujo:overlay:close"));
+          break;
+        case "open-quiz":
+          ev.preventDefault();
+          // Compound triggers (mobile menu's "Take the audit") also need the
+          // menu drawer to close first. Cheap to dispatch unconditionally.
+          window.dispatchEvent(new CustomEvent("mujo:overlay:close"));
+          openQuiz();
           break;
         case "checkout": {
           ev.preventDefault();
@@ -77,19 +86,57 @@ export function ImportedPageRuntime({ children }: ImportedPageRuntimeProps) {
 
     document.addEventListener("click", onClick);
 
-    function blockNoopForms(ev: SubmitEvent) {
+    function handleForms(ev: SubmitEvent) {
       const form = ev.target as HTMLFormElement | null;
-      if (form?.dataset.mujoForm === "generic") {
+      if (!form) return;
+      const formType = form.dataset.mujoForm;
+
+      if (formType === "generic") {
         ev.preventDefault();
+        return;
+      }
+
+      if (formType === "rebel-club") {
+        ev.preventDefault();
+        const data = new FormData(form);
+        const email = (data.get("email") || "").toString().trim();
+        const tribe = (data.get("tribe") || "").toString().trim();
+        if (!email) return;
+
+        const properties: Record<string, string> = {};
+        if (tribe) properties.mujo_tribe = tribe;
+
+        // Optimistic UI: replace form with success message immediately.
+        const successHtml =
+          '<p style="font-family: var(--f-body); font-size: 15px; line-height: 1.5; color: rgba(255,255,255,0.92); margin: 0;">' +
+          "You're in. First letter lands within 48 hours." +
+          "</p>";
+        form.outerHTML = successHtml;
+
+        fetch("/api/klaviyo/subscribe", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email,
+            list: "rebel_club",
+            source: "Rebel Club signup",
+            properties,
+          }),
+        }).catch((err) => {
+          // Failure logs server-side too. We've already shown success client-side
+          // (Klaviyo dedup handles repeats; user can resubmit if it never arrives).
+          console.warn("[rebel-club] subscribe error", err);
+        });
+        return;
       }
     }
-    document.addEventListener("submit", blockNoopForms);
+    document.addEventListener("submit", handleForms);
 
     return () => {
       document.removeEventListener("click", onClick);
-      document.removeEventListener("submit", blockNoopForms);
+      document.removeEventListener("submit", handleForms);
     };
-  }, []);
+  }, [openQuiz]);
 
   return <>{children}</>;
 }

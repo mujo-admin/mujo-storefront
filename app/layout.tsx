@@ -2,6 +2,7 @@ import { CartProvider } from "components/cart/cart-context";
 import { SiteHeader } from "components/layout/site-header";
 import { Footer } from "components/layout/footer";
 import { AnalyticsScripts } from "components/integrations/analytics-scripts";
+import { QuizProvider, QuizPill, QuizSheet } from "components/MujoQuiz";
 import { getCart } from "lib/shopify";
 import { ReactNode } from "react";
 import { Toaster } from "sonner";
@@ -55,10 +56,14 @@ export default async function RootLayout({
       </head>
       <body>
         <CartProvider cartPromise={cart}>
-          <SiteHeader />
-          <main>{children}</main>
-          <Footer />
-          <Toaster closeButton />
+          <QuizProvider>
+            <SiteHeader />
+            <main>{children}</main>
+            <Footer />
+            <Toaster closeButton />
+            <QuizPill />
+            <QuizSheet />
+          </QuizProvider>
         </CartProvider>
         <AnalyticsScripts />
       </body>
