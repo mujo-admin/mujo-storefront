@@ -250,7 +250,7 @@ nav.mujo-nav {
   border-bottom: 1px solid var(--line-soft);
   padding: 10px 16px;
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 8px;
   height: var(--nav-h);
@@ -1186,8 +1186,7 @@ body.locked { overflow: hidden; }
 .founder-portrait {
   aspect-ratio: 3 / 4;
   width: 100%;
-  max-width: 320px;
-  margin: 0 auto;
+  margin: 0;
   border-radius: 18px;
   overflow: hidden;
 }
@@ -1196,7 +1195,6 @@ body.locked { overflow: hidden; }
   background: linear-gradient(160deg, var(--sage-light) 0%, var(--sand-deep) 100%);
   border-radius: 18px;
 }
-@media (min-width: 768px) { .founder-portrait { max-width: none; margin: 0; } }
 
 .founder-text .eyebrow { margin-bottom: 16px; }
 .founder-body {
@@ -1857,7 +1855,7 @@ footer {
           <span class="tile-hero-label">Ritual cacao · 4:3</span>
         </div>
         <div class="tile-body">
-          <div class="tile-eyebrow">Mushroom Coffee Alternative · Neurowellness</div>
+          <div class="tile-eyebrow">Coffee Alternative · Neurowellness</div>
           <div class="tile-name">The Ritual Cacao</div>
           <div class="tile-tagline">Replace your 9am coffee.</div>
           <ul class="tile-benefits">
@@ -2141,7 +2139,7 @@ footer {
 </section>
 
 <!-- ═══════════════ FOOTER ═══════════════ -->
-<footer>
+<footer class="mujo-foot">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
