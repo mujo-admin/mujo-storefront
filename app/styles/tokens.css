@@ -176,6 +176,27 @@
 
   /* ----- Nav height (sticky nav reserves this much space at top) ----- */
   --nav-h:  64px;
+
+
+  /* ----- Layout rhythm — page gutter + section vertical padding.
+     Defined globally because imported-html.ts strips the per-page :root block
+     to dedupe the color/font tokens. Without this, mobile :root would lose
+     --gutter and `padding: 0 var(--gutter)` would collapse to 0. ----- */
+  --gutter:     24px;
+  --section-y:  64px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gutter:     36px;
+    --section-y:  96px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --section-y: 120px;
+  }
 }
 
 
