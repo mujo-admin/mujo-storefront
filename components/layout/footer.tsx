@@ -37,7 +37,6 @@ export function Footer() {
               }}
             >
               Conscious performance nutrition for people who read the label.
-              Built in Portugal. Shipped globally.
             </p>
           </div>
           <FooterColumn

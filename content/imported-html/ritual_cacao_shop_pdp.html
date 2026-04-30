@@ -380,9 +380,11 @@ nav {
 .quick-feats {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  grid-template-rows: repeat(3, auto);
+  grid-auto-flow: column;
+  gap: 10px 16px;
   margin-bottom: 32px;
-  padding: 20px;
+  padding: 18px 20px;
   background: var(--sand);
   border-radius: 14px;
 }
@@ -425,7 +427,7 @@ nav {
   gap: 10px;
 }
 .size-opt {
-  padding: 16px;
+  padding: 14px 14px 12px;
   border: 1.5px solid var(--line);
   border-radius: 14px;
   background: #fff;
@@ -433,6 +435,7 @@ nav {
   transition: all 0.2s;
   position: relative;
   text-align: left;
+  overflow: visible;
 }
 .size-opt:hover { border-color: var(--sage-light); }
 .size-opt.active {
@@ -440,10 +443,6 @@ nav {
   background: var(--orange-soft);
 }
 .size-opt-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 8px;
   margin-bottom: 4px;
 }
 .size-opt-count {
@@ -452,28 +451,30 @@ nav {
   font-size: 16px;
   color: var(--ink);
   letter-spacing: -0.01em;
+  white-space: nowrap;
 }
 .size-opt-badge {
+  position: absolute;
+  top: -10px;
+  right: 12px;
   background: var(--sage);
   color: #fff;
-  padding: 2px 8px;
+  padding: 4px 10px;
   border-radius: 100px;
   font-family: var(--f-mono);
   font-size: 9px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   font-weight: 500;
+  white-space: nowrap;
+  z-index: 2;
 }
 .size-opt-sub {
   font-size: 12px;
   color: var(--mute);
-  margin-bottom: 6px;
+  margin-bottom: 0;
 }
-.size-opt-price {
-  font-size: 13px;
-  color: var(--ink);
-  font-weight: 500;
-}
+.size-opt-price { display: none; }
 
 /* ── Subscribe vs One-time toggle (DEFAULT: subscribe) ── */
 .purchase-block { margin-bottom: 24px; }
@@ -683,12 +684,11 @@ nav {
   margin-top: 32px;
   border-top: 1px solid var(--line);
 }
-.info-row {
+details.info-row {
   border-bottom: 1px solid var(--line);
   padding: 18px 0;
-  cursor: pointer;
 }
-.info-row-q {
+summary.info-row-q {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -697,7 +697,11 @@ nav {
   font-size: 15px;
   font-weight: 500;
   color: var(--ink);
+  cursor: pointer;
+  list-style: none;
 }
+summary.info-row-q::-webkit-details-marker { display: none; }
+summary.info-row-q::marker { content: ""; }
 .info-row-toggle {
   width: 24px;
   height: 24px;
@@ -708,22 +712,18 @@ nav {
   font-size: 14px;
   transition: transform 0.2s;
 }
-.info-row.open .info-row-toggle { transform: rotate(45deg); color: var(--orange); }
+details.info-row[open] .info-row-toggle { transform: rotate(45deg); color: var(--orange); }
 .info-row-a {
   font-size: 14px;
   line-height: 1.7;
   color: var(--ink-soft);
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s, padding 0.3s;
+  padding-top: 12px;
 }
-.info-row.open .info-row-a { max-height: 500px; padding-top: 12px; }
 .info-row-a strong { color: var(--ink); font-weight: 500; }
 
 @media (max-width: 900px) {
   .ph-grid { grid-template-columns: 1fr; gap: 40px; padding: 0 20px; }
   .gallery { position: static; }
-  .quick-feats { grid-template-columns: 1fr; }
   .size-options { grid-template-columns: 1fr 1fr; }
   .gallery-main { padding: 32px; }
   .ph-icon { font-size: 56px; }
@@ -1016,14 +1016,20 @@ nav {
 
 .timeline-note {
   text-align: center;
-  margin-top: 40px;
+  margin: 56px auto 0;
+  padding: 28px 32px;
+  background: var(--sand);
+  border-left: 3px solid var(--orange);
+  border-radius: 8px;
   font-family: var(--f-serif);
   font-style: italic;
-  font-size: 18px;
-  color: var(--orange);
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+  font-size: 17px;
+  line-height: 1.45;
+  color: var(--ink);
+  max-width: 620px;
+}
+@media (min-width: 768px) {
+  .timeline-note { margin-top: 72px; padding: 32px 40px; font-size: 19px; }
 }
 .timeline-note strong {
   color: var(--orange);
@@ -1051,6 +1057,39 @@ nav {
   margin-bottom: 56px;
 }
 .dossier-header h2 { margin-top: 16px; margin-bottom: 18px; }
+.dossier-points {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.dossier-points li {
+  position: relative;
+  padding-left: 30px;
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.dossier-points li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--sage-tint);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%232F3D33' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='3 8.5 6.5 12 13 5'/%3E%3C/svg%3E");
+  background-position: center;
+  background-size: 11px 11px;
+  background-repeat: no-repeat;
+}
+@media (min-width: 768px) {
+  .dossier-points li { font-size: 17px; }
+}
 
 .ing-compact-grid {
   display: grid;
@@ -1219,20 +1258,26 @@ nav {
 }
 .compare-row {
   display: grid;
-  grid-template-columns: 2fr 1.4fr 1.4fr;
+  grid-template-columns: 1.4fr 1.4fr 1.4fr;
   border-bottom: 1px solid var(--line-soft);
+}
+@media (min-width: 768px) {
+  .compare-row { grid-template-columns: 1.8fr 1.4fr 1.4fr; }
 }
 .compare-row:last-child { border-bottom: none; }
 .compare-row.header { background: var(--sand); }
 .compare-cell {
-  padding: 18px 24px;
+  padding: 18px 16px;
   border-right: 1px solid var(--line-soft);
   display: flex;
   align-items: center;
-  font-size: 14px;
+  font-size: 13px;
   min-height: 58px;
 }
 .compare-cell:last-child { border-right: none; }
+@media (min-width: 768px) {
+  .compare-cell { padding: 18px 24px; font-size: 14px; }
+}
 .compare-cell.label { color: var(--ink); font-weight: 500; }
 .compare-cell.them { color: var(--ink-soft); }
 .compare-cell.them::before {
@@ -1772,13 +1817,12 @@ nav {
 .faq-header .eyebrow { text-align: center; display: block; }
 
 .faq-list { max-width: 820px; margin: 0 auto; }
-.faq-item {
+details.faq-item {
   border-bottom: 1px solid var(--line);
   padding: 22px 0;
-  cursor: pointer;
 }
-.faq-item:first-child { border-top: 1px solid var(--line); }
-.faq-q {
+details.faq-item:first-child { border-top: 1px solid var(--line); }
+summary.faq-q {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -1787,6 +1831,8 @@ nav {
   font-size: 17px;
   font-weight: 500;
   color: var(--ink);
+  cursor: pointer;
+  list-style: none;
   line-height: 1.4;
   letter-spacing: -0.01em;
 }
@@ -1803,7 +1849,9 @@ nav {
   color: var(--ink-soft);
   font-size: 16px;
 }
-.faq-item.open .faq-toggle {
+summary.faq-q::-webkit-details-marker { display: none; }
+summary.faq-q::marker { content: ""; }
+details.faq-item[open] .faq-toggle {
   background: var(--orange);
   border-color: var(--orange);
   color: #fff;
@@ -1813,12 +1861,9 @@ nav {
   font-size: 15px;
   line-height: 1.75;
   color: var(--ink-soft);
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s, padding 0.3s;
+  padding-top: 14px;
   padding-right: 48px;
 }
-.faq-item.open .faq-a { max-height: 500px; padding-top: 14px; }
 .faq-a strong { color: var(--ink); font-weight: 500; }
 
 /* ═══════════════════════════════════════════
@@ -2063,7 +2108,7 @@ footer {
 .announce .sep { opacity: 0.4; margin: 0 8px; }
 @media (max-width: 640px) { .announce-secondary { display: none; } }
 @media (min-width: 768px) { .announce { padding: 10px 24px; font-size: 13px; } .announce .sep { margin: 0 10px; } }
-nav.mujo-nav { position: sticky; top: 0; z-index: 150; background: rgba(243, 242, 233, 0.94); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--line-soft); padding: 12px 16px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; height: var(--nav-h); transition: box-shadow 0.3s; }
+nav.mujo-nav { position: sticky; top: 0; z-index: 150; background: rgba(243, 242, 233, 0.94); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--line-soft); padding: 12px 16px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; height: var(--nav-h); transition: box-shadow 0.3s; }
 nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 @media (min-width: 1024px) { nav.mujo-nav { padding: 14px 32px; grid-template-columns: 1fr auto 1fr; gap: 24px; } }
 .nav-hamburger { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; color: var(--ink); margin-left: -8px; }
@@ -2259,7 +2304,7 @@ body.locked { overflow: hidden; }
 
       <div class="info-rating">
         <div class="info-stars">★★★★★</div>
-        <div class="info-rating-text"><strong>4.9/5</strong>, <a href="#reviews">340+ verified reviews</a></div>
+        <div class="info-rating-text"><strong>4.9/5</strong>, <a href="#reviews">100 verified reviews</a></div>
       </div>
 
       <p class="info-hook"><strong>The morning ritual that replaced your 9am coffee.</strong> Warm, rich mushroom cacao dosed to the clinical research, built to work on the underlying systems caffeine only masks. Calm, connected focus. Energy that holds. A ritual that earns its place.</p>
@@ -2304,7 +2349,7 @@ body.locked { overflow: hidden; }
             <div class="pur-opt-radio"></div>
             <div class="pur-opt-info">
               <div class="pur-opt-name">Subscribe & save <span class="pur-opt-save">Save 15%</span></div>
-              <div class="pur-opt-desc">Ships monthly · Cancel or skip anytime</div>
+              <div class="pur-opt-desc">Ships every 4 weeks · min. commitment of 2 delivery cycles</div>
             </div>
             <div class="pur-opt-price">
               <div class="pur-opt-price-now">$55.25</div>
@@ -2335,7 +2380,6 @@ body.locked { overflow: hidden; }
         <div class="atc-trust">
           <div class="atc-trust-item">Free shipping over $60</div>
           <div class="atc-trust-item">30-day money back</div>
-          <div class="atc-trust-item">Cancel anytime</div>
         </div>
       </div>
 
@@ -2351,51 +2395,51 @@ body.locked { overflow: hidden; }
 
       <!-- Expandable product info rows -->
       <div class="info-accordion">
-        <div class="info-row" onclick="toggleRow(this)">
-          <div class="info-row-q">
+        <details class="info-row">
+          <summary class="info-row-q">
             <span>Full description</span>
             <div class="info-row-toggle">+</div>
-          </div>
+          </summary>
           <div class="info-row-a">
             Mujo Ritual is a caffeine-free mushroom cacao blend designed for calm, focused energy, without the crash. Each serving delivers <strong>9,600mg raw mushroom equivalent</strong> (Lion's Mane, Cordyceps, and Chaga as a 1,200mg 8:1 dual extract), <strong>3,000mg adaptogens raw equivalent</strong> (KSM-66® Ashwagandha at 300mg and Rhodiola Rosea, standardized to 5% rosavins and 1.5% salidrosides), and <strong>3,400mg nootropics raw equivalent</strong> (Bacopa Monnieri and Bioavailable Curcumin). Rounded with organic single-origin Peruvian cacao, gelatinized maca, MCT oil, and Ceylon cinnamon, <strong>every clinically meaningful dose disclosed, nothing hidden behind proprietary blends.</strong>
           </div>
-        </div>
-        <div class="info-row" onclick="toggleRow(this)">
-          <div class="info-row-q">
+        </details>
+        <details class="info-row">
+          <summary class="info-row-q">
             <span>Ingredient breakdown</span>
             <div class="info-row-toggle">+</div>
-          </div>
+          </summary>
           <div class="info-row-a">
             <strong>Disclosed clinical doses:</strong> KSM-66® Ashwagandha (300mg), Bioavailable Curcumin (researched SLCP ratio), Rhodiola Rosea (5% rosavins / 1.5% salidrosides). <strong>Functional mushrooms (1,200mg at 8:1):</strong> Lion's Mane, Cordyceps militaris, Chaga, fruiting body only. <strong>Supporting ingredients:</strong> Bacopa Monnieri, Organic Peruvian Cacao, Carob, Gelatinized Maca, MCT Oil, Ceylon Cinnamon, Ginger, Allspice, FiberSmart™ (branded tapioca fiber). <strong>No sugar. No artificial sweeteners. No natural flavors. No proprietary blends.</strong>
           </div>
-        </div>
-        <div class="info-row" onclick="toggleRow(this)">
-          <div class="info-row-q">
+        </details>
+        <details class="info-row">
+          <summary class="info-row-q">
             <span>The 8:1 concentration, explained</span>
             <div class="info-row-toggle">+</div>
-          </div>
+          </summary>
           <div class="info-row-a">
             Our mushrooms are 8:1 dual-extracted, meaning 8 parts raw mushroom are concentrated into 1 part of active bioactive compounds. 1,200mg of 8:1 extract delivers the bioactive equivalent of <strong>9,600mg of raw mushroom</strong>. This ratio ensures each scoop delivers a clinically meaningful dose of beta-glucans, triterpenoids, and hericenones, in their most bioavailable form.
           </div>
-        </div>
-        <div class="info-row" onclick="toggleRow(this)">
-          <div class="info-row-q">
+        </details>
+        <details class="info-row">
+          <summary class="info-row-q">
             <span>Taste + how to make it</span>
             <div class="info-row-toggle">+</div>
-          </div>
+          </summary>
           <div class="info-row-a">
             Rich, smooth, comfortingly bold, an elevated hot cacao. Deep chocolate from Peruvian cacao and carob, softened by adaptogens, rounded by cinnamon (no added sugar). <strong>No mushroom taste. No aftertaste.</strong> Blend 1–2 tsp with 200ml hot water or warm milk. Froth, stir, or shake. Sip slowly. It's designed to feel as good as it works.
           </div>
-        </div>
-        <div class="info-row" onclick="toggleRow(this)">
-          <div class="info-row-q">
+        </details>
+        <details class="info-row">
+          <summary class="info-row-q">
             <span>Quality + sourcing</span>
             <div class="info-row-toggle">+</div>
-          </div>
+          </summary>
           <div class="info-row-a">
             <strong>Third-party tested for purity, heavy metals, and potency.</strong> Mushrooms sourced from fruiting bodies only (never mycelium-on-grain). KSM-66® Ashwagandha from Ixoreal Biomed (the clinically studied form). Rhodiola Rosea from Altai Mountain harvests. Bioavailable Curcumin from Verdure Sciences. Peruvian cacao from organic smallholder farmers. Every batch documented. Certificate of analysis available on request.
           </div>
-        </div>
+        </details>
       </div>
     </div>
   </div>
@@ -2674,8 +2718,12 @@ body.locked { overflow: hidden; }
   <div class="container">
     <div class="dossier-header">
       <div class="eyebrow reveal">The formula</div>
-      <h2 class="reveal d1">What's inside matters. Full dossier if you want it.</h2>
-      <p class="body-lg reveal d2">Three ingredients at their clinically researched doses. Gold standard functional mushroom extracts from the fruiting body only.  No proprietary blends. No hidden amounts behind "active blend" labels.</p>
+      <h2 class="reveal d1">What's inside matters.</h2>
+      <ul class="dossier-points reveal d2">
+        <li>Gold standard functional mushroom extracts from the fruiting body only</li>
+        <li>True adaptogens and natural nootropics</li>
+        <li>No proprietary blends</li>
+      </ul>
     </div>
 
     <div class="ing-compact-grid">
@@ -2683,7 +2731,7 @@ body.locked { overflow: hidden; }
       <!-- Bioavailable Curcuma, marked as "Unique to Mujo" -->
       <div class="ing-compact reveal feat">
         <!-- ICON: bioavailable curcumin · sage · 32px · botanical-line -->
-        <div class="ing-compact-img"><span class="ing-compact-emoji" data-icon="curcumin">Curcumin</span></div>
+        <div class="ing-compact-img"><span class="ing-compact-emoji" data-icon="curcumin" aria-hidden="true"></span></div>
         <div class="ing-compact-body">
           <div class="ing-compact-top">
             <div class="ing-compact-name">Bioavailable Curcumin</div>
@@ -2701,7 +2749,7 @@ body.locked { overflow: hidden; }
       <!-- Lion's Mane -->
       <div class="ing-compact reveal d1">
         <!-- ICON: lion's mane mushroom · sage · 32px · botanical-line -->
-        <div class="ing-compact-img"><span class="ing-compact-emoji" data-icon="lions-mane">Lion's Mane</span></div>
+        <div class="ing-compact-img"><span class="ing-compact-emoji" data-icon="lions-mane" aria-hidden="true"></span></div>
         <div class="ing-compact-body">
           <div class="ing-compact-top">
             <div class="ing-compact-name">Lion's Mane</div>
@@ -2719,7 +2767,7 @@ body.locked { overflow: hidden; }
       <!-- KSM-66 Ashwagandha -->
       <div class="ing-compact reveal d2">
         <!-- ICON: ashwagandha leaf · sage · 32px · botanical-line -->
-        <div class="ing-compact-img"><span class="ing-compact-emoji" data-icon="ashwagandha">Ashwagandha</span></div>
+        <div class="ing-compact-img"><span class="ing-compact-emoji" data-icon="ashwagandha" aria-hidden="true"></span></div>
         <div class="ing-compact-body">
           <div class="ing-compact-top">
             <div class="ing-compact-name">KSM-66® Ashwagandha</div>
@@ -2737,7 +2785,7 @@ body.locked { overflow: hidden; }
       <!-- Rhodiola Rosea -->
       <div class="ing-compact reveal">
         <!-- ICON: rhodiola rosea flower · sage · 32px · botanical-line -->
-        <div class="ing-compact-img"><span class="ing-compact-emoji" data-icon="rhodiola">Rhodiola</span></div>
+        <div class="ing-compact-img"><span class="ing-compact-emoji" data-icon="rhodiola" aria-hidden="true"></span></div>
         <div class="ing-compact-body">
           <div class="ing-compact-top">
             <div class="ing-compact-name">Rhodiola Rosea</div>
@@ -2755,7 +2803,7 @@ body.locked { overflow: hidden; }
       <!-- Cordyceps -->
       <div class="ing-compact reveal d1">
         <!-- ICON: cordyceps militaris · sage · 32px · botanical-line -->
-        <div class="ing-compact-img"><span class="ing-compact-emoji" data-icon="cordyceps">Cordyceps</span></div>
+        <div class="ing-compact-img"><span class="ing-compact-emoji" data-icon="cordyceps" aria-hidden="true"></span></div>
         <div class="ing-compact-body">
           <div class="ing-compact-top">
             <div class="ing-compact-name">Cordyceps</div>
@@ -2773,7 +2821,7 @@ body.locked { overflow: hidden; }
       <!-- Chaga -->
       <div class="ing-compact reveal d2">
         <!-- ICON: chaga / wild birch · sage · 32px · botanical-line -->
-        <div class="ing-compact-img"><span class="ing-compact-emoji" data-icon="chaga">Chaga</span></div>
+        <div class="ing-compact-img"><span class="ing-compact-emoji" data-icon="chaga" aria-hidden="true"></span></div>
         <div class="ing-compact-body">
           <div class="ing-compact-top">
             <div class="ing-compact-name">Chaga</div>
@@ -2866,8 +2914,7 @@ body.locked { overflow: hidden; }
   <div class="container">
     <div class="howto-header">
       <div class="eyebrow center reveal">Make it yours</div>
-      <h2 class="reveal d1">Three ways to drink it. No rules.</h2>
-      <p class="reveal d2">The base method first. Then the three rituals, pick your favourite, vary the rest.</p>
+      <h2 class="reveal d1">Endless ways to drink it. No rules.</h2>
     </div>
 
     <!-- Base method, steps come first now -->
@@ -2958,7 +3005,7 @@ body.locked { overflow: hidden; }
         <div class="eyebrow reveal">Real reviews</div>
         <h2 class="reveal d1">From conscious performers who also read the label.</h2>
       </div>
-      <p class="reveal d2">Verified purchasers. No incentivised posts. <strong>340+ reviews at 4.9★.</strong></p>
+      <p class="reveal d2">Verified purchasers. No incentivised posts. <strong>100 reviews at 4.9★.</strong></p>
     </div>
 
     <div class="reviews-grid">
@@ -3058,38 +3105,38 @@ body.locked { overflow: hidden; }
       <h2 class="reveal d1">What you're wondering.</h2>
     </div>
     <div class="faq-list">
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">Am I actually going to feel anything? Or is this just expensive cocoa? <div class="faq-toggle">+</div></div>
+      <details class="faq-item">
+        <summary class="faq-q">Am I actually going to feel anything? Or is this just expensive cocoa? <div class="faq-toggle">+</div></summary>
         <div class="faq-a">Fair question, we've read the same reviews of other brands. Here's the honest answer: <strong>you're not going to feel a buzz.</strong> That's the point. Caffeine gives you a feeling-on-demand followed by the inevitable crash. Adaptogens work differently. What you'll notice, over weeks, not minutes, is the 3pm wall getting quieter. The anxious hum softening. Sleep getting deeper. Most customers notice a real shift in week two. Some take four. <strong>If 30 days in you don't feel anything, full refund. No forms.</strong></div>
-      </div>
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">How quickly will I notice? <div class="faq-toggle">+</div></div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">How quickly will I notice? <div class="faq-toggle">+</div></summary>
         <div class="faq-a">Adaptogens build effect over weeks, not minutes. <strong>Sleep quality tends to shift within 7–10 days. Reduced afternoon crash in weeks 2–3. Baseline anxiety and cognitive clarity in weeks 3–6.</strong> Timeline compounds, the systems these ingredients work on are connected, so the effect tends to accelerate after the first month.</div>
-      </div>
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">Does it taste like coffee? <div class="faq-toggle">+</div></div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Does it taste like coffee? <div class="faq-toggle">+</div></summary>
         <div class="faq-a">No. Mujo doesn't try to replicate coffee. It tastes like a warm, rich cacao latte, deep chocolate, smooth, a little earthy in a good way. <strong>No mushroom taste. No bitter aftertaste.</strong> Oat or coconut milk recommended. Natural sweetness from cacao and cinnamon, no added sugar. The most common feedback is "I didn't expect it to taste this good." If you're looking for something that tastes like coffee, there are better options. If you're looking for a morning ritual that does something different, this is it.</div>
-      </div>
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">Will I lose anything by quitting caffeine? <div class="faq-toggle">+</div></div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Will I lose anything by quitting caffeine? <div class="faq-toggle">+</div></summary>
         <div class="faq-a">Probably for the first week, yes. That's your adenosine receptors coming back online. Most people find the dependency headache and low-energy mornings fade in 7–10 days. After that, the energy you had on caffeine is replaced by a steadiness you didn't know was possible. <strong>We recommend reducing caffeine gradually while introducing Mujo, not cold turkey.</strong> Many customers run Mujo + half their usual coffee for the first month, then naturally drop the coffee.</div>
-      </div>
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">Why is this more expensive than buying the ingredients separately? <div class="faq-toggle">+</div></div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Why is this more expensive than buying the ingredients separately? <div class="faq-toggle">+</div></summary>
         <div class="faq-a">Fair question. You could buy Lion's Mane fruiting body extract, KSM-66, Bioavailable Curcuma curcumin, Rhodiola Rosea, cordyceps, bacopa, cacao, and MCT oil separately and make your own. It would cost about <strong>$180/month in high-quality branded ingredients alone</strong>, plus the time measuring and mixing. Mujo Ritual is $55.25/month on subscription ($1.73 per serving). But convenience isn't the real answer, <strong>the real answer is formulation.</strong> Each ingredient interacts with the others. Cordyceps supports ATP; KSM-66 calms the cortisol that would waste it. Bioavailable Curcuma crosses the blood-brain barrier to amplify Lion's Mane's NGF work. <strong>The formula is the product. The ingredients are the raw material.</strong></div>
-      </div>
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">How does subscription work? <div class="faq-toggle">+</div></div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">How does subscription work? <div class="faq-toggle">+</div></summary>
         <div class="faq-a">Ships every 30 days. <strong>15% off every order. Free shipping. Skip, pause, or cancel any time</strong>, log in and do it in under a minute. No phone calls, no retention loops, no penalty. Most subscribers get their second bag before the first runs out, so you never miss a morning.</div>
-      </div>
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">Is it safe with medications or during pregnancy? <div class="faq-toggle">+</div></div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Is it safe with medications or during pregnancy? <div class="faq-toggle">+</div></summary>
         <div class="faq-a">All ingredients are food-derived. <strong>If you're on blood thinners, immunosuppressants, thyroid medication, or SSRIs, please consult your doctor first.</strong> Ashwagandha and Lion's Mane can interact with some medications. We recommend against use during pregnancy or breastfeeding, always consult your healthcare provider for personal advice.</div>
-      </div>
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">What if it doesn't work for me? <div class="faq-toggle">+</div></div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">What if it doesn't work for me? <div class="faq-toggle">+</div></summary>
         <div class="faq-a">Email us. Full refund, no forms, no explanations required. <strong>We carry the risk, not you.</strong> 30 days is enough time to feel a real shift, if you don't, we'd rather refund you than have you keep buying something that isn't working. That's the deal.</div>
-      </div>
+      </details>
     </div>
   </div>
 </section>
@@ -3112,7 +3159,7 @@ body.locked { overflow: hidden; }
 <!-- ═══════════════════════════════════════════
      FOOTER
      ═══════════════════════════════════════════ -->
-<footer>
+<footer class="mujo-foot">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">

@@ -54,16 +54,6 @@ export default function RitualPdpPage() {
         }}
       />
       <ImportedPage filename="ritual_cacao_shop_pdp.html" />
-      <section
-        style={{
-          maxWidth: 1200,
-          margin: "0 auto",
-          padding: "0 20px 64px",
-        }}
-      >
-        <h2 style={{ marginBottom: 24 }}>Reviews</h2>
-        <OkendoProductWidget shopifyProductId={RITUAL_SHOPIFY_PRODUCT_ID} />
-      </section>
     </>
   );
 }
