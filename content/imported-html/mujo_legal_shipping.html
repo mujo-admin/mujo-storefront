@@ -64,12 +64,12 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .menu-overlay.open { opacity: 1; pointer-events: auto; }
 .mobile-menu { position: fixed; top: 0; left: 0; bottom: 0; width: min(360px, 88vw); background: var(--cream); z-index: 999; transform: translateX(-100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; overflow-y: auto; }
 .mobile-menu.open { transform: translateX(0); }
-.mm-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); }
+.mm-head { display: flex; align-items: center; justify-content: center; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); position: relative; }
 .mm-head img { height: 26px; width: auto; }
-.mm-close { width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); margin-right: -8px; }
+.mm-close { width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); position: absolute; right: 12px; top: 50%; transform: translateY(-50%); }
 .mm-close svg { width: 20px; height: 20px; }
 .mm-links { display: flex; flex-direction: column; padding: 4px 0; flex: 1; }
-.mm-link { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; font-family: var(--f-display); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-soft); transition: background 0.15s, color 0.15s; }
+.mm-link { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; font-family: var(--f-display); font-size: 18px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-soft); transition: background 0.15s, color 0.15s; }
 .mm-link:hover { color: var(--orange-deep); background: rgba(242,104,47,0.04); }
 .mm-link svg { width: 16px; height: 16px; opacity: 0.4; }
 .mm-foot { padding: 24px; background: var(--sage); color: #fff; }
@@ -245,7 +245,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
   <div class="container">
     <span class="eyebrow">Legal · Shipping</span>
     <h1>Where we ship. <em>What it costs. What happens if it goes wrong.</em></h1>
-    <p>We ship from Lisbon. EU is fast, US is solid, UK and the rest of the world is on the roadmap. Here's the detail.</p>
+    <p>We ship from our US warehouse. United States only at launch. International shipping in development. Here's the detail.</p>
     <div class="legal-meta">
       <span>Last updated · <strong>April 25, 2026</strong></span>
       <span>Effective immediately</span>
@@ -273,18 +273,16 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
 
       <h2 id="rates">Where we ship and what it costs</h2>
 
-<p>We ship from Lisbon, Portugal. Currently we deliver to:</p>
+<p>We ship from our US warehouse. Currently we deliver to:</p>
 <ul>
-  <li><strong>EU</strong> · Standard 2–4 working days · €4.95 · free over €100</li>
-  <li><strong>USA</strong> · Standard 4–7 working days · $7.95 · free over $100</li>
-  <li><strong>UK</strong> · Standard 3–5 working days · £6.95 · free over £80</li>
+  <li><strong>United States</strong> · Standard 3–5 working days · $7.95 · free shipping on US orders over $60</li>
 </ul>
-<p>UK, Australia, and Middle East expansion coming late 2026. Sign up to the Sunday Note to be notified.</p>
+<p>International shipping in development. Sign up to the Sunday Note to be notified when we open new markets.</p>
 
 
 <h2 id="process">Order processing</h2>
 
-<p>Orders placed before 2pm Lisbon time on a working day ship the same day. Orders placed later, or on weekends and holidays, ship the next working day.</p>
+<p>Orders placed before 2pm Eastern Time on a working day ship the same day. Orders placed later, or on weekends and holidays, ship the next working day.</p>
 <p>You'll get a confirmation email when you order, and a separate tracking email when the box leaves the warehouse.</p>
 
 
@@ -293,8 +291,8 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
 
 <h2 id="customs">Customs and duties</h2>
 
-<p>EU customers: no customs charges within the EU.</p>
-<p>US customers: standard import duties may apply for orders over $800. We declare accurately. Any duties are your responsibility under standard import rules.</p>
+<p>US customers: no customs charges within the United States.</p>
+<p>International customers: not currently shipping. When international shipping launches, customs and duties will be your responsibility under standard import rules and will be communicated at checkout.</p>
 
 
 <h2 id="lost">Lost or damaged in transit</h2>
@@ -322,7 +320,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
     <div class="foot-grid">
       <div class="foot-brand">
         <img src="Mujo_logo_orange.png" alt="Mujo">
-        <p class="foot-tagline">Conscious performance nutrition for people who read the label. Built in Portugal. Shipped globally.</p>
+        <p class="foot-tagline">Conscious performance nutrition for people who read the label.</p>
       </div>
       <div>
         <div class="foot-col-title">Shop</div>

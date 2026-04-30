@@ -64,12 +64,12 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .menu-overlay.open { opacity: 1; pointer-events: auto; }
 .mobile-menu { position: fixed; top: 0; left: 0; bottom: 0; width: min(360px, 88vw); background: var(--cream); z-index: 999; transform: translateX(-100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; overflow-y: auto; }
 .mobile-menu.open { transform: translateX(0); }
-.mm-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); }
+.mm-head { display: flex; align-items: center; justify-content: center; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); position: relative; }
 .mm-head img { height: 26px; width: auto; }
-.mm-close { width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); margin-right: -8px; }
+.mm-close { width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); position: absolute; right: 12px; top: 50%; transform: translateY(-50%); }
 .mm-close svg { width: 20px; height: 20px; }
 .mm-links { display: flex; flex-direction: column; padding: 4px 0; flex: 1; }
-.mm-link { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; font-family: var(--f-display); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-soft); transition: background 0.15s, color 0.15s; }
+.mm-link { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; font-family: var(--f-display); font-size: 18px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-soft); transition: background 0.15s, color 0.15s; }
 .mm-link:hover { color: var(--orange-deep); background: rgba(242,104,47,0.04); }
 .mm-link svg { width: 16px; height: 16px; opacity: 0.4; }
 .mm-foot { padding: 24px; background: var(--sage); color: #fff; }
@@ -1115,15 +1115,20 @@ body.nutri-locked { overflow: hidden; }
 
       <!-- Gallery -->
       <div class="pdp-gallery">
+        <!-- IMAGE: Lemna bar · PB Crunch · macro detail · square -->
         <div class="pdp-gallery-main" id="galleryMain">
-          🥜
+          <span class="placeholder-label sand-bg">Lemna bar · PB Crunch · macro detail</span>
           <span class="pdp-gallery-badge">Pre-order · July 2026</span>
         </div>
         <div class="pdp-gallery-thumbs">
-          <button class="pdp-thumb t-pb-main active" onclick="setMain(this, '🥜', false)">🥜</button>
-          <button class="pdp-thumb t-pb-cross" onclick="setMain(this, '🍫', false)">🍫</button>
-          <button class="pdp-thumb t-pb-pack" onclick="setMain(this, '📦', false)">📦</button>
-          <button class="pdp-thumb t-pb-life" onclick="setMain(this, '🌿', false)">🌿</button>
+          <!-- IMAGE: Lemna bar · PB Crunch · macro detail · square -->
+          <button class="pdp-thumb t-pb-main active" onclick="setMain(this, 'PB', false)">PB</button>
+          <!-- IMAGE: Lemna bar · cross-section · ingredient detail · square -->
+          <button class="pdp-thumb t-pb-cross" onclick="setMain(this, 'Cross', false)">Cross</button>
+          <!-- IMAGE: Lemna bar · 12-pack box · packaging shot · square -->
+          <button class="pdp-thumb t-pb-pack" onclick="setMain(this, 'Pack', false)">Pack</button>
+          <!-- IMAGE: Lemna bar · lifestyle moment · in-hand · square -->
+          <button class="pdp-thumb t-pb-life" onclick="setMain(this, 'Life', false)">Life</button>
         </div>
       </div>
 
@@ -1134,14 +1139,7 @@ body.nutri-locked { overflow: hidden; }
         <p class="pdp-deck">Built around Lemna leaf of Rubi Protein™. Real ingredients. Honest macros. No gut-disrupting fillers, no sugar alcohols, no chalky aftertaste.</p>
 
         <div class="pdp-rating">
-          <div class="pdp-rating-stars">
-            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
-            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
-            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
-            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
-            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
-          </div>
-          <div class="pdp-rating-text"><strong>4.9</strong> · 87 founding member reviews</div>
+          <div class="pdp-rating-text">Reviews open when founding members ship.</div>
         </div>
 
         <div class="pdp-highlights">
@@ -1256,8 +1254,8 @@ body.nutri-locked { overflow: hidden; }
         <details class="pdp-acc">
           <summary>How it ships</summary>
           <div class="pdp-acc-body">
-            <p>From our warehouse in Lisbon. EU orders 2–4 working days, US orders 4–7 working days, UK 3–5 working days. Free over $100.</p>
-            <p>Pre-order charges only when your box ships in July 2026. We email you a tracking link the moment it leaves the warehouse.</p>
+            <p>From our US warehouse. US orders ship in 3–5 working days. Free shipping on US orders over $60.</p>
+            <p>Pre-order charges only when your box ships in July 2026. We email you a tracking link the moment it leaves our US warehouse.</p>
           </div>
         </details>
 
@@ -1303,7 +1301,8 @@ body.nutri-locked { overflow: hidden; }
     <div class="lpdp-ing-grid">
       <!-- Hero ingredient -->
       <div class="lpdp-ing-row hero-ing">
-        <div class="lpdp-ing-icon">[ ic-lemna ]</div>
+        <!-- ICON: Lemna leaf · sage · 40px · botanical-line -->
+        <div class="lpdp-ing-icon icon-placeholder" data-icon="lemna-leaf">Lemna</div>
         <div class="lpdp-ing-content">
           <div class="lpdp-ing-namerow">
             <span class="lpdp-ing-name">Lemna leaf (Rubi Protein™)</span>
@@ -1314,7 +1313,8 @@ body.nutri-locked { overflow: hidden; }
       </div>
 
       <div class="lpdp-ing-row">
-        <div class="lpdp-ing-icon">[ icon ]</div>
+        <!-- ICON: Nut butter · sage · 40px · botanical-line -->
+        <div class="lpdp-ing-icon icon-placeholder" data-icon="nut-butter">Nut</div>
         <div class="lpdp-ing-content">
           <div class="lpdp-ing-namerow">
             <span class="lpdp-ing-name">Cashew butter / peanut butter</span>
@@ -1325,7 +1325,8 @@ body.nutri-locked { overflow: hidden; }
       </div>
 
       <div class="lpdp-ing-row">
-        <div class="lpdp-ing-icon">[ icon ]</div>
+        <!-- ICON: Date · sage · 40px · botanical-line -->
+        <div class="lpdp-ing-icon icon-placeholder" data-icon="date">Date</div>
         <div class="lpdp-ing-content">
           <div class="lpdp-ing-namerow">
             <span class="lpdp-ing-name">Dates</span>
@@ -1336,7 +1337,8 @@ body.nutri-locked { overflow: hidden; }
       </div>
 
       <div class="lpdp-ing-row">
-        <div class="lpdp-ing-icon">[ icon ]</div>
+        <!-- ICON: Honey or date syrup · sage · 40px · botanical-line -->
+        <div class="lpdp-ing-icon icon-placeholder" data-icon="honey">Bind</div>
         <div class="lpdp-ing-content">
           <div class="lpdp-ing-namerow">
             <span class="lpdp-ing-name">Honey or date syrup</span>
@@ -1347,7 +1349,8 @@ body.nutri-locked { overflow: hidden; }
       </div>
 
       <div class="lpdp-ing-row">
-        <div class="lpdp-ing-icon">[ icon ]</div>
+        <!-- ICON: Coconut · sage · 40px · botanical-line -->
+        <div class="lpdp-ing-icon icon-placeholder" data-icon="coconut">Coco</div>
         <div class="lpdp-ing-content">
           <div class="lpdp-ing-namerow">
             <span class="lpdp-ing-name">Coconut butter</span>
@@ -1358,7 +1361,8 @@ body.nutri-locked { overflow: hidden; }
       </div>
 
       <div class="lpdp-ing-row">
-        <div class="lpdp-ing-icon">[ icon ]</div>
+        <!-- ICON: Pea crisp · sage · 40px · botanical-line -->
+        <div class="lpdp-ing-icon icon-placeholder" data-icon="pea">Pea</div>
         <div class="lpdp-ing-content">
           <div class="lpdp-ing-namerow">
             <span class="lpdp-ing-name">Pea crisps</span>
@@ -1369,7 +1373,8 @@ body.nutri-locked { overflow: hidden; }
       </div>
 
       <div class="lpdp-ing-row">
-        <div class="lpdp-ing-icon">[ icon ]</div>
+        <!-- ICON: Cacao chip · sage · 40px · botanical-line -->
+        <div class="lpdp-ing-icon icon-placeholder" data-icon="cacao-chip">Cacao</div>
         <div class="lpdp-ing-content">
           <div class="lpdp-ing-namerow">
             <span class="lpdp-ing-name">Unsweetened chocolate chips</span>
@@ -1380,7 +1385,8 @@ body.nutri-locked { overflow: hidden; }
       </div>
 
       <div class="lpdp-ing-row">
-        <div class="lpdp-ing-icon">[ icon ]</div>
+        <!-- ICON: Mesquite pod · sage · 40px · botanical-line -->
+        <div class="lpdp-ing-icon icon-placeholder" data-icon="mesquite">Mesq</div>
         <div class="lpdp-ing-content">
           <div class="lpdp-ing-namerow">
             <span class="lpdp-ing-name">Mesquite powder</span>
@@ -1391,7 +1397,8 @@ body.nutri-locked { overflow: hidden; }
       </div>
 
       <div class="lpdp-ing-row">
-        <div class="lpdp-ing-icon">[ icon ]</div>
+        <!-- ICON: Tapioca fiber · sage · 40px · botanical-line -->
+        <div class="lpdp-ing-icon icon-placeholder" data-icon="tapioca-fiber">Fiber</div>
         <div class="lpdp-ing-content">
           <div class="lpdp-ing-namerow">
             <span class="lpdp-ing-name">Tapioca Fiber</span>
@@ -1402,7 +1409,8 @@ body.nutri-locked { overflow: hidden; }
       </div>
 
       <div class="lpdp-ing-row">
-        <div class="lpdp-ing-icon">[ icon ]</div>
+        <!-- ICON: Chicory root · sage · 40px · botanical-line -->
+        <div class="lpdp-ing-icon icon-placeholder" data-icon="chicory">Chic</div>
         <div class="lpdp-ing-content">
           <div class="lpdp-ing-namerow">
             <span class="lpdp-ing-name">Chicory root fiber</span>
@@ -1413,7 +1421,8 @@ body.nutri-locked { overflow: hidden; }
       </div>
 
       <div class="lpdp-ing-row">
-        <div class="lpdp-ing-icon">[ icon ]</div>
+        <!-- ICON: Sunflower lecithin · sage · 40px · botanical-line -->
+        <div class="lpdp-ing-icon icon-placeholder" data-icon="sunflower-lecithin">Sun</div>
         <div class="lpdp-ing-content">
           <div class="lpdp-ing-namerow">
             <span class="lpdp-ing-name">Sunflower lecithin</span>
@@ -1424,7 +1433,8 @@ body.nutri-locked { overflow: hidden; }
       </div>
 
       <div class="lpdp-ing-row">
-        <div class="lpdp-ing-icon">[ icon ]</div>
+        <!-- ICON: Sea salt · sage · 40px · botanical-line -->
+        <div class="lpdp-ing-icon icon-placeholder" data-icon="sea-salt">Salt</div>
         <div class="lpdp-ing-content">
           <div class="lpdp-ing-namerow">
             <span class="lpdp-ing-name">Sea salt</span>
@@ -1435,7 +1445,8 @@ body.nutri-locked { overflow: hidden; }
       </div>
 
       <div class="lpdp-ing-row">
-        <div class="lpdp-ing-icon">[ icon ]</div>
+        <!-- ICON: Vegetable glycerin · sage · 40px · botanical-line -->
+        <div class="lpdp-ing-icon icon-placeholder" data-icon="glycerin">Glyc</div>
         <div class="lpdp-ing-content">
           <div class="lpdp-ing-namerow">
             <span class="lpdp-ing-name">Vegetable glycerin</span>
@@ -1468,8 +1479,9 @@ body.nutri-locked { overflow: hidden; }
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
         </a>
       </div>
+      <!-- IMAGE: Lemna leaf · macro detail · sage water-grown · 4:3 landscape -->
       <div class="lemna-story-visual">
-        🌿
+        <span class="placeholder-label sand-bg">Lemna leaf · macro detail · water-grown</span>
         <div class="lemna-story-stat">
           <div class="lemna-story-stat-num">All 9 EAAs</div>
           <div class="lemna-story-stat-label">EAA = essential amino acids<strong>Perfect digestibility score</strong></div>
@@ -1488,8 +1500,9 @@ body.nutri-locked { overflow: hidden; }
       <h2>30 seconds with <span class="serif-accent">Kinga.</span></h2>
       <p>Why this bar exists, and what makes Lemna leaf so different.</p>
     </div>
+    <!-- IMAGE: Founder Kinga · video thumbnail · warm natural light · 16:9 landscape -->
     <div class="kinga-video-player" onclick="alert('Video: hand off to your video host (e.g. Mux, Vimeo, YouTube embed) in production.')">
-      <span class="kinga-video-emoji" aria-hidden="true">🎬</span>
+      <span class="kinga-video-emoji" aria-hidden="true">Video</span>
       <span class="kinga-video-ph-tag">Image · Kinga thumbnail</span>
       <span class="kinga-video-play">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
@@ -1516,25 +1529,29 @@ body.nutri-locked { overflow: hidden; }
     <div class="howto-grid">
       <div class="howto-card">
         <div class="howto-card-num">01</div>
-        <div class="howto-card-icon">🌅</div>
+        <!-- ICON: Sunrise · sage · 36px · botanical-line -->
+        <div class="howto-card-icon icon-placeholder" data-icon="sunrise">Morning</div>
         <h3>The 11am shift</h3>
         <p>Between breakfast and lunch when blood sugar dips. Protein steadies it without slowing you down.</p>
       </div>
       <div class="howto-card">
         <div class="howto-card-num">02</div>
-        <div class="howto-card-icon">🎒</div>
+        <!-- ICON: Backpack · sage · 36px · botanical-line -->
+        <div class="howto-card-icon icon-placeholder" data-icon="backpack">School</div>
         <h3>School pickup</h3>
         <p>In the car, on the walk, between drop-off and dinner. The hour where everyone is hungry and nothing is ready.</p>
       </div>
       <div class="howto-card">
         <div class="howto-card-num">03</div>
-        <div class="howto-card-icon">🎾</div>
+        <!-- ICON: Padel racket · sage · 36px · botanical-line -->
+        <div class="howto-card-icon icon-placeholder" data-icon="padel">Padel</div>
         <h3>Post-padel</h3>
         <p>Recovery protein that isn't a shake. Eat one in the car, talk to your knees about it later.</p>
       </div>
       <div class="howto-card">
         <div class="howto-card-num">04</div>
-        <div class="howto-card-icon">✈️</div>
+        <!-- ICON: Plane · sage · 36px · botanical-line -->
+        <div class="howto-card-icon icon-placeholder" data-icon="travel">Travel</div>
         <h3>The travel back-up</h3>
         <p>Two in the bag for the airport, the road trip, the conference where lunch is salty pasta and a sad pastry.</p>
       </div>
@@ -1548,94 +1565,14 @@ body.nutri-locked { overflow: hidden; }
 <section class="reviews-section">
   <div class="container">
     <div class="reviews-head">
-      <span class="eyebrow">Founding member reviews</span>
-      <h2>What people <em>actually said.</em></h2>
-      <div class="summary">
-        <span style="color: var(--orange);">★★★★★</span>
-        <span><strong>4.9</strong> from 87 reviews · 94% would buy again</span>
-      </div>
+      <span class="eyebrow">Reviews</span>
+      <h2>Real reviews. <span class="serif-accent">When real people have eaten it.</span></h2>
+      <p class="lede">Founding members will get first review access. Until then, this space stays empty. Reviews on a bar that hasn't shipped aren't reviews.</p>
     </div>
 
-    <div class="reviews-grid">
-
-      <div class="review-card">
-        <div class="review-photo bg-cream">
-          <span class="review-photo-tag"><span class="dot"></span>Verified · 3 months on</span>
-          🥜
-        </div>
-        <div class="review-body">
-          <div class="review-stars">
-            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
-            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
-            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
-            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
-            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
-          </div>
-          <div class="review-headline">"The first one that <em>doesn't taste like protein.</em>"</div>
-          <p class="review-body-text">No chalky aftertaste. No weird sweetness. <strong>The PB Crunch tastes like an actual peanut bar.</strong> My kids steal them, which is a problem and a compliment. The label is the shortest in my pantry and the macros are honest.</p>
-          <div class="review-attr">Verified purchase · Trustpilot</div>
-          <div class="review-author">
-            <div class="review-avatar">S</div>
-            <div>
-              <div class="review-name">Sara K.</div>
-              <div class="review-role">PB Crunch · Subscriber</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="review-card">
-        <div class="review-photo bg-sage">
-          <span class="review-photo-tag"><span class="dot"></span>Verified · 4 months on</span>
-          🥼
-        </div>
-        <div class="review-body">
-          <div class="review-stars">
-            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
-            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
-            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
-            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
-            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
-          </div>
-          <div class="review-headline">"Finally, <em>no sugar alcohols.</em>"</div>
-          <p class="review-body-text">I have IBS and most protein bars are a no-go for me. <strong>These are the first ones in years that don't wreck my afternoon.</strong> The Cashew Chocolate is genuinely a treat. I'd been resigned to making my own. Not anymore.</p>
-          <div class="review-attr">Verified purchase · Google</div>
-          <div class="review-author">
-            <div class="review-avatar">M</div>
-            <div>
-              <div class="review-name">Marcus T.</div>
-              <div class="review-role">Cashew · Subscriber</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="review-card">
-        <div class="review-photo bg-cocoa">
-          <span class="review-photo-tag"><span class="dot"></span>Verified · 5 months on</span>
-          🎾
-        </div>
-        <div class="review-body">
-          <div class="review-stars">
-            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
-            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
-            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
-            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
-            <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.5-4.6 4 1.4 6L10 14l-5.5 3 1.4-6L1.3 7l6.1-.5z"/></svg>
-          </div>
-          <div class="review-headline">"Padel recovery, <em>sorted.</em>"</div>
-          <p class="review-body-text">Two of these in the gym bag. <strong>Eat one after a match, eat the other on the drive home.</strong> Real food texture, real protein numbers, no stomach drama. I'm subscribed for the long haul. Already converted half my padel club.</p>
-          <div class="review-attr">Verified purchase · Shopify</div>
-          <div class="review-author">
-            <div class="review-avatar">A</div>
-            <div>
-              <div class="review-name">Ana M.</div>
-              <div class="review-role">PB Crunch · Subscriber</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
+    <!-- OKENDO MOUNT: <okendo-reviews-widget product-id="..."></okendo-reviews-widget> activates when first real reviews land -->
+    <div class="placeholder-label sand-bg" style="padding: 48px 24px; text-align: center; border-radius: 8px;">
+      Okendo widget mount · activates when first real reviews land
     </div>
   </div>
 </section>
@@ -1690,7 +1627,7 @@ body.nutri-locked { overflow: hidden; }
 
       <details class="faq-item">
         <summary>When does pre-order ship?</summary>
-        <div class="faq-body">First boxes ship in July 2026. We charge your card the day your box leaves Lisbon, not before. You'll get a tracking link the moment it ships.</div>
+        <div class="faq-body">First boxes ship in July 2026. We charge your card the day your box leaves our US warehouse, not before. You'll get a tracking link the moment it ships.</div>
       </details>
 
       <details class="faq-item">
@@ -1722,7 +1659,8 @@ body.nutri-locked { overflow: hidden; }
     </div>
     <div class="crosssell-grid">
       <a href="/products/mujo-ritual" class="crosssell-card">
-        <div class="crosssell-img bg-cocoa">🍵</div>
+        <!-- IMAGE: Mujo Ritual cacao tin · product shot · square -->
+        <div class="crosssell-img bg-cocoa"><span class="placeholder-label">Ritual · cacao tin</span></div>
         <div class="crosssell-info">
           <div class="c-tag">Best seller</div>
           <h3>Mujo Ritual · 25 servings</h3>
@@ -1731,7 +1669,8 @@ body.nutri-locked { overflow: hidden; }
         </div>
       </a>
       <a href="/rebel-club" class="crosssell-card">
-        <div class="crosssell-img" style="background: linear-gradient(135deg, var(--orange-soft) 0%, #F2C8AB 100%);">🎁</div>
+        <!-- IMAGE: Rebel Club membership card · welcome kit · square -->
+        <div class="crosssell-img" style="background: linear-gradient(135deg, var(--orange-soft) 0%, #F2C8AB 100%);"><span class="placeholder-label">Rebel Club · welcome</span></div>
         <div class="crosssell-info">
           <div class="c-tag">Membership</div>
           <h3>Rebel Club</h3>
@@ -1749,7 +1688,7 @@ body.nutri-locked { overflow: hidden; }
     <div class="foot-grid">
       <div class="foot-brand">
         <img src="Mujo_logo_orange.png" alt="Mujo">
-        <p class="foot-tagline">Conscious performance nutrition for people who read the label. Built in Portugal. Shipped globally.</p>
+        <p class="foot-tagline">Conscious performance nutrition for people who read the label.</p>
       </div>
       <div>
         <div class="foot-col-title">Shop</div>
@@ -1789,7 +1728,7 @@ body.nutri-locked { overflow: hidden; }
 <script>
 const PRICES = { 'ritual-25': 55.25, 'ritual-10': 27, 'bar-pb': 54, 'bar-cashew': 54, 'mug': 24, 'tee': 38, 'tote': 22 };
 const NAMES = { 'ritual-25': 'Mujo Ritual · 25 servings', 'ritual-10': 'Mujo Ritual · 10 servings', 'bar-pb': 'Lemna Bar · PB Crunch', 'bar-cashew': 'Lemna Bar · Cashew Chocolate', 'mug': 'Ritual Mug', 'tee': 'Rebel Club Tee', 'tote': 'Market Tote' };
-const ICONS = { 'ritual-25': '🍵', 'ritual-10': '🍵', 'bar-pb': '🥜', 'bar-cashew': '🍫', 'mug': '☕', 'tee': '👕', 'tote': '🛍️' };
+const ICONS = { 'ritual-25': 'Ritual', 'ritual-10': 'Ritual', 'bar-pb': 'PB', 'bar-cashew': 'Cashew', 'mug': 'Mug', 'tee': 'Tee', 'tote': 'Tote' };
 let cart = {};
 function openMenu() { document.getElementById('mobileMenu').classList.add('open'); document.getElementById('overlay').classList.add('open'); document.body.classList.add('locked'); }
 function closeMenu() { document.getElementById('mobileMenu').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); if (!document.getElementById('cartDrawer').classList.contains('open')) document.body.classList.remove('locked'); }
@@ -1815,7 +1754,7 @@ function renderCart() {
   else if (remaining <= 0) { fill.classList.add('full'); msg.innerHTML = '<strong>Free shipping</strong> unlocked. Nice work.'; }
   else { fill.classList.remove('full'); msg.innerHTML = '<span class="accent">' + fmt(remaining) + '</span> away from <strong>free shipping</strong>.'; }
   const body = document.getElementById('cartBody'); body.innerHTML = '';
-  if (count === 0) { body.innerHTML = '<div class="cart-empty"><div class="cart-empty-illo">🍵</div><h3>Nothing in here yet.</h3><p>Your ritual is one click away. The Mujo Ritual is the place most people start.</p><a href="/shop">Browse the shop →</a></div>'; }
+  if (count === 0) { body.innerHTML = '<div class="cart-empty"><div class="cart-empty-illo">Empty</div><h3>Nothing in here yet.</h3><p>Your ritual is one click away. The Mujo Ritual is the place most people start.</p><a href="/shop">Browse the shop →</a></div>'; }
   else { Object.entries(cart).forEach(([id, qty]) => { const row = document.createElement('div'); row.className = 'cart-item'; row.innerHTML = `<div class="cart-item-img">${ICONS[id]||'·'}</div><div class="cart-item-info"><div class="cart-item-name">${NAMES[id]}</div><div class="cart-item-variant">One-time</div><div class="cart-item-controls"><button class="qty-btn" onclick="updateQty('${id}',-1)">−</button><span class="qty-val">${qty}</span><button class="qty-btn" onclick="updateQty('${id}',1)">+</button></div></div><div class="cart-item-meta"><div class="cart-item-price">${fmt(PRICES[id]*qty)}</div><button class="cart-item-remove" onclick="removeItem('${id}')">Remove</button></div>`; body.appendChild(row); }); }
   document.getElementById('subtotalDisplay').textContent = count === 0 ? '$0' : fmt(subtotal);
   document.getElementById('shippingDisplay').textContent = (remaining <= 0 && count > 0) ? 'Free' : 'Calculated at checkout';
@@ -1849,14 +1788,14 @@ function selectFlavour(btn) {
   const main = document.getElementById('galleryMain');
   if (state.flavor === 'cashew') {
     main.classList.add('cashew');
-    main.firstChild.textContent = '🍫';
+    main.firstChild.textContent = 'Cashew';
     // Switch thumb palette too
     document.querySelectorAll('.pdp-thumb').forEach((t, i) => {
       t.className = ['pdp-thumb t-cs-main','pdp-thumb t-cs-cross','pdp-thumb t-cs-pack','pdp-thumb t-cs-life'][i];
     });
   } else {
     main.classList.remove('cashew');
-    main.firstChild.textContent = '🥜';
+    main.firstChild.textContent = 'PB';
     document.querySelectorAll('.pdp-thumb').forEach((t, i) => {
       t.className = ['pdp-thumb t-pb-main','pdp-thumb t-pb-cross','pdp-thumb t-pb-pack','pdp-thumb t-pb-life'][i];
     });

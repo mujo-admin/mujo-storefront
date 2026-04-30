@@ -306,7 +306,7 @@ h1 em, h2 em, h3 em {
   position: relative;
 }
 .recog-sketch.placeholder::after {
-  content: '[ sketch ]';
+  content: 'Sketch';
   font-family: var(--f-mono);
   font-size: 9px;
   letter-spacing: 0.1em;
@@ -1318,12 +1318,12 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .menu-overlay.open { opacity: 1; pointer-events: auto; }
 .mobile-menu { position: fixed; top: 0; left: 0; bottom: 0; width: min(360px, 88vw); background: var(--cream); z-index: 999; transform: translateX(-100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; overflow-y: auto; }
 .mobile-menu.open { transform: translateX(0); }
-.mm-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); }
+.mm-head { display: flex; align-items: center; justify-content: center; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); position: relative; }
 .mm-head img { height: 26px; width: auto; }
-.mm-close { width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); margin-right: -8px; }
+.mm-close { width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); position: absolute; right: 12px; top: 50%; transform: translateY(-50%); }
 .mm-close svg { width: 20px; height: 20px; }
 .mm-links { display: flex; flex-direction: column; padding: 4px 0; flex: 1; }
-.mm-link { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; font-family: var(--f-display); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-soft); transition: background 0.15s, color 0.15s; }
+.mm-link { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; font-family: var(--f-display); font-size: 18px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-soft); transition: background 0.15s, color 0.15s; }
 .mm-link:hover { color: var(--orange-deep); background: rgba(242,104,47,0.04); }
 .mm-link svg { width: 16px; height: 16px; opacity: 0.4; }
 .mm-foot { padding: 24px; background: var(--sage); color: #fff; }
@@ -1689,28 +1689,32 @@ body.locked { overflow: hidden; }
     <div class="why-grid">
       <div class="why-card">
         <div class="why-num">01</div>
-        <div class="why-icon">[ icon ]</div>
+        <!-- ICON: chronic stress wave · sage · 48px · botanical-line -->
+        <div class="why-icon image-placeholder icon-placeholder sand-bg" data-icon="chronic-stress">chronic stress</div>
         <div class="why-h">Chronic low-grade stress.</div>
         <div class="why-p">Never enough to floor you. Never absent enough to recover.</div>
       </div>
 
       <div class="why-card">
         <div class="why-num">02</div>
-        <div class="why-icon">[ icon ]</div>
+        <!-- ICON: coffee bean masking signal · sage · 48px · botanical-line -->
+        <div class="why-icon image-placeholder icon-placeholder sand-bg" data-icon="caffeine-masking">caffeine masking</div>
         <div class="why-h">Caffeine masking.</div>
         <div class="why-p">You can't feel the signals. Doesn't mean they stopped firing.</div>
       </div>
 
       <div class="why-card">
         <div class="why-num">03</div>
-        <div class="why-icon">[ icon ]</div>
+        <!-- ICON: moon and sleep cycle · sage · 48px · botanical-line -->
+        <div class="why-icon image-placeholder icon-placeholder sand-bg" data-icon="sleep-debt">sleep debt</div>
         <div class="why-h">Sleep debt.</div>
         <div class="why-p">The repair window is shorter than the damage.</div>
       </div>
 
       <div class="why-card">
         <div class="why-num">04</div>
-        <div class="why-icon">[ icon ]</div>
+        <!-- ICON: nervous system brake · sage · 48px · botanical-line -->
+        <div class="why-icon image-placeholder icon-placeholder sand-bg" data-icon="no-brake">no brake</div>
         <div class="why-h">The brake never engages.</div>
         <div class="why-p">You're always on. Even when you're sitting still.</div>
       </div>
@@ -1761,7 +1765,7 @@ body.locked { overflow: hidden; }
     <div class="bridge-text">
       <div class="eyebrow">The ritual</div>
       <h2>So. <em class="highlight">What does foundation repair actually look like?</em></h2>
-      <p>Mujo Ritual is a morning cacao built around the small list of ingredients that <strong>actually do this work</strong>. KSM-66 ashwagandha at the clinical dose for cortisol. RhodioLife Rhodiola at the premium spec for vagal tone. Cordyceps and Lion's Mane for the cellular foundation.</p>
+      <p>Mujo Ritual is a morning cacao built around the small list of ingredients that <strong>actually do this work</strong>. KSM-66® Ashwagandha at the clinical dose for cortisol. Rhodiola Rosea at the premium spec for vagal tone. Cordyceps and Lion's Mane for the cellular foundation.</p>
       <p>Not a stack of trendy ingredients. <strong>A formula designed around what foundation repair actually requires.</strong> Taken once a day, in place of or alongside your morning coffee.</p>
 
       <div class="bridge-cta">
@@ -1824,7 +1828,7 @@ body.locked { overflow: hidden; }
 <script id="mujo-canonical-nav-js">
 const PRICES = { 'ritual-25': 55.25, 'ritual-10': 27, 'bar-pb': 54, 'bar-cashew': 54, 'mug': 24, 'tee': 38, 'tote': 22 };
 const NAMES = { 'ritual-25': 'Mujo Ritual · 25 servings', 'ritual-10': 'Mujo Ritual · 10 servings', 'bar-pb': 'Lemna Bar · PB Crunch', 'bar-cashew': 'Lemna Bar · Cashew Chocolate', 'mug': 'Ritual Mug', 'tee': 'Rebel Club Tee', 'tote': 'Market Tote' };
-const ICONS = { 'ritual-25': '🍵', 'ritual-10': '🍵', 'bar-pb': '🥜', 'bar-cashew': '🍫', 'mug': '☕', 'tee': '👕', 'tote': '🛍️' };
+const ICONS = { 'ritual-25': '', 'ritual-10': '', 'bar-pb': '', 'bar-cashew': '', 'mug': '', 'tee': '', 'tote': '' };
 let cart = {};
 function openMenu() { document.getElementById('mobileMenu').classList.add('open'); document.getElementById('overlay').classList.add('open'); document.body.classList.add('locked'); }
 function closeMenu() { document.getElementById('mobileMenu').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); if (!document.getElementById('cartDrawer').classList.contains('open')) document.body.classList.remove('locked'); }
@@ -1850,7 +1854,7 @@ function renderCart() {
   else if (remaining <= 0) { fill.classList.add('full'); msg.innerHTML = '<strong>Free shipping</strong> unlocked. Nice work.'; }
   else { fill.classList.remove('full'); msg.innerHTML = '<span class="accent">' + fmt(remaining) + '</span> away from <strong>free shipping</strong>.'; }
   const body = document.getElementById('cartBody'); body.innerHTML = '';
-  if (count === 0) { body.innerHTML = '<div class="cart-empty"><div class="cart-empty-illo">🍵</div><h3>Nothing in here yet.</h3><p>Your ritual is one click away. The Mujo Ritual is the place most people start.</p><a href="/shop">Browse the shop →</a></div>'; }
+  if (count === 0) { body.innerHTML = '<div class="cart-empty"><h3>Nothing in here yet.</h3><p>Your ritual is one click away. The Mujo Ritual is the place most people start.</p><a href="/shop">Browse the shop →</a></div>'; }
   else { Object.entries(cart).forEach(([id, qty]) => { const row = document.createElement('div'); row.className = 'cart-item'; row.innerHTML = `<div class="cart-item-img">${ICONS[id]||'·'}</div><div class="cart-item-info"><div class="cart-item-name">${NAMES[id]}</div><div class="cart-item-variant">One-time</div><div class="cart-item-controls"><button class="qty-btn" onclick="updateQty('${id}',-1)">−</button><span class="qty-val">${qty}</span><button class="qty-btn" onclick="updateQty('${id}',1)">+</button></div></div><div class="cart-item-meta"><div class="cart-item-price">${fmt(PRICES[id]*qty)}</div><button class="cart-item-remove" onclick="removeItem('${id}')">Remove</button></div>`; body.appendChild(row); }); }
   document.getElementById('subtotalDisplay').textContent = count === 0 ? '$0' : fmt(subtotal);
   document.getElementById('shippingDisplay').textContent = (remaining <= 0 && count > 0) ? 'Free' : 'Calculated at checkout';

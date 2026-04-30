@@ -139,9 +139,9 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
   display: flex; flex-direction: column; overflow-y: auto;
 }
 .mobile-menu.open { transform: translateX(0); }
-.mm-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); }
+.mm-head { display: flex; align-items: center; justify-content: center; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); position: relative; }
 .mm-head img { height: 26px; width: auto; }
-.mm-close { width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); margin-right: -8px; }
+.mm-close { width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); position: absolute; right: 12px; top: 50%; transform: translateY(-50%); }
 .mm-close svg { width: 20px; height: 20px; }
 .mm-links { display: flex; flex-direction: column; padding: 4px 0; flex: 1; }
 .mm-link {
@@ -464,7 +464,8 @@ body.locked { overflow: hidden; }
   font-size: 11px;
   color: var(--mute);
 }
-.product-rating .star { color: var(--orange); font-size: 11px; }
+.product-rating .star { color: var(--orange); font-size: 11px; font-size: 0; }
+.product-rating .star::before { content: '\2605'; font-size: 11px; }
 
 /* Soon-style cards */
 .product-card.soon .product-img-placeholder { opacity: 0.65; }
@@ -745,16 +746,17 @@ footer.mujo-foot {
     <div class="cat-head">
       <div class="cat-head-left">
         <span class="eyebrow sage">Ritual</span>
-        <h2>Mushroom cacao. <span class="serif-accent">Caffeine-free.</span></h2>
+        <h2>Mushroom cacao. Caffeine-free.</h2>
         <p>Clinically-dosed adaptogens, full fruiting body extracts, and a taste profile worth showing up for. The morning anchor.</p>
       </div>
       <a href="/products/mujo-ritual">View ingredient dossier →</a>
     </div>
     <div class="product-grid">
       <a href="/products/mujo-ritual?size=10" class="product-card" data-tags="ritual,subscribe" data-price="27">
+        <!-- IMAGE: Mujo Ritual cacao · 10-serving starter tin · product shot · 4:5 portrait -->
         <div class="product-img bg-cocoa">
           <span class="product-badge sub">SUBSCRIBE · SAVE 15%</span>
-          <span class="product-img-placeholder">🍵</span>
+          <span class="product-img-placeholder placeholder-label">Ritual · 10-serving starter</span>
           <button class="product-quick-add" aria-label="Quick add" onclick="quickAdd(event, 'ritual-10')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           </button>
@@ -762,21 +764,22 @@ footer.mujo-foot {
         <div class="product-info">
           <div class="product-cat">Ritual · 10 servings</div>
           <div class="product-name">Mujo Ritual · Starter</div>
-          <div class="product-tag">Mushroom cacao with KSM-66, RhodioLife, and Longvida®. The starter tin.</div>
+          <div class="product-tag">Mushroom cacao with KSM-66® Ashwagandha, Rhodiola Rosea, and Bioavailable Curcumin. The starter tin.</div>
           <div class="product-foot">
             <div class="product-price">
               <span class="from">From</span>
               <span class="amount">$27</span>
             </div>
-            <div class="product-rating"><span class="star">★</span> 4.9 (412)</div>
+            <div class="product-rating"><span class="star" aria-hidden="true"></span> 4.9 (412)</div>
           </div>
         </div>
       </a>
 
       <a href="/products/mujo-ritual?size=25" class="product-card" data-tags="ritual,subscribe" data-price="55.25">
+        <!-- IMAGE: Mujo Ritual cacao · 25-serving monthly tin · product shot · 4:5 portrait -->
         <div class="product-img bg-cream">
           <span class="product-badge hot">BEST VALUE</span>
-          <span class="product-img-placeholder">🍵</span>
+          <span class="product-img-placeholder placeholder-label">Ritual · 25-serving monthly</span>
           <button class="product-quick-add" aria-label="Quick add" onclick="quickAdd(event, 'ritual-25')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           </button>
@@ -790,7 +793,7 @@ footer.mujo-foot {
               <span class="from">From</span>
               <span class="amount">$55.25</span>
             </div>
-            <div class="product-rating"><span class="star">★</span> 4.9 (412)</div>
+            <div class="product-rating"><span class="star" aria-hidden="true"></span> 4.9 (412)</div>
           </div>
         </div>
       </a>
@@ -806,16 +809,17 @@ footer.mujo-foot {
     <div class="cat-head">
       <div class="cat-head-left">
         <span class="eyebrow sage">Bars</span>
-        <h2>Lemna Bar. <span class="serif-accent">Soon.</span></h2>
+        <h2>Lemna Bar. Soon.</h2>
         <p>The world's first bar built on Lemna leaf of Rubi Protein™. Complete amino acid profile. Two flavours. Pre-orders open July.</p>
       </div>
       <a href="/lemna">Read the launch story →</a>
     </div>
     <div class="product-grid">
       <a href="/products/lemna-bar-pb" class="product-card soon" data-tags="bars,vegan" data-price="54">
+        <!-- IMAGE: Lemna PB Crunch · 12-pack box · product shot · 4:5 portrait -->
         <div class="product-img bg-pb">
           <span class="product-badge soon">PRE-ORDER · JULY</span>
-          <span class="product-img-placeholder">🥜</span>
+          <span class="product-img-placeholder placeholder-label">Lemna · PB Crunch 12-pack</span>
         </div>
         <div class="product-info">
           <div class="product-cat">Bars · 12 pack · vegan</div>
@@ -826,15 +830,16 @@ footer.mujo-foot {
               <span class="from">From</span>
               <span class="amount">$54</span>
             </div>
-            <div class="product-rating"><span class="star">★</span> Pre-launch</div>
+            <div class="product-rating"><span class="star" aria-hidden="true"></span> Pre-launch</div>
           </div>
         </div>
       </a>
 
       <a href="/products/lemna-bar-cashew" class="product-card soon" data-tags="bars" data-price="54">
+        <!-- IMAGE: Lemna Cashew Chocolate · 12-pack box · product shot · 4:5 portrait -->
         <div class="product-img bg-cashew">
           <span class="product-badge soon">PRE-ORDER · JULY</span>
-          <span class="product-img-placeholder">🍫</span>
+          <span class="product-img-placeholder placeholder-label">Lemna · Cashew Chocolate 12-pack</span>
         </div>
         <div class="product-info">
           <div class="product-cat">Bars · 12 pack · vegetarian</div>
@@ -845,7 +850,7 @@ footer.mujo-foot {
               <span class="from">From</span>
               <span class="amount">$54</span>
             </div>
-            <div class="product-rating"><span class="star">★</span> Pre-launch</div>
+            <div class="product-rating"><span class="star" aria-hidden="true"></span> Pre-launch</div>
           </div>
         </div>
       </a>
@@ -861,15 +866,16 @@ footer.mujo-foot {
     <div class="cat-head">
       <div class="cat-head-left">
         <span class="eyebrow sage">Merch</span>
-        <h2>The things that come with the ritual. <span class="serif-accent">Earned, not bought.</span></h2>
+        <h2>The things that come with the ritual. Earned, not bought.</h2>
         <p>The Rebel Club essentials. A few quiet pieces you'll want to wear, drink from, and travel with.</p>
       </div>
       <a href="/rebel-club">Join the club →</a>
     </div>
     <div class="product-grid">
       <a href="/products/mujo-mug" class="product-card" data-tags="merch" data-price="24">
+        <!-- IMAGE: Ritual Mug · stoneware cream glaze · product shot · 4:5 portrait -->
         <div class="product-img bg-mug">
-          <span class="product-img-placeholder">☕</span>
+          <span class="product-img-placeholder placeholder-label">Ritual Mug · stoneware</span>
           <button class="product-quick-add" aria-label="Quick add" onclick="quickAdd(event, 'mug')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           </button>
@@ -880,15 +886,16 @@ footer.mujo-foot {
           <div class="product-tag">Stoneware. 320ml. Matte cream glaze. The right size for the ritual.</div>
           <div class="product-foot">
             <div class="product-price"><span class="amount">$24</span></div>
-            <div class="product-rating"><span class="star">★</span> 4.8 (38)</div>
+            <div class="product-rating"><span class="star" aria-hidden="true"></span> 4.8 (38)</div>
           </div>
         </div>
       </a>
 
       <a href="/products/mujo-tee" class="product-card" data-tags="merch" data-price="38">
+        <!-- IMAGE: Rebel Club Tee · sage organic cotton · product shot · 4:5 portrait -->
         <div class="product-img bg-merch">
           <span class="product-badge">NEW</span>
-          <span class="product-img-placeholder">👕</span>
+          <span class="product-img-placeholder placeholder-label">Rebel Club Tee · sage cotton</span>
           <button class="product-quick-add" aria-label="Quick add" onclick="quickAdd(event, 'tee')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           </button>
@@ -899,14 +906,15 @@ footer.mujo-foot {
           <div class="product-tag">Heavyweight organic cotton. Sage with hand-drawn chest mark. XS to XXL.</div>
           <div class="product-foot">
             <div class="product-price"><span class="amount">$38</span></div>
-            <div class="product-rating"><span class="star">★</span> New</div>
+            <div class="product-rating"><span class="star" aria-hidden="true"></span> New</div>
           </div>
         </div>
       </a>
 
       <a href="/products/mujo-tote" class="product-card" data-tags="merch" data-price="22">
+        <!-- IMAGE: Market Tote · 14oz natural canvas · product shot · 4:5 portrait -->
         <div class="product-img bg-cream">
-          <span class="product-img-placeholder">🛍️</span>
+          <span class="product-img-placeholder placeholder-label">Market Tote · canvas</span>
           <button class="product-quick-add" aria-label="Quick add" onclick="quickAdd(event, 'tote')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           </button>
@@ -917,7 +925,7 @@ footer.mujo-foot {
           <div class="product-tag">Heavy 14oz canvas. Reinforced base. Carries a shop's worth of groceries.</div>
           <div class="product-foot">
             <div class="product-price"><span class="amount">$22</span></div>
-            <div class="product-rating"><span class="star">★</span> 4.9 (52)</div>
+            <div class="product-rating"><span class="star" aria-hidden="true"></span> 4.9 (52)</div>
           </div>
         </div>
       </a>
@@ -945,7 +953,7 @@ footer.mujo-foot {
           <path d="M11 16 l3 3 l7-7"/>
         </svg>
         <h4>Clinical doses</h4>
-        <p>The amounts the studies actually used. KSM-66 at 300mg. RhodioLife. Longvida®.</p>
+        <p>The amounts the studies actually used. KSM-66® at 300mg. Rhodiola Rosea. Bioavailable Curcumin.</p>
       </div>
       <div class="feature">
         <svg class="feature-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
@@ -981,7 +989,7 @@ footer.mujo-foot {
       <li>Patented adaptogens</li>
       <li>Third-party tested</li>
       <li>No fillers</li>
-      <li>Built in Portugal</li>
+      <li>Doses disclosed</li>
     </ul>
   </div>
 </section>
@@ -991,7 +999,7 @@ footer.mujo-foot {
     <div class="foot-grid">
       <div class="foot-brand">
         <img src="Mujo_logo_orange.png" alt="Mujo">
-        <p class="foot-tagline">Conscious performance nutrition for people who read the label. Built in Portugal. Shipped globally.</p>
+        <p class="foot-tagline">Conscious performance nutrition for people who read the label.</p>
       </div>
       <div>
         <div class="foot-col-title">Shop</div>
@@ -1039,7 +1047,7 @@ const NAMES = {
   'tee': 'Rebel Club Tee',
   'tote': 'Market Tote'
 };
-const ICONS = { 'ritual-25': '🍵', 'ritual-10': '🍵', 'bar-pb': '🥜', 'bar-cashew': '🍫', 'mug': '☕', 'tee': '👕', 'tote': '🛍️' };
+const ICONS = { 'ritual-25': 'Ritual', 'ritual-10': 'Ritual', 'bar-pb': 'PB', 'bar-cashew': 'Cashew', 'mug': 'Mug', 'tee': 'Tee', 'tote': 'Tote' };
 let cart = {};
 
 // ===== Drawer / menu =====
@@ -1129,7 +1137,7 @@ function renderCart() {
   const body = document.getElementById('cartBody');
   body.innerHTML = '';
   if (count === 0) {
-    body.innerHTML = '<div class="cart-empty"><div class="cart-empty-illo">🍵</div><h3>Nothing in here yet.</h3><p>Your ritual is one click away. The Mujo Ritual is the place most people start.</p><a href="#cat-ritual" onclick="closeCart()">Browse the shop →</a></div>';
+    body.innerHTML = '<div class="cart-empty"><div class="cart-empty-illo">Empty</div><h3>Nothing in here yet.</h3><p>Your ritual is one click away. The Mujo Ritual is the place most people start.</p><a href="#cat-ritual" onclick="closeCart()">Browse the shop →</a></div>';
   } else {
     Object.entries(cart).forEach(([id, qty]) => {
       const row = document.createElement('div');

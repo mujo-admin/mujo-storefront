@@ -64,12 +64,12 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .menu-overlay.open { opacity: 1; pointer-events: auto; }
 .mobile-menu { position: fixed; top: 0; left: 0; bottom: 0; width: min(360px, 88vw); background: var(--cream); z-index: 999; transform: translateX(-100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; overflow-y: auto; }
 .mobile-menu.open { transform: translateX(0); }
-.mm-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); }
+.mm-head { display: flex; align-items: center; justify-content: center; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); position: relative; }
 .mm-head img { height: 26px; width: auto; }
-.mm-close { width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); margin-right: -8px; }
+.mm-close { width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); position: absolute; right: 12px; top: 50%; transform: translateY(-50%); }
 .mm-close svg { width: 20px; height: 20px; }
 .mm-links { display: flex; flex-direction: column; padding: 4px 0; flex: 1; }
-.mm-link { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; font-family: var(--f-display); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-soft); transition: background 0.15s, color 0.15s; }
+.mm-link { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; font-family: var(--f-display); font-size: 18px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-soft); transition: background 0.15s, color 0.15s; }
 .mm-link:hover { color: var(--orange-deep); background: rgba(242,104,47,0.04); }
 .mm-link svg { width: 16px; height: 16px; opacity: 0.4; }
 .mm-foot { padding: 24px; background: var(--sage); color: #fff; }
@@ -264,7 +264,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
   <div class="container">
     <span class="eyebrow">Contact</span>
     <h1>Say hello. <span class="serif-accent">We answer.</span></h1>
-    <p>A small team, run by Kinga from Portugal. Most messages get a real reply within a working day. The bot ones don't, on purpose.</p>
+    <p>A small team, run by Kinga. Most messages get a real reply within a working day. The bot ones don't, on purpose.</p>
   </div>
 </section>
 
@@ -346,7 +346,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
     <div class="faq-list">
       <details class="faq-item">
         <summary>How long does shipping take?</summary>
-        <div class="faq-body">EU orders: 2–4 working days. US orders: 4–7 working days. Free over $100 / €100 / £80. We send a tracking link the moment it leaves the warehouse in Lisbon.</div>
+        <div class="faq-body">US orders ship in 3–5 working days. Free shipping on US orders over $60. We send a tracking link the moment it leaves our US warehouse.</div>
       </details>
       <details class="faq-item">
         <summary>Can I skip or pause my subscription?</summary>
@@ -382,7 +382,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
     <div class="foot-grid">
       <div class="foot-brand">
         <img src="Mujo_logo_orange.png" alt="Mujo">
-        <p class="foot-tagline">Conscious performance nutrition for people who read the label. Built in Portugal. Shipped globally.</p>
+        <p class="foot-tagline">Conscious performance nutrition for people who read the label.</p>
       </div>
       <div>
         <div class="foot-col-title">Shop</div>

@@ -114,12 +114,12 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .menu-overlay.open { opacity: 1; pointer-events: auto; }
 .mobile-menu { position: fixed; top: 0; left: 0; bottom: 0; width: min(360px, 88vw); background: var(--cream); z-index: 999; transform: translateX(-100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; overflow-y: auto; }
 .mobile-menu.open { transform: translateX(0); }
-.mm-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); }
+.mm-head { display: flex; align-items: center; justify-content: center; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); position: relative; }
 .mm-head img { height: 26px; width: auto; }
-.mm-close { width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); margin-right: -8px; }
+.mm-close { width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); position: absolute; right: 12px; top: 50%; transform: translateY(-50%); }
 .mm-close svg { width: 20px; height: 20px; }
 .mm-links { display: flex; flex-direction: column; padding: 4px 0; flex: 1; }
-.mm-link { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; font-family: var(--f-display); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-soft); transition: background 0.15s, color 0.15s; }
+.mm-link { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; font-family: var(--f-display); font-size: 18px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-soft); transition: background 0.15s, color 0.15s; }
 .mm-link:hover { color: var(--orange-deep); background: rgba(242,104,47,0.04); }
 .mm-link svg { width: 16px; height: 16px; opacity: 0.4; }
 .mm-foot { padding: 24px; background: var(--sage); color: #fff; }
@@ -822,7 +822,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
       <div class="pillar">
         <div class="pillar-num">01 / What you get</div>
         <h3>Doses that <em>actually do</em> something.</h3>
-        <p>Every active matches the dose the research used. KSM-66 at 300mg. RhodioLife at the studied amount. Longvida®, not raw turmeric. Read the label. The numbers will check out.</p>
+        <p>Every active matches the dose the research used. KSM-66® at 300mg. Rhodiola Rosea at premium standardization. Bioavailable Curcumin, not raw turmeric. Read the label. The numbers will check out.</p>
       </div>
       <div class="pillar">
         <div class="pillar-num">02 / What you get</div>
@@ -831,7 +831,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
       </div>
       <div class="pillar">
         <div class="pillar-num">03 / What you get</div>
-        <h3>Honest copy. <em>No theatre.</em></h3>
+        <h3>Honest copy. <em>No fluff.</em></h3>
         <p>You won't be sold miracles. You won't be sold fear. You'll be told what the ingredients do, in the doses we use, with citations. Then you decide.</p>
       </div>
     </div>
@@ -849,8 +849,9 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
     </div>
     <div class="story-frame">
       <div class="story-portrait">
-        <span class="story-portrait-illo">👩</span>
-        <div class="story-portrait-tag">Kinga · Founder · Portugal</div>
+        <!-- IMAGE: Kinga · founder portrait · warm natural light · 3:4 portrait -->
+        <div class="story-portrait-illo placeholder-label sand-bg" style="aspect-ratio: 3/4; padding: 48px 24px;">Kinga · founder portrait · warm natural light · 3:4 portrait</div>
+        <div class="story-portrait-tag">Kinga · Founder</div>
       </div>
       <div class="story-prose">
         <p>When my dad was diagnosed with cancer, my mum and my sister threw themselves into herbalism. They learned what plants and fungi could actually do. By the time I had my third child in 2021 and coffee was the only thing holding my mornings together, I'd grown up around their work, and I'd quietly absorbed a lot of it.</p>
@@ -894,7 +895,8 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
           </div>
         </div>
       </div>
-      <div class="lemna-illo">🌿</div>
+      <!-- ICON: Lemna leaf · sage · 96px · botanical-line -->
+      <div class="lemna-illo image-placeholder icon-placeholder sand-bg" data-icon="lemna-leaf">Lemna leaf</div>
     </div>
   </div>
 </section>
@@ -906,26 +908,29 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
   <div class="container">
     <div class="community-head">
       <span class="eyebrow">The community</span>
-      <h2>Not customers. <span class="serif-accent">A club.</span></h2>
+      <h2>One club. Three rooms.</h2>
       <p>Three small worlds within Mujo. Pick the one that sounds like you. Or all three, if you're a glutton for belonging.</p>
     </div>
     <div class="communities">
       <a href="/rebel-club" class="club-card rebel">
-        <div class="club-icon">🦊</div>
+        <!-- ICON: Rebel Club fox · sage · 56px · botanical-line -->
+        <div class="club-icon image-placeholder icon-placeholder sand-bg" data-icon="rebel-club">Rebel Club</div>
         <h3>Rebel Club</h3>
         <p>The label-readers. The morning-anchorers. The people who paid attention to the sleep research and want company.</p>
         <div class="club-link">Join the club →</div>
       </a>
       <a href="/mamis" class="club-card mamis">
-        <div class="club-icon">🌸</div>
+        <!-- ICON: Mamis bloom · sage · 56px · botanical-line -->
+        <div class="club-icon image-placeholder icon-placeholder sand-bg" data-icon="mamis">Mujo Mamis</div>
         <h3>Mujo Mamis</h3>
         <p>For the mothers running on fumes who want a smarter way back to themselves. Recipes, science, real talk, no judgement.</p>
         <div class="club-link">Read the field guide →</div>
       </a>
       <a href="/padel" class="club-card padel">
-        <div class="club-icon">🎾</div>
+        <!-- ICON: Padel paddle · sage · 56px · botanical-line -->
+        <div class="club-icon image-placeholder icon-placeholder sand-bg" data-icon="padel">Padel Club</div>
         <h3>Padel Club</h3>
-        <p>Athletes who recover with adaptogens, not energy drinks. Local meetups in Lisbon, Madrid, and the Algarve.</p>
+        <p>Athletes who recover with adaptogens, not energy drinks. Local meetups for the club, wherever the courts are.</p>
         <div class="club-link">See upcoming sessions →</div>
       </a>
     </div>
@@ -956,7 +961,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
       <li class="std-row">
         <div class="std-num">03</div>
         <div class="std-title">Patented strains where they matter.</div>
-        <div class="std-desc">KSM-66, RhodioLife, Longvida®. The standardised, third-party-verified versions. Cheaper alternatives exist. We don't use them.</div>
+        <div class="std-desc">KSM-66® Ashwagandha. Rhodiola Rosea at premium standardization. Bioavailable Curcumin in its solid-lipid form. The standardised, third-party-verified versions. Cheaper alternatives exist. We don't use them.</div>
       </li>
       <li class="std-row">
         <div class="std-num">04</div>
@@ -983,7 +988,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
 <section class="close-section">
   <div class="container-narrow">
     <span class="eyebrow">A note from Kinga</span>
-    <h2>If you've read this far, <span class="serif-accent">we made this for you.</span></h2>
+    <h2>If you've read this far, we made this for you.</h2>
     <div class="close-prose">
       <p>You're the kind of person who reads labels. Who cares about provenance. Who has learned, often the slow way, that the small daily inputs compound into the big, hard-to-name outcomes: sleep, mood, presence, energy that's actually yours.</p>
       <p>That's who Mujo is for. Welcome. The ritual is one click away.</p>
@@ -1004,7 +1009,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
     <div class="foot-grid">
       <div class="foot-brand">
         <img src="Mujo_logo_orange.png" alt="Mujo">
-        <p class="foot-tagline">Conscious performance nutrition for people who read the label. Built in Portugal. Shipped globally.</p>
+        <p class="foot-tagline">Conscious performance nutrition for people who read the label.</p>
       </div>
       <div>
         <div class="foot-col-title">Shop</div>
@@ -1044,7 +1049,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
 <script>
 const PRICES = { 'ritual-25': 55.25, 'ritual-10': 27, 'bar-pb': 54, 'bar-cashew': 54, 'mug': 24, 'tee': 38, 'tote': 22 };
 const NAMES = { 'ritual-25': 'Mujo Ritual · 25 servings', 'ritual-10': 'Mujo Ritual · 10 servings', 'bar-pb': 'Lemna Bar · PB Crunch', 'bar-cashew': 'Lemna Bar · Cashew Chocolate', 'mug': 'Ritual Mug', 'tee': 'Rebel Club Tee', 'tote': 'Market Tote' };
-const ICONS = { 'ritual-25': '🍵', 'ritual-10': '🍵', 'bar-pb': '🥜', 'bar-cashew': '🍫', 'mug': '☕', 'tee': '👕', 'tote': '🛍️' };
+const ICONS = { 'ritual-25': '', 'ritual-10': '', 'bar-pb': '', 'bar-cashew': '', 'mug': '', 'tee': '', 'tote': '' };
 let cart = {};
 
 function openMenu() { document.getElementById('mobileMenu').classList.add('open'); document.getElementById('overlay').classList.add('open'); document.body.classList.add('locked'); }
@@ -1079,7 +1084,7 @@ function renderCart() {
   const body = document.getElementById('cartBody');
   body.innerHTML = '';
   if (count === 0) {
-    body.innerHTML = '<div class="cart-empty"><div class="cart-empty-illo">🍵</div><h3>Nothing in here yet.</h3><p>Your ritual is one click away. The Mujo Ritual is the place most people start.</p><a href="/shop">Browse the shop →</a></div>';
+    body.innerHTML = '<div class="cart-empty"><h3>Nothing in here yet.</h3><p>Your ritual is one click away. The Mujo Ritual is the place most people start.</p><a href="/shop">Browse the shop →</a></div>';
   } else {
     Object.entries(cart).forEach(([id, qty]) => {
       const row = document.createElement('div');

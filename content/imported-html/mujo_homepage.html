@@ -2626,7 +2626,7 @@ footer {
   "alternateName": "Mujo World",
   "url": "https://mujoworld.com",
   "logo": "https://mujoworld.com/Mujo_logo_orange.png",
-  "description": "Conscious performance nutrition for people who read the label. Founded in Portugal. Shipped globally.",
+  "description": "Conscious performance nutrition for people who read the label.",
   "founder": {
     "@type": "Person",
     "name": "Kinga"
@@ -2682,12 +2682,12 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .menu-overlay.open { opacity: 1; pointer-events: auto; }
 .mobile-menu { position: fixed; top: 0; left: 0; bottom: 0; width: min(360px, 88vw); background: var(--cream); z-index: 999; transform: translateX(-100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; overflow-y: auto; }
 .mobile-menu.open { transform: translateX(0); }
-.mm-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); }
+.mm-head { display: flex; align-items: center; justify-content: center; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); position: relative; }
 .mm-head img { height: 26px; width: auto; }
-.mm-close { width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); margin-right: -8px; }
+.mm-close { width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); position: absolute; right: 12px; top: 50%; transform: translateY(-50%); }
 .mm-close svg { width: 20px; height: 20px; }
 .mm-links { display: flex; flex-direction: column; padding: 4px 0; flex: 1; }
-.mm-link { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; font-family: var(--f-display); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-soft); transition: background 0.15s, color 0.15s; }
+.mm-link { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; font-family: var(--f-display); font-size: 18px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-soft); transition: background 0.15s, color 0.15s; }
 .mm-link:hover { color: var(--orange-deep); background: rgba(242,104,47,0.04); }
 .mm-link svg { width: 16px; height: 16px; opacity: 0.4; }
 .mm-foot { padding: 24px; background: var(--sage); color: #fff; }
@@ -2735,11 +2735,113 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .cart-checkout:hover { background: var(--orange-deep); }
 .cart-secure { text-align: center; font-size: 11px; color: var(--mute); font-family: var(--f-mono); letter-spacing: 0.08em; margin-top: 10px; text-transform: uppercase; }
 body.locked { overflow: hidden; }
+
+/* ═══════════════════════════════════════════
+   HOMEPAGE REBUILD — 2026-04-30 — Option B (7 sections)
+   ═══════════════════════════════════════════ */
+
+/* Hero rebuild */
+.hero { padding: 64px 0 80px; background: var(--cream); }
+@media (min-width: 768px) { .hero { padding: 88px 0 120px; } }
+.hero-grid { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: center; }
+@media (min-width: 1024px) { .hero-grid { grid-template-columns: 1.2fr 1fr; gap: 64px; } }
+.hero-text { max-width: 640px; }
+.hero-eyebrow { color: var(--sage); margin-bottom: 16px; }
+.hero-h1 { font-family: var(--f-display); font-weight: 600; color: var(--ink); font-size: 36px; line-height: 1.05; margin-bottom: 24px; letter-spacing: -0.02em; }
+@media (min-width: 768px) { .hero-h1 { font-size: 56px; } }
+.hero-sub { font-family: var(--f-body); font-size: 18px; line-height: 1.5; color: var(--ink-soft); margin-bottom: 24px; max-width: 540px; }
+@media (min-width: 768px) { .hero-sub { font-size: 20px; } }
+.hero-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+.hero-pill { display: inline-block; background: var(--sand); color: var(--ink); font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; padding: 8px 14px; border-radius: 100px; font-weight: 500; }
+.hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.hero-visual { width: 100%; aspect-ratio: 4/5; max-width: 480px; margin: 0 auto; }
+.hero-visual .placeholder-label { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 24px; text-align: center; }
+
+/* Manifesto pull — full-bleed sage */
+.manifesto-pull { background: var(--sage); color: #fff; padding: 80px 0; text-align: center; }
+@media (min-width: 768px) { .manifesto-pull { padding: 120px 0; } }
+.manifesto-body { font-family: var(--f-body); font-weight: 400; font-size: 20px; line-height: 1.5; color: rgba(255, 255, 255, 0.92); margin-bottom: 16px; max-width: 640px; margin-left: auto; margin-right: auto; }
+@media (min-width: 768px) { .manifesto-body { font-size: 24px; } }
+.serif-accent-light { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+
+/* What We Make — product tiles */
+.what-we-make { padding: 80px 0; background: var(--cream); }
+@media (min-width: 768px) { .what-we-make { padding: 120px 0; } }
+.wwm-head { text-align: center; margin-bottom: 48px; }
+.wwm-head .eyebrow { color: var(--sage); margin-bottom: 12px; }
+.wwm-head h2 { font-family: var(--f-display); font-weight: 600; font-size: 28px; line-height: 1.1; max-width: 720px; margin: 0 auto; }
+@media (min-width: 768px) { .wwm-head h2 { font-size: 40px; } }
+.wwm-tiles { display: grid; grid-template-columns: 1fr; gap: 24px; }
+@media (min-width: 768px) { .wwm-tiles { grid-template-columns: repeat(3, 1fr); gap: 32px; } }
+.product-tile { display: block; text-decoration: none; color: var(--ink); background: var(--sand); padding: 24px; border-radius: 12px; transition: transform 0.3s, box-shadow 0.3s; }
+.product-tile:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
+.tile-image { aspect-ratio: 4/5; background: var(--cream); border-radius: 8px; margin-bottom: 20px; overflow: hidden; }
+.tile-image .placeholder-label { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 16px; text-align: center; }
+.tile-eyebrow { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sage); margin-bottom: 12px; font-weight: 500; }
+.tile-name { font-family: var(--f-display); font-weight: 600; font-size: 24px; line-height: 1.15; color: var(--ink); margin-bottom: 12px; }
+.tile-desc { font-family: var(--f-body); font-size: 15px; line-height: 1.5; color: var(--ink-soft); margin-bottom: 16px; }
+.tile-price { font-family: var(--f-mono); font-size: 13px; letter-spacing: 0.04em; color: var(--ink-soft); margin-bottom: 20px; }
+.tile-cta { font-family: var(--f-display); font-weight: 600; font-size: 14px; color: var(--orange-deep); }
+
+/* Real Customers section */
+.real-customers { padding: 80px 0; background: var(--cream); }
+@media (min-width: 768px) { .real-customers { padding: 120px 0; } }
+.rc-head { text-align: center; margin-bottom: 48px; }
+.rc-head .eyebrow { color: var(--sage); margin-bottom: 12px; }
+.rc-head h2 { font-family: var(--f-display); font-weight: 600; font-size: 28px; line-height: 1.1; }
+@media (min-width: 768px) { .rc-head h2 { font-size: 40px; } }
+.rc-quotes { display: grid; grid-template-columns: 1fr; gap: 32px; max-width: 920px; margin: 0 auto 48px; }
+@media (min-width: 768px) { .rc-quotes { grid-template-columns: repeat(3, 1fr); } }
+.rc-quote { padding: 0; margin: 0; }
+.rc-quote p { font-family: var(--f-body); font-size: 16px; line-height: 1.6; color: var(--ink); margin-bottom: 12px; }
+.rc-quote cite { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.04em; color: var(--ink-soft); font-style: normal; }
+.rc-ugc { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; max-width: 920px; margin: 0 auto; }
+@media (min-width: 768px) { .rc-ugc { grid-template-columns: repeat(4, 1fr); } }
+.rc-ugc .placeholder-label { aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; padding: 16px; text-align: center; font-size: 12px; }
+
+/* Founder one-liner */
+.founder-note { padding: 80px 0; background: var(--sand); }
+@media (min-width: 768px) { .founder-note { padding: 120px 0; } }
+.founder-grid { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: center; max-width: 960px; margin: 0 auto; }
+@media (min-width: 768px) { .founder-grid { grid-template-columns: 1fr 1.4fr; gap: 64px; } }
+.founder-portrait-placeholder { aspect-ratio: 3/4; max-width: 360px; }
+.founder-portrait-placeholder .placeholder-label { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 16px; text-align: center; }
+.founder-text .eyebrow { color: var(--sage); margin-bottom: 16px; display: inline-block; }
+.founder-body { font-family: var(--f-body); font-size: 18px; line-height: 1.55; color: var(--ink); margin-bottom: 16px; max-width: 480px; }
+@media (min-width: 768px) { .founder-body { font-size: 20px; } }
+.founder-signature { font-family: var(--f-serif); font-style: italic; font-size: 22px; color: var(--sage); margin-bottom: 16px; }
+.founder-link { font-family: var(--f-display); font-weight: 500; font-size: 14px; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--sage); padding-bottom: 2px; transition: color 0.2s; display: inline-block; }
+.founder-link:hover { color: var(--orange-deep); }
+
+/* Rebel Club section — full-bleed sage entry point */
+.rebel { padding: 80px 0; background: var(--sage); color: #fff; }
+@media (min-width: 768px) { .rebel { padding: 120px 0; } }
+.rebel-grid { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: center; }
+@media (min-width: 1024px) { .rebel-grid { grid-template-columns: 1.2fr 1fr; gap: 64px; } }
+.rebel-text .eyebrow.light { color: rgba(255,255,255,0.7); margin-bottom: 16px; display: block; }
+.rebel h2 { font-family: var(--f-display); font-weight: 600; font-size: 32px; line-height: 1.1; color: #fff; margin-bottom: 16px; }
+@media (min-width: 768px) { .rebel h2 { font-size: 44px; } }
+.rebel .serif-accent.light { color: var(--orange); font-family: var(--f-serif); font-style: italic; }
+.rebel-sub { font-family: var(--f-body); font-size: 16px; line-height: 1.55; color: rgba(255,255,255,0.78); margin-bottom: 24px; max-width: 520px; }
+@media (min-width: 768px) { .rebel-sub { font-size: 18px; } }
+.rebel-form { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; max-width: 520px; }
+.rebel-input { flex: 1; min-width: 200px; padding: 14px 18px; border-radius: 100px; border: none; font-family: var(--f-body); font-size: 15px; background: rgba(255,255,255,0.95); color: var(--ink); }
+.rebel-fineprint { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.04em; color: rgba(255,255,255,0.6); }
+.rebel-visual { width: 100%; aspect-ratio: 4/5; max-width: 440px; margin: 0 auto; }
+.rebel-visual .placeholder-label { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 24px; text-align: center; }
+
+/* placeholder-label class — match /lemna's pattern */
+.placeholder-label { background: var(--sand-deep, #D4C4A8); color: var(--ink-soft, #4A4845); font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.04em; padding: 16px; border-radius: 8px; text-align: center; line-height: 1.4; }
+.placeholder-label.sand-bg { background: var(--sand); }
+
+/* btn-ghost variant for hero secondary CTA */
+.btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--ink); padding: 14px 24px; border-radius: 100px; text-decoration: none; font-family: var(--f-display); font-weight: 500; font-size: 15px; transition: all 0.2s; display: inline-flex; align-items: center; }
+.btn-ghost:hover { background: var(--ink); color: var(--cream); }
 </style>
 </head>
 <body>
 <div class="announce">
-  Free shipping over <strong>$100</strong>
+  Free shipping over <strong>$60</strong>
   <span class="sep announce-secondary">·</span>
   <span class="announce-secondary">Use <strong>WELCOME10</strong> for 10% off your first order</span>
 </div>
@@ -2787,7 +2889,7 @@ body.locked { overflow: hidden; }
     <button class="cart-close" aria-label="Close cart" onclick="closeCart()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>
   </div>
   <div class="cart-progress">
-    <div class="cart-progress-msg" id="progressMsg">Free shipping at <strong>$100</strong>.</div>
+    <div class="cart-progress-msg" id="progressMsg">Free shipping at <strong>$60</strong>.</div>
     <div class="cart-progress-track"><div class="cart-progress-fill" id="progressFill" style="width: 0%;"></div></div>
   </div>
   <div class="cart-body" id="cartBody"></div>
@@ -2804,868 +2906,182 @@ body.locked { overflow: hidden; }
 
 <!-- ANNOUNCE -->
 <!-- NAV -->
-<!-- ═══ HERO, Reader as hero. Outcome-led. ═══ -->
+<!-- ═══════════════════════════════════════════
+     HOMEPAGE — Brand entry / routing / identity
+     7 sections per Option B (rebuild 2026-04-30)
+     ═══════════════════════════════════════════ -->
+
+<!-- ═══ SECTION 1: HERO ═══ -->
 <section class="hero">
-  <div class="hero-grid">
-    <div>
-      <div class="hero-eyebrow eyebrow reveal">Neurowellness · Conscious Performance</div>
-      <h1 class="reveal d1">
-        Foundational support for<br>
-        <span class="serif-accent">energy and focus.</span>
-        <span class="line-small">A clinically dosed mushroom cacao for people whose nervous system has been running hot. Tastes so good you won't want to skip it. Caffeine-free, by design.</span>
-      </h1>
-      <div class="hero-rating reveal d2">
-        <div class="hero-stars">★★★★★</div>
-        <div class="hero-rating-text"><strong>4.9/5</strong> · from 340+ verified reviews</div>
-      </div>
-      <div class="cta-stack reveal d3">
-        <a href="#ritual" class="btn btn-primary">
-          Start Your Ritual
-          <span class="btn-arrow">→</span>
-        </a>
-        <a href="#problem" class="btn btn-ghost">See Why It Works</a>
-      </div>
-      <div class="hero-trust reveal d4">
-        <div class="trust-item"><span class="trust-dot"></span>Zero caffeine</div>
-        <div class="trust-item"><span class="trust-dot"></span>Fruiting body only</div>
-        <div class="trust-item"><span class="trust-dot"></span>Clinically dosed</div>
-        <div class="trust-item"><span class="trust-dot"></span>Ships in 48hrs</div>
-      </div>
-      <div class="hero-audience reveal d4">Built for the conscious performer, parents, athletes, founders, label-readers.</div>
-      <div class="hero-citation reveal d4">
-        <span class="citation-mark">“</span>Named the <strong>#1 wellness trend of 2026</strong> by the Global Wellness Summit, and the category Mujo was built for 18 months before it was named.
-      </div>
-    </div>
-    <div class="hero-visual reveal d2">
-      <div class="hero-product-card">
-        <div class="ph-label">Image Placeholder</div>
-        <div class="ph-icon">🍄</div>
-        <div class="ph-text">Hero product shot</div>
-        <div class="ph-sub">Mujo Ritual pouch + prepared mug of cacao, morning light, cream surface. 3:4 portrait.</div>
-      </div>
-      <div class="hero-fact tl">
-        <div class="hero-fact-num">9,600mg</div>
-        <div class="hero-fact-lbl">Functional mushrooms<br>equivalent dose</div>
-      </div>
-      <div class="hero-fact br">
-        <div class="hero-fact-num">3,000mg</div>
-        <div class="hero-fact-lbl">Adaptogens<br>equivalent dose</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════
-     TRANSFORMATION SECTION
-     Layer 1: Visceral before → after moments
-     Layer 2: The science behind each transformation
-     ═══════════════════════════════════════════ -->
-<section class="transform">
   <div class="container">
-    <div class="transform-header">
-      <div class="eyebrow center reveal">The shift</div>
-      <h2 class="reveal d1">Rebel against the <span class="serif-accent">coffee crash.</span> Energy from 6am to 10pm.</h2>
-      <p class="transform-sub reveal d2">Coffee gets you started, often at the cost of how the rest of the day lands. The neurowellness approach works underneath that. Mujo's mushroom cacao supports the nervous system and the cellular energy systems coffee overrides instead of masking them. <strong>Here's what most people notice, in the order they notice it.</strong></p>
-    </div>
-
-    <!-- Transformation moments: before → after -->
-    <div class="transform-grid">
-      <div class="transform-card reveal">
-        <div class="tc-time">6 AM <span class="tc-dot"></span></div>
-        <div class="tc-before">
-          <div class="tc-label">Before</div>
-          <div class="tc-before-text">Coffee on empty. Jittery by 9. Already wired.</div>
+    <div class="hero-grid">
+      <div class="hero-text">
+        <div class="hero-eyebrow eyebrow reveal">Modern performance without the crash</div>
+        <h1 class="hero-h1 reveal d1">A ritual for the nervous system that's been running hot.</h1>
+        <p class="hero-sub reveal d2">Tastes so good you won't want to skip it.<br>Caffeine-free. Dosed to the research.</p>
+        <div class="hero-pills reveal d3">
+          <span class="hero-pill">Neurowellness</span>
+          <span class="hero-pill">Focus</span>
+          <span class="hero-pill">Energy</span>
         </div>
-        <div class="tc-arrow">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <div class="tc-after">
-          <div class="tc-label after">After 21 days on Mujo</div>
-          <div class="tc-after-text"><strong>Warm, grounding cacao.</strong> Your nervous system starts the day from calm, not from cortisol.</div>
+        <div class="hero-ctas reveal d4">
+          <a href="/products/mujo-ritual" class="btn btn-primary">Shop Ritual Cacao →</a>
+          <a href="/lemna" class="btn btn-ghost">See the Protein Bar</a>
         </div>
       </div>
-
-      <div class="transform-card reveal d1">
-        <div class="tc-time">10 AM <span class="tc-dot"></span></div>
-        <div class="tc-before">
-          <div class="tc-label">Before</div>
-          <div class="tc-before-text">Brain fog. Words on the tip of your tongue. Rereading the same paragraph.</div>
-        </div>
-        <div class="tc-arrow">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <div class="tc-after">
-          <div class="tc-label after">After 21 days on Mujo</div>
-          <div class="tc-after-text"><strong>Clear, connected thinking.</strong> Recall feels quicker. Writing feels easier. The lights are on upstairs.</div>
-        </div>
-      </div>
-
-      <div class="transform-card reveal d2">
-        <div class="tc-time">3 PM <span class="tc-dot"></span></div>
-        <div class="tc-before">
-          <div class="tc-label">Before</div>
-          <div class="tc-before-text">The wall. Reaching for the second coffee. Snapping at your inbox.</div>
-        </div>
-        <div class="tc-arrow">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <div class="tc-after">
-          <div class="tc-label after">After 21 days on Mujo</div>
-          <div class="tc-after-text"><strong>Still sharp in the 4pm meeting.</strong> The one where you used to fade, where you're now the clearest person in the room.*</div>
-        </div>
-      </div>
-
-      <div class="transform-card reveal d3">
-        <div class="tc-time">9 PM <span class="tc-dot"></span></div>
-        <div class="tc-before">
-          <div class="tc-label">Before</div>
-          <div class="tc-before-text">Tired but wired. Brain still racing. Can't land the plane.</div>
-        </div>
-        <div class="tc-arrow">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <div class="tc-after">
-          <div class="tc-label after">After 21 days on Mujo</div>
-          <div class="tc-after-text"><strong>An evening that actually ends.</strong> The nervous system downshifts. Sleep feels like it means something again.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- The compounding insight -->
-    <div class="compound-note reveal">
-      <div class="compound-icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="var(--orange)" stroke-width="1.5"/><path d="M8 12h8M12 8v8" stroke="var(--orange)" stroke-width="1.5" stroke-linecap="round"/></svg>
-      </div>
-      <div class="compound-text">
-        <strong>The shift compounds.</strong> Better cortisol regulation means your mitochondria produce cleaner ATP, which your neurons use more efficiently, which reduces the stress response feedback loop. <strong>These systems don't work in isolation, and neither does Mujo.</strong>
+      <div class="hero-visual reveal d2">
+        <div class="placeholder-label sand-bg">Hero product shot · Mujo Ritual cacao with morning ritual scene · warm natural light · 4:5 portrait</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Press marquee -->
-<div class="press">
-  <div class="press-label">As Featured In</div>
-  <div class="press-track">
-    <div class="press-logo">Well+Good</div>
-    <div class="press-logo">Bustle</div>
-    <div class="press-logo">Scary Mommy</div>
-    <div class="press-logo">Women's Health</div>
-    <div class="press-logo">Mindbodygreen</div>
-    <div class="press-logo">Forbes</div>
-    <div class="press-logo">The Cut</div>
-    <div class="press-logo">Well+Good</div>
-    <div class="press-logo">Bustle</div>
-    <div class="press-logo">Scary Mommy</div>
-    <div class="press-logo">Women's Health</div>
-    <div class="press-logo">Mindbodygreen</div>
-    <div class="press-logo">Forbes</div>
-    <div class="press-logo">The Cut</div>
-  </div>
-</div>
-
-
-<!-- ═══ RITUAL, The product moment (moved up: after Shift+Press, before Benefits) ═══ -->
-<section class="ritual" id="ritual">
-  <div class="ritual-grid">
-    <div class="ritual-visual reveal">
-      <div class="ph-label">Image Placeholder</div>
-      <div class="ph-icon">☕</div>
-      <div class="ph-text">The ritual moment</div>
-      <div class="ph-sub">Hands pouring from pouch into warm mug. Morning light, side-lit. 1:1 square.</div>
-    </div>
-    <div class="ritual-content">
-      <div class="eyebrow reveal">Meet Mujo Ritual</div>
-      <h2 class="reveal d1">The cacao that <span class="serif-accent">does the work.</span></h2>
-      <p class="ritual-body reveal d2">Mujo Ritual is a clinically dosed mushroom cacao with adaptogens and nootropics, caffeine-free, formulated to work on the systems coffee masks. Your nervous system. Your mitochondria. Your cortisol rhythm. Warm, rich, actually delicious.</p>
-      <p class="ritual-body reveal d2">Every clinical ingredient disclosed at its research-backed dose. Everything else grouped into category totals. <strong>The morning that lifts you up, in one cup.</strong></p>
-      <div class="ritual-proof-row reveal d3">
-        <div>
-          <div class="ritual-proof-num">1,200<span style="font-size:60%">mg</span></div>
-          <div class="ritual-proof-lbl">Functional mushrooms<br>(9,600mg raw equivalent · 8:1)</div>
-        </div>
-        <div>
-          <div class="ritual-proof-num">3,000<span style="font-size:60%">mg</span></div>
-          <div class="ritual-proof-lbl">Clinical adaptogens<br>(KSM-66® + Rhodiola Rosea)</div>
-        </div>
-        <div>
-          <div class="ritual-proof-num">3,400<span style="font-size:60%">mg</span></div>
-          <div class="ritual-proof-lbl">Natural nootropics<br>(Bioavailable Curcuma + Bacopa + more)</div>
-        </div>
-      </div>
-      <div class="cta-stack reveal d4">
-        <a href="#" class="btn btn-primary">
-          Shop The Ritual
-          <span class="btn-arrow">→</span>
-        </a>
-        <a href="#ingredients" class="btn btn-ghost">See Ingredients</a>
-      </div>
-    </div>
+<!-- ═══ SECTION 2: MANIFESTO PULL ═══ -->
+<section class="manifesto-pull">
+  <div class="container-narrow">
+    <p class="manifesto-body reveal">If you've ever been overwhelmed by the wellness aisle, and let down by the effects, the ingredients, the flavors, this is for you.</p>
+    <p class="manifesto-body reveal d1">We make fewer things, with better ingredients. <span class="serif-accent-light">The 20% that does 80% of the work.</span></p>
   </div>
 </section>
 
-
-<!-- ═══ BOTANICAL BENEFITS, Six benefits, illustrated botanically ═══ -->
-<section class="benefits">
+<!-- ═══ SECTION 3: WHAT WE MAKE ═══ -->
+<section class="what-we-make">
   <div class="container">
-    <div class="benefits-header">
-      <div class="eyebrow center reveal">What you'll feel</div>
-      <h2 class="reveal d1">Six shifts. <span class="serif-accent">Consistency is key.</span></h2>
-      <p class="benefits-sub reveal d2">Each shift traces back to a specific ingredient in the formula.</p>
+    <div class="wwm-head">
+      <div class="eyebrow reveal">What we make</div>
+      <h2 class="reveal d1">Two rituals. One club. Made to be earned.</h2>
     </div>
+    <div class="wwm-tiles">
 
-    <div class="benefits-grid">
-
-      <!-- 1. Calm focus / Lion's Mane -->
-      <div class="benefit reveal">
-        <div class="benefit-icon" aria-hidden="true">
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Lion's Mane mushroom cap with cascading tendrils -->
-            <path d="M14 20 Q16 13 24 13 Q32 13 34 20 L34 24 Q32 22 29 24 Q27 22 24 24 Q21 22 19 24 Q16 22 14 24 Z" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
-            <path d="M16 24 Q16 30 14 34" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M19 24 Q19 30 17 35" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M22 24 Q22 31 20 36" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M24 24 Q24 32 23 37" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M26 24 Q26 31 28 36" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M29 24 Q29 30 31 35" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M32 24 Q32 30 34 34" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-          </svg>
+      <a href="/products/mujo-ritual" class="product-tile reveal">
+        <div class="tile-image">
+          <div class="placeholder-label sand-bg">Mujo Ritual cacao · product shot · 4:5 portrait</div>
         </div>
-        <div class="benefit-h">Calm focus</div>
-        <div class="benefit-b">Lion's Mane is studied for Nerve Growth Factor activation. Bioavailable Curcuma crosses the blood-brain barrier. Clarity that builds steadily, no jitter.</div>
-        <div class="benefit-ing">Lion's Mane fruiting body · 8:1</div>
-      </div>
-
-      <!-- 2. Sustained energy / Cordyceps -->
-      <div class="benefit reveal d1">
-        <div class="benefit-icon" aria-hidden="true">
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Cordyceps militaris, slender fruiting body cluster -->
-            <path d="M20 38 Q19 28 21 20 Q22 16 24 14" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-            <path d="M24 38 Q24 26 25 18 Q26 14 27 12" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-            <path d="M28 38 Q29 28 29 22 Q29 18 30 16" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-            <!-- Tips (club-shaped) -->
-            <ellipse cx="24" cy="13.5" rx="1.3" ry="2.5" fill="#2F3D33"/>
-            <ellipse cx="27" cy="11.5" rx="1.3" ry="2.8" fill="#2F3D33"/>
-            <ellipse cx="30" cy="15" rx="1.2" ry="2.2" fill="#2F3D33"/>
-            <ellipse cx="21" cy="19" rx="1.1" ry="2" fill="#2F3D33"/>
-            <!-- Ground line -->
-            <path d="M14 38 L34 38" stroke="#2F3D33" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
-          </svg>
-        </div>
-        <div class="benefit-h">Sustained energy</div>
-        <div class="benefit-b">Cordyceps militaris supports mitochondrial ATP production. Energy that holds, from a real source.</div>
-        <div class="benefit-ing">Cordyceps militaris · fruiting body</div>
-      </div>
-
-      <!-- 3. Lower cortisol / Ashwagandha -->
-      <div class="benefit reveal d2">
-        <div class="benefit-icon" aria-hidden="true">
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Ashwagandha, stem with leaves and root -->
-            <path d="M24 11 L24 26" stroke="#2F3D33" stroke-width="1.2" stroke-linecap="round"/>
-            <!-- Leaf pair 1 -->
-            <path d="M24 15 Q20 13 17 16 Q19 19 24 17" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linejoin="round"/>
-            <path d="M24 15 Q28 13 31 16 Q29 19 24 17" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linejoin="round"/>
-            <!-- Leaf pair 2 -->
-            <path d="M24 20 Q21 19 19 22 Q21 24 24 22" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linejoin="round"/>
-            <path d="M24 20 Q27 19 29 22 Q27 24 24 22" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linejoin="round"/>
-            <!-- Root bulb -->
-            <path d="M24 26 Q19 28 18 32 Q20 37 24 38 Q28 37 30 32 Q29 28 24 26 Z" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
-            <!-- Root fibers -->
-            <path d="M22 36 L21 40 M24 38 L24 41 M26 36 L27 40" stroke="#2F3D33" stroke-width="1" stroke-linecap="round" opacity="0.55"/>
-          </svg>
-        </div>
-        <div class="benefit-h">Steadier stress response</div>
-        <div class="benefit-b">KSM-66® and Rhodiola Rosea at the doses used in published cortisol-response trials. The whole nervous system unwinds a notch.</div>
-        <div class="benefit-ing">KSM-66® Ashwagandha · 300mg</div>
-      </div>
-
-      <!-- 4. Deeper sleep / Rhodiola flower -->
-      <div class="benefit reveal">
-        <div class="benefit-icon" aria-hidden="true">
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Rhodiola, succulent flower with fleshy leaves -->
-            <!-- Central flower cluster -->
-            <circle cx="24" cy="15" r="1.6" fill="#2F3D33"/>
-            <circle cx="20" cy="16" r="1.2" fill="#2F3D33"/>
-            <circle cx="28" cy="16" r="1.2" fill="#2F3D33"/>
-            <circle cx="22" cy="19" r="1.1" fill="#2F3D33"/>
-            <circle cx="26" cy="19" r="1.1" fill="#2F3D33"/>
-            <circle cx="18" cy="18" r="0.9" fill="#2F3D33"/>
-            <circle cx="30" cy="18" r="0.9" fill="#2F3D33"/>
-            <!-- Stem -->
-            <path d="M24 22 L24 37" stroke="#2F3D33" stroke-width="1.2" stroke-linecap="round"/>
-            <!-- Fleshy leaves (alternating) -->
-            <path d="M24 26 Q19 25 17 28 Q20 30 24 28" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linejoin="round"/>
-            <path d="M24 30 Q29 29 31 32 Q28 34 24 32" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linejoin="round"/>
-            <path d="M24 34 Q20 33 18 36" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <div class="benefit-h">Restorative rest</div>
-        <div class="benefit-b">Rhodiola Rosea at premium 5% / 1.5% standardization, supporting the recovery that precedes good sleep.</div>
-        <div class="benefit-ing">Rhodiola Rosea Rhodiola · Altai wild</div>
-      </div>
-
-      <!-- 5. Daily defense / Chaga -->
-      <div class="benefit reveal d1">
-        <div class="benefit-icon" aria-hidden="true">
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Chaga on birch bark, conk fungus with irregular edges -->
-            <!-- Birch branch -->
-            <path d="M12 22 L36 22" stroke="#2F3D33" stroke-width="1.3" stroke-linecap="round"/>
-            <!-- Birch lines on branch -->
-            <path d="M16 20 L16 24 M22 20 L22 24 M30 20 L30 24" stroke="#2F3D33" stroke-width="0.8" opacity="0.5" stroke-linecap="round"/>
-            <!-- Chaga growth (irregular, gnarled) -->
-            <path d="M18 22 Q16 24 15 27 Q14 30 16 32 Q19 33 22 32 Q25 34 28 33 Q31 32 32 29 Q33 25 31 23 Q28 22 26 23 Q23 22 18 22 Z" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
-            <!-- Texture lines inside chaga -->
-            <path d="M19 26 Q21 28 24 27" stroke="#2F3D33" stroke-width="0.9" fill="none" opacity="0.55" stroke-linecap="round"/>
-            <path d="M22 30 Q25 31 28 29" stroke="#2F3D33" stroke-width="0.9" fill="none" opacity="0.55" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <div class="benefit-h">Daily resilience</div>
-        <div class="benefit-b">Wild-harvested chaga, rich in beta-glucans and antioxidant compounds. The steady supporting layer behind the formula.</div>
-        <div class="benefit-ing">Chaga · wild-harvested</div>
-      </div>
-
-      <!-- 6. Steady mood / Cacao -->
-      <div class="benefit reveal d2">
-        <div class="benefit-icon" aria-hidden="true">
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Cacao pod with stem and ridges -->
-            <!-- Stem -->
-            <path d="M24 8 L24 12" stroke="#2F3D33" stroke-width="1.2" stroke-linecap="round"/>
-            <!-- Pod outline (oval with pointed ends) -->
-            <path d="M24 12 Q17 13 14 20 Q12 28 15 36 Q19 40 24 40 Q29 40 33 36 Q36 28 34 20 Q31 13 24 12 Z" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
-            <!-- Ridges running lengthwise -->
-            <path d="M18 14 Q17 26 18 38" stroke="#2F3D33" stroke-width="0.9" fill="none" opacity="0.55"/>
-            <path d="M24 12 L24 40" stroke="#2F3D33" stroke-width="0.9" fill="none" opacity="0.55"/>
-            <path d="M30 14 Q31 26 30 38" stroke="#2F3D33" stroke-width="0.9" fill="none" opacity="0.55"/>
-            <!-- Leaf detail at stem -->
-            <path d="M24 10 Q21 8 19 9 Q21 11 24 11" stroke="#2F3D33" stroke-width="1" fill="none" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div class="benefit-h">Steady mood</div>
-        <div class="benefit-b">Peruvian ceremonial cacao brings theobromine and PEA. The gentle warm lift that makes the whole ritual something you actually want.</div>
-        <div class="benefit-ing">Ceremonial cacao · single-origin Peru</div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-<!-- ═══ PROBLEM, Visual diagram + foundation story ═══ -->
-<section class="problem" id="problem">
-  <div class="container">
-    <div class="problem-header">
-      <div class="eyebrow light center reveal">The foundation</div>
-      <h2 class="reveal d1">Watch everything else work better <span class="serif-accent">once the foundation is supported.</span></h2>
-      <p class="problem-body reveal d2">You've done the sleep tracking, the zone 2, the protein. The inputs are good. The thing they're feeding into is what changes how it all lands. <strong>When your nervous system is supported, every other input compounds.</strong></p>
-    </div>
-
-    <!-- The visual diagram -->
-    <div class="diagram reveal d2">
-      <div class="diagram-title">
-        <div class="diagram-title-text">Your energy on caffeine vs. a supported nervous system</div>
-        <div class="diagram-legend">
-          <div class="legend-item">
-            <div class="legend-swatch caffeine"></div>
-            <div class="legend-label">Caffeine morning</div>
-          </div>
-          <div class="legend-item">
-            <div class="legend-swatch mujo"></div>
-            <div class="legend-label">Mujo morning</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="chart-wrap">
-        <!-- SVG curves: caffeine spike-crash vs mujo sustained -->
-        <svg class="chart-svg" viewBox="0 0 800 280" preserveAspectRatio="none">
-          <!-- Grid lines -->
-          <line x1="0" y1="140" x2="800" y2="140" stroke="rgba(47,61,51,0.1)" stroke-width="1" stroke-dasharray="4 4"/>
-          <line x1="0" y1="70" x2="800" y2="70" stroke="rgba(47,61,51,0.07)" stroke-width="1" stroke-dasharray="4 4"/>
-          <line x1="0" y1="210" x2="800" y2="210" stroke="rgba(47,61,51,0.07)" stroke-width="1" stroke-dasharray="4 4"/>
-
-          <!-- Caffeine curve: rise -> peak -> crash -> second dip -->
-          <path
-            d="M 0,200 C 60,200 100,100 160,50 C 220,0 260,30 320,100 C 380,170 420,220 480,240 C 540,255 580,250 640,245 C 700,240 750,238 800,238"
-            fill="none"
-            stroke="#D85A22"
-            stroke-width="3"
-            stroke-linecap="round"
-            stroke-dasharray="1000"
-            stroke-dashoffset="1000"
-            style="animation: drawLine 2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;"
-          />
-
-          <!-- Mujo curve: gentle rise, sustained plateau -->
-          <path
-            d="M 0,205 C 80,195 140,155 220,130 C 300,108 380,100 460,102 C 540,104 620,112 700,125 C 740,132 770,140 800,148"
-            fill="none"
-            stroke="#2F3D33"
-            stroke-width="3"
-            stroke-linecap="round"
-            stroke-dasharray="1000"
-            stroke-dashoffset="1000"
-            style="animation: drawLine 2s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;"
-          />
-
-          <!-- Crash marker dot -->
-          <circle cx="480" cy="240" r="6" fill="#D85A22" opacity="0.9" />
-          <circle cx="480" cy="240" r="12" fill="none" stroke="#D85A22" stroke-width="1" opacity="0.3" />
-        </svg>
-
-        <div class="chart-annotation crash">The 3pm crash</div>
-        <div class="chart-annotation steady">Sustained by dinner</div>
-      </div>
-
-      <div class="chart-time">
-        <span>6 AM</span>
-        <span>9 AM</span>
-        <span>12 PM</span>
-        <span>3 PM</span>
-        <span>6 PM</span>
-        <span>9 PM</span>
-      </div>
-
-      <div class="diagram-takeaway">
-        <div class="takeaway-text">Caffeine works by blocking the brain's rest signals. When it metabolizes, those signals flood back. <strong>That's the dip people feel mid-afternoon.</strong> Neurowellness works the opposite way: support the underlying system instead of overriding it, and the energy comes from a steady foundation rather than a stimulant spike.</div>
-        <a href="/science" class="takeaway-link">Read the full science →</a>
-      </div>
-    </div>
-
-    <!-- Supporting stats row -->
-    <div class="problem-stats">
-      <div class="reveal">
-        <div class="pstat-num">83%</div>
-        <div class="pstat-lbl">of US workers experience work-related chronic stress. The majority report it disrupts sleep.</div>
-        <div class="pstat-src">American Institute of Stress · 2024</div>
-      </div>
-      <div class="reveal d1">
-        <div class="pstat-num">76%</div>
-        <div class="pstat-lbl">of employees say stress affects their sleep, which directly impacts recovery, focus, and mood.</div>
-        <div class="pstat-src">APA Work in America · 2024</div>
-      </div>
-      <div class="reveal d2">
-        <div class="pstat-num">81%</div>
-        <div class="pstat-lbl">of US workers experience the afternoon slump, averaging 3.2 days every work week, between 1:30 and 3:30pm.</div>
-        <div class="pstat-src">Paychex Workplace Productivity Survey</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ INGREDIENTS, with image space + Rhodiola Rosea added ═══ -->
-<section class="ingredients" id="ingredients">
-  <div class="container">
-    <div class="ing-header">
-      <div class="eyebrow reveal">The formula</div>
-      <h2 class="reveal d1">What's inside matters.</h2>
-      <p class="body-lg reveal d2">Every active in our mushroom cacao is matched to the dose used in published research. Full fruiting body extracts. No proprietary blends.</p>
-    </div>
-    <div class="ing-grid">
-      <div class="ing-card reveal">
-        <div class="ing-image">
-          <!--
-            IMAGE PLACEHOLDER · Lion's Mane
-            1:1 square macro, cream or sand background, natural light
-          -->
-          <span class="ing-image-emoji">🦁</span>
-        </div>
-        <div class="ing-content">
-          <div class="ing-name">Lion's Mane</div>
-          <div class="ing-latin">Hericium erinaceus</div>
-          <div class="ing-body">Studied for cognitive function and Nerve Growth Factor activation. Full fruiting body extract.</div>
-          <div class="ing-dose">Fruiting body · 8:1</div>
-        </div>
-      </div>
-      <div class="ing-card reveal d1">
-        <div class="ing-image">
-          <!-- IMAGE PLACEHOLDER · KSM-66 Ashwagandha root -->
-          <span class="ing-image-emoji">🌿</span>
-        </div>
-        <div class="ing-content">
-          <div class="ing-name">KSM-66 Ashwagandha</div>
-          <div class="ing-latin">Withania somnifera</div>
-          <div class="ing-body">The full-spectrum root extract used across the published clinical literature on stress and cortisol response.</div>
-          <div class="ing-dose">300mg · Clinical dose</div>
-        </div>
-      </div>
-      <div class="ing-card reveal d2">
-        <div class="ing-image">
-          <!-- IMAGE PLACEHOLDER · Rhodiola Rosea macro -->
-          <span class="ing-image-emoji">🌸</span>
-        </div>
-        <div class="ing-content">
-          <div class="ing-name">Rhodiola Rosea Rhodiola</div>
-          <div class="ing-latin">Rhodiola rosea · Altai Mountain</div>
-          <div class="ing-body">Wild-crafted Altai rhodiola standardized to <strong>5% rosavins / 1.5% salidrosides,</strong> the highest standardization available.</div>
-          <div class="ing-dose">Premium grade</div>
-        </div>
-      </div>
-      <div class="ing-card reveal d3">
-        <div class="ing-image">
-          <!-- IMAGE PLACEHOLDER · Cordyceps fruiting body -->
-          <span class="ing-image-emoji">⚡</span>
-        </div>
-        <div class="ing-content">
-          <div class="ing-name">Cordyceps</div>
-          <div class="ing-latin">Cordyceps militaris</div>
-          <div class="ing-body">Militaris fruiting body, not fermented mycelium. Studied for cellular ATP production and endurance.</div>
-          <div class="ing-dose">Militaris FB · 8:1</div>
-        </div>
-      </div>
-      <div class="ing-card reveal d4">
-        <div class="ing-image">
-          <!-- IMAGE PLACEHOLDER · Chaga conk on birch -->
-          <span class="ing-image-emoji">🪵</span>
-        </div>
-        <div class="ing-content">
-          <div class="ing-name">Chaga</div>
-          <div class="ing-latin">Inonotus obliquus · Wild-harvested</div>
-          <div class="ing-body">Wild-harvested from Northern birch forests. Studied for antioxidant content and immune-system modulation.</div>
-          <div class="ing-dose">Sclerotium · 8:1</div>
-        </div>
-      </div>
-    </div>
-    <div class="ing-footer reveal">
-      <div class="ing-footer-text"><strong>+ 3 more:</strong> Organic Peruvian cacao (theobromine, PQQ, magnesium, the reason it tastes great), FiberSmart™ tapioca fiber for gut support, and Bioavailable Curcumin, a patented form clinically studied for bioavailability and blood-brain barrier crossing. Full dossier and citations on the product page.</div>
-      <a href="#" class="btn btn-ghost">See Full Dossier <span class="btn-arrow">→</span></a>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ REVIEWS ═══ -->
-<section class="reviews" id="reviews">
-  <div class="container">
-    <div class="reviews-header">
-      <div>
-        <div class="eyebrow reveal">Real reviews</div>
-        <h2 class="reveal d1">From conscious performers who also <span class="serif-accent">read the label.</span></h2>
-      </div>
-      <p class="body-lg reveal d2">Verified purchasers. No incentivised posts. No before/after promises we can't keep.</p>
-    </div>
-    <div class="reviews-grid">
-      <div class="review-card reveal">
-        <div class="review-photo bg-cocoa">
-          <span class="review-photo-tag"><span class="dot"></span>Verified · 4 months on</span>
-          🏃
-        </div>
-        <div class="review-body">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-headline">"The first one that <em>tells you what's in it.</em>"</div>
-          <p class="review-quote">I've tried Four Sigmatic, MUD/WTR, RYZE. <strong>Mujo is the first that tells you what you're getting and at what concentration.</strong> Week two, my HRV started trending up on Oura. By week six it was the steadiest it's been in two years.</p>
-          <div class="review-attr">Verified purchase · Trustpilot</div>
-          <div class="review-author">
-            <div class="review-avatar">M</div>
-            <div>
-              <div class="review-name">Marcus T.</div>
-              <div class="review-role">Ironman triathlete · Oura user</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="review-card reveal d1">
-        <div class="review-photo bg-cream">
-          <span class="review-photo-tag"><span class="dot"></span>Verified · 6 months on</span>
-          🥼
-        </div>
-        <div class="review-body">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-headline">"The dose <em>matches the protocol.</em>"</div>
-          <p class="review-quote">As a functional medicine practitioner I was skeptical. I've seen most of these brands cut corners on dose. <strong>The KSM-66 here matches the clinical protocol I prescribe.</strong> Most brands use a fraction of that. I respect the rigour. I've started recommending it.</p>
-          <div class="review-attr">Verified purchase · Google</div>
-          <div class="review-author">
-            <div class="review-avatar">S</div>
-            <div>
-              <div class="review-name">Dr. Sarah K.</div>
-              <div class="review-role">Functional medicine · Padel</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="review-card reveal d2">
-        <div class="review-photo bg-sage">
-          <span class="review-photo-tag"><span class="dot"></span>Verified · 5 months on</span>
-          💼
-        </div>
-        <div class="review-body">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-headline">"Readiness scores <em>improved in three weeks.</em>"</div>
-          <p class="review-quote">Founder, train six mornings a week, track everything on WHOOP. <strong>Readiness scores improved in three weeks.</strong> The anxious baseline I'd been carrying for two years dropped enough that my partner noticed before I did. Best change I've made.</p>
-          <div class="review-attr">Verified purchase · Shopify</div>
-          <div class="review-author">
-            <div class="review-avatar">D</div>
-            <div>
-              <div class="review-name">David R.</div>
-              <div class="review-role">Startup founder · WHOOP</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="reviews-stats reveal">
-      <div class="rs-cell">
-        <div class="rs-num">4.9★</div>
-        <div class="rs-lbl">Average rating</div>
-        <div class="rs-sub">340+ reviews</div>
-      </div>
-      <div class="rs-cell">
-        <div class="rs-num">89%</div>
-        <div class="rs-lbl">Report reduced afternoon crash</div>
-        <div class="rs-sub">Customer survey · n=214</div>
-      </div>
-      <div class="rs-cell">
-        <div class="rs-num">76%</div>
-        <div class="rs-lbl">Notice difference within 14 days</div>
-        <div class="rs-sub">Customer survey · n=214</div>
-      </div>
-      <div class="rs-cell">
-        <div class="rs-num">94%</div>
-        <div class="rs-lbl">Would recommend</div>
-        <div class="rs-sub">Post-purchase · 30-day</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════
-     UGC CAROUSEL, Real customers, real mornings
-     Marquee-style auto-scroll with pause on hover
-     ═══════════════════════════════════════════ -->
-<section class="ugc">
-  <div class="ugc-header container">
-    <div class="eyebrow center reveal">In the wild</div>
-    <h2 class="reveal d1">A morning that <span class="serif-accent">actually sticks.</span></h2>
-    <p class="body-lg reveal d2" style="margin: 0 auto; text-align: center;">The Mujo ritual as it actually looks, shot by customers, with how long they've kept it in rotation. No scripts. No production crew. No paid posts.</p>
-  </div>
-
-  <div class="ugc-marquee reveal">
-    <div class="ugc-track">
-      <!-- Set 1 -->
-      <div class="ugc-card">
-        <!--
-          IMAGE PLACEHOLDER: UGC photo #1
-         , Square (1:1) or portrait (4:5)
-         , Content: Customer holding Mujo pouch in their kitchen with morning light
-         , Source: Request from your 7 UGC mom testers, early Rebel Club members, or founder story customers
-         , Do NOT use stock imagery, authenticity is the whole point
-        -->
-        <div class="ugc-photo" style="background: linear-gradient(135deg, #F4D9C4 0%, #D9B899 100%);">
-          <div class="ugc-ph-label">UGC Photo</div>
-        </div>
-        <div class="ugc-quote">"I stopped needing the second coffee by week two."</div>
-        <div class="ugc-attr">@sophie.r · Brooklyn · 6 months in</div>
-      </div>
-
-      <div class="ugc-card">
-        <div class="ugc-photo" style="background: linear-gradient(135deg, #E8C9B5 0%, #C4A487 100%);">
-          <div class="ugc-ph-label">UGC Photo</div>
-        </div>
-        <div class="ugc-quote">"My 4pm meetings stopped feeling like a boss fight."</div>
-        <div class="ugc-attr">@marko.s · Lisbon · 4 months in</div>
-      </div>
-
-      <div class="ugc-card">
-        <div class="ugc-photo" style="background: linear-gradient(135deg, #D9C4AE 0%, #A89278 100%);">
-          <div class="ugc-ph-label">UGC Photo</div>
-        </div>
-        <div class="ugc-quote">"Weirdly, my sleep changed first. Then everything else."</div>
-        <div class="ugc-attr">@ellapadelclub · Madrid · 1 year in</div>
-      </div>
-
-      <div class="ugc-card">
-        <div class="ugc-photo" style="background: linear-gradient(135deg, #E8D4BF 0%, #B89A7E 100%);">
-          <div class="ugc-ph-label">UGC Photo</div>
-        </div>
-        <div class="ugc-quote">"Three months in. Haven't bought coffee since January."</div>
-        <div class="ugc-attr">@theo.builds · SF · 8 months in</div>
-      </div>
-
-      <div class="ugc-card">
-        <div class="ugc-photo" style="background: linear-gradient(135deg, #EACEB5 0%, #C19A7D 100%);">
-          <div class="ugc-ph-label">UGC Photo</div>
-        </div>
-        <div class="ugc-quote">"I read every label. This one checks out."</div>
-        <div class="ugc-attr">@drlaurenholistic · Austin · 3 months in</div>
-      </div>
-
-      <div class="ugc-card">
-        <div class="ugc-photo" style="background: linear-gradient(135deg, #F2D9C0 0%, #CCA680 100%);">
-          <div class="ugc-ph-label">UGC Photo</div>
-        </div>
-        <div class="ugc-quote">"My nervous system exhaled for the first time in years."</div>
-        <div class="ugc-attr">@anna.kinsella · Dublin · 5 months in</div>
-      </div>
-
-      <!-- Duplicate set for seamless marquee loop -->
-      <div class="ugc-card">
-        <div class="ugc-photo" style="background: linear-gradient(135deg, #F4D9C4 0%, #D9B899 100%);">
-          <div class="ugc-ph-label">UGC Photo</div>
-        </div>
-        <div class="ugc-quote">"I stopped needing the second coffee by week two."</div>
-        <div class="ugc-attr">@sophie.r · Brooklyn · 6 months in</div>
-      </div>
-      <div class="ugc-card">
-        <div class="ugc-photo" style="background: linear-gradient(135deg, #E8C9B5 0%, #C4A487 100%);">
-          <div class="ugc-ph-label">UGC Photo</div>
-        </div>
-        <div class="ugc-quote">"My 4pm meetings stopped feeling like a boss fight."</div>
-        <div class="ugc-attr">@marko.s · Lisbon · 4 months in</div>
-      </div>
-      <div class="ugc-card">
-        <div class="ugc-photo" style="background: linear-gradient(135deg, #D9C4AE 0%, #A89278 100%);">
-          <div class="ugc-ph-label">UGC Photo</div>
-        </div>
-        <div class="ugc-quote">"Weirdly, my sleep changed first. Then everything else."</div>
-        <div class="ugc-attr">@ellapadelclub · Madrid · 1 year in</div>
-      </div>
-      <div class="ugc-card">
-        <div class="ugc-photo" style="background: linear-gradient(135deg, #E8D4BF 0%, #B89A7E 100%);">
-          <div class="ugc-ph-label">UGC Photo</div>
-        </div>
-        <div class="ugc-quote">"Three months in. Haven't bought coffee since January."</div>
-        <div class="ugc-attr">@theo.builds · SF · 8 months in</div>
-      </div>
-      <div class="ugc-card">
-        <div class="ugc-photo" style="background: linear-gradient(135deg, #EACEB5 0%, #C19A7D 100%);">
-          <div class="ugc-ph-label">UGC Photo</div>
-        </div>
-        <div class="ugc-quote">"I read every label. This one checks out."</div>
-        <div class="ugc-attr">@drlaurenholistic · Austin · 3 months in</div>
-      </div>
-      <div class="ugc-card">
-        <div class="ugc-photo" style="background: linear-gradient(135deg, #F2D9C0 0%, #CCA680 100%);">
-          <div class="ugc-ph-label">UGC Photo</div>
-        </div>
-        <div class="ugc-quote">"My nervous system exhaled for the first time in years."</div>
-        <div class="ugc-attr">@anna.kinsella · Dublin · 5 months in</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ugc-tag-wrap container">
-    <div class="ugc-tag-row reveal">
-      <div class="ugc-tag-line">Tag <strong>@mujoworld</strong> to be featured here.</div>
-      <a href="#" class="ugc-ig">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-        @mujoworld
+        <div class="tile-eyebrow">Mushroom Cacao · Daily</div>
+        <div class="tile-name">The Ritual</div>
+        <div class="tile-desc">The morning ritual that replaced your 9am coffee. Caffeine-free, dosed to the research.</div>
+        <div class="tile-price">$65 · 30 servings · Subscribe &amp; save</div>
+        <div class="tile-cta">Shop the Ritual →</div>
       </a>
+
+      <a href="/lemna" class="product-tile reveal d1">
+        <div class="tile-image">
+          <div class="placeholder-label sand-bg">Lemna protein bar · product shot · 4:5 portrait</div>
+        </div>
+        <div class="tile-eyebrow">Protein Bar · Pre-order · July</div>
+        <div class="tile-name">The Lemna Bar</div>
+        <div class="tile-desc">The first protein bar built on Lemna leaf. Real ingredients, no flavor systems.</div>
+        <div class="tile-price">Founding member pricing · 250-cap</div>
+        <div class="tile-cta">See the Bar →</div>
+      </a>
+
+      <a href="/shop" class="product-tile reveal d2">
+        <div class="tile-image">
+          <div class="placeholder-label sand-bg">Mujo merch · frothers, mugs, tee · 4:5 portrait</div>
+        </div>
+        <div class="tile-eyebrow">Tools &amp; Merch</div>
+        <div class="tile-name">The things that come with the ritual</div>
+        <div class="tile-desc">Earned, not bought. Frothers, mugs, the tee that says it.</div>
+        <div class="tile-price">From $20</div>
+        <div class="tile-cta">Shop merch →</div>
+      </a>
+
     </div>
   </div>
 </section>
 
-<!-- ═══ FOUNDER ═══ -->
-<section class="founder">
-  <div class="founder-grid">
-    <div class="founder-visual reveal">
-      <div class="ph-label">Image Placeholder</div>
-      <div class="ph-icon">📸</div>
-      <div class="ph-text">Kinga founder portrait</div>
-      <div class="ph-sub">Half-body, holding mug, natural light. 3:4 portrait.</div>
-      <div class="founder-badge">
-        <div class="founder-badge-name">Kinga</div>
-        <div class="founder-badge-role">Founder, Mujo</div>
-      </div>
+<!--
+  SECTION 4: PRESS STRIP
+  STATUS: Deferred. Insert when real press logos are available.
+
+  DESIGN REF:
+    - Single horizontal row of 5-7 publication logos in grayscale
+    - ~80px height desktop, scrollable horizontal carousel on mobile
+    - Cream background, ink/40 logo color
+    - "AS SEEN IN" eyebrow above strip (small caps, sage, letter-spaced)
+    - Vertical padding: 60px mobile / 80px desktop
+
+  REQUIREMENTS BEFORE INSERTION:
+    - Real press placements (not text-as-logos)
+    - SVG or PNG assets at 2x resolution
+    - Permission to use each logo
+
+  INSERTION POINT: between Section 3 (What We Make) and Section 5 (Real Customers)
+-->
+
+<!-- ═══ SECTION 5: REAL CUSTOMERS ═══ -->
+<section class="real-customers">
+  <div class="container">
+    <div class="rc-head">
+      <div class="eyebrow reveal">From people who read the label</div>
+      <h2 class="reveal d1">A morning that actually sticks.</h2>
     </div>
-    <div class="founder-content">
-      <div class="eyebrow reveal">Our story</div>
-      <h2 class="reveal d1">Built in my kitchen. <span class="serif-accent">For my own morning.</span></h2>
-      <div class="founder-pull reveal d2">"I didn't build Mujo to sell a product. <em>I built it because I needed it, and nothing like it existed.</em>"</div>
-      <p class="founder-body reveal d3">I was a new mom, working 60-hour weeks, and coffee was burning me out. I was exhausted and anxious. Wired at 11pm. Waking up tired and depleted.</p>
-      <p class="founder-body reveal d3">Every "mushroom cacao" on the market used mycelium instead of fruiting bodies. Every adaptogen was underdosed or fake. So I started mixing in my kitchen. Real fruiting body extracts. Organic Peruvian cacao. Clinically studied adaptogens at their research-validated doses.</p>
-      <p class="founder-body reveal d4">Mujo came from a refusal to accept that high performance should leave you depleted. I built it as a ritual for my nervous system: <strong>neurowellness</strong>. Your morning should restore you, not run you down.</p>
-      <div class="founder-sign reveal d4">Kinga
-        <div class="founder-sign-title">Founder, Mujo World</div>
+    <div class="rc-quotes">
+
+      <blockquote class="rc-quote reveal">
+        <p>"It's the only thing I've kept on subscription. Three months in, my afternoon energy is steady and I sleep deeper. The taste is the reason I haven't stopped."</p>
+        <cite>Jessica L. · Ritualist · 4 months in</cite>
+      </blockquote>
+
+      <blockquote class="rc-quote reveal d1">
+        <p>"I read every label and I've tried every functional drink on the market. This is the only one where the doses match the marketing. Earned its place in my morning."</p>
+        <cite>Marcus T. · Functional medicine practitioner</cite>
+      </blockquote>
+
+      <blockquote class="rc-quote reveal d2">
+        <p>"Replaced my morning coffee. The crash is gone. I didn't expect to feel this clear at 3pm without caffeine."</p>
+        <cite>Sarah K. · Ritualist · 6 months in</cite>
+      </blockquote>
+
+    </div>
+
+    <div class="rc-ugc">
+      <div class="placeholder-label sand-bg">Customer photo · morning ritual moment · 1:1 square</div>
+      <div class="placeholder-label sand-bg">Customer photo · Mujo latte poured into ceramic cup · 1:1 square</div>
+      <div class="placeholder-label sand-bg">Customer photo · ritual on a kitchen counter · 1:1 square</div>
+      <div class="placeholder-label sand-bg">Customer photo · Mujo Ritual + journal · 1:1 square</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 6: FOUNDER ONE-LINER ═══ -->
+<section class="founder-note">
+  <div class="container">
+    <div class="founder-grid">
+      <div class="founder-portrait-placeholder reveal">
+        <div class="placeholder-label sand-bg">Kinga · founder portrait · warm natural light · 3:4 portrait</div>
+      </div>
+      <div class="founder-text">
+        <div class="eyebrow reveal">A note from the founder</div>
+        <p class="founder-body reveal d1">Mujo exists because I needed a one-step morning routine without fluff that actually supported my nervous system and didn't crash my energy. Research-backed. Real ingredients. So I made one.</p>
+        <p class="founder-signature reveal d2">— Kinga</p>
+        <a href="/about" class="founder-link reveal d3">Read the longer version →</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ REBEL CLUB ═══ -->
+<!-- ═══ SECTION 7: THE REBEL CLUB ═══ -->
 <section class="rebel" id="rebel">
   <div class="container">
     <div class="rebel-grid">
-      <div class="rebel-intro">
+      <div class="rebel-text">
         <div class="eyebrow light reveal">The Rebel Club</div>
-        <h2 class="reveal d1">For people who <span class="serif-accent">read the label.</span></h2>
-        <p class="rebel-body reveal d2">Founder notes from Kinga, member-only essays on the physiology of modern stress, early access to drops, and pricing that recognizes the conscious performers who showed up first.</p>
-        <form class="rebel-form reveal d3" onsubmit="handleRebelJoin(event)">
-          <input type="email" class="rebel-input" placeholder="your@email.com" required>
-          <button type="submit" class="btn btn-primary">Join Rebel Club</button>
+        <h2 class="reveal d1">For people who <span class="serif-accent light">read the label.</span></h2>
+        <p class="rebel-sub reveal d2">A small, slow newsletter from Kinga. Twice a month. The questions she's wrestling with, the research she's reading, the formulations she's thinking through. <strong>Free forever. No sponsorships. No sell.</strong></p>
+        <form class="rebel-form reveal d3" onsubmit="event.preventDefault(); alert('Welcome to the Rebel Club.');">
+          <input type="email" class="rebel-input" placeholder="Your email" required>
+          <button type="submit" class="btn btn-primary">Join the club →</button>
         </form>
-        <div class="rebel-privacy reveal d4">Free forever · Unsubscribe any time · No sponsorships</div>
+        <p class="rebel-fineprint reveal d4">12,400+ rebels. Unsubscribe in one click. No dark patterns.</p>
       </div>
-      <div class="rebel-perks reveal d2">
-        <div class="rebel-perks-title">What you get</div>
-        <div class="rebel-perk">
-          <div class="rebel-perk-icon">✉</div>
-          <div class="rebel-perk-text"><strong>Monthly founder notes</strong>Written by Kinga, the actual ones, not marketing.</div>
-        </div>
-        <div class="rebel-perk">
-          <div class="rebel-perk-icon">★</div>
-          <div class="rebel-perk-text"><strong>Early access to drops</strong>Lemna Bar first. New flavors before anyone.</div>
-        </div>
-        <div class="rebel-perk">
-          <div class="rebel-perk-icon">📚</div>
-          <div class="rebel-perk-text"><strong>The Nervous System Files</strong>Member-only essays on the physiology of modern stress.</div>
-        </div>
-        <div class="rebel-perk">
-          <div class="rebel-perk-icon">🎁</div>
-          <div class="rebel-perk-text"><strong>Rebel Drops</strong>Limited merch, collabs, bundles only for members.</div>
-        </div>
-        <div class="rebel-perk">
-          <div class="rebel-perk-icon">%</div>
-          <div class="rebel-perk-text"><strong>Member pricing</strong>Better than public pricing. Always.</div>
-        </div>
+      <div class="rebel-visual reveal d2">
+        <div class="placeholder-label sand-bg">Rebel Club moment · founder letter / journal scene · 4:5 portrait</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Lemna Bar teaser -->
-<section class="lemna">
-  <div class="container">
-    <div class="lemna-inner">
-      <div>
-        <div class="lemna-tag">Launching Summer 2026</div>
-        <h2 class="reveal">The next Mujo chapter <span class="serif-accent sage">respects your gut.</span></h2>
-        <p class="lemna-body reveal d1"><strong>Lemna Bar.</strong> The world's first Lemna leaf protein bar, using Rubi Protein™. <strong>PDCAAS of 1.0, equivalent to egg and whey,</strong> with zero gut-disrupting fillers. No sugar alcohols. No artificial sweeteners.</p>
-        <div class="cta-stack reveal d2">
-          <a href="#" class="btn btn-secondary">Join Early Access</a>
-        </div>
-      </div>
-      <div class="lemna-visual reveal d1">
-        <div class="ph-label">Image Placeholder</div>
-        <div class="ph-icon">🍫</div>
-        <div class="ph-sub">Lemna Bar teaser, product shot when available.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Final CTA -->
-<section class="final">
-  <div class="container">
-    <div class="final-tagline reveal">Conscious performance, without the crash.</div>
-    <div class="eyebrow center reveal">The decision</div>
-    <h2 class="reveal d1">Less noise. Real ingredients. <span class="serif-accent">Actual doses.</span></h2>
-    <p class="final-sub reveal d2">30 days. If your 3pm doesn't feel different, we'll refund you.</p>
-    <div class="cta-stack reveal d3" style="justify-content: center;">
-      <a href="#ritual" class="btn btn-primary">Start Your Ritual <span class="btn-arrow">→</span></a>
-    </div>
-    <div class="final-trust reveal d4">
-      <div class="final-trust-item">Free shipping over $60</div>
-      <div class="final-trust-item">30-day money back</div>
-      <div class="final-trust-item">Cancel any time</div>
-      <div class="final-trust-item">Ships in 48hrs</div>
-    </div>
-  </div>
-</section>
 
 <!-- Footer -->
 <footer>
@@ -3673,7 +3089,7 @@ body.locked { overflow: hidden; }
     <div class="footer-grid">
       <div class="footer-brand">
         <h3>MUJO</h3>
-        <p class="footer-tagline">Conscious performance nutrition for people who read the label. Built in Portugal. Shipped globally.</p>
+        <p class="footer-tagline">Conscious performance nutrition for people who read the label.</p>
       </div>
       <div>
         <div class="footer-col-title">Shop</div>
@@ -3712,7 +3128,8 @@ body.locked { overflow: hidden; }
 
 <!-- Quiz pill + modal -->
 <button class="quiz-pill" id="quizPill" onclick="openQuizModal()">
-  <span class="quiz-pill-icon">🍄</span>
+  <!-- ICON: quiz mushroom · sage · 16px · botanical-line -->
+  <span class="quiz-pill-icon"></span>
   Get your free Reset Plan
 </button>
 
@@ -3777,7 +3194,7 @@ function handleRebelJoin(e) {
 <script id="mujo-canonical-nav-js">
 const PRICES = { 'ritual-25': 55.25, 'ritual-10': 27, 'bar-pb': 54, 'bar-cashew': 54, 'mug': 24, 'tee': 38, 'tote': 22 };
 const NAMES = { 'ritual-25': 'Mujo Ritual · 25 servings', 'ritual-10': 'Mujo Ritual · 10 servings', 'bar-pb': 'Lemna Bar · PB Crunch', 'bar-cashew': 'Lemna Bar · Cashew Chocolate', 'mug': 'Ritual Mug', 'tee': 'Rebel Club Tee', 'tote': 'Market Tote' };
-const ICONS = { 'ritual-25': '🍵', 'ritual-10': '🍵', 'bar-pb': '🥜', 'bar-cashew': '🍫', 'mug': '☕', 'tee': '👕', 'tote': '🛍️' };
+const ICONS = { 'ritual-25': '', 'ritual-10': '', 'bar-pb': '', 'bar-cashew': '', 'mug': '', 'tee': '', 'tote': '' };
 let cart = {};
 function openMenu() { document.getElementById('mobileMenu').classList.add('open'); document.getElementById('overlay').classList.add('open'); document.body.classList.add('locked'); }
 function closeMenu() { document.getElementById('mobileMenu').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); if (!document.getElementById('cartDrawer').classList.contains('open')) document.body.classList.remove('locked'); }
@@ -3803,7 +3220,7 @@ function renderCart() {
   else if (remaining <= 0) { fill.classList.add('full'); msg.innerHTML = '<strong>Free shipping</strong> unlocked. Nice work.'; }
   else { fill.classList.remove('full'); msg.innerHTML = '<span class="accent">' + fmt(remaining) + '</span> away from <strong>free shipping</strong>.'; }
   const body = document.getElementById('cartBody'); body.innerHTML = '';
-  if (count === 0) { body.innerHTML = '<div class="cart-empty"><div class="cart-empty-illo">🍵</div><h3>Nothing in here yet.</h3><p>Your ritual is one click away. The Mujo Ritual is the place most people start.</p><a href="/shop">Browse the shop →</a></div>'; }
+  if (count === 0) { body.innerHTML = '<div class="cart-empty"><h3>Nothing in here yet.</h3><p>Your ritual is one click away. The Mujo Ritual is the place most people start.</p><a href="/shop">Browse the shop →</a></div>'; }
   else { Object.entries(cart).forEach(([id, qty]) => { const row = document.createElement('div'); row.className = 'cart-item'; row.innerHTML = `<div class="cart-item-img">${ICONS[id]||'·'}</div><div class="cart-item-info"><div class="cart-item-name">${NAMES[id]}</div><div class="cart-item-variant">One-time</div><div class="cart-item-controls"><button class="qty-btn" onclick="updateQty('${id}',-1)">−</button><span class="qty-val">${qty}</span><button class="qty-btn" onclick="updateQty('${id}',1)">+</button></div></div><div class="cart-item-meta"><div class="cart-item-price">${fmt(PRICES[id]*qty)}</div><button class="cart-item-remove" onclick="removeItem('${id}')">Remove</button></div>`; body.appendChild(row); }); }
   document.getElementById('subtotalDisplay').textContent = count === 0 ? '$0' : fmt(subtotal);
   document.getElementById('shippingDisplay').textContent = (remaining <= 0 && count > 0) ? 'Free' : 'Calculated at checkout';

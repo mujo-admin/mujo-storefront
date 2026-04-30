@@ -241,9 +241,10 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .mm-head {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 16px 20px;
   border-bottom: 1px solid var(--line-soft);
+  position: relative;
 }
 .mm-head img { height: 26px; width: auto; }
 .mm-close {
@@ -254,7 +255,10 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
   align-items: center;
   justify-content: center;
   color: var(--ink);
-  margin-right: -8px;
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 .mm-close svg { width: 20px; height: 20px; }
 
@@ -270,7 +274,7 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
   justify-content: space-between;
   padding: 16px 24px;
   font-family: var(--f-display);
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 500;
   letter-spacing: -0.01em;
   color: var(--ink);
@@ -970,7 +974,7 @@ body.locked { overflow: hidden; }
     <div class="foot-grid">
       <div class="foot-brand">
         <img src="Mujo_logo_orange.png" alt="Mujo">
-        <p class="foot-tagline">Conscious performance nutrition for people who read the label. Built in Portugal. Shipped globally.</p>
+        <p class="foot-tagline">Conscious performance nutrition for people who read the label.</p>
       </div>
       <div>
         <div class="foot-col-title">Shop</div>

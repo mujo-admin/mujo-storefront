@@ -3,11 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Rebel Club — For people who rebel against wellness theatre | Mujo</title>
-<meta name="description" content="Founder notes from Kinga, early drops, honest wellness writing. Plus Mujo Mamis and Mujo Padel Club. Free forever — no sponsorships, no sell.">
+<title>The Rebel Club · For people who rebel against wellness fluff | Mujo</title>
+<meta name="description" content="Founder notes from Kinga, early drops, honest wellness writing. Plus Mujo Mamis and Mujo Padel Club. Free forever. No sponsorships. No sell.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@300,400,500,600,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -26,8 +28,8 @@
   --mute: #7A7570;
   --line: rgba(26, 26, 26, 0.09);
   --line-soft: rgba(26, 26, 26, 0.06);
-  --f-display: 'Inter Tight', 'Söhne', -apple-system, sans-serif;
-  --f-body: 'Inter Tight', 'Helvetica Neue', sans-serif;
+  --f-display: 'General Sans', -apple-system, sans-serif;
+  --f-body: 'General Sans', 'Helvetica Neue', sans-serif;
   --f-serif: 'Instrument Serif', 'Times New Roman', serif;
   --f-mono: 'DM Mono', monospace;
   --s1: 0 2px 8px rgba(0, 0, 0, 0.04);
@@ -1121,12 +1123,12 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .menu-overlay.open { opacity: 1; pointer-events: auto; }
 .mobile-menu { position: fixed; top: 0; left: 0; bottom: 0; width: min(360px, 88vw); background: var(--cream); z-index: 999; transform: translateX(-100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; overflow-y: auto; }
 .mobile-menu.open { transform: translateX(0); }
-.mm-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); }
+.mm-head { display: flex; align-items: center; justify-content: center; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); position: relative; }
 .mm-head img { height: 26px; width: auto; }
-.mm-close { width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); margin-right: -8px; }
+.mm-close { width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); position: absolute; right: 12px; top: 50%; transform: translateY(-50%); }
 .mm-close svg { width: 20px; height: 20px; }
 .mm-links { display: flex; flex-direction: column; padding: 4px 0; flex: 1; }
-.mm-link { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; font-family: var(--f-display); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-soft); transition: background 0.15s, color 0.15s; }
+.mm-link { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; font-family: var(--f-display); font-size: 18px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-soft); transition: background 0.15s, color 0.15s; }
 .mm-link:hover { color: var(--orange-deep); background: rgba(242,104,47,0.04); }
 .mm-link svg { width: 16px; height: 16px; opacity: 0.4; }
 .mm-foot { padding: 24px; background: var(--sage); color: #fff; }
@@ -1249,7 +1251,7 @@ body.locked { overflow: hidden; }
 <section class="hero">
   <div class="container">
     <div class="eyebrow reveal">The Rebel Club · Est. 2024</div>
-    <h1 class="reveal d1">For people who <span class="serif-accent">rebel against wellness theatre.</span></h1>
+    <h1 class="reveal d1">For people who <span class="serif-accent">rebel against wellness fluff.</span></h1>
     <p class="hero-sub reveal d2">The Rebel Club is where Mujo's most curious customers read the actual research, get early access to drops, and hear from Kinga unfiltered. <strong>Free forever. No sponsorships. No sell.</strong> Just the inside of how this brand actually thinks.</p>
     <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;" class="reveal d3">
       <a href="#join" class="btn btn-primary">Join the Rebel Club <span class="btn-arrow">→</span></a>
@@ -1281,7 +1283,7 @@ body.locked { overflow: hidden; }
     <div class="manifesto-grid">
       <div class="mani-left">
         <div class="eyebrow reveal">From the founder</div>
-        <h2 class="reveal d1">Why a <span class="serif-accent">club,</span> and not another newsletter?</h2>
+        <h2 class="reveal d1">Why a club, and not another newsletter?</h2>
         <div class="mani-img reveal d2">
           <div class="mani-img-label">Image Placeholder</div>
           <div class="mani-img-text">Kinga · candid</div>
@@ -1291,9 +1293,9 @@ body.locked { overflow: hidden; }
       <div class="mani-right">
         <p class="mani-intro reveal">I started Mujo because I was tired of being marketed to. Tired of being told what I already knew wasn't working was, in fact, working. Tired of 50mg ashwagandha in a pink can with the word "calm" on it.</p>
         <p class="mani-body reveal d1">The Rebel Club exists because most of what's called "wellness community" online isn't a community. It's a marketing channel dressed up like one. Engagement funnels. Affiliate schemes. Influencers paid to post the exact same wellness routine three Tuesdays a month.</p>
-        <p class="mani-body reveal d2">I don't want that. And if you've found your way here — you probably don't either.</p>
-        <p class="mani-body reveal d2"><strong>So this is what the Rebel Club actually is:</strong> a small, deliberately-slow newsletter I write twice a month. The real questions I'm wrestling with — about my nervous system, my kids, my training, my business. The research I'm reading. The formulations I'm thinking through. The things I'd tell a friend over coffee, not the things I'd put in an ad.</p>
-        <p class="mani-body reveal d3">Members get early access to everything we launch. Member-only essays. The occasional drop designed just for rebels. And one day, in-person gatherings — starting in Portugal where I'm based, expanding as we go.</p>
+        <p class="mani-body reveal d2">I don't want that. And if you've found your way here, you probably don't either.</p>
+        <p class="mani-body reveal d2"><strong>So this is what the Rebel Club actually is:</strong> a small, deliberately-slow newsletter I write twice a month. The real questions I'm wrestling with: about my nervous system, my kids, my training, my business. The research I'm reading. The formulations I'm thinking through. The things I'd tell a friend over coffee, not the things I'd put in an ad.</p>
+        <p class="mani-body reveal d3">Members get early access to everything we launch. Member-only essays. The occasional drop designed just for rebels. And one day, in-person gatherings, starting locally and expanding as the club grows.</p>
         <p class="mani-body reveal d3">That's it. That's the whole pitch.</p>
         <div class="mani-sig reveal d3">Kinga<div class="mani-sigs">Founder, Mujo</div></div>
       </div>
@@ -1309,42 +1311,48 @@ body.locked { overflow: hidden; }
     <div class="perks-header">
       <div class="eyebrow center reveal">Membership</div>
       <h2 class="reveal d1">What rebels <span class="serif-accent">actually get.</span></h2>
-      <p class="body-lg reveal d2" style="max-width: 540px; margin: 0 auto; text-align: center;">Everything below is free, forever. The Rebel Club isn't a paywall — it's an invitation to see how we actually think.</p>
+      <p class="body-lg reveal d2" style="max-width: 540px; margin: 0 auto; text-align: center;">Everything below is free, forever. The Rebel Club isn't a paywall. It's an invitation to see how we actually think.</p>
     </div>
     <div class="perks-grid">
       <div class="perk-card reveal">
         <div class="perk-num">01</div>
-        <div class="perk-icon">💌</div>
+        <!-- ICON: letter envelope (essays) · sage · 48px · botanical-line -->
+        <div class="perk-icon image-placeholder icon-placeholder sand-bg" data-icon="essays">essays</div>
         <div class="perk-title">Letters from Kinga, twice a month</div>
         <div class="perk-body">The unfiltered stuff. What I'm reading, what I'm testing on myself, what I'm wrong about. <strong>Written like a letter, not an email blast.</strong></div>
       </div>
       <div class="perk-card reveal d1">
         <div class="perk-num">02</div>
-        <div class="perk-icon">🎁</div>
+        <!-- ICON: gift box (drops) · sage · 48px · botanical-line -->
+        <div class="perk-icon image-placeholder icon-placeholder sand-bg" data-icon="drops">drops</div>
         <div class="perk-title">Early access to every drop</div>
         <div class="perk-body">New flavours, new products, limited runs. <strong>Rebels see everything 48–72 hours before the public does.</strong> The Lemna Bar launches to Rebels first.</div>
       </div>
       <div class="perk-card reveal d2">
         <div class="perk-num">03</div>
-        <div class="perk-icon">🔬</div>
+        <!-- ICON: microscope (research) · sage · 48px · botanical-line -->
+        <div class="perk-icon image-placeholder icon-placeholder sand-bg" data-icon="research">research</div>
         <div class="perk-title">Research-backed essays you won't find anywhere else</div>
         <div class="perk-body">Member-only deep-dives on the science we care about. Written to be read, not skimmed. Sometimes 600 words. Sometimes 4,000.</div>
       </div>
       <div class="perk-card reveal">
         <div class="perk-num">04</div>
-        <div class="perk-icon">🎟️</div>
-        <div class="perk-title">Founder Q&As — real ones, live</div>
-        <div class="perk-body">Quarterly. Small. Unscripted. I answer whatever you ask — from formulation to founder stuff to the industry I'd rather not be part of.</div>
+        <!-- ICON: ticket (Q&A access) · sage · 48px · botanical-line -->
+        <div class="perk-icon image-placeholder icon-placeholder sand-bg" data-icon="qa">Q&amp;A</div>
+        <div class="perk-title">Founder Q&As. Real ones, live.</div>
+        <div class="perk-body">Quarterly. Small. Unscripted. I answer whatever you ask: formulation, founder stuff, the industry I'd rather not be part of.</div>
       </div>
       <div class="perk-card reveal d1">
         <div class="perk-num">05</div>
-        <div class="perk-icon">🤝</div>
+        <!-- ICON: handshake (tribes) · sage · 48px · botanical-line -->
+        <div class="perk-icon image-placeholder icon-placeholder sand-bg" data-icon="tribes">tribes</div>
         <div class="perk-title">A sub-tribe that's actually yours</div>
-        <div class="perk-body"><strong>Mujo Mamis</strong> for the moms. <strong>Mujo Padel Club</strong> for the athletes. Specific conversations for specific lives — without losing the Rebel Club umbrella.</div>
+        <div class="perk-body"><strong>Mujo Mamis</strong> for the moms. <strong>Mujo Padel Club</strong> for the athletes. Specific conversations for specific lives, without losing the Rebel Club umbrella.</div>
       </div>
       <div class="perk-card reveal d2">
         <div class="perk-num">06</div>
-        <div class="perk-icon">🌿</div>
+        <!-- ICON: botanical sprig (deals) · sage · 48px · botanical-line -->
+        <div class="perk-icon image-placeholder icon-placeholder sand-bg" data-icon="deals">deals</div>
         <div class="perk-title">Discounts that don't feel gross</div>
         <div class="perk-body">Occasional rebel-only pricing. Never manufactured urgency. Never a "last chance" every week. When something's a deal, it's because it actually is.</div>
       </div>
@@ -1360,8 +1368,8 @@ body.locked { overflow: hidden; }
   <div class="container">
     <div class="tribes-header">
       <div class="eyebrow center reveal">One club. Three tribes.</div>
-      <h2 class="reveal d1">Because you can be a rebel <span class="serif-accent">and</span> a mama. <span class="serif-accent">And</span> a padel player.</h2>
-      <p class="body-lg reveal d2" style="max-width: 560px; margin: 0 auto; text-align: center;">The Rebel Club is the umbrella. Inside it, two sub-tribes for the lives most of our community actually lives. You can join one, both, or neither — the main Rebel Club is enough on its own.</p>
+      <h2 class="reveal d1">Because you can be a rebel and a mama. And a padel player.</h2>
+      <p class="body-lg reveal d2" style="max-width: 560px; margin: 0 auto; text-align: center;">The Rebel Club is the umbrella. Inside it, two sub-tribes for the lives most of our community actually lives. You can join one, both, or neither. The main Rebel Club is enough on its own.</p>
     </div>
 
     <div class="tribes-grid">
@@ -1374,7 +1382,7 @@ body.locked { overflow: hidden; }
         </div>
         <div class="tribe-list">
           <div class="tribe-list-item"><span class="tl-dot">✓</span><span>Monthly essays on hormones, nervous system, and modern motherhood</span></div>
-          <div class="tribe-list-item"><span class="tl-dot">✓</span><span>Theo &amp; The Body Detectives — the kids' book series, free for Mamis</span></div>
+          <div class="tribe-list-item"><span class="tl-dot">✓</span><span>Theo &amp; The Body Detectives, the kids' book series, free for Mamis</span></div>
           <div class="tribe-list-item"><span class="tl-dot">✓</span><span>Mamis-only drops (first access to family-friendly rituals)</span></div>
           <div class="tribe-list-item"><span class="tl-dot">✓</span><span>A private Substack thread with @mujomami behind-the-scenes</span></div>
         </div>
@@ -1391,12 +1399,12 @@ body.locked { overflow: hidden; }
         <div class="tribe-top">
           <div class="tribe-tag">Sub-community</div>
           <div class="tribe-name">Mujo <em>Padel Club</em></div>
-          <div class="tribe-sub">For the people who schedule their week around court time. <strong>Recovery, stress-response, and real performance — built for padel.</strong> Training notes, recovery protocols, and the occasional meetup at courts around Lisbon, Madrid, and beyond.</div>
+          <div class="tribe-sub">For the people who schedule their week around court time. <strong>Recovery, stress-response, and real performance, built for padel.</strong> Training notes, recovery protocols, and the occasional meetup at padel courts, wherever the club gathers.</div>
         </div>
         <div class="tribe-list">
           <div class="tribe-list-item"><span class="tl-dot">✓</span><span>Monthly training &amp; recovery briefings</span></div>
-          <div class="tribe-list-item"><span class="tl-dot">✓</span><span>Padel-specific Mujo rituals — pre-game, post-game, recovery days</span></div>
-          <div class="tribe-list-item"><span class="tl-dot">✓</span><span>Club meetups in Portugal, Spain (and soon, wherever you are)</span></div>
+          <div class="tribe-list-item"><span class="tl-dot">✓</span><span>Padel-specific Mujo rituals: pre-game, post-game, recovery days</span></div>
+          <div class="tribe-list-item"><span class="tl-dot">✓</span><span>Club meetups, wherever the club gathers</span></div>
           <div class="tribe-list-item"><span class="tl-dot">✓</span><span>Early access to Padel Club-only drops and partnerships</span></div>
         </div>
         <div class="tribe-bottom">
@@ -1417,7 +1425,7 @@ body.locked { overflow: hidden; }
   <div class="container">
     <div class="letters-header">
       <div class="eyebrow center reveal">Recent letters</div>
-      <h2 class="reveal d1">What a letter <span class="serif-accent">actually looks like.</span></h2>
+      <h2 class="reveal d1">What a letter actually looks like.</h2>
       <p class="body-lg reveal d2" style="max-width: 540px; margin: 0 auto; text-align: center;">Not a product pitch. Not a 10-second scroll. Real things, written carefully.</p>
     </div>
     <div class="letters-grid">
@@ -1445,7 +1453,7 @@ body.locked { overflow: hidden; }
           <span>Feb 2026</span>
         </div>
         <div class="letter-title">18 months postpartum. <em>What I still haven't gotten back.</em></div>
-        <div class="letter-preview">Three kids. A business. A body that's rebuilt itself. The metrics most doctors track say I'm "recovered." The ones that actually matter — sleep quality, nervous system response, deep recall — tell a different story...</div>
+        <div class="letter-preview">Three kids. A business. A body that's rebuilt itself. The metrics most doctors track say I'm "recovered." The ones that actually matter (sleep quality, nervous system response, deep recall) tell a different story...</div>
         <div class="letter-read">
           Read more
           <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -1459,7 +1467,7 @@ body.locked { overflow: hidden; }
           <span class="letter-meta-dot"></span>
           <span>Feb 2026</span>
         </div>
-        <div class="letter-title">The 48-hour recovery window — <em>what actually moves the needle.</em></div>
+        <div class="letter-title">The 48-hour recovery window. <em>What actually moves the needle.</em></div>
         <div class="letter-preview">I play 2–3 times a week. Most weeks I feel like one of those sessions is subsidised by the others. Here's what changed when I stopped training harder and started training smarter...</div>
         <div class="letter-read">
           Read more
@@ -1476,11 +1484,11 @@ body.locked { overflow: hidden; }
 <section class="not-section">
   <div class="not-wrap">
     <div class="eyebrow center reveal">The honest part</div>
-    <h2 class="reveal d1">A few things the Rebel Club <span class="serif-accent">is not.</span></h2>
+    <h2 class="reveal d1">A few things the Rebel Club is not.</h2>
     <div class="not-list">
       <div class="not-item reveal">
         <div class="not-label no">Not</div>
-        <div class="not-text"><strong>A daily email machine.</strong> You'll hear from us twice a month, not twice a day. Your inbox is already busy enough — we won't add noise to it.</div>
+        <div class="not-text"><strong>A daily email machine.</strong> You'll hear from us twice a month, not twice a day. Your inbox is already busy enough. We won't add noise to it.</div>
       </div>
       <div class="not-item reveal d1">
         <div class="not-label no">Not</div>
@@ -1492,7 +1500,7 @@ body.locked { overflow: hidden; }
       </div>
       <div class="not-item reveal d3">
         <div class="not-label yes">Is</div>
-        <div class="not-text"><strong>A slow, thoughtful letter from a founder who reads a lot</strong> — and who'd rather be interesting once a fortnight than forgettable every day.</div>
+        <div class="not-text"><strong>A slow, thoughtful letter from a founder who reads a lot.</strong> Who'd rather be interesting once a fortnight than forgettable every day.</div>
       </div>
     </div>
   </div>
@@ -1505,7 +1513,7 @@ body.locked { overflow: hidden; }
   <div class="container">
     <div class="voices-header">
       <div class="eyebrow center reveal">Rebels in the wild</div>
-      <h2 class="reveal d1">What current members <span class="serif-accent">say about it.</span></h2>
+      <h2 class="reveal d1">What current members say about it.</h2>
     </div>
     <div class="voices-grid">
       <div class="voice-card reveal">
@@ -1537,7 +1545,7 @@ body.locked { overflow: hidden; }
           <div class="voice-av">M</div>
           <div>
             <div class="voice-name">Marko S.</div>
-            <div class="voice-role">Padel player · Lisbon</div>
+            <div class="voice-role">Padel player</div>
           </div>
         </div>
       </div>
@@ -1564,7 +1572,7 @@ body.locked { overflow: hidden; }
     <div class="join-inner">
       <div class="eyebrow reveal">Join the club</div>
       <h2 class="reveal d1">You've read this far. <em>You're probably a rebel.</em></h2>
-      <p class="join-sub reveal d2">Drop your email below. Your first letter arrives within 48 hours. <strong>Free forever. Unsubscribe in one click — no dark patterns.</strong></p>
+      <p class="join-sub reveal d2">Drop your email below. Your first letter arrives within 48 hours. <strong>Free forever. Unsubscribe in one click. No dark patterns.</strong></p>
 
       <form class="join-form reveal d3" onsubmit="handleJoin(event)">
         <div class="join-input-wrap">
@@ -1572,7 +1580,7 @@ body.locked { overflow: hidden; }
           <button type="submit" class="join-submit">Join the Rebel Club</button>
         </div>
 
-        <div class="join-question">Which tribe is most you? (Optional — you can change later.)</div>
+        <div class="join-question">Which tribe is most you? (Optional. You can change later.)</div>
         <div class="join-tribes">
           <div class="join-tribe sel" onclick="selectTribe('all', this)">All of it</div>
           <div class="join-tribe" onclick="selectTribe('mamis', this)">Mujo Mamis</div>
@@ -1580,7 +1588,7 @@ body.locked { overflow: hidden; }
         </div>
       </form>
 
-      <div class="join-footer reveal d4">🔒 No spam. Ever. One-click unsubscribe. Sent via Klaviyo.</div>
+      <div class="join-footer reveal d4">No spam. Ever. One-click unsubscribe. Sent via Klaviyo.</div>
     </div>
   </div>
 </section>
@@ -1593,7 +1601,7 @@ body.locked { overflow: hidden; }
     <div class="footer-grid">
       <div class="footer-brand">
         <h3>MUJO</h3>
-        <p class="footer-tagline">Conscious performance nutrition for people who read the label. Built in Portugal. Shipped globally.</p>
+        <p class="footer-tagline">Conscious performance nutrition for people who read the label.</p>
       </div>
       <div>
         <div class="footer-col-title">Shop</div>
@@ -1679,7 +1687,7 @@ function handleJoin(e) {
 <script id="mujo-canonical-nav-js">
 const PRICES = { 'ritual-25': 55.25, 'ritual-10': 27, 'bar-pb': 54, 'bar-cashew': 54, 'mug': 24, 'tee': 38, 'tote': 22 };
 const NAMES = { 'ritual-25': 'Mujo Ritual · 25 servings', 'ritual-10': 'Mujo Ritual · 10 servings', 'bar-pb': 'Lemna Bar · PB Crunch', 'bar-cashew': 'Lemna Bar · Cashew Chocolate', 'mug': 'Ritual Mug', 'tee': 'Rebel Club Tee', 'tote': 'Market Tote' };
-const ICONS = { 'ritual-25': '🍵', 'ritual-10': '🍵', 'bar-pb': '🥜', 'bar-cashew': '🍫', 'mug': '☕', 'tee': '👕', 'tote': '🛍️' };
+const ICONS = { 'ritual-25': '', 'ritual-10': '', 'bar-pb': '', 'bar-cashew': '', 'mug': '', 'tee': '', 'tote': '' };
 let cart = {};
 function openMenu() { document.getElementById('mobileMenu').classList.add('open'); document.getElementById('overlay').classList.add('open'); document.body.classList.add('locked'); }
 function closeMenu() { document.getElementById('mobileMenu').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); if (!document.getElementById('cartDrawer').classList.contains('open')) document.body.classList.remove('locked'); }
@@ -1705,7 +1713,7 @@ function renderCart() {
   else if (remaining <= 0) { fill.classList.add('full'); msg.innerHTML = '<strong>Free shipping</strong> unlocked. Nice work.'; }
   else { fill.classList.remove('full'); msg.innerHTML = '<span class="accent">' + fmt(remaining) + '</span> away from <strong>free shipping</strong>.'; }
   const body = document.getElementById('cartBody'); body.innerHTML = '';
-  if (count === 0) { body.innerHTML = '<div class="cart-empty"><div class="cart-empty-illo">🍵</div><h3>Nothing in here yet.</h3><p>Your ritual is one click away. The Mujo Ritual is the place most people start.</p><a href="/shop">Browse the shop →</a></div>'; }
+  if (count === 0) { body.innerHTML = '<div class="cart-empty"><h3>Nothing in here yet.</h3><p>Your ritual is one click away. The Mujo Ritual is the place most people start.</p><a href="/shop">Browse the shop →</a></div>'; }
   else { Object.entries(cart).forEach(([id, qty]) => { const row = document.createElement('div'); row.className = 'cart-item'; row.innerHTML = `<div class="cart-item-img">${ICONS[id]||'·'}</div><div class="cart-item-info"><div class="cart-item-name">${NAMES[id]}</div><div class="cart-item-variant">One-time</div><div class="cart-item-controls"><button class="qty-btn" onclick="updateQty('${id}',-1)">−</button><span class="qty-val">${qty}</span><button class="qty-btn" onclick="updateQty('${id}',1)">+</button></div></div><div class="cart-item-meta"><div class="cart-item-price">${fmt(PRICES[id]*qty)}</div><button class="cart-item-remove" onclick="removeItem('${id}')">Remove</button></div>`; body.appendChild(row); }); }
   document.getElementById('subtotalDisplay').textContent = count === 0 ? '$0' : fmt(subtotal);
   document.getElementById('shippingDisplay').textContent = (remaining <= 0 && count > 0) ? 'Free' : 'Calculated at checkout';

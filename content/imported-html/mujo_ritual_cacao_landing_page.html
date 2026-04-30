@@ -2379,12 +2379,12 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .menu-overlay.open { opacity: 1; pointer-events: auto; }
 .mobile-menu { position: fixed; top: 0; left: 0; bottom: 0; width: min(360px, 88vw); background: var(--cream); z-index: 999; transform: translateX(-100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; overflow-y: auto; }
 .mobile-menu.open { transform: translateX(0); }
-.mm-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); }
+.mm-head { display: flex; align-items: center; justify-content: center; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); position: relative; }
 .mm-head img { height: 26px; width: auto; }
-.mm-close { width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); margin-right: -8px; }
+.mm-close { width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); position: absolute; right: 12px; top: 50%; transform: translateY(-50%); }
 .mm-close svg { width: 20px; height: 20px; }
 .mm-links { display: flex; flex-direction: column; padding: 4px 0; flex: 1; }
-.mm-link { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; font-family: var(--f-display); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-soft); transition: background 0.15s, color 0.15s; }
+.mm-link { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; font-family: var(--f-display); font-size: 18px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-soft); transition: background 0.15s, color 0.15s; }
 .mm-link:hover { color: var(--orange-deep); background: rgba(242,104,47,0.04); }
 .mm-link svg { width: 16px; height: 16px; opacity: 0.4; }
 .mm-foot { padding: 24px; background: var(--sage); color: #fff; }
@@ -2541,8 +2541,9 @@ body.locked { overflow: hidden; }
     </div>
     <div class="hero-visual reveal d2">
       <div class="hero-card">
+        <!-- IMAGE: Mujo Ritual pouch + prepared mug of cacao · 3:4 portrait · natural light -->
         <div class="ph-label">Image Placeholder</div>
-        <div class="ph-icon">🍄</div>
+        <div class="ph-icon">Hero product</div>
         <div class="ph-text">Hero product shot</div>
         <div class="ph-sub">Mujo Ritual pouch + prepared mug of cacao. 3:4 portrait.</div>
       </div>
@@ -2565,7 +2566,7 @@ body.locked { overflow: hidden; }
   <div class="container">
     <div class="problem-header">
       <div class="eyebrow light reveal">The hidden tax of high performance</div>
-      <h2 class="reveal d1">What's <span class="serif-accent">actually happening</span> when you're optimized but still depleted.</h2>
+      <h2 class="reveal d1">What's actually happening when you've done everything right and still crashed at 3pm.</h2>
     </div>
     <div class="problem-grid">
       <div class="pitems">
@@ -2644,21 +2645,24 @@ body.locked { overflow: hidden; }
       <p class="body-lg reveal d2" style="margin-top: 16px;">Eight ingredients. Every one selected because it has human clinical data. Every one dosed to the studies, not the margin. No proprietary blends. No hiding.</p>
       <div class="sol-pts">
         <div class="sp reveal">
-          <div class="sp-i">🎯</div>
+          <!-- ICON: target / clinical-dose · sage · 28px · botanical-line -->
+          <div class="sp-i" data-icon="dose-target">Dose</div>
           <div>
             <div class="sp-t">Dosed to the research, not the margin</div>
-            <div class="sp-b">300mg KSM-66 Ashwagandha. That's the clinical trial dose that reduced cortisol by up to 27.9%. Not 50mg with "ashwagandha" on the label.</div>
+            <div class="sp-b">300mg KSM-66 Ashwagandha. That's the dose used in the Chandrasekhar 2012 RCT, which reported cortisol reduction of up to 27.9%. Not 50mg with "ashwagandha" on the label.</div>
           </div>
         </div>
         <div class="sp reveal d1">
-          <div class="sp-i">🍄</div>
+          <!-- ICON: mushroom / fruiting-body · sage · 28px · botanical-line -->
+          <div class="sp-i" data-icon="fruiting-body">Mushroom</div>
           <div>
             <div class="sp-t">Fruiting body extracts, never mycelium on grain</div>
             <div class="sp-b">Beta-glucans live in the fruiting body. Most brands use mycelium because it's 7x cheaper. We use 8:1 fruiting body, that's where the active compounds are.</div>
           </div>
         </div>
         <div class="sp reveal d2">
-          <div class="sp-i">🧠</div>
+          <!-- ICON: brain / nervous-system · sage · 28px · botanical-line -->
+          <div class="sp-i" data-icon="nervous-system">Brain</div>
           <div>
             <div class="sp-t">HPA axis support, not stimulation</div>
             <div class="sp-b">KSM-66 and Rhodiola Rosea calibrate your stress response. Small fires stop feeling like big ones. Energy from your own cells, not a drug.</div>
@@ -2676,7 +2680,7 @@ body.locked { overflow: hidden; }
   <div class="container">
     <div class="proof-header">
       <div class="eyebrow reveal">Real reviews</div>
-      <h2 class="reveal d1" style="margin-top: 16px;">From people who also <span class="serif-accent">read the label</span> before they buy.</h2>
+      <h2 class="reveal d1" style="margin-top: 16px;">From people who also read the label before they buy.</h2>
     </div>
     <div class="proof-grid">
       <div class="pc reveal">
@@ -2751,19 +2755,23 @@ body.locked { overflow: hidden; }
     <div class="qcs-body reveal d2">60 seconds. Four questions. We analyze your pattern and build you a personalized protocol, emailed to you instantly.</div>
     <div class="qcs-what reveal d3">
       <div class="qcs-item">
-        <div class="qcs-item-icon">🔍</div>
+        <!-- ICON: magnifying-glass / diagnose · sage · 24px · botanical-line -->
+        <div class="qcs-item-icon" data-icon="diagnose">Diagnose</div>
         <div class="qcs-item-text"><strong>The root cause</strong>Why your specific pattern is happening, not a generic explanation</div>
       </div>
       <div class="qcs-item">
-        <div class="qcs-item-icon">⏰</div>
+        <!-- ICON: clock / sequence · sage · 24px · botanical-line -->
+        <div class="qcs-item-icon" data-icon="sequence">Sequence</div>
         <div class="qcs-item-text"><strong>Your morning sequence</strong>Exact timing built around your answers</div>
       </div>
       <div class="qcs-item">
-        <div class="qcs-item-icon">💊</div>
+        <!-- ICON: capsule / ingredient · sage · 24px · botanical-line -->
+        <div class="qcs-item-icon" data-icon="ingredient">Ingredient</div>
         <div class="qcs-item-text"><strong>Your key ingredients</strong>The 2–3 that matter most for your pattern</div>
       </div>
       <div class="qcs-item">
-        <div class="qcs-item-icon">🎯</div>
+        <!-- ICON: target / focus · sage · 24px · botanical-line -->
+        <div class="qcs-item-icon" data-icon="focus">Focus</div>
         <div class="qcs-item-text"><strong>One thing to stop</strong>The habit that's quietly making it worse</div>
       </div>
     </div>
@@ -2783,70 +2791,79 @@ body.locked { overflow: hidden; }
     <div class="iintro">
       <div>
         <div class="eyebrow reveal">The formula</div>
-        <h2 class="reveal d1" style="margin-top: 16px;">Every ingredient <span class="serif-accent">earned</span> its place.</h2>
+        <h2 class="reveal d1" style="margin-top: 16px;">Every ingredient earned its place.</h2>
       </div>
-      <p class="body-lg reveal d2">Peer-reviewed research behind them, work in combination, and dosed to the studies, not the label. 9,600mg mushroom equivalent + 3,000mg adaptogens equivalent + 3,400mg nootropics equivalent per serving.</p>
+      <p class="body-lg reveal d2">Peer-reviewed research behind them, work in combination, and dosed to the studies, not the label. 9,600mg raw mushroom equivalent + 3,000mg adaptogens raw equivalent + 3,400mg nootropics raw equivalent per serving.</p>
     </div>
 
     <div class="igrid">
       <div class="ic hero-ing reveal">
-        <span class="ie">✨</span>
+        <!-- ICON: bioavailable curcumin · sage · 26px · botanical-line -->
+        <span class="ie" data-icon="curcumin">Curcumin</span>
         <div class="in">Bioavailable Curcumin</div>
         <div class="ia">285x bioavailable · 29+ trials</div>
         <div class="ib">Standard curcumin is 99% wasted. Bioavailable Curcuma is clinically shown to <strong>cross the blood-brain barrier</strong> with 7.5hr half-life. Supports cognition, mood, inflammation.*</div>
         <div class="id-tag unique">Unique to Mujo</div>
       </div>
       <div class="ic reveal">
-        <span class="ie">🦁</span>
+        <!-- ICON: lion's mane mushroom · sage · 26px · botanical-line -->
+        <span class="ie" data-icon="lions-mane">Lion's Mane</span>
         <div class="in">Lion's Mane</div>
         <div class="ia">Hericium erinaceus · FB 8:1</div>
         <div class="ib">Stimulates Nerve Growth Factor, signals your brain to build new neural connections. Clinically studied for focus, memory, neuroplasticity.</div>
         <div class="id-tag">Fruiting body · 8:1</div>
       </div>
       <div class="ic reveal d1">
-        <span class="ie">🌿</span>
+        <!-- ICON: ashwagandha leaf · sage · 26px · botanical-line -->
+        <span class="ie" data-icon="ashwagandha">Ashwagandha</span>
         <div class="in">KSM-66 Ashwagandha</div>
         <div class="ia">300mg · Clinical dose</div>
-        <div class="ib">The most clinically studied ashwagandha on the market. At the exact 300mg dose that reduced cortisol by up to 27.9% in RCTs. Not 50mg for the label.</div>
+        <div class="ib">The most clinically studied ashwagandha on the market. At the exact 300mg dose used in the Chandrasekhar 2012 RCT, which reported cortisol reduction of up to 27.9%. Not 50mg for the label.</div>
         <div class="id-tag">300mg · KSM-66®</div>
       </div>
       <div class="ic reveal d2">
-        <span class="ie">🌸</span>
+        <!-- ICON: rhodiola rosea flower · sage · 26px · botanical-line -->
+        <span class="ie" data-icon="rhodiola">Rhodiola</span>
         <div class="in">Rhodiola Rosea</div>
         <div class="ia">Altai Mountain harvest</div>
         <div class="ib">One of the most studied adaptogens in the world. <strong>Rhodiola Rosea from Altai Mountain peak-potency harvests.</strong> Works on the HPA axis alongside KSM-66 for stress resilience.*</div>
         <div class="id-tag">Altai harvest · 5%/1.5%</div>
       </div>
       <div class="ic reveal">
-        <span class="ie">⚡</span>
+        <!-- ICON: cordyceps militaris · sage · 26px · botanical-line -->
+        <span class="ie" data-icon="cordyceps">Cordyceps</span>
         <div class="in">Cordyceps militaris</div>
         <div class="ia">Fruiting body 8:1</div>
         <div class="ib">Supports ATP synthesis, the energy molecule every cell runs on. Human VO₂ max trials. Militaris fruiting body, not fermented mycelium.</div>
         <div class="id-tag">Militaris FB · 8:1</div>
       </div>
       <div class="ic reveal d1">
-        <span class="ie">⛰️</span>
+        <!-- ICON: chaga / wild birch · sage · 26px · botanical-line -->
+        <span class="ie" data-icon="chaga">Chaga</span>
         <div class="in">Chaga</div>
         <div class="ia">Wild Siberia · FB 8:1</div>
         <div class="ib">ORAC 146,700, 4x acai. Beta-glucans and antioxidant compounds, wild birch-harvested fruiting body. Counters oxidative stress amplified by chronic cortisol.</div>
         <div class="id-tag">Wild FB · 8:1</div>
       </div>
       <div class="ic reveal d2">
-        <span class="ie">🌼</span>
+        <!-- ICON: bacopa monnieri · sage · 26px · botanical-line -->
+        <span class="ie" data-icon="bacopa">Bacopa</span>
         <div class="in">Bacopa Monnieri</div>
         <div class="ia">Standardized · India</div>
         <div class="ib">Ayurvedic nootropic studied for memory consolidation and processing speed. <strong>Works synergistically with Lion's Mane</strong>, growth and retention together.*</div>
         <div class="id-tag">Standardized</div>
       </div>
       <div class="ic reveal d3">
-        <span class="ie">🍫</span>
+        <!-- ICON: cacao pod · sage · 26px · botanical-line -->
+        <span class="ie" data-icon="cacao">Cacao</span>
         <div class="in">Cacao</div>
         <div class="ia">Single-origin Peru · Ceremonial</div>
         <div class="ib">Theobromine for gentle 6-hour energy. PQQ for mitochondrial support. Magnesium, flavanols, and the reason this tastes like something you'd choose.</div>
         <div class="id-tag">Ceremonial · Organic</div>
       </div>
       <div class="ic reveal d4">
-        <span class="ie">🌼</span>
+        <!-- ICON: maca root · sage · 26px · botanical-line -->
+        <span class="ie" data-icon="maca">Maca</span>
         <div class="in">Maca</div>
         <div class="ia">Single-origin Peru · Gelatinized</div>
         <div class="ib">Grown in Peru, our yellow maca is gelatinized to remove starch and make it easier on digestion. Delivers natural energy.</div>
@@ -2855,7 +2872,8 @@ body.locked { overflow: hidden; }
     </div>
 
     <div class="inote reveal">
-      <div class="ico">🔬</div>
+      <!-- ICON: microscope / lab · orange · 18px · botanical-line -->
+      <div class="ico" data-icon="lab">Lab</div>
       <div class="itxt"><strong>The mycelium problem:</strong> Most products use mycelium on grain, not actual mushrooms. Beta-glucans live in the fruiting body. A product can legally say "mushroom extract" using mycelium with under 5% beta-glucan content. Mujo Ritual uses fruiting body at 8:1, standardized for beta-glucans. <strong>If the label doesn't say "fruiting body", it probably isn't.</strong></div>
     </div>
   </div>
@@ -2888,8 +2906,9 @@ body.locked { overflow: hidden; }
   <div class="fgrid">
     <div class="fimgw reveal">
       <div class="fimgph">
+        <!-- IMAGE: Kinga portrait · 3:4 · half-body, holding mug, natural light -->
         <div class="ph-label">Image Placeholder</div>
-        <div class="ph-icon">📸</div>
+        <div class="ph-icon">Founder portrait</div>
         <div class="ph-text">Kinga portrait</div>
         <div class="ph-sub">Half-body, holding mug, natural light. 3:4.</div>
       </div>
@@ -2915,22 +2934,26 @@ body.locked { overflow: hidden; }
 <section class="obj">
   <div class="container">
     <div class="eyebrow reveal">The honest answers</div>
-    <h2 class="reveal d1" style="margin-top: 16px;">The questions we'd ask <span class="serif-accent">if we were you.</span></h2>
+    <h2 class="reveal d1" style="margin-top: 16px;">The questions we'd ask if we were you.</h2>
     <div class="obj-grid">
       <div class="objcard reveal">
-        <div class="objq"><span class="objqi">🤔</span>Do I need to quit coffee to drink Mujo?</div>
+        <!-- ICON: question / curiosity · orange · 17px · botanical-line -->
+        <div class="objq"><span class="objqi" data-icon="question">Q</span>Do I need to quit coffee to drink Mujo?</div>
         <div class="obja">No, but you might naturally want to drink less coffee. <strong>We recommend reducing caffeine gradually over 1–2 weeks</strong> while introducing Mujo Ritual. Caffeine withdrawal is a real thing. A tough morning in those first days is your adenosine receptors coming back online. Most people find the clarity around day 6–14 was worth the caffeine detox.</div>
       </div>
       <div class="objcard reveal d1">
-        <div class="objq"><span class="objqi">🔬</span>How do I verify the dosing independently?</div>
+        <!-- ICON: microscope / verify · orange · 17px · botanical-line -->
+        <div class="objq"><span class="objqi" data-icon="verify">Verify</span>How do I verify the dosing independently?</div>
         <div class="obja">We invite you to. <strong>Google "KSM-66 ashwagandha 300mg clinical trial", you'll find the Chandrasekhar 2012 RCT. Google "Bioavailable Curcumin bioavailability", you'll find 285x.</strong> Every ingredient is on the label with its exact dose and form. We built this to make verification easy, not prevent it.</div>
       </div>
       <div class="objcard reveal d2">
-        <div class="objq"><span class="objqi">⏱️</span>How quickly will I notice a difference?</div>
+        <!-- ICON: clock / timeline · orange · 17px · botanical-line -->
+        <div class="objq"><span class="objqi" data-icon="timeline">Time</span>How quickly will I notice a difference?</div>
         <div class="obja">Adaptogens work over weeks. <strong>Sleep quality usually shifts within 7–10 days.</strong> Reduced afternoon crash in weeks 2–3. Cognitive clarity and anxiety baseline in weeks 3–6, although every body is different because it's started from a different baseline.</div>
       </div>
       <div class="objcard reveal d3">
-        <div class="objq"><span class="objqi">🍫</span>What does it taste like?</div>
+        <!-- ICON: cacao / taste · orange · 17px · botanical-line -->
+        <div class="objq"><span class="objqi" data-icon="taste">Taste</span>What does it taste like?</div>
         <div class="obja">Warm, rich cacao latte, genuinely good, not something you're tolerating. <strong>No mushroom taste. No aftertaste.</strong> Oat or coconut milk recommended. It's the first functional drink most people say they look forward to.</div>
       </div>
     </div>
@@ -2943,7 +2966,7 @@ body.locked { overflow: hidden; }
 <section class="pric" id="pricing">
   <div class="container">
     <div class="eyebrow reveal">Start your ritual</div>
-    <h2 class="reveal d1" style="margin-top: 16px; max-width: 440px;">Your morning ritual, <span class="serif-accent">finally on your side.</span></h2>
+    <h2 class="reveal d1" style="margin-top: 16px; max-width: 440px;">Your morning ritual, finally on your side.</h2>
     <div class="panchor reveal d2"><strong>In perspective:</strong> A daily flat white is $5–7 and keeps your cortisol elevated. Mujo Ritual on subscription is <strong>$1.73 per serving</strong>. One swap that stops costing you how you feel.</div>
     <div class="priced">
       <div>
@@ -2963,7 +2986,8 @@ body.locked { overflow: hidden; }
           </div>
           <button class="btwh primary">Subscribe & Save. Start Today</button>
           <div class="gbox">
-            <div class="gicon">🛡</div>
+            <!-- ICON: shield / guarantee · orange · 19px · botanical-line -->
+            <div class="gicon" data-icon="guarantee">Shield</div>
             <div class="gtxt">
               <strong>30-day money-back guarantee</strong>
               No difference after 30 days? Full refund. No forms. No questions. We carry the risk.
@@ -3033,7 +3057,8 @@ body.locked { overflow: hidden; }
 <!-- ═══ STICKY BAR ═══ -->
 <div class="sbar" id="stickyBar">
   <div class="sb-l">
-    <div class="sb-emoji">🍄</div>
+    <!-- ICON: mushroom / Mujo Ritual · sage · 22px · botanical-line -->
+    <div class="sb-emoji" data-icon="ritual">Ritual</div>
     <div>
       <div class="sb-name">Mujo Ritual</div>
       <div class="sb-sub"><span class="sb-stars">★★★★★</span> 4.9 · 340+ reviews</div>
@@ -3048,7 +3073,8 @@ body.locked { overflow: hidden; }
 
 <!-- ═══ FLOATING QUIZ PILL ═══ -->
 <button class="quiz-pill" id="quizPill" onclick="openQuizSheet()">
-  <span class="qp-icon">🍄</span>
+  <!-- ICON: mushroom / quiz · sage · 17px · botanical-line -->
+  <span class="qp-icon" data-icon="quiz" aria-hidden="true"></span>
   Get your free Reset Plan
 </button>
 
@@ -3067,19 +3093,23 @@ body.locked { overflow: hidden; }
       <div class="qs-hint">Be honest, this is the first clue to your pattern.</div>
       <div class="qs-tiles">
         <div class="qs-tile" onclick="qNext(1,'crash')">
-          <div class="qt-em">📉</div>
+          <!-- ICON: downward arrow / afternoon crash · sage · 22px · botanical-line -->
+          <div class="qt-em" data-icon="crash">Crash</div>
           <div><div class="qt-l">I hit a wall at 2–3pm and can't think past it</div><div class="qt-s">Reliable. Predictable. Frustrating.</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(1,'wired')">
-          <div class="qt-em">⚡</div>
+          <!-- ICON: lightning / wired · sage · 22px · botanical-line -->
+          <div class="qt-em" data-icon="wired">Wired</div>
           <div><div class="qt-l">Wired and exhausted at the same time</div><div class="qt-s">Can't focus. Can't switch off.</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(1,'fog')">
-          <div class="qt-em">🌫️</div>
+          <!-- ICON: fog / brain fog · sage · 22px · botanical-line -->
+          <div class="qt-em" data-icon="fog">Fog</div>
           <div><div class="qt-l">Functional but foggy, like 70% showed up</div><div class="qt-s">Words take longer. Recall is slower.</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(1,'anxious')">
-          <div class="qt-em">😤</div>
+          <!-- ICON: tension / anxious · sage · 22px · botanical-line -->
+          <div class="qt-em" data-icon="anxious">Anxious</div>
           <div><div class="qt-l">Anxious underneath everything</div><div class="qt-s">Even when things are going well.</div></div>
         </div>
       </div>
@@ -3092,19 +3122,23 @@ body.locked { overflow: hidden; }
       <div class="qs-hint">This tells us how deep the pattern runs.</div>
       <div class="qs-tiles">
         <div class="qs-tile" onclick="qNext(2,'new')">
-          <div class="qt-em">📅</div>
+          <!-- ICON: calendar / recent · sage · 22px · botanical-line -->
+          <div class="qt-em" data-icon="recent">Recent</div>
           <div><div class="qt-l">Less than a year, it's gotten worse lately</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(2,'mid')">
-          <div class="qt-em">🗓️</div>
+          <!-- ICON: calendar / mid-term · sage · 22px · botanical-line -->
+          <div class="qt-em" data-icon="mid-term">Years</div>
           <div><div class="qt-l">1–3 years, it's become my normal</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(2,'long')">
-          <div class="qt-em">⏳</div>
+          <!-- ICON: hourglass / long-term · sage · 22px · botanical-line -->
+          <div class="qt-em" data-icon="long-term">Long</div>
           <div><div class="qt-l">3+ years. I can't remember without it</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(2,'free')">
-          <div class="qt-em">🌱</div>
+          <!-- ICON: sprout / caffeine-free · sage · 22px · botanical-line -->
+          <div class="qt-em" data-icon="caffeine-free">Free</div>
           <div><div class="qt-l">I've already quit, looking for what fills the gap</div></div>
         </div>
       </div>
@@ -3117,19 +3151,23 @@ body.locked { overflow: hidden; }
       <div class="qs-hint">No judgement, this shapes which steps matter most.</div>
       <div class="qs-tiles">
         <div class="qs-tile" onclick="qNext(3,'performer')">
-          <div class="qt-em">📊</div>
+          <!-- ICON: chart / performer · sage · 22px · botanical-line -->
+          <div class="qt-em" data-icon="performer">Track</div>
           <div><div class="qt-l">Coffee first, then I check my metrics</div><div class="qt-s">HRV, sleep score, readiness</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(3,'burnout')">
-          <div class="qt-em">💻</div>
+          <!-- ICON: laptop / work · sage · 22px · botanical-line -->
+          <div class="qt-em" data-icon="work">Work</div>
           <div><div class="qt-l">Coffee and straight into work</div><div class="qt-s">No warm-up. Just output.</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(3,'mama')">
-          <div class="qt-em">👶</div>
+          <!-- ICON: family / caregiver · sage · 22px · botanical-line -->
+          <div class="qt-em" data-icon="caregiver">Family</div>
           <div><div class="qt-l">The morning belongs to everyone else first</div><div class="qt-s">Kids, logistics, then maybe me</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(3,'calm')">
-          <div class="qt-em">🧘</div>
+          <!-- ICON: stillness / slow start · sage · 22px · botanical-line -->
+          <div class="qt-em" data-icon="slow-start">Slow</div>
           <div><div class="qt-l">I try to start slow, it just rarely works</div><div class="qt-s">The day hijacks the intention</div></div>
         </div>
       </div>
@@ -3142,19 +3180,23 @@ body.locked { overflow: hidden; }
       <div class="qs-hint">This becomes the goal of your personalized plan.</div>
       <div class="qs-tiles">
         <div class="qs-tile" onclick="qNext(4,'focus')">
-          <div class="qt-em">🎯</div>
+          <!-- ICON: target / focus · sage · 22px · botanical-line -->
+          <div class="qt-em" data-icon="focus">Focus</div>
           <div><div class="qt-l">Calm, clear focus that doesn't need a spike</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(4,'calm')">
-          <div class="qt-em">😌</div>
+          <!-- ICON: calm / steady · sage · 22px · botanical-line -->
+          <div class="qt-em" data-icon="calm">Calm</div>
           <div><div class="qt-l">No anxiety underneath the productivity</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(4,'energy')">
-          <div class="qt-em">⚡</div>
+          <!-- ICON: lightning / energy · sage · 22px · botanical-line -->
+          <div class="qt-em" data-icon="energy">Energy</div>
           <div><div class="qt-l">Enough in the tank to still be present at 7pm</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(4,'sleep')">
-          <div class="qt-em">🌙</div>
+          <!-- ICON: moon / sleep · sage · 22px · botanical-line -->
+          <div class="qt-em" data-icon="sleep">Sleep</div>
           <div><div class="qt-l">Sleep that actually means something</div></div>
         </div>
       </div>
@@ -3167,19 +3209,23 @@ body.locked { overflow: hidden; }
       <div class="qs-hint">This is the first place adaptogens usually move the needle.</div>
       <div class="qs-tiles">
         <div class="qs-tile" onclick="qNext(5,'broken')">
-          <div class="qt-em">🥱</div>
+          <!-- ICON: depleted / unrested · sage · 22px · botanical-line -->
+          <div class="qt-em" data-icon="unrested">Tired</div>
           <div><div class="qt-l">I wake up feeling like I didn't sleep</div><div class="qt-s">7+ hours and still depleted</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(5,'fragmented')">
-          <div class="qt-em">😴</div>
+          <!-- ICON: broken sleep / 3am wake · sage · 22px · botanical-line -->
+          <div class="qt-em" data-icon="3am-wake">Wake</div>
           <div><div class="qt-l">I fall asleep fine, but wake up at 3am</div><div class="qt-s">Cortisol hijacks the second half of the night</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(5,'sleep_anx')">
-          <div class="qt-em">🧠</div>
+          <!-- ICON: brain / racing thoughts · sage · 22px · botanical-line -->
+          <div class="qt-em" data-icon="racing-mind">Mind</div>
           <div><div class="qt-l">My mind won't switch off when I get into bed</div><div class="qt-s">Wired tired, even at midnight</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(5,'okay')">
-          <div class="qt-em">🌟</div>
+          <!-- ICON: spark / good sleep · sage · 22px · botanical-line -->
+          <div class="qt-em" data-icon="rested">Rested</div>
           <div><div class="qt-l">Sleep is alright, energy is the real issue</div></div>
         </div>
       </div>
@@ -3192,19 +3238,23 @@ body.locked { overflow: hidden; }
       <div class="qs-hint">No judgement. This sets the right pace for the transition.</div>
       <div class="qs-tiles">
         <div class="qs-tile" onclick="qNext(6,'light')">
-          <div class="qt-em">☕</div>
+          <!-- ICON: single coffee cup · sage · 22px · botanical-line -->
+          <div class="qt-em" data-icon="coffee-1">1 cup</div>
           <div><div class="qt-l">One in the morning</div><div class="qt-s">Just the ritual, never more</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(6,'mid')">
-          <div class="qt-em">☕☕</div>
+          <!-- ICON: two coffee cups · sage · 22px · botanical-line -->
+          <div class="qt-em" data-icon="coffee-2">2–3 cups</div>
           <div><div class="qt-l">Two or three across the day</div><div class="qt-s">Morning + a 3pm pickup</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(6,'heavy')">
-          <div class="qt-em">☕☕☕</div>
+          <!-- ICON: three coffee cups · sage · 22px · botanical-line -->
+          <div class="qt-em" data-icon="coffee-3">4+ cups</div>
           <div><div class="qt-l">Four or more, and I'm still tired</div><div class="qt-s">Cortisol's already running the show</div></div>
         </div>
         <div class="qs-tile" onclick="qNext(6,'free')">
-          <div class="qt-em">🌱</div>
+          <!-- ICON: sprout / caffeine-free · sage · 22px · botanical-line -->
+          <div class="qt-em" data-icon="caffeine-free">Free</div>
           <div><div class="qt-l">Caffeine-free already</div><div class="qt-s">Looking for what fills the gap</div></div>
         </div>
       </div>
@@ -3216,7 +3266,8 @@ body.locked { overflow: hidden; }
       <div class="qs-q">We've built your plan.</div>
       <div class="qs-hint">Based on your answers, here's what we're sending you:</div>
       <div class="qs-offer">
-        <div class="qs-offer-title">📋 Your 5-Step Nervous System Reset Plan</div>
+        <!-- ICON: clipboard / plan · sage · inline · botanical-line -->
+        <div class="qs-offer-title">Your 5-Step Nervous System Reset Plan</div>
         <div class="qs-offer-items">
           <div class="qs-offer-item"><span class="qs-offer-ck">✓</span>The root cause driving your specific pattern</div>
           <div class="qs-offer-item"><span class="qs-offer-ck">✓</span>Your personalized morning sequence with timing</div>
@@ -3230,18 +3281,20 @@ body.locked { overflow: hidden; }
         Send me my plan
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
-      <div class="qs-privacy">🔒 No spam. Unsubscribe any time.</div>
+      <div class="qs-privacy">No spam. Unsubscribe any time.</div>
       <div class="qs-nav"><button class="qs-back" onclick="qBack(7)">← Back</button><div class="qs-ct">Almost there</div></div>
     </div>
 
     <!-- Result -->
     <div class="qs-result" id="qsResult">
-      <span class="res-check">✅</span>
-      <div style="text-align: center;"><span class="res-tag">✓ Plan sent to your inbox</span></div>
+      <!-- ICON: check / sent · sage · 36px · botanical-line -->
+      <span class="res-check" data-icon="sent" aria-hidden="true"></span>
+      <div style="text-align: center;"><span class="res-tag">Plan sent to your inbox</span></div>
       <div class="res-h" id="resH"></div>
       <div class="res-body" id="resBody"></div>
       <div class="res-pdf">
-        <div class="res-pdf-icon">📋</div>
+        <!-- ICON: clipboard / plan PDF · sage · 24px · botanical-line -->
+        <div class="res-pdf-icon" data-icon="plan-pdf">PDF</div>
         <div class="res-pdf-text">
           <strong id="resPdfTitle">Your 5-Step Reset Plan</strong>
           Check your inbox, it's on its way. Usually arrives within 2 minutes.
@@ -3262,10 +3315,11 @@ body.locked { overflow: hidden; }
   <div class="geo-pre">Quick question</div>
   <div class="geo-q">Where are you shipping to?</div>
   <div class="geo-opts">
-    <div class="geo-opt" onclick="showGeoFact(event, 'us')">🇺🇸 US</div>
-    <div class="geo-opt" onclick="showGeoFact(event, 'uk')">🇬🇧 UK</div>
-    <div class="geo-opt" onclick="showGeoFact(event, 'eu')">🇪🇺 Europe</div>
-    <div class="geo-opt" onclick="showGeoFact(event, 'other')">🌍 Other</div>
+    <!-- ICONS: country flags / globe · sage · 14px · botanical-line (replace flag glyphs in production) -->
+    <div class="geo-opt" onclick="showGeoFact(event, 'us')">US</div>
+    <div class="geo-opt" onclick="showGeoFact(event, 'uk')">UK</div>
+    <div class="geo-opt" onclick="showGeoFact(event, 'eu')">Europe</div>
+    <div class="geo-opt" onclick="showGeoFact(event, 'other')">Other</div>
   </div>
   <div class="geo-fact" id="geoFact"></div>
 </div>
@@ -3274,7 +3328,8 @@ body.locked { overflow: hidden; }
 <div class="eov" id="exitOverlay">
   <div class="epop">
     <button class="ecl" onclick="closeExit()" aria-label="Close">✕</button>
-    <span class="eemoji">🎁</span>
+    <!-- ICON: gift / discount · orange · 36px · botanical-line -->
+    <span class="eemoji" data-icon="gift" aria-hidden="true"></span>
     <div class="eh">Wait. <em>15% off</em> on us.</div>
     <div class="es">Drop your email and we'll send you a one-time discount code, plus founder notes from Kinga, member-only essays on the physiology of modern stress, and early access to drops.</div>
     <div class="eform">
@@ -3466,7 +3521,7 @@ function showResult() {
   // Render the result panel with persona-specific copy
   const results = {
     performer: {
-      h: 'Your pattern is <em>The Optimized but Overcaffeinated.</em>',
+      h: 'Your pattern is <em>The Try-Everything Caffeinator.</em>',
       body: `You've done the hard work, tracking, training, dialing in the inputs. But caffeine is quietly capping your ceiling. It's keeping your cortisol elevated when it should be recovering, disrupting the deep sleep your metrics are measuring, and creating the 3pm wall your zone 2 sessions can't fix. <strong>Your plan targets the HPA axis recalibration your nervous system is ready for.</strong>`,
       pdf: 'Your 5-Step Reset Plan, Performer Edition'
     },
@@ -3502,10 +3557,10 @@ function showResult() {
 
 // Geo banner
 const geoFacts = {
-  us: '<strong>Free shipping, 2–4 day delivery.</strong> US orders ship from our fulfilment partner. Free on all orders over $60.',
-  uk: '<strong>Ships to the UK tracked.</strong> Most orders arrive in 5–7 days. Orders under £135 are duty-free.',
-  eu: '<strong>Founded in Portugal, EU shipping is a priority.</strong> Phase 1 markets: Portugal and Netherlands. Enter your email in the quiz for launch updates.',
-  other: '<strong>We ship internationally.</strong> Take the quiz and we\'ll confirm your exact shipping cost before you commit.'
+  us: '<strong>Free shipping on US orders over $60.</strong> US orders ship in 3–5 working days from our US warehouse.',
+  uk: '<strong>International shipping in development.</strong> Sign up for updates on UK launch.',
+  eu: '<strong>International shipping in development.</strong> Sign up for updates on EU launch.',
+  other: '<strong>Currently shipping in the United States only.</strong> Sign up for updates on international launches.'
 };
 function showGeoFact(e, region) {
   const f = document.getElementById('geoFact');
@@ -3602,7 +3657,8 @@ document.getElementById('exitOverlay').addEventListener('click', e => {
 <script id="mujo-canonical-nav-js">
 const PRICES = { 'ritual-25': 55.25, 'ritual-10': 27, 'bar-pb': 54, 'bar-cashew': 54, 'mug': 24, 'tee': 38, 'tote': 22 };
 const NAMES = { 'ritual-25': 'Mujo Ritual · 25 servings', 'ritual-10': 'Mujo Ritual · 10 servings', 'bar-pb': 'Lemna Bar · PB Crunch', 'bar-cashew': 'Lemna Bar · Cashew Chocolate', 'mug': 'Ritual Mug', 'tee': 'Rebel Club Tee', 'tote': 'Market Tote' };
-const ICONS = { 'ritual-25': '🍵', 'ritual-10': '🍵', 'bar-pb': '🥜', 'bar-cashew': '🍫', 'mug': '☕', 'tee': '👕', 'tote': '🛍️' };
+// ICONS map renders product line items in cart drawer · replace text labels with botanical-line icons in production
+const ICONS = { 'ritual-25': 'Ritual', 'ritual-10': 'Ritual', 'bar-pb': 'PB Bar', 'bar-cashew': 'Cashew Bar', 'mug': 'Mug', 'tee': 'Tee', 'tote': 'Tote' };
 let cart = {};
 function openMenu() { document.getElementById('mobileMenu').classList.add('open'); document.getElementById('overlay').classList.add('open'); document.body.classList.add('locked'); }
 function closeMenu() { document.getElementById('mobileMenu').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); if (!document.getElementById('cartDrawer').classList.contains('open')) document.body.classList.remove('locked'); }
@@ -3628,7 +3684,7 @@ function renderCart() {
   else if (remaining <= 0) { fill.classList.add('full'); msg.innerHTML = '<strong>Free shipping</strong> unlocked. Nice work.'; }
   else { fill.classList.remove('full'); msg.innerHTML = '<span class="accent">' + fmt(remaining) + '</span> away from <strong>free shipping</strong>.'; }
   const body = document.getElementById('cartBody'); body.innerHTML = '';
-  if (count === 0) { body.innerHTML = '<div class="cart-empty"><div class="cart-empty-illo">🍵</div><h3>Nothing in here yet.</h3><p>Your ritual is one click away. The Mujo Ritual is the place most people start.</p><a href="/shop">Browse the shop →</a></div>'; }
+  if (count === 0) { body.innerHTML = '<div class="cart-empty"><div class="cart-empty-illo" data-icon="empty-cart" aria-hidden="true"></div><h3>Nothing in here yet.</h3><p>Your ritual is one click away. The Mujo Ritual is the place most people start.</p><a href="/shop">Browse the shop →</a></div>'; }
   else { Object.entries(cart).forEach(([id, qty]) => { const row = document.createElement('div'); row.className = 'cart-item'; row.innerHTML = `<div class="cart-item-img">${ICONS[id]||'·'}</div><div class="cart-item-info"><div class="cart-item-name">${NAMES[id]}</div><div class="cart-item-variant">One-time</div><div class="cart-item-controls"><button class="qty-btn" onclick="updateQty('${id}',-1)">−</button><span class="qty-val">${qty}</span><button class="qty-btn" onclick="updateQty('${id}',1)">+</button></div></div><div class="cart-item-meta"><div class="cart-item-price">${fmt(PRICES[id]*qty)}</div><button class="cart-item-remove" onclick="removeItem('${id}')">Remove</button></div>`; body.appendChild(row); }); }
   document.getElementById('subtotalDisplay').textContent = count === 0 ? '$0' : fmt(subtotal);
   document.getElementById('shippingDisplay').textContent = (remaining <= 0 && count > 0) ? 'Free' : 'Calculated at checkout';

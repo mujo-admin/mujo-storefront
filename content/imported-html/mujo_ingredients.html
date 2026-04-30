@@ -876,12 +876,12 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .menu-overlay.open { opacity: 1; pointer-events: auto; }
 .mobile-menu { position: fixed; top: 0; left: 0; bottom: 0; width: min(360px, 88vw); background: var(--cream); z-index: 999; transform: translateX(-100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; overflow-y: auto; }
 .mobile-menu.open { transform: translateX(0); }
-.mm-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); }
+.mm-head { display: flex; align-items: center; justify-content: center; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); position: relative; }
 .mm-head img { height: 26px; width: auto; }
-.mm-close { width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); margin-right: -8px; }
+.mm-close { width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); position: absolute; right: 12px; top: 50%; transform: translateY(-50%); }
 .mm-close svg { width: 20px; height: 20px; }
 .mm-links { display: flex; flex-direction: column; padding: 4px 0; flex: 1; }
-.mm-link { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; font-family: var(--f-display); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-soft); transition: background 0.15s, color 0.15s; }
+.mm-link { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; font-family: var(--f-display); font-size: 18px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-soft); transition: background 0.15s, color 0.15s; }
 .mm-link:hover { color: var(--orange-deep); background: rgba(242,104,47,0.04); }
 .mm-link svg { width: 16px; height: 16px; opacity: 0.4; }
 .mm-foot { padding: 24px; background: var(--sage); color: #fff; }
@@ -1004,20 +1004,20 @@ body.locked { overflow: hidden; }
   <div class="container">
     <div class="hero-eye reveal">The full dossier</div>
     <h1 class="reveal d1">The full formula. <span class="serif-accent">Disclosed where it matters.</span></h1>
-    <p class="hero-sub reveal d2">This is the complete ingredient dossier for every Mujo product. We disclose <strong>exact doses for the ingredients where clinical research depends on precise amounts</strong>. KSM-66® at 300mg, Longvida® at its researched ratio, RhodioLife® at premium standardization. Supporting ingredients are listed with form, source, and role, plus category totals for the formula as a whole. <strong>Proprietary blends hide what's in them. Craftsmanship doesn't show its exact margins.</strong></p>
+    <p class="hero-sub reveal d2">This is the complete ingredient dossier for every Mujo product. We disclose <strong>exact doses for the ingredients where clinical research depends on precise amounts</strong>. KSM-66® at 300mg. Bioavailable Curcumin in its solid-lipid form. Rhodiola Rosea at premium standardization. Supporting ingredients are listed with form, source, and role, plus category totals for the formula as a whole. <strong>Proprietary blends hide what's in them. Craftsmanship doesn't show its exact margins.</strong></p>
 
     <div class="hero-stats reveal d3">
       <div class="hs-item">
-        <div class="hs-num">1,200<span>mg</span></div>
-        <div class="hs-lbl">Functional mushrooms<br>(9,600mg at 8:1)</div>
+        <div class="hs-num">9,600<span>mg</span></div>
+        <div class="hs-lbl">Raw mushroom equivalent<br>(1,200mg standardized extract · 8:1)</div>
       </div>
       <div class="hs-item">
         <div class="hs-num">3,000<span>mg</span></div>
-        <div class="hs-lbl">Clinical adaptogens</div>
+        <div class="hs-lbl">Adaptogens raw equivalent<br>(550mg standardized extract)</div>
       </div>
       <div class="hs-item">
         <div class="hs-num">3,400<span>mg</span></div>
-        <div class="hs-lbl">Natural nootropics</div>
+        <div class="hs-lbl">Nootropics raw equivalent<br>(380mg standardized extract)</div>
       </div>
       <div class="hs-item">
         <div class="hs-num">0<span>.</span></div>
@@ -1055,31 +1055,32 @@ body.locked { overflow: hidden; }
         Mujo Ritual · Shipping now
       </div>
       <h2>The mushroom-adaptogen cacao blend.</h2>
-      <p class="body-lg">Every ingredient at its clinically validated form and dose. Three are disclosed at exact clinical doses (KSM-66®, Longvida®, RhodioLife®). The rest share category totals and sourcing. Every one earns its place, or it wouldn't be here.</p>
+      <p class="body-lg">Every ingredient at its clinically validated form and dose. Three are disclosed at exact clinical doses (KSM-66® Ashwagandha, Bioavailable Curcumin, Rhodiola Rosea). The rest share category totals and sourcing. Every one earns its place, or it wouldn't be here.</p>
     </div>
 
     <div class="ing-grid">
 
-      <!-- ═══════ HERO INGREDIENT: Longvida Curcumin ═══════ -->
+      <!-- ═══════ HERO INGREDIENT: Bioavailable Curcumin ═══════ -->
       <div class="ing-card feat reveal" data-benefits="focus recovery">
-        <div class="ing-img"><span class="ing-img-emoji">✨</span></div>
+        <!-- ICON: bioavailable curcumin · sage · 64px · botanical-line -->
+        <div class="ing-img image-placeholder icon-placeholder sand-bg" data-icon="curcumin">curcumin</div>
         <div class="ing-content">
           <div class="ing-top">
-            <div class="ing-name">Longvida® Curcumin</div>
+            <div class="ing-name">Bioavailable Curcumin</div>
             <div class="ing-badge">Unique to Mujo</div>
           </div>
-          <div class="ing-latin">Curcuma longa · Solid-lipid particle · Verdure Sciences</div>
+          <div class="ing-latin">Curcuma longa · Solid-lipid particle</div>
           <div class="ing-pills">
             <span class="ing-pill">Cognition</span>
             <span class="ing-pill">Mood</span>
             <span class="ing-pill">Inflammation</span>
             <span class="ing-pill">Brain health</span>
           </div>
-          <div class="ing-desc">Standard curcumin is 99% wasted, your body can't absorb or deliver it past the blood-brain barrier. <strong>Longvida® is a patented solid-lipid curcumin formulation clinically shown to achieve 285x greater free-curcumin bioavailability and a 7.5-hour half-life.</strong> It's one of the few curcumin forms proven to cross the blood-brain barrier, and is the subject of 29+ human clinical trials. Virtually no competitor in the mushroom-cacao category uses it, because it costs roughly 10x more than standard curcumin. We use it because the alternative doesn't actually work.</div>
+          <div class="ing-desc">Standard curcumin is 99% wasted, your body can't absorb or deliver it past the blood-brain barrier. <strong>The solid-lipid curcumin form we use is clinically shown to achieve 285x greater free-curcumin bioavailability and a 7.5-hour half-life.</strong> It's one of the few curcumin forms proven to cross the blood-brain barrier, and is the subject of 29+ human clinical trials. Virtually no competitor in the mushroom-cacao category uses it, because it costs roughly 10x more than standard curcumin. We use it because the alternative doesn't actually work.</div>
           <div class="ing-meta">
             <div class="ing-meta-item"><strong>Dose</strong>At researched SLCP ratio</div>
             <div class="ing-meta-item"><strong>Form</strong>Solid-lipid curcumin particle (SLCP)</div>
-            <div class="ing-meta-item"><strong>Source</strong>Verdure Sciences (patented)</div>
+            <div class="ing-meta-item"><strong>Source</strong>Patented solid-lipid curcumin form</div>
             <div class="ing-meta-item"><strong>Evidence</strong>29+ human trials · PubMed 23832433, 29914268</div>
           </div>
           <div class="ing-refs">
@@ -1090,7 +1091,8 @@ body.locked { overflow: hidden; }
 
       <!-- Lion's Mane -->
       <div class="ing-card reveal d1" data-benefits="focus">
-        <div class="ing-img"><span class="ing-img-emoji">🦁</span></div>
+        <!-- ICON: lion's mane mushroom · sage · 64px · botanical-line -->
+        <div class="ing-img image-placeholder icon-placeholder sand-bg" data-icon="lions-mane">lion's mane</div>
         <div class="ing-content">
           <div class="ing-top">
             <div class="ing-name">Lion's Mane</div>
@@ -1113,7 +1115,8 @@ body.locked { overflow: hidden; }
 
       <!-- KSM-66 Ashwagandha -->
       <div class="ing-card reveal d2" data-benefits="stress recovery">
-        <div class="ing-img"><span class="ing-img-emoji">🌿</span></div>
+        <!-- ICON: ashwagandha root · sage · 64px · botanical-line -->
+        <div class="ing-img image-placeholder icon-placeholder sand-bg" data-icon="ashwagandha">ashwagandha</div>
         <div class="ing-content">
           <div class="ing-top">
             <div class="ing-name">KSM-66® Ashwagandha</div>
@@ -1135,25 +1138,26 @@ body.locked { overflow: hidden; }
         </div>
       </div>
 
-      <!-- RhodioLife Rhodiola -->
+      <!-- Rhodiola Rosea -->
       <div class="ing-card reveal" data-benefits="stress energy">
-        <div class="ing-img"><span class="ing-img-emoji">🌸</span></div>
+        <!-- ICON: rhodiola flower · sage · 64px · botanical-line -->
+        <div class="ing-img image-placeholder icon-placeholder sand-bg" data-icon="rhodiola">rhodiola</div>
         <div class="ing-content">
           <div class="ing-top">
-            <div class="ing-name">RhodioLife® Rhodiola</div>
+            <div class="ing-name">Rhodiola Rosea</div>
             <div class="ing-badge sage">Altai Mountain</div>
           </div>
-          <div class="ing-latin">Rhodiola rosea · Root · Nektium</div>
+          <div class="ing-latin">Rhodiola rosea · Root</div>
           <div class="ing-pills">
             <span class="ing-pill">Performance</span>
             <span class="ing-pill">Stress resilience</span>
             <span class="ing-pill">Endurance</span>
           </div>
-          <div class="ing-desc">Standardised to <strong>5% rosavins and 1.5% salidrosides, the highest standardization available in clinical-grade rhodiola</strong>, and significantly above the 3% / 1% ratio used in most published trials. RhodioLife® is wild-crafted from sustainable Altai Mountain harvests, the ancestral source cited across centuries of Siberian and Scandinavian use. Works on the HPA axis for mental performance under chronic stress and fatigue resistance. Studied in military personnel, physicians on night shifts, and students during exams.*</div>
+          <div class="ing-desc">Standardised to <strong>5% rosavins and 1.5% salidrosides, the highest standardization available in clinical-grade rhodiola</strong>, and significantly above the 3% / 1% ratio used in most published trials. Wild-crafted from sustainable Altai Mountain harvests, the ancestral source cited across centuries of Siberian and Scandinavian use. Works on the HPA axis for mental performance under chronic stress and fatigue resistance. Studied in military personnel, physicians on night shifts, and students during exams.*</div>
           <div class="ing-meta">
             <div class="ing-meta-item"><strong>Dose</strong>At premium standardization</div>
             <div class="ing-meta-item"><strong>Form</strong>5% rosavins / 1.5% salidrosides</div>
-            <div class="ing-meta-item"><strong>Source</strong>RhodioLife® (Nektium), Altai Mountain</div>
+            <div class="ing-meta-item"><strong>Source</strong>Wild-crafted Altai Mountain extract</div>
             <div class="ing-meta-item"><strong>Evidence</strong>Darbinyan 2000 · Olsson 2009</div>
           </div>
         </div>
@@ -1161,7 +1165,8 @@ body.locked { overflow: hidden; }
 
       <!-- Cordyceps -->
       <div class="ing-card reveal d1" data-benefits="energy recovery">
-        <div class="ing-img"><span class="ing-img-emoji">⚡</span></div>
+        <!-- ICON: cordyceps mushroom · sage · 64px · botanical-line -->
+        <div class="ing-img image-placeholder icon-placeholder sand-bg" data-icon="cordyceps">cordyceps</div>
         <div class="ing-content">
           <div class="ing-top">
             <div class="ing-name">Cordyceps</div>
@@ -1184,7 +1189,8 @@ body.locked { overflow: hidden; }
 
       <!-- Chaga -->
       <div class="ing-card reveal d2" data-benefits="immunity">
-        <div class="ing-img"><span class="ing-img-emoji">🍂</span></div>
+        <!-- ICON: chaga mushroom · sage · 64px · botanical-line -->
+        <div class="ing-img image-placeholder icon-placeholder sand-bg" data-icon="chaga">chaga</div>
         <div class="ing-content">
           <div class="ing-top">
             <div class="ing-name">Chaga</div>
@@ -1207,7 +1213,8 @@ body.locked { overflow: hidden; }
 
       <!-- Bacopa Monnieri -->
       <div class="ing-card reveal d1" data-benefits="focus">
-        <div class="ing-img"><span class="ing-img-emoji">🌱</span></div>
+        <!-- ICON: bacopa leaf · sage · 64px · botanical-line -->
+        <div class="ing-img image-placeholder icon-placeholder sand-bg" data-icon="bacopa">bacopa</div>
         <div class="ing-content">
           <div class="ing-top">
             <div class="ing-name">Bacopa Monnieri</div>
@@ -1230,7 +1237,8 @@ body.locked { overflow: hidden; }
 
       <!-- Cacao -->
       <div class="ing-card reveal d2" data-benefits="energy">
-        <div class="ing-img"><span class="ing-img-emoji">🍫</span></div>
+        <!-- ICON: cacao bean · sage · 64px · botanical-line -->
+        <div class="ing-img image-placeholder icon-placeholder sand-bg" data-icon="cacao">cacao</div>
         <div class="ing-content">
           <div class="ing-top">
             <div class="ing-name">Organic Peruvian Cacao</div>
@@ -1254,7 +1262,8 @@ body.locked { overflow: hidden; }
 
       <!-- Carob -->
       <div class="ing-card reveal" data-benefits="energy">
-        <div class="ing-img"><span class="ing-img-emoji">🫘</span></div>
+        <!-- ICON: carob pod · sage · 64px · botanical-line -->
+        <div class="ing-img image-placeholder icon-placeholder sand-bg" data-icon="carob">carob</div>
         <div class="ing-content">
           <div class="ing-top">
             <div class="ing-name">Carob</div>
@@ -1276,7 +1285,8 @@ body.locked { overflow: hidden; }
 
       <!-- MCT Oil Powder -->
       <div class="ing-card reveal d1" data-benefits="focus energy">
-        <div class="ing-img"><span class="ing-img-emoji">🥥</span></div>
+        <!-- ICON: coconut MCT · sage · 64px · botanical-line -->
+        <div class="ing-img image-placeholder icon-placeholder sand-bg" data-icon="mct-oil">MCT oil</div>
         <div class="ing-content">
           <div class="ing-top">
             <div class="ing-name">MCT Oil Powder</div>
@@ -1299,7 +1309,8 @@ body.locked { overflow: hidden; }
 
       <!-- Tapioca Fiber -->
       <div class="ing-card reveal d2" data-benefits="recovery">
-        <div class="ing-img"><span class="ing-img-emoji">🌾</span></div>
+        <!-- ICON: tapioca fiber · sage · 64px · botanical-line -->
+        <div class="ing-img image-placeholder icon-placeholder sand-bg" data-icon="tapioca-fiber">tapioca fiber</div>
         <div class="ing-content">
           <div class="ing-top">
             <div class="ing-name">FiberSmart™ Tapioca Fiber</div>
@@ -1322,7 +1333,8 @@ body.locked { overflow: hidden; }
 
       <!-- Gelatinized Maca -->
       <div class="ing-card reveal" data-benefits="energy stress">
-        <div class="ing-img"><span class="ing-img-emoji">🟤</span></div>
+        <!-- ICON: maca root · sage · 64px · botanical-line -->
+        <div class="ing-img image-placeholder icon-placeholder sand-bg" data-icon="maca">maca</div>
         <div class="ing-content">
           <div class="ing-top">
             <div class="ing-name">Gelatinized Maca</div>
@@ -1345,7 +1357,8 @@ body.locked { overflow: hidden; }
 
       <!-- Cinnamon -->
       <div class="ing-card reveal d1" data-benefits="recovery">
-        <div class="ing-img"><span class="ing-img-emoji">🟫</span></div>
+        <!-- ICON: cinnamon stick · sage · 64px · botanical-line -->
+        <div class="ing-img image-placeholder icon-placeholder sand-bg" data-icon="cinnamon">cinnamon</div>
         <div class="ing-content">
           <div class="ing-top">
             <div class="ing-name">Cinnamon</div>
@@ -1367,7 +1380,8 @@ body.locked { overflow: hidden; }
 
       <!-- Allspice -->
       <div class="ing-card reveal d2" data-benefits="recovery">
-        <div class="ing-img"><span class="ing-img-emoji">🫚</span></div>
+        <!-- ICON: allspice and ginger · sage · 64px · botanical-line -->
+        <div class="ing-img image-placeholder icon-placeholder sand-bg" data-icon="allspice-ginger">allspice + ginger</div>
         <div class="ing-content">
           <div class="ing-top">
             <div class="ing-name">Allspice &amp; Ginger</div>
@@ -1411,12 +1425,12 @@ body.locked { overflow: hidden; }
       <div class="principle reveal d1">
         <div class="principle-num">02 / Disclosure where it matters</div>
         <div class="principle-h">Clinical ingredients named, supporting ones categorized.</div>
-        <div class="principle-b">For ingredients where <strong>precise dose drives the outcome</strong>. KSM-66® at its 300mg clinical trial dose, Longvida® at its researched SLCP ratio, RhodioLife® at its premium 5% / 1.5% standardization, we disclose exactly what's in the formula. For the supporting cast, we share category totals and let the recipe stay the recipe. Proprietary blends hide what's in them. <strong>Craftsmanship doesn't show its exact margins.</strong></div>
+        <div class="principle-b">For ingredients where <strong>precise dose drives the outcome</strong>. KSM-66® at its 300mg clinical trial dose. Bioavailable Curcumin in its solid-lipid form. Rhodiola Rosea standardized to 5% rosavins and 1.5% salidrosides. We disclose exactly what's in the formula. For the supporting cast, we share category totals and sourcing, and let the recipe stay the recipe. Proprietary blends hide what's in them. <strong>Craftsmanship doesn't show its exact margins.</strong></div>
       </div>
       <div class="principle reveal d2">
         <div class="principle-num">03 / Branded when it matters</div>
         <div class="principle-h">The research uses the brand.</div>
-        <div class="principle-b">For ingredients where form matters. Longvida®, KSM-66®, RhodioLife®, we use the specific branded extract the clinical research tested. Generic "curcumin" or "ashwagandha" aren't the same compounds. <strong>Paying for the research means paying for the specific form the research validated.</strong></div>
+        <div class="principle-b">For ingredients where form matters, generic isn't the same compound. KSM-66® Ashwagandha is the form behind the Chandrasekhar 2012 RCT cortisol-rhythm research. Bioavailable Curcumin is the solid-lipid form clinically shown to cross the blood-brain barrier and achieve 285x greater free-curcumin bioavailability. Rhodiola Rosea is sourced as a wild-crafted Altai Mountain extract at premium standardization. <strong>Paying for the research means paying for the specific form the research validated.</strong></div>
       </div>
     </div>
   </div>
@@ -1443,7 +1457,8 @@ body.locked { overflow: hidden; }
       </div>
       <div class="lemna-visual">
         <div class="lemna-visual-label">Lemna Bar · Coming soon</div>
-        <span class="lemna-visual-emoji">🌱</span>
+        <!-- IMAGE: Lemna leaf hero · square · botanical-line on sand -->
+        <div class="lemna-visual-emoji placeholder-label sand-bg" data-icon="lemna-leaf">Lemna leaf · pre-launch placeholder</div>
       </div>
     </div>
   </div>
@@ -1548,7 +1563,7 @@ function handleNotify(e) {
 <script id="mujo-canonical-nav-js">
 const PRICES = { 'ritual-25': 55.25, 'ritual-10': 27, 'bar-pb': 54, 'bar-cashew': 54, 'mug': 24, 'tee': 38, 'tote': 22 };
 const NAMES = { 'ritual-25': 'Mujo Ritual · 25 servings', 'ritual-10': 'Mujo Ritual · 10 servings', 'bar-pb': 'Lemna Bar · PB Crunch', 'bar-cashew': 'Lemna Bar · Cashew Chocolate', 'mug': 'Ritual Mug', 'tee': 'Rebel Club Tee', 'tote': 'Market Tote' };
-const ICONS = { 'ritual-25': '🍵', 'ritual-10': '🍵', 'bar-pb': '🥜', 'bar-cashew': '🍫', 'mug': '☕', 'tee': '👕', 'tote': '🛍️' };
+const ICONS = { 'ritual-25': '', 'ritual-10': '', 'bar-pb': '', 'bar-cashew': '', 'mug': '', 'tee': '', 'tote': '' };
 let cart = {};
 function openMenu() { document.getElementById('mobileMenu').classList.add('open'); document.getElementById('overlay').classList.add('open'); document.body.classList.add('locked'); }
 function closeMenu() { document.getElementById('mobileMenu').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); if (!document.getElementById('cartDrawer').classList.contains('open')) document.body.classList.remove('locked'); }
@@ -1574,7 +1589,7 @@ function renderCart() {
   else if (remaining <= 0) { fill.classList.add('full'); msg.innerHTML = '<strong>Free shipping</strong> unlocked. Nice work.'; }
   else { fill.classList.remove('full'); msg.innerHTML = '<span class="accent">' + fmt(remaining) + '</span> away from <strong>free shipping</strong>.'; }
   const body = document.getElementById('cartBody'); body.innerHTML = '';
-  if (count === 0) { body.innerHTML = '<div class="cart-empty"><div class="cart-empty-illo">🍵</div><h3>Nothing in here yet.</h3><p>Your ritual is one click away. The Mujo Ritual is the place most people start.</p><a href="/shop">Browse the shop →</a></div>'; }
+  if (count === 0) { body.innerHTML = '<div class="cart-empty"><h3>Nothing in here yet.</h3><p>Your ritual is one click away. The Mujo Ritual is the place most people start.</p><a href="/shop">Browse the shop →</a></div>'; }
   else { Object.entries(cart).forEach(([id, qty]) => { const row = document.createElement('div'); row.className = 'cart-item'; row.innerHTML = `<div class="cart-item-img">${ICONS[id]||'·'}</div><div class="cart-item-info"><div class="cart-item-name">${NAMES[id]}</div><div class="cart-item-variant">One-time</div><div class="cart-item-controls"><button class="qty-btn" onclick="updateQty('${id}',-1)">−</button><span class="qty-val">${qty}</span><button class="qty-btn" onclick="updateQty('${id}',1)">+</button></div></div><div class="cart-item-meta"><div class="cart-item-price">${fmt(PRICES[id]*qty)}</div><button class="cart-item-remove" onclick="removeItem('${id}')">Remove</button></div>`; body.appendChild(row); }); }
   document.getElementById('subtotalDisplay').textContent = count === 0 ? '$0' : fmt(subtotal);
   document.getElementById('shippingDisplay').textContent = (remaining <= 0 && count > 0) ? 'Free' : 'Calculated at checkout';

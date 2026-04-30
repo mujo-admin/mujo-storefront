@@ -2088,12 +2088,12 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .menu-overlay.open { opacity: 1; pointer-events: auto; }
 .mobile-menu { position: fixed; top: 0; left: 0; bottom: 0; width: min(360px, 88vw); background: var(--cream); z-index: 999; transform: translateX(-100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; overflow-y: auto; }
 .mobile-menu.open { transform: translateX(0); }
-.mm-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); }
+.mm-head { display: flex; align-items: center; justify-content: center; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); position: relative; }
 .mm-head img { height: 26px; width: auto; }
-.mm-close { width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); margin-right: -8px; }
+.mm-close { width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); position: absolute; right: 12px; top: 50%; transform: translateY(-50%); }
 .mm-close svg { width: 20px; height: 20px; }
 .mm-links { display: flex; flex-direction: column; padding: 4px 0; flex: 1; }
-.mm-link { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; font-family: var(--f-display); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-soft); transition: background 0.15s, color 0.15s; }
+.mm-link { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; font-family: var(--f-display); font-size: 18px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-soft); transition: background 0.15s, color 0.15s; }
 .mm-link:hover { color: var(--orange-deep); background: rgba(242,104,47,0.04); }
 .mm-link svg { width: 16px; height: 16px; opacity: 0.4; }
 .mm-foot { padding: 24px; background: var(--sage); color: #fff; }
@@ -2223,17 +2223,23 @@ body.locked { overflow: hidden; }
     <!-- Gallery -->
     <div class="gallery">
       <div class="gallery-main">
+        <!-- IMAGE: Mujo Ritual pouch + prepared drink · 1:1 square · gallery hero -->
         <div class="ph-label">Image Placeholder</div>
-        <div class="ph-icon">🍄</div>
+        <div class="ph-icon">Hero pouch</div>
         <div class="ph-text">Main product shot</div>
         <div class="ph-sub">Mujo Ritual pouch + prepared drink, 1:1 square. Rotatable with thumbnail gallery below.</div>
       </div>
       <div class="gallery-thumbs">
-        <div class="thumb active">🍄</div>
-        <div class="thumb">☕</div>
-        <div class="thumb">🥛</div>
-        <div class="thumb">🌿</div>
-        <div class="thumb">📋</div>
+        <!-- IMAGE: gallery thumbnail · pouch hero · 1:1 -->
+        <div class="thumb active" data-thumb="pouch">Pouch</div>
+        <!-- IMAGE: gallery thumbnail · prepared drink in mug · 1:1 -->
+        <div class="thumb" data-thumb="drink">Drink</div>
+        <!-- IMAGE: gallery thumbnail · scoop into mug action shot · 1:1 -->
+        <div class="thumb" data-thumb="scoop">Scoop</div>
+        <!-- IMAGE: gallery thumbnail · raw ingredients spread · 1:1 -->
+        <div class="thumb" data-thumb="ingredients">Raw</div>
+        <!-- IMAGE: gallery thumbnail · nutrition label / back of pouch · 1:1 -->
+        <div class="thumb" data-thumb="label">Label</div>
       </div>
       <!--
         GALLERY SHOT LIST:
@@ -2335,7 +2341,8 @@ body.locked { overflow: hidden; }
 
       <!-- Guarantee callout -->
       <div class="guarantee">
-        <div class="guarantee-icon">🛡</div>
+        <!-- ICON: shield / guarantee · orange · 22px · botanical-line -->
+        <div class="guarantee-icon" data-icon="guarantee">Shield</div>
         <div class="guarantee-text">
           <strong>Feel the difference or your money back.</strong>
           30 days to notice a shift. No forms, no questions, no explanations needed. We carry the risk, not you.
@@ -2350,7 +2357,7 @@ body.locked { overflow: hidden; }
             <div class="info-row-toggle">+</div>
           </div>
           <div class="info-row-a">
-            Mujo Ritual is a caffeine-free mushroom cacao blend designed for calm, focused energy, without the crash. Each serving delivers <strong>1,200mg of functional mushrooms</strong> (Lion's Mane, Cordyceps, and Chaga at 8:1 concentration, the bioactive equivalent of 9,600mg raw), <strong>3,000mg of clinical adaptogens</strong> (KSM-66® Ashwagandha at 300mg and Rhodiola Rosea at premium 5% / 1.5% standardization), and <strong>3,400mg of natural nootropics</strong> (Bacopa Monnieri and Bioavailable Curcumin at its researched ratio). Rounded with organic single-origin Peruvian cacao, gelatinized maca, MCT oil, and Ceylon cinnamon, <strong>every clinically meaningful dose disclosed, nothing hidden behind proprietary blends.</strong>
+            Mujo Ritual is a caffeine-free mushroom cacao blend designed for calm, focused energy, without the crash. Each serving delivers <strong>9,600mg raw mushroom equivalent</strong> (Lion's Mane, Cordyceps, and Chaga as a 1,200mg 8:1 dual extract), <strong>3,000mg adaptogens raw equivalent</strong> (KSM-66® Ashwagandha at 300mg and Rhodiola Rosea, standardized to 5% rosavins and 1.5% salidrosides), and <strong>3,400mg nootropics raw equivalent</strong> (Bacopa Monnieri and Bioavailable Curcumin). Rounded with organic single-origin Peruvian cacao, gelatinized maca, MCT oil, and Ceylon cinnamon, <strong>every clinically meaningful dose disclosed, nothing hidden behind proprietary blends.</strong>
           </div>
         </div>
         <div class="info-row" onclick="toggleRow(this)">
@@ -2401,15 +2408,15 @@ body.locked { overflow: hidden; }
   <div class="stat-strip-inner">
     <div class="stat-cell">
       <div class="stat-num">9,600mg</div>
-      <div class="stat-lbl">Functional mushrooms<br>equivalent (dual · 8:1)</div>
+      <div class="stat-lbl">Raw mushroom equivalent<br>(1,200mg dual extract · 8:1)</div>
     </div>
     <div class="stat-cell">
       <div class="stat-num">3,000mg</div>
-      <div class="stat-lbl">Clinical adaptogens equivalent<br>KSM-66® + Rhodiola Rosea</div>
+      <div class="stat-lbl">Adaptogens raw equivalent<br>KSM-66® + Rhodiola Rosea</div>
     </div>
     <div class="stat-cell">
       <div class="stat-num">3,400mg</div>
-      <div class="stat-lbl">Natural nootropics equivalent<br>Bioavailable Curcuma + more</div>
+      <div class="stat-lbl">Nootropics raw equivalent<br>Bioavailable Curcumin + more</div>
     </div>
     <div class="stat-cell">
       <div class="stat-num">0mg</div>
@@ -2435,11 +2442,12 @@ body.locked { overflow: hidden; }
   <div class="kinga-video-wrap">
     <div class="kinga-video-head">
       <div class="eyebrow center reveal">From the founder</div>
-      <h2 class="reveal d1">30 seconds with <span class="serif-accent">Kinga.</span></h2>
+      <h2 class="reveal d1">30 seconds with Kinga.</h2>
       <p class="reveal d2">Why this exists, and what's actually in it.</p>
     </div>
     <div class="kinga-video-player reveal d3" onclick="alert('Video: hand off to your video host (e.g. Mux, Vimeo, YouTube embed) in production.')">
-      <span class="kinga-video-emoji" aria-hidden="true">🎬</span>
+      <!-- IMAGE: Kinga founder video thumbnail · 16:9 · half-body, holding mug, natural light -->
+      <span class="kinga-video-emoji" aria-hidden="true" data-icon="video"></span>
       <span class="kinga-video-ph-tag">Image · Kinga thumbnail</span>
       <span class="kinga-video-play">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
@@ -2610,13 +2618,14 @@ body.locked { overflow: hidden; }
   <div class="container">
     <div class="timeline-header">
       <div class="eyebrow center reveal">Your first month on Mujo</div>
-      <h2 class="reveal d1">Adaptogens don't work in minutes. <span class="serif-accent">They work in weeks.</span></h2>
+      <h2 class="reveal d1">Adaptogens don't work in minutes. They work in weeks.</h2>
       <p class="body-lg reveal d2" style="margin: 0 auto; text-align: center; max-width: 540px;">Here's what most customers notice, in the order they notice it.</p>
     </div>
 
     <div class="timeline-layout">
       <div class="timeline-feature reveal">
-        <span class="timeline-feature-emoji" aria-hidden="true">☕</span>
+        <!-- IMAGE: slow morning ritual · 4:5 · prepared mug + scoop, natural light -->
+        <span class="timeline-feature-emoji" aria-hidden="true" data-icon="slow-morning"></span>
         <span class="timeline-feature-tag">Image · slow morning</span>
         <div class="timeline-feature-content">
           <div class="timeline-feature-eyebrow">A month, not a moment</div>
@@ -2665,7 +2674,7 @@ body.locked { overflow: hidden; }
   <div class="container">
     <div class="dossier-header">
       <div class="eyebrow reveal">The formula</div>
-      <h2 class="reveal d1">What's inside matters. <span class="serif-accent">Full dossier if you want it.</span></h2>
+      <h2 class="reveal d1">What's inside matters. Full dossier if you want it.</h2>
       <p class="body-lg reveal d2">Three ingredients at their clinically researched doses. Gold standard functional mushroom extracts from the fruiting body only.  No proprietary blends. No hidden amounts behind "active blend" labels.</p>
     </div>
 
@@ -2673,7 +2682,8 @@ body.locked { overflow: hidden; }
 
       <!-- Bioavailable Curcuma, marked as "Unique to Mujo" -->
       <div class="ing-compact reveal feat">
-        <div class="ing-compact-img"><span class="ing-compact-emoji">✨</span></div>
+        <!-- ICON: bioavailable curcumin · sage · 32px · botanical-line -->
+        <div class="ing-compact-img"><span class="ing-compact-emoji" data-icon="curcumin">Curcumin</span></div>
         <div class="ing-compact-body">
           <div class="ing-compact-top">
             <div class="ing-compact-name">Bioavailable Curcumin</div>
@@ -2690,7 +2700,8 @@ body.locked { overflow: hidden; }
 
       <!-- Lion's Mane -->
       <div class="ing-compact reveal d1">
-        <div class="ing-compact-img"><span class="ing-compact-emoji">🦁</span></div>
+        <!-- ICON: lion's mane mushroom · sage · 32px · botanical-line -->
+        <div class="ing-compact-img"><span class="ing-compact-emoji" data-icon="lions-mane">Lion's Mane</span></div>
         <div class="ing-compact-body">
           <div class="ing-compact-top">
             <div class="ing-compact-name">Lion's Mane</div>
@@ -2707,7 +2718,8 @@ body.locked { overflow: hidden; }
 
       <!-- KSM-66 Ashwagandha -->
       <div class="ing-compact reveal d2">
-        <div class="ing-compact-img"><span class="ing-compact-emoji">🌿</span></div>
+        <!-- ICON: ashwagandha leaf · sage · 32px · botanical-line -->
+        <div class="ing-compact-img"><span class="ing-compact-emoji" data-icon="ashwagandha">Ashwagandha</span></div>
         <div class="ing-compact-body">
           <div class="ing-compact-top">
             <div class="ing-compact-name">KSM-66® Ashwagandha</div>
@@ -2724,7 +2736,8 @@ body.locked { overflow: hidden; }
 
       <!-- Rhodiola Rosea -->
       <div class="ing-compact reveal">
-        <div class="ing-compact-img"><span class="ing-compact-emoji">🌸</span></div>
+        <!-- ICON: rhodiola rosea flower · sage · 32px · botanical-line -->
+        <div class="ing-compact-img"><span class="ing-compact-emoji" data-icon="rhodiola">Rhodiola</span></div>
         <div class="ing-compact-body">
           <div class="ing-compact-top">
             <div class="ing-compact-name">Rhodiola Rosea</div>
@@ -2741,7 +2754,8 @@ body.locked { overflow: hidden; }
 
       <!-- Cordyceps -->
       <div class="ing-compact reveal d1">
-        <div class="ing-compact-img"><span class="ing-compact-emoji">⚡</span></div>
+        <!-- ICON: cordyceps militaris · sage · 32px · botanical-line -->
+        <div class="ing-compact-img"><span class="ing-compact-emoji" data-icon="cordyceps">Cordyceps</span></div>
         <div class="ing-compact-body">
           <div class="ing-compact-top">
             <div class="ing-compact-name">Cordyceps</div>
@@ -2758,7 +2772,8 @@ body.locked { overflow: hidden; }
 
       <!-- Chaga -->
       <div class="ing-compact reveal d2">
-        <div class="ing-compact-img"><span class="ing-compact-emoji">🍂</span></div>
+        <!-- ICON: chaga / wild birch · sage · 32px · botanical-line -->
+        <div class="ing-compact-img"><span class="ing-compact-emoji" data-icon="chaga">Chaga</span></div>
         <div class="ing-compact-body">
           <div class="ing-compact-top">
             <div class="ing-compact-name">Chaga</div>
@@ -2851,7 +2866,7 @@ body.locked { overflow: hidden; }
   <div class="container">
     <div class="howto-header">
       <div class="eyebrow center reveal">Make it yours</div>
-      <h2 class="reveal d1">Three ways to drink it. <span class="serif-accent">No rules.</span></h2>
+      <h2 class="reveal d1">Three ways to drink it. No rules.</h2>
       <p class="reveal d2">The base method first. Then the three rituals, pick your favourite, vary the rest.</p>
     </div>
 
@@ -2880,7 +2895,8 @@ body.locked { overflow: hidden; }
 
       <div class="howto-card reveal">
         <div class="howto-image r-classic">
-          <span class="howto-image-emoji">☕</span>
+          <!-- IMAGE: Classic Black ritual · ceramic mug · macro detail · steam visible · cream backdrop -->
+          <span class="howto-image-emoji" data-icon="recipe-classic" aria-hidden="true"></span>
           <span class="howto-image-tag">Image · Classic Black</span>
         </div>
         <div class="howto-content">
@@ -2896,7 +2912,8 @@ body.locked { overflow: hidden; }
 
       <div class="howto-card reveal d1">
         <div class="howto-image r-latte">
-          <span class="howto-image-emoji">🥛</span>
+          <!-- IMAGE: Mujo Latte · ceramic mug with foam · macro detail · velvet milk top · soft daylight -->
+          <span class="howto-image-emoji" data-icon="recipe-latte" aria-hidden="true"></span>
           <span class="howto-image-tag">Image · Mujo Latte</span>
         </div>
         <div class="howto-content">
@@ -2912,7 +2929,8 @@ body.locked { overflow: hidden; }
 
       <div class="howto-card reveal d2">
         <div class="howto-image r-iced">
-          <span class="howto-image-emoji">🧊</span>
+          <!-- IMAGE: Iced Ritual · clear glass with ice · poured cacao swirl · summer light -->
+          <span class="howto-image-emoji" data-icon="recipe-iced" aria-hidden="true"></span>
           <span class="howto-image-tag">Image · Iced Ritual</span>
         </div>
         <div class="howto-content">
@@ -2938,7 +2956,7 @@ body.locked { overflow: hidden; }
     <div class="reviews-header">
       <div>
         <div class="eyebrow reveal">Real reviews</div>
-        <h2 class="reveal d1">From conscious performers who also <span class="serif-accent">read the label.</span></h2>
+        <h2 class="reveal d1">From conscious performers who also read the label.</h2>
       </div>
       <p class="reveal d2">Verified purchasers. No incentivised posts. <strong>340+ reviews at 4.9★.</strong></p>
     </div>
@@ -2947,8 +2965,8 @@ body.locked { overflow: hidden; }
 
       <div class="review-card reveal">
         <div class="review-photo bg-cocoa">
+          <!-- IMAGE: Marcus T. · Ironman triathlete · 4:5 portrait · training context -->
           <span class="review-photo-tag"><span class="dot"></span>Verified · 4 months on</span>
-          🏃
         </div>
         <div class="review-body">
           <div class="review-stars">★★★★★</div>
@@ -2967,8 +2985,8 @@ body.locked { overflow: hidden; }
 
       <div class="review-card reveal d1">
         <div class="review-photo bg-cream">
+          <!-- IMAGE: Dr. Sarah K. · functional medicine practitioner · 4:5 portrait · clinic context -->
           <span class="review-photo-tag"><span class="dot"></span>Verified · 6 months on</span>
-          🥼
         </div>
         <div class="review-body">
           <div class="review-stars">★★★★★</div>
@@ -2987,8 +3005,8 @@ body.locked { overflow: hidden; }
 
       <div class="review-card reveal d2">
         <div class="review-photo bg-sage">
+          <!-- IMAGE: David R. · startup founder · 4:5 portrait · workspace context -->
           <span class="review-photo-tag"><span class="dot"></span>Verified · 5 months on</span>
-          💼
         </div>
         <div class="review-body">
           <div class="review-stars">★★★★★</div>
@@ -3037,7 +3055,7 @@ body.locked { overflow: hidden; }
   <div class="container">
     <div class="faq-header">
       <div class="eyebrow center reveal">Questions</div>
-      <h2 class="reveal d1">What you're <span class="serif-accent">wondering.</span></h2>
+      <h2 class="reveal d1">What you're wondering.</h2>
     </div>
     <div class="faq-list">
       <div class="faq-item" onclick="toggleFaq(this)">
@@ -3099,7 +3117,7 @@ body.locked { overflow: hidden; }
     <div class="footer-grid">
       <div class="footer-brand">
         <h3>MUJO</h3>
-        <p class="footer-tagline">Conscious performance nutrition for people who read the label. Built in Portugal. Shipped globally.</p>
+        <p class="footer-tagline">Conscious performance nutrition for people who read the label.</p>
       </div>
       <div>
         <div class="footer-col-title">Shop</div>
@@ -3220,7 +3238,8 @@ document.querySelectorAll('.thumb').forEach(t => {
 <script id="mujo-canonical-nav-js">
 const PRICES = { 'ritual-25': 55.25, 'ritual-10': 27, 'bar-pb': 54, 'bar-cashew': 54, 'mug': 24, 'tee': 38, 'tote': 22 };
 const NAMES = { 'ritual-25': 'Mujo Ritual · 25 servings', 'ritual-10': 'Mujo Ritual · 10 servings', 'bar-pb': 'Lemna Bar · PB Crunch', 'bar-cashew': 'Lemna Bar · Cashew Chocolate', 'mug': 'Ritual Mug', 'tee': 'Rebel Club Tee', 'tote': 'Market Tote' };
-const ICONS = { 'ritual-25': '🍵', 'ritual-10': '🍵', 'bar-pb': '🥜', 'bar-cashew': '🍫', 'mug': '☕', 'tee': '👕', 'tote': '🛍️' };
+// ICONS map renders product line items in cart drawer · replace text labels with botanical-line icons in production
+const ICONS = { 'ritual-25': 'Ritual', 'ritual-10': 'Ritual', 'bar-pb': 'PB Bar', 'bar-cashew': 'Cashew Bar', 'mug': 'Mug', 'tee': 'Tee', 'tote': 'Tote' };
 let cart = {};
 function openMenu() { document.getElementById('mobileMenu').classList.add('open'); document.getElementById('overlay').classList.add('open'); document.body.classList.add('locked'); }
 function closeMenu() { document.getElementById('mobileMenu').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); if (!document.getElementById('cartDrawer').classList.contains('open')) document.body.classList.remove('locked'); }
@@ -3246,7 +3265,7 @@ function renderCart() {
   else if (remaining <= 0) { fill.classList.add('full'); msg.innerHTML = '<strong>Free shipping</strong> unlocked. Nice work.'; }
   else { fill.classList.remove('full'); msg.innerHTML = '<span class="accent">' + fmt(remaining) + '</span> away from <strong>free shipping</strong>.'; }
   const body = document.getElementById('cartBody'); body.innerHTML = '';
-  if (count === 0) { body.innerHTML = '<div class="cart-empty"><div class="cart-empty-illo">🍵</div><h3>Nothing in here yet.</h3><p>Your ritual is one click away. The Mujo Ritual is the place most people start.</p><a href="/shop">Browse the shop →</a></div>'; }
+  if (count === 0) { body.innerHTML = '<div class="cart-empty"><div class="cart-empty-illo" data-icon="empty-cart" aria-hidden="true"></div><h3>Nothing in here yet.</h3><p>Your ritual is one click away. The Mujo Ritual is the place most people start.</p><a href="/shop">Browse the shop →</a></div>'; }
   else { Object.entries(cart).forEach(([id, qty]) => { const row = document.createElement('div'); row.className = 'cart-item'; row.innerHTML = `<div class="cart-item-img">${ICONS[id]||'·'}</div><div class="cart-item-info"><div class="cart-item-name">${NAMES[id]}</div><div class="cart-item-variant">One-time</div><div class="cart-item-controls"><button class="qty-btn" onclick="updateQty('${id}',-1)">−</button><span class="qty-val">${qty}</span><button class="qty-btn" onclick="updateQty('${id}',1)">+</button></div></div><div class="cart-item-meta"><div class="cart-item-price">${fmt(PRICES[id]*qty)}</div><button class="cart-item-remove" onclick="removeItem('${id}')">Remove</button></div>`; body.appendChild(row); }); }
   document.getElementById('subtotalDisplay').textContent = count === 0 ? '$0' : fmt(subtotal);
   document.getElementById('shippingDisplay').textContent = (remaining <= 0 && count > 0) ? 'Free' : 'Calculated at checkout';
