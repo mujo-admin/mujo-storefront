@@ -1309,6 +1309,60 @@ body.locked { overflow: hidden; }
   color: rgba(255, 255, 255, 0.5);
 }
 
+/* Tribe selector — radio chips inside the Rebel Club signup */
+.rebel-tribe {
+  border: 0;
+  padding: 0;
+  margin: 24px 0 0;
+}
+.rebel-tribe-legend {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 12px;
+  padding: 0;
+  display: block;
+}
+.rebel-tribe-optional {
+  text-transform: none;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.45);
+  margin-left: 6px;
+}
+.rebel-tribe-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.rebel-tribe-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.82);
+  font-family: var(--f-body);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.rebel-tribe-chip:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+.rebel-tribe-chip input { position: absolute; opacity: 0; pointer-events: none; }
+.rebel-tribe-chip:has(input:checked) {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+}
+
 /* ═══════════════════════════════════════════════════════════
    FOOTER
    ═══════════════════════════════════════════════════════════ */
@@ -2125,14 +2179,30 @@ footer {
   <div class="container">
     <div class="rebel-grid">
       <div class="rebel-text">
-        <div class="eyebrow light reveal">The Rebel Club</div>
-        <h2 class="reveal d1">For people who <span class="serif-acc">read the label.</span></h2>
-        <p class="rebel-sub reveal d2">A bi-weekly email from Kinga. The questions she's wrestling with, the research she's reading, the formulations she's thinking through. <strong>Plus be the first to know about the latest drops and BTS.</strong></p>
-        <form class="rebel-form reveal d3" onsubmit="handleRebel(event)">
-          <input type="email" class="rebel-input" placeholder="Your email" required aria-label="Email address">
+        <div class="eyebrow light reveal">Join the Club</div>
+        <h2 class="reveal d1">You've read this far. <span class="serif-acc">You're probably a rebel.</span></h2>
+        <p class="rebel-sub reveal d2">Drop your email below. Your first letter arrives within 48 hours. <strong>Free forever.</strong> Unsubscribe in one click. No dark patterns.</p>
+        <form class="rebel-form reveal d3" data-mujo-form="rebel-club">
+          <input type="email" name="email" class="rebel-input" placeholder="your@email.com" required aria-label="Email address">
           <button type="submit" class="btn btn-primary">Join the Rebel Club <span class="arrow">→</span></button>
         </form>
-        <p class="rebel-fineprint reveal d4">Unsubscribe in one click. Help shape the community.</p>
+        <fieldset class="rebel-tribe reveal d4">
+          <legend class="rebel-tribe-legend">Which tribe are you? <span class="rebel-tribe-optional">Optional. You can change later.</span></legend>
+          <div class="rebel-tribe-options">
+            <label class="rebel-tribe-chip">
+              <input type="radio" name="tribe" value="mami" form="rebel-form">
+              <span>Mujo Mami</span>
+            </label>
+            <label class="rebel-tribe-chip">
+              <input type="radio" name="tribe" value="papi" form="rebel-form">
+              <span>Mujo Papi</span>
+            </label>
+            <label class="rebel-tribe-chip">
+              <input type="radio" name="tribe" value="padel" form="rebel-form">
+              <span>Mujo Padel Club</span>
+            </label>
+          </div>
+        </fieldset>
       </div>
     </div>
   </div>

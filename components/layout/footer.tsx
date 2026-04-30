@@ -34,10 +34,70 @@ export function Footer() {
                 lineHeight: 1.6,
                 color: "rgba(255,255,255,0.6)",
                 maxWidth: 320,
+                marginBottom: 18,
               }}
             >
               Conscious performance nutrition for people who read the label.
             </p>
+            <form
+              data-mujo-form="rebel-club"
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 6,
+                maxWidth: 320,
+              }}
+            >
+              <input
+                type="email"
+                name="email"
+                required
+                placeholder="your@email.com"
+                aria-label="Email address"
+                style={{
+                  flex: "1 1 180px",
+                  minWidth: 0,
+                  padding: "10px 14px",
+                  borderRadius: 999,
+                  border: "1px solid rgba(255,255,255,0.18)",
+                  background: "rgba(255,255,255,0.06)",
+                  color: "#fff",
+                  fontFamily: "var(--f-body)",
+                  fontSize: 13,
+                }}
+              />
+              <button
+                type="submit"
+                style={{
+                  padding: "10px 18px",
+                  borderRadius: 999,
+                  border: 0,
+                  background: "var(--orange)",
+                  color: "#fff",
+                  fontFamily: "var(--f-display)",
+                  fontSize: 13,
+                  fontWeight: 500,
+                  cursor: "pointer",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                Join Rebel Club →
+              </button>
+            </form>
+            <a
+              href="/rebel-club"
+              style={{
+                display: "inline-block",
+                marginTop: 10,
+                fontSize: 12,
+                color: "rgba(255,255,255,0.5)",
+                textDecoration: "none",
+                borderBottom: "1px solid rgba(255,255,255,0.2)",
+                paddingBottom: 1,
+              }}
+            >
+              About the Club →
+            </a>
           </div>
           <FooterColumn
             title="Shop"

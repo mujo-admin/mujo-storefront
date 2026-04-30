@@ -13,6 +13,7 @@ const requestSchema = z.object({
       "ambassador_applications",
       "contact_form",
       "journal_newsletter",
+      "rebel_club",
     ])
     .optional(),
   source: z.string().max(80).optional(),
@@ -35,6 +36,7 @@ const PROPERTIES_BY_SOURCE: Record<string, Record<string, unknown>> = {
   ambassador_applications: { ambassador_applicant: true, source: "Ambassador" },
   contact_form: { contact_form_submitted: true, source: "Contact form" },
   journal_newsletter: { journal_subscriber: true, source: "Journal" },
+  rebel_club: { rebel_club_member: true, source: "Rebel Club" },
 };
 
 export async function POST(req: NextRequest) {
