@@ -207,17 +207,17 @@ body.locked { overflow: hidden; }
    SHOP PAGE · header, filters, grid
    ============================================================ */
 .shop-head {
-  padding: 40px 0 24px;
+  padding: 32px 0 12px;
   text-align: center;
 }
 .shop-head .eyebrow { margin-bottom: 14px; }
 .shop-head h1 {
-  font-size: clamp(36px, 7vw, 64px);
-  margin-bottom: 14px;
-  line-height: 1.02;
+  font-size: clamp(28px, 5vw, 44px);
+  margin-bottom: 6px;
+  line-height: 1.05;
 }
 @media (min-width: 768px) {
-  .shop-head { padding: 64px 0 32px; }
+  .shop-head { padding: 48px 0 20px; }
 }
 
 /* Product grid */
@@ -283,8 +283,26 @@ body.locked { overflow: hidden; }
   z-index: 2;
 }
 .product-badge.hot { background: var(--orange); color: #fff; }
-.product-badge.soon { background: var(--sage); color: #fff; }
+.product-badge.soon { background: var(--orange); color: #fff; }
 .product-badge.sub { background: var(--orange-soft); color: var(--orange-deep); }
+
+/* Product flavors caption — sits between name and price for multi-flavor SKUs (e.g., Lemna bars) */
+.product-flavors {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-top: 2px;
+  margin-bottom: 8px;
+}
+
+/* Bars section — single combined Lemna SKU. Grid collapses to 1 column so the
+   solo card doesn't sit asymmetrically next to empty whitespace. */
+#cat-bars .product-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+
+/* Mujo Essentials section — slightly tighter margin below per Kinga's spec */
+#cat-merch .product-grid { padding-bottom: 19px; }
 
 /* Quick add button */
 .product-quick-add {
@@ -478,7 +496,7 @@ footer.mujo-foot {
      ============================================================ -->
 <section class="shop-head">
   <div class="container">
-    <h1>Shop</h1>
+    <h1>Shop Everything Mujo</h1>
   </div>
 </section>
 
@@ -492,11 +510,6 @@ footer.mujo-foot {
      ============================================================ -->
 <section class="cat-section" id="cat-ritual" data-cat="ritual">
   <div class="container">
-    <div class="cat-head">
-      <div class="cat-head-left">
-        <h2>Ritual Cacao</h2>
-      </div>
-    </div>
     <div class="product-grid">
       <a href="/products/mujo-ritual?size=25" class="product-card" data-tags="ritual,subscribe" data-price="55.25">
         <div class="product-img bg-cream">
@@ -527,35 +540,15 @@ footer.mujo-foot {
      ============================================================ -->
 <section class="cat-section" id="cat-bars" data-cat="bars">
   <div class="container">
-    <div class="cat-head">
-      <div class="cat-head-left">
-        <h2>Lemna leaf protein bar. <span class="serif-accent">Coming soon.</span></h2>
-      </div>
-    </div>
     <div class="product-grid">
-      <a href="/products/lemna-bar-pb" class="product-card soon" data-tags="bars" data-price="54">
+      <a href="/products/lemna" class="product-card soon" data-tags="bars" data-price="54">
         <div class="product-img bg-pb">
           <span class="product-badge soon">COMING SOON</span>
-          <span class="product-img-placeholder">🥜</span>
+          <span class="product-img-placeholder"></span>
         </div>
         <div class="product-info">
-          <div class="product-name">Peanut Butter Crunch</div>
-          <div class="product-foot">
-            <div class="product-price">
-              <span class="from">From</span>
-              <span class="amount">$54</span>
-            </div>
-          </div>
-        </div>
-      </a>
-
-      <a href="/products/lemna-bar-cashew" class="product-card soon" data-tags="bars" data-price="54">
-        <div class="product-img bg-cashew">
-          <span class="product-badge soon">COMING SOON</span>
-          <span class="product-img-placeholder">🍫</span>
-        </div>
-        <div class="product-info">
-          <div class="product-name">Cashew Chocolate</div>
+          <div class="product-name">Lemna Protein Bars</div>
+          <div class="product-flavors">Peanut Butter Crunch · Cashew Chocolate</div>
           <div class="product-foot">
             <div class="product-price">
               <span class="from">From</span>
