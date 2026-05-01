@@ -1,11 +1,28 @@
 import type { Metadata } from "next";
 import { ImportedPage } from "components/imported-page";
+import type { Splice } from "lib/imported-html";
 import { OkendoProductWidget } from "components/integrations/okendo-product-widget";
+import { RitualPdpClient } from "components/product/ritual-pdp-client";
 import {
   productSchema,
   breadcrumbSchema,
   jsonLdScript,
 } from "lib/schema";
+
+// Splice the source HTML's dead JS-driven buy box and sticky ATC out, leaving
+// mount-point markers that <RitualPdpClient /> targets via createPortal.
+const RITUAL_SPLICES: Splice[] = [
+  {
+    startSentinel: "MUJO_RITUAL_BUYBOX_START",
+    endSentinel: "MUJO_RITUAL_BUYBOX_END",
+    mountId: "ritual-buybox",
+  },
+  {
+    startSentinel: "MUJO_RITUAL_STICKY_ATC_START",
+    endSentinel: "MUJO_RITUAL_STICKY_ATC_END",
+    mountId: "ritual-sticky-atc",
+  },
+];
 
 export const metadata: Metadata = {
   title: "The Mujo Ritual · Mushroom Cacao",
@@ -53,7 +70,11 @@ export default function RitualPdpPage() {
           ),
         }}
       />
-      <ImportedPage filename="ritual_cacao_shop_pdp.html" />
+      <ImportedPage
+        filename="ritual_cacao_shop_pdp.html"
+        splices={RITUAL_SPLICES}
+      />
+      <RitualPdpClient />
     </>
   );
 }

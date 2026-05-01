@@ -5,6 +5,7 @@ import { stripe } from 'lib/stripe';
 import {
   SHIPPING_RATE_FLAT_ID,
   SHIPPING_RATE_FREE_ID,
+  SUBSCRIPTION_COUPON_ID,
   SUPPORTED_COUNTRIES,
 } from 'lib/stripe-constants';
 import { trackStartedCheckout } from 'lib/klaviyo';
@@ -100,6 +101,13 @@ export async function POST(req: NextRequest) {
     params.shipping_options = buildShippingOptions();
   } else if (mode === 'subscription') {
     params.subscription_data = { metadata: parsed.metadata };
+    // Apply the 15%-off subscription coupon. Stripe rejects combining
+    // discounts[] with allow_promotion_codes, so honor explicit coupon over
+    // the promo-code field on subscription mode.
+    if (SUBSCRIPTION_COUPON_ID) {
+      params.discounts = [{ coupon: SUBSCRIPTION_COUPON_ID }];
+      delete params.allow_promotion_codes;
+    }
   }
 
   try {

@@ -29,6 +29,24 @@ export type ImportedHtml = {
   body: string;
 };
 
+export type Splice = {
+  /** Sentinel comment marking start of region to remove (e.g. "MUJO_RITUAL_BUYBOX_START"). */
+  startSentinel: string;
+  /** Sentinel comment marking end of region to remove. */
+  endSentinel: string;
+  /** Replacement marker the client component will mount into via Portal. */
+  mountId: string;
+};
+
+export type LoadOptions = {
+  /**
+   * Replace sentinel-bracketed regions with `<div data-mujo-mount="..."></div>`
+   * markers. Used for high-traffic pages that need React-controlled subsections
+   * (e.g. the Ritual PDP buy box) without rewriting the full page in JSX.
+   */
+  splices?: Splice[];
+};
+
 /** Strip blocks matching a regex; keep everything else verbatim. */
 function strip(source: string, re: RegExp): string {
   return source.replace(re, "");
@@ -90,11 +108,29 @@ function extractBody(html: string): string {
   return m?.[1] ?? html;
 }
 
-export async function loadImportedHtml(filename: string): Promise<ImportedHtml> {
+/**
+ * Apply sentinel-based splices: replace each `<!-- start -->...<!-- end -->`
+ * region with a single `<div data-mujo-mount="...">` marker that a client
+ * component can target via Portal.
+ */
+function applySplices(html: string, splices: Splice[]): string {
+  return splices.reduce((acc, { startSentinel, endSentinel, mountId }) => {
+    const pattern = new RegExp(
+      `<!--\\s*${startSentinel}\\s*-->[\\s\\S]*?<!--\\s*${endSentinel}\\s*-->`,
+    );
+    return acc.replace(pattern, `<div data-mujo-mount="${mountId}"></div>`);
+  }, html);
+}
+
+export async function loadImportedHtml(
+  filename: string,
+  options: LoadOptions = {},
+): Promise<ImportedHtml> {
   const raw = await readFile(path.join(CONTENT_DIR, filename), "utf8");
   const { styles, rest } = extractStyles(raw);
   const body = extractBody(rest);
   const deduped = dedupeChrome(body);
-  const tagged = tagInteractionHooks(deduped);
+  const spliced = options.splices ? applySplices(deduped, options.splices) : deduped;
+  const tagged = tagInteractionHooks(spliced);
   return { styles, body: tagged };
 }

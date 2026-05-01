@@ -60,6 +60,13 @@ VARS=(
   META_CONVERSIONS_API_TOKEN
   # META_TEST_EVENT_CODE intentionally NOT pushed to production —
   # auto-included only when NODE_ENV !== production by lib/meta-capi.ts
+  # --- Ritual PDP Stripe Price IDs (NEXT_PUBLIC for client buy box) ---
+  NEXT_PUBLIC_RITUAL_PRICE_10_ONETIME
+  NEXT_PUBLIC_RITUAL_PRICE_10_SUBSCRIPTION
+  NEXT_PUBLIC_RITUAL_PRICE_25_ONETIME
+  NEXT_PUBLIC_RITUAL_PRICE_25_SUBSCRIPTION
+  # Subscription discount coupon (15% off, applied server-side in /api/checkout)
+  STRIPE_SUBSCRIPTION_COUPON_ID
 )
 
 ENV_SCOPE="${VERCEL_ENV:-production}"

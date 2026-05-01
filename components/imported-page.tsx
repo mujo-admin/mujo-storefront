@@ -1,9 +1,11 @@
-import { loadImportedHtml } from "lib/imported-html";
+import { loadImportedHtml, type Splice } from "lib/imported-html";
 import { ImportedPageRuntime } from "components/imported-page-runtime";
 
 type ImportedPageProps = {
   /** Filename inside content/imported-html, e.g. "mujo_homepage.html". */
   filename: string;
+  /** Sentinel-bracketed regions to replace with mount-point markers. */
+  splices?: Splice[];
 };
 
 /**
@@ -14,8 +16,8 @@ type ImportedPageProps = {
  *   cart, reveal) attaches via event delegation without rewriting the
  *   markup.
  */
-export async function ImportedPage({ filename }: ImportedPageProps) {
-  const { styles, body } = await loadImportedHtml(filename);
+export async function ImportedPage({ filename, splices }: ImportedPageProps) {
+  const { styles, body } = await loadImportedHtml(filename, { splices });
 
   return (
     <ImportedPageRuntime>
