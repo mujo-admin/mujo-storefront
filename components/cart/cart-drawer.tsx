@@ -479,6 +479,24 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
           margin-top: 10px;
           text-transform: uppercase;
         }
+        @media (max-width: 600px) {
+          .cart-head { padding: 12px 18px; }
+          .cart-head-title { font-size: 16px; }
+          .cart-progress { padding: 10px 18px 12px; }
+          .cart-progress-msg { font-size: 12px; margin-bottom: 6px; }
+          .cart-empty { padding: 28px 24px; gap: 10px; }
+          .cart-empty-illo { font-size: 36px; }
+          .cart-empty h3 { font-size: 18px; }
+          .cart-empty p { font-size: 13px; }
+          .cart-empty a { padding: 10px 18px; font-size: 13px; }
+          .cart-body { padding: 4px 18px; }
+          .cart-foot { padding: 12px 18px 16px; }
+          .cart-row { font-size: 13px; padding: 3px 0; }
+          .cart-row.total { font-size: 16px; padding-top: 8px; }
+          .cart-shipping-note { font-size: 10px; margin: 6px 0 10px; }
+          .cart-checkout { padding: 13px 22px; font-size: 14px; }
+          .cart-secure { font-size: 10px; margin-top: 8px; }
+        }
       `}</style>
     </aside>
   );

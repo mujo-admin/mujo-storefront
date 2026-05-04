@@ -187,6 +187,16 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
           transition: background 0.2s;
         }
         .mm-cta:hover { background: var(--orange-deep); }
+        @media (max-width: 600px) {
+          .mm-head { padding: 12px 18px; }
+          .mm-head img { height: 22px; }
+          .mm-link { padding: 13px 22px; font-size: 17px; }
+          .mm-link svg { width: 14px; height: 14px; }
+          .mm-foot { padding: 18px 22px; }
+          .mm-foot-eyebrow { margin-bottom: 8px; }
+          .mm-foot p { font-size: 13px; margin-bottom: 12px; line-height: 1.5; }
+          .mm-cta { padding: 10px 18px; font-size: 13px; }
+        }
       `}</style>
     </aside>
   );

@@ -135,7 +135,6 @@ export function Nav({ cartCount, onOpenMenu, onOpenCart }: NavProps) {
           border: none;
           cursor: pointer;
           color: var(--ink);
-          margin-left: -8px;
         }
         .nav-hamburger svg { width: 22px; height: 22px; }
         @media (min-width: 1024px) { .nav-hamburger { display: none; } }
