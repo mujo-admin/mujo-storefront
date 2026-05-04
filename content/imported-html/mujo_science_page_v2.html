@@ -92,12 +92,12 @@ body {
    SHARED COMPONENTS
    ═══════════════════════════════════════════════ */
 .eyebrow {
-  font-family: var(--f-mono);
+  font-family: var(--f-mono) !important;
   font-size: 11px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--orange-deep);
-  font-weight: 500;
+  font-weight: 500 !important;
   display: inline-block;
   margin-bottom: 24px;
 }
@@ -1018,12 +1018,32 @@ h1 em, h2 em, h3 em {
 .thermo-needle {
   transform-origin: 180px 190px;
   transition: transform 0.55s cubic-bezier(.5,1.4,.4,1);
+  animation: thermo-needle-cycle 8s ease-in-out infinite;
 }
-.thermostat[data-needle="up"] .thermo-needle { transform: rotate(-65deg); }
-.thermostat[data-needle="down"] .thermo-needle { transform: rotate(65deg); }
-.thermostat[data-needle="regulated"] .thermo-needle { transform: rotate(0deg); }
+@keyframes thermo-needle-cycle {
+  0%   { transform: rotate(-65deg); }
+  25%  { transform: rotate(0deg); }
+  50%  { transform: rotate(65deg); }
+  75%  { transform: rotate(0deg); }
+  100% { transform: rotate(-65deg); }
+}
+/* Freeze needle when user hovers/focuses a pedal — interactive override */
+.thermostat:has(.pedal.gas:hover) .thermo-needle,
+.thermostat:has(.pedal.gas:focus-within) .thermo-needle {
+  animation: none;
+  transform: rotate(-65deg);
+}
+.thermostat:has(.pedal.brake:hover) .thermo-needle,
+.thermostat:has(.pedal.brake:focus-within) .thermo-needle {
+  animation: none;
+  transform: rotate(65deg);
+}
+/* Legacy data-needle hooks — kept in case JS ever returns */
+.thermostat[data-needle="up"] .thermo-needle { animation: none; transform: rotate(-65deg); }
+.thermostat[data-needle="down"] .thermo-needle { animation: none; transform: rotate(65deg); }
+.thermostat[data-needle="regulated"] .thermo-needle { animation: none; transform: rotate(0deg); }
 @media (prefers-reduced-motion: reduce) {
-  .thermo-needle { transition: none; }
+  .thermo-needle { transition: none; animation: none; transform: rotate(0deg); }
 }
 @media (max-width: 600px) {
   .thermo-dial-wrap { max-width: 280px; margin-bottom: 48px; }
@@ -1267,8 +1287,8 @@ h1 em, h2 em, h3 em {
 
 @media (max-width: 700px) {
   .thermostat { padding: 72px 20px 56px; }
-  .cortisol { padding: 56px 20px 72px; }
-  .energy { padding-top: 56px; }
+  .cortisol { padding: 56px 20px 32px; }
+  .energy { padding-top: 32px; }
 }
 
 /* ═══════════════════════════════════════════════
@@ -1439,9 +1459,10 @@ h1 em, h2 em, h3 em {
 
 /* ═══════════════════════════════════════════════
    PANEL 4 — CORTISOL TABS
-   Tabbed interface: 4 buttons, one chart visible at a time.
-   Each panel includes feeling-pills.
+   Radio-driven: hidden inputs + label tabs + :has() to switch panels.
+   Mobile: horizontal scroll-snap so all 4 panels are swipeable.
    ═══════════════════════════════════════════════ */
+.cort-radio { position: absolute; opacity: 0; pointer-events: none; }
 .cortisol-tabs {
   display: flex;
   gap: 10px;
@@ -1463,12 +1484,25 @@ h1 em, h2 em, h3 em {
   color: var(--ink);
   cursor: pointer;
   transition: all 0.2s;
+  user-select: none;
 }
 .cort-tab:hover { background: var(--sand); }
-.cort-tab.active {
+/* Active state driven by sibling radio :checked */
+#cort-regulated:checked ~ .cortisol-tabs .cort-tab[data-pattern="regulated"],
+#cort-inverted:checked  ~ .cortisol-tabs .cort-tab[data-pattern="inverted"],
+#cort-flat:checked      ~ .cortisol-tabs .cort-tab[data-pattern="flat"],
+#cort-spiky:checked     ~ .cortisol-tabs .cort-tab[data-pattern="spiky"] {
   background: var(--ink);
   color: var(--cream);
   border-color: var(--ink);
+}
+/* Keyboard a11y — show outline on the active label when its hidden radio gets focus */
+.cortisol:has(#cort-regulated:focus-visible) .cort-tab[data-pattern="regulated"],
+.cortisol:has(#cort-inverted:focus-visible)  .cort-tab[data-pattern="inverted"],
+.cortisol:has(#cort-flat:focus-visible)      .cort-tab[data-pattern="flat"],
+.cortisol:has(#cort-spiky:focus-visible)     .cort-tab[data-pattern="spiky"] {
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
 }
 .cortisol-stage {
   max-width: 720px;
@@ -1476,10 +1510,45 @@ h1 em, h2 em, h3 em {
   position: relative;
 }
 .cort-panel { display: none; }
-.cort-panel.active { display: block; animation: fadeIn 0.3s ease-out; }
+/* Driven by :has() on the parent .cortisol — show panel matching checked radio */
+.cortisol:has(#cort-regulated:checked) .cort-panel[data-pattern="regulated"],
+.cortisol:has(#cort-inverted:checked)  .cort-panel[data-pattern="inverted"],
+.cortisol:has(#cort-flat:checked)      .cort-panel[data-pattern="flat"],
+.cortisol:has(#cort-spiky:checked)     .cort-panel[data-pattern="spiky"] {
+  display: block;
+  animation: fadeIn 0.3s ease-out;
+}
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
+}
+/* Mobile: all panels visible in a horizontal scroll-snap container; tabs hidden */
+@media (max-width: 700px) {
+  .cortisol-tabs { display: none; }
+  .cort-helper { margin-bottom: 24px; }
+  .cortisol-stage {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: visible;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 16px;
+    padding: 4px 20px 20px;
+    margin: 0 -20px;
+    scroll-padding-left: 20px;
+  }
+  .cortisol:has(#cort-regulated:checked) .cort-panel,
+  .cortisol:has(#cort-inverted:checked)  .cort-panel,
+  .cortisol:has(#cort-flat:checked)      .cort-panel,
+  .cortisol:has(#cort-spiky:checked)     .cort-panel {
+    display: block;
+    animation: none;
+  }
+  .cort-panel {
+    flex: 0 0 88%;
+    scroll-snap-align: center;
+    min-width: 0;
+  }
 }
 .cort-panel .chart-card {
   padding: 32px 32px 28px;
@@ -2448,12 +2517,12 @@ h1 em, h2 em, h3 em {
 /* Ritual section — ingredient-style claim list */
 .bridge-text .bridge-lede {
   font-size: clamp(15px, 1.4vw, 17px);
-  line-height: 1.6;
-  color: rgba(255,255,255,0.78);
+  line-height: 1.7;
+  color: var(--ink-soft);
   max-width: 540px;
   margin: 12px 0 22px 0;
 }
-.bridge-text .bridge-lede strong { color: #fff; }
+.bridge-text .bridge-lede strong { color: var(--ink); font-weight: 500; }
 
 .bridge-list-ingredients {
   list-style: none;
@@ -3016,11 +3085,15 @@ body.locked { overflow: hidden; }
     </div>
 
     <p class="cort-helper">Tap a curve, or swipe to compare.</p>
+    <input type="radio" name="cort" id="cort-regulated" class="cort-radio" checked>
+    <input type="radio" name="cort" id="cort-inverted" class="cort-radio">
+    <input type="radio" name="cort" id="cort-flat" class="cort-radio">
+    <input type="radio" name="cort" id="cort-spiky" class="cort-radio">
     <div class="cortisol-tabs" role="tablist">
-      <button class="cort-tab active" data-pattern="regulated" role="tab" aria-selected="true">Regulated</button>
-      <button class="cort-tab" data-pattern="inverted" role="tab" aria-selected="false">Inverted</button>
-      <button class="cort-tab" data-pattern="flat" role="tab" aria-selected="false">Flat</button>
-      <button class="cort-tab" data-pattern="spiky" role="tab" aria-selected="false">Spiky</button>
+      <label for="cort-regulated" class="cort-tab" data-pattern="regulated">Regulated</label>
+      <label for="cort-inverted" class="cort-tab" data-pattern="inverted">Inverted</label>
+      <label for="cort-flat" class="cort-tab" data-pattern="flat">Flat</label>
+      <label for="cort-spiky" class="cort-tab" data-pattern="spiky">Spiky</label>
     </div>
 
     <div class="cortisol-stage">
