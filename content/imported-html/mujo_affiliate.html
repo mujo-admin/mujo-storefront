@@ -5,9 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Partner with Mujo</title>
 <meta name="description" content="Partner with Mujo. 15% commission. Your own discount code. Application-based.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://api.fontshare.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -26,8 +27,8 @@
   --mute: #7A7570;
   --line: rgba(26, 26, 26, 0.09);
   --line-soft: rgba(26, 26, 26, 0.06);
-  --f-display: 'Inter Tight', 'Söhne', -apple-system, sans-serif;
-  --f-body: 'Inter Tight', 'Helvetica Neue', sans-serif;
+  --f-display: 'General Sans', -apple-system, sans-serif;
+  --f-body: 'General Sans', 'Helvetica Neue', sans-serif;
   --f-serif: 'Instrument Serif', 'Times New Roman', serif;
   --f-mono: 'DM Mono', monospace;
   --s1: 0 2px 8px rgba(0, 0, 0, 0.04);
@@ -628,12 +629,10 @@ body.locked { overflow: hidden; }
       <div class="split-label">What you get</div>
       <h2 class="split-h2">Paid to share something <span class="serif-accent">you'd share anyway.</span></h2>
       <div class="split-list">
-        <div class="split-list-item"><strong>15% commission</strong> on every sale, paid monthly</div>
-        <div class="split-list-item">Your own discount code — 10% off for your audience</div>
-        <div class="split-list-item">25% off all Mujo products and merch, forever</div>
+        <div class="split-list-item"><strong>15% commission,</strong> paid monthly</div>
+        <div class="split-list-item">Your own discount code, 10% off for your audience</div>
         <div class="split-list-item">A free welcome kit on approval</div>
         <div class="split-list-item">Early access to new drops and the Lemna Bar launch</div>
-        <div class="split-list-item">A direct line to Kinga and the Mujo team</div>
       </div>
       <a href="#apply" class="btn btn-primary">Apply now <span class="btn-arrow">→</span></a>
     </div>
@@ -663,9 +662,9 @@ body.locked { overflow: hidden; }
 </section>
 
 <!-- ═══════════════════════════════════════════
-     FOOTER
+     FOOTER (canonical mujo-foot — stripped at runtime, React Footer renders)
      ═══════════════════════════════════════════ -->
-<footer>
+<footer class="mujo-foot">
   <a href="/" class="flogo">MUJO</a>
   <div class="flinks">
     <a href="/" class="flink">mujoworld.com</a>
