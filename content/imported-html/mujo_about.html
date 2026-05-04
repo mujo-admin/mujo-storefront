@@ -416,18 +416,18 @@ body.locked { overflow: hidden; }
   display: grid;
   gap: 32px;
   grid-template-columns: 1fr;
-  align-items: center;
+  align-items: start;
 }
-@media (min-width: 900px) { .lemna-grid { grid-template-columns: 1fr 1fr; gap: 56px; } }
+@media (min-width: 900px) { .lemna-grid { grid-template-columns: 1.2fr 1fr; gap: 48px; } }
 .lemna-illo {
   position: relative;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 4 / 5;
   background: linear-gradient(135deg, #D4E4CC 0%, #8FA396 100%);
-  border-radius: 16px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: clamp(96px, 22vw, 192px);
+  font-size: clamp(80px, 18vw, 144px);
 }
 @media (min-width: 900px) {
   .lemna-grid > .lemna-text { order: 1; }
@@ -470,82 +470,6 @@ body.locked { overflow: hidden; }
   color: var(--mute);
   margin-top: 6px;
 }
-
-/* COMMUNITY */
-.community-section {
-  padding: 64px 0;
-}
-@media (min-width: 768px) { .community-section { padding: 96px 0; } }
-.community-head { text-align: center; margin-bottom: 40px; }
-.community-head .eyebrow { margin-bottom: 14px; }
-.community-head h2 {
-  font-size: clamp(28px, 5vw, 44px);
-  max-width: 760px;
-  margin: 0 auto 16px;
-}
-.community-head h2 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
-.community-head p {
-  font-size: 16px;
-  color: var(--ink-soft);
-  max-width: 540px;
-  margin: 0 auto;
-  line-height: 1.6;
-}
-
-.communities {
-  display: grid;
-  gap: 16px;
-  grid-template-columns: 1fr;
-}
-@media (min-width: 768px) { .communities { grid-template-columns: repeat(3, 1fr); gap: 20px; } }
-
-.club-card {
-  position: relative;
-  border-radius: 14px;
-  padding: 28px 24px;
-  overflow: hidden;
-  text-decoration: none;
-  color: inherit;
-  display: flex;
-  flex-direction: column;
-  min-height: 220px;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.club-card:hover { transform: translateY(-4px); }
-.club-card.rebel { background: var(--sage); color: #fff; }
-.club-card.mamis { background: var(--orange-soft); color: var(--ink); }
-.club-card.padel { background: var(--sand-deep); color: var(--ink); }
-
-.club-card .club-icon {
-  font-size: 34px;
-  margin-bottom: 16px;
-}
-.club-card h3 {
-  font-size: 22px;
-  margin-bottom: 10px;
-  letter-spacing: -0.015em;
-}
-.club-card.rebel h3 { color: #fff; }
-.club-card p {
-  font-size: 14px;
-  line-height: 1.5;
-  flex: 1;
-}
-.club-card.rebel p { color: rgba(255,255,255,0.7); }
-.club-card.mamis p, .club-card.padel p { color: var(--ink-soft); }
-.club-card .club-link {
-  margin-top: 16px;
-  font-family: var(--f-mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-.club-card.rebel .club-link { color: var(--orange); }
-.club-card.mamis .club-link { color: var(--orange-deep); }
-.club-card.padel .club-link { color: var(--sage); }
 
 /* STANDARDS WE HOLD */
 .standards-section {
@@ -897,42 +821,6 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
       </div>
       <!-- ICON: Lemna leaf · sage · 96px · botanical-line -->
       <div class="lemna-illo image-placeholder icon-placeholder sand-bg" data-icon="lemna-leaf">Lemna leaf</div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     COMMUNITY
-     ============================================================ -->
-<section class="community-section">
-  <div class="container">
-    <div class="community-head">
-      <span class="eyebrow">The community</span>
-      <h2>One club. Three rooms.</h2>
-      <p>Three small worlds within Mujo. Pick the one that sounds like you. Or all three, if you're a glutton for belonging.</p>
-    </div>
-    <div class="communities">
-      <a href="/rebel-club" class="club-card rebel">
-        <!-- ICON: Rebel Club fox · sage · 56px · botanical-line -->
-        <div class="club-icon image-placeholder icon-placeholder sand-bg" data-icon="rebel-club">Rebel Club</div>
-        <h3>Rebel Club</h3>
-        <p>The label-readers. The morning-anchorers. The people who paid attention to the sleep research and want company.</p>
-        <div class="club-link">Join the club →</div>
-      </a>
-      <a href="/mamis" class="club-card mamis">
-        <!-- ICON: Mamis bloom · sage · 56px · botanical-line -->
-        <div class="club-icon image-placeholder icon-placeholder sand-bg" data-icon="mamis">Mujo Mamis</div>
-        <h3>Mujo Mamis</h3>
-        <p>For the mothers running on fumes who want a smarter way back to themselves. Recipes, science, real talk, no judgement.</p>
-        <div class="club-link">Read the field guide →</div>
-      </a>
-      <a href="/padel" class="club-card padel">
-        <!-- ICON: Padel paddle · sage · 56px · botanical-line -->
-        <div class="club-icon image-placeholder icon-placeholder sand-bg" data-icon="padel">Padel Club</div>
-        <h3>Padel Club</h3>
-        <p>Athletes who recover with adaptogens, not energy drinks. Local meetups for the club, wherever the courts are.</p>
-        <div class="club-link">See upcoming sessions →</div>
-      </a>
     </div>
   </div>
 </section>

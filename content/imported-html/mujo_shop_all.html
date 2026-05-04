@@ -297,12 +297,14 @@ body.locked { overflow: hidden; }
   margin-bottom: 8px;
 }
 
-/* Bars section — single combined Lemna SKU. Grid collapses to 1 column so the
-   solo card doesn't sit asymmetrically next to empty whitespace. */
-#cat-bars .product-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+/* Products section — Ritual + Lemna side-by-side on tablet/desktop, stack on mobile */
+#cat-products .product-grid { grid-template-columns: 1fr; }
+@media (min-width: 640px) { #cat-products .product-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { #cat-products .product-grid { grid-template-columns: repeat(2, 1fr); } }
 
-/* Mujo Essentials section — slightly tighter margin below per Kinga's spec */
+/* Mujo Essentials section — 4 cards in one uniform row on desktop, 2x2 on tablet, 1-col on mobile */
 #cat-merch .product-grid { padding-bottom: 19px; }
+@media (min-width: 1024px) { #cat-merch .product-grid { grid-template-columns: repeat(4, 1fr); } }
 
 /* Quick add button */
 .product-quick-add {
@@ -506,9 +508,9 @@ footer.mujo-foot {
      ============================================================ -->
 
 <!-- ============================================================
-     RITUAL SECTION
+     PRODUCTS SECTION · Ritual + Lemna side-by-side
      ============================================================ -->
-<section class="cat-section" id="cat-ritual" data-cat="ritual">
+<section class="cat-section" id="cat-products" data-cat="products">
   <div class="container">
     <div class="product-grid">
       <a href="/products/mujo-ritual?size=25" class="product-card" data-tags="ritual,subscribe" data-price="55.25">
@@ -526,22 +528,11 @@ footer.mujo-foot {
               <span class="from">From</span>
               <span class="amount">$55.25</span>
             </div>
-            <!-- Rating widget mount point. To enable, replace this comment with your provider's embed
-                 (Stamped, Yotpo, Judge.me, Loox, etc.) and Klaviyo product feed will read from there. -->
           </div>
         </div>
       </a>
-    </div>
-  </div>
-</section>
 
-<!-- ============================================================
-     BARS SECTION
-     ============================================================ -->
-<section class="cat-section" id="cat-bars" data-cat="bars">
-  <div class="container">
-    <div class="product-grid">
-      <a href="/products/lemna" class="product-card soon" data-tags="bars" data-price="54">
+      <a href="/lemna" class="product-card soon" data-tags="bars" data-price="54">
         <div class="product-img bg-pb">
           <span class="product-badge soon">COMING SOON</span>
           <span class="product-img-placeholder"></span>
@@ -650,7 +641,7 @@ footer.mujo-foot {
         <div class="foot-col-title">Shop</div>
         <div class="foot-links">
           <a href="/products/mujo-ritual" class="foot-link">Mujo Ritual</a>
-          <a href="/products/lemna-bar" class="foot-link">Lemna Bar</a>
+          <a href="/lemna" class="foot-link">Lemna Bar</a>
           <a href="/shop" class="foot-link">Subscribe & save</a>
           <a href="/rebel-club" class="foot-link">Rebel Club</a>
         </div>

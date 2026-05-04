@@ -168,6 +168,8 @@ export function Nav({ cartCount, onOpenMenu, onOpenCart }: NavProps) {
           padding: 4px 0;
         }
         .nav-link:hover { color: var(--sage); }
+        .nav-link:focus { outline: none; }
+        .nav-link:focus-visible { outline: 2px solid var(--sage); outline-offset: 6px; border-radius: 2px; }
         .nav-right {
           display: flex;
           align-items: center;

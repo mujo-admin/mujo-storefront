@@ -140,8 +140,8 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
 .contact-hero p { font-size: 16px; color: var(--ink-soft); max-width: 540px; margin: 0 auto; line-height: 1.6; padding: 0 8px; }
 @media (min-width: 768px) { .contact-hero p { font-size: 17px; } }
 
-.contact-grid { display: grid; gap: 32px; grid-template-columns: 1fr; padding: 16px 0 56px; }
-@media (min-width: 900px) { .contact-grid { grid-template-columns: 1.3fr 1fr; gap: 48px; padding: 24px 0 80px; } }
+.contact-grid { display: grid; gap: 32px; grid-template-columns: 1fr; padding: 16px 0 56px; max-width: 720px; margin: 0 auto; }
+@media (min-width: 900px) { .contact-grid { padding: 24px 0 80px; } }
 
 .contact-form-wrap { background: #fff; border: 1px solid var(--line-soft); border-radius: 16px; padding: 28px 24px; }
 @media (min-width: 768px) { .contact-form-wrap { padding: 40px; } }
@@ -163,19 +163,6 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
 .contact-submit:hover { background: var(--orange-deep); }
 .contact-submit svg { width: 14px; height: 14px; }
 
-.contact-aside { display: flex; flex-direction: column; gap: 20px; }
-.aside-card { background: var(--sand); border-radius: 14px; padding: 24px; }
-.aside-card.dark { background: var(--sage); color: rgba(255,255,255,0.85); }
-.aside-card .eyebrow { margin-bottom: 12px; }
-.aside-card.dark .eyebrow { color: var(--orange); }
-.aside-card h3 { font-size: 18px; margin-bottom: 10px; line-height: 1.25; }
-.aside-card.dark h3 { color: #fff; }
-.aside-card h3 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
-.aside-card p { font-size: 14px; color: var(--ink-soft); line-height: 1.55; margin-bottom: 12px; }
-.aside-card.dark p { color: rgba(255,255,255,0.65); }
-.aside-link { display: inline-flex; align-items: center; gap: 6px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange-deep); text-decoration: none; }
-.aside-card.dark .aside-link { color: var(--orange); }
-.aside-link:hover { color: var(--ink); }
 .aside-card.dark .aside-link:hover { color: #fff; }
 
 .faq-section { padding: 24px 0 64px; border-top: 1px solid var(--line-soft); }
@@ -264,7 +251,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
   <div class="container">
     <span class="eyebrow">Contact</span>
     <h1>Say hello. <span class="serif-accent">We answer.</span></h1>
-    <p>A small team, run by Kinga. Most messages get a real reply within a working day. The bot ones don't, on purpose.</p>
+    <p>A small team, run by Kinga. Most messages get a reply within the working day. The bot ones don't, on purpose. Submit your inquiry below or email us directly at <a href="mailto:hello@mujoworld.com">hello@mujoworld.com</a>.</p>
   </div>
 </section>
 
@@ -296,12 +283,9 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
             <option>Press or partnership</option>
             <option>Affiliate program</option>
             <option>Just saying hi</option>
+            <option>Write us a poem</option>
             <option>Something else</option>
           </select>
-        </div>
-        <div class="field">
-          <label for="c-order">Order number (optional)</label>
-          <input type="text" id="c-order" placeholder="MUJO-XXXX">
         </div>
         <div class="field">
           <label for="c-msg">Your message</label>
@@ -314,26 +298,6 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
       </form>
     </div>
 
-    <aside class="contact-aside">
-      <div class="aside-card">
-        <span class="eyebrow">For orders</span>
-        <h3>Track or change <em>an order.</em></h3>
-        <p>Most order questions are faster solved through your account. Subscriptions, address changes, skip a delivery, all in two taps.</p>
-        <a href="/account" class="aside-link">Open your account →</a>
-      </div>
-      <div class="aside-card">
-        <span class="eyebrow">DMs</span>
-        <h3>Or just send a DM.</h3>
-        <p>Faster than email for short questions. We're @mujoworld on Instagram and TikTok. Real human, real reply.</p>
-        <a href="https://instagram.com/mujoworld" class="aside-link">@mujoworld →</a>
-      </div>
-      <div class="aside-card dark">
-        <span class="eyebrow">Email</span>
-        <h3>For the long ones.</h3>
-        <p>Direct line: hello@mujoworld.com. Press requests: press@mujoworld.com. Both go to the same place. Both get read.</p>
-        <a href="mailto:hello@mujoworld.com" class="aside-link">hello@mujoworld.com →</a>
-      </div>
-    </aside>
   </div>
 </div>
 
@@ -369,8 +333,8 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
         <div class="faq-body">Yes. Wholesale opening order is $200, 50% retail margin. Pilates studios, padel clubs, specialty grocers, cafés. Pick "Wholesale or retail" on the form and we'll send the deck.</div>
       </details>
       <details class="faq-item">
-        <summary>Do you ship outside the EU and US?</summary>
-        <div class="faq-body">Currently EU and US only. We're working on UK, Australia, and the Middle East for late 2026. The Sunday Note is the first place we'll announce.</div>
+        <summary>Do you ship globally or US only?</summary>
+        <div class="faq-body">We currently only ship to the US. Sign up to the <a href="/rebel-club">Rebel Club</a> to know when we launch other regions in the world.</div>
       </details>
     </div>
   </div>

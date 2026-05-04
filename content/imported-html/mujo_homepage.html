@@ -168,7 +168,7 @@ h3 { font-size: clamp(20px, 3vw, 24px); letter-spacing: -0.015em; line-height: 1
 .btn-secondary { background: var(--sage); color: #fff; border-color: var(--sage); }
 .btn-secondary:hover { background: var(--sage-mid); border-color: var(--sage-mid); transform: translateY(-1px); }
 .btn-ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
-.btn-ghost:hover { background: var(--ink); color: var(--cream); }
+.btn-ghost:hover { background: var(--sage); color: var(--cream); border-color: var(--sage); }
 
 /* CTA pill (used inside ghost button) */
 .cta-pill {
@@ -447,7 +447,7 @@ body.locked { overflow: hidden; }
   max-width: 640px;
 }
 @media (min-width: 1024px) {
-  .hero-text { padding: 96px 56px 96px var(--gutter); max-width: 620px; }
+  .hero-text { padding: 96px 56px 96px max(var(--gutter), calc((100vw - 1200px) / 2)); max-width: 620px; }
 }
 
 .hero-text .eyebrow { color: var(--orange-deep); margin-bottom: 16px; }
@@ -807,7 +807,7 @@ body.locked { overflow: hidden; }
 .inside { background: var(--sand); }
 .inside-head { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; }
 @media (min-width: 768px) {
-  .inside-head { flex-direction: row; align-items: end; justify-content: space-between; gap: 32px; margin-bottom: 40px; }
+  .inside-head { flex-direction: row; align-items: end; gap: 32px; margin-bottom: 40px; }
 }
 .inside-title .eyebrow { margin-bottom: 12px; }
 .inside-title h2 { max-width: 520px; }
@@ -1446,16 +1446,15 @@ footer {
    ═══════════════════════════════════════════════════════════ */
 .quiz-pill {
   position: fixed;
-  bottom: 18px;
-  right: 18px;
+  bottom: 28px;
+  right: 28px;
   z-index: 270;
   background: var(--orange);
   color: #fff;
   border-radius: 100px;
-  padding: 12px 20px 12px 14px;
+  padding: 12px 22px;
   display: flex;
   align-items: center;
-  gap: 8px;
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
@@ -1469,9 +1468,8 @@ footer {
 }
 .quiz-pill.show { opacity: 1; pointer-events: all; }
 .quiz-pill:hover { background: var(--orange-deep); animation: none; }
-.qp-icon { font-size: 16px; line-height: 1; }
 @media (max-width: 560px) {
-  .quiz-pill { bottom: 14px; right: 12px; font-size: 12px; padding: 10px 16px 10px 12px; }
+  .quiz-pill { bottom: 20px; right: 16px; font-size: 12px; padding: 10px 18px; }
 }
 
 .qs-overlay {
@@ -2253,7 +2251,6 @@ footer {
 
 <!-- ═══════════════ FLOATING QUIZ PILL ═══════════════ -->
 <button class="quiz-pill" id="quizPill" onclick="openQuizSheet()">
-  <span class="qp-icon">🍄</span>
   Get your free Reset Plan
 </button>
 

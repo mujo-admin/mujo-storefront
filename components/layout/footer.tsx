@@ -15,7 +15,6 @@ export function Footer() {
         background: "var(--sage)",
         color: "rgba(255,255,255,0.5)",
         padding: "56px 0 28px",
-        marginTop: 56,
       }}
     >
       <div

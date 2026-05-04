@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ingredients · Mujo. Every dose disclosed, every source cited</title>
-<meta name="description" content="The full ingredient dossier for Mujo Ritual and the Lemna Bar. Clinical citations, dose disclosure, sourcing transparency. No proprietary blends.">
+<title>Ingredients · Mujo. Get to know our unique ingredients.</title>
+<meta name="description" content="Ingredient nuances matter. The dose, the form, the active compound. Get to know the unique ingredients inside Mujo Ritual and the Lemna Protein Bar.">
 
 <link rel="preconnect" href="https://api.fontshare.com">
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
@@ -238,9 +238,198 @@ nav {
 }
 
 @media (max-width: 700px) {
-  .hero { padding: 64px 0 48px; }
-  .hero-stats { grid-template-columns: 1fr 1fr; gap: 20px; }
-  .hs-num { font-size: 24px; }
+  .hero { padding: 48px 0 32px; }
+  .hero-sub { font-size: 16px; }
+  .container, .container-sm { padding: 0 20px; }
+}
+
+/* ═══════════════════════════════════════════
+   INGREDIENT CASE-PICK — Rebel guy on the soapbox
+   (comic speech bubble · brand guide §comic-frame)
+   ═══════════════════════════════════════════ */
+.fact-section {
+  padding: 56px 0 80px;
+  background: var(--cream);
+}
+.fact-pick {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  position: relative;
+}
+
+/* Rebel guy below the bubble — speaks UP into it.
+   Sized + positioned to match the science page (.explainer-banner .explainer-figure)
+   exactly: 68px wide, left-aligned with margin so he sits under the tail. */
+.fact-rebel {
+  position: relative;
+  width: 68px;
+  margin: 14px 0 0 28px;
+  padding: 0;
+}
+.fact-rebel-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  position: relative;
+  z-index: 1;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.fact-rebel-glow { display: none !important; }
+/* Legacy SVG class retained but hidden (PNG is used now) */
+.fact-rebel-svg { display: none !important; }
+.fact-soapbox { display: none !important; }
+/* The "soapbox" — small wooden crate beneath him, drawn flat */
+.fact-soapbox {
+  position: relative;
+  z-index: 1;
+  width: 180px;
+  height: 36px;
+  margin-top: -4px;
+  background: var(--sand);
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+  box-shadow: 4px 4px 0 var(--sage);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  font-weight: 500;
+}
+.fact-soapbox::before,
+.fact-soapbox::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  width: 1.5px;
+  background: var(--ink);
+  opacity: 0.35;
+}
+.fact-soapbox::before { left: 16%; }
+.fact-soapbox::after { right: 16%; }
+
+/* Speech bubble — the case being made. Straight (no rotation) to match science page. */
+.fact-bubble {
+  position: relative;
+  background: var(--sand);
+  border: 2px solid var(--ink);
+  border-radius: 24px;
+  padding: 32px 36px 30px;
+  box-shadow: 8px 8px 0 var(--sage);
+  overflow: hidden;
+}
+.fact-bubble::before {
+  /* halftone atmosphere */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, var(--ink) 0.8px, transparent 1.2px);
+  background-size: 8px 8px;
+  opacity: 0.12;
+  -webkit-mask-image: radial-gradient(ellipse at center, transparent 30%, black 100%);
+  mask-image: radial-gradient(ellipse at center, transparent 30%, black 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+.fact-bubble > * { position: relative; z-index: 1; }
+
+/* Speech-bubble tail — points DOWN from the bubble onto the rebel guy below.
+   Positioned to align with the rebel (which sits at margin-left: 28px, width 68px,
+   so tail sits roughly at left: 56px to land just above the rebel's head). */
+.fact-bubble-tail-down {
+  position: relative;
+  width: 24px;
+  height: 22px;
+  margin: -2px 0 -8px 56px;
+  z-index: 5;
+  pointer-events: none;
+}
+.fact-bubble-tail-down svg { width: 100%; height: 100%; display: block; }
+
+.fact-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--orange);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 16px;
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  transform: rotate(-1deg);
+}
+.fact-tag::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+}
+.fact-eyebrow {
+  font-family: var(--f-display);
+  font-size: clamp(20px, 2.4vw, 26px);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin-bottom: 18px;
+  text-transform: none;
+}
+.fact-body {
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  margin-bottom: 14px;
+}
+.fact-body:last-of-type { margin-bottom: 0; }
+.fact-body strong { color: var(--ink); font-weight: 500; }
+
+@media (max-width: 800px) {
+  .fact-pick {
+    max-width: 100%;
+    padding: 0 4px;
+  }
+  /* Match science page mobile: 54px rebel, margin-left: 20px, straight bubble */
+  .fact-rebel {
+    width: 54px;
+    margin: 12px 0 0 20px;
+  }
+  .fact-bubble-tail-down {
+    width: 20px;
+    height: 18px;
+    margin: -2px 0 -6px 44px;
+  }
+  .fact-bubble {
+    padding: 22px 22px 24px;
+    margin: 0 12px;
+    box-shadow: 5px 5px 0 var(--sage);
+  }
+  .fact-tag {
+    font-size: 9px;
+    padding: 5px 11px;
+    margin-bottom: 14px;
+    box-shadow: 2px 2px 0 var(--ink);
+  }
+  .fact-eyebrow { font-size: 18px; margin-bottom: 14px; line-height: 1.3; }
+  .fact-body { font-size: 14.5px; line-height: 1.65; }
+}
+@media (max-width: 700px) {
+  .fact-section { padding: 32px 0 56px; }
 }
 
 /* ═══════════════════════════════════════════
@@ -291,6 +480,17 @@ nav {
   color: #fff;
   border-color: var(--sage);
 }
+@media (max-width: 700px) {
+  .filter-bar { padding: 14px 0; top: 56px; }
+  .filter-inner { gap: 8px; }
+  .filter-label {
+    width: 100%;
+    text-align: center;
+    margin-right: 0;
+    margin-bottom: 4px;
+  }
+  .filter-pill { font-size: 12px; padding: 7px 14px; }
+}
 
 /* ═══════════════════════════════════════════
    PRODUCT SECTIONS
@@ -300,6 +500,10 @@ nav {
 }
 .product-section.alt { background: var(--cream); }
 .product-section.sand { background: var(--sand); }
+@media (max-width: 700px) {
+  .product-section { padding: 56px 0; }
+  .product-header { margin-bottom: 36px; }
+}
 
 .product-header {
   max-width: 720px;
@@ -341,18 +545,35 @@ nav {
 .ing-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  gap: 14px;
 }
+
+/*
+  COMPACT CARD — DESKTOP LAYOUT
+  ─────────────────────────────
+  Row 1:  [ image | name + Latin + pills ]
+  Row 2:  [           description (full)           ]
+  Row 3:  [           meta + refs (full)           ]
+
+  The image takes the top-left quadrant only (smaller than 1/4 actually,
+  about 110px square), so the right side has room for name + detail.
+*/
 .ing-card {
   background: #fff;
   border: 1px solid var(--line-soft);
-  border-radius: 18px;
+  border-radius: 16px;
   overflow: hidden;
   transition: all 0.3s;
-  display: flex;
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  grid-template-rows: auto 1fr;
+  column-gap: 16px;
+  row-gap: 10px;
+  padding: 16px 18px 16px 16px;
+  align-items: start;
 }
 .ing-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px);
   box-shadow: var(--s2);
   border-color: var(--sage-light);
 }
@@ -364,21 +585,18 @@ nav {
 .ing-card.feat:hover { border-color: var(--orange); }
 
 .ing-img {
-  /*
-    IMAGE PLACEHOLDER: Ingredient macro photography
-    — 1:1 aspect, raw-form macro on warm neutral background
-    — Replace gradient + emoji with real ingredient photo
-    — Shoot spec: natural light, shallow DoF, warm palette
-  */
-  width: 40%;
-  flex-shrink: 0;
+  width: 110px;
+  height: 110px;
   background: linear-gradient(145deg, var(--sand-deep) 0%, var(--sand) 100%);
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  min-height: 220px;
-  border-right: 1px solid var(--line-soft);
+  overflow: hidden;
+  grid-column: 1;
+  grid-row: 1;
+  border: none;
 }
 .ing-img::after {
   content: '';
@@ -388,7 +606,7 @@ nav {
   pointer-events: none;
 }
 .ing-img-emoji {
-  font-size: 52px;
+  font-size: 42px;
   filter: saturate(0.75) opacity(0.85);
   position: relative;
   z-index: 1;
@@ -396,13 +614,24 @@ nav {
 .ing-card.feat .ing-img {
   background: linear-gradient(145deg, var(--sand-deep) 0%, #fff 100%);
 }
-.ing-card.feat .ing-img-emoji { font-size: 64px; }
+.ing-card.feat .ing-img-emoji { font-size: 50px; }
 
+/* Top-right: name + Latin + pills only */
 .ing-content {
-  flex: 1;
-  padding: 28px 28px 24px;
+  grid-column: 2;
+  grid-row: 1;
+  padding: 0;
   display: flex;
   flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+/* Description spans the FULL bottom row */
+.ing-desc {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  margin: 2px 0 0;
 }
 .ing-top {
   display: flex;
@@ -413,13 +642,13 @@ nav {
 }
 .ing-name {
   font-family: var(--f-display);
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 600;
   color: var(--ink);
   letter-spacing: -0.01em;
-  line-height: 1.2;
+  line-height: 1.25;
 }
-.ing-card.feat .ing-name { font-size: 24px; }
+.ing-card.feat .ing-name { font-size: 20px; }
 .ing-badge {
   background: var(--orange);
   color: #fff;
@@ -434,27 +663,28 @@ nav {
 .ing-badge.sage { background: var(--sage); }
 .ing-latin {
   font-family: var(--f-mono);
-  font-size: 10px;
+  font-size: 9.5px;
   color: var(--sage);
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  margin-bottom: 12px;
+  margin-bottom: 6px;
 }
 .ing-desc {
-  font-size: 14px;
-  line-height: 1.65;
+  font-size: 13.5px;
+  line-height: 1.6;
   color: var(--ink-soft);
-  margin-bottom: 14px;
-  flex: 1;
+  margin-bottom: 0;
+  flex: none;
 }
 .ing-desc strong { color: var(--ink); font-weight: 500; }
 .ing-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 18px;
-  padding-top: 14px;
+  gap: 6px 16px;
+  padding-top: 10px;
   border-top: 1px solid var(--line-soft);
-  margin-top: 4px;
+  margin-top: 8px;
+  grid-column: 1 / -1;
 }
 .ing-meta-item {
   font-family: var(--f-mono);
@@ -471,11 +701,25 @@ nav {
   display: block;
   margin-bottom: 2px;
 }
+/* Single-row meta — used when the only thing left is Evidence.
+   Renders inline as a citation strip rather than a stacked block. */
+.ing-meta.single .ing-meta-item {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.ing-meta.single .ing-meta-item strong {
+  display: inline-block;
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
 .ing-pills {
   display: flex;
-  gap: 5px;
+  gap: 4px;
   flex-wrap: wrap;
-  margin-bottom: 14px;
+  margin-bottom: 0;
+  margin-top: 2px;
 }
 .ing-pill {
   font-family: var(--f-mono);
@@ -489,14 +733,15 @@ nav {
   font-weight: 500;
 }
 .ing-refs {
-  margin-top: 10px;
-  padding-top: 10px;
+  margin-top: 8px;
+  padding-top: 8px;
   border-top: 1px dashed var(--line);
   font-family: var(--f-mono);
-  font-size: 10px;
+  font-size: 9.5px;
   color: var(--mute);
   letter-spacing: 0.02em;
   line-height: 1.55;
+  grid-column: 1 / -1;
 }
 .ing-refs a {
   color: var(--sage);
@@ -510,11 +755,29 @@ nav {
 .ing-card.hidden { display: none; }
 
 @media (max-width: 900px) {
-  .ing-grid { grid-template-columns: 1fr; gap: 14px; }
+  .ing-grid { grid-template-columns: 1fr; gap: 12px; }
   .ing-card.feat { grid-column: span 1; }
-  .ing-card { flex-direction: column; }
-  .ing-img { width: 100%; min-height: 180px; border-right: none; border-bottom: 1px solid var(--line-soft); }
-  .ing-content { padding: 24px 22px; }
+  /* Mobile keeps the same compact 2-col top row — image + name/details — but
+     description still flows full-width below. */
+  .ing-card {
+    grid-template-columns: 88px 1fr;
+    column-gap: 12px;
+    padding: 14px 14px 14px 12px;
+  }
+  .ing-img { width: 88px; height: 88px; border-radius: 10px; }
+  .ing-img-emoji { font-size: 36px; }
+  .ing-card.feat .ing-img-emoji { font-size: 42px; }
+  .ing-name { font-size: 16px; }
+  .ing-card.feat .ing-name { font-size: 18px; }
+  .ing-desc { font-size: 13px; line-height: 1.6; }
+}
+@media (max-width: 480px) {
+  .ing-card {
+    grid-template-columns: 72px 1fr;
+    column-gap: 10px;
+  }
+  .ing-img { width: 72px; height: 72px; }
+  .ing-img-emoji { font-size: 32px; }
 }
 
 /* ═══════════════════════════════════════════
@@ -638,10 +901,22 @@ nav {
 }
 .lemna-body strong { color: var(--ink); font-weight: 500; }
 .lemna-notify {
-  margin-top: 24px;
+  margin-top: 0;
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+  align-items: center;
+}
+.lemna-cta-row {
+  margin-top: 24px;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.lemna-cta-row .lemna-notify {
+  flex: 1;
+  min-width: 240px;
 }
 .lemna-input {
   flex: 1;
@@ -702,6 +977,17 @@ nav {
   .lemna-grid { grid-template-columns: 1fr; gap: 32px; }
   .lemna { padding: 64px 0; }
 }
+@media (max-width: 700px) {
+  .lemna { padding: 48px 0; }
+  .lemna-grid { gap: 24px; }
+  .lemna-cta-row { flex-direction: column; align-items: stretch; gap: 12px; }
+  .lemna-cta-row .btn { width: 100%; }
+  .lemna-cta-row .lemna-notify { width: 100%; min-width: 0; }
+  .lemna-cta-row .lemna-notify .btn { min-width: 0; }
+  .lemna-input { min-width: 0; width: 100%; }
+  .lemna-visual { aspect-ratio: 16 / 11; }
+  .lemna-body { font-size: 15px; }
+}
 
 /* ═══════════════════════════════════════════
    SOURCING/TRUST STRIP
@@ -717,6 +1003,10 @@ nav {
   gap: 24px;
   max-width: 1080px;
   margin: 0 auto;
+}
+.trust-grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 920px;
 }
 .trust-item {
   text-align: center;
@@ -745,6 +1035,7 @@ nav {
 }
 @media (max-width: 800px) {
   .trust-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+  .trust-grid-3 { grid-template-columns: 1fr; gap: 32px; }
   .trust { padding: 48px 0; }
 }
 
@@ -756,6 +1047,10 @@ nav {
   color: #fff;
   padding: 80px 0;
   text-align: center;
+}
+@media (max-width: 700px) {
+  .cta-band { padding: 56px 0; }
+  .cta-band-sub { font-size: 15px; }
 }
 .cta-band h2 { color: #fff; margin-bottom: 16px; max-width: 680px; margin-left: auto; margin-right: auto; }
 .cta-band h2 em {
@@ -831,6 +1126,29 @@ footer {
   letter-spacing: 0.02em;
 }
 
+
+/* Benefit filter row — sits below the product row */
+.filter-inner-benefits {
+  margin-top: 8px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--line-soft);
+  flex-wrap: wrap;
+}
+.benefit-pill { font-size: 11px; }
+.benefit-pill.active {
+  background: var(--sage);
+  color: #fff;
+  border-color: var(--sage);
+}
+@media (max-width: 720px) {
+  .filter-inner-benefits {
+    margin-top: 6px;
+    padding-top: 8px;
+    gap: 6px;
+  }
+  .benefit-pill { font-size: 10.5px; padding: 6px 10px; }
+}
+
 </style>
 <style id="mujo-canonical-nav">
 :root {
@@ -851,7 +1169,7 @@ footer {
 .announce .sep { opacity: 0.4; margin: 0 8px; }
 @media (max-width: 640px) { .announce-secondary { display: none; } }
 @media (min-width: 768px) { .announce { padding: 10px 24px; font-size: 13px; } .announce .sep { margin: 0 10px; } }
-nav.mujo-nav { position: sticky; top: 0; z-index: 150; background: rgba(243, 242, 233, 0.94); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--line-soft); padding: 12px 16px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; height: var(--nav-h); transition: box-shadow 0.3s; }
+nav.mujo-nav { position: sticky; top: 0; z-index: 150; background: rgba(243, 242, 233, 0.94); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--line-soft); padding: 12px 16px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; height: var(--nav-h); transition: box-shadow 0.3s; }
 nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 @media (min-width: 1024px) { nav.mujo-nav { padding: 14px 32px; grid-template-columns: 1fr auto 1fr; gap: 24px; } }
 .nav-hamburger { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; color: var(--ink); margin-left: -8px; }
@@ -876,12 +1194,12 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .menu-overlay.open { opacity: 1; pointer-events: auto; }
 .mobile-menu { position: fixed; top: 0; left: 0; bottom: 0; width: min(360px, 88vw); background: var(--cream); z-index: 999; transform: translateX(-100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; overflow-y: auto; }
 .mobile-menu.open { transform: translateX(0); }
-.mm-head { display: flex; align-items: center; justify-content: center; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); position: relative; }
+.mm-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); }
 .mm-head img { height: 26px; width: auto; }
-.mm-close { width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); position: absolute; right: 12px; top: 50%; transform: translateY(-50%); }
+.mm-close { width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); margin-right: -8px; }
 .mm-close svg { width: 20px; height: 20px; }
 .mm-links { display: flex; flex-direction: column; padding: 4px 0; flex: 1; }
-.mm-link { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; font-family: var(--f-display); font-size: 18px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-soft); transition: background 0.15s, color 0.15s; }
+.mm-link { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; font-family: var(--f-display); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-soft); transition: background 0.15s, color 0.15s; }
 .mm-link:hover { color: var(--orange-deep); background: rgba(242,104,47,0.04); }
 .mm-link svg { width: 16px; height: 16px; opacity: 0.4; }
 .mm-foot { padding: 24px; background: var(--sage); color: #fff; }
@@ -1002,52 +1320,68 @@ body.locked { overflow: hidden; }
      ═══════════════════════════════════════════ -->
 <section class="hero">
   <div class="container">
-    <div class="hero-eye reveal">The full dossier</div>
-    <h1 class="reveal d1">The full formula. <span class="serif-accent">Disclosed where it matters.</span></h1>
-    <p class="hero-sub reveal d2">This is the complete ingredient dossier for every Mujo product. We disclose <strong>exact doses for the ingredients where clinical research depends on precise amounts</strong>. KSM-66® at 300mg. Bioavailable Curcumin in its solid-lipid form. Rhodiola Rosea at premium standardization. Supporting ingredients are listed with form, source, and role, plus category totals for the formula as a whole. <strong>Proprietary blends hide what's in them. Craftsmanship doesn't show its exact margins.</strong></p>
+    <div class="hero-eye reveal">Ingredient nuances matter</div>
+    <h1 class="reveal d1">Get to know our <span class="serif-accent">unique ingredients.</span></h1>
+    <p class="hero-sub reveal d2">We obsessively research every dose, every format, and every active compound. <strong>It's not enough that an ingredient is listed on a label.</strong> Quality matters. Clinical research matters. That's what makes us different.</p>
+  </div>
+</section>
 
-    <div class="hero-stats reveal d3">
-      <div class="hs-item">
-        <div class="hs-num">9,600<span>mg</span></div>
-        <div class="hs-lbl">Raw mushroom equivalent<br>(1,200mg standardized extract · 8:1)</div>
+<!-- ═══════════════════════════════════════════
+     FILTER BAR — Select product
+     ═══════════════════════════════════════════ -->
+<div class="filter-bar">
+  <div class="container">
+    <div class="filter-inner">
+      <span class="filter-label">Select product:</span>
+      <button class="filter-pill active" data-product="ritual" onclick="filterByProduct('ritual', this)">Ritual Cacao</button>
+      <button class="filter-pill" data-product="lemna" onclick="filterByProduct('lemna', this)">Lemna Protein Bars</button>
+    </div>
+    <div class="filter-inner filter-inner-benefits">
+      <span class="filter-label">Filter by benefit:</span>
+      <button class="filter-pill benefit-pill active" data-benefit="all" onclick="filterByBenefit('all', this)">All</button>
+      <button class="filter-pill benefit-pill" data-benefit="focus" onclick="filterByBenefit('focus', this)">Focus</button>
+      <button class="filter-pill benefit-pill" data-benefit="energy" onclick="filterByBenefit('energy', this)">Energy</button>
+      <button class="filter-pill benefit-pill" data-benefit="stress" onclick="filterByBenefit('stress', this)">Stress</button>
+      <button class="filter-pill benefit-pill" data-benefit="recovery" onclick="filterByBenefit('recovery', this)">Recovery</button>
+      <button class="filter-pill benefit-pill" data-benefit="immunity" onclick="filterByBenefit('immunity', this)">Immunity</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     LEMNA BAR — Hidden by default, shown when filter selected
+     ═══════════════════════════════════════════ -->
+<section class="lemna" id="lemna-section" style="display: none;">
+  <div class="container">
+    <div class="lemna-grid">
+      <div class="lemna-content">
+        <div class="ps-pill launch">
+          <span class="ps-pill-dot"></span>
+          Lemna Protein Bar · Launching summer 2026
+        </div>
+        <h2>A new kind of protein bar, <em>made with Lemna leaf.</em></h2>
+        <p class="lemna-body">We're looking forward to sharing the full ingredient dossier of the Lemna Protein Bars when they launch this summer. We wanted to strike the perfect balance between <strong>clean ingredients you can pronounce</strong> and <strong>great macros your body will love</strong>.</p>
+        <p class="lemna-body">We're especially excited to introduce <strong>Rubi Protein™ from Plantible Foods</strong>, a remarkable plant protein that's just getting started making a real dent in the nutrition space. Complete amino acid profile, DIAAS close to 1.0, water-grown, and an environmental footprint roughly 10x lower than soy.</p>
+        <div class="lemna-cta-row">
+          <a href="/lemna-bar" class="btn btn-primary">Learn more <span class="btn-arrow">→</span></a>
+          <form class="lemna-notify" onsubmit="handleNotify(event)">
+            <input type="email" class="lemna-input" placeholder="your@email.com" required>
+            <button type="submit" class="btn btn-ghost">Notify me</button>
+          </form>
+        </div>
       </div>
-      <div class="hs-item">
-        <div class="hs-num">3,000<span>mg</span></div>
-        <div class="hs-lbl">Adaptogens raw equivalent<br>(550mg standardized extract)</div>
-      </div>
-      <div class="hs-item">
-        <div class="hs-num">3,400<span>mg</span></div>
-        <div class="hs-lbl">Nootropics raw equivalent<br>(380mg standardized extract)</div>
-      </div>
-      <div class="hs-item">
-        <div class="hs-num">0<span>.</span></div>
-        <div class="hs-lbl">Proprietary blends</div>
+      <div class="lemna-visual">
+        <div class="lemna-visual-label">Lemna Protein Bar · Coming soon</div>
+        <span class="lemna-visual-emoji">🌱</span>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ═══════════════════════════════════════════
-     FILTER BAR
-     ═══════════════════════════════════════════ -->
-<div class="filter-bar">
-  <div class="container">
-    <div class="filter-inner">
-      <span class="filter-label">Filter by benefit:</span>
-      <button class="filter-pill active" data-filter="all" onclick="filterIngredients('all', this)">All</button>
-      <button class="filter-pill" data-filter="focus" onclick="filterIngredients('focus', this)">Focus</button>
-      <button class="filter-pill" data-filter="energy" onclick="filterIngredients('energy', this)">Energy</button>
-      <button class="filter-pill" data-filter="stress" onclick="filterIngredients('stress', this)">Stress &amp; Sleep</button>
-      <button class="filter-pill" data-filter="recovery" onclick="filterIngredients('recovery', this)">Recovery</button>
-      <button class="filter-pill" data-filter="immunity" onclick="filterIngredients('immunity', this)">Immunity</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════
      MUJO RITUAL — Active formula
      ═══════════════════════════════════════════ -->
-<section class="product-section">
+<section class="product-section" id="ritual-section">
   <div class="container">
     <div class="product-header reveal">
       <div class="ps-pill">
@@ -1055,33 +1389,31 @@ body.locked { overflow: hidden; }
         Mujo Ritual · Shipping now
       </div>
       <h2>The mushroom-adaptogen cacao blend.</h2>
-      <p class="body-lg">Every ingredient at its clinically validated form and dose. Three are disclosed at exact clinical doses (KSM-66® Ashwagandha, Bioavailable Curcumin, Rhodiola Rosea). The rest share category totals and sourcing. Every one earns its place, or it wouldn't be here.</p>
+      <p class="body-lg">The internet's favorite functional cacao that actually delivers on focus, calm, and all-day energy. <strong>Every ingredient earns its place, or it wouldn't be in here.</strong></p>
     </div>
 
     <div class="ing-grid">
 
       <!-- ═══════ HERO INGREDIENT: Bioavailable Curcumin ═══════ -->
       <div class="ing-card feat reveal" data-benefits="focus recovery">
-        <!-- ICON: bioavailable curcumin · sage · 64px · botanical-line -->
-        <div class="ing-img image-placeholder icon-placeholder sand-bg" data-icon="curcumin">curcumin</div>
+        <div class="ing-img"><span class="ing-img-emoji">✨</span></div>
         <div class="ing-content">
           <div class="ing-top">
             <div class="ing-name">Bioavailable Curcumin</div>
             <div class="ing-badge">Unique to Mujo</div>
           </div>
-          <div class="ing-latin">Curcuma longa · Solid-lipid particle</div>
+          <div class="ing-latin">Curcuma longa · Solid-lipid particle (SLCP)</div>
           <div class="ing-pills">
             <span class="ing-pill">Cognition</span>
             <span class="ing-pill">Mood</span>
             <span class="ing-pill">Inflammation</span>
             <span class="ing-pill">Brain health</span>
           </div>
-          <div class="ing-desc">Standard curcumin is 99% wasted, your body can't absorb or deliver it past the blood-brain barrier. <strong>The solid-lipid curcumin form we use is clinically shown to achieve 285x greater free-curcumin bioavailability and a 7.5-hour half-life.</strong> It's one of the few curcumin forms proven to cross the blood-brain barrier, and is the subject of 29+ human clinical trials. Virtually no competitor in the mushroom-cacao category uses it, because it costs roughly 10x more than standard curcumin. We use it because the alternative doesn't actually work.</div>
-          <div class="ing-meta">
-            <div class="ing-meta-item"><strong>Dose</strong>At researched SLCP ratio</div>
-            <div class="ing-meta-item"><strong>Form</strong>Solid-lipid curcumin particle (SLCP)</div>
-            <div class="ing-meta-item"><strong>Source</strong>Patented solid-lipid curcumin form</div>
+          <div class="ing-desc">Standard curcumin is 99% wasted, your body can't absorb or deliver it past the blood-brain barrier. <strong>The patented solid-lipid form we use is clinically shown to achieve 285x greater free-curcumin bioavailability and a 7.5-hour half-life.</strong> It's one of the few curcumin forms proven to cross the blood-brain barrier, and is the subject of 29+ human clinical trials. Virtually no competitor in the mushroom-cacao category uses it, because it costs roughly 10x more than standard curcumin. We use it because the alternative doesn't actually work.</div>
+          <div class="ing-meta single">
+
             <div class="ing-meta-item"><strong>Evidence</strong>29+ human trials · PubMed 23832433, 29914268</div>
+
           </div>
           <div class="ing-refs">
             Clinical references: <a href="#">Gota 2010</a>, <a href="#">DiSilvestro 2012</a>, <a href="#">Cox 2015 (healthy older adults)</a>, <a href="#">Small 2018</a>.
@@ -1091,8 +1423,7 @@ body.locked { overflow: hidden; }
 
       <!-- Lion's Mane -->
       <div class="ing-card reveal d1" data-benefits="focus">
-        <!-- ICON: lion's mane mushroom · sage · 64px · botanical-line -->
-        <div class="ing-img image-placeholder icon-placeholder sand-bg" data-icon="lions-mane">lion's mane</div>
+        <div class="ing-img"><span class="ing-img-emoji">🦁</span></div>
         <div class="ing-content">
           <div class="ing-top">
             <div class="ing-name">Lion's Mane</div>
@@ -1105,18 +1436,17 @@ body.locked { overflow: hidden; }
             <span class="ing-pill">Neuroplasticity</span>
           </div>
           <div class="ing-desc"><strong>Stimulates Nerve Growth Factor (NGF)</strong>, the protein that signals your brain to grow and maintain neural connections. Studied in humans for cognitive function, memory, and mild cognitive impairment. Mujo uses <strong>double-extracted fruiting body at 8:1 concentration, never mycelium grown on grain</strong>, which is what makes most mushroom coffees so weak. Beta-glucan content is lab-verified each batch.*</div>
-          <div class="ing-meta">
-            <div class="ing-meta-item"><strong>Form</strong>Fruiting body, dual-extracted 8:1</div>
-            <div class="ing-meta-item"><strong>Source</strong>Organic, lab-verified</div>
+          <div class="ing-meta single">
+
             <div class="ing-meta-item"><strong>Evidence</strong>Mori 2009 · Saitsu 2019</div>
+
           </div>
         </div>
       </div>
 
       <!-- KSM-66 Ashwagandha -->
       <div class="ing-card reveal d2" data-benefits="stress recovery">
-        <!-- ICON: ashwagandha root · sage · 64px · botanical-line -->
-        <div class="ing-img image-placeholder icon-placeholder sand-bg" data-icon="ashwagandha">ashwagandha</div>
+        <div class="ing-img"><span class="ing-img-emoji">🌿</span></div>
         <div class="ing-content">
           <div class="ing-top">
             <div class="ing-name">KSM-66® Ashwagandha</div>
@@ -1129,22 +1459,20 @@ body.locked { overflow: hidden; }
             <span class="ing-pill">Recovery</span>
           </div>
           <div class="ing-desc"><strong>At the clinical trial dose, 300mg, twice daily equivalent.</strong> KSM-66 is the most clinically studied branded ashwagandha extract, with 24+ published human trials covering stress, sleep, recovery, and cortisol response. The Chandrasekhar 2012 randomized controlled trial showed cortisol reduction of up to 27.9% at this exact dose. Most competitors use a fraction of the clinical dose, we use what the research actually measured.*</div>
-          <div class="ing-meta">
-            <div class="ing-meta-item"><strong>Dose</strong>300mg · clinical trial dose</div>
-            <div class="ing-meta-item"><strong>Form</strong>Root extract, 5% withanolides</div>
-            <div class="ing-meta-item"><strong>Source</strong>KSM-66® (Ixoreal Biomed)</div>
+          <div class="ing-meta single">
+
             <div class="ing-meta-item"><strong>Evidence</strong>24+ human trials · PubMed 23439798</div>
+
           </div>
         </div>
       </div>
 
-      <!-- Rhodiola Rosea -->
+      <!-- Rhodiola -->
       <div class="ing-card reveal" data-benefits="stress energy">
-        <!-- ICON: rhodiola flower · sage · 64px · botanical-line -->
-        <div class="ing-img image-placeholder icon-placeholder sand-bg" data-icon="rhodiola">rhodiola</div>
+        <div class="ing-img"><span class="ing-img-emoji">🌸</span></div>
         <div class="ing-content">
           <div class="ing-top">
-            <div class="ing-name">Rhodiola Rosea</div>
+            <div class="ing-name">Rhodiola</div>
             <div class="ing-badge sage">Altai Mountain</div>
           </div>
           <div class="ing-latin">Rhodiola rosea · Root</div>
@@ -1154,19 +1482,17 @@ body.locked { overflow: hidden; }
             <span class="ing-pill">Endurance</span>
           </div>
           <div class="ing-desc">Standardised to <strong>5% rosavins and 1.5% salidrosides, the highest standardization available in clinical-grade rhodiola</strong>, and significantly above the 3% / 1% ratio used in most published trials. Wild-crafted from sustainable Altai Mountain harvests, the ancestral source cited across centuries of Siberian and Scandinavian use. Works on the HPA axis for mental performance under chronic stress and fatigue resistance. Studied in military personnel, physicians on night shifts, and students during exams.*</div>
-          <div class="ing-meta">
-            <div class="ing-meta-item"><strong>Dose</strong>At premium standardization</div>
-            <div class="ing-meta-item"><strong>Form</strong>5% rosavins / 1.5% salidrosides</div>
-            <div class="ing-meta-item"><strong>Source</strong>Wild-crafted Altai Mountain extract</div>
+          <div class="ing-meta single">
+
             <div class="ing-meta-item"><strong>Evidence</strong>Darbinyan 2000 · Olsson 2009</div>
+
           </div>
         </div>
       </div>
 
       <!-- Cordyceps -->
       <div class="ing-card reveal d1" data-benefits="energy recovery">
-        <!-- ICON: cordyceps mushroom · sage · 64px · botanical-line -->
-        <div class="ing-img image-placeholder icon-placeholder sand-bg" data-icon="cordyceps">cordyceps</div>
+        <div class="ing-img"><span class="ing-img-emoji">⚡</span></div>
         <div class="ing-content">
           <div class="ing-top">
             <div class="ing-name">Cordyceps</div>
@@ -1179,18 +1505,17 @@ body.locked { overflow: hidden; }
             <span class="ing-pill">VO₂ support</span>
           </div>
           <div class="ing-desc"><strong>Militaris fruiting body, not fermented mycelium.</strong> Cordyceps supports cellular ATP production (the energy molecule every cell runs on) and has been studied for VO₂ max and exercise tolerance in healthy adults. Cordycepin content is lab-verified each batch. Most mushroom coffees use cheaper mycelium-on-grain, which tests show contains a tiny fraction of the bioactive compounds.*</div>
-          <div class="ing-meta">
-            <div class="ing-meta-item"><strong>Form</strong>Militaris fruiting body, 8:1</div>
-            <div class="ing-meta-item"><strong>Source</strong>Organic, cordycepin-verified</div>
+          <div class="ing-meta single">
+
             <div class="ing-meta-item"><strong>Evidence</strong>Chen 2010 · Hirsch 2017</div>
+
           </div>
         </div>
       </div>
 
       <!-- Chaga -->
       <div class="ing-card reveal d2" data-benefits="immunity">
-        <!-- ICON: chaga mushroom · sage · 64px · botanical-line -->
-        <div class="ing-img image-placeholder icon-placeholder sand-bg" data-icon="chaga">chaga</div>
+        <div class="ing-img"><span class="ing-img-emoji">🍂</span></div>
         <div class="ing-content">
           <div class="ing-top">
             <div class="ing-name">Chaga</div>
@@ -1203,18 +1528,17 @@ body.locked { overflow: hidden; }
             <span class="ing-pill">Daily defence</span>
           </div>
           <div class="ing-desc">Wild-harvested from sustainably managed Siberian birch forests, chaga cannot be farmed commercially and retains its characteristic bioactive profile only when wild. Used in Eastern European and Russian folk traditions for centuries, chaga is one of the most antioxidant-dense foods on record. <strong>Rich in beta-glucans, triterpenes, and melanin compounds.</strong> Immune-modulating rather than immune-stimulating, supports balance, not overactivation.*</div>
-          <div class="ing-meta">
-            <div class="ing-meta-item"><strong>Form</strong>Whole mushroom, dual-extracted</div>
-            <div class="ing-meta-item"><strong>Source</strong>Wild-harvested, sustainable</div>
+          <div class="ing-meta single">
+
             <div class="ing-meta-item"><strong>Evidence</strong>Glamoclija 2015 · Szychowski 2018</div>
+
           </div>
         </div>
       </div>
 
       <!-- Bacopa Monnieri -->
       <div class="ing-card reveal d1" data-benefits="focus">
-        <!-- ICON: bacopa leaf · sage · 64px · botanical-line -->
-        <div class="ing-img image-placeholder icon-placeholder sand-bg" data-icon="bacopa">bacopa</div>
+        <div class="ing-img"><span class="ing-img-emoji">🌱</span></div>
         <div class="ing-content">
           <div class="ing-top">
             <div class="ing-name">Bacopa Monnieri</div>
@@ -1227,43 +1551,41 @@ body.locked { overflow: hidden; }
             <span class="ing-pill">Learning</span>
           </div>
           <div class="ing-desc">Standardised to 55% bacosides, the active compounds studied in published human trials for memory consolidation, processing speed, and learning outcomes. <strong>Bacopa works slowly and compounds over weeks</strong>, which is why it pairs with Lion's Mane rather than competing with it. The Ayurvedic tradition called it "Brahmi" and used it for 3,000 years as a cognitive tonic. Modern research supports a meaningful chunk of those claims.*</div>
-          <div class="ing-meta">
-            <div class="ing-meta-item"><strong>Form</strong>Leaf extract, 55% bacosides</div>
-            <div class="ing-meta-item"><strong>Source</strong>Standardised herbal extract</div>
+          <div class="ing-meta single">
+
             <div class="ing-meta-item"><strong>Evidence</strong>Stough 2001 · Morgan 2010</div>
+
           </div>
         </div>
       </div>
 
       <!-- Cacao -->
       <div class="ing-card reveal d2" data-benefits="energy">
-        <!-- ICON: cacao bean · sage · 64px · botanical-line -->
-        <div class="ing-img image-placeholder icon-placeholder sand-bg" data-icon="cacao">cacao</div>
+        <div class="ing-img"><span class="ing-img-emoji">🍫</span></div>
         <div class="ing-content">
           <div class="ing-top">
             <div class="ing-name">Organic Peruvian Cacao</div>
-            <div class="ing-badge sage">Ceremonial grade</div>
+            <div class="ing-badge sage">Peru</div>
           </div>
-          <div class="ing-latin">Theobroma cacao · Single-origin Peru</div>
+          <div class="ing-latin">Theobroma cacao · Peruvian origin</div>
           <div class="ing-pills">
             <span class="ing-pill">Gentle energy</span>
             <span class="ing-pill">Mood</span>
             <span class="ing-pill">Magnesium</span>
             <span class="ing-pill">Flavanols</span>
           </div>
-          <div class="ing-desc">Not there for taste alone. <strong>Theobromine for gentle 6-hour energy, no jitters, no crash.</strong> Plus PQQ (supports mitochondrial biogenesis), magnesium, flavanols for vascular and cognitive support, and PEA (the "bliss molecule" that naturally elevates mood). Single-origin, ceremonial-grade Peruvian cacao. The reason Mujo tastes like something you'd choose.*</div>
-          <div class="ing-meta">
-            <div class="ing-meta-item"><strong>Form</strong>Single-origin ceremonial cacao</div>
-            <div class="ing-meta-item"><strong>Source</strong>Peruvian cooperative, direct trade</div>
+          <div class="ing-desc">Not there for taste alone. <strong>Theobromine for gentle 6-hour energy, no jitters, no crash.</strong> Plus PQQ (supports mitochondrial biogenesis), magnesium, flavanols for vascular and cognitive support, and PEA (the "bliss molecule" that naturally elevates mood). Organic Peruvian cacao. The reason Mujo tastes like something you'd choose.*</div>
+          <div class="ing-meta single">
+
             <div class="ing-meta-item"><strong>Evidence</strong>Scholey 2010 · Sorond 2013</div>
+
           </div>
         </div>
       </div>
 
       <!-- Carob -->
       <div class="ing-card reveal" data-benefits="energy">
-        <!-- ICON: carob pod · sage · 64px · botanical-line -->
-        <div class="ing-img image-placeholder icon-placeholder sand-bg" data-icon="carob">carob</div>
+        <div class="ing-img"><span class="ing-img-emoji">🫘</span></div>
         <div class="ing-content">
           <div class="ing-top">
             <div class="ing-name">Carob</div>
@@ -1275,18 +1597,12 @@ body.locked { overflow: hidden; }
             <span class="ing-pill">Fiber</span>
           </div>
           <div class="ing-desc">Mediterranean carob adds <strong>natural sweetness without added sugar or sweeteners</strong>, soluble fiber for gut support, and depth to the cacao's richness. Caffeine-free by nature (carob is often used as a cacao alternative for those sensitive to stimulants). Mujo uses both together because the flavor profiles complement rather than compete.</div>
-          <div class="ing-meta">
-            <div class="ing-meta-item"><strong>Form</strong>Roasted carob pod powder</div>
-            <div class="ing-meta-item"><strong>Source</strong>Mediterranean origin</div>
-            <div class="ing-meta-item"><strong>Role</strong>Flavor depth, natural sweetness</div>
-          </div>
         </div>
       </div>
 
       <!-- MCT Oil Powder -->
       <div class="ing-card reveal d1" data-benefits="focus energy">
-        <!-- ICON: coconut MCT · sage · 64px · botanical-line -->
-        <div class="ing-img image-placeholder icon-placeholder sand-bg" data-icon="mct-oil">MCT oil</div>
+        <div class="ing-img"><span class="ing-img-emoji">🥥</span></div>
         <div class="ing-content">
           <div class="ing-top">
             <div class="ing-name">MCT Oil Powder</div>
@@ -1299,42 +1615,30 @@ body.locked { overflow: hidden; }
             <span class="ing-pill">Ketone support</span>
           </div>
           <div class="ing-desc">C8 and C10 medium-chain triglycerides from coconut, <strong>rapidly converted to ketones for sustained mental energy without a glucose spike</strong>. The creaminess you taste in Mujo comes partly from the MCT powder dispersing. Unlike liquid MCT, the powder form won't break the emulsion or cause GI discomfort at sensible doses.</div>
-          <div class="ing-meta">
-            <div class="ing-meta-item"><strong>Form</strong>Powdered C8/C10 MCT (acacia-bound)</div>
-            <div class="ing-meta-item"><strong>Source</strong>Coconut, non-palm</div>
-            <div class="ing-meta-item"><strong>Role</strong>Sustained cognitive energy, texture</div>
-          </div>
         </div>
       </div>
 
       <!-- Tapioca Fiber -->
       <div class="ing-card reveal d2" data-benefits="recovery">
-        <!-- ICON: tapioca fiber · sage · 64px · botanical-line -->
-        <div class="ing-img image-placeholder icon-placeholder sand-bg" data-icon="tapioca-fiber">tapioca fiber</div>
+        <div class="ing-img"><span class="ing-img-emoji">🌾</span></div>
         <div class="ing-content">
           <div class="ing-top">
             <div class="ing-name">FiberSmart™ Tapioca Fiber</div>
             <div class="ing-badge sage">Premium prebiotic</div>
           </div>
-          <div class="ing-latin">FiberSmart™ · Soluble prebiotic fiber from cassava</div>
+          <div class="ing-latin">Soluble prebiotic fiber from tapioca</div>
           <div class="ing-pills">
             <span class="ing-pill">Gut microbiome</span>
             <span class="ing-pill">Prebiotic</span>
             <span class="ing-pill">Texture</span>
           </div>
           <div class="ing-desc"><strong>FiberSmart™ is a premium branded tapioca fiber</strong>, a soluble prebiotic that supports the gut microbiome (increasingly recognized as the brain's second nervous system) and gives the Ritual its smooth, clump-free texture. Non-FODMAP sensitive for most people, unlike chicory root or inulin. Most bars and powders use unbranded tapioca fiber; we use the branded form because quality and consistency matter at the batch level.</div>
-          <div class="ing-meta">
-            <div class="ing-meta-item"><strong>Form</strong>FiberSmart™ soluble tapioca fiber</div>
-            <div class="ing-meta-item"><strong>Source</strong>Cassava root · branded premium grade</div>
-            <div class="ing-meta-item"><strong>Role</strong>Prebiotic, gut-brain support, texture</div>
-          </div>
         </div>
       </div>
 
       <!-- Gelatinized Maca -->
       <div class="ing-card reveal" data-benefits="energy stress">
-        <!-- ICON: maca root · sage · 64px · botanical-line -->
-        <div class="ing-img image-placeholder icon-placeholder sand-bg" data-icon="maca">maca</div>
+        <div class="ing-img"><span class="ing-img-emoji">🟤</span></div>
         <div class="ing-content">
           <div class="ing-top">
             <div class="ing-name">Gelatinized Maca</div>
@@ -1347,18 +1651,17 @@ body.locked { overflow: hidden; }
             <span class="ing-pill">Endurance</span>
           </div>
           <div class="ing-desc">Peruvian maca root, <strong>gelatinized for improved digestibility and absorption</strong>, then milled to fine powder. Traditionally used by Andean populations at high altitude for energy, endurance, and hormonal balance. Studied for its role in reducing perceived fatigue and supporting healthy stress response, particularly in women.*</div>
-          <div class="ing-meta">
-            <div class="ing-meta-item"><strong>Form</strong>Gelatinized (pre-cooked) root powder</div>
-            <div class="ing-meta-item"><strong>Source</strong>Peruvian Andes, 4,000m+ altitude</div>
+          <div class="ing-meta single">
+
             <div class="ing-meta-item"><strong>Evidence</strong>Gonzales 2014</div>
+
           </div>
         </div>
       </div>
 
       <!-- Cinnamon -->
       <div class="ing-card reveal d1" data-benefits="recovery">
-        <!-- ICON: cinnamon stick · sage · 64px · botanical-line -->
-        <div class="ing-img image-placeholder icon-placeholder sand-bg" data-icon="cinnamon">cinnamon</div>
+        <div class="ing-img"><span class="ing-img-emoji">🟫</span></div>
         <div class="ing-content">
           <div class="ing-top">
             <div class="ing-name">Cinnamon</div>
@@ -1370,18 +1673,12 @@ body.locked { overflow: hidden; }
             <span class="ing-pill">Flavor</span>
           </div>
           <div class="ing-desc">Ceylon cinnamon, the "true" cinnamon, not the Cassia variety that's used in most commercial products (and which contains higher levels of coumarin). <strong>Adds warmth, subtle sweetness, and traditional digestive support.</strong> Every bit of flavor in Mujo is doing functional work too.</div>
-          <div class="ing-meta">
-            <div class="ing-meta-item"><strong>Form</strong>Ceylon cinnamon powder</div>
-            <div class="ing-meta-item"><strong>Source</strong>Sri Lankan origin</div>
-            <div class="ing-meta-item"><strong>Role</strong>Flavor, traditional warming</div>
-          </div>
         </div>
       </div>
 
       <!-- Allspice -->
       <div class="ing-card reveal d2" data-benefits="recovery">
-        <!-- ICON: allspice and ginger · sage · 64px · botanical-line -->
-        <div class="ing-img image-placeholder icon-placeholder sand-bg" data-icon="allspice-ginger">allspice + ginger</div>
+        <div class="ing-img"><span class="ing-img-emoji">🫚</span></div>
         <div class="ing-content">
           <div class="ing-top">
             <div class="ing-name">Allspice &amp; Ginger</div>
@@ -1393,14 +1690,40 @@ body.locked { overflow: hidden; }
             <span class="ing-pill">Depth</span>
           </div>
           <div class="ing-desc">Whole allspice and fresh-dried ginger round out the Ritual's flavor profile. Allspice brings notes of clove, cinnamon, and nutmeg. Ginger brings gentle warmth and traditional digestive support. <strong>Every spice is whole-ingredient, never "natural flavors."</strong></div>
-          <div class="ing-meta">
-            <div class="ing-meta-item"><strong>Form</strong>Whole ground spice</div>
-            <div class="ing-meta-item"><strong>Source</strong>Organic, traceable origin</div>
-            <div class="ing-meta-item"><strong>Role</strong>Flavor depth, warming</div>
-          </div>
         </div>
       </div>
 
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     INGREDIENT CASE-PICK — rebel on the soapbox
+     ═══════════════════════════════════════════ -->
+<section class="fact-section">
+  <div class="container">
+    <div class="fact-pick reveal">
+      <!-- Bubble: now sits ABOVE the rebel guy, who is "saying it" from below -->
+      <div class="fact-bubble">
+        <div class="fact-tag">Ingredient deep dive</div>
+        <div class="fact-eyebrow">On Lion's Mane: what the research actually says</div>
+        <p class="fact-body">Most mushroom coffee alternatives on the market use around <strong>500 mg of lion's mane powder</strong> per serving. That's well below any dose that has shown cognitive effects in human trials. The clinical evidence sits much higher: from <strong>1,800 mg/day to 3,200 mg/day</strong> (Mori 2009, Saitsu 2019, Docherty 2023). All of it fruiting body. None of it mycelium-on-grain.</p>
+        <p class="fact-body">We use <strong>500 mg of an 8:1 fruiting body extract</strong>. That's equivalent to <strong>4,000 mg of raw mushroom</strong>, standardised for β-glucans, no grain fillers, no mycelium padding. It's the form and the concentration the research actually uses, not the powder-by-weight number that fits neatly on a label.</p>
+      </div>
+      <!-- Tail pointing DOWN toward the rebel guy below the bubble -->
+      <div class="fact-bubble-tail fact-bubble-tail-down" aria-hidden="true">
+        <svg viewBox="0 0 32 28" xmlns="http://www.w3.org/2000/svg" overflow="visible" preserveAspectRatio="none">
+          <path d="M 4 0 L 28 0 L 28 4 L 16 26 L 4 4 Z" fill="#EEE9E0"/>
+          <path d="M 4 4 L 16 26" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <path d="M 28 4 L 16 26" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <!-- Rebel guy with the actual PNG used on the science page -->
+      <div class="fact-rebel" aria-hidden="true">
+        <div class="fact-rebel-glow"></div>
+        <img class="fact-rebel-img" src="data:image/png;base64,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" alt="Mujo rebel guy with megaphone" />
+      </div>
     </div>
   </div>
 </section>
@@ -1412,53 +1735,25 @@ body.locked { overflow: hidden; }
   <div class="container">
     <div class="philosophy-head">
       <div class="eyebrow reveal">The principles</div>
-      <h2 class="reveal d1">Why these forms. <em>Why these doses.</em></h2>
+      <h2 class="reveal d1">What guides our <em>ingredient choices.</em></h2>
       <p class="philosophy-sub reveal d2">Three rules govern every ingredient decision at Mujo. They're not marketing copy, they're the reason the formula looks the way it does.</p>
     </div>
 
     <div class="principles">
       <div class="principle reveal">
         <div class="principle-num">01 / Fruiting body only</div>
-        <div class="principle-h">Never mycelium on grain.</div>
-        <div class="principle-b">Most mushroom coffees use mycelium (the root system) grown on sterilized oats or sorghum. The resulting powder is mostly starch with trace bioactive compounds. <strong>Mujo uses only fruiting body, the part of the mushroom people have actually eaten for thousands of years</strong>, and tests every batch for beta-glucans and triterpenes.</div>
+        <div class="principle-h">The correct part of the mushroom.</div>
+        <div class="principle-b">A mushroom has two parts: the <strong>mycelium</strong>, the underground root network, and the <strong>fruiting body</strong>, the cap that pushes above ground. The bioactive compounds people have eaten mushrooms for thousands of years to access, the beta-glucans, the triterpenes, the cordycepin, sit in the fruiting body. Most mushroom coffees use mycelium grown on sterilized oats or sorghum, then mill the whole substrate, oats included. The result is mostly starch with trace actives. <strong>Mujo uses fruiting body extracts only</strong>, dual-extracted at 8:1 concentration, with beta-glucans verified each batch.</div>
       </div>
       <div class="principle reveal d1">
-        <div class="principle-num">02 / Disclosure where it matters</div>
-        <div class="principle-h">Clinical ingredients named, supporting ones categorized.</div>
-        <div class="principle-b">For ingredients where <strong>precise dose drives the outcome</strong>. KSM-66® at its 300mg clinical trial dose. Bioavailable Curcumin in its solid-lipid form. Rhodiola Rosea standardized to 5% rosavins and 1.5% salidrosides. We disclose exactly what's in the formula. For the supporting cast, we share category totals and sourcing, and let the recipe stay the recipe. Proprietary blends hide what's in them. <strong>Craftsmanship doesn't show its exact margins.</strong></div>
+        <div class="principle-num">02 / Clinically backed, actually</div>
+        <div class="principle-h">Not kitchen-quality curcuma.</div>
+        <div class="principle-b">When we built this blend, we reached for natural ingredients <strong>enhanced by science</strong> so we can maximize bioavailability, make sure your body can use the active compounds, and that the active compounds are actually present in the dose where the research found an effect. The patented curcumin form, the 300mg ashwagandha dose, the premium-standardised rhodiola, every choice is keyed to what the clinical literature actually tested. <strong>Generic versions of the same plant rarely produce the same outcomes.</strong></div>
       </div>
       <div class="principle reveal d2">
-        <div class="principle-num">03 / Branded when it matters</div>
-        <div class="principle-h">The research uses the brand.</div>
-        <div class="principle-b">For ingredients where form matters, generic isn't the same compound. KSM-66® Ashwagandha is the form behind the Chandrasekhar 2012 RCT cortisol-rhythm research. Bioavailable Curcumin is the solid-lipid form clinically shown to cross the blood-brain barrier and achieve 285x greater free-curcumin bioavailability. Rhodiola Rosea is sourced as a wild-crafted Altai Mountain extract at premium standardization. <strong>Paying for the research means paying for the specific form the research validated.</strong></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════
-     LEMNA BAR — Coming summer 2026
-     ═══════════════════════════════════════════ -->
-<section class="lemna">
-  <div class="container">
-    <div class="lemna-grid">
-      <div class="lemna-content">
-        <div class="ps-pill launch">
-          <span class="ps-pill-dot"></span>
-          Lemna Bar · Launching Summer 2026
-        </div>
-        <h2>The world's first <em>Lemna leaf protein bar.</em></h2>
-        <p class="lemna-body">The Lemna Bar will be the first consumer protein bar built around <strong>Rubi Protein™ from Plantible Foods</strong>, a water-grown Lemna leaf protein with a complete amino acid profile, a DIAAS score close to 1.0, and an environmental footprint 10x lower than soy.</p>
-        <p class="lemna-body">The full ingredient dossier will publish here when the bar launches. For now, <strong>it uses the same transparency principles as the Ritual: every ingredient disclosed, every dose stated, no proprietary blends, no bar-industry shortcuts.</strong></p>
-        <form class="lemna-notify" onsubmit="handleNotify(event)">
-          <input type="email" class="lemna-input" placeholder="your@email.com" required>
-          <button type="submit" class="btn btn-primary">Notify me when it launches</button>
-        </form>
-      </div>
-      <div class="lemna-visual">
-        <div class="lemna-visual-label">Lemna Bar · Coming soon</div>
-        <!-- IMAGE: Lemna leaf hero · square · botanical-line on sand -->
-        <div class="lemna-visual-emoji placeholder-label sand-bg" data-icon="lemna-leaf">Lemna leaf · pre-launch placeholder</div>
+        <div class="principle-num">03 / Sustainability matters</div>
+        <div class="principle-h">Respect the source.</div>
+        <div class="principle-b">We're tapping into Mother Nature to deliver these benefits, so we want to do our part to respect her. We work with ingredient suppliers who source mindfully, harvest at the optimal time, and <strong>cultivate where they can rather than draw from wild supply</strong>. Wild-harvested chaga from sustainably managed forests. Organic Peruvian cacao. Altai rhodiola from regulated regional harvests. Traceable origin for every ingredient on the label.</div>
       </div>
     </div>
   </div>
@@ -1469,26 +1764,21 @@ body.locked { overflow: hidden; }
      ═══════════════════════════════════════════ -->
 <section class="trust">
   <div class="container">
-    <div class="trust-grid">
+    <div class="trust-grid trust-grid-3">
       <div class="trust-item reveal">
         <div class="trust-num">01</div>
-        <div class="trust-h">Third-party batch tested</div>
-        <div class="trust-b">Every production run independently tested for potency, heavy metals, and microbial contamination.</div>
+        <div class="trust-h">Third-party tested</div>
+        <div class="trust-b">Every batch tested for potency, heavy metals, and microbial contamination.</div>
       </div>
       <div class="trust-item reveal d1">
         <div class="trust-num">02</div>
-        <div class="trust-h">Certificates of analysis</div>
-        <div class="trust-b">COAs available on request. If you're a practitioner or clinician, email us for the current batch.</div>
+        <div class="trust-h">No proprietary blends</div>
+        <div class="trust-b">We don't hide behind "active blend" language. We share what we can without open sourcing our recipe.</div>
       </div>
       <div class="trust-item reveal d2">
         <div class="trust-num">03</div>
-        <div class="trust-h">No proprietary blends</div>
-        <div class="trust-b">Every dose on the label, in the amount it appears at. We don't hide behind "active blend" language.</div>
-      </div>
-      <div class="trust-item reveal d3">
-        <div class="trust-num">04</div>
         <div class="trust-h">Sustainable sourcing</div>
-        <div class="trust-b">Direct-trade cacao. Wild-harvested chaga. Altai rhodiola. Traceable origin for every ingredient.</div>
+        <div class="trust-b">The most precious ingredients are mindfully sourced from cultivated supplies.</div>
       </div>
     </div>
   </div>
@@ -1499,8 +1789,8 @@ body.locked { overflow: hidden; }
      ═══════════════════════════════════════════ -->
 <section class="cta-band">
   <div class="container">
-    <h2>Now you know what's in it. <em>See how it works.</em></h2>
-    <p class="cta-band-sub">The Mujo Ritual puts all of this to work in one clinically dosed morning ritual. Subscribe and save 15%, or try a single pouch, we stand behind a 30-day money-back guarantee.</p>
+    <h2>Try the blend <em>for yourself.</em></h2>
+    <p class="cta-band-sub">There's nothing else like it, and once you try it, you'll know it too. Subscribe and save 15%, or try a single pouch. We're so confident you'll feel a difference with consistent use that we offer a 30-day money-back guarantee.</p>
     <div class="cta-actions">
       <a href="/products/the-ritual" class="btn btn-primary">Shop The Ritual <span class="btn-arrow">→</span></a>
       <a href="/rebel-club" class="btn btn-ghost">Join the Rebel Club</a>
@@ -1509,7 +1799,7 @@ body.locked { overflow: hidden; }
 </section>
 
 <!-- ═══ FOOTER ═══ -->
-<footer>
+<footer class="mujo-foot">
   <a href="/" class="flogo">MUJO</a>
   <div class="flinks">
     <a href="/" class="flink">mujoworld.com</a>
@@ -1527,24 +1817,50 @@ body.locked { overflow: hidden; }
 const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); }), { threshold: 0.08 });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-// Filter ingredients
-function filterIngredients(filter, btn) {
-  // Update active pill
-  document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+// Filter by product — toggles between Ritual Cacao section and Lemna Bar section
+function filterByProduct(product, btn) {
+  // Update active pill within product row only
+  document.querySelectorAll('.filter-pill[data-product]').forEach(p => p.classList.remove('active'));
   btn.classList.add('active');
 
-  // Show/hide cards
-  const cards = document.querySelectorAll('.ing-card');
-  cards.forEach(card => {
-    if (filter === 'all') {
+  // Toggle product sections
+  const ritualSection = document.getElementById('ritual-section');
+  const lemnaSection = document.getElementById('lemna-section');
+  if (product === 'ritual') {
+    ritualSection.style.display = '';
+    lemnaSection.style.display = 'none';
+  } else {
+    ritualSection.style.display = 'none';
+    lemnaSection.style.display = '';
+  }
+  // Re-apply current benefit filter to the now-visible cards
+  const activeBenefitPill = document.querySelector('.benefit-pill.active');
+  const currentBenefit = activeBenefitPill ? activeBenefitPill.dataset.benefit : 'all';
+  applyBenefitFilter(currentBenefit);
+  // Smooth scroll so user lands just below the filter bar
+  setTimeout(() => {
+    const fb = document.querySelector('.filter-bar');
+    if (fb) {
+      const top = fb.getBoundingClientRect().bottom + window.scrollY - 8;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  }, 50);
+}
+
+// Filter by benefit — show only ingredient cards tagged with the selected benefit
+function filterByBenefit(benefit, btn) {
+  document.querySelectorAll('.benefit-pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  applyBenefitFilter(benefit);
+}
+
+function applyBenefitFilter(benefit) {
+  document.querySelectorAll('.ing-card').forEach(card => {
+    const tags = (card.dataset.benefits || '').split(/\s+/).filter(Boolean);
+    if (benefit === 'all' || tags.includes(benefit)) {
       card.classList.remove('hidden');
     } else {
-      const benefits = (card.dataset.benefits || '').split(' ');
-      if (benefits.includes(filter)) {
-        card.classList.remove('hidden');
-      } else {
-        card.classList.add('hidden');
-      }
+      card.classList.add('hidden');
     }
   });
 }
@@ -1563,7 +1879,7 @@ function handleNotify(e) {
 <script id="mujo-canonical-nav-js">
 const PRICES = { 'ritual-25': 55.25, 'ritual-10': 27, 'bar-pb': 54, 'bar-cashew': 54, 'mug': 24, 'tee': 38, 'tote': 22 };
 const NAMES = { 'ritual-25': 'Mujo Ritual · 25 servings', 'ritual-10': 'Mujo Ritual · 10 servings', 'bar-pb': 'Lemna Bar · PB Crunch', 'bar-cashew': 'Lemna Bar · Cashew Chocolate', 'mug': 'Ritual Mug', 'tee': 'Rebel Club Tee', 'tote': 'Market Tote' };
-const ICONS = { 'ritual-25': '', 'ritual-10': '', 'bar-pb': '', 'bar-cashew': '', 'mug': '', 'tee': '', 'tote': '' };
+const ICONS = { 'ritual-25': '🍵', 'ritual-10': '🍵', 'bar-pb': '🥜', 'bar-cashew': '🍫', 'mug': '☕', 'tee': '👕', 'tote': '🛍️' };
 let cart = {};
 function openMenu() { document.getElementById('mobileMenu').classList.add('open'); document.getElementById('overlay').classList.add('open'); document.body.classList.add('locked'); }
 function closeMenu() { document.getElementById('mobileMenu').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); if (!document.getElementById('cartDrawer').classList.contains('open')) document.body.classList.remove('locked'); }
@@ -1589,7 +1905,7 @@ function renderCart() {
   else if (remaining <= 0) { fill.classList.add('full'); msg.innerHTML = '<strong>Free shipping</strong> unlocked. Nice work.'; }
   else { fill.classList.remove('full'); msg.innerHTML = '<span class="accent">' + fmt(remaining) + '</span> away from <strong>free shipping</strong>.'; }
   const body = document.getElementById('cartBody'); body.innerHTML = '';
-  if (count === 0) { body.innerHTML = '<div class="cart-empty"><h3>Nothing in here yet.</h3><p>Your ritual is one click away. The Mujo Ritual is the place most people start.</p><a href="/shop">Browse the shop →</a></div>'; }
+  if (count === 0) { body.innerHTML = '<div class="cart-empty"><div class="cart-empty-illo">🍵</div><h3>Nothing in here yet.</h3><p>Your ritual is one click away. The Mujo Ritual is the place most people start.</p><a href="/shop">Browse the shop →</a></div>'; }
   else { Object.entries(cart).forEach(([id, qty]) => { const row = document.createElement('div'); row.className = 'cart-item'; row.innerHTML = `<div class="cart-item-img">${ICONS[id]||'·'}</div><div class="cart-item-info"><div class="cart-item-name">${NAMES[id]}</div><div class="cart-item-variant">One-time</div><div class="cart-item-controls"><button class="qty-btn" onclick="updateQty('${id}',-1)">−</button><span class="qty-val">${qty}</span><button class="qty-btn" onclick="updateQty('${id}',1)">+</button></div></div><div class="cart-item-meta"><div class="cart-item-price">${fmt(PRICES[id]*qty)}</div><button class="cart-item-remove" onclick="removeItem('${id}')">Remove</button></div>`; body.appendChild(row); }); }
   document.getElementById('subtotalDisplay').textContent = count === 0 ? '$0' : fmt(subtotal);
   document.getElementById('shippingDisplay').textContent = (remaining <= 0 && count > 0) ? 'Free' : 'Calculated at checkout';
