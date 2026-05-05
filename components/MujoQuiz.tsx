@@ -897,9 +897,6 @@ function ResultPanel({ persona, onClose }: { persona: Persona; onClose: () => vo
 
   return (
     <div className="mujo-result-enter">
-      <span style={{ display: 'block', marginBottom: 16, textAlign: 'center', fontSize: 40 }} aria-hidden="true">
-        ✅
-      </span>
       <div style={{ textAlign: 'center', marginBottom: 18 }}>
         <span
           style={{
