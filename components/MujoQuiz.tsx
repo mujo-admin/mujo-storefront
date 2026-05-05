@@ -493,34 +493,64 @@ export function QuizSheet() {
       <div
         ref={overlayRef}
         onClick={handleOverlayClick}
-        className={`fixed inset-0 z-[500] flex items-center justify-center bg-black/55 px-4 py-6 transition-opacity duration-300 ${
+        className={`fixed inset-0 z-[500] flex items-center justify-center bg-black/55 transition-opacity duration-300 ${
           isOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
         }`}
+        style={{ padding: '24px 20px' }}
         aria-hidden={!isOpen}
       >
-        {/* Sheet — centered on mobile + desktop, scale-fade in */}
+        {/* Sheet — centered, scale-fade in. Inline styles for layout-critical
+            dimensions to bypass any Tailwind/cascade weirdness */}
         <div
           ref={sheetRef}
           role="dialog"
           aria-modal="true"
           aria-label="Free Reset Plan quiz"
-          className={`relative z-[510] flex max-h-[88vh] w-full max-w-[540px] flex-col overflow-y-auto rounded-3xl bg-[#2F3D33] px-6 pb-8 pt-6 transition-[opacity,transform] duration-[300ms] ease-[cubic-bezier(0.34,1.2,0.64,1)] sm:px-8 sm:pb-9 sm:pt-7 ${
+          className={`relative z-[510] flex flex-col overflow-y-auto bg-[#2F3D33] transition-[opacity,transform] duration-[300ms] ease-[cubic-bezier(0.34,1.2,0.64,1)] ${
             isOpen
               ? 'scale-100 opacity-100'
               : 'pointer-events-none scale-95 opacity-0'
           }`}
-          style={{ color: '#ffffff' }}
+          style={{
+            color: '#ffffff',
+            width: '100%',
+            maxWidth: '540px',
+            maxHeight: '88vh',
+            borderRadius: '20px',
+            padding: '28px 22px 28px',
+            boxSizing: 'border-box',
+          }}
         >
-          {/* Progress label sits at top now since drag handle removed (no longer a bottom sheet) */}
-
           {/* Progress */}
-          <div className="mb-2">
-            <div className="font-mono text-[11px] tracking-[0.07em] text-white/30">{progressLabel}</div>
-          </div>
-          <div className="mb-6 h-0.5 overflow-hidden rounded-full bg-white/10">
+          <div style={{ marginBottom: 8 }}>
             <div
-              className="h-full rounded-full bg-[#F2682F] transition-[width] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]"
-              style={{ width: `${progressPct}%` }}
+              style={{
+                fontFamily: 'var(--f-mono), "DM Mono", monospace',
+                fontSize: 11,
+                letterSpacing: '0.08em',
+                color: 'rgba(255,255,255,0.45)',
+              }}
+            >
+              {progressLabel}
+            </div>
+          </div>
+          <div
+            style={{
+              marginBottom: 24,
+              height: 2,
+              overflow: 'hidden',
+              borderRadius: 999,
+              background: 'rgba(255,255,255,0.1)',
+            }}
+          >
+            <div
+              style={{
+                height: '100%',
+                borderRadius: 999,
+                background: '#F2682F',
+                width: `${progressPct}%`,
+                transition: 'width 500ms cubic-bezier(0.4,0,0.2,1)',
+              }}
             />
           </div>
 
@@ -571,37 +601,74 @@ function QuestionStep({
   return (
     <div className="mujo-step-enter" key={question.id}>
       <h2
-        className="mb-2 text-[clamp(19px,4.6vw,23px)] font-medium leading-[1.32] tracking-[-0.01em]"
-        style={{ color: '#ffffff' }}
+        className="font-medium"
+        style={{
+          color: '#ffffff',
+          fontSize: 'clamp(19px, 4.6vw, 23px)',
+          lineHeight: 1.32,
+          letterSpacing: '-0.01em',
+          marginBottom: 8,
+        }}
       >
         {question.question}
       </h2>
-      <p className="mb-6 text-[13px] leading-[1.5]" style={{ color: 'rgba(255,255,255,0.45)' }}>
+      <p
+        style={{
+          color: 'rgba(255,255,255,0.5)',
+          fontSize: 13,
+          lineHeight: 1.5,
+          marginBottom: 22,
+        }}
+      >
         {question.hint}
       </p>
 
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+      <div
+        className="grid grid-cols-1 sm:grid-cols-2"
+        style={{ gap: 10 }}
+      >
         {question.tiles.map((tile) => (
           <button
             key={tile.value}
             type="button"
             onClick={() => onAnswer(question.id, tile.value)}
-            className="flex items-start gap-3 rounded-2xl border-[1.5px] border-white/10 bg-white/[0.05] px-4 py-4 text-left transition-all duration-[180ms] hover:border-[#8FA396] hover:bg-[rgba(143,163,150,0.08)]"
+            className="flex items-start text-left transition-all duration-[180ms] hover:border-[#8FA396] hover:bg-[rgba(143,163,150,0.08)]"
+            style={{
+              gap: 12,
+              borderRadius: 14,
+              border: '1.5px solid rgba(255,255,255,0.1)',
+              background: 'rgba(255,255,255,0.05)',
+              padding: '14px 18px',
+              boxSizing: 'border-box',
+              minHeight: 56,
+              wordBreak: 'break-word',
+              overflowWrap: 'anywhere',
+            }}
           >
-            <span className="mt-0.5 shrink-0 text-lg leading-none" aria-hidden="true">
+            <span style={{ marginTop: 2, flexShrink: 0, fontSize: 18, lineHeight: 1 }} aria-hidden="true">
               {tile.emoji}
             </span>
-            <span className="min-w-0">
+            <span style={{ minWidth: 0, flex: 1 }}>
               <span
-                className="block text-[14px] font-medium leading-[1.4]"
-                style={{ color: 'rgba(255,255,255,0.92)' }}
+                style={{
+                  display: 'block',
+                  fontSize: 14,
+                  fontWeight: 500,
+                  lineHeight: 1.4,
+                  color: 'rgba(255,255,255,0.94)',
+                }}
               >
                 {tile.primary}
               </span>
               {tile.secondary && (
                 <span
-                  className="mt-1 block text-[11px] leading-[1.4]"
-                  style={{ color: 'rgba(255,255,255,0.42)' }}
+                  style={{
+                    display: 'block',
+                    marginTop: 4,
+                    fontSize: 11,
+                    lineHeight: 1.4,
+                    color: 'rgba(255,255,255,0.45)',
+                  }}
                 >
                   {tile.secondary}
                 </span>
