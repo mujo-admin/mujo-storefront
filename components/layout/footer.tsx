@@ -164,18 +164,54 @@ export function Footer() {
         </div>
       </div>
       <style>{`
+        /* Mobile / tablet (default): brand spans full width centered;
+           Shop + Learn share col 1 stacked; Support col 2 with Manage at bottom */
         .mujo-foot .foot-grid {
           display: grid;
-          gap: 32px;
-          grid-template-columns: 1fr;
+          gap: 28px;
+          grid-template-columns: 1fr 1fr;
+          grid-template-areas:
+            "brand brand"
+            "shop support"
+            "learn support";
           margin-bottom: 32px;
         }
-        @media (min-width: 640px) {
-          .mujo-foot .foot-grid { grid-template-columns: 1fr 1fr; }
+        .mujo-foot .foot-grid > :nth-child(1) { grid-area: brand; }
+        .mujo-foot .foot-grid > :nth-child(2) { grid-area: shop; }
+        .mujo-foot .foot-grid > :nth-child(3) { grid-area: learn; }
+        .mujo-foot .foot-grid > :nth-child(4) { grid-area: support; }
+
+        /* Mobile/tablet brand block: centered */
+        @media (max-width: 1023px) {
+          .mujo-foot .foot-brand { text-align: center; }
+          .mujo-foot .foot-brand img { display: inline-block; }
+          .mujo-foot .foot-brand p {
+            margin-left: auto;
+            margin-right: auto;
+          }
+          .mujo-foot .foot-brand form {
+            margin-left: auto;
+            margin-right: auto;
+            justify-content: center;
+          }
+          .mujo-foot .foot-brand a { display: inline-block; }
         }
+
+        /* Desktop: single row, 4 columns left-aligned (canonical layout) */
         @media (min-width: 1024px) {
-          .mujo-foot .foot-grid { grid-template-columns: 1.6fr 1fr 1fr 1fr; }
+          .mujo-foot .foot-grid {
+            grid-template-columns: 1.6fr 1fr 1fr 1fr;
+            grid-template-areas: "brand shop learn support";
+          }
+          .mujo-foot .foot-brand { text-align: left; }
+          .mujo-foot .foot-brand p { margin-left: 0; margin-right: 0; }
+          .mujo-foot .foot-brand form {
+            margin-left: 0;
+            margin-right: 0;
+            justify-content: flex-start;
+          }
         }
+
         @media (min-width: 768px) {
           .mujo-foot .foot-bottom {
             flex-direction: row !important;
