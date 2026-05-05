@@ -83,11 +83,17 @@ export function Footer() {
                 Join Rebel Club →
               </button>
             </form>
+            <div className="foot-tribes">
+              <span className="foot-tribes-label">Pick a tribe:</span>
+              <Link href="/rebel-club#tribes" className="foot-tribe-chip">Mujo Mamis</Link>
+              <Link href="/rebel-club#tribes" className="foot-tribe-chip">Mujo Padel Club</Link>
+              <Link href="/rebel-club#tribes" className="foot-tribe-chip">Mujo Creatives</Link>
+            </div>
             <a
               href="/rebel-club"
               style={{
                 display: "inline-block",
-                marginTop: 10,
+                marginTop: 14,
                 fontSize: 12,
                 color: "rgba(255,255,255,0.5)",
                 textDecoration: "none",
@@ -221,6 +227,54 @@ export function Footer() {
           }
         }
         .mujo-foot .foot-link:hover { color: var(--sage-light) !important; }
+
+        /* Sub-tribe chip selector inside the brand block */
+        .mujo-foot .foot-tribes {
+          margin-top: 14px;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 6px 8px;
+          align-items: center;
+          max-width: 320px;
+        }
+        .mujo-foot .foot-tribes-label {
+          font-family: var(--f-mono);
+          font-size: 10px;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          color: rgba(255,255,255,0.45);
+          width: 100%;
+          margin-bottom: 2px;
+        }
+        .mujo-foot .foot-tribe-chip {
+          display: inline-block;
+          padding: 5px 12px;
+          border-radius: 100px;
+          border: 1px solid rgba(255,255,255,0.18);
+          background: rgba(255,255,255,0.04);
+          font-family: var(--f-body);
+          font-size: 11.5px;
+          font-weight: 500;
+          color: rgba(255,255,255,0.7);
+          text-decoration: none;
+          transition: border-color 0.2s, color 0.2s, background 0.2s;
+          white-space: nowrap;
+        }
+        .mujo-foot .foot-tribe-chip:hover {
+          border-color: var(--orange);
+          color: #fff;
+          background: rgba(242,104,47,0.12);
+        }
+
+        /* Mobile/tablet: brand block centered, chips center too */
+        @media (max-width: 1023px) {
+          .mujo-foot .foot-tribes {
+            margin-left: auto;
+            margin-right: auto;
+            justify-content: center;
+          }
+          .mujo-foot .foot-tribes-label { text-align: center; }
+        }
       `}</style>
     </footer>
   );
