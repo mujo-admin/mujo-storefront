@@ -489,29 +489,29 @@ export function QuizSheet() {
         .mujo-result-enter { animation: mujoScaleIn 0.4s ease forwards; }
       `}</style>
 
-      {/* Overlay */}
+      {/* Overlay — flex-centered so the sheet sits in the middle of the viewport */}
       <div
         ref={overlayRef}
         onClick={handleOverlayClick}
-        className={`fixed inset-0 z-[500] bg-black/50 transition-opacity duration-300 ${
+        className={`fixed inset-0 z-[500] flex items-center justify-center bg-black/55 px-4 py-6 transition-opacity duration-300 ${
           isOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
         }`}
         aria-hidden={!isOpen}
       >
-        {/* Sheet */}
+        {/* Sheet — centered on mobile + desktop, scale-fade in */}
         <div
           ref={sheetRef}
           role="dialog"
           aria-modal="true"
           aria-label="Free Reset Plan quiz"
-          className={`fixed inset-x-0 bottom-0 z-[510] max-h-[90vh] overflow-y-auto rounded-t-3xl bg-[#2F3D33] px-6 pb-10 pt-2.5 transition-transform duration-[400ms] ease-[cubic-bezier(0.34,1.06,0.64,1)] sm:bottom-6 sm:left-1/2 sm:right-auto sm:max-w-[540px] sm:rounded-3xl sm:px-8 sm:pb-9 ${
+          className={`relative z-[510] flex max-h-[88vh] w-full max-w-[540px] flex-col overflow-y-auto rounded-3xl bg-[#2F3D33] px-6 pb-8 pt-6 transition-[opacity,transform] duration-[300ms] ease-[cubic-bezier(0.34,1.2,0.64,1)] sm:px-8 sm:pb-9 sm:pt-7 ${
             isOpen
-              ? 'translate-y-0 sm:-translate-x-1/2 sm:translate-y-0'
-              : 'translate-y-full sm:-translate-x-1/2 sm:translate-y-full'
+              ? 'scale-100 opacity-100'
+              : 'pointer-events-none scale-95 opacity-0'
           }`}
+          style={{ color: '#ffffff' }}
         >
-          {/* Drag handle */}
-          <div className="mx-auto mb-6 mt-3.5 h-1 w-9 rounded-sm bg-white/[0.18]" aria-hidden="true" />
+          {/* Progress label sits at top now since drag handle removed (no longer a bottom sheet) */}
 
           {/* Progress */}
           <div className="mb-2">
@@ -570,26 +570,41 @@ function QuestionStep({
 }) {
   return (
     <div className="mujo-step-enter" key={question.id}>
-      <h2 className="mb-1.5 text-[clamp(18px,4.5vw,22px)] font-medium leading-[1.35] tracking-[-0.01em] text-white">
+      <h2
+        className="mb-2 text-[clamp(19px,4.6vw,23px)] font-medium leading-[1.32] tracking-[-0.01em]"
+        style={{ color: '#ffffff' }}
+      >
         {question.question}
       </h2>
-      <p className="mb-[22px] text-[13px] leading-[1.5] text-white/40">{question.hint}</p>
+      <p className="mb-6 text-[13px] leading-[1.5]" style={{ color: 'rgba(255,255,255,0.45)' }}>
+        {question.hint}
+      </p>
 
-      <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {question.tiles.map((tile) => (
           <button
             key={tile.value}
             type="button"
             onClick={() => onAnswer(question.id, tile.value)}
-            className="flex items-start gap-2.5 rounded-2xl border-[1.5px] border-white/10 bg-white/[0.05] p-[13px] py-3.5 text-left transition-all duration-[180ms] hover:border-[#8FA396] hover:bg-[rgba(143,163,150,0.08)]"
+            className="flex items-start gap-3 rounded-2xl border-[1.5px] border-white/10 bg-white/[0.05] px-4 py-4 text-left transition-all duration-[180ms] hover:border-[#8FA396] hover:bg-[rgba(143,163,150,0.08)]"
           >
-            <span className="mt-px shrink-0 text-lg leading-tight" aria-hidden="true">
+            <span className="mt-0.5 shrink-0 text-lg leading-none" aria-hidden="true">
               {tile.emoji}
             </span>
-            <span>
-              <span className="block text-[13px] font-medium leading-[1.38] text-white/85">{tile.primary}</span>
+            <span className="min-w-0">
+              <span
+                className="block text-[14px] font-medium leading-[1.4]"
+                style={{ color: 'rgba(255,255,255,0.92)' }}
+              >
+                {tile.primary}
+              </span>
               {tile.secondary && (
-                <span className="mt-[3px] block text-[11px] leading-[1.3] text-white/[0.36]">{tile.secondary}</span>
+                <span
+                  className="mt-1 block text-[11px] leading-[1.4]"
+                  style={{ color: 'rgba(255,255,255,0.42)' }}
+                >
+                  {tile.secondary}
+                </span>
               )}
             </span>
           </button>
@@ -635,10 +650,13 @@ function EmailGate({
 }) {
   return (
     <div className="mujo-step-enter">
-      <h2 className="mb-1.5 text-[clamp(18px,4.5vw,22px)] font-medium leading-[1.35] tracking-[-0.01em] text-white">
+      <h2
+        className="mb-2 text-[clamp(19px,4.6vw,23px)] font-medium leading-[1.32] tracking-[-0.01em]"
+        style={{ color: '#ffffff' }}
+      >
         We've built your plan.
       </h2>
-      <p className="mb-[22px] text-[13px] leading-[1.5] text-white/40">
+      <p className="mb-6 text-[13px] leading-[1.5]" style={{ color: 'rgba(255,255,255,0.45)' }}>
         Based on your answers, here's what we're sending you:
       </p>
 
