@@ -374,18 +374,19 @@ export function QuizPill() {
       <button
         type="button"
         onClick={open}
-        className={`mujo-pill-pulse fixed z-[270] flex items-center gap-2 rounded-full border-0 bg-[#F2682F] px-5 py-3 pl-3.5 text-[13px] font-medium text-white shadow-[0_4px_20px_rgba(242,104,47,0.45)] transition-[opacity,background] duration-300 hover:bg-[#D85A22] sm:bottom-[18px] sm:right-[18px] ${
+        className={`mujo-pill-pulse fixed z-[270] flex items-center justify-center rounded-full border-0 bg-[#F2682F] font-medium text-white shadow-[0_4px_20px_rgba(242,104,47,0.45)] transition-[opacity,background] duration-300 hover:bg-[#D85A22] ${
           shown ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
         }`}
         style={{
-          bottom: 'max(14px, env(safe-area-inset-bottom))',
-          right: '12px',
+          bottom: 'max(20px, calc(env(safe-area-inset-bottom) + 12px))',
+          right: '20px',
+          padding: '14px 24px',
+          fontSize: 13,
+          lineHeight: 1,
+          color: '#ffffff',
         }}
         aria-label="Get your free Reset Plan"
       >
-        <span className="text-base leading-none" aria-hidden="true">
-          🍄
-        </span>
         Get your free Reset Plan
       </button>
     </>
@@ -727,12 +728,30 @@ function EmailGate({
         Based on your answers, here's what we're sending you:
       </p>
 
-      <div className="mb-[18px] rounded-2xl border border-[rgba(242,104,47,0.25)] bg-[rgba(242,104,47,0.1)] px-[18px] py-4">
-        <div className="mb-2 flex items-center gap-1.5 text-sm font-medium text-white">
+      <div
+        style={{
+          marginBottom: 22,
+          borderRadius: 16,
+          border: '1px solid rgba(242,104,47,0.25)',
+          background: 'rgba(242,104,47,0.1)',
+          padding: '16px 18px 18px',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            marginBottom: 12,
+            fontSize: 14,
+            fontWeight: 500,
+            color: '#ffffff',
+          }}
+        >
           <span aria-hidden="true">📋</span>
           Your 5-Step Nervous System Reset Plan
         </div>
-        <ul className="flex list-none flex-col gap-1.5 p-0">
+        <ul style={{ display: 'flex', flexDirection: 'column', gap: 8, listStyle: 'none', padding: 0, margin: 0 }}>
           {[
             'The root cause driving your specific pattern',
             'Your personalized morning sequence with timing',
@@ -740,8 +759,18 @@ function EmailGate({
             'One thing to stop doing immediately',
             '15% off your first Mujo Ritual order',
           ].map((line) => (
-            <li key={line} className="flex items-start gap-1.5 text-[13px] leading-[1.45] text-white/65">
-              <span className="mt-px shrink-0 text-[#8FA396]" aria-hidden="true">
+            <li
+              key={line}
+              style={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: 8,
+                fontSize: 13,
+                lineHeight: 1.5,
+                color: 'rgba(255,255,255,0.7)',
+              }}
+            >
+              <span style={{ marginTop: 1, flexShrink: 0, color: '#8FA396' }} aria-hidden="true">
                 ✓
               </span>
               {line}
@@ -761,18 +790,50 @@ function EmailGate({
         aria-label="Email address"
         autoComplete="email"
         disabled={submitting}
-        className={`mb-2.5 w-full rounded-2xl border-[1.5px] bg-white/[0.07] px-[18px] py-3.5 text-[15px] text-white outline-none transition-colors placeholder:text-white/[0.28] focus:border-[#F2682F] disabled:opacity-60 ${
-          error ? 'border-[#F2682F]' : 'border-white/[0.14]'
-        }`}
+        className="placeholder:text-white/[0.32] focus:border-[#F2682F]"
+        style={{
+          marginBottom: 12,
+          width: '100%',
+          boxSizing: 'border-box',
+          borderRadius: 14,
+          borderWidth: 1.5,
+          borderStyle: 'solid',
+          borderColor: error ? '#F2682F' : 'rgba(255,255,255,0.16)',
+          background: 'rgba(255,255,255,0.07)',
+          padding: '14px 18px',
+          fontSize: 15,
+          color: '#ffffff',
+          outline: 'none',
+          opacity: submitting ? 0.6 : 1,
+        }}
       />
 
-      {submitError && <p className="mb-2 text-[12px] text-[#F2682F]">{submitError}</p>}
+      {submitError && (
+        <p style={{ marginBottom: 8, fontSize: 12, color: '#F2682F' }}>{submitError}</p>
+      )}
 
       <button
         type="button"
         onClick={onSubmit}
         disabled={submitting}
-        className="flex w-full items-center justify-center gap-2 rounded-full border-0 bg-[#F2682F] px-4 py-[15px] text-[15px] font-medium text-white transition-[background,transform] hover:-translate-y-px hover:bg-[#D85A22] disabled:cursor-wait disabled:opacity-70 disabled:hover:translate-y-0"
+        className="hover:bg-[#D85A22]"
+        style={{
+          display: 'flex',
+          width: '100%',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 8,
+          borderRadius: 999,
+          border: 0,
+          background: '#F2682F',
+          padding: '15px 16px',
+          fontSize: 15,
+          fontWeight: 500,
+          color: '#ffffff',
+          cursor: submitting ? 'wait' : 'pointer',
+          opacity: submitting ? 0.7 : 1,
+          transition: 'background 200ms',
+        }}
       >
         {submitting ? 'Sending…' : 'Send me my plan'}
         {!submitting && (
@@ -782,20 +843,50 @@ function EmailGate({
         )}
       </button>
 
-      <div className="mt-2 text-center font-mono text-[11px] tracking-[0.04em] text-white/25">
+      <div
+        style={{
+          marginTop: 12,
+          textAlign: 'center',
+          fontFamily: 'var(--f-mono), "DM Mono", monospace',
+          fontSize: 11,
+          letterSpacing: '0.04em',
+          color: 'rgba(255,255,255,0.32)',
+        }}
+      >
         No spam. Unsubscribe any time.
       </div>
 
-      <div className="mt-5 flex items-center justify-between">
+      <div style={{ marginTop: 22, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <button
           type="button"
           onClick={onBack}
           disabled={submitting}
-          className="flex items-center gap-1.5 border-0 bg-transparent p-1 text-[13px] text-white/35 transition-colors hover:text-white/70 disabled:opacity-40"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
+            border: 0,
+            background: 'transparent',
+            padding: 4,
+            fontSize: 13,
+            color: 'rgba(255,255,255,0.42)',
+            cursor: submitting ? 'not-allowed' : 'pointer',
+            opacity: submitting ? 0.4 : 1,
+            transition: 'color 200ms',
+          }}
         >
           ← Back
         </button>
-        <div className="font-mono text-[11px] tracking-[0.08em] text-white/25">Almost there</div>
+        <div
+          style={{
+            fontFamily: 'var(--f-mono), "DM Mono", monospace',
+            fontSize: 11,
+            letterSpacing: '0.08em',
+            color: 'rgba(255,255,255,0.32)',
+          }}
+        >
+          Almost there
+        </div>
       </div>
     </div>
   );
@@ -806,45 +897,127 @@ function ResultPanel({ persona, onClose }: { persona: Persona; onClose: () => vo
 
   return (
     <div className="mujo-result-enter">
-      <span className="mb-3 block text-center text-[38px]" aria-hidden="true">
+      <span style={{ display: 'block', marginBottom: 16, textAlign: 'center', fontSize: 40 }} aria-hidden="true">
         ✅
       </span>
-      <div className="text-center">
-        <span className="mb-3.5 inline-flex items-center gap-1.5 rounded-full bg-[#F2682F] px-3.5 py-1.5 font-mono text-[11px] font-medium uppercase tracking-[0.06em] text-white">
+      <div style={{ textAlign: 'center', marginBottom: 18 }}>
+        <span
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 6,
+            borderRadius: 999,
+            background: '#F2682F',
+            padding: '7px 14px',
+            fontFamily: 'var(--f-mono), "DM Mono", monospace',
+            fontSize: 11,
+            fontWeight: 500,
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+            color: '#ffffff',
+          }}
+        >
           ✓ Plan sent to your inbox
         </span>
       </div>
 
       <h2
-        className="mb-2.5 text-center text-[clamp(20px,5vw,26px)] font-medium leading-[1.3] tracking-[-0.01em] text-white [&_em]:font-serif [&_em]:italic [&_em]:font-normal [&_em]:text-[#8FA396]"
-        dangerouslySetInnerHTML={{ __html: result.headline }}
+        style={{
+          textAlign: 'center',
+          fontSize: 'clamp(22px, 5vw, 28px)',
+          fontWeight: 500,
+          lineHeight: 1.28,
+          letterSpacing: '-0.01em',
+          color: '#ffffff',
+          marginBottom: 16,
+        }}
+        className="[&_em]:font-serif [&_em]:italic [&_em]:font-normal"
+        dangerouslySetInnerHTML={{
+          __html: result.headline.replace(
+            /<em>/g,
+            '<em style="color:#F2682F;font-family:var(--f-serif),Georgia,serif;font-style:italic;font-weight:400;">',
+          ),
+        }}
       />
 
       <p
-        className="mb-[18px] text-sm leading-[1.7] text-white/65 [&_strong]:font-medium [&_strong]:text-white"
+        style={{
+          fontSize: 14,
+          lineHeight: 1.7,
+          color: 'rgba(255,255,255,0.72)',
+          marginBottom: 24,
+        }}
+        className="[&_strong]:font-medium [&_strong]:text-white"
         dangerouslySetInnerHTML={{ __html: result.body }}
       />
 
-      <div className="mb-4 flex items-center gap-3 rounded-2xl border border-[rgba(242,104,47,0.28)] bg-[rgba(242,104,47,0.12)] px-4 py-3.5">
-        <span className="shrink-0 text-[26px] text-[#F2682F]" aria-hidden="true">
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 12,
+          borderRadius: 16,
+          border: '1px solid rgba(242,104,47,0.28)',
+          background: 'rgba(242,104,47,0.12)',
+          padding: '14px 16px',
+          marginBottom: 22,
+        }}
+      >
+        <span style={{ flexShrink: 0, fontSize: 26, color: '#F2682F' }} aria-hidden="true">
           📋
         </span>
-        <div className="text-[13px] leading-[1.5] text-white/65">
-          <strong className="mb-0.5 block text-sm text-white">{result.pdfTitle}</strong>
+        <div style={{ fontSize: 13, lineHeight: 1.5, color: 'rgba(255,255,255,0.7)' }}>
+          <strong style={{ display: 'block', marginBottom: 2, fontSize: 14, color: '#ffffff', fontWeight: 500 }}>
+            {result.pdfTitle}
+          </strong>
           Check your inbox. It's on its way. Usually arrives within 2 minutes.
         </div>
       </div>
 
-      <div className="mb-3.5 text-center text-[13px] text-white/55">
+      <div
+        style={{
+          textAlign: 'center',
+          fontSize: 13,
+          color: 'rgba(255,255,255,0.62)',
+          marginBottom: 18,
+        }}
+      >
         Your discount:{' '}
-        <strong className="font-mono text-base font-medium tracking-[0.08em] text-[#F2682F]">{DISCOUNT_CODE}</strong>{' '}
+        <strong
+          style={{
+            fontFamily: 'var(--f-mono), "DM Mono", monospace',
+            fontSize: 16,
+            fontWeight: 500,
+            letterSpacing: '0.08em',
+            color: '#FFFFFF',
+            background: 'rgba(255,255,255,0.08)',
+            padding: '2px 8px',
+            borderRadius: 6,
+          }}
+        >
+          {DISCOUNT_CODE}
+        </strong>{' '}
         for 15% off at checkout
       </div>
 
       <a
         href="/products/mujo-ritual"
         onClick={onClose}
-        className="flex w-full items-center justify-center gap-2 rounded-full bg-[#F2682F] px-4 py-[15px] text-[15px] font-medium text-white no-underline transition-colors hover:bg-[#D85A22]"
+        className="transition-colors hover:bg-[#D85A22]"
+        style={{
+          display: 'flex',
+          width: '100%',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 8,
+          borderRadius: 999,
+          background: '#F2682F',
+          padding: '15px 16px',
+          fontSize: 15,
+          fontWeight: 500,
+          color: '#ffffff',
+          textDecoration: 'none',
+        }}
       >
         Claim my discount, try Mujo Ritual
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
