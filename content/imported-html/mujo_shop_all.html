@@ -297,14 +297,15 @@ body.locked { overflow: hidden; }
   margin-bottom: 8px;
 }
 
-/* Products section — Ritual + Lemna side-by-side on tablet/desktop, stack on mobile */
-#cat-products .product-grid { grid-template-columns: 1fr; }
-@media (min-width: 640px) { #cat-products .product-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1024px) { #cat-products .product-grid { grid-template-columns: repeat(2, 1fr); } }
+/* Products section — Ritual + Lemna side-by-side at every breakpoint (mobile too) */
+#cat-products .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+@media (min-width: 640px) { #cat-products .product-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
+@media (min-width: 1024px) { #cat-products .product-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; } }
 
-/* Mujo Essentials section — 4 cards in one uniform row on desktop, 2x2 on tablet, 1-col on mobile */
-#cat-merch .product-grid { padding-bottom: 19px; }
-@media (min-width: 1024px) { #cat-merch .product-grid { grid-template-columns: repeat(4, 1fr); } }
+/* Mujo Essentials section — 2x2 on mobile (matches products section card size), 4-across on desktop */
+#cat-merch .product-grid { padding-bottom: 19px; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+@media (min-width: 640px) { #cat-merch .product-grid { gap: 20px; } }
+@media (min-width: 1024px) { #cat-merch .product-grid { grid-template-columns: repeat(4, 1fr); gap: 24px; } }
 
 /* Quick add button */
 .product-quick-add {
