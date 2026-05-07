@@ -143,13 +143,13 @@ export async function POST(req: NextRequest) {
   // session — `customer` wins when available because it unlocks saved cards.
   if (customerId) {
     params.customer = customerId;
-    // For payment-mode (one-time) sessions, ask Stripe to update the existing
-    // Customer record with the address Stripe collects, so subsequent
-    // checkouts can pre-fill billing details. (Subscription mode handles this
-    // via the Subscription itself.)
-    if (mode === 'payment') {
-      params.customer_update = { address: 'auto', name: 'auto', shipping: 'auto' };
-    }
+    // Required by Stripe whenever an existing customer is passed alongside
+    // automatic_tax + shipping_address_collection: the session must declare
+    // it can write the collected address back to the Customer record (Stripe
+    // needs this to compute tax against the customer's persistent location).
+    // Applies to both payment and subscription modes — Stripe enforces it
+    // identically.
+    params.customer_update = { address: 'auto', name: 'auto', shipping: 'auto' };
   } else if (customerEmail) {
     params.customer_email = customerEmail;
   }
