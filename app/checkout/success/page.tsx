@@ -75,13 +75,17 @@ export default async function CheckoutSuccessPage(props: {
               ) : null}
             </div>
             <div className="success-actions">
-              <Link href="/account/login" className="success-btn">
-                Create an account →
-              </Link>
-              <Link href="/shop" className="success-link">
-                Keep shopping
+              <Link href="/shop" className="success-btn">
+                Keep shopping →
               </Link>
             </div>
+            {mode === 'subscription' ? (
+              <p className="success-sub-note">
+                To manage your subscription anytime, use the "Manage
+                subscription" link in the footer — we'll email you a secure
+                login link.
+              </p>
+            ) : null}
             <p className="success-fineprint">
               Your ritual ships from our US warehouse within 1–2 business days.
               You'll receive a tracking email when it leaves the warehouse.
@@ -221,6 +225,13 @@ export default async function CheckoutSuccessPage(props: {
           color: var(--mute);
           letter-spacing: 0.04em;
           line-height: 1.5;
+        }
+        .success-sub-note {
+          margin: 18px auto 0;
+          max-width: 380px;
+          font-size: 13px;
+          color: var(--ink-soft);
+          line-height: 1.55;
         }
         @media (max-width: 600px) {
           .success-shell { padding: 32px 14px; }
