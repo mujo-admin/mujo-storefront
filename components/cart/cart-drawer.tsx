@@ -1,21 +1,26 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect } from "react";
 import { useCart } from "components/cart/cart-context";
+import {
+  freeShippingProgress,
+  shippingCents,
+  subtotalCents,
+} from "lib/cart/pricing";
+import { FREE_SHIPPING_THRESHOLD_CENTS } from "lib/stripe-constants";
 
 type CartDrawerProps = {
   open: boolean;
   onClose: () => void;
 };
 
-const SHIPPING_THRESHOLD_CENTS = 6000;
-
-function formatMoney(amount: string | number, currencyCode = "USD") {
-  const value = typeof amount === "string" ? Number(amount) : amount;
-  if (Number.isNaN(value)) return "$0";
+function formatMoneyCents(cents: number): string {
+  if (!Number.isFinite(cents)) return "$0";
+  const value = cents / 100;
   return new Intl.NumberFormat("en-US", {
     style: "currency",
-    currency: currencyCode,
+    currency: "USD",
     minimumFractionDigits: value % 1 === 0 ? 0 : 2,
     maximumFractionDigits: 2,
   }).format(value);
@@ -23,12 +28,12 @@ function formatMoney(amount: string | number, currencyCode = "USD") {
 
 /**
  * <CartDrawer /> — slide-from-right cart drawer.
- * Source: mujo_nav_system.html v1.0 + 2026-04-22 free-shipping band carry-forward.
- * Reads cart from useCart() (W2 Shopify-backed CartContext).
- * Free-shipping threshold reads from --shipping-threshold-cents token (default $60).
+ * Reads cart from useCart() — Mujo on-site cart, keyed off Stripe Price IDs.
+ * Free-shipping threshold reads from FREE_SHIPPING_THRESHOLD_CENTS in
+ * lib/stripe-constants.ts (single source of truth, currently $50).
  */
 export function CartDrawer({ open, onClose }: CartDrawerProps) {
-  const { cart, updateCartItem } = useCart();
+  const { cart, totalQuantity, updateQuantity, removeItem } = useCart();
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
@@ -38,20 +43,16 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
     return () => window.removeEventListener("keydown", onKey);
   }, [open, onClose]);
 
-  const lines = cart?.lines ?? [];
-  const totalQuantity = cart?.totalQuantity ?? 0;
-  const subtotalAmount = Number(cart?.cost?.subtotalAmount?.amount ?? 0);
-  const currencyCode = cart?.cost?.subtotalAmount?.currencyCode ?? "USD";
-  const subtotalCents = Math.round(subtotalAmount * 100);
-  const remainingCents = Math.max(0, SHIPPING_THRESHOLD_CENTS - subtotalCents);
-  const progressPct = Math.min(
-    100,
-    Math.round((subtotalCents / SHIPPING_THRESHOLD_CENTS) * 100),
-  );
-  const shippingUnlocked = totalQuantity > 0 && remainingCents <= 0;
+  const subtotal = subtotalCents(cart);
+  const shipping = shippingCents(subtotal);
+  const total = subtotal + shipping;
+  const { remainingCents, pct, unlocked } = freeShippingProgress(subtotal);
   const empty = totalQuantity === 0;
 
-  const checkoutUrl = cart?.checkoutUrl ?? "/api/checkout";
+  // The on-site /checkout page (Phase 2) handles both one-time and
+  // subscription modes via Stripe Elements. The legacy /api/checkout Hosted
+  // session creator stays alive as a 308 compat shim for stale tabs (next.config.ts).
+  const checkoutHref = empty ? "/shop" : "/checkout";
 
   return (
     <aside
@@ -62,7 +63,9 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
       <div className="cart-head">
         <div className="cart-head-title">
           Your cart{" "}
-          <span>{totalQuantity === 1 ? "1 item" : `${totalQuantity} items`}</span>
+          <span>
+            {totalQuantity === 1 ? "1 item" : `${totalQuantity} items`}
+          </span>
         </div>
         <button
           type="button"
@@ -85,27 +88,29 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
 
       <div className="cart-progress">
         <div className="cart-progress-msg">
-          {shippingUnlocked ? (
+          {unlocked ? (
             <>
               <strong>Free shipping</strong> unlocked. Nice work.
             </>
           ) : empty ? (
             <>
-              Free shipping at <strong>${SHIPPING_THRESHOLD_CENTS / 100}</strong>.
+              Free shipping at{" "}
+              <strong>
+                {formatMoneyCents(FREE_SHIPPING_THRESHOLD_CENTS)}
+              </strong>
+              .
             </>
           ) : (
             <>
-              <span className="accent">
-                {formatMoney(remainingCents / 100, currencyCode)}
-              </span>{" "}
+              <span className="accent">{formatMoneyCents(remainingCents)}</span>{" "}
               away from <strong>free shipping</strong>.
             </>
           )}
         </div>
         <div className="cart-progress-track">
           <div
-            className={`cart-progress-fill ${shippingUnlocked ? "full" : ""}`}
-            style={{ width: `${progressPct}%` }}
+            className={`cart-progress-fill ${unlocked ? "full" : ""}`}
+            style={{ width: `${pct}%` }}
           />
         </div>
       </div>
@@ -113,39 +118,43 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
       <div className="cart-body">
         {empty ? (
           <div className="cart-empty">
-            <div className="cart-empty-illo" aria-hidden>🍵</div>
+            <div className="cart-empty-illo" aria-hidden>
+              🍵
+            </div>
             <h3>Nothing in here yet.</h3>
             <p>
               Your ritual is one click away. The Mujo Ritual is the place most
               people start.
             </p>
-            <a href="/shop">Browse the shop →</a>
+            <Link href="/shop">Browse the shop →</Link>
           </div>
         ) : (
-          lines.map((item) => (
-            <div className="cart-item" key={item.merchandise.id}>
+          cart.items.map((item) => (
+            <div className="cart-item" key={item.stripePriceId}>
               <div className="cart-item-img">
-                {item.merchandise.product.featuredImage ? (
-                  <img
-                    src={item.merchandise.product.featuredImage.url}
-                    alt={item.merchandise.product.featuredImage.altText ?? ""}
-                  />
+                {item.image?.url ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={item.image.url} alt={item.image.alt} />
                 ) : (
                   <span aria-hidden>🍵</span>
                 )}
               </div>
               <div className="cart-item-info">
-                <div className="cart-item-name">
-                  {item.merchandise.product.title}
-                </div>
-                <div className="cart-item-variant">{item.merchandise.title}</div>
+                <Link
+                  href={`/products/${item.productHandle}`}
+                  onClick={onClose}
+                  className="cart-item-name"
+                >
+                  {item.productTitle}
+                </Link>
+                <div className="cart-item-variant">{item.variantTitle}</div>
                 <div className="cart-item-controls">
                   <button
                     type="button"
                     className="qty-btn"
                     aria-label="Decrease quantity"
                     onClick={() =>
-                      updateCartItem(item.merchandise.id, "minus")
+                      updateQuantity(item.stripePriceId, item.quantity - 1)
                     }
                   >
                     −
@@ -155,7 +164,9 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
                     type="button"
                     className="qty-btn"
                     aria-label="Increase quantity"
-                    onClick={() => updateCartItem(item.merchandise.id, "plus")}
+                    onClick={() =>
+                      updateQuantity(item.stripePriceId, item.quantity + 1)
+                    }
                   >
                     +
                   </button>
@@ -163,17 +174,12 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
               </div>
               <div className="cart-item-meta">
                 <div className="cart-item-price">
-                  {formatMoney(
-                    item.cost.totalAmount.amount,
-                    item.cost.totalAmount.currencyCode,
-                  )}
+                  {formatMoneyCents(item.unitAmountCents * item.quantity)}
                 </div>
                 <button
                   type="button"
                   className="cart-item-remove"
-                  onClick={() =>
-                    updateCartItem(item.merchandise.id, "delete")
-                  }
+                  onClick={() => removeItem(item.stripePriceId)}
                 >
                   Remove
                 </button>
@@ -187,26 +193,34 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
         <div className="cart-row">
           <span>Subtotal</span>
           <span className="price">
-            {empty ? "$0" : formatMoney(subtotalAmount, currencyCode)}
+            {empty ? "$0" : formatMoneyCents(subtotal)}
           </span>
         </div>
         <div className="cart-row">
           <span>Shipping</span>
           <span className="price">
-            {shippingUnlocked ? "Free" : "Calculated at checkout"}
+            {empty
+              ? "—"
+              : unlocked
+                ? "Free"
+                : "Calculated at checkout"}
           </span>
         </div>
         <div className="cart-row total">
           <span>Total</span>
           <span className="price">
-            {empty ? "$0" : formatMoney(subtotalAmount, currencyCode)}
+            {empty ? "$0" : formatMoneyCents(total)}
           </span>
         </div>
         <div className="cart-shipping-note">
-          Taxes calculated at checkout. Subscription orders renew at 25% off
+          Taxes calculated at checkout. Subscription orders renew at 15% off
           retail.
         </div>
-        <a className="cart-checkout" href={empty ? "/shop" : checkoutUrl}>
+        <Link
+          className="cart-checkout"
+          href={checkoutHref}
+          prefetch={!empty}
+        >
           {empty ? "Browse the shop" : "Checkout"}
           <svg
             width="14"
@@ -221,7 +235,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
             <line x1="5" y1="12" x2="19" y2="12" />
             <polyline points="13 6 19 12 13 18" />
           </svg>
-        </a>
+        </Link>
         <div className="cart-secure">Secure · Stripe checkout</div>
       </div>
 
@@ -336,7 +350,9 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
           font-weight: 500;
           color: var(--ink);
           line-height: 1.3;
+          text-decoration: none;
         }
+        .cart-item-name:hover { color: var(--orange-deep); }
         .cart-item-variant {
           font-size: 12px;
           color: var(--mute);

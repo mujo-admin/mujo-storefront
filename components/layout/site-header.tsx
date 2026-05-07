@@ -15,8 +15,8 @@ import { useCart } from "components/cart/cart-context";
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
-  const { cart } = useCart();
-  const cartCount = cart?.totalQuantity ?? 0;
+  const { totalQuantity } = useCart();
+  const cartCount = totalQuantity;
 
   useEffect(() => {
     const locked = menuOpen || cartOpen;

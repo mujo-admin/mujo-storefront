@@ -43,8 +43,25 @@ Currently `2025-01`. Shopify's current is `2026-04`; update annually. Old API ve
 `STRIPE_SECRET_KEY` / `STRIPE_PUBLISHABLE_KEY` / `STRIPE_WEBHOOK_SECRET`
 Test-mode keys (`sk_test_…`, `pk_test_…`, `whsec_…`) for W2 development. Live-mode keys swap in at W3 cutover. Get from Stripe dashboard → Developers → API keys.
 
+`NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`
+Same value as `STRIPE_PUBLISHABLE_KEY`, exposed to the browser for `loadStripe()` in the on-site checkout's `<Elements />` provider. Stripe publishable keys are not secret — exposing them to the client is the documented pattern.
+
 `STRIPE_SHIPPING_FREE_ID` / `STRIPE_SHIPPING_FLAT_ID`
 Stripe Shipping Rate IDs created by W2's `mirror-shopify-to-stripe.ts` script. Free if order ≥ $50, $5 flat otherwise.
+
+## On-site checkout + accounts (added 2026-05-07 per `plans/2026-05-07-on-site-checkout-and-accounts.md`)
+
+`MUJO_SESSION_SECRET`
+HMAC secret for the `mujo_session` JWT cookie (7-day TTL, sliding refresh) used by the customer account magic-link login. Generate with `openssl rand -base64 32`. **Distinct from `MAGIC_LINK_SECRET`** — different rotation cadence + security domain. Rotating one must not invalidate the other.
+
+`EMAIL_CHANGE_SECRET`
+HMAC secret for the `audience: 'email-change'` magic-link tokens (24-hour TTL, sent to the *new* email address before commit). Generate with `openssl rand -base64 32`. Distinct from session + billing-portal secrets per the three-audience separation.
+
+`NEXT_PUBLIC_ENABLE_EXPRESS_CHECKOUT`
+Feature flag for `<ExpressCheckoutElement />` (Apple Pay / Google Pay / Link). `false` on staging because Stripe's domain-verification crawler only accepts production domains; flipped to `true` after Phase 8 cutover plus Apple Pay verification on `mujoworld.com`.
+
+`NEXT_PUBLIC_ENABLE_ON_SITE_CHECKOUT`
+Feature flag for routing the cart drawer's "Checkout" button to `/checkout` (Stripe Elements) vs. the legacy `/api/checkout` (Hosted Checkout). `false` until Phase 2 ships, then `true`. The legacy `/api/checkout` route stays alive as a 30-day 308 compat shim post-cutover for stale tabs.
 
 ## Vercel Postgres / Neon (W1 wired, schema empty)
 
@@ -125,5 +142,7 @@ Vercel Commerce template UI strings. Set to `Mujo Co.` and `Mujo Storefront`.
 | `STRIPE_SECRET_KEY` | never (rotates only on Stripe-side compromise) | Stripe alert |
 | `STRIPE_WEBHOOK_SECRET` | only if endpoint URL changes | endpoint move |
 | `MAGIC_LINK_SECRET` | annually | suspected compromise |
+| `MUJO_SESSION_SECRET` | annually | suspected compromise (rotating logs everyone out — coordinate) |
+| `EMAIL_CHANGE_SECRET` | annually | suspected compromise |
 | `SHOPIFY_REVALIDATION_SECRET` | quarterly | routine hygiene |
 | All others | as-needed | API key compromise alerts |

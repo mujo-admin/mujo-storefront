@@ -7,6 +7,8 @@ import {
   type RitualSize,
   type RitualPlan,
 } from "lib/stripe-constants";
+import { useCart } from "components/cart/cart-context";
+import { resolveRitualSelection } from "lib/cart/price-id-map";
 
 // Pricing table — drives all in-page prices off (size, plan).
 // Subscribe & save = 15% off the one-time price.
@@ -194,46 +196,37 @@ export function RitualPdpClient() {
   const [size, setSize] = useState<RitualSize>("25");
   const [plan, setPlan] = useState<RitualPlan>("subscription");
   const [pending, setPending] = useState(false);
+  const { addItem } = useCart();
 
   const buyBoxTarget = useMountTarget("ritual-buybox");
   const stickyAtcTarget = useMountTarget("ritual-sticky-atc");
 
-  async function onAddToCart() {
+  function onAddToCart() {
     if (pending) return;
-    const priceId = RITUAL_PRICE_IDS[`${size}-${plan}` as const];
-    if (!priceId) {
-      console.error(`[ritual-pdp] Missing Stripe Price ID for ${size}-${plan}`);
+    const resolved = resolveRitualSelection(size, plan);
+    if (!resolved) {
+      console.error(
+        `[ritual-pdp] Missing Stripe Price ID for ${size}-${plan}. Check NEXT_PUBLIC_RITUAL_PRICE_* env vars.`,
+      );
       return;
     }
     setPending(true);
     try {
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          line_items: [
-            {
-              stripe_price_id: priceId,
-              quantity: 1,
-              is_subscription: plan === "subscription",
-            },
-          ],
-          success_url: `${window.location.origin}/?checkout=success`,
-          cancel_url: window.location.href,
-        }),
+      addItem({
+        stripePriceId: resolved.stripePriceId,
+        ...resolved.line,
+        quantity: 1,
       });
-      const data = await res.json();
-      if (data?.url) {
-        window.location.assign(data.url);
-        return;
-      }
-      console.error("[ritual-pdp] /api/checkout returned no url", data);
-    } catch (err) {
-      console.error("[ritual-pdp] /api/checkout failed", err);
     } finally {
-      setPending(false);
+      // addItem is sync; release the pending flag on next tick so the button
+      // briefly registers the click but the drawer slide masks any flicker.
+      setTimeout(() => setPending(false), 80);
     }
   }
+
+  // Suppress unused-var lint for RITUAL_PRICE_IDS — kept available for any
+  // future direct lookups outside resolveRitualSelection.
+  void RITUAL_PRICE_IDS;
 
   const shared: Shared = {
     size,

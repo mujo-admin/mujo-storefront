@@ -17,6 +17,7 @@ import { handleChargeFailed } from 'lib/webhook-handlers/charge-failed';
 import { handleChargeRefunded } from 'lib/webhook-handlers/charge-refunded';
 import { handleCheckoutCompleted } from 'lib/webhook-handlers/checkout-completed';
 import { handleInvoicePaid } from 'lib/webhook-handlers/invoice-paid';
+import { handlePaymentIntentSucceeded } from 'lib/webhook-handlers/payment-intent-succeeded';
 import { handleSubscriptionUpdated } from 'lib/webhook-handlers/subscription-updated';
 
 export const dynamic = 'force-dynamic';
@@ -55,6 +56,9 @@ export async function POST(req: NextRequest) {
     switch (event.type) {
       case 'checkout.session.completed':
         await handleCheckoutCompleted(event);
+        break;
+      case 'payment_intent.succeeded':
+        await handlePaymentIntentSucceeded(event);
         break;
       case 'invoice.paid':
         await handleInvoicePaid(event);

@@ -101,3 +101,17 @@ export const magicLinkTokens = pgTable(
     index('magic_link_tokens_expires_idx').on(t.expiresAt),
   ],
 );
+
+export const carts = pgTable(
+  'carts',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    customerId: uuid('customer_id')
+      .references(() => customers.id, { onDelete: 'cascade' })
+      .notNull()
+      .unique(),
+    items: jsonb('items').$type<unknown[]>().default([]).notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().notNull(),
+  },
+  (t) => [index('carts_customer_id_idx').on(t.customerId)],
+);

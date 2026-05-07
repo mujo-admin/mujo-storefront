@@ -3,7 +3,6 @@ import { SiteHeader } from "components/layout/site-header";
 import { Footer } from "components/layout/footer";
 import { AnalyticsScripts } from "components/integrations/analytics-scripts";
 import { QuizProvider, QuizPill, QuizSheet } from "components/MujoQuiz";
-import { getCart } from "lib/shopify";
 import { ReactNode } from "react";
 import { Toaster } from "sonner";
 import "./globals.css";
@@ -23,14 +22,11 @@ export const metadata = {
   },
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: ReactNode;
 }) {
-  // Don't await the fetch, pass the Promise to the context provider
-  const cart = getCart();
-
   return (
     <html lang="en">
       <head>
@@ -55,7 +51,7 @@ export default async function RootLayout({
         />
       </head>
       <body>
-        <CartProvider cartPromise={cart}>
+        <CartProvider>
           <QuizProvider>
             <SiteHeader />
             <main>{children}</main>

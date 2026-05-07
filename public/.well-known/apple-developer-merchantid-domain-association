@@ -1,0 +1,4 @@
+# Placeholder. Replaced with real verification content from Stripe Dashboard
+# (Settings → Payment methods → Apple Pay → Add domain mujoworld.com) during
+# Phase 8 cutover. Stripe's verification crawler hits this path when the
+# domain goes live; staging (mujo-storefront.vercel.app) does not qualify.

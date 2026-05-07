@@ -3,6 +3,8 @@
 import { useEffect, type ReactNode } from "react";
 import { useReveal } from "lib/hooks/use-reveal";
 import { useQuizSheet } from "components/MujoQuiz";
+import { useCart } from "components/cart/cart-context";
+import { resolvePriceId } from "lib/cart/price-id-map";
 
 type ImportedPageRuntimeProps = {
   children: ReactNode;
@@ -17,6 +19,7 @@ type ImportedPageRuntimeProps = {
 export function ImportedPageRuntime({ children }: ImportedPageRuntimeProps) {
   useReveal();
   const { open: openQuiz } = useQuizSheet();
+  const { addItem } = useCart();
 
   useEffect(() => {
     function onClick(ev: MouseEvent) {
@@ -51,32 +54,28 @@ export function ImportedPageRuntime({ children }: ImportedPageRuntimeProps) {
           const priceId = trigger.dataset.stripePriceId;
           const isSubscription = trigger.dataset.mode === "subscription";
           if (!priceId) {
+            // No price attached — just open the drawer (e.g. nav cart icon).
             window.dispatchEvent(new CustomEvent("mujo:cart:open"));
             return;
           }
-          const origin = window.location.origin;
-          fetch("/api/checkout", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              line_items: [
-                {
-                  stripe_price_id: priceId,
-                  quantity: 1,
-                  is_subscription: isSubscription,
-                },
-              ],
-              success_url: `${origin}/?checkout=success`,
-              cancel_url: window.location.href,
-            }),
-          })
-            .then((r) => r.json())
-            .then((data) => {
-              if (data?.url) window.location.assign(data.url);
-            })
-            .catch(() => {
-              // Swallow; user can retry. /api/checkout failures show in logs.
-            });
+          const resolved = resolvePriceId(priceId, { isSubscription });
+          if (!resolved) {
+            // Unknown Price ID. Surface to the console (so we can wire it
+            // into price-id-map.ts) and still open the drawer so the click
+            // doesn't feel dead.
+            console.warn(
+              `[imported-page-runtime] Unknown Stripe Price ID ${priceId} — wire it into lib/cart/price-id-map.ts.`,
+            );
+            window.dispatchEvent(new CustomEvent("mujo:cart:open"));
+            return;
+          }
+          addItem({
+            stripePriceId: priceId,
+            ...resolved,
+            quantity: 1,
+          });
+          // CartProvider's addItem dispatches mujo:cart:open already; no
+          // explicit dispatch needed here.
           break;
         }
         default:
@@ -136,7 +135,7 @@ export function ImportedPageRuntime({ children }: ImportedPageRuntimeProps) {
       document.removeEventListener("click", onClick);
       document.removeEventListener("submit", handleForms);
     };
-  }, [openQuiz]);
+  }, [openQuiz, addItem]);
 
   return <>{children}</>;
 }
