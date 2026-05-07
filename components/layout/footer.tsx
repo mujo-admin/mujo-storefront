@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ManageSubscriptionButton } from "components/ManageSubscriptionButton";
+import { FooterManageSubLink } from "components/FooterManageSubLink";
 
 /**
  * <Footer /> — canonical 4-column sage footer used on every page.
@@ -130,29 +130,7 @@ export function Footer() {
               { href: "/ambassador", label: "Ambassador program" },
             ]}
           >
-            <ManageSubscriptionButton
-              trigger={({ onClick }) => (
-                <button
-                  type="button"
-                  onClick={onClick}
-                  className="foot-link foot-link-button"
-                  style={{
-                    fontSize: 14,
-                    color: "rgba(255,255,255,0.55)",
-                    background: "transparent",
-                    border: "none",
-                    padding: 0,
-                    margin: 0,
-                    fontFamily: "inherit",
-                    textAlign: "left",
-                    cursor: "pointer",
-                    transition: "color 0.2s",
-                  }}
-                >
-                  Manage my subscription
-                </button>
-              )}
-            />
+            <FooterManageSubLink />
           </FooterColumn>
         </div>
         <div
