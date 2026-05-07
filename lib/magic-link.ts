@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { and, eq, gte } from 'drizzle-orm';
+import { and, eq, gte, isNull } from 'drizzle-orm';
 import { SignJWT, jwtVerify } from 'jose';
 import { db, magicLinkTokens } from 'db';
 
@@ -170,6 +170,10 @@ export async function verifyAndConsumeToken<A extends MagicLinkAudience>(
  * Returns true if the request is allowed, false if rate-limited.
  * Global per-email (no audience filter — conservative: a customer abusing
  * one audience can't pivot to another).
+ *
+ * Counts only *unspent* tokens (used_at IS NULL) so an honest user clicking
+ * the link they just received doesn't burn a slot. Anti-abuse property still
+ * holds: an attacker spamming the endpoint accumulates unused rows fast.
  */
 export async function checkRateLimit(
   email: string,
@@ -183,7 +187,11 @@ export async function checkRateLimit(
     .select({ id: magicLinkTokens.id })
     .from(magicLinkTokens)
     .where(
-      and(eq(magicLinkTokens.email, email), gte(magicLinkTokens.createdAt, cutoff)),
+      and(
+        eq(magicLinkTokens.email, email),
+        gte(magicLinkTokens.createdAt, cutoff),
+        isNull(magicLinkTokens.usedAt),
+      ),
     );
 
   return recent.length < max;
