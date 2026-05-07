@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { clearLocalStorage } from "lib/cart/store";
 
 export function LogoutButton() {
   const [pending, setPending] = useState(false);
@@ -18,6 +19,10 @@ export function LogoutButton() {
     } catch {
       // Logout is fire-and-forget — clear local state regardless.
     }
+    // Per Phase 4 spec: clear localStorage cart so the next guest on this
+    // browser doesn't see the previous user's cart. Server cart in Postgres
+    // is preserved for the next login — that's the source of truth.
+    clearLocalStorage();
     window.location.assign("/");
   }
 

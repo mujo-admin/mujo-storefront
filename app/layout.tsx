@@ -6,6 +6,7 @@ import { QuizProvider, QuizPill, QuizSheet } from "components/MujoQuiz";
 import { ReactNode } from "react";
 import { Toaster } from "sonner";
 import "./globals.css";
+import { getSession } from "lib/session";
 import { baseUrl } from "lib/utils";
 
 const { SITE_NAME } = process.env;
@@ -22,11 +23,16 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: ReactNode;
 }) {
+  const session = await getSession();
+  const sessionSnapshot = session
+    ? { customerId: session.customerId, email: session.email }
+    : null;
+
   return (
     <html lang="en">
       <head>
@@ -51,7 +57,7 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <CartProvider>
+        <CartProvider session={sessionSnapshot}>
           <QuizProvider>
             <SiteHeader />
             <main>{children}</main>

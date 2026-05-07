@@ -19,6 +19,7 @@ import {
 } from 'lib/stripe-constants';
 import { trackStartedCheckout } from 'lib/klaviyo';
 import { sendCapiEvent } from 'lib/meta-capi';
+import { getSession } from 'lib/session';
 import { randomUUID } from 'node:crypto';
 
 export const dynamic = 'force-dynamic';
@@ -87,6 +88,16 @@ export async function POST(req: NextRequest) {
   const eventId = randomUUID();
   const returnUrl = `${parsed.origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}&event_id=${eventId}`;
 
+  // Phase 4 pre-fill: if the customer is signed in, hand Stripe the saved
+  // Stripe customer ID. Embedded Checkout will then surface the customer's
+  // saved cards (off-session payment methods) automatically and pre-fill the
+  // billing address from prior sessions. Falls back to customer_email so a
+  // session-less request from the same browser still gets email pre-fill.
+  const session = await getSession();
+  const customerId = session?.stripeCustomerId ?? null;
+  const customerEmail =
+    parsed.customerEmail ?? session?.email ?? undefined;
+
   const params: SessionCreateParams = {
     // Dahlia API renamed: 'embedded' → 'embedded_page', 'hosted' → 'hosted_page'.
     // The Stripe.js client (loadStripe + <EmbeddedCheckoutProvider>) reads
@@ -99,7 +110,6 @@ export async function POST(req: NextRequest) {
       quantity: li.quantity,
     })),
     automatic_tax: { enabled: true },
-    customer_email: parsed.customerEmail,
     shipping_address_collection: {
       allowed_countries: [...SUPPORTED_COUNTRIES],
     },
@@ -129,6 +139,21 @@ export async function POST(req: NextRequest) {
     }
   }
 
+  // Stripe rejects passing both `customer` and `customer_email` on the same
+  // session — `customer` wins when available because it unlocks saved cards.
+  if (customerId) {
+    params.customer = customerId;
+    // For payment-mode (one-time) sessions, ask Stripe to update the existing
+    // Customer record with the address Stripe collects, so subsequent
+    // checkouts can pre-fill billing details. (Subscription mode handles this
+    // via the Subscription itself.)
+    if (mode === 'payment') {
+      params.customer_update = { address: 'auto', name: 'auto', shipping: 'auto' };
+    }
+  } else if (customerEmail) {
+    params.customer_email = customerEmail;
+  }
+
   try {
     const session = await stripe.checkout.sessions.create(params);
     if (!session.client_secret) {
@@ -143,9 +168,9 @@ export async function POST(req: NextRequest) {
     const userAgent = req.headers.get('user-agent') ?? undefined;
     const totalQuantity = parsed.items.reduce((s, li) => s + li.quantity, 0);
 
-    if (parsed.customerEmail) {
+    if (customerEmail) {
       void trackStartedCheckout({
-        email: parsed.customerEmail,
+        email: customerEmail,
         value: totalQuantity,
         currency: 'USD',
         items: parsed.items.map((li) => ({
@@ -162,7 +187,7 @@ export async function POST(req: NextRequest) {
       eventId,
       eventSourceUrl: req.headers.get('referer') ?? undefined,
       userData: {
-        email: parsed.customerEmail,
+        email: customerEmail,
         clientIpAddress: ip,
         clientUserAgent: userAgent,
       },
