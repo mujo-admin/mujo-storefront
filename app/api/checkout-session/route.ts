@@ -103,6 +103,15 @@ export async function POST(req: NextRequest) {
     shipping_address_collection: {
       allowed_countries: [...SUPPORTED_COUNTRIES],
     },
+    // Per-session branding overrides Stripe Dashboard defaults. Cream matches
+    // tokens.css --cream so the iframe blends with the page background; orange
+    // matches --orange so the Pay button + accents read as Mujo. Border-style
+    // rounded matches our 10-14px brand radius.
+    branding_settings: {
+      background_color: '#F3F2E9',
+      button_color: '#F2682F',
+      border_style: 'rounded',
+    },
     metadata: { mujo_event_id: eventId },
   };
 
