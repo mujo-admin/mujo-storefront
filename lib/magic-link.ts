@@ -3,11 +3,36 @@ import { and, eq, gte } from 'drizzle-orm';
 import { SignJWT, jwtVerify } from 'jose';
 import { db, magicLinkTokens } from 'db';
 
-const TOKEN_TTL_SECONDS = 15 * 60;
+const ISSUER = 'mujo-storefront';
 
-function getSecret(): Uint8Array {
-  const raw = process.env.MAGIC_LINK_SECRET;
-  if (!raw) throw new Error('MAGIC_LINK_SECRET is not set');
+/**
+ * Three audiences with different security domains:
+ *  - 'billing-portal': 15-min single-use deep-link to Stripe Customer Portal
+ *  - 'session':        7-day session cookie redeem (account login)
+ *  - 'email-change':   24-hour confirm-link sent to *new* email address
+ *
+ * Each audience has its own HMAC secret so rotating one cannot invalidate
+ * the others. Tokens carry the audience claim and are validated against it
+ * on verify.
+ */
+export type MagicLinkAudience = 'billing-portal' | 'session' | 'email-change';
+
+const TTL_BY_AUDIENCE: Record<MagicLinkAudience, number> = {
+  'billing-portal': 15 * 60,
+  'session': 7 * 24 * 60 * 60,
+  'email-change': 24 * 60 * 60,
+};
+
+const SECRET_ENV_BY_AUDIENCE: Record<MagicLinkAudience, string> = {
+  'billing-portal': 'MAGIC_LINK_SECRET',
+  'session': 'MUJO_SESSION_SECRET',
+  'email-change': 'EMAIL_CHANGE_SECRET',
+};
+
+function getSecret(audience: MagicLinkAudience): Uint8Array {
+  const envName = SECRET_ENV_BY_AUDIENCE[audience];
+  const raw = process.env[envName];
+  if (!raw) throw new Error(`${envName} is not set`);
   return new TextEncoder().encode(raw);
 }
 
@@ -15,60 +40,112 @@ function hashToken(token: string): string {
   return createHash('sha256').update(token).digest('hex');
 }
 
-export type MagicLinkPayload = {
-  email: string;
-  stripeCustomerId: string;
+export type MagicLinkPayloadByAudience = {
+  'billing-portal': { email: string; stripeCustomerId: string };
+  'session': {
+    email: string;
+    customerId: string;
+    stripeCustomerId: string | null;
+  };
+  'email-change': { customerId: string; oldEmail: string; newEmail: string };
 };
 
-export async function generateToken(
-  payload: MagicLinkPayload,
-  ipAddress?: string,
+export async function generateToken<A extends MagicLinkAudience>(
+  audience: A,
+  payload: MagicLinkPayloadByAudience[A],
+  options: { ipAddress?: string; rateLimitEmail?: string } = {},
 ): Promise<string> {
-  const secret = getSecret();
-  const expiresAt = new Date(Date.now() + TOKEN_TTL_SECONDS * 1000);
+  const ttl = TTL_BY_AUDIENCE[audience];
+  const secret = getSecret(audience);
+  const expiresAt = new Date(Date.now() + ttl * 1000);
 
-  const token = await new SignJWT({ ...payload })
+  const token = await new SignJWT({ ...(payload as Record<string, unknown>) })
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
-    .setExpirationTime(`${TOKEN_TTL_SECONDS}s`)
-    .setIssuer('mujo-storefront')
-    .setAudience('billing-portal')
+    .setExpirationTime(`${ttl}s`)
+    .setIssuer(ISSUER)
+    .setAudience(audience)
     .sign(secret);
 
+  // Rate-limit row: keyed on a primary email so checkRateLimit can find it.
+  // For email-change, we want rate-limit by the requesting customer's
+  // primary email, not the new email destination — caller passes `rateLimitEmail`.
+  const p = payload as {
+    email?: string;
+    oldEmail?: string;
+    newEmail?: string;
+  };
+  const rowEmail =
+    options.rateLimitEmail ?? p.email ?? p.oldEmail ?? p.newEmail ?? '';
+
   await db.insert(magicLinkTokens).values({
-    email: payload.email,
+    email: rowEmail,
     tokenHash: hashToken(token),
     expiresAt,
-    ipAddress: ipAddress ?? null,
+    ipAddress: options.ipAddress ?? null,
   });
 
   return token;
 }
 
-export type VerifyResult =
-  | { ok: true; payload: MagicLinkPayload }
+export type VerifyResult<A extends MagicLinkAudience> =
+  | { ok: true; payload: MagicLinkPayloadByAudience[A] }
   | { ok: false; reason: 'invalid' | 'expired' | 'used' | 'unknown' };
 
-export async function verifyAndConsumeToken(token: string): Promise<VerifyResult> {
-  const secret = getSecret();
+export async function verifyAndConsumeToken<A extends MagicLinkAudience>(
+  audience: A,
+  token: string,
+): Promise<VerifyResult<A>> {
+  const secret = getSecret(audience);
 
-  let payload: MagicLinkPayload;
+  let payload: MagicLinkPayloadByAudience[A];
   try {
-    const { payload: jwtPayload } = await jwtVerify(token, secret, {
-      issuer: 'mujo-storefront',
-      audience: 'billing-portal',
+    const { payload: jwt } = await jwtVerify(token, secret, {
+      issuer: ISSUER,
+      audience,
     });
-    const email = typeof jwtPayload.email === 'string' ? jwtPayload.email : '';
-    const stripeCustomerId =
-      typeof jwtPayload.stripeCustomerId === 'string' ? jwtPayload.stripeCustomerId : '';
-    if (!email || !stripeCustomerId) return { ok: false, reason: 'invalid' };
-    payload = { email, stripeCustomerId };
+    if (audience === 'billing-portal') {
+      const email = typeof jwt.email === 'string' ? jwt.email : '';
+      const stripeCustomerId =
+        typeof jwt.stripeCustomerId === 'string' ? jwt.stripeCustomerId : '';
+      if (!email || !stripeCustomerId) return { ok: false, reason: 'invalid' };
+      payload = {
+        email,
+        stripeCustomerId,
+      } as MagicLinkPayloadByAudience[A];
+    } else if (audience === 'session') {
+      const email = typeof jwt.email === 'string' ? jwt.email : '';
+      const customerId =
+        typeof jwt.customerId === 'string' ? jwt.customerId : '';
+      const stripeCustomerId =
+        typeof jwt.stripeCustomerId === 'string' ? jwt.stripeCustomerId : null;
+      if (!email || !customerId) return { ok: false, reason: 'invalid' };
+      payload = {
+        email,
+        customerId,
+        stripeCustomerId,
+      } as MagicLinkPayloadByAudience[A];
+    } else {
+      const customerId =
+        typeof jwt.customerId === 'string' ? jwt.customerId : '';
+      const oldEmail = typeof jwt.oldEmail === 'string' ? jwt.oldEmail : '';
+      const newEmail = typeof jwt.newEmail === 'string' ? jwt.newEmail : '';
+      if (!customerId || !oldEmail || !newEmail)
+        return { ok: false, reason: 'invalid' };
+      payload = {
+        customerId,
+        oldEmail,
+        newEmail,
+      } as MagicLinkPayloadByAudience[A];
+    }
   } catch (err) {
     const code = (err as { code?: string }).code;
     if (code === 'ERR_JWT_EXPIRED') return { ok: false, reason: 'expired' };
     return { ok: false, reason: 'invalid' };
   }
 
+  // DB consume — audience-agnostic. Reuses the existing magic_link_tokens
+  // table; idempotency comes from the unique tokenHash + usedAt mark-on-use.
   const hash = hashToken(token);
   const rows = await db
     .select()
@@ -89,7 +166,11 @@ export async function verifyAndConsumeToken(token: string): Promise<VerifyResult
   return { ok: true, payload };
 }
 
-// Returns true if the request is allowed, false if rate-limited.
+/**
+ * Returns true if the request is allowed, false if rate-limited.
+ * Global per-email (no audience filter — conservative: a customer abusing
+ * one audience can't pivot to another).
+ */
 export async function checkRateLimit(
   email: string,
   options: { maxRequests?: number; windowMinutes?: number } = {},

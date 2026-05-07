@@ -108,17 +108,9 @@ const config: NextConfig = {
         destination: "/ambassador",
         permanent: true,
       },
-      // Customer accounts go dark at cutover; v2 plan ports the 5 account HTMLs.
-      {
-        source: "/account",
-        destination: "/",
-        permanent: false,
-      },
-      {
-        source: "/account/:path*",
-        destination: "/",
-        permanent: false,
-      },
+      // /account, /account/login*, /account/expired all live as real routes
+      // post-Phase-3 (2026-05-07). Phase 5 fills out /account/{orders,
+      // subscription, profile, payment-method}. No redirects needed.
     ];
   },
 };

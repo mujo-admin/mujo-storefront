@@ -60,8 +60,9 @@ export async function POST(req: NextRequest) {
 
   try {
     const token = await generateToken(
+      'billing-portal',
       { email, stripeCustomerId: customer.stripeCustomerId },
-      ip ?? undefined,
+      { ipAddress: ip ?? undefined },
     );
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://mujoworld.com';
     const href = `${siteUrl.replace(/\/$/, '')}/api/billing-portal/redeem?token=${encodeURIComponent(token)}`;

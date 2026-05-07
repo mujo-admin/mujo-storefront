@@ -28,7 +28,7 @@ export async function GET(req: NextRequest) {
     return Response.redirect(`${siteUrl}/account/expired?reason=missing`, 302);
   }
 
-  const result = await verifyAndConsumeToken(token);
+  const result = await verifyAndConsumeToken('billing-portal', token);
   if (!result.ok) {
     return Response.redirect(`${siteUrl}${ERROR_PATHS[result.reason]}`, 302);
   }
