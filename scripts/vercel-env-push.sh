@@ -67,6 +67,12 @@ VARS=(
   NEXT_PUBLIC_RITUAL_PRICE_25_SUBSCRIPTION
   # Subscription discount coupon (15% off, applied server-side in /api/checkout)
   STRIPE_SUBSCRIPTION_COUPON_ID
+  # --- On-site checkout (2026-05-07 — phases 0-2 + Embedded Checkout pivot) ---
+  NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY  # pk_test_… exposed to browser for loadStripe()
+  MUJO_SESSION_SECRET                 # JWT signing for /account session cookie (Phase 3)
+  EMAIL_CHANGE_SECRET                 # JWT signing for email-change token (Phase 5)
+  NEXT_PUBLIC_ENABLE_EXPRESS_CHECKOUT # ECE flag (false on staging, true post-cutover)
+  NEXT_PUBLIC_ENABLE_ON_SITE_CHECKOUT # legacy flag (vestigial post-pivot, kept for documentation)
 )
 
 ENV_SCOPE="${VERCEL_ENV:-production}"
