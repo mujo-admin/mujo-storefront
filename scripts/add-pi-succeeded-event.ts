@@ -48,7 +48,10 @@ async function main() {
     }
     console.log(`\nUpdating ${ep.id}...`);
     const updated = await stripe.webhookEndpoints.update(ep.id, {
-      enabled_events: [...ep.enabled_events, 'payment_intent.succeeded'],
+      enabled_events: [
+        ...ep.enabled_events,
+        'payment_intent.succeeded',
+      ] as Stripe.WebhookEndpointUpdateParams.EnabledEvent[],
     });
     console.log(`✓ Updated. New events (${updated.enabled_events.length}): ${updated.enabled_events.join(', ')}`);
   }
