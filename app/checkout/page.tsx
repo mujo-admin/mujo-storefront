@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CheckoutForm } from "components/checkout/checkout-form";
+import { EmbeddedCheckoutMount } from "components/checkout/embedded-checkout";
 
 export const metadata: Metadata = {
   title: "Checkout",
@@ -12,7 +12,7 @@ export const dynamic = "force-dynamic";
 export default function CheckoutPage() {
   return (
     <div className="checkout-page-shell">
-      <CheckoutForm />
+      <EmbeddedCheckoutMount />
       <style>{`
         .checkout-page-shell {
           background: var(--cream);

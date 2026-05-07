@@ -20,27 +20,43 @@ export default async function CheckoutSuccessPage(props: {
   searchParams: SearchParams;
 }) {
   const params = await props.searchParams;
-  const piId = asString(params.payment_intent);
+  const sessionId = asString(params.session_id);
   const eventId = asString(params.event_id);
 
-  let pi: Awaited<ReturnType<typeof stripe.paymentIntents.retrieve>> | null = null;
-  if (piId) {
+  let session: Awaited<
+    ReturnType<typeof stripe.checkout.sessions.retrieve>
+  > | null = null;
+  if (sessionId) {
     try {
-      pi = await stripe.paymentIntents.retrieve(piId);
+      session = await stripe.checkout.sessions.retrieve(sessionId, {
+        expand: ['payment_intent'],
+      });
     } catch (err) {
-      console.error("[checkout/success] retrieve PI failed", piId, err);
+      console.error('[checkout/success] retrieve session failed', sessionId, err);
     }
   }
 
-  const status = pi?.status ?? "unknown";
-  const amount = pi?.amount ?? 0;
-  const currency = (pi?.currency ?? "usd").toUpperCase();
-  const email = pi?.receipt_email ?? null;
+  // Mode-specific status read.
+  // Hosted Checkout sets `payment_status` to "paid" / "unpaid" / "no_payment_required".
+  // For subscriptions, "no_payment_required" can occur if a 100%-off coupon is applied.
+  const paymentStatus = session?.payment_status ?? 'unknown';
+  const status = session?.status ?? 'unknown';
+
+  const isSucceeded =
+    status === 'complete' &&
+    (paymentStatus === 'paid' || paymentStatus === 'no_payment_required');
+  const isProcessing =
+    status === 'open' || (status === 'complete' && paymentStatus === 'unpaid');
+
+  const amount = session?.amount_total ?? 0;
+  const currency = (session?.currency ?? 'usd').toUpperCase();
+  const email = session?.customer_details?.email ?? null;
+  const mode = session?.mode ?? 'payment';
 
   return (
     <div className="success-shell">
       <div className="success-card">
-        {status === "succeeded" ? (
+        {isSucceeded ? (
           <>
             <div className="success-glyph" aria-hidden>
               ✓
@@ -54,6 +70,9 @@ export default async function CheckoutSuccessPage(props: {
                 style: "currency",
                 currency,
               }).format(amount / 100)}
+              {mode === 'subscription' ? (
+                <span className="success-amount-suffix"> / month</span>
+              ) : null}
             </div>
             <div className="success-actions">
               <Link href="/account/login" className="success-btn">
@@ -68,7 +87,7 @@ export default async function CheckoutSuccessPage(props: {
               You'll receive a tracking email when it leaves the warehouse.
             </p>
           </>
-        ) : status === "processing" ? (
+        ) : isProcessing ? (
           <>
             <div className="success-glyph processing" aria-hidden>
               …
@@ -98,10 +117,10 @@ export default async function CheckoutSuccessPage(props: {
         )}
       </div>
 
-      {pi && status === "succeeded" ? (
+      {session && isSucceeded ? (
         <CheckoutSuccessClient
           eventId={eventId ?? null}
-          paymentIntentId={pi.id}
+          sessionId={session.id}
           amount={amount}
           currency={currency}
           email={email}
@@ -160,6 +179,12 @@ export default async function CheckoutSuccessPage(props: {
           color: var(--ink);
           margin: 16px 0 24px;
           letter-spacing: 0.02em;
+        }
+        .success-amount-suffix {
+          font-size: 14px;
+          color: var(--mute);
+          letter-spacing: 0;
+          margin-left: 4px;
         }
         .success-actions {
           display: flex;

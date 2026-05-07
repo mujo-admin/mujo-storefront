@@ -7,7 +7,7 @@ import { clearLocalStorage, makeEmptyCart } from "lib/cart/store";
 
 type Props = {
   eventId: string | null;
-  paymentIntentId: string;
+  sessionId: string;
   amount: number;
   currency: string;
   email: string | null;
@@ -23,7 +23,7 @@ type Props = {
  */
 export function CheckoutSuccessClient({
   eventId,
-  paymentIntentId,
+  sessionId,
   amount,
   currency,
   email,
@@ -39,7 +39,7 @@ export function CheckoutSuccessClient({
     trackPixelEvent(
       "Purchase",
       { currency, value: amount / 100 },
-      eventId ?? paymentIntentId,
+      eventId ?? sessionId,
     );
 
     // Klaviyo client event — fire-and-forget. The webhook also fires
@@ -52,7 +52,7 @@ export function CheckoutSuccessClient({
           email,
           metric: "Order Confirmation Viewed",
           properties: {
-            PaymentIntentId: paymentIntentId,
+            CheckoutSessionId: sessionId,
             Value: amount / 100,
             Currency: currency,
           },
@@ -65,7 +65,7 @@ export function CheckoutSuccessClient({
     // Empty the local cart — the order is placed.
     setCart(makeEmptyCart());
     clearLocalStorage();
-  }, [eventId, paymentIntentId, amount, currency, email, setCart]);
+  }, [eventId, sessionId, amount, currency, email, setCart]);
 
   return null;
 }
