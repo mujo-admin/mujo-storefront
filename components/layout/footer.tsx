@@ -130,7 +130,29 @@ export function Footer() {
               { href: "/ambassador", label: "Ambassador program" },
             ]}
           >
-            <ManageSubscriptionButton />
+            <ManageSubscriptionButton
+              trigger={({ onClick }) => (
+                <button
+                  type="button"
+                  onClick={onClick}
+                  className="foot-link foot-link-button"
+                  style={{
+                    fontSize: 14,
+                    color: "rgba(255,255,255,0.55)",
+                    background: "transparent",
+                    border: "none",
+                    padding: 0,
+                    margin: 0,
+                    fontFamily: "inherit",
+                    textAlign: "left",
+                    cursor: "pointer",
+                    transition: "color 0.2s",
+                  }}
+                >
+                  Manage my subscription
+                </button>
+              )}
+            />
           </FooterColumn>
         </div>
         <div
