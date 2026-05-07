@@ -1,19 +1,27 @@
 'use client';
 
-// Skeleton "Manage subscription" button + email-input modal.
-// W3 reskins this into the proper site footer; for W2 it lives wherever the
-// dev wants to drop it (e.g., /account or footer).
+// "Manage subscription" trigger + email-input modal. The default trigger is a
+// pill button (used by the footer); pass a `trigger` render prop to swap the
+// trigger element while keeping the same modal flow (used by the nav account
+// icon).
 //
 // On submit, POSTs to /api/billing-portal/request. Success state shows a
 // "Check your email" confirmation regardless of whether a customer was found
 // (anti-enumeration is enforced server-side).
 
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
+
+type TriggerRenderProps = {
+  onClick: () => void;
+};
 
 export function ManageSubscriptionButton({
   className = '',
+  trigger,
 }: {
   className?: string;
+  /** Optional custom trigger. If omitted, renders a default pill button. */
+  trigger?: (props: TriggerRenderProps) => ReactNode;
 }) {
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState('');
@@ -45,23 +53,29 @@ export function ManageSubscriptionButton({
     setEmail('');
   }
 
+  const openModal = () => setOpen(true);
+
   return (
     <>
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        className={className}
-        style={{
-          background: 'transparent',
-          border: '1px solid currentColor',
-          borderRadius: 999,
-          padding: '8px 18px',
-          fontSize: 14,
-          cursor: 'pointer',
-        }}
-      >
-        Manage my subscription
-      </button>
+      {trigger ? (
+        trigger({ onClick: openModal })
+      ) : (
+        <button
+          type="button"
+          onClick={openModal}
+          className={className}
+          style={{
+            background: 'transparent',
+            border: '1px solid currentColor',
+            borderRadius: 999,
+            padding: '8px 18px',
+            fontSize: 14,
+            cursor: 'pointer',
+          }}
+        >
+          Manage my subscription
+        </button>
+      )}
 
       {open && (
         <div

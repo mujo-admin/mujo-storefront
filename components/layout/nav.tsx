@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { ManageSubscriptionButton } from "components/ManageSubscriptionButton";
 
 type NavProps = {
   cartCount: number;
@@ -68,19 +69,34 @@ export function Nav({ cartCount, onOpenMenu, onOpenCart }: NavProps) {
       </div>
 
       <div className="nav-right">
-        <Link href="/account" className="nav-icon" aria-label="Account">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.6"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <circle cx="12" cy="8" r="4" />
-            <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" />
-          </svg>
-        </Link>
+        {/*
+          Account icon → opens the same magic-link modal as the footer's
+          "Manage subscription" button (W2 /api/billing-portal/request flow).
+          Phase 5 will replace this with a proper /account/login route once
+          the account dashboard ships.
+        */}
+        <ManageSubscriptionButton
+          trigger={({ onClick }) => (
+            <button
+              type="button"
+              onClick={onClick}
+              className="nav-icon"
+              aria-label="Manage subscription"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" />
+              </svg>
+            </button>
+          )}
+        />
         <button
           type="button"
           className="nav-icon"
