@@ -262,14 +262,27 @@ export function ProfileForm({
       </form>
 
       <style>{`
-        .profile-form { display: flex; flex-direction: column; }
-        .profile-section { padding: 8px 0 4px; }
+        .profile-form {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+        .profile-section {
+          background: #fff;
+          border: 1px solid rgba(26, 26, 26, 0.06);
+          border-radius: 14px;
+          padding: 24px;
+        }
+        @media (min-width: 768px) {
+          .profile-section { padding: 28px; }
+        }
         .profile-section-title {
           font-family: var(--f-display);
           font-size: 19px;
           font-weight: 500;
           margin: 0 0 14px;
-          letter-spacing: -0.005em;
+          letter-spacing: -0.01em;
+          color: var(--ink);
         }
         .profile-help {
           font-size: 13px;
@@ -343,9 +356,7 @@ export function ProfileForm({
         .profile-feedback.ok { color: #4d6f4d; }
         .profile-feedback.err { color: #9b3d2c; }
         .profile-hr {
-          border: none;
-          border-top: 1px solid var(--line);
-          margin: 32px 0;
+          display: none;
         }
         .profile-success-card {
           background: rgba(124, 167, 124, 0.12);

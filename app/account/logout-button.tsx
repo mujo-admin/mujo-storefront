@@ -3,27 +3,62 @@
 import { useState } from "react";
 import { clearLocalStorage } from "lib/cart/store";
 
-export function LogoutButton() {
+/**
+ * Sign-out CTA. Two variants:
+ *   - "button" (default) — pill-shaped button with border.
+ *   - "link"             — inline mono-uppercase link, used inside the
+ *                          <AccountChrome /> tab row (matches canonical
+ *                          design's `.acc-signout`).
+ */
+export function LogoutButton({
+  variant = "button",
+}: {
+  variant?: "button" | "link";
+}) {
   const [pending, setPending] = useState(false);
 
   async function logout() {
     if (pending) return;
     setPending(true);
-    // POST then full-page reload to homepage. /api/auth/logout returns a 303
-    // to /, but fetch() doesn't follow redirects across origins/methods
-    // reliably for cookie-clearing flows; do an explicit window.location swap.
     try {
-      await fetch("/api/auth/logout", {
-        method: "POST",
-      });
+      await fetch("/api/auth/logout", { method: "POST" });
     } catch {
       // Logout is fire-and-forget — clear local state regardless.
     }
-    // Per Phase 4 spec: clear localStorage cart so the next guest on this
-    // browser doesn't see the previous user's cart. Server cart in Postgres
-    // is preserved for the next login — that's the source of truth.
+    // Clear localStorage cart so the next guest on this browser doesn't see
+    // the previous user's cart (server cart in Postgres is preserved).
     clearLocalStorage();
     window.location.assign("/");
+  }
+
+  if (variant === "link") {
+    return (
+      <a
+        href="#sign-out"
+        onClick={(e) => {
+          e.preventDefault();
+          logout();
+        }}
+        className="acc-signout-link"
+        aria-disabled={pending}
+      >
+        {pending ? "Signing out…" : "Sign out"}
+        <style>{`
+          .acc-signout-link {
+            font-family: var(--f-mono);
+            font-size: 11px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--mute);
+            text-decoration: none;
+            transition: color 0.2s;
+            cursor: pointer;
+          }
+          .acc-signout-link:hover { color: var(--orange-deep); }
+          .acc-signout-link[aria-disabled="true"] { opacity: 0.6; cursor: not-allowed; }
+        `}</style>
+      </a>
+    );
   }
 
   return (

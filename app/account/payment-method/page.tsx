@@ -1,10 +1,7 @@
 // /account/payment-method — update default card via SetupIntent.
 //
-// Server component: gates on session, fetches current default card from
-// Stripe Customer.invoice_settings.default_payment_method, hands to client
-// form. The form mounts <Elements /> with PaymentElement when "Update card"
-// is clicked, confirms the SetupIntent, then PATCHes back to the server to
-// promote the new PM to default + propagate to active subscriptions.
+// Reached via /account/subscription's "Paying with · Change" link. Shares
+// the AccountChrome with subscription as the active tab.
 
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -14,7 +11,11 @@ import { eq } from "drizzle-orm";
 import { customers, db } from "db";
 import { stripe } from "lib/stripe";
 import { getSession } from "lib/session";
-import { PaymentMethodForm, type CurrentCard } from "components/account/payment-method-form";
+import { AccountChrome } from "components/account/account-chrome";
+import {
+  PaymentMethodForm,
+  type CurrentCard,
+} from "components/account/payment-method-form";
 
 export const metadata: Metadata = {
   title: "Payment method",
@@ -77,17 +78,21 @@ export default async function PaymentMethodPage({
     }
   }
 
-  const hasStripeCustomer = customerRow?.stripeCustomerId !== null && customerRow?.stripeCustomerId !== undefined;
+  const hasStripeCustomer = Boolean(customerRow?.stripeCustomerId);
 
   return (
-    <div className="pm-shell">
-      <div className="pm-shell-inner">
-        <Link href="/account" className="pm-back">
-          ← Back to account
+    <AccountChrome
+      activeTab="subscription"
+      eyebrow="Account · Payment method"
+      title="Payment"
+      titleAccent="method."
+      lede="Update your default card. Saved securely with Stripe — Mujo never sees the card number."
+      containerWidth="narrow"
+    >
+      <div className="pm-wrap">
+        <Link href="/account/subscription" className="pm-back-link">
+          ← Back to subscription
         </Link>
-        <h1 className="pm-title">
-          Payment <em>method</em>
-        </h1>
 
         {updated ? (
           <div className="pm-banner">
@@ -97,15 +102,19 @@ export default async function PaymentMethodPage({
         ) : null}
 
         {hasStripeCustomer ? (
-          <PaymentMethodForm currentCard={currentCard} />
+          <div className="pm-card-wrap">
+            <PaymentMethodForm currentCard={currentCard} />
+          </div>
         ) : (
           <div className="pm-empty">
+            <div className="pm-empty-illo">💳</div>
+            <h3>No card on file yet</h3>
             <p>
-              You haven&apos;t completed a checkout yet, so there&apos;s nothing
-              to update. Once you place an order or start a subscription, your
-              card details will be available here.
+              You haven&rsquo;t completed a checkout yet, so there&rsquo;s
+              nothing to update. Once you place an order or start a
+              subscription, your card details will be available here.
             </p>
-            <Link href="/products/mujo-ritual" className="pm-cta">
+            <Link href="/products/mujo-ritual" className="pm-empty-cta">
               Start a subscription →
             </Link>
           </div>
@@ -113,46 +122,23 @@ export default async function PaymentMethodPage({
       </div>
 
       <style>{`
-        .pm-shell {
-          background: var(--cream);
-          min-height: calc(100vh - 100px);
-          font-family: var(--f-body);
-          color: var(--ink);
-        }
-        .pm-shell-inner {
-          max-width: 580px;
-          margin: 0 auto;
-          padding: 40px 20px 80px;
-        }
-        .pm-back {
+        .pm-wrap { padding-bottom: 80px; }
+        .pm-back-link {
           display: inline-block;
           font-family: var(--f-mono);
           font-size: 11px;
           letter-spacing: 0.06em;
           color: var(--ink-soft);
           text-decoration: none;
-          margin-bottom: 24px;
+          margin-bottom: 18px;
         }
-        .pm-back:hover { color: var(--orange-deep); }
-        .pm-title {
-          font-family: var(--f-display);
-          font-size: 30px;
-          font-weight: 500;
-          letter-spacing: -0.01em;
-          margin: 0 0 24px;
-          line-height: 1.15;
-        }
-        .pm-title em {
-          font-family: 'Instrument Serif', Georgia, serif;
-          font-style: italic;
-          color: var(--orange-deep);
-          font-weight: 400;
-        }
+        .pm-back-link:hover { color: var(--orange-deep); }
+
         .pm-banner {
           background: rgba(124, 167, 124, 0.12);
           border-radius: 12px;
           padding: 14px 16px;
-          margin-bottom: 22px;
+          margin-bottom: 18px;
           font-size: 13px;
           color: #4d6f4d;
           line-height: 1.5;
@@ -162,30 +148,56 @@ export default async function PaymentMethodPage({
           margin-bottom: 2px;
           color: #3d5a3d;
         }
+
+        .pm-card-wrap {
+          background: #fff;
+          border: 1px solid rgba(26, 26, 26, 0.06);
+          border-radius: 16px;
+          padding: 24px;
+        }
+        @media (min-width: 768px) {
+          .pm-card-wrap { padding: 32px; }
+        }
+
         .pm-empty {
-          background: var(--cream);
+          background: #fff;
+          border: 1px solid rgba(26, 26, 26, 0.06);
           border-radius: 14px;
-          padding: 28px 24px;
+          padding: 56px 32px;
+          text-align: center;
+        }
+        .pm-empty-illo {
+          font-size: 48px;
+          opacity: 0.4;
+          margin-bottom: 14px;
+        }
+        .pm-empty h3 {
+          font-family: var(--f-display);
+          font-size: 22px;
+          font-weight: 500;
+          margin: 0 0 8px;
+          letter-spacing: -0.01em;
+          color: var(--ink);
         }
         .pm-empty p {
           font-size: 14px;
           color: var(--ink-soft);
           line-height: 1.55;
-          margin: 0 0 16px;
+          margin: 0 auto 22px;
+          max-width: 380px;
         }
-        .pm-cta {
-          font-family: var(--f-mono);
-          font-size: 12px;
-          letter-spacing: 0.04em;
-          color: var(--orange-deep);
+        .pm-empty-cta {
+          display: inline-block;
+          background: var(--orange);
+          color: #fff;
           text-decoration: none;
+          padding: 12px 22px;
+          border-radius: 100px;
+          font-size: 14px;
+          font-weight: 500;
         }
-        .pm-cta:hover { color: var(--orange); }
-        @media (max-width: 600px) {
-          .pm-shell-inner { padding: 28px 14px 60px; }
-          .pm-title { font-size: 24px; }
-        }
+        .pm-empty-cta:hover { background: var(--orange-deep); }
       `}</style>
-    </div>
+    </AccountChrome>
   );
 }

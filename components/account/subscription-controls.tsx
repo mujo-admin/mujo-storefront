@@ -1,12 +1,14 @@
 "use client";
 
-// Client component: subscription detail card + 4 action buttons (pause, skip
-// next, cancel, resume) with confirmation modals.
+// Client component: Quick changes section (Skip next delivery) + Need a
+// break section (Pause / Cancel / Resume) with confirmation modals.
 //
-// Modals use a body-scroll-lock + Escape-to-close + click-outside-to-close
-// pattern matching the existing /components/ManageSubscriptionButton.tsx.
+// The detail card (image, name, status pill, fields grid) is rendered by
+// the parent server page — this component owns only the action buttons +
+// modal state that need client-side interactivity.
 //
-// Cancel is a 2-step modal per plan §5.3 — reason picker + confirmation.
+// Cancel is a 2-step modal per plan §5.3 — reason picker (mapped to Stripe
+// cancellation_details.feedback) + confirmation.
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -17,10 +19,10 @@ export type SubscriptionDetail = {
   status: string;
   currentPeriodEnd: string; // ISO
   cancelAtPeriodEnd: boolean;
-  pausedAt: string | null; // ISO
+  pausedAt: string | null;
   unitAmountCents: number | null;
   currency: string;
-  createdAt: string; // ISO
+  createdAt: string;
 };
 
 type Action = "pause" | "skip-next" | "cancel" | "resume";
@@ -36,13 +38,16 @@ const CANCEL_REASONS: Array<{ id: string; label: string }> = [
   { id: "other", label: "Other reason" },
 ];
 
-export function SubscriptionControls({ detail }: { detail: SubscriptionDetail }) {
+export function SubscriptionControls({
+  detail,
+}: {
+  detail: SubscriptionDetail;
+}) {
   const router = useRouter();
   const [openModal, setOpenModal] = useState<Action | null>(null);
   const [pending, setPending] = useState<Action | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  // Step 1: 3-input cancel modal state.
   const [cancelStep, setCancelStep] = useState<1 | 2>(1);
   const [cancelReason, setCancelReason] = useState<string>("");
   const [cancelComment, setCancelComment] = useState<string>("");
@@ -99,114 +104,136 @@ export function SubscriptionControls({ detail }: { detail: SubscriptionDetail })
   }
 
   return (
-    <div className="ctrl-shell">
-      {/* Detail card */}
-      <div className="ctrl-detail">
-        <div className="ctrl-detail-row">
-          <div className="ctrl-eyebrow">Plan</div>
-          <div className="ctrl-value">{detail.productLabel}</div>
-        </div>
-        <div className="ctrl-detail-row">
-          <div className="ctrl-eyebrow">Status</div>
-          <div className="ctrl-value">
-            <StatusPill detail={detail} />
-          </div>
-        </div>
-        {detail.unitAmountCents !== null ? (
-          <div className="ctrl-detail-row">
-            <div className="ctrl-eyebrow">Price per cycle</div>
-            <div className="ctrl-value">
-              {formatCents(detail.unitAmountCents, detail.currency)}
-            </div>
-          </div>
-        ) : null}
-        <div className="ctrl-detail-row">
-          <div className="ctrl-eyebrow">
-            {isCanceling ? "Access until" : "Next delivery"}
-          </div>
-          <div className="ctrl-value">{formatDate(detail.currentPeriodEnd)}</div>
-        </div>
-        <div className="ctrl-detail-row">
-          <div className="ctrl-eyebrow">Active since</div>
-          <div className="ctrl-value">{formatDate(detail.createdAt)}</div>
-        </div>
-      </div>
-
-      {/* Actions */}
-      <div className="ctrl-actions">
-        {isResumable ? (
-          <button
-            type="button"
-            className="ctrl-btn ctrl-btn-primary"
-            onClick={() => setOpenModal("resume")}
-            disabled={pending !== null}
-          >
-            Resume subscription
-          </button>
-        ) : (
-          <>
+    <>
+      {/* Quick changes section — only shown when sub is not in resume state */}
+      {!isResumable ? (
+        <section className="sub-actions-section">
+          <header className="sub-actions-section-head">
+            <span className="acc-eyebrow-orange">Quick changes</span>
+            <h3>
+              One tap. <em>That&rsquo;s it.</em>
+            </h3>
+            <p>
+              Anything here updates instantly. We&rsquo;ll send a confirmation
+              email so you have a record.
+            </p>
+          </header>
+          <div className="sub-action-grid">
             <button
               type="button"
-              className="ctrl-btn ctrl-btn-secondary"
+              className="sub-action-btn"
               onClick={() => setOpenModal("skip-next")}
               disabled={pending !== null}
             >
-              Skip next delivery
+              <span className="sub-action-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="13 17 18 12 13 7" />
+                  <line x1="6" y1="12" x2="18" y2="12" />
+                </svg>
+              </span>
+              <span className="sub-action-text">
+                <strong>Skip the next delivery</strong>
+                <span>We&rsquo;ll bump it forward and resume on schedule.</span>
+              </span>
             </button>
-            <button
-              type="button"
-              className="ctrl-btn ctrl-btn-secondary"
-              onClick={() => setOpenModal("pause")}
-              disabled={pending !== null}
-            >
-              Pause subscription
-            </button>
-            <button
-              type="button"
-              className="ctrl-btn ctrl-btn-tertiary"
-              onClick={() => setOpenModal("cancel")}
-              disabled={pending !== null}
-            >
-              Cancel
-            </button>
-          </>
+          </div>
+        </section>
+      ) : null}
+
+      {/* Need a break section */}
+      <section className="sub-danger">
+        <header className="sub-danger-head">
+          <span className="acc-eyebrow-mute">
+            {isResumable ? "Resume" : "Need a break"}
+          </span>
+          <h3>
+            {isResumable
+              ? "Glad to have you back."
+              : "Pause or cancel."}
+            {!isResumable ? (
+              <>
+                {" "}
+                <em>No interrogation.</em>
+              </>
+            ) : null}
+          </h3>
+        </header>
+        {isResumable ? (
+          <p>
+            {isPaused
+              ? "Pick up where you left off. We'll resume on your next cycle."
+              : "Cancel pending — change your mind anytime before " +
+                formatLongDate(detail.currentPeriodEnd) +
+                "."}
+          </p>
+        ) : (
+          <p>
+            Going on holiday or stepping away for a while? Pause for up to 3
+            months without losing your member rate. Cancelling is fine too —
+            no five-step exit interview, no salt.
+          </p>
         )}
-      </div>
+        <div className="sub-danger-btns">
+          {isResumable ? (
+            <button
+              type="button"
+              className="sub-danger-btn primary"
+              onClick={() => setOpenModal("resume")}
+              disabled={pending !== null}
+            >
+              Resume subscription
+            </button>
+          ) : (
+            <>
+              <button
+                type="button"
+                className="sub-danger-btn"
+                onClick={() => setOpenModal("pause")}
+                disabled={pending !== null}
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="6" y="4" width="4" height="16" />
+                  <rect x="14" y="4" width="4" height="16" />
+                </svg>
+                Pause subscription
+              </button>
+              <button
+                type="button"
+                className="sub-danger-btn"
+                onClick={() => setOpenModal("cancel")}
+                disabled={pending !== null}
+              >
+                Cancel subscription
+              </button>
+            </>
+          )}
+        </div>
+      </section>
 
-      <p className="ctrl-fineprint">
-        Changes take effect at the end of the current billing period. You keep
-        access to anything already paid for. No fees for pausing or cancelling.
-      </p>
+      {/* --- Modals --- */}
 
-      {/* Modals */}
       {openModal === "pause" ? (
-        <Modal onClose={closeModal} title="Pause subscription">
+        <Modal onClose={closeModal} title="Pause" titleAccent="subscription.">
           <p className="modal-body-text">
             Skip your next delivery and pause billing for{" "}
-            <strong>{pauseCycles}</strong> cycle{pauseCycles === 1 ? "" : "s"}.
-            Your subscription resumes automatically after.
+            <strong>{pauseCycles}</strong>{" "}
+            {pauseCycles === 1 ? "cycle" : "cycles"}. Resumes automatically
+            after — keep your member rate.
           </p>
-          <fieldset className="modal-fieldset">
-            <legend className="modal-legend">Pause for</legend>
-            <div className="modal-radio-row">
-              {[1, 2, 3].map((n) => (
-                <label key={n} className="modal-radio">
-                  <input
-                    type="radio"
-                    name="pause-cycles"
-                    value={n}
-                    checked={pauseCycles === n}
-                    onChange={() => setPauseCycles(n as 1 | 2 | 3)}
-                  />
-                  <span>
-                    {n} cycle{n === 1 ? "" : "s"}
-                  </span>
-                </label>
-              ))}
-            </div>
-          </fieldset>
+          <div className="modal-options">
+            {[1, 2, 3].map((n) => (
+              <button
+                key={n}
+                type="button"
+                className={`modal-option ${pauseCycles === n ? "selected" : ""}`}
+                onClick={() => setPauseCycles(n as 1 | 2 | 3)}
+              >
+                Pause for {n} {n === 1 ? "month" : "months"}
+              </button>
+            ))}
+          </div>
           {error ? <p className="modal-error">{error}</p> : null}
-          <ModalActions
+          <ModalFoot
             onCancel={closeModal}
             onConfirm={() => performAction("pause", { cycles: pauseCycles })}
             confirmLabel="Pause subscription"
@@ -216,46 +243,43 @@ export function SubscriptionControls({ detail }: { detail: SubscriptionDetail })
       ) : null}
 
       {openModal === "skip-next" ? (
-        <Modal onClose={closeModal} title="Skip next delivery">
+        <Modal onClose={closeModal} title="Skip this" titleAccent="delivery?">
           <p className="modal-body-text">
             Your next delivery on{" "}
-            <strong>{formatDate(detail.currentPeriodEnd)}</strong> will be
-            skipped. Billing will resume on the cycle after.
+            <strong>{formatLongDate(detail.currentPeriodEnd)}</strong> will be
+            skipped. Billing resumes on the cycle after. No charge in the
+            meantime.
           </p>
           {error ? <p className="modal-error">{error}</p> : null}
-          <ModalActions
+          <ModalFoot
             onCancel={closeModal}
             onConfirm={() => performAction("skip-next")}
-            confirmLabel="Skip next delivery"
+            confirmLabel="Yes, skip"
             pending={pending === "skip-next"}
           />
         </Modal>
       ) : null}
 
       {openModal === "cancel" ? (
-        <Modal onClose={closeModal} title="Cancel subscription">
+        <Modal onClose={closeModal} title="Cancel" titleAccent="subscription.">
           {cancelStep === 1 ? (
             <>
               <p className="modal-body-text">
-                We're sorry to see you go. Could you tell us why? Your answer
-                helps us improve.
+                We&rsquo;re sorry to see you go. Could you tell us why? Your
+                answer helps us improve. (Optional but appreciated.)
               </p>
-              <fieldset className="modal-fieldset">
-                <div className="modal-radio-stack">
-                  {CANCEL_REASONS.map((r) => (
-                    <label key={r.id} className="modal-radio">
-                      <input
-                        type="radio"
-                        name="cancel-reason"
-                        value={r.id}
-                        checked={cancelReason === r.id}
-                        onChange={() => setCancelReason(r.id)}
-                      />
-                      <span>{r.label}</span>
-                    </label>
-                  ))}
-                </div>
-              </fieldset>
+              <div className="modal-options">
+                {CANCEL_REASONS.map((r) => (
+                  <button
+                    key={r.id}
+                    type="button"
+                    className={`modal-option ${cancelReason === r.id ? "selected" : ""}`}
+                    onClick={() => setCancelReason(r.id)}
+                  >
+                    {r.label}
+                  </button>
+                ))}
+              </div>
               <label className="modal-textarea-label">
                 <span>Anything else? (optional)</span>
                 <textarea
@@ -267,7 +291,7 @@ export function SubscriptionControls({ detail }: { detail: SubscriptionDetail })
                   placeholder="Optional — tell us more."
                 />
               </label>
-              <ModalActions
+              <ModalFoot
                 onCancel={closeModal}
                 onConfirm={() => setCancelStep(2)}
                 confirmLabel="Continue"
@@ -277,16 +301,16 @@ export function SubscriptionControls({ detail }: { detail: SubscriptionDetail })
           ) : (
             <>
               <p className="modal-body-text">
-                Cancel at the end of the current billing period? You'll keep
-                access until{" "}
-                <strong>{formatDate(detail.currentPeriodEnd)}</strong>, then
-                billing stops.
+                That&rsquo;s fine. No questions, no five-step exit. You&rsquo;ll
+                keep access until{" "}
+                <strong>{formatLongDate(detail.currentPeriodEnd)}</strong>.
+                Then billing stops.
               </p>
               <p className="modal-secondary-text">
                 Change your mind? You can resume anytime before that date.
               </p>
               {error ? <p className="modal-error">{error}</p> : null}
-              <ModalActions
+              <ModalFoot
                 onCancel={() => setCancelStep(1)}
                 cancelLabel="← Back"
                 onConfirm={() =>
@@ -296,7 +320,6 @@ export function SubscriptionControls({ detail }: { detail: SubscriptionDetail })
                   })
                 }
                 confirmLabel="Cancel subscription"
-                confirmDanger
                 pending={pending === "cancel"}
               />
             </>
@@ -305,14 +328,14 @@ export function SubscriptionControls({ detail }: { detail: SubscriptionDetail })
       ) : null}
 
       {openModal === "resume" ? (
-        <Modal onClose={closeModal} title="Resume subscription">
+        <Modal onClose={closeModal} title="Resume" titleAccent="subscription.">
           <p className="modal-body-text">
             {isPaused
               ? "Resume billing on your next cycle? Your subscription will continue from where it paused."
               : "Stay subscribed and continue your deliveries? We'll cancel the pending cancellation."}
           </p>
           {error ? <p className="modal-error">{error}</p> : null}
-          <ModalActions
+          <ModalFoot
             onCancel={closeModal}
             onConfirm={() => performAction("resume")}
             confirmLabel="Resume subscription"
@@ -322,88 +345,196 @@ export function SubscriptionControls({ detail }: { detail: SubscriptionDetail })
       ) : null}
 
       <style>{`
-        .ctrl-shell { display: flex; flex-direction: column; gap: 22px; }
-        .ctrl-detail {
-          background: var(--cream);
-          border-radius: 14px;
-          padding: 22px 22px 6px;
-          display: flex;
-          flex-direction: column;
+        /* Quick changes section */
+        .sub-actions-section {
+          background: #fff;
+          border: 1px solid rgba(26, 26, 26, 0.06);
+          border-radius: 16px;
+          padding: 24px;
+          margin-bottom: 20px;
         }
-        .ctrl-detail-row {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 10px 0;
-          border-bottom: 1px solid var(--line);
-          gap: 14px;
+        @media (min-width: 768px) {
+          .sub-actions-section { padding: 32px; }
         }
-        .ctrl-detail-row:last-child { border-bottom: none; }
-        .ctrl-eyebrow {
+        .sub-actions-section-head { margin-bottom: 18px; }
+        .acc-eyebrow-orange {
           font-family: var(--f-mono);
           font-size: 11px;
-          letter-spacing: 0.06em;
-          color: var(--mute);
+          letter-spacing: 0.2em;
           text-transform: uppercase;
-        }
-        .ctrl-value {
-          font-size: 14px;
-          color: var(--ink);
-          text-align: right;
-          font-variant-numeric: tabular-nums;
-        }
-        .ctrl-actions {
-          display: flex;
-          gap: 10px;
-          flex-wrap: wrap;
-        }
-        .ctrl-btn {
-          font-family: var(--f-body);
-          font-size: 14px;
-          font-weight: 500;
-          padding: 12px 22px;
-          border-radius: 100px;
-          cursor: pointer;
-          transition: background 0.15s, border-color 0.15s, color 0.15s;
-        }
-        .ctrl-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .ctrl-btn-primary {
-          background: var(--orange);
-          color: #fff;
-          border: 1px solid var(--orange);
-        }
-        .ctrl-btn-primary:hover:not(:disabled) { background: var(--orange-deep); }
-        .ctrl-btn-secondary {
-          background: transparent;
-          color: var(--ink);
-          border: 1px solid var(--line);
-        }
-        .ctrl-btn-secondary:hover:not(:disabled) {
-          border-color: var(--orange);
           color: var(--orange-deep);
+          font-weight: 500;
+          display: inline-block;
+          margin-bottom: 8px;
         }
-        .ctrl-btn-tertiary {
-          background: transparent;
-          color: var(--ink-soft);
-          border: 1px solid transparent;
-          padding: 12px 12px;
-          text-decoration: underline;
-          text-underline-offset: 3px;
-        }
-        .ctrl-btn-tertiary:hover:not(:disabled) { color: #9b3d2c; }
-        .ctrl-fineprint {
-          font-size: 12px;
+        .acc-eyebrow-mute {
+          font-family: var(--f-mono);
+          font-size: 11px;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
           color: var(--mute);
-          line-height: 1.55;
+          font-weight: 500;
+          display: inline-block;
+          margin-bottom: 8px;
+        }
+        .sub-actions-section-head h3 {
+          font-family: var(--f-display);
+          font-size: 22px;
+          font-weight: 500;
           margin: 0;
-          max-width: 540px;
+          line-height: 1.2;
+          letter-spacing: -0.02em;
+          color: var(--ink);
+        }
+        .sub-actions-section-head h3 em {
+          font-family: var(--f-serif);
+          font-style: italic;
+          color: var(--orange);
+          font-weight: 400;
+        }
+        .sub-actions-section-head p {
+          font-size: 14px;
+          color: var(--ink-soft);
+          margin: 6px 0 0;
+          line-height: 1.55;
+          max-width: 480px;
         }
 
-        /* --- Modal --- */
+        .sub-action-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+        @media (min-width: 640px) {
+          .sub-action-grid { grid-template-columns: 1fr 1fr; }
+        }
+        .sub-action-btn {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          padding: 16px 18px;
+          background: var(--cream);
+          border: 1px solid transparent;
+          border-radius: 12px;
+          text-decoration: none;
+          color: var(--ink);
+          cursor: pointer;
+          transition: all 0.2s;
+          text-align: left;
+          font-family: var(--f-body);
+          width: 100%;
+        }
+        .sub-action-btn:hover:not(:disabled) {
+          border-color: var(--orange);
+          background: #fff;
+        }
+        .sub-action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .sub-action-icon {
+          width: 40px;
+          height: 40px;
+          background: #fff;
+          border-radius: 10px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          color: var(--orange-deep);
+        }
+        .sub-action-icon svg { width: 18px; height: 18px; }
+        .sub-action-text {
+          flex: 1;
+          min-width: 0;
+        }
+        .sub-action-text strong {
+          display: block;
+          font-size: 14px;
+          font-weight: 500;
+          line-height: 1.3;
+          margin-bottom: 2px;
+          color: var(--ink);
+        }
+        .sub-action-text > span {
+          font-size: 12px;
+          color: var(--ink-soft);
+          line-height: 1.4;
+        }
+
+        /* Pause / cancel zone */
+        .sub-danger {
+          background: #fff;
+          border: 1px solid rgba(26, 26, 26, 0.06);
+          border-radius: 16px;
+          padding: 24px;
+        }
+        @media (min-width: 768px) {
+          .sub-danger { padding: 32px; }
+        }
+        .sub-danger-head { margin-bottom: 14px; }
+        .sub-danger-head h3 {
+          font-family: var(--f-display);
+          font-size: 18px;
+          font-weight: 500;
+          margin: 0;
+          letter-spacing: -0.01em;
+          color: var(--ink);
+        }
+        .sub-danger-head h3 em {
+          font-family: var(--f-serif);
+          font-style: italic;
+          color: var(--orange);
+          font-weight: 400;
+        }
+        .sub-danger p {
+          font-size: 13px;
+          color: var(--ink-soft);
+          margin: 0 0 14px;
+          line-height: 1.6;
+          max-width: 540px;
+        }
+        .sub-danger-btns {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+        }
+        .sub-danger-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 10px 18px;
+          background: transparent;
+          border: 1px solid rgba(26, 26, 26, 0.09);
+          border-radius: 100px;
+          font-family: var(--f-mono);
+          font-size: 11px;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: var(--ink-soft);
+          cursor: pointer;
+          transition: all 0.2s;
+          font-weight: 500;
+        }
+        .sub-danger-btn:hover:not(:disabled) {
+          border-color: var(--ink);
+          color: var(--ink);
+        }
+        .sub-danger-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .sub-danger-btn svg { width: 14px; height: 14px; }
+        .sub-danger-btn.primary {
+          background: var(--orange);
+          color: #fff;
+          border-color: var(--orange);
+        }
+        .sub-danger-btn.primary:hover:not(:disabled) {
+          background: var(--orange-deep);
+          border-color: var(--orange-deep);
+          color: #fff;
+        }
+
+        /* Modal */
         .modal-backdrop {
           position: fixed;
           inset: 0;
-          background: rgba(15, 15, 15, 0.55);
+          background: rgba(26, 26, 26, 0.55);
           backdrop-filter: blur(6px);
           -webkit-backdrop-filter: blur(6px);
           z-index: 9999;
@@ -415,13 +546,14 @@ export function SubscriptionControls({ detail }: { detail: SubscriptionDetail })
         }
         .modal-card {
           background: var(--cream);
-          border-radius: 18px;
+          border-radius: 16px;
           padding: 28px;
           max-width: 460px;
           width: 100%;
           font-family: var(--f-body);
           color: var(--ink);
           position: relative;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
         }
         .modal-close {
           position: absolute;
@@ -441,7 +573,15 @@ export function SubscriptionControls({ detail }: { detail: SubscriptionDetail })
           font-size: 22px;
           font-weight: 500;
           margin: 0 0 14px;
-          letter-spacing: -0.01em;
+          letter-spacing: -0.02em;
+          line-height: 1.2;
+          color: var(--ink);
+        }
+        .modal-title em {
+          font-family: var(--f-serif);
+          font-style: italic;
+          color: var(--orange);
+          font-weight: 400;
         }
         .modal-body-text {
           font-size: 14px;
@@ -455,42 +595,28 @@ export function SubscriptionControls({ detail }: { detail: SubscriptionDetail })
           color: var(--ink-soft);
           margin: 0 0 18px;
         }
-        .modal-fieldset { border: none; padding: 0; margin: 0 0 16px; }
-        .modal-legend {
-          font-family: var(--f-mono);
-          font-size: 11px;
-          letter-spacing: 0.06em;
-          color: var(--mute);
-          text-transform: uppercase;
-          padding: 0;
-          margin-bottom: 8px;
-        }
-        .modal-radio-row {
-          display: flex;
-          gap: 8px;
-          flex-wrap: wrap;
-        }
-        .modal-radio-stack {
+        .modal-options {
           display: flex;
           flex-direction: column;
           gap: 8px;
+          margin-bottom: 18px;
         }
-        .modal-radio {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          background: var(--sand);
-          padding: 10px 14px;
-          border-radius: 100px;
+        .modal-option {
+          padding: 12px 16px;
+          background: #fff;
+          border: 1px solid rgba(26, 26, 26, 0.09);
+          border-radius: 10px;
           cursor: pointer;
-          font-size: 13px;
+          font-family: var(--f-body);
+          font-size: 14px;
+          text-align: left;
+          transition: all 0.15s;
           color: var(--ink);
-          border: 1px solid transparent;
         }
-        .modal-radio input { accent-color: var(--orange); }
-        .modal-radio:has(input:checked) {
+        .modal-option:hover { border-color: var(--orange); }
+        .modal-option.selected {
           border-color: var(--orange);
-          background: rgba(242, 104, 47, 0.08);
+          background: rgba(242, 104, 47, 0.06);
         }
         .modal-textarea-label {
           display: flex;
@@ -510,8 +636,8 @@ export function SubscriptionControls({ detail }: { detail: SubscriptionDetail })
           padding: 11px 12px;
           font-family: inherit;
           font-size: 14px;
-          background: var(--sand);
-          border: 1px solid var(--line);
+          background: #fff;
+          border: 1px solid rgba(26, 26, 26, 0.09);
           border-radius: 10px;
           color: var(--ink);
           resize: vertical;
@@ -528,84 +654,44 @@ export function SubscriptionControls({ detail }: { detail: SubscriptionDetail })
         }
         .modal-actions {
           display: flex;
+          gap: 8px;
           justify-content: flex-end;
-          gap: 10px;
-          margin-top: 8px;
         }
         .modal-btn {
-          font-family: var(--f-body);
-          font-size: 14px;
-          font-weight: 500;
-          padding: 11px 22px;
+          padding: 10px 18px;
           border-radius: 100px;
+          font-family: var(--f-body);
+          font-size: 13px;
+          font-weight: 500;
           cursor: pointer;
-          border: 1px solid transparent;
-          transition: background 0.15s, border-color 0.15s, color 0.15s;
+          border: none;
+          transition: all 0.2s;
         }
         .modal-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .modal-btn-cancel {
+        .modal-btn-primary { background: var(--orange); color: #fff; }
+        .modal-btn-primary:hover:not(:disabled) { background: var(--orange-deep); }
+        .modal-btn-secondary {
           background: transparent;
           color: var(--ink-soft);
-          border-color: var(--line);
+          border: 1px solid rgba(26, 26, 26, 0.09);
         }
-        .modal-btn-cancel:hover:not(:disabled) {
-          border-color: var(--ink);
+        .modal-btn-secondary:hover:not(:disabled) {
           color: var(--ink);
+          border-color: var(--ink);
         }
-        .modal-btn-confirm {
-          background: var(--orange);
-          color: #fff;
-        }
-        .modal-btn-confirm:hover:not(:disabled) { background: var(--orange-deep); }
-        .modal-btn-confirm.danger { background: #9b3d2c; }
-        .modal-btn-confirm.danger:hover:not(:disabled) { background: #7d2f23; }
       `}</style>
-    </div>
+    </>
   );
-}
-
-function StatusPill({ detail }: { detail: SubscriptionDetail }) {
-  const isPaused = detail.status === "paused" || detail.pausedAt !== null;
-  const isCanceling = detail.cancelAtPeriodEnd;
-  const cls = isPaused
-    ? "paused"
-    : isCanceling
-      ? "canceling"
-      : detail.status === "past_due"
-        ? "past_due"
-        : "active";
-  const text = isPaused
-    ? "Paused"
-    : isCanceling
-      ? "Cancels at period end"
-      : detail.status === "past_due"
-        ? "Payment overdue"
-        : detail.status === "trialing"
-          ? "Trial"
-          : "Active";
-  return <span className={`status-pill ${cls}`}>{text}<style>{`
-    .status-pill {
-      display: inline-block;
-      font-family: var(--f-mono);
-      font-size: 10px;
-      letter-spacing: 0.06em;
-      padding: 3px 9px;
-      border-radius: 999px;
-      text-transform: uppercase;
-    }
-    .status-pill.active { background: rgba(124, 167, 124, 0.18); color: #4d6f4d; }
-    .status-pill.paused { background: rgba(242, 169, 47, 0.16); color: #8b5a07; }
-    .status-pill.canceling { background: rgba(220, 90, 70, 0.14); color: #9b3d2c; }
-    .status-pill.past_due { background: rgba(220, 90, 70, 0.18); color: #9b3d2c; }
-  `}</style></span>;
 }
 
 function Modal({
   title,
+  titleAccent,
   onClose,
   children,
 }: {
   title: string;
+  titleAccent: string;
   onClose: () => void;
   children: React.ReactNode;
 }) {
@@ -617,7 +703,7 @@ function Modal({
       }}
       role="dialog"
       aria-modal="true"
-      aria-label={title}
+      aria-label={`${title} ${titleAccent}`}
     >
       <div className="modal-card">
         <button
@@ -628,19 +714,20 @@ function Modal({
         >
           ×
         </button>
-        <h2 className="modal-title">{title}</h2>
+        <h3 className="modal-title">
+          {title} <em>{titleAccent}</em>
+        </h3>
         {children}
       </div>
     </div>
   );
 }
 
-function ModalActions({
+function ModalFoot({
   onCancel,
   onConfirm,
   confirmLabel,
   cancelLabel = "Never mind",
-  confirmDanger = false,
   disabled = false,
   pending = false,
 }: {
@@ -648,7 +735,6 @@ function ModalActions({
   onConfirm: () => void;
   confirmLabel: string;
   cancelLabel?: string;
-  confirmDanger?: boolean;
   disabled?: boolean;
   pending?: boolean;
 }) {
@@ -656,7 +742,7 @@ function ModalActions({
     <div className="modal-actions">
       <button
         type="button"
-        className="modal-btn modal-btn-cancel"
+        className="modal-btn modal-btn-secondary"
         onClick={onCancel}
         disabled={pending}
       >
@@ -664,7 +750,7 @@ function ModalActions({
       </button>
       <button
         type="button"
-        className={`modal-btn modal-btn-confirm ${confirmDanger ? "danger" : ""}`}
+        className="modal-btn modal-btn-primary"
         onClick={onConfirm}
         disabled={disabled || pending}
       >
@@ -674,18 +760,10 @@ function ModalActions({
   );
 }
 
-function formatDate(iso: string): string {
+function formatLongDate(iso: string): string {
   return new Date(iso).toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
     year: "numeric",
   });
-}
-
-function formatCents(cents: number, currency: string): string {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: currency.toUpperCase(),
-    minimumFractionDigits: 2,
-  }).format(cents / 100);
 }

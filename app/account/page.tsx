@@ -1,23 +1,21 @@
-// /account — the customer dashboard. Server component, gates on session,
-// fetches active subscription + recent orders + Klaviyo consent state, then
-// renders the 3-card grid via <DashboardCards />.
-//
-// Stripe Customer.name is the source of truth for firstName/lastName per
-// plan §Design Decisions item 5.4 — no schema churn for name fields.
+// /account — customer dashboard. Server component, gates on session,
+// renders <AccountChrome> + <DashboardCards>. Layout matches the canonical
+// design at `context/import/New website build/mujo_account_dashboard.html`.
 
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { and, desc, eq, inArray } from "drizzle-orm";
+import { and, desc, eq, inArray, gte } from "drizzle-orm";
 import Stripe from "stripe";
 import { customers, db, orderMirror, subscriptions } from "db";
 import { stripe } from "lib/stripe";
 import { getSession } from "lib/session";
-import { getEmailMarketingConsent } from "lib/klaviyo";
-import { LogoutButton } from "./logout-button";
+import { resolvePriceId } from "lib/cart/price-id-map";
+import { AccountChrome } from "components/account/account-chrome";
 import {
   DashboardCards,
   type DashboardOrder,
   type DashboardSubscription,
+  type DashboardSavings,
 } from "components/account/dashboard-cards";
 
 export const metadata: Metadata = {
@@ -35,37 +33,65 @@ export default async function AccountPage() {
     redirect("/account/login");
   }
 
-  const [activeSubRow, recentOrders, customerRow] = await Promise.all([
-    db
-      .select()
-      .from(subscriptions)
-      .where(
-        and(
-          eq(subscriptions.customerId, session.customerId),
-          inArray(subscriptions.status, [...ACTIVE_SUB_STATUSES]),
+  const yearStart = new Date(new Date().getFullYear(), 0, 1);
+
+  const [activeSubRow, recentOrders, subOrdersThisYear, allSubOrders, customerRow] =
+    await Promise.all([
+      db
+        .select()
+        .from(subscriptions)
+        .where(
+          and(
+            eq(subscriptions.customerId, session.customerId),
+            inArray(subscriptions.status, [...ACTIVE_SUB_STATUSES]),
+          ),
+        )
+        .orderBy(desc(subscriptions.createdAt))
+        .limit(1),
+      db
+        .select()
+        .from(orderMirror)
+        .where(eq(orderMirror.customerId, session.customerId))
+        .orderBy(desc(orderMirror.createdAt))
+        .limit(3),
+      db
+        .select()
+        .from(orderMirror)
+        .where(
+          and(
+            eq(orderMirror.customerId, session.customerId),
+            inArray(orderMirror.type, [
+              "subscription_initial",
+              "subscription_renewal",
+            ]),
+            gte(orderMirror.createdAt, yearStart),
+          ),
         ),
-      )
-      .orderBy(desc(subscriptions.createdAt))
-      .limit(1),
-    db
-      .select()
-      .from(orderMirror)
-      .where(eq(orderMirror.customerId, session.customerId))
-      .orderBy(desc(orderMirror.createdAt))
-      .limit(3),
-    db
-      .select()
-      .from(customers)
-      .where(eq(customers.id, session.customerId))
-      .limit(1),
-  ]);
+      db
+        .select()
+        .from(orderMirror)
+        .where(
+          and(
+            eq(orderMirror.customerId, session.customerId),
+            inArray(orderMirror.type, [
+              "subscription_initial",
+              "subscription_renewal",
+            ]),
+          ),
+        )
+        .orderBy(desc(orderMirror.createdAt)),
+      db
+        .select()
+        .from(customers)
+        .where(eq(customers.id, session.customerId))
+        .limit(1),
+    ]);
 
   const sub = activeSubRow[0];
   const customer = customerRow[0];
 
   // Pull display name from Stripe Customer (single source of truth — see plan
-  // §5.4). Soft-fail if the call errors (Stripe is the chokepoint we don't
-  // want bricking the dashboard).
+  // §5.4). Soft-fail if Stripe is unreachable.
   let firstName: string | null = null;
   if (customer?.stripeCustomerId) {
     try {
@@ -87,113 +113,81 @@ export default async function AccountPage() {
     }
   }
 
-  // Klaviyo consent — runs in parallel-with-Stripe in real deployment but
-  // sequenced here for readability. Soft-fails to "unknown" inside the helper.
-  const marketingConsent = await getEmailMarketingConsent(session.email);
-
   const subscription: DashboardSubscription | null = sub
     ? {
         id: sub.id,
         stripeSubscriptionId: sub.stripeSubscriptionId,
         status: sub.status,
         stripePriceId: sub.stripePriceId,
+        currentPeriodStart: sub.currentPeriodStart,
         currentPeriodEnd: sub.currentPeriodEnd,
         cancelAtPeriodEnd: sub.cancelAtPeriodEnd,
         pausedAt: sub.pausedAt,
+        createdAt: sub.createdAt,
       }
     : null;
 
-  const orders: DashboardOrder[] = recentOrders.map((o) => ({
-    id: o.id,
-    shopifyOrderName: o.shopifyOrderName,
-    type: o.type,
-    amountCents: o.amountCents,
-    currency: o.currency,
-    createdAt: o.createdAt,
-  }));
+  const orders: DashboardOrder[] = recentOrders.map((o) => {
+    // Resolve product label from Stripe Price ID via the existing cart helper —
+    // the order's first line item Price ID isn't stored, so we use the most
+    // recent active subscription's Price as a best-effort label for sub orders.
+    const priceId =
+      o.type.startsWith("subscription") && sub ? sub.stripePriceId : null;
+    const meta = priceId
+      ? resolvePriceId(priceId, { isSubscription: true })
+      : null;
+    const productLabel = meta
+      ? `${meta.productTitle} · ${meta.variantTitle.replace(" · Subscribe & save", "").replace(" · One-time", "")}`
+      : "Mujo order";
+    return {
+      id: o.id,
+      shopifyOrderName: o.shopifyOrderName,
+      type: o.type,
+      amountCents: o.amountCents,
+      currency: o.currency,
+      createdAt: o.createdAt,
+      productLabel,
+    };
+  });
+
+  // Subscriber savings: sum subscription_initial + subscription_renewal
+  // amountCents this calendar year, then compute the implied savings vs.
+  // retail. The subscription Price is locked at 25% off retail per offer
+  // spec, so saved = paid * (0.25 / 0.75).
+  const paidThisYearCents = subOrdersThisYear.reduce(
+    (sum, o) => sum + o.amountCents,
+    0,
+  );
+  const savedThisYearCents = Math.round((paidThisYearCents * 0.25) / 0.75);
+
+  const memberSinceDate = allSubOrders[allSubOrders.length - 1]?.createdAt ?? null;
+  const memberSince = memberSinceDate
+    ? memberSinceDate.toLocaleDateString("en-US", {
+        month: "short",
+        year: "numeric",
+      })
+    : null;
+
+  const savings: DashboardSavings = {
+    savedThisYearCents,
+    deliveryCount: allSubOrders.length,
+    memberSince,
+  };
 
   return (
-    <div className="account-shell">
-      <div className="account-shell-inner">
-        <header className="account-header">
-          <div>
-            <div className="account-eyebrow">Signed in</div>
-            <h1 className="account-title">
-              Welcome <em>{firstName ? "back, " + firstName : "back"}</em>
-            </h1>
-            <p className="account-lede">
-              Manage your subscription, orders, profile, and payment method.
-            </p>
-          </div>
-          <LogoutButton />
-        </header>
-
-        <DashboardCards
-          subscription={subscription}
-          recentOrders={orders}
-          profile={{
-            email: session.email,
-            firstName,
-            marketingConsent,
-          }}
-        />
-      </div>
-
-      <style>{`
-        .account-shell {
-          background: var(--cream);
-          min-height: calc(100vh - 100px);
-          font-family: var(--f-body);
-          color: var(--ink);
-        }
-        .account-shell-inner {
-          max-width: 980px;
-          margin: 0 auto;
-          padding: 56px 20px 80px;
-        }
-        .account-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-start;
-          gap: 18px;
-          margin-bottom: 32px;
-          flex-wrap: wrap;
-        }
-        .account-eyebrow {
-          font-family: var(--f-mono);
-          font-size: 11px;
-          letter-spacing: 0.12em;
-          color: var(--mute);
-          text-transform: uppercase;
-          margin-bottom: 8px;
-        }
-        .account-title {
-          font-family: var(--f-display);
-          font-size: 32px;
-          font-weight: 500;
-          letter-spacing: -0.01em;
-          margin: 0 0 8px;
-          line-height: 1.15;
-        }
-        .account-title em {
-          font-family: 'Instrument Serif', Georgia, serif;
-          font-style: italic;
-          color: var(--orange-deep);
-          font-weight: 400;
-        }
-        .account-lede {
-          font-size: 15px;
-          color: var(--ink-soft);
-          line-height: 1.55;
-          margin: 0;
-          max-width: 540px;
-        }
-        @media (max-width: 600px) {
-          .account-shell-inner { padding: 36px 14px 60px; }
-          .account-title { font-size: 26px; }
-          .account-header { flex-direction: column; }
-        }
-      `}</style>
-    </div>
+    <AccountChrome
+      activeTab="overview"
+      eyebrow="Account"
+      title="Welcome back,"
+      titleAccent={`${firstName ?? "friend"}.`}
+      lede="Everything you need is here. Skip a delivery, change your details, see a past order. Two taps from anywhere."
+      containerWidth="wide"
+    >
+      <DashboardCards
+        subscription={subscription}
+        recentOrders={orders}
+        savings={savings}
+      />
+    </AccountChrome>
   );
 }
