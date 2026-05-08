@@ -104,6 +104,9 @@ Server-only events key. Scopes: Events Full Access, Profiles Full Access. Get fr
 `KLAVIYO_LEMNA_LIST_ID` / `KLAVIYO_LEMNA_FORM_ID`
 6-char codes for the Lemna pre-launch list and embed form. Found in Klaviyo dashboard URLs.
 
+`KLAVIYO_GIFT_RECIPIENT_LIST_ID`
+6-char code for the "Gift Recipients" Klaviyo list. Used by `/api/account/subscription/send-gift`: when a customer sends a gift, the recipient's email gets added to this list IF they're not already in any Mujo list (dedupe avoids spamming returning customers). Profile properties attached: `gifted_by_email`, `gifted_product`, `gifted_at`, `gift_message`. Powers a "How was your gift?" follow-up flow built on the Klaviyo side. Set up: create a list named "Gift Recipients" in Klaviyo, copy its 6-char ID from the dashboard URL into this var. Without this var the gift route still works (PI succeeds, Shopify order ships) — just no recipient capture.
+
 ## Meta (W3 — empty in W1)
 
 `NEXT_PUBLIC_META_PIXEL_ID`

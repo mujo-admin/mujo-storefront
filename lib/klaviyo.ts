@@ -298,6 +298,117 @@ export async function setEmailMarketingConsent(args: {
 }
 
 /**
+ * Read the list memberships for a profile by email. Returns [] if the profile
+ * doesn't exist or Klaviyo is unconfigured. Used by the gift-recipient capture
+ * flow to skip senders who are already in any Mujo list (don't spam them).
+ */
+export async function getProfileListMemberships(
+  email: string,
+): Promise<Array<{ id: string; name: string }>> {
+  if (!privateKey()) return [];
+  const profile = await getProfileByEmail(email);
+  if (!profile) return [];
+
+  const res = await fetch(
+    `${KLAVIYO_API_BASE}/profiles/${profile.id}/lists`,
+    {
+      method: "GET",
+      headers: authHeaders(),
+    },
+  );
+  if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    console.error(
+      "[klaviyo] getProfileListMemberships failed",
+      res.status,
+      text,
+    );
+    return [];
+  }
+  const json = (await res.json()) as {
+    data?: Array<{ id: string; attributes?: { name?: string } }>;
+  };
+  return (json.data ?? []).map((l) => ({
+    id: l.id,
+    name: l.attributes?.name ?? "(unnamed)",
+  }));
+}
+
+/**
+ * Add a gift recipient to the gift-recipient list — IF they're not already in
+ * any Mujo list. Skips if profile is in another list (means they're already
+ * a Mujo contact — newsletter, Lemna waitlist, prior customer, etc. — and
+ * we don't want to spam them).
+ *
+ * Powered by KLAVIYO_GIFT_RECIPIENT_LIST_ID env var. Kinga creates the list in
+ * Klaviyo and supplies the ID. Each gifted recipient gets these properties on
+ * their profile (Klaviyo flows can personalize from them):
+ *   - gifted_by_email
+ *   - gifted_product       (e.g. "The Ritual · 25 servings")
+ *   - gifted_at            (ISO timestamp)
+ *   - gift_message         (the sender's optional note, may be empty)
+ *
+ * Returns { added: boolean, reason?: string, existingLists?: string[] } so the
+ * caller can log meaningfully. Never throws — soft-fails into added:false.
+ */
+export async function addGiftRecipientIfNew(args: {
+  email: string;
+  giftedByEmail: string;
+  giftedProduct: string;
+  giftMessage?: string;
+}): Promise<{
+  added: boolean;
+  reason?: string;
+  existingLists?: string[];
+}> {
+  const listId = process.env.KLAVIYO_GIFT_RECIPIENT_LIST_ID;
+  if (!listId) {
+    console.warn(
+      "[klaviyo] KLAVIYO_GIFT_RECIPIENT_LIST_ID not set — gift recipient capture is no-op",
+    );
+    return { added: false, reason: "list_not_configured" };
+  }
+  if (!privateKey()) {
+    return { added: false, reason: "klaviyo_not_configured" };
+  }
+
+  try {
+    const memberships = await getProfileListMemberships(args.email);
+    if (memberships.length > 0) {
+      console.log("[klaviyo] gift recipient already in Mujo lists — skipping", {
+        email: args.email,
+        lists: memberships.map((l) => l.name),
+      });
+      return {
+        added: false,
+        reason: "already_in_lists",
+        existingLists: memberships.map((l) => l.name),
+      };
+    }
+
+    await subscribeToList({
+      email: args.email,
+      listId,
+      customSource: "Gift Recipient",
+      properties: {
+        gifted_by_email: args.giftedByEmail,
+        gifted_product: args.giftedProduct,
+        gifted_at: new Date().toISOString(),
+        gift_message: args.giftMessage ?? "",
+      },
+    });
+    console.log("[klaviyo] gift recipient added to list", {
+      email: args.email,
+      product: args.giftedProduct,
+    });
+    return { added: true };
+  } catch (err) {
+    console.error("[klaviyo] addGiftRecipientIfNew unexpected error", err);
+    return { added: false, reason: "error" };
+  }
+}
+
+/**
  * Look up a Klaviyo profile by email and return its profile ID + name.
  * Used by the email-change re-verify flow + profile dashboard rendering.
  */

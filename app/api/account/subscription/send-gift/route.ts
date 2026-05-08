@@ -24,6 +24,8 @@ import { randomUUID } from "node:crypto";
 import { customers, db, subscriptions } from "db";
 import { stripe } from "lib/stripe";
 import { getSession } from "lib/session";
+import { addGiftRecipientIfNew } from "lib/klaviyo";
+import { resolvePriceId } from "lib/cart/price-id-map";
 
 export const dynamic = "force-dynamic";
 
@@ -231,6 +233,24 @@ export async function POST(req: NextRequest) {
         recipient: parsed.shippingAddress.recipientName,
         amount: effectiveAmountCents,
       });
+
+      // Fire-and-forget: capture the recipient email into the gift-recipient
+      // Klaviyo list IF they're not already in any Mujo list. Powers a
+      // "How was your gift?" follow-up flow without spamming returning
+      // customers. Never blocks the response.
+      const meta = resolvePriceId(priceId, { isSubscription: true });
+      const productLabel = meta
+        ? `${meta.productTitle} · ${meta.variantTitle.replace(" · Subscribe & save", "").replace(" · One-time", "")}`
+        : "Mujo product";
+      void addGiftRecipientIfNew({
+        email: parsed.recipientEmail,
+        giftedByEmail: session.email,
+        giftedProduct: productLabel,
+        giftMessage: parsed.giftMessage,
+      }).catch((err) =>
+        console.error("[send-gift] gift recipient capture failed", err),
+      );
+
       return Response.json({ ok: true, paymentIntentId: pi.id });
     }
 
