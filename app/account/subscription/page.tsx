@@ -100,7 +100,13 @@ export default async function SubscriptionPage() {
   try {
     stripeSub = (await stripe.subscriptions.retrieve(
       sub.stripeSubscriptionId,
-      { expand: ["items.data.price", "default_payment_method"] },
+      {
+        expand: [
+          "items.data.price",
+          "default_payment_method",
+          "discounts.source.coupon",
+        ],
+      },
     )) as Stripe.Subscription;
   } catch (err) {
     console.error("[subscription] stripe sub retrieve failed", err);
@@ -130,6 +136,8 @@ export default async function SubscriptionPage() {
     stripeSub?.items.data[0]?.price.id ?? sub.stripePriceId;
 
   let unitAmountCents: number | null = null;
+  let effectiveAmountCents: number | null = null;
+  let discountPercent: number | null = null;
   let currency = "usd";
   let cardBrand: string | null = null;
   let cardLast4: string | null = null;
@@ -143,6 +151,36 @@ export default async function SubscriptionPage() {
       unitAmountCents = price.unit_amount ?? null;
       currency = price.currency ?? "usd";
     }
+
+    // Apply the subscription's first active discount (Stripe applies all
+    // listed discounts to each invoice — for Mujo there's only one,
+    // MUJO_SUB_15). Falls back to raw unit_amount if no discount.
+    //
+    // Dahlia API: `Discount.coupon` was moved to `Discount.source.coupon`.
+    // Expand path is `discounts.source.coupon`.
+    if (unitAmountCents !== null) {
+      const firstDiscount = stripeSub.discounts?.[0];
+      const discount =
+        firstDiscount && typeof firstDiscount === "object"
+          ? (firstDiscount as Stripe.Discount)
+          : null;
+      const couponRef = discount?.source?.coupon;
+      const coupon =
+        couponRef && typeof couponRef === "object"
+          ? (couponRef as Stripe.Coupon)
+          : null;
+      if (coupon && coupon.percent_off) {
+        discountPercent = coupon.percent_off;
+        effectiveAmountCents = Math.round(
+          unitAmountCents * (1 - coupon.percent_off / 100),
+        );
+      } else if (coupon && coupon.amount_off) {
+        effectiveAmountCents = Math.max(0, unitAmountCents - coupon.amount_off);
+      } else {
+        effectiveAmountCents = unitAmountCents;
+      }
+    }
+
     const pm = stripeSub.default_payment_method;
     if (pm && typeof pm === "object" && pm.card) {
       cardBrand = pm.card.brand;
@@ -308,9 +346,29 @@ export default async function SubscriptionPage() {
                     1 bag · {meta?.variantTitle.includes("25") ? "25" : "10"} servings
                   </div>
                   <div className="sub-field-value-meta">
-                    {unitAmountCents !== null
-                      ? `${formatCents(unitAmountCents, currency)} per delivery`
-                      : "—"}
+                    {effectiveAmountCents !== null && unitAmountCents !== null ? (
+                      effectiveAmountCents < unitAmountCents ? (
+                        <>
+                          {formatCents(effectiveAmountCents, currency)} per delivery
+                          {discountPercent !== null ? (
+                            <>
+                              {" "}
+                              <span className="sub-field-strike">
+                                {formatCents(unitAmountCents, currency)}
+                              </span>
+                              <span className="sub-field-discount">
+                                {" "}
+                                · {discountPercent}% off
+                              </span>
+                            </>
+                          ) : null}
+                        </>
+                      ) : (
+                        `${formatCents(unitAmountCents, currency)} per delivery`
+                      )
+                    ) : (
+                      "—"
+                    )}
                   </div>
                 </div>
               </div>
@@ -542,6 +600,14 @@ function SubStyle() {
         color: var(--ink-soft);
         margin-top: 2px;
       }
+      .sub-field-strike {
+        text-decoration: line-through;
+        opacity: 0.55;
+      }
+      .sub-field-discount {
+        color: var(--orange-deep);
+        font-weight: 500;
+      }
       .sub-field-edit {
         background: transparent;
         border: none;
@@ -612,7 +678,8 @@ function pillLabel(status: string, isPaused: boolean, isCanceling: boolean): str
   if (isPaused) return "Paused";
   if (isCanceling) return "Cancels at period end";
   if (status === "past_due") return "Payment overdue";
-  if (status === "trialing") return "Trial";
+  // `trialing` is an artifact of skip-next + send-now's trial_end mechanics —
+  // Mujo doesn't have a customer-facing trial concept. Treat as Active.
   return "Active";
 }
 
