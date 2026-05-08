@@ -62,6 +62,17 @@ const SUBSCRIBERS: Array<{ name: string; email: string }> = [
 
 const RUN_TAG = "v2-2026-05-08-test-with-redirect";
 
+// Customer-facing promo code that wraps the MUJO_SUB_15 Coupon. Pre-filled
+// in the Payment Link URL so the migrated subscriber sees the $55.25
+// (15% off retail) price on the Stripe Checkout page from first paint —
+// no manual code entry, no full-retail first invoice.
+//
+// Idempotent: if a Promotion Code with this `code` exists wrapping the
+// MUJO_SUB_15 coupon, the script reuses it. Otherwise creates a fresh
+// one (max 10 redemptions, expires 30 days from creation — generous for
+// 5 customers + retry buffer).
+const PROMO_CODE_NAME = "LOOPMIG2026";
+
 // CLI: --site-url=<url> is required. Stripe redirects there after the
 // customer completes the migration Payment Link checkout.
 // /migration-complete is a Mujo-side server component that confirms
@@ -94,6 +105,38 @@ if (!SITE_URL.startsWith("https://")) {
 }
 const REDIRECT_URL = `${SITE_URL}/migration-complete?session_id={CHECKOUT_SESSION_ID}`;
 
+async function findOrCreatePromotionCode(
+  couponId: string,
+  code: string,
+): Promise<Stripe.PromotionCode> {
+  // Dahlia API: PromotionCode wraps a Coupon under promotion.coupon
+  // (instead of a top-level coupon field as in pre-dahlia). Same nested
+  // shape applies on create + on read.
+  const existing = await stripe.promotionCodes.list({ code, limit: 100 });
+  for (const pc of existing.data) {
+    const couponRef = pc.promotion?.coupon;
+    if (!couponRef) continue;
+    const matchedCoupon =
+      typeof couponRef === "string"
+        ? couponRef === couponId
+        : couponRef.id === couponId;
+    if (matchedCoupon && pc.active) {
+      return pc;
+    }
+  }
+  // Not found — create. 30-day expiry + 10 max redemptions (covers the 5
+  // Loop subs + buffer for retries / reapplications). Tagged with
+  // metadata.loop_migration so it's findable later for reuse / cleanup.
+  const expiresAt = Math.floor(Date.now() / 1000) + 30 * 86400;
+  return stripe.promotionCodes.create({
+    promotion: { coupon: couponId, type: "coupon" },
+    code,
+    max_redemptions: 10,
+    expires_at: expiresAt,
+    metadata: { loop_migration: RUN_TAG },
+  });
+}
+
 async function main() {
   console.log("→ Phase 6 test-mode Payment Link prep");
   console.log(`  Stripe key: ${SECRET!.slice(0, 8)}… (test mode)`);
@@ -105,9 +148,25 @@ async function main() {
   console.log(`  Redirect URL: ${REDIRECT_URL}`);
   console.log();
 
+  // 0. Find or create the Promotion Code that auto-applies on the
+  //    Stripe Checkout page (via ?prefilled_promo_code= URL param). This
+  //    is what makes invoice #1 charge at $55.25 instead of $65 retail —
+  //    the coupon is applied at sub-creation time, not after.
+  let promotionCode: Stripe.PromotionCode | null = null;
+  if (COUPON_ID) {
+    promotionCode = await findOrCreatePromotionCode(COUPON_ID, PROMO_CODE_NAME);
+    console.log(
+      `  Promo code: ${promotionCode.code} (id: ${promotionCode.id}, active: ${promotionCode.active})`,
+    );
+    console.log();
+  } else {
+    console.warn(
+      "  ⚠ STRIPE_SUBSCRIPTION_COUPON_ID not set — cannot pre-apply discount.\n",
+    );
+  }
+
   // 1. Look for an existing tagged Payment Link. If found and its current
-  //    redirect URL matches → reuse. If found but redirect points at a
-  //    different URL (e.g. previous run used localhost by mistake) →
+  //    redirect URL + allow_promotion_codes match → reuse. If not →
   //    update via stripe.paymentLinks.update so the same plink_… ID
   //    keeps working.
   let paymentLink: Stripe.PaymentLink | null = null;
@@ -119,19 +178,34 @@ async function main() {
         pl.after_completion?.type === "redirect"
           ? (pl.after_completion.redirect?.url ?? null)
           : null;
-      if (currentRedirect === REDIRECT_URL) {
-        console.log(`  Reusing existing Payment Link: ${pl.id} (redirect already current)`);
+      const redirectStale = currentRedirect !== REDIRECT_URL;
+      const promoStale = !pl.allow_promotion_codes;
+      if (!redirectStale && !promoStale) {
+        console.log(`  Reusing existing Payment Link: ${pl.id} (no updates needed)`);
       } else {
         console.log(`  Found existing Payment Link: ${pl.id}`);
-        console.log(`  Current redirect: ${currentRedirect ?? "(none)"}`);
-        console.log(`  Updating redirect → ${REDIRECT_URL}`);
-        paymentLink = await stripe.paymentLinks.update(pl.id, {
-          after_completion: {
+        if (redirectStale) {
+          console.log(
+            `    Redirect: ${currentRedirect ?? "(none)"} → ${REDIRECT_URL}`,
+          );
+        }
+        if (promoStale) {
+          console.log(
+            `    allow_promotion_codes: ${pl.allow_promotion_codes} → true`,
+          );
+        }
+        const updateParams: Stripe.PaymentLinkUpdateParams = {};
+        if (redirectStale) {
+          updateParams.after_completion = {
             type: "redirect",
             redirect: { url: REDIRECT_URL },
-          },
-        });
-        console.log(`  ✓ Redirect updated`);
+          };
+        }
+        if (promoStale) {
+          updateParams.allow_promotion_codes = true;
+        }
+        paymentLink = await stripe.paymentLinks.update(pl.id, updateParams);
+        console.log(`  ✓ Updated`);
       }
       break;
     }
@@ -152,6 +226,10 @@ async function main() {
       },
       // Mujo-only US shipping
       shipping_address_collection: { allowed_countries: ["US"] },
+      // Required for ?prefilled_promo_code= URL param to auto-apply the
+      // MUJO_SUB_15 discount on the Stripe Checkout page. Without this,
+      // the discount field doesn't render at all.
+      allow_promotion_codes: true,
       // Redirect to Mujo-side confirmation page after checkout instead of
       // Stripe's default Stripe-branded thank-you. The page hands the
       // customer off to /account/login (email pre-filled) so they can
@@ -190,7 +268,10 @@ async function main() {
 
   const baseUrl = paymentLink.url;
   for (const sub of SUBSCRIBERS) {
-    const personalUrl = `${baseUrl}?prefilled_email=${encodeURIComponent(sub.email)}`;
+    const promoFragment = promotionCode
+      ? `&prefilled_promo_code=${encodeURIComponent(promotionCode.code)}`
+      : "";
+    const personalUrl = `${baseUrl}?prefilled_email=${encodeURIComponent(sub.email)}${promoFragment}`;
     console.log("│");
     console.log(`│ ${sub.name.padEnd(10)} → ${sub.email}`);
     console.log(`│ ${personalUrl}`);
@@ -218,9 +299,15 @@ async function main() {
     console.warn(
       "⚠ STRIPE_SUBSCRIPTION_COUPON_ID not set — Payment Link will charge full retail.",
     );
+  } else if (!promotionCode) {
+    console.warn(
+      "⚠ Could not find or create the promotion code — URLs will not pre-apply the discount.",
+    );
   } else {
     console.log(
-      `Note: MUJO_SUB_15 coupon (${COUPON_ID}) is set in env but Payment Links don't auto-apply it.\nCustomers will need to enter the promo code manually OR you can attach it post-checkout via webhook.\n(Per migration-draft note: per-customer custom coupon at their old Loop rate is the policy.)`,
+      `Pricing: invoice #1 charges $55.25 (15% off retail $65) via auto-applied promo "${promotionCode.code}".\n` +
+        "Belt-and-suspenders: subscription-created webhook also attaches MUJO_SUB_15\n" +
+        "for any sub that somehow lands without the discount (idempotent — skipped if already attached).",
     );
   }
 }
