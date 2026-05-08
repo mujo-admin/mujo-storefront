@@ -8,10 +8,29 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
-export default function LoginPage() {
+type SearchParams = { [k: string]: string | string[] | undefined };
+
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<SearchParams>;
+}) {
+  const params = await searchParams;
+  const reason = Array.isArray(params.reason) ? params.reason[0] : params.reason;
+  const newEmail = Array.isArray(params.email) ? params.email[0] : params.email;
+  const showEmailChangedBanner = reason === "email-changed";
+
   return (
     <div className="login-shell">
       <div className="login-card">
+        {showEmailChangedBanner ? (
+          <div className="login-banner">
+            <strong>Email updated.</strong>
+            <span>
+              Sign in below using {newEmail ? <strong>{newEmail}</strong> : "your new address"}.
+            </span>
+          </div>
+        ) : null}
         <h1 className="login-title">
           Welcome <em>back</em>
         </h1>
@@ -61,6 +80,16 @@ export default function LoginPage() {
           line-height: 1.55;
           margin: 0 0 24px;
         }
+        .login-banner {
+          background: rgba(124, 167, 124, 0.12);
+          border-radius: 12px;
+          padding: 14px 16px;
+          margin-bottom: 22px;
+          font-size: 13px;
+          color: #4d6f4d;
+          line-height: 1.5;
+        }
+        .login-banner strong { display: block; margin-bottom: 2px; color: #3d5a3d; }
         @media (max-width: 600px) {
           .login-shell { padding: 32px 14px; }
           .login-card { padding: 28px 22px; }

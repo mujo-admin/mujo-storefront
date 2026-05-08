@@ -164,3 +164,244 @@ export async function subscribeToList(args: {
     console.error("[klaviyo] subscribeToList failed", res.status, text);
   }
 }
+
+/**
+ * Marketing-consent state for the email channel. Klaviyo's profile object exposes
+ * a per-channel consent string; we collapse it to a 3-state union for UI.
+ */
+export type MarketingConsent = "subscribed" | "unsubscribed" | "unknown";
+
+/**
+ * Read the email-marketing consent for a profile by email. Returns "unknown"
+ * if the profile doesn't exist or Klaviyo is unconfigured. Used by the /account
+ * dashboard + profile pages to render the master toggle's current state.
+ */
+export async function getEmailMarketingConsent(
+  email: string,
+): Promise<MarketingConsent> {
+  if (!privateKey()) return "unknown";
+  const url = new URL(`${KLAVIYO_API_BASE}/profiles`);
+  url.searchParams.set("filter", `equals(email,"${email}")`);
+  url.searchParams.set("fields[profile]", "subscriptions");
+
+  const res = await fetch(url.toString(), {
+    method: "GET",
+    headers: authHeaders(),
+  });
+
+  if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    console.error("[klaviyo] getEmailMarketingConsent failed", res.status, text);
+    return "unknown";
+  }
+
+  const json = (await res.json()) as {
+    data?: Array<{
+      attributes?: {
+        subscriptions?: {
+          email?: {
+            marketing?: { consent?: string };
+          };
+        };
+      };
+    }>;
+  };
+  const profile = json.data?.[0];
+  const consent = profile?.attributes?.subscriptions?.email?.marketing?.consent;
+  if (!consent) return "unknown";
+  if (consent.toUpperCase() === "SUBSCRIBED") return "subscribed";
+  if (consent.toUpperCase() === "UNSUBSCRIBED") return "unsubscribed";
+  return "unknown";
+}
+
+/**
+ * Update the email-marketing consent for a profile by email. Subscribing also
+ * adds the profile to KLAVIYO_NEWSLETTER_LIST_ID (the master list) so the
+ * subscription has somewhere to live; unsubscribing flips the channel-level
+ * consent which globally suppresses marketing sends.
+ */
+export async function setEmailMarketingConsent(args: {
+  email: string;
+  consent: "subscribed" | "unsubscribed";
+  customSource?: string;
+}): Promise<void> {
+  if (!privateKey()) return;
+
+  if (args.consent === "subscribed") {
+    const listId = process.env.KLAVIYO_NEWSLETTER_LIST_ID;
+    if (!listId) {
+      console.error("[klaviyo] KLAVIYO_NEWSLETTER_LIST_ID not set");
+      return;
+    }
+    await subscribeToList({
+      email: args.email,
+      listId,
+      customSource: args.customSource ?? "Account profile toggle",
+    });
+    return;
+  }
+
+  // Unsubscribe — channel-level consent flip via the bulk-unsubscribe job.
+  // This globally suppresses marketing sends across all lists for this profile.
+  const body = {
+    data: {
+      type: "profile-subscription-bulk-delete-job",
+      attributes: {
+        profiles: {
+          data: [
+            {
+              type: "profile",
+              attributes: {
+                email: args.email,
+                subscriptions: {
+                  email: { marketing: true },
+                },
+              },
+            },
+          ],
+        },
+      },
+    },
+  };
+
+  const res = await fetch(
+    `${KLAVIYO_API_BASE}/profile-subscription-bulk-delete-jobs`,
+    {
+      method: "POST",
+      headers: authHeaders(),
+      body: JSON.stringify(body),
+    },
+  );
+
+  if (!res.ok && res.status !== 202) {
+    const text = await res.text().catch(() => "");
+    console.error("[klaviyo] setEmailMarketingConsent unsubscribe failed", res.status, text);
+  }
+}
+
+/**
+ * Look up a Klaviyo profile by email and return its profile ID + name.
+ * Used by the email-change re-verify flow + profile dashboard rendering.
+ */
+export async function getProfileByEmail(email: string): Promise<{
+  id: string;
+  firstName: string | null;
+  lastName: string | null;
+} | null> {
+  if (!privateKey()) return null;
+  const url = new URL(`${KLAVIYO_API_BASE}/profiles`);
+  url.searchParams.set("filter", `equals(email,"${email}")`);
+  url.searchParams.set("fields[profile]", "first_name,last_name");
+
+  const res = await fetch(url.toString(), {
+    method: "GET",
+    headers: authHeaders(),
+  });
+
+  if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    console.error("[klaviyo] getProfileByEmail failed", res.status, text);
+    return null;
+  }
+
+  const json = (await res.json()) as {
+    data?: Array<{
+      id: string;
+      attributes?: { first_name?: string | null; last_name?: string | null };
+    }>;
+  };
+  const profile = json.data?.[0];
+  if (!profile) return null;
+  return {
+    id: profile.id,
+    firstName: profile.attributes?.first_name ?? null,
+    lastName: profile.attributes?.last_name ?? null,
+  };
+}
+
+/**
+ * Update the primary email on a Klaviyo profile via the merge-profiles flow.
+ * This is the API-correct way to handle email changes without creating
+ * duplicate profiles. If a profile already exists at `newEmail`, Klaviyo will
+ * merge the two; otherwise the existing profile's email is updated in place.
+ */
+export async function changeProfileEmail(args: {
+  oldEmail: string;
+  newEmail: string;
+}): Promise<void> {
+  if (!privateKey()) return;
+
+  const sourceProfile = await getProfileByEmail(args.oldEmail);
+  if (!sourceProfile) {
+    console.warn("[klaviyo] changeProfileEmail: no source profile", {
+      oldEmail: args.oldEmail,
+    });
+    return;
+  }
+
+  // PATCH the profile with the new email. If a profile exists at newEmail,
+  // Klaviyo's merge_profiles handles the conflict; otherwise the source
+  // profile's email is updated in place.
+  const body = {
+    data: {
+      type: "profile",
+      id: sourceProfile.id,
+      attributes: {
+        email: args.newEmail,
+      },
+    },
+  };
+
+  const res = await fetch(`${KLAVIYO_API_BASE}/profiles/${sourceProfile.id}`, {
+    method: "PATCH",
+    headers: authHeaders(),
+    body: JSON.stringify(body),
+  });
+
+  if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    // 409 = conflict (a profile already exists at newEmail). Fall back to
+    // explicit merge.
+    if (res.status === 409) {
+      await mergeProfiles({
+        sourceId: sourceProfile.id,
+        destinationEmail: args.newEmail,
+      });
+      return;
+    }
+    console.error("[klaviyo] changeProfileEmail failed", res.status, text);
+  }
+}
+
+/**
+ * Explicit merge — used as a fallback when the email-change PATCH conflicts.
+ * Source profile is merged into the profile already living at destinationEmail.
+ */
+async function mergeProfiles(args: {
+  sourceId: string;
+  destinationEmail: string;
+}): Promise<void> {
+  const dest = await getProfileByEmail(args.destinationEmail);
+  if (!dest) {
+    console.error("[klaviyo] mergeProfiles: no destination profile to merge into");
+    return;
+  }
+  const body = {
+    data: {
+      type: "profile-merge",
+      id: dest.id,
+      relationships: {
+        profiles: { data: [{ type: "profile", id: args.sourceId }] },
+      },
+    },
+  };
+  const res = await fetch(`${KLAVIYO_API_BASE}/profiles/${dest.id}/merge`, {
+    method: "POST",
+    headers: authHeaders(),
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    console.error("[klaviyo] mergeProfiles failed", res.status, text);
+  }
+}
