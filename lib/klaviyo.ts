@@ -172,9 +172,21 @@ export async function subscribeToList(args: {
 export type MarketingConsent = "subscribed" | "unsubscribed" | "unknown";
 
 /**
- * Read the email-marketing consent for a profile by email. Returns "unknown"
- * if the profile doesn't exist or Klaviyo is unconfigured. Used by the /account
- * dashboard + profile pages to render the master toggle's current state.
+ * Read the email-marketing consent for a profile by email.
+ *
+ * Returns:
+ *   - "subscribed"   — profile has explicit SUBSCRIBED consent
+ *   - "unsubscribed" — profile has explicit UNSUBSCRIBED consent, OR profile
+ *                      exists with no consent set (NEVER_SUBSCRIBED — the
+ *                      common case for customers who came in via Stripe
+ *                      Checkout without ever opting in to a Klaviyo form)
+ *   - "unknown"      — Klaviyo private key isn't configured (dev/staging),
+ *                      or the API call errored
+ *
+ * Used by the /account dashboard + profile pages to render the master toggle's
+ * current state. Treating "no consent set" as "unsubscribed" matches the
+ * customer's experience (no marketing emails are being sent) and gives them a
+ * meaningful initial state in the toggle.
  */
 export async function getEmailMarketingConsent(
   email: string,
@@ -206,12 +218,18 @@ export async function getEmailMarketingConsent(
       };
     }>;
   };
+
+  // No profile at all — can't determine state, but for dashboard display
+  // purposes "unsubscribed" is the safe assumption (no profile means no
+  // marketing emails are being sent).
   const profile = json.data?.[0];
-  const consent = profile?.attributes?.subscriptions?.email?.marketing?.consent;
-  if (!consent) return "unknown";
-  if (consent.toUpperCase() === "SUBSCRIBED") return "subscribed";
-  if (consent.toUpperCase() === "UNSUBSCRIBED") return "unsubscribed";
-  return "unknown";
+  if (!profile) return "unsubscribed";
+
+  // Profile exists. Read consent — anything other than explicit SUBSCRIBED
+  // is "unsubscribed" from the customer's perspective.
+  const consent = profile.attributes?.subscriptions?.email?.marketing?.consent;
+  if (consent && consent.toUpperCase() === "SUBSCRIBED") return "subscribed";
+  return "unsubscribed";
 }
 
 /**

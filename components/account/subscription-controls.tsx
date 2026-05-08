@@ -13,6 +13,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { GiftModal } from "./gift-modal";
 
 export type SubscriptionDetail = {
   stripeSubscriptionId: string;
@@ -24,6 +25,8 @@ export type SubscriptionDetail = {
   cancelAtPeriodEnd: boolean;
   pausedAt: string | null;
   unitAmountCents: number | null;
+  /** Effective per-delivery price (post-coupon). Used for the gift charge total. */
+  effectiveAmountCents: number | null;
   currency: string;
   createdAt: string;
 };
@@ -41,7 +44,8 @@ type Action =
   | "cancel"
   | "resume"
   | "send-now"
-  | "swap";
+  | "swap"
+  | "gift";
 
 const CANCEL_REASONS: Array<{ id: string; label: string }> = [
   { id: "too_expensive", label: "Too expensive" },
@@ -211,6 +215,27 @@ export function SubscriptionControls({
                 <span>New card on file. Used for the next renewal.</span>
               </span>
             </Link>
+
+            <button
+              type="button"
+              className="sub-action-btn"
+              onClick={() => setOpenModal("gift")}
+              disabled={pending !== null}
+            >
+              <span className="sub-action-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="20 12 20 22 4 22 4 12" />
+                  <rect x="2" y="7" width="20" height="5" />
+                  <line x1="12" y1="22" x2="12" y2="7" />
+                  <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" />
+                  <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
+                </svg>
+              </span>
+              <span className="sub-action-text">
+                <strong>Send one as a gift</strong>
+                <span>Same member rate, sent to a friend.</span>
+              </span>
+            </button>
           </div>
         </section>
       ) : null}
@@ -437,6 +462,18 @@ export function SubscriptionControls({
             pending={pending === "send-now"}
           />
         </Modal>
+      ) : null}
+
+      {openModal === "gift" ? (
+        <GiftModal
+          productLabel={detail.productLabel}
+          effectiveAmountCents={
+            detail.effectiveAmountCents ?? detail.unitAmountCents ?? 0
+          }
+          currency={detail.currency}
+          onClose={closeModal}
+          onSuccess={() => router.refresh()}
+        />
       ) : null}
 
       {openModal === "swap" ? (

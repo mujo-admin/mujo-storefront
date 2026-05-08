@@ -13,11 +13,11 @@ export type DashboardSubscription = {
   stripeSubscriptionId: string;
   status: string;
   stripePriceId: string;
-  currentPeriodStart: Date;
   currentPeriodEnd: Date;
   cancelAtPeriodEnd: boolean;
-  pausedAt: Date | null;
-  createdAt: Date;
+  isPaused: boolean;
+  /** "Every 4 weeks", "Every 3 months", etc. — derived from price.recurring (live). */
+  intervalLabel: string;
 };
 
 export type DashboardOrder = {
@@ -38,6 +38,8 @@ export type DashboardSavings = {
   deliveryCount: number;
   /** Member-since label (e.g. "Feb 2026"). */
   memberSince: string | null;
+  /** Coupon percent_off pulled from the active subscription's discount (0–100). 0 if no coupon. */
+  discountPercent: number;
 };
 
 export function DashboardCards({
@@ -53,7 +55,10 @@ export function DashboardCards({
     <div className="dash-grid">
       {/* Left column */}
       <div className="dash-col">
-        <ActiveSubscriptionCard subscription={subscription} />
+        <ActiveSubscriptionCard
+          subscription={subscription}
+          discountPercent={savings.discountPercent}
+        />
         <RecentOrdersCard orders={recentOrders} />
       </div>
 
@@ -357,8 +362,10 @@ export function DashboardCards({
 
 function ActiveSubscriptionCard({
   subscription,
+  discountPercent,
 }: {
   subscription: DashboardSubscription | null;
+  discountPercent: number;
 }) {
   if (!subscription) {
     return (
@@ -367,7 +374,7 @@ function ActiveSubscriptionCard({
           <span className="dash-eyebrow">Active subscription</span>
         </div>
         <p className="sub-empty">
-          No active subscription. Subscribe & save 25% on every Ritual delivery
+          No active subscription. Subscribe and save on every Ritual delivery
           — pause or cancel anytime.
         </p>
         <Link href="/products/mujo-ritual" className="sub-cta">
@@ -382,17 +389,16 @@ function ActiveSubscriptionCard({
     ? `${meta.productTitle} · ${meta.variantTitle.replace(" · Subscribe & save", "")}`
     : "Mujo subscription";
 
-  const intervalLabel = formatIntervalLabel(
-    subscription.currentPeriodStart,
-    subscription.currentPeriodEnd,
-  );
-
-  const isPaused = subscription.status === "paused" || subscription.pausedAt !== null;
   const nextLine = subscription.cancelAtPeriodEnd
     ? `Ends · ${formatShortDate(subscription.currentPeriodEnd)}`
-    : isPaused
+    : subscription.isPaused
       ? "Paused · resume anytime"
       : `Next delivery · ${formatShortDate(subscription.currentPeriodEnd)}`;
+
+  const memberRateLabel =
+    discountPercent > 0
+      ? `${subscription.intervalLabel} · ${discountPercent}% off retail`
+      : subscription.intervalLabel;
 
   return (
     <div className="dash-card">
@@ -404,7 +410,7 @@ function ActiveSubscriptionCard({
         <div className="sub-summary-img">🍵</div>
         <div className="sub-summary-info">
           <h3 className="sub-summary-name">{productLabel}</h3>
-          <p className="sub-summary-meta">{intervalLabel} · 25% off retail</p>
+          <p className="sub-summary-meta">{memberRateLabel}</p>
           <span className="sub-summary-next">{nextLine}</span>
         </div>
         <Link href="/account/subscription" className="sub-summary-link">
@@ -463,16 +469,27 @@ function SubscriberSavingsCard({
   savings: DashboardSavings;
   hasSub: boolean;
 }) {
+  const pct = Math.round(savings.discountPercent);
+  const offRetailLabel = pct > 0 ? `${pct}% off retail` : "the member rate";
+
   if (!hasSub || savings.deliveryCount === 0) {
     return (
       <div className="dash-savings">
         <span className="dash-savings-eyebrow">Subscriber savings</span>
         <h3>
-          Subscribe & save <em>25%.</em>
+          {pct > 0 ? (
+            <>
+              Subscribe & save <em>{pct}%.</em>
+            </>
+          ) : (
+            <>
+              Subscribe & <em>save.</em>
+            </>
+          )}
         </h3>
         <p>
-          Every box ships at 25% off retail and free shipping is automatic over
-          $100. Pause or skip anytime.
+          Every box ships at {offRetailLabel} and free shipping is automatic
+          over $100. Pause or skip anytime.
         </p>
         <div className="dash-savings-stat">
           <strong>0 deliveries</strong> yet · waiting for your first box
@@ -495,8 +512,8 @@ function SubscriberSavingsCard({
         {savings.deliveryCount === 1
           ? "your first delivery"
           : `${savings.deliveryCount} deliveries`}
-        . Every box ships at 25% off retail and free shipping is automatic over
-        $100.
+        . Every box ships at {offRetailLabel} and free shipping is automatic
+        over $100.
       </p>
       <div className="dash-savings-stat">
         <strong>
@@ -574,17 +591,6 @@ function QuickActionsCard({ hasSub }: { hasSub: boolean }) {
       </div>
     </div>
   );
-}
-
-function formatIntervalLabel(start: Date, end: Date): string {
-  const diffDays = Math.round(
-    (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24),
-  );
-  if (diffDays >= 25 && diffDays <= 35) return "Every 4 weeks";
-  if (diffDays >= 85 && diffDays <= 95) return "Every 3 months";
-  if (diffDays >= 360) return "Every year";
-  if (diffDays >= 14 && diffDays <= 21) return "Every 2 weeks";
-  return `Every ${diffDays} days`;
 }
 
 function formatShortDate(d: Date): string {

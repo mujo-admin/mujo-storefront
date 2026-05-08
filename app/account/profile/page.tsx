@@ -76,10 +76,7 @@ export default async function ProfilePage() {
           initialLastName={lastName}
           initialEmail={session.email}
           initialMarketingConsent={
-            marketingConsent === "subscribed" ||
-            marketingConsent === "unsubscribed"
-              ? marketingConsent
-              : "subscribed"
+            marketingConsent === "subscribed" ? "subscribed" : "unsubscribed"
           }
         />
       </div>

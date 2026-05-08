@@ -254,6 +254,7 @@ export default async function SubscriptionPage() {
     cancelAtPeriodEnd,
     pausedAt: pausedAt?.toISOString() ?? null,
     unitAmountCents,
+    effectiveAmountCents,
     currency,
     createdAt: sub.createdAt.toISOString(),
   };
