@@ -17,7 +17,7 @@ export default async function LoginPage({
 }) {
   const params = await searchParams;
   const reason = Array.isArray(params.reason) ? params.reason[0] : params.reason;
-  const newEmail = Array.isArray(params.email) ? params.email[0] : params.email;
+  const emailParam = Array.isArray(params.email) ? params.email[0] : params.email;
   const showEmailChangedBanner = reason === "email-changed";
 
   return (
@@ -27,7 +27,7 @@ export default async function LoginPage({
           <div className="login-banner">
             <strong>Email updated.</strong>
             <span>
-              Sign in below using {newEmail ? <strong>{newEmail}</strong> : "your new address"}.
+              Sign in below using {emailParam ? <strong>{emailParam}</strong> : "your new address"}.
             </span>
           </div>
         ) : null}
@@ -39,7 +39,7 @@ export default async function LoginPage({
           your details. We&rsquo;ll send a one-time link to your inbox &mdash;
           no password required.
         </p>
-        <LoginForm />
+        <LoginForm initialEmail={emailParam ?? ""} />
       </div>
 
       <style>{`

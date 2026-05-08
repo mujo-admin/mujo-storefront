@@ -3,9 +3,14 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export function LoginForm() {
+export function LoginForm({
+  initialEmail = "",
+}: {
+  /** Pre-fill the email input — used by /migration-complete redirect to skip retyping. */
+  initialEmail?: string;
+}) {
   const router = useRouter();
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(initialEmail);
   const [status, setStatus] = useState<
     "idle" | "loading" | "rate_limited" | "error"
   >("idle");
