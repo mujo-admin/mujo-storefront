@@ -383,6 +383,9 @@ export default async function SubscriptionPage() {
                     {shippingAddressLine ?? "Set at checkout · United States"}
                   </div>
                 </div>
+                <Link href="/account/addresses" className="sub-field-edit">
+                  Change
+                </Link>
               </div>
             </div>
 

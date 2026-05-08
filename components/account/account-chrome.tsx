@@ -10,7 +10,12 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { LogoutButton } from "../../app/account/logout-button";
 
-export type AccountTab = "overview" | "subscription" | "orders" | "profile";
+export type AccountTab =
+  | "overview"
+  | "subscription"
+  | "orders"
+  | "addresses"
+  | "profile";
 
 const TABS: Array<{
   id: AccountTab;
@@ -52,6 +57,17 @@ const TABS: Array<{
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M5 7h14l-1.4 11.2a2 2 0 0 1-2 1.8H8.4a2 2 0 0 1-2-1.8L5 7z" />
         <path d="M9 7V5a3 3 0 0 1 6 0v2" />
+      </svg>
+    ),
+  },
+  {
+    id: "addresses",
+    href: "/account/addresses",
+    label: "Addresses",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+        <circle cx="12" cy="10" r="3" />
       </svg>
     ),
   },
