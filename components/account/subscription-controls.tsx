@@ -61,10 +61,13 @@ const CANCEL_REASONS: Array<{ id: string; label: string }> = [
 export function SubscriptionControls({
   detail,
   swapOptions,
+  senderEmail,
 }: {
   detail: SubscriptionDetail;
   /** Other Ritual SKUs the customer can swap into. Excludes the current Price. */
   swapOptions: SwapOption[];
+  /** Customer's email — pre-fills the gift recipient email field. */
+  senderEmail: string;
 }) {
   const router = useRouter();
   const [openModal, setOpenModal] = useState<Action | null>(null);
@@ -471,6 +474,7 @@ export function SubscriptionControls({
             detail.effectiveAmountCents ?? detail.unitAmountCents ?? 0
           }
           currency={detail.currency}
+          senderEmail={senderEmail}
           onClose={closeModal}
           onSuccess={() => router.refresh()}
         />

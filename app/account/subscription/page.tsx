@@ -414,7 +414,11 @@ export default async function SubscriptionPage() {
         </div>
 
         {/* Subscription controls — pause / skip / cancel / resume modals */}
-        <SubscriptionControls detail={detail} swapOptions={swapOptions} />
+        <SubscriptionControls
+          detail={detail}
+          swapOptions={swapOptions}
+          senderEmail={session.email}
+        />
       </div>
 
       <SubStyle />

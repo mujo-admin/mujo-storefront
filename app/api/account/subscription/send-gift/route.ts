@@ -43,6 +43,12 @@ const requestSchema = z.object({
     state: z.string().length(2),
     postalCode: z.string().regex(/^\d{5}(-\d{4})?$/),
   }),
+  /**
+   * Where Shopify shipping confirmation + tracking emails go. Customer
+   * picks: their own email (so they forward) or the recipient's email
+   * (so the recipient gets the surprise reveal directly). Required.
+   */
+  recipientEmail: z.string().email().toLowerCase(),
   giftMessage: z.string().max(250).optional(),
 });
 
@@ -206,13 +212,16 @@ export async function POST(req: NextRequest) {
       // Metadata that the existing payment_intent.succeeded webhook handler
       // reads. `line_items` makes the handler treat this as a one-time order
       // (not a sub invoice PI). `gift_*` fields are for analytics +
-      // fulfillment flag.
+      // fulfillment flag. `gift_recipient_email` is what the handler uses
+      // for the Shopify order's email field, so shipping confirmation +
+      // tracking emails route to the customer-chosen address.
       metadata: {
         mujo_event_id: eventId,
         line_items: JSON.stringify([{ price: priceId, quantity: 1 }]),
         gift_order: "true",
         gift_message: parsed.giftMessage ?? "",
         gift_sender_email: session.email,
+        gift_recipient_email: parsed.recipientEmail,
       },
     });
 

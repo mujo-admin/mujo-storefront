@@ -45,6 +45,7 @@ type Step = 1 | 2;
 
 export type GiftFormFields = {
   recipientName: string;
+  recipientEmail: string;
   line1: string;
   line2: string;
   city: string;
@@ -53,20 +54,24 @@ export type GiftFormFields = {
   giftMessage: string;
 };
 
-const EMPTY_FIELDS: GiftFormFields = {
-  recipientName: "",
-  line1: "",
-  line2: "",
-  city: "",
-  state: "",
-  postalCode: "",
-  giftMessage: "",
-};
+function emptyFields(senderEmail: string): GiftFormFields {
+  return {
+    recipientName: "",
+    recipientEmail: senderEmail, // pre-fill with sender's email — most common
+    line1: "",
+    line2: "",
+    city: "",
+    state: "",
+    postalCode: "",
+    giftMessage: "",
+  };
+}
 
 export function GiftModal({
   productLabel,
   effectiveAmountCents,
   currency,
+  senderEmail,
   onClose,
   onSuccess,
 }: {
@@ -74,11 +79,15 @@ export function GiftModal({
   /** Effective per-delivery price (post-coupon) — what we'll charge. */
   effectiveAmountCents: number;
   currency: string;
+  /** Customer's email — pre-fills the recipient-email field. */
+  senderEmail: string;
   onClose: () => void;
   onSuccess: () => void;
 }) {
   const [step, setStep] = useState<Step>(1);
-  const [fields, setFields] = useState<GiftFormFields>(EMPTY_FIELDS);
+  const [fields, setFields] = useState<GiftFormFields>(() =>
+    emptyFields(senderEmail),
+  );
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [done, setDone] = useState(false);
@@ -106,6 +115,8 @@ export function GiftModal({
   function step1Valid(): boolean {
     return Boolean(
       fields.recipientName.trim() &&
+        // Lightweight email shape check — full validation happens server-side.
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.recipientEmail.trim()) &&
         fields.line1.trim() &&
         fields.city.trim() &&
         fields.state &&
@@ -130,6 +141,7 @@ export function GiftModal({
             state: fields.state.toUpperCase(),
             postalCode: fields.postalCode.trim(),
           },
+          recipientEmail: fields.recipientEmail.trim().toLowerCase(),
           giftMessage: fields.giftMessage.trim() || undefined,
         }),
       });
@@ -178,9 +190,9 @@ export function GiftModal({
             </h3>
             <p className="modal-body-text">
               We charged your saved card and the box ships from our US warehouse
-              shortly. We&rsquo;ll email you a receipt and{" "}
-              <strong>{fields.recipientName}</strong> will get a delivery notice
-              when it&rsquo;s on the road.
+              shortly. The Stripe receipt goes to{" "}
+              <strong>{senderEmail}</strong>; shipping confirmation and tracking
+              go to <strong>{fields.recipientEmail}</strong>.
             </p>
             <div className="modal-actions">
               <button
@@ -214,6 +226,24 @@ export function GiftModal({
                   required
                   maxLength={120}
                 />
+              </label>
+
+              <label className="gift-field">
+                <span>Email for tracking updates</span>
+                <input
+                  type="email"
+                  inputMode="email"
+                  value={fields.recipientEmail}
+                  onChange={(e) => update("recipientEmail", e.target.value)}
+                  placeholder="recipient@example.com"
+                  required
+                  maxLength={200}
+                />
+                <span className="gift-field-hint">
+                  Where shipping confirmation + tracking number land. Use the
+                  recipient&rsquo;s email so they get notified, or your own
+                  if you want to forward it.
+                </span>
               </label>
 
               <label className="gift-field">
@@ -330,6 +360,15 @@ export function GiftModal({
               <div className="gift-summary-line">
                 {fields.city}, {fields.state} {fields.postalCode}
               </div>
+              <div className="gift-summary-divider" />
+              <div className="gift-summary-meta-row">
+                <span className="gift-summary-meta-label">
+                  Tracking emails to
+                </span>
+                <span className="gift-summary-meta-val">
+                  {fields.recipientEmail}
+                </span>
+              </div>
               {fields.giftMessage ? (
                 <>
                   <div className="gift-summary-divider" />
@@ -396,12 +435,21 @@ export function GiftModal({
           flex-direction: column;
           gap: 5px;
         }
-        .gift-field span {
+        .gift-field > span:not(.gift-field-hint) {
           font-family: var(--f-mono);
           font-size: 10px;
           letter-spacing: 0.06em;
           color: var(--mute);
           text-transform: uppercase;
+        }
+        .gift-field-hint {
+          font-size: 11px;
+          color: var(--mute);
+          line-height: 1.45;
+          letter-spacing: normal;
+          text-transform: none;
+          font-family: var(--f-body);
+          margin-top: 2px;
         }
         .gift-field input,
         .gift-field select,
@@ -447,6 +495,25 @@ export function GiftModal({
           height: 1px;
           background: rgba(26, 26, 26, 0.06);
           margin: 12px -18px;
+        }
+        .gift-summary-meta-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: baseline;
+          gap: 12px;
+        }
+        .gift-summary-meta-label {
+          font-family: var(--f-mono);
+          font-size: 10px;
+          letter-spacing: 0.06em;
+          color: var(--mute);
+          text-transform: uppercase;
+        }
+        .gift-summary-meta-val {
+          font-size: 13px;
+          color: var(--ink);
+          word-break: break-all;
+          text-align: right;
         }
         .gift-summary-message-label {
           font-family: var(--f-mono);

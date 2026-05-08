@@ -33,12 +33,26 @@ export async function handlePaymentIntentSucceeded(event: Stripe.Event) {
 
   const stripeCustomerId =
     typeof pi.customer === 'string' ? pi.customer : pi.customer?.id;
-  const email = pi.receipt_email ?? null;
-  if (!stripeCustomerId || !email) {
+  const buyerEmail = pi.receipt_email ?? null;
+
+  // Gift orders: buyer's customer record stays the owner of the order in
+  // our DB + Shopify Admin, but the Shopify order's email field gets the
+  // customer-chosen recipient email so shipping confirmation + tracking
+  // emails route to the recipient (or back to the buyer if they chose
+  // their own email).
+  const isGiftOrder = pi.metadata?.gift_order === 'true';
+  const giftRecipientEmail = pi.metadata?.gift_recipient_email ?? null;
+  const orderEmail = isGiftOrder
+    ? giftRecipientEmail ?? buyerEmail
+    : buyerEmail;
+
+  if (!stripeCustomerId || !buyerEmail || !orderEmail) {
     console.error('[pi.succeeded] missing customer linkage', {
       paymentIntentId: pi.id,
       stripeCustomerId,
-      email,
+      buyerEmail,
+      orderEmail,
+      isGiftOrder,
     });
     return;
   }
@@ -63,9 +77,13 @@ export async function handlePaymentIntentSucceeded(event: Stripe.Event) {
   }
 
   // Resolve Shopify customer + write back stripe_customer_id metafield.
+  // Always upsert against BUYER email — for gifts we don't want to create
+  // a Shopify customer at the recipient's address or pollute the buyer's
+  // app-DB row. The recipient is captured on the order's email + shipping
+  // fields, not as a separate customer.
   const shippingName = pi.shipping?.name?.split(' ') ?? [];
   const { customerId, shopifyCustomerGid } = await upsertCustomerForStripe({
-    email,
+    email: buyerEmail,
     stripeCustomerId,
     firstName: shippingName[0],
     lastName: shippingName.slice(1).join(' ') || undefined,
@@ -102,12 +120,26 @@ export async function handlePaymentIntentSucceeded(event: Stripe.Event) {
   );
 
   const shippingAddr = pi.shipping?.address;
+  const giftMessage = pi.metadata?.gift_message?.trim();
+  const orderTags = isGiftOrder
+    ? ['stripe-elements', 'one-time', 'on-site-checkout', 'gift']
+    : ['stripe-elements', 'one-time', 'on-site-checkout'];
+  const orderNote = isGiftOrder
+    ? [
+        `Stripe PI: ${pi.id} | charge: ${chargeId}`,
+        `Gift from: ${buyerEmail}`,
+        giftMessage ? `Gift message: "${giftMessage}"` : null,
+      ]
+        .filter(Boolean)
+        .join(' | ')
+    : `Stripe PI: ${pi.id} | charge: ${chargeId}`;
+
   const shopifyOrder = await createOrder({
-    email,
+    email: orderEmail,
     customerId: shopifyCustomerGid,
     currency: (pi.currency ?? 'usd').toUpperCase(),
-    tags: ['stripe-elements', 'one-time', 'on-site-checkout'],
-    note: `Stripe PI: ${pi.id} | charge: ${chargeId}`,
+    tags: orderTags,
+    note: orderNote,
     financialStatus: 'PAID',
     lineItems: shopifyOrderLineItems,
     shippingAddress: shippingAddr
@@ -156,9 +188,11 @@ export async function handlePaymentIntentSucceeded(event: Stripe.Event) {
 
   // Server-fired analytics. Pixel (client) fires the matching Purchase event
   // with the same event_id from PI metadata; Meta CAPI dedups.
+  // For gifts, analytics fire under BUYER email (they're the one converting),
+  // not the recipient — recipient gets Shopify shipping notifications.
   const eventId = pi.metadata?.mujo_event_id;
   void trackOrderPlaced({
-    email,
+    email: buyerEmail,
     orderId: shopifyOrder.name,
     value: pi.amount / 100,
     currency: (pi.currency ?? 'usd').toUpperCase(),
@@ -175,7 +209,7 @@ export async function handlePaymentIntentSucceeded(event: Stripe.Event) {
     void sendCapiEvent({
       eventName: 'Purchase',
       eventId,
-      userData: { email },
+      userData: { email: buyerEmail },
       customData: {
         currency: (pi.currency ?? 'usd').toUpperCase(),
         value: pi.amount / 100,
