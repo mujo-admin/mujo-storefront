@@ -26,6 +26,7 @@ import { stripe } from "lib/stripe";
 import { getSession } from "lib/session";
 import { addGiftRecipientIfNew } from "lib/klaviyo";
 import { resolvePriceId } from "lib/cart/price-id-map";
+import { RITUAL_PRICE_IDS } from "lib/stripe-constants";
 
 export const dynamic = "force-dynamic";
 
@@ -37,6 +38,14 @@ const ACTIVE_SUB_STATUSES = [
 ] as const;
 
 const requestSchema = z.object({
+  /**
+   * Stripe Price ID of the SKU being gifted. Customer chooses in the gift
+   * modal — defaults to their current sub's Price but can swap to any
+   * other allowed Mujo subscription Price (e.g., Ritual 10-serving when
+   * they're on Ritual 25-serving). Validated server-side against an
+   * allowlist of Mujo's known subscription Prices.
+   */
+  priceId: z.string().startsWith("price_"),
   shippingAddress: z.object({
     recipientName: z.string().min(1).max(120),
     line1: z.string().min(1).max(200),
@@ -53,6 +62,18 @@ const requestSchema = z.object({
   recipientEmail: z.string().email().toLowerCase(),
   giftMessage: z.string().max(250).optional(),
 });
+
+/**
+ * Allowed gift Price IDs. Customer can only gift Mujo subscription Prices —
+ * not retail one-time Prices (member rate is a subscriber benefit) and not
+ * arbitrary Stripe Prices (defense against tampered request bodies).
+ */
+const ALLOWED_GIFT_PRICE_IDS: Set<string> = new Set(
+  [
+    RITUAL_PRICE_IDS["10-subscription"],
+    RITUAL_PRICE_IDS["25-subscription"],
+  ].filter((id) => id.length > 0),
+);
 
 export async function POST(req: NextRequest) {
   const session = await getSession();
@@ -116,27 +137,46 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  try {
-    // Read the live sub for product + coupon. Same expand path as
-    // /account/subscription so we get the same effective per-delivery price.
-    const stripeSub = await stripe.subscriptions.retrieve(
-      subRow.stripeSubscriptionId,
-      { expand: ["items.data.price", "discounts.source.coupon"] },
+  // Validate the customer-chosen Price ID against the allowlist before any
+  // Stripe call. Defense against tampered request bodies trying to gift at
+  // an arbitrary (or zero-amount) Price.
+  if (!ALLOWED_GIFT_PRICE_IDS.has(parsed.priceId)) {
+    return Response.json(
+      {
+        error: "invalid_price",
+        message: "That product isn't available to gift right now.",
+      },
+      { status: 400 },
     );
-    const item = stripeSub.items.data[0];
-    if (!item || !item.price.unit_amount) {
+  }
+
+  try {
+    // Read live state in parallel:
+    //   - The customer's active sub (for the discount percent — member-rate
+    //     pricing is a subscriber benefit, so the gift charge applies the
+    //     customer's coupon to the chosen Price)
+    //   - The chosen gift Price (unit_amount + currency)
+    const [stripeSub, giftPrice] = await Promise.all([
+      stripe.subscriptions.retrieve(subRow.stripeSubscriptionId, {
+        expand: ["discounts.source.coupon", "default_payment_method"],
+      }),
+      stripe.prices.retrieve(parsed.priceId),
+    ]);
+
+    if (!giftPrice.unit_amount) {
       return Response.json(
-        { error: "no_subscription_price" },
+        { error: "no_gift_price" },
         { status: 502 },
       );
     }
 
-    const unitAmountCents = item.price.unit_amount;
-    const currency = item.price.currency ?? "usd";
-    const priceId = item.price.id;
+    const unitAmountCents = giftPrice.unit_amount;
+    const currency = giftPrice.currency ?? "usd";
+    const priceId = giftPrice.id;
 
-    // Apply coupon.percent_off (Mujo's MUJO_SUB_15) so gifts charge at the
-    // customer's member rate, not retail.
+    // Apply customer's sub coupon.percent_off (Mujo's MUJO_SUB_15) so gifts
+    // charge at the customer's member rate — even if the gift Price is a
+    // different SKU than the customer's own active sub.
     let effectiveAmountCents = unitAmountCents;
     const firstDiscount = stripeSub.discounts?.[0];
     const discount =

@@ -43,6 +43,16 @@ const US_STATES: Array<{ code: string; label: string }> = [
 
 type Step = 1 | 2;
 
+export type GiftableProduct = {
+  priceId: string;
+  /** "The Ritual · 25 servings" */
+  label: string;
+  /** "$55.25 per box" — post-coupon price the customer will be charged. */
+  priceLabel: string;
+  /** Whether this is the customer's current active sub (used to default-select). */
+  isCurrent: boolean;
+};
+
 export type GiftFormFields = {
   recipientName: string;
   recipientEmail: string;
@@ -68,17 +78,17 @@ function emptyFields(senderEmail: string): GiftFormFields {
 }
 
 export function GiftModal({
-  productLabel,
-  effectiveAmountCents,
-  currency,
+  giftOptions,
   senderEmail,
   onClose,
   onSuccess,
 }: {
-  productLabel: string;
-  /** Effective per-delivery price (post-coupon) — what we'll charge. */
-  effectiveAmountCents: number;
-  currency: string;
+  /**
+   * All Mujo subscription Prices the customer can gift, with one flagged
+   * isCurrent. Caller is responsible for ordering — the current sub
+   * typically goes last (or wherever makes sense for default selection).
+   */
+  giftOptions: GiftableProduct[];
   /** Customer's email — pre-fills the recipient-email field. */
   senderEmail: string;
   onClose: () => void;
@@ -88,6 +98,14 @@ export function GiftModal({
   const [fields, setFields] = useState<GiftFormFields>(() =>
     emptyFields(senderEmail),
   );
+  // Default to the customer's current sub. If somehow none is flagged
+  // current (shouldn't happen on real data), fall back to first option.
+  const defaultProduct = giftOptions.find((o) => o.isCurrent) ?? giftOptions[0];
+  const [selectedPriceId, setSelectedPriceId] = useState<string>(
+    defaultProduct?.priceId ?? "",
+  );
+  const selectedProduct =
+    giftOptions.find((o) => o.priceId === selectedPriceId) ?? defaultProduct;
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [done, setDone] = useState(false);
@@ -114,7 +132,8 @@ export function GiftModal({
 
   function step1Valid(): boolean {
     return Boolean(
-      fields.recipientName.trim() &&
+      selectedPriceId &&
+        fields.recipientName.trim() &&
         // Lightweight email shape check — full validation happens server-side.
         /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.recipientEmail.trim()) &&
         fields.line1.trim() &&
@@ -133,6 +152,7 @@ export function GiftModal({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          priceId: selectedPriceId,
           shippingAddress: {
             recipientName: fields.recipientName.trim(),
             line1: fields.line1.trim(),
@@ -216,6 +236,39 @@ export function GiftModal({
             </p>
 
             <div className="gift-fields">
+              {giftOptions.length > 1 ? (
+                <fieldset className="gift-product-picker">
+                  <legend>Sending what?</legend>
+                  <div className="gift-product-options">
+                    {giftOptions.map((opt) => (
+                      <label
+                        key={opt.priceId}
+                        className={`gift-product-option ${
+                          selectedPriceId === opt.priceId ? "selected" : ""
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="gift-product"
+                          value={opt.priceId}
+                          checked={selectedPriceId === opt.priceId}
+                          onChange={() => setSelectedPriceId(opt.priceId)}
+                        />
+                        <span className="gift-product-info">
+                          <strong>{opt.label}</strong>
+                          <span>{opt.priceLabel}</span>
+                        </span>
+                        {opt.isCurrent ? (
+                          <span className="gift-product-yours-pill">
+                            Yours
+                          </span>
+                        ) : null}
+                      </label>
+                    ))}
+                  </div>
+                </fieldset>
+              ) : null}
+
               <label className="gift-field">
                 <span>Recipient name</span>
                 <input
@@ -346,7 +399,8 @@ export function GiftModal({
               Confirm <em>and send.</em>
             </h3>
             <p className="modal-body-text">
-              Sending <strong>{productLabel}</strong> to:
+              Sending <strong>{selectedProduct?.label ?? "Mujo product"}</strong>{" "}
+              to:
             </p>
 
             <div className="gift-summary">
@@ -381,7 +435,7 @@ export function GiftModal({
               <div className="gift-summary-divider" />
               <div className="gift-summary-charge-row">
                 <span>Charge today</span>
-                <strong>{formatCents(effectiveAmountCents, currency)}</strong>
+                <strong>{selectedProduct?.priceLabel ?? "—"}</strong>
               </div>
               <div className="gift-summary-fineprint">
                 + tax · billed to your saved card · ships from our US warehouse
@@ -421,6 +475,82 @@ export function GiftModal({
           flex-direction: column;
           gap: 12px;
           margin-bottom: 18px;
+        }
+
+        /* Product picker */
+        .gift-product-picker {
+          border: none;
+          padding: 0;
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+        .gift-product-picker legend {
+          font-family: var(--f-mono);
+          font-size: 10px;
+          letter-spacing: 0.06em;
+          color: var(--mute);
+          text-transform: uppercase;
+          padding: 0;
+          margin-bottom: 4px;
+        }
+        .gift-product-options {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+        .gift-product-option {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 11px 14px;
+          background: #fff;
+          border: 1px solid rgba(26, 26, 26, 0.09);
+          border-radius: 10px;
+          cursor: pointer;
+          transition: border-color 0.15s, background 0.15s;
+        }
+        .gift-product-option:hover { border-color: var(--orange); }
+        .gift-product-option.selected {
+          border-color: var(--orange);
+          background: rgba(242, 104, 47, 0.06);
+        }
+        .gift-product-option input[type="radio"] {
+          accent-color: var(--orange);
+          flex-shrink: 0;
+          margin: 0;
+        }
+        .gift-product-info {
+          flex: 1;
+          min-width: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+        }
+        .gift-product-info strong {
+          font-size: 14px;
+          font-weight: 500;
+          color: var(--ink);
+          line-height: 1.3;
+        }
+        .gift-product-info > span {
+          font-family: var(--f-mono);
+          font-size: 12px;
+          letter-spacing: 0.04em;
+          color: var(--ink-soft);
+        }
+        .gift-product-yours-pill {
+          font-family: var(--f-mono);
+          font-size: 10px;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          padding: 3px 8px;
+          background: rgba(47, 61, 51, 0.08);
+          color: var(--sage);
+          border-radius: 100px;
+          flex-shrink: 0;
+          font-weight: 500;
         }
         .gift-row-2 {
           display: grid;
@@ -552,12 +682,4 @@ export function GiftModal({
       `}</style>
     </div>
   );
-}
-
-function formatCents(cents: number, currency: string): string {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: currency.toUpperCase(),
-    minimumFractionDigits: 2,
-  }).format(cents / 100);
 }

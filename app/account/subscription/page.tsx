@@ -28,6 +28,7 @@ import {
   type SubscriptionDetail,
   type SwapOption,
 } from "components/account/subscription-controls";
+import type { GiftableProduct } from "components/account/gift-modal";
 
 export const metadata: Metadata = {
   title: "Subscription",
@@ -264,9 +265,13 @@ export default async function SubscriptionPage() {
     year: "numeric",
   });
 
-  // Build swap options — every Ritual subscription Price ID except the
-  // current one. Subscription-only (one-time prices aren't valid swaps).
-  const swapOptions = await buildSwapOptions(livePriceId);
+  // Build swap + gift options in parallel.
+  // Swap excludes the current Price; gift includes it (flagged isCurrent so
+  // it default-selects in the picker).
+  const [swapOptions, giftOptions] = await Promise.all([
+    buildSwapOptions(livePriceId),
+    buildGiftOptions(livePriceId, discountPercent ?? 0),
+  ]);
 
   return (
     <AccountChrome
@@ -417,6 +422,7 @@ export default async function SubscriptionPage() {
         <SubscriptionControls
           detail={detail}
           swapOptions={swapOptions}
+          giftOptions={giftOptions}
           senderEmail={session.email}
         />
       </div>
@@ -800,6 +806,59 @@ async function buildSwapOptions(currentPriceId: string): Promise<SwapOption[]> {
       priceId: price.id,
       label,
       priceLabel,
+    });
+  }
+
+  return options;
+}
+
+/**
+ * Build the list of giftable Mujo sub Prices for the gift modal. Includes
+ * the customer's current sub (flagged isCurrent so it default-selects).
+ * Pulls live unit_amount from Stripe + applies the customer's actual
+ * coupon percent (read live, not hardcoded) so the per-box label matches
+ * what the gift PI will actually charge.
+ */
+async function buildGiftOptions(
+  currentPriceId: string,
+  discountPercent: number,
+): Promise<GiftableProduct[]> {
+  const subPriceIds = [
+    RITUAL_PRICE_IDS["10-subscription"],
+    RITUAL_PRICE_IDS["25-subscription"],
+  ].filter((id) => id.length > 0);
+
+  if (subPriceIds.length === 0) return [];
+
+  const prices = await Promise.all(
+    subPriceIds.map((id) =>
+      stripe.prices.retrieve(id).catch((err) => {
+        console.error("[subscription] gift price retrieve failed", { id, err });
+        return null;
+      }),
+    ),
+  );
+
+  const options: GiftableProduct[] = [];
+  for (const price of prices) {
+    if (!price || !price.unit_amount) continue;
+    const meta = resolvePriceId(price.id, { isSubscription: true });
+    const label = meta
+      ? `${meta.productTitle} · ${meta.variantTitle.replace(" · Subscribe & save", "")}`
+      : "Mujo subscription";
+    const effectiveCents = Math.round(
+      price.unit_amount * (1 - discountPercent / 100),
+    );
+    const priceLabel = `${new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: price.currency.toUpperCase(),
+      minimumFractionDigits: 2,
+    }).format(effectiveCents / 100)} per box`;
+    options.push({
+      priceId: price.id,
+      label,
+      priceLabel,
+      isCurrent: price.id === currentPriceId,
     });
   }
 

@@ -13,7 +13,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { GiftModal } from "./gift-modal";
+import { GiftModal, type GiftableProduct } from "./gift-modal";
 
 export type SubscriptionDetail = {
   stripeSubscriptionId: string;
@@ -61,11 +61,14 @@ const CANCEL_REASONS: Array<{ id: string; label: string }> = [
 export function SubscriptionControls({
   detail,
   swapOptions,
+  giftOptions,
   senderEmail,
 }: {
   detail: SubscriptionDetail;
   /** Other Ritual SKUs the customer can swap into. Excludes the current Price. */
   swapOptions: SwapOption[];
+  /** All Mujo sub Prices that can be gifted (including current — flagged isCurrent). */
+  giftOptions: GiftableProduct[];
   /** Customer's email — pre-fills the gift recipient email field. */
   senderEmail: string;
 }) {
@@ -239,6 +242,22 @@ export function SubscriptionControls({
                 <span>Same member rate, sent to a friend.</span>
               </span>
             </button>
+
+            <Link
+              href="/contact"
+              className="sub-action-btn sub-action-btn-link"
+              aria-disabled={pending !== null}
+            >
+              <span className="sub-action-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+                </svg>
+              </span>
+              <span className="sub-action-text">
+                <strong>Need a hand?</strong>
+                <span>Real human, working-day reply.</span>
+              </span>
+            </Link>
           </div>
         </section>
       ) : null}
@@ -469,11 +488,7 @@ export function SubscriptionControls({
 
       {openModal === "gift" ? (
         <GiftModal
-          productLabel={detail.productLabel}
-          effectiveAmountCents={
-            detail.effectiveAmountCents ?? detail.unitAmountCents ?? 0
-          }
-          currency={detail.currency}
+          giftOptions={giftOptions}
           senderEmail={senderEmail}
           onClose={closeModal}
           onSuccess={() => router.refresh()}
