@@ -81,42 +81,48 @@ export default async function PaymentMethodPage({
 
   return (
     <div className="pm-shell">
-      <Link href="/account" className="pm-back">
-        ← Back to account
-      </Link>
-      <h1 className="pm-title">
-        Payment <em>method</em>
-      </h1>
+      <div className="pm-shell-inner">
+        <Link href="/account" className="pm-back">
+          ← Back to account
+        </Link>
+        <h1 className="pm-title">
+          Payment <em>method</em>
+        </h1>
 
-      {updated ? (
-        <div className="pm-banner">
-          <strong>Card updated.</strong>
-          <span>Your new card is now used for all future charges.</span>
-        </div>
-      ) : null}
+        {updated ? (
+          <div className="pm-banner">
+            <strong>Card updated.</strong>
+            <span>Your new card is now used for all future charges.</span>
+          </div>
+        ) : null}
 
-      {hasStripeCustomer ? (
-        <PaymentMethodForm currentCard={currentCard} />
-      ) : (
-        <div className="pm-empty">
-          <p>
-            You haven&apos;t completed a checkout yet, so there&apos;s nothing
-            to update. Once you place an order or start a subscription, your
-            card details will be available here.
-          </p>
-          <Link href="/products/mujo-ritual" className="pm-cta">
-            Start a subscription →
-          </Link>
-        </div>
-      )}
+        {hasStripeCustomer ? (
+          <PaymentMethodForm currentCard={currentCard} />
+        ) : (
+          <div className="pm-empty">
+            <p>
+              You haven&apos;t completed a checkout yet, so there&apos;s nothing
+              to update. Once you place an order or start a subscription, your
+              card details will be available here.
+            </p>
+            <Link href="/products/mujo-ritual" className="pm-cta">
+              Start a subscription →
+            </Link>
+          </div>
+        )}
+      </div>
 
       <style>{`
         .pm-shell {
+          background: var(--cream);
+          min-height: calc(100vh - 100px);
+          font-family: var(--f-body);
+          color: var(--ink);
+        }
+        .pm-shell-inner {
           max-width: 580px;
           margin: 0 auto;
           padding: 40px 20px 80px;
-          font-family: var(--f-body);
-          color: var(--ink);
         }
         .pm-back {
           display: inline-block;
@@ -176,7 +182,7 @@ export default async function PaymentMethodPage({
         }
         .pm-cta:hover { color: var(--orange); }
         @media (max-width: 600px) {
-          .pm-shell { padding: 28px 14px 60px; }
+          .pm-shell-inner { padding: 28px 14px 60px; }
           .pm-title { font-size: 24px; }
         }
       `}</style>

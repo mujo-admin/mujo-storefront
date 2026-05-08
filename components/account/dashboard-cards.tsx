@@ -230,7 +230,9 @@ function OrdersCard({ orders }: { orders: DashboardOrder[] }) {
   return (
     <div className="dash-card">
       <div className="dash-eyebrow">Recent orders</div>
-      <h2 className="dash-card-title">Last {orders.length}</h2>
+      <h2 className="dash-card-title">
+        {orders.length === 1 ? "Latest order" : `Last ${orders.length} orders`}
+      </h2>
       <ul className="dash-orders-list">
         {orders.map((o) => (
           <li key={o.id} className="dash-order-row">

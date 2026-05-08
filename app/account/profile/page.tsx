@@ -63,35 +63,41 @@ export default async function ProfilePage() {
 
   return (
     <div className="profile-shell">
-      <Link href="/account" className="profile-back">
-        ← Back to account
-      </Link>
-      <h1 className="profile-title">
-        Your <em>profile</em>
-      </h1>
-      <p className="profile-lede">
-        Update your name, email address, and email preferences. Email changes
-        require confirmation from the new address.
-      </p>
+      <div className="profile-shell-inner">
+        <Link href="/account" className="profile-back">
+          ← Back to account
+        </Link>
+        <h1 className="profile-title">
+          Your <em>profile</em>
+        </h1>
+        <p className="profile-lede">
+          Update your name, email address, and email preferences. Email changes
+          require confirmation from the new address.
+        </p>
 
-      <ProfileForm
-        initialFirstName={firstName}
-        initialLastName={lastName}
-        initialEmail={session.email}
-        initialMarketingConsent={
-          marketingConsent === "subscribed" || marketingConsent === "unsubscribed"
-            ? marketingConsent
-            : "subscribed"
-        }
-      />
+        <ProfileForm
+          initialFirstName={firstName}
+          initialLastName={lastName}
+          initialEmail={session.email}
+          initialMarketingConsent={
+            marketingConsent === "subscribed" || marketingConsent === "unsubscribed"
+              ? marketingConsent
+              : "subscribed"
+          }
+        />
+      </div>
 
       <style>{`
         .profile-shell {
+          background: var(--cream);
+          min-height: calc(100vh - 100px);
+          font-family: var(--f-body);
+          color: var(--ink);
+        }
+        .profile-shell-inner {
           max-width: 620px;
           margin: 0 auto;
           padding: 40px 20px 80px;
-          font-family: var(--f-body);
-          color: var(--ink);
         }
         .profile-back {
           display: inline-block;
@@ -124,7 +130,7 @@ export default async function ProfilePage() {
           margin: 0 0 28px;
         }
         @media (max-width: 600px) {
-          .profile-shell { padding: 28px 14px 60px; }
+          .profile-shell-inner { padding: 28px 14px 60px; }
           .profile-title { font-size: 24px; }
         }
       `}</style>

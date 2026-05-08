@@ -59,19 +59,21 @@ export default async function SubscriptionPage() {
   if (!sub) {
     return (
       <div className="sub-shell">
-        <Link href="/account" className="sub-back">
-          ← Back to account
-        </Link>
-        <h1 className="sub-title">
-          No active <em>subscription</em>
-        </h1>
-        <p className="sub-empty">
-          Subscribe & save 15% on every Ritual delivery. Pause or cancel
-          anytime &mdash; no commitment, no cancellation fees.
-        </p>
-        <Link href="/products/mujo-ritual" className="sub-cta">
-          Start a subscription →
-        </Link>
+        <div className="sub-shell-inner">
+          <Link href="/account" className="sub-back">
+            ← Back to account
+          </Link>
+          <h1 className="sub-title">
+            No active <em>subscription</em>
+          </h1>
+          <p className="sub-empty">
+            Subscribe & save 15% on every Ritual delivery. Pause or cancel
+            anytime &mdash; no commitment, no cancellation fees.
+          </p>
+          <Link href="/products/mujo-ritual" className="sub-cta">
+            Start a subscription →
+          </Link>
+        </div>
         <SubStyle />
       </div>
     );
@@ -116,13 +118,15 @@ export default async function SubscriptionPage() {
 
   return (
     <div className="sub-shell">
-      <Link href="/account" className="sub-back">
-        ← Back to account
-      </Link>
-      <h1 className="sub-title">
-        Manage <em>subscription</em>
-      </h1>
-      <SubscriptionControls detail={detail} />
+      <div className="sub-shell-inner">
+        <Link href="/account" className="sub-back">
+          ← Back to account
+        </Link>
+        <h1 className="sub-title">
+          Manage <em>subscription</em>
+        </h1>
+        <SubscriptionControls detail={detail} />
+      </div>
       <SubStyle />
     </div>
   );
@@ -132,11 +136,15 @@ function SubStyle() {
   return (
     <style>{`
       .sub-shell {
+        background: var(--cream);
+        min-height: calc(100vh - 100px);
+        font-family: var(--f-body);
+        color: var(--ink);
+      }
+      .sub-shell-inner {
         max-width: 720px;
         margin: 0 auto;
         padding: 40px 20px 80px;
-        font-family: var(--f-body);
-        color: var(--ink);
       }
       .sub-back {
         display: inline-block;
@@ -182,7 +190,7 @@ function SubStyle() {
       }
       .sub-cta:hover { background: var(--orange-deep); }
       @media (max-width: 600px) {
-        .sub-shell { padding: 28px 14px 60px; }
+        .sub-shell-inner { padding: 28px 14px 60px; }
         .sub-title { font-size: 24px; }
       }
     `}</style>

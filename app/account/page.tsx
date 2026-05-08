@@ -114,36 +114,42 @@ export default async function AccountPage() {
 
   return (
     <div className="account-shell">
-      <header className="account-header">
-        <div>
-          <div className="account-eyebrow">Signed in</div>
-          <h1 className="account-title">
-            Welcome <em>{firstName ? "back, " + firstName : "back"}</em>
-          </h1>
-          <p className="account-lede">
-            Manage your subscription, orders, profile, and payment method.
-          </p>
-        </div>
-        <LogoutButton />
-      </header>
+      <div className="account-shell-inner">
+        <header className="account-header">
+          <div>
+            <div className="account-eyebrow">Signed in</div>
+            <h1 className="account-title">
+              Welcome <em>{firstName ? "back, " + firstName : "back"}</em>
+            </h1>
+            <p className="account-lede">
+              Manage your subscription, orders, profile, and payment method.
+            </p>
+          </div>
+          <LogoutButton />
+        </header>
 
-      <DashboardCards
-        subscription={subscription}
-        recentOrders={orders}
-        profile={{
-          email: session.email,
-          firstName,
-          marketingConsent,
-        }}
-      />
+        <DashboardCards
+          subscription={subscription}
+          recentOrders={orders}
+          profile={{
+            email: session.email,
+            firstName,
+            marketingConsent,
+          }}
+        />
+      </div>
 
       <style>{`
         .account-shell {
+          background: var(--cream);
+          min-height: calc(100vh - 100px);
+          font-family: var(--f-body);
+          color: var(--ink);
+        }
+        .account-shell-inner {
           max-width: 980px;
           margin: 0 auto;
           padding: 56px 20px 80px;
-          font-family: var(--f-body);
-          color: var(--ink);
         }
         .account-header {
           display: flex;
@@ -183,7 +189,7 @@ export default async function AccountPage() {
           max-width: 540px;
         }
         @media (max-width: 600px) {
-          .account-shell { padding: 36px 14px 60px; }
+          .account-shell-inner { padding: 36px 14px 60px; }
           .account-title { font-size: 26px; }
           .account-header { flex-direction: column; }
         }

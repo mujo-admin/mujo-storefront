@@ -60,15 +60,17 @@ export default async function OrdersPage({
   if (orders.length === 0 && pageNum === 1) {
     return (
       <div className="orders-shell">
-        <BackLink />
-        <h1 className="orders-title">
-          Your <em>orders</em>
-        </h1>
-        <div className="orders-empty">
-          <p>No orders yet.</p>
-          <Link href="/shop" className="orders-cta">
-            Browse the shop →
-          </Link>
+        <div className="orders-shell-inner">
+          <BackLink />
+          <h1 className="orders-title">
+            Your <em>orders</em>
+          </h1>
+          <div className="orders-empty">
+            <p>No orders yet.</p>
+            <Link href="/shop" className="orders-cta">
+              Browse the shop →
+            </Link>
+          </div>
         </div>
         <OrdersStyle />
       </div>
@@ -77,15 +79,16 @@ export default async function OrdersPage({
 
   return (
     <div className="orders-shell">
-      <BackLink />
-      <h1 className="orders-title">
-        Your <em>orders</em>
-      </h1>
-      <p className="orders-meta">
-        {total} order{total === 1 ? "" : "s"} on file.
-      </p>
+      <div className="orders-shell-inner">
+        <BackLink />
+        <h1 className="orders-title">
+          Your <em>orders</em>
+        </h1>
+        <p className="orders-meta">
+          {total} order{total === 1 ? "" : "s"} on file.
+        </p>
 
-      <ul className="orders-list">
+        <ul className="orders-list">
         {orders.map((o) => (
           <li key={o.id} className="order-row">
             <div className="order-row-main">
@@ -129,6 +132,7 @@ export default async function OrdersPage({
           )}
         </nav>
       ) : null}
+      </div>
 
       <OrdersStyle />
     </div>
@@ -179,11 +183,15 @@ function OrdersStyle() {
   return (
     <style>{`
       .orders-shell {
+        background: var(--cream);
+        min-height: calc(100vh - 100px);
+        font-family: var(--f-body);
+        color: var(--ink);
+      }
+      .orders-shell-inner {
         max-width: 760px;
         margin: 0 auto;
         padding: 40px 20px 80px;
-        font-family: var(--f-body);
-        color: var(--ink);
       }
       .orders-back {
         display: inline-block;
@@ -315,7 +323,7 @@ function OrdersStyle() {
         color: var(--mute);
       }
       @media (max-width: 600px) {
-        .orders-shell { padding: 28px 14px 60px; }
+        .orders-shell-inner { padding: 28px 14px 60px; }
         .orders-title { font-size: 24px; }
         .order-row { padding: 14px 16px; }
       }
