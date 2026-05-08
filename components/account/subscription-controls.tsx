@@ -164,7 +164,7 @@ export function SubscriptionControls({
               </span>
               <span className="sub-action-text">
                 <strong>Skip the next delivery</strong>
-                <span>We&rsquo;ll bump it forward and resume on schedule.</span>
+                <span>Bumped forward. Resume on schedule.</span>
               </span>
             </button>
 
@@ -181,7 +181,7 @@ export function SubscriptionControls({
               </span>
               <span className="sub-action-text">
                 <strong>Send my next box now</strong>
-                <span>Run out early? We&rsquo;ll bill today and reset the cycle.</span>
+                <span>Ship today. Cycle resets from now.</span>
               </span>
             </button>
 
@@ -200,7 +200,7 @@ export function SubscriptionControls({
                 </span>
                 <span className="sub-action-text">
                   <strong>Swap to a different SKU</strong>
-                  <span>Try the 10-serving size or change the plan.</span>
+                  <span>Try a different size or plan.</span>
                 </span>
               </button>
             ) : null}
@@ -218,7 +218,7 @@ export function SubscriptionControls({
               </span>
               <span className="sub-action-text">
                 <strong>Update payment method</strong>
-                <span>New card on file. Used for the next renewal.</span>
+                <span>New card for the next renewal.</span>
               </span>
             </Link>
 
