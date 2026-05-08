@@ -10,6 +10,7 @@ import {
   useState,
   type ReactNode,
 } from 'react';
+import { usePathname } from 'next/navigation';
 import {
   addItem as addItemPure,
   loadFromLocalStorage,
@@ -64,6 +65,13 @@ export function CartProvider({
   // don't kick off a re-write to localStorage that we just wrote.
   const skipNextPersistRef = useRef(false);
 
+  // /checkout/success has its own clear-cart effect (success-client.tsx) and
+  // server-side carts-row delete (page.tsx) — bypass both the hydration POST
+  // merge and the debounced PUT here so we don't race-overwrite the empty
+  // state. CartProvider re-mounts on Stripe's return_url full-page redirect.
+  const pathname = usePathname();
+  const skipMerge = pathname === '/checkout/success';
+
   // Hydrate from localStorage, then (if signed in) reconcile with the server cart.
   useEffect(() => {
     let cancelled = false;
@@ -71,8 +79,8 @@ export function CartProvider({
     const initial = stored ?? EMPTY_CART;
     setCart(initial);
 
-    // Guest: localStorage is the only source. Done.
-    if (!session) {
+    // Guest, or post-purchase landing: localStorage is the only source. Done.
+    if (!session || skipMerge) {
       setHydrated(true);
       return;
     }
@@ -109,7 +117,7 @@ export function CartProvider({
     return () => {
       cancelled = true;
     };
-  }, [session]);
+  }, [session, skipMerge]);
 
   // Persist on every cart change post-hydration.
   useEffect(() => {
@@ -124,8 +132,11 @@ export function CartProvider({
   // Logged-in: debounced server sync so cart edits in browser A surface in
   // browser B on next login. PUT is a wholesale replace (the initial merge has
   // already happened on mount). 800ms gives bursty toggles room to settle.
+  // Skip on /checkout/success — the success-client clear + server-side delete
+  // own the post-purchase clean slate; a debounced PUT firing here would
+  // re-sync a stale localStorage cart back to the server before that clear.
   useEffect(() => {
-    if (!hydrated || !session) return;
+    if (!hydrated || !session || skipMerge) return;
 
     const timer = setTimeout(() => {
       void fetch('/api/cart/merge', {
@@ -140,7 +151,7 @@ export function CartProvider({
     }, 800);
 
     return () => clearTimeout(timer);
-  }, [cart, hydrated, session]);
+  }, [cart, hydrated, session, skipMerge]);
 
   const addItem = useCallback((item: CartLineItem) => {
     setCart((prev) => addItemPure(prev, item));

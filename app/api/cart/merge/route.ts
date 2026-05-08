@@ -50,6 +50,14 @@ function clampQuantity(n: number): number {
   return Math.min(MAX_QUANTITY_PER_LINE, Math.floor(n));
 }
 
+// MAX (not SUM) on quantity: localStorage and the server cart are two views
+// of the same browser's cart, kept in sync by the debounced PUT in
+// CartProvider. Summing them on every CartProvider re-mount (e.g. after a
+// hard navigation like Stripe Checkout's return_url redirect) double-counted
+// the cart. MAX is idempotent for the in-sync case and still preserves
+// (a) first-time guest→logged-in transfer (server qty 0 → MAX(local, 0) = local),
+// (b) cross-device pickup (browser B added more → server > local → MAX = server),
+// (c) offline mutation recovery (PUT failed → local > server → MAX = local).
 function mergeLines(a: CartLineItem[], b: CartLineItem[]): CartLineItem[] {
   const byPriceId = new Map<string, CartLineItem>();
   for (const item of a) {
@@ -60,7 +68,7 @@ function mergeLines(a: CartLineItem[], b: CartLineItem[]): CartLineItem[] {
     if (existing) {
       byPriceId.set(item.stripePriceId, {
         ...existing,
-        quantity: clampQuantity(existing.quantity + item.quantity),
+        quantity: clampQuantity(Math.max(existing.quantity, item.quantity)),
       });
     } else {
       byPriceId.set(item.stripePriceId, {

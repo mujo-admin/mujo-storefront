@@ -1,6 +1,9 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { eq } from "drizzle-orm";
+import { carts, db } from "db";
 import { stripe } from "lib/stripe";
+import { getSession } from "lib/session";
 import { CheckoutSuccessClient } from "./success-client";
 
 export const metadata: Metadata = {
@@ -22,6 +25,23 @@ export default async function CheckoutSuccessPage(props: {
   const params = await props.searchParams;
   const sessionId = asString(params.session_id);
   const eventId = asString(params.event_id);
+
+  // Clear the customer's server-side cart row on every render of this page.
+  // The cart was just consumed by the order; leaving it populated would
+  // re-pollute on cross-device next-login (CartProvider's POST /api/cart/merge
+  // pulls server items into localStorage). Idempotent — re-renders just
+  // delete a row that's already gone. Best-effort: a DB hiccup here must
+  // not block the customer seeing their order confirmation.
+  try {
+    const userSession = await getSession();
+    if (userSession) {
+      await db
+        .delete(carts)
+        .where(eq(carts.customerId, userSession.customerId));
+    }
+  } catch (err) {
+    console.error('[checkout/success] server cart clear failed', err);
+  }
 
   let session: Awaited<
     ReturnType<typeof stripe.checkout.sessions.retrieve>
