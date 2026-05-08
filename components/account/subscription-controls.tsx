@@ -11,12 +11,15 @@
 // cancellation_details.feedback) + confirmation.
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export type SubscriptionDetail = {
   stripeSubscriptionId: string;
   productLabel: string;
   status: string;
+  /** Live Stripe Price ID — used to highlight current selection in swap modal. */
+  stripePriceId: string;
   currentPeriodEnd: string; // ISO
   cancelAtPeriodEnd: boolean;
   pausedAt: string | null;
@@ -25,7 +28,20 @@ export type SubscriptionDetail = {
   createdAt: string;
 };
 
-type Action = "pause" | "skip-next" | "cancel" | "resume";
+export type SwapOption = {
+  priceId: string;
+  label: string;
+  /** "$X.XX / delivery" — sub price after coupon. */
+  priceLabel: string;
+};
+
+type Action =
+  | "pause"
+  | "skip-next"
+  | "cancel"
+  | "resume"
+  | "send-now"
+  | "swap";
 
 const CANCEL_REASONS: Array<{ id: string; label: string }> = [
   { id: "too_expensive", label: "Too expensive" },
@@ -40,8 +56,11 @@ const CANCEL_REASONS: Array<{ id: string; label: string }> = [
 
 export function SubscriptionControls({
   detail,
+  swapOptions,
 }: {
   detail: SubscriptionDetail;
+  /** Other Ritual SKUs the customer can swap into. Excludes the current Price. */
+  swapOptions: SwapOption[];
 }) {
   const router = useRouter();
   const [openModal, setOpenModal] = useState<Action | null>(null);
@@ -52,6 +71,7 @@ export function SubscriptionControls({
   const [cancelReason, setCancelReason] = useState<string>("");
   const [cancelComment, setCancelComment] = useState<string>("");
   const [pauseCycles, setPauseCycles] = useState<1 | 2 | 3>(1);
+  const [swapTarget, setSwapTarget] = useState<string>("");
 
   const isPaused = detail.status === "paused" || detail.pausedAt !== null;
   const isCanceling = detail.cancelAtPeriodEnd;
@@ -63,6 +83,7 @@ export function SubscriptionControls({
     setCancelReason("");
     setCancelComment("");
     setPauseCycles(1);
+    setSwapTarget("");
     setError(null);
   }
 
@@ -136,6 +157,60 @@ export function SubscriptionControls({
                 <span>We&rsquo;ll bump it forward and resume on schedule.</span>
               </span>
             </button>
+
+            <button
+              type="button"
+              className="sub-action-btn"
+              onClick={() => setOpenModal("send-now")}
+              disabled={pending !== null}
+            >
+              <span className="sub-action-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="13 2 13 10 19 10 11 22 11 14 5 14 13 2" />
+                </svg>
+              </span>
+              <span className="sub-action-text">
+                <strong>Send my next box now</strong>
+                <span>Run out early? We&rsquo;ll bill today and reset the cycle.</span>
+              </span>
+            </button>
+
+            {swapOptions.length > 0 ? (
+              <button
+                type="button"
+                className="sub-action-btn"
+                onClick={() => setOpenModal("swap")}
+                disabled={pending !== null}
+              >
+                <span className="sub-action-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
+                    <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
+                  </svg>
+                </span>
+                <span className="sub-action-text">
+                  <strong>Swap to a different SKU</strong>
+                  <span>Try the 10-serving size or change the plan.</span>
+                </span>
+              </button>
+            ) : null}
+
+            <Link
+              href="/account/payment-method"
+              className="sub-action-btn sub-action-btn-link"
+              aria-disabled={pending !== null}
+            >
+              <span className="sub-action-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="6" width="18" height="13" rx="2" />
+                  <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+              </span>
+              <span className="sub-action-text">
+                <strong>Update payment method</strong>
+                <span>New card on file. Used for the next renewal.</span>
+              </span>
+            </Link>
           </div>
         </section>
       ) : null}
@@ -344,6 +419,58 @@ export function SubscriptionControls({
         </Modal>
       ) : null}
 
+      {openModal === "send-now" ? (
+        <Modal onClose={closeModal} title="Send the next box" titleAccent="now?">
+          <p className="modal-body-text">
+            We&rsquo;ll bill your card today and ship as soon as possible. Your
+            cycle resets — your next delivery after this one will be one full
+            cycle from today.
+          </p>
+          <p className="modal-secondary-text">
+            Note: this immediately charges your saved card.
+          </p>
+          {error ? <p className="modal-error">{error}</p> : null}
+          <ModalFoot
+            onCancel={closeModal}
+            onConfirm={() => performAction("send-now")}
+            confirmLabel="Yes, ship today"
+            pending={pending === "send-now"}
+          />
+        </Modal>
+      ) : null}
+
+      {openModal === "swap" ? (
+        <Modal onClose={closeModal} title="Swap to a" titleAccent="different SKU.">
+          <p className="modal-body-text">
+            Pick the new product. Same subscription cadence, same renewal date.
+            We&rsquo;ll prorate your next charge.
+          </p>
+          <div className="modal-options">
+            {swapOptions.map((opt) => (
+              <button
+                key={opt.priceId}
+                type="button"
+                className={`modal-option ${swapTarget === opt.priceId ? "selected" : ""}`}
+                onClick={() => setSwapTarget(opt.priceId)}
+              >
+                <strong>{opt.label}</strong>
+                <span className="modal-option-meta">{opt.priceLabel}</span>
+              </button>
+            ))}
+          </div>
+          {error ? <p className="modal-error">{error}</p> : null}
+          <ModalFoot
+            onCancel={closeModal}
+            onConfirm={() =>
+              performAction("swap", { priceId: swapTarget })
+            }
+            confirmLabel="Swap subscription"
+            disabled={!swapTarget}
+            pending={pending === "swap"}
+          />
+        </Modal>
+      ) : null}
+
       <style>{`
         /* Quick changes section */
         .sub-actions-section {
@@ -429,6 +556,13 @@ export function SubscriptionControls({
           background: #fff;
         }
         .sub-action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .sub-action-btn-link {
+          text-decoration: none;
+        }
+        .sub-action-btn-link[aria-disabled="true"] {
+          opacity: 0.5;
+          pointer-events: none;
+        }
         .sub-action-icon {
           width: 40px;
           height: 40px;
@@ -617,6 +751,19 @@ export function SubscriptionControls({
         .modal-option.selected {
           border-color: var(--orange);
           background: rgba(242, 104, 47, 0.06);
+        }
+        .modal-option strong {
+          display: block;
+          font-weight: 500;
+          color: var(--ink);
+          margin-bottom: 2px;
+        }
+        .modal-option-meta {
+          display: block;
+          font-family: var(--f-mono);
+          font-size: 12px;
+          color: var(--ink-soft);
+          letter-spacing: 0.04em;
         }
         .modal-textarea-label {
           display: flex;

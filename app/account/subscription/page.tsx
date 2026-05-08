@@ -21,10 +21,12 @@ import { customers, db, subscriptions } from "db";
 import { stripe } from "lib/stripe";
 import { getSession } from "lib/session";
 import { resolvePriceId } from "lib/cart/price-id-map";
+import { RITUAL_PRICE_IDS, SUBSCRIPTION_COUPON_ID } from "lib/stripe-constants";
 import { AccountChrome } from "components/account/account-chrome";
 import {
   SubscriptionControls,
   type SubscriptionDetail,
+  type SwapOption,
 } from "components/account/subscription-controls";
 
 export const metadata: Metadata = {
@@ -90,7 +92,43 @@ export default async function SubscriptionPage() {
     );
   }
 
-  // Fetch live Stripe Subscription for unit_amount + payment method detail.
+  // Read live Stripe state — single source of truth. The DB row is only
+  // used to find the subscription ID (and as a fallback if Stripe is
+  // unreachable). Reading live eliminates webhook-lag stale state after
+  // the customer takes a sub-mgmt action.
+  let stripeSub: Stripe.Subscription | null = null;
+  try {
+    stripeSub = (await stripe.subscriptions.retrieve(
+      sub.stripeSubscriptionId,
+      { expand: ["items.data.price", "default_payment_method"] },
+    )) as Stripe.Subscription;
+  } catch (err) {
+    console.error("[subscription] stripe sub retrieve failed", err);
+  }
+
+  // All display fields derive from Stripe when available, with DB fallback.
+  const status = stripeSub?.status ?? sub.status;
+  const cancelAtPeriodEnd = stripeSub?.cancel_at_period_end ?? sub.cancelAtPeriodEnd;
+  const pausedAt = stripeSub?.pause_collection ? new Date() : sub.pausedAt;
+  const isPaused = Boolean(stripeSub?.pause_collection);
+  const isCanceling = cancelAtPeriodEnd;
+
+  const periodInfo = stripeSub
+    ? {
+        start: new Date(
+          (stripeSub.items.data[0]?.current_period_start ??
+            stripeSub.billing_cycle_anchor) * 1000,
+        ),
+        end: new Date(
+          (stripeSub.items.data[0]?.current_period_end ??
+            stripeSub.billing_cycle_anchor + 30 * 86400) * 1000,
+        ),
+      }
+    : { start: sub.currentPeriodStart, end: sub.currentPeriodEnd };
+
+  const livePriceId =
+    stripeSub?.items.data[0]?.price.id ?? sub.stripePriceId;
+
   let unitAmountCents: number | null = null;
   let currency = "usd";
   let cardBrand: string | null = null;
@@ -99,11 +137,7 @@ export default async function SubscriptionPage() {
   let cardExpYear: number | null = null;
   let shippingAddressLine: string | null = null;
 
-  try {
-    const stripeSub = (await stripe.subscriptions.retrieve(
-      sub.stripeSubscriptionId,
-      { expand: ["items.data.price", "default_payment_method"] },
-    )) as Stripe.Subscription;
+  if (stripeSub) {
     const price = stripeSub.items.data[0]?.price;
     if (price) {
       unitAmountCents = price.unit_amount ?? null;
@@ -116,8 +150,6 @@ export default async function SubscriptionPage() {
       cardExpMonth = pm.card.exp_month;
       cardExpYear = pm.card.exp_year;
     }
-  } catch (err) {
-    console.error("[subscription] stripe sub retrieve failed", err);
   }
 
   // Fall back to Customer.invoice_settings.default_payment_method if the sub
@@ -140,7 +172,6 @@ export default async function SubscriptionPage() {
           cardExpMonth = defaultPm.card.exp_month;
           cardExpYear = defaultPm.card.exp_year;
         }
-        // Use shipping address as the fallback display string.
         const addr = c.shipping?.address ?? c.address;
         if (addr) {
           shippingAddressLine = [
@@ -158,28 +189,32 @@ export default async function SubscriptionPage() {
     }
   }
 
-  const meta = resolvePriceId(sub.stripePriceId, { isSubscription: true });
+  const meta = resolvePriceId(livePriceId, { isSubscription: true });
   const productLabel = meta
     ? `${meta.productTitle} · ${meta.variantTitle.replace(" · Subscribe & save", "")}`
     : "Mujo subscription";
 
-  const periodMs = sub.currentPeriodEnd.getTime() - sub.currentPeriodStart.getTime();
-  const intervalLabel = formatIntervalLabel(periodMs);
-  const intervalMeta = formatIntervalMeta(periodMs);
-
-  const isPaused = sub.status === "paused" || sub.pausedAt !== null;
-  const isCanceling = sub.cancelAtPeriodEnd;
+  // Frequency label derived from price.recurring (canonical) — not from
+  // (period_end - period_start) which compounds across pauses.
+  const recurring = stripeSub?.items.data[0]?.price.recurring;
+  const intervalLabel = recurring
+    ? formatIntervalLabelFromRecurring(recurring)
+    : "—";
+  const intervalMeta = recurring
+    ? formatIntervalMetaFromRecurring(recurring)
+    : "";
 
   // Charge happens 2 days before period end (Stripe default smart retries).
-  const chargeDate = new Date(sub.currentPeriodEnd.getTime() - 2 * 24 * 60 * 60 * 1000);
+  const chargeDate = new Date(periodInfo.end.getTime() - 2 * 24 * 60 * 60 * 1000);
 
   const detail: SubscriptionDetail = {
     stripeSubscriptionId: sub.stripeSubscriptionId,
     productLabel,
-    status: sub.status,
-    currentPeriodEnd: sub.currentPeriodEnd.toISOString(),
-    cancelAtPeriodEnd: sub.cancelAtPeriodEnd,
-    pausedAt: sub.pausedAt?.toISOString() ?? null,
+    status,
+    stripePriceId: livePriceId,
+    currentPeriodEnd: periodInfo.end.toISOString(),
+    cancelAtPeriodEnd,
+    pausedAt: pausedAt?.toISOString() ?? null,
     unitAmountCents,
     currency,
     createdAt: sub.createdAt.toISOString(),
@@ -189,6 +224,10 @@ export default async function SubscriptionPage() {
     month: "long",
     year: "numeric",
   });
+
+  // Build swap options — every Ritual subscription Price ID except the
+  // current one. Subscription-only (one-time prices aren't valid swaps).
+  const swapOptions = await buildSwapOptions(livePriceId);
 
   return (
     <AccountChrome
@@ -224,8 +263,8 @@ export default async function SubscriptionPage() {
               <h2>{productLabel}</h2>
               <p>Active since {memberSinceLabel}</p>
             </div>
-            <div className={`sub-status-pill ${pillClass(sub.status, isPaused, isCanceling)}`}>
-              {pillLabel(sub.status, isPaused, isCanceling)}
+            <div className={`sub-status-pill ${pillClass(status, isPaused, isCanceling)}`}>
+              {pillLabel(status, isPaused, isCanceling)}
             </div>
           </div>
 
@@ -235,7 +274,7 @@ export default async function SubscriptionPage() {
               <span className="acc-eyebrow-orange">
                 {isCanceling ? "Ends" : isPaused ? "Paused until" : "Next delivery"}
               </span>
-              <strong>{formatLongDate(sub.currentPeriodEnd)}</strong>
+              <strong>{formatLongDate(periodInfo.end)}</strong>
               {!isPaused && !isCanceling ? (
                 <span>
                   Charges your card on {formatShortDate(chargeDate)}. Ships from
@@ -313,7 +352,7 @@ export default async function SubscriptionPage() {
         </div>
 
         {/* Subscription controls — pause / skip / cancel / resume modals */}
-        <SubscriptionControls detail={detail} />
+        <SubscriptionControls detail={detail} swapOptions={swapOptions} />
       </div>
 
       <SubStyle />
@@ -577,19 +616,34 @@ function pillLabel(status: string, isPaused: boolean, isCanceling: boolean): str
   return "Active";
 }
 
-function formatIntervalLabel(periodMs: number): string {
-  const days = Math.round(periodMs / (1000 * 60 * 60 * 24));
-  if (days >= 25 && days <= 35) return "Every 4 weeks";
-  if (days >= 14 && days <= 21) return "Every 2 weeks";
-  if (days >= 85 && days <= 95) return "Every 3 months";
-  if (days >= 360) return "Every year";
-  return `Every ${days} days`;
+function formatIntervalLabelFromRecurring(
+  recurring: Stripe.Price.Recurring,
+): string {
+  const count = recurring.interval_count ?? 1;
+  const interval = recurring.interval;
+  if (interval === "month" && count === 1) return "Every 4 weeks";
+  if (interval === "month" && count === 3) return "Every 3 months";
+  if (interval === "month") return `Every ${count} months`;
+  if (interval === "week" && count === 1) return "Weekly";
+  if (interval === "week" && count === 2) return "Every 2 weeks";
+  if (interval === "week") return `Every ${count} weeks`;
+  if (interval === "year") return count === 1 ? "Yearly" : `Every ${count} years`;
+  if (interval === "day") return count === 1 ? "Daily" : `Every ${count} days`;
+  return `Every ${count} ${interval}${count === 1 ? "" : "s"}`;
 }
 
-function formatIntervalMeta(periodMs: number): string {
-  const days = Math.round(periodMs / (1000 * 60 * 60 * 24));
-  const peryear = Math.round(365 / days);
-  return `~${peryear} ${peryear === 1 ? "delivery" : "deliveries"} per year`;
+function formatIntervalMetaFromRecurring(
+  recurring: Stripe.Price.Recurring,
+): string {
+  const count = recurring.interval_count ?? 1;
+  const cyclesPerYear = (() => {
+    if (recurring.interval === "month") return Math.round(12 / count);
+    if (recurring.interval === "week") return Math.round(52 / count);
+    if (recurring.interval === "year") return 1;
+    if (recurring.interval === "day") return Math.round(365 / count);
+    return 12;
+  })();
+  return `~${cyclesPerYear} ${cyclesPerYear === 1 ? "delivery" : "deliveries"} per year`;
 }
 
 function formatLongDate(d: Date): string {
@@ -623,4 +677,56 @@ function formatBrand(brand: string): string {
   if (lower === "visa") return "Visa";
   if (lower === "discover") return "Discover";
   return brand.charAt(0).toUpperCase() + brand.slice(1);
+}
+
+/**
+ * Build the list of Ritual subscription Price IDs the customer can swap into,
+ * excluding the current one. Fetches each Price's unit_amount from Stripe so
+ * the swap modal shows live pricing (with the standing 15% sub coupon
+ * estimate applied for the per-delivery label).
+ */
+async function buildSwapOptions(currentPriceId: string): Promise<SwapOption[]> {
+  const subPriceIds = [
+    RITUAL_PRICE_IDS["10-subscription"],
+    RITUAL_PRICE_IDS["25-subscription"],
+  ].filter((id) => id.length > 0 && id !== currentPriceId);
+
+  if (subPriceIds.length === 0) return [];
+
+  // Fetch live Price data (unit_amount, currency) in parallel.
+  const prices = await Promise.all(
+    subPriceIds.map((id) =>
+      stripe.prices.retrieve(id).catch((err) => {
+        console.error("[subscription] price retrieve failed", { id, err });
+        return null;
+      }),
+    ),
+  );
+
+  // Standing subscription coupon: 15% off forever — applied at checkout.
+  // For display in the swap modal, show the post-coupon per-delivery price
+  // since that's what the customer will actually see charged.
+  const couponDiscount = SUBSCRIPTION_COUPON_ID ? 0.15 : 0;
+
+  const options: SwapOption[] = [];
+  for (const price of prices) {
+    if (!price || !price.unit_amount) continue;
+    const meta = resolvePriceId(price.id, { isSubscription: true });
+    const label = meta
+      ? `${meta.productTitle} · ${meta.variantTitle.replace(" · Subscribe & save", "")}`
+      : "Mujo subscription";
+    const effectiveCents = Math.round(price.unit_amount * (1 - couponDiscount));
+    const priceLabel = `${new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: price.currency.toUpperCase(),
+      minimumFractionDigits: 2,
+    }).format(effectiveCents / 100)} per delivery`;
+    options.push({
+      priceId: price.id,
+      label,
+      priceLabel,
+    });
+  }
+
+  return options;
 }

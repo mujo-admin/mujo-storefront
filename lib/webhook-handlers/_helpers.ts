@@ -3,7 +3,7 @@
 
 import { eq } from 'drizzle-orm';
 import type Stripe from 'stripe';
-import { customers, db } from 'db';
+import { customers, db, subscriptions } from 'db';
 import { findOrCreateCustomer } from 'lib/shopify-admin';
 import {
   setStripeCustomerIdOnCustomer,
@@ -100,6 +100,71 @@ export function normalizeSubscriptionStatus(
   s: Stripe.Subscription.Status,
 ): SubscriptionStatus {
   return s;
+}
+
+/**
+ * Mirror a Stripe Subscription object into our `subscriptions` table. Idempotent —
+ * always writes the current Stripe state to whatever row already exists for
+ * this stripe_subscription_id.
+ *
+ * Used by:
+ *   - `customer.subscription.updated` webhook handler (for async events)
+ *   - `/api/account/subscription/[action]` server route (for inline post-Stripe
+ *     write so the next page render doesn't see stale DB state before the
+ *     webhook lands)
+ */
+export async function syncSubscriptionToDb(sub: Stripe.Subscription) {
+  const period = extractSubscriptionPeriod(sub);
+  const stripePriceId = sub.items.data[0]?.price.id ?? '';
+  const status = normalizeSubscriptionStatus(sub.status);
+
+  const existing = (
+    await db
+      .select()
+      .from(subscriptions)
+      .where(eq(subscriptions.stripeSubscriptionId, sub.id))
+      .limit(1)
+  )[0];
+
+  if (!existing) return; // Insert is left to the webhook path; action routes
+                         // only mutate existing rows.
+
+  await db
+    .update(subscriptions)
+    .set({
+      status,
+      stripePriceId,
+      currentPeriodStart: period.start,
+      currentPeriodEnd: period.end,
+      cancelAtPeriodEnd: sub.cancel_at_period_end,
+      canceledAt: sub.canceled_at ? new Date(sub.canceled_at * 1000) : null,
+      pausedAt: sub.pause_collection ? new Date() : null,
+      metadata: sub.metadata ?? {},
+      updatedAt: new Date(),
+    })
+    .where(eq(subscriptions.id, existing.id));
+}
+
+/**
+ * Read the canonical billing cycle length (in seconds) from a Stripe
+ * Subscription's first item's price.recurring. Used by pause/skip math
+ * so the cycle stays anchored to the price's true interval rather than
+ * compounding off whatever `current_period_end - current_period_start`
+ * happens to be after prior pauses or skips.
+ */
+export function getSubscriptionCycleSeconds(sub: Stripe.Subscription): number {
+  const recurring = sub.items.data[0]?.price.recurring;
+  if (!recurring) return 30 * 24 * 60 * 60; // 30-day fallback
+
+  const { interval, interval_count } = recurring;
+  const count = interval_count ?? 1;
+  const intervalSeconds: Record<string, number> = {
+    day: 86400,
+    week: 7 * 86400,
+    month: 28 * 86400, // 28 days = treat a "month" as 4 weeks for cleaner cycles
+    year: 365 * 86400,
+  };
+  return (intervalSeconds[interval] ?? 30 * 86400) * count;
 }
 
 /**

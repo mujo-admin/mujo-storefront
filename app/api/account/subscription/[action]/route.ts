@@ -1,12 +1,12 @@
 // POST /api/account/subscription/{action}
 //
-// action ∈ {pause, skip-next, cancel, resume}.
+// action ∈ {pause, skip-next, cancel, resume, send-now, swap}.
 //
-// All four actions update the live Stripe Subscription server-side. Stripe's
-// `customer.subscription.updated` webhook (already handled by W2) mirrors the
-// new state into our `subscriptions` table, so we don't write the DB here —
-// we just call Stripe and trust the webhook to land the diff. The route does
-// validate the customer owns the subscription before any Stripe call.
+// All actions update the live Stripe Subscription server-side, then mirror
+// the result into our `subscriptions` table inline so the next page render
+// reflects the new state immediately (without waiting for the
+// `customer.subscription.updated` webhook to land). The webhook still fires
+// asynchronously and idempotently rewrites the same state.
 //
 // Customer Portal blocks pause + subscription_update for our account per
 // project_stripe_tax_and_portal.md memory; the underlying API path used here
@@ -18,11 +18,23 @@ import Stripe from "stripe";
 import { z } from "zod";
 import { db, subscriptions } from "db";
 import { stripe } from "lib/stripe";
+import {
+  getSubscriptionCycleSeconds,
+  syncSubscriptionToDb,
+} from "lib/webhook-handlers/_helpers";
 import { getSession, refreshSession } from "lib/session";
+import { RITUAL_PRICE_IDS } from "lib/stripe-constants";
 
 export const dynamic = "force-dynamic";
 
-const ACTIONS = ["pause", "skip-next", "cancel", "resume"] as const;
+const ACTIONS = [
+  "pause",
+  "skip-next",
+  "cancel",
+  "resume",
+  "send-now",
+  "swap",
+] as const;
 type Action = (typeof ACTIONS)[number];
 
 const ACTIVE_SUB_STATUSES = [
@@ -32,7 +44,6 @@ const ACTIVE_SUB_STATUSES = [
   "paused",
 ] as const;
 
-// Per-action body schemas.
 const pauseSchema = z.object({
   cycles: z.number().int().min(1).max(3).default(1),
 });
@@ -42,11 +53,15 @@ const cancelSchema = z.object({
   comment: z.string().max(500).optional(),
 });
 
-// Map our internal cancel reason IDs onto Stripe's
-// `cancellation_details.feedback` enum. Stripe rejects values outside its
-// fixed set, so we route everything else into "other" with our raw reason
-// preserved in the comment.
-const STRIPE_FEEDBACK_MAP: Record<string, Stripe.SubscriptionUpdateParams.CancellationDetails.Feedback> = {
+const swapSchema = z.object({
+  /** Target Stripe Price ID. Must be in RITUAL_PRICE_IDS. */
+  priceId: z.string().startsWith("price_"),
+});
+
+const STRIPE_FEEDBACK_MAP: Record<
+  string,
+  Stripe.SubscriptionUpdateParams.CancellationDetails.Feedback
+> = {
   too_expensive: "too_expensive",
   missing_features: "missing_features",
   low_quality: "low_quality",
@@ -56,6 +71,10 @@ const STRIPE_FEEDBACK_MAP: Record<string, Stripe.SubscriptionUpdateParams.Cancel
   too_complex: "too_complex",
   other: "other",
 };
+
+const ALLOWED_RITUAL_PRICE_IDS: Set<string> = new Set(
+  Object.values(RITUAL_PRICE_IDS).filter((id) => id.length > 0),
+);
 
 export async function POST(
   req: NextRequest,
@@ -72,9 +91,6 @@ export async function POST(
   }
   const action = actionRaw as Action;
 
-  // Find the customer's most recent active-ish subscription. We assume one
-  // active subscription per customer for the MVP (matches the canonical
-  // Mujo Ritual offer). Multi-sub will need a body-level subscription_id.
   const rows = await db
     .select()
     .from(subscriptions)
@@ -89,10 +105,7 @@ export async function POST(
 
   const subRow = rows[0];
   if (!subRow) {
-    return Response.json(
-      { error: "no_active_subscription" },
-      { status: 404 },
-    );
+    return Response.json({ error: "no_active_subscription" }, { status: 404 });
   }
 
   let body: Record<string, unknown> = {};
@@ -105,66 +118,117 @@ export async function POST(
   }
 
   try {
+    let updatedSub: Stripe.Subscription;
+
     if (action === "pause") {
       const parsed = pauseSchema.parse(body);
-      // Pause via collection-level pause: Stripe stops attempting payment
-      // and emits invoice.upcoming events resuming on `resumes_at`.
-      // We compute resume = now + cycles * (currentPeriod length). Falls
-      // back to 30 days/cycle if Stripe period info is missing.
-      const periodMs =
-        subRow.currentPeriodEnd.getTime() -
-        subRow.currentPeriodStart.getTime();
-      const cycleMs = periodMs > 0 ? periodMs : 30 * 24 * 60 * 60 * 1000;
-      const resumesAt = Math.floor(
-        (Date.now() + parsed.cycles * cycleMs) / 1000,
+      // Read current sub to derive the canonical cycle length from
+      // price.recurring (NOT the period delta — that compounds across
+      // successive pauses and produces 245-day cycles).
+      const current = await stripe.subscriptions.retrieve(
+        subRow.stripeSubscriptionId,
+        { expand: ["items.data.price"] },
       );
-      await stripe.subscriptions.update(subRow.stripeSubscriptionId, {
-        pause_collection: {
-          behavior: "mark_uncollectible",
-          resumes_at: resumesAt,
+      const cycleSeconds = getSubscriptionCycleSeconds(current);
+      const resumesAt = Math.floor(Date.now() / 1000) + parsed.cycles * cycleSeconds;
+      updatedSub = await stripe.subscriptions.update(
+        subRow.stripeSubscriptionId,
+        {
+          pause_collection: {
+            behavior: "mark_uncollectible",
+            resumes_at: resumesAt,
+          },
         },
-      });
-    } else if (action === "skip-next") {
-      // Skip = extend the current period by one cycle. Setting `trial_end`
-      // on an active subscription with `proration_behavior: 'none'` shifts
-      // the next billing date out by the diff with no charge.
-      const periodMs =
-        subRow.currentPeriodEnd.getTime() -
-        subRow.currentPeriodStart.getTime();
-      const cycleMs = periodMs > 0 ? periodMs : 30 * 24 * 60 * 60 * 1000;
-      const newPeriodEnd = Math.floor(
-        (subRow.currentPeriodEnd.getTime() + cycleMs) / 1000,
       );
-      await stripe.subscriptions.update(subRow.stripeSubscriptionId, {
-        trial_end: newPeriodEnd,
-        proration_behavior: "none",
-      });
+    } else if (action === "skip-next") {
+      // Extend current period by exactly one canonical cycle. Setting
+      // `trial_end` on an active subscription with `proration_behavior: 'none'`
+      // shifts the next billing date out with no charge.
+      const current = await stripe.subscriptions.retrieve(
+        subRow.stripeSubscriptionId,
+        { expand: ["items.data.price"] },
+      );
+      const cycleSeconds = getSubscriptionCycleSeconds(current);
+      const newPeriodEnd =
+        Math.floor(subRow.currentPeriodEnd.getTime() / 1000) + cycleSeconds;
+      updatedSub = await stripe.subscriptions.update(
+        subRow.stripeSubscriptionId,
+        {
+          trial_end: newPeriodEnd,
+          proration_behavior: "none",
+        },
+      );
     } else if (action === "cancel") {
       const parsed = cancelSchema.parse(body);
       const feedback = STRIPE_FEEDBACK_MAP[parsed.reason] ?? "other";
-      await stripe.subscriptions.update(subRow.stripeSubscriptionId, {
-        cancel_at_period_end: true,
-        cancellation_details: {
-          feedback,
-          comment: parsed.comment,
+      updatedSub = await stripe.subscriptions.update(
+        subRow.stripeSubscriptionId,
+        {
+          cancel_at_period_end: true,
+          cancellation_details: {
+            feedback,
+            comment: parsed.comment,
+          },
         },
-      });
+      );
     } else if (action === "resume") {
-      // Resume covers two cases:
-      //  1. Was paused → clear pause_collection (Stripe accepts null, also
-      //     accepts unsetting via empty-object literal — null is the SDK-
-      //     supported clear).
-      //  2. Was canceling → flip cancel_at_period_end back to false.
-      // We send both clears in one call; Stripe ignores no-op fields.
-      await stripe.subscriptions.update(subRow.stripeSubscriptionId, {
-        pause_collection: "",
-        cancel_at_period_end: false,
-      });
+      // Clear pause_collection AND cancel_at_period_end in one call. Stripe
+      // ignores no-op fields, so this works whether sub was paused, canceling,
+      // or both.
+      updatedSub = await stripe.subscriptions.update(
+        subRow.stripeSubscriptionId,
+        {
+          pause_collection: "",
+          cancel_at_period_end: false,
+        },
+      );
+    } else if (action === "send-now") {
+      // Advance billing — bills immediately and resets the cycle anchor to now.
+      // Used both as a customer-facing "Send my next box now" action AND as
+      // recovery from over-pausing during testing.
+      updatedSub = await stripe.subscriptions.update(
+        subRow.stripeSubscriptionId,
+        {
+          billing_cycle_anchor: "now",
+          proration_behavior: "create_prorations",
+        },
+      );
+    } else {
+      // action === "swap"
+      const parsed = swapSchema.parse(body);
+      if (!ALLOWED_RITUAL_PRICE_IDS.has(parsed.priceId)) {
+        return Response.json(
+          { error: "invalid_price", message: "That product isn't available." },
+          { status: 400 },
+        );
+      }
+      // Update the first sub item's price. Stripe rebuilds the line items
+      // automatically. Use 'create_prorations' so the customer's next charge
+      // reflects the price change.
+      const current = await stripe.subscriptions.retrieve(
+        subRow.stripeSubscriptionId,
+      );
+      const itemId = current.items.data[0]?.id;
+      if (!itemId) {
+        return Response.json(
+          { error: "no_subscription_item" },
+          { status: 502 },
+        );
+      }
+      updatedSub = await stripe.subscriptions.update(
+        subRow.stripeSubscriptionId,
+        {
+          items: [{ id: itemId, price: parsed.priceId }],
+          proration_behavior: "create_prorations",
+        },
+      );
     }
 
-    // Sliding-refresh the session cookie on activity.
-    await refreshSession();
+    // Mirror the updated state to our DB inline. The webhook will fire later
+    // and idempotently rewrite the same state.
+    await syncSubscriptionToDb(updatedSub);
 
+    await refreshSession();
     return Response.json({ ok: true });
   } catch (err) {
     if (err instanceof z.ZodError) {
@@ -174,7 +238,7 @@ export async function POST(
       );
     }
     if (err instanceof Stripe.errors.StripeError) {
-      console.error("[subscription/" + action + "] Stripe error", {
+      console.error(`[subscription/${action}] Stripe error`, {
         code: err.code,
         message: err.message,
       });
@@ -183,7 +247,7 @@ export async function POST(
         { status: err.statusCode ?? 502 },
       );
     }
-    console.error("[subscription/" + action + "] unexpected error", err);
+    console.error(`[subscription/${action}] unexpected error`, err);
     return Response.json({ error: "internal_error" }, { status: 500 });
   }
 }
