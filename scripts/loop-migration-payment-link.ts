@@ -6,19 +6,21 @@
 // drafted at outputs/marketing-and-sales/emails/_loop-to-stripe-migration-2026-05-07.md.
 //
 // Idempotent: looks for an existing Payment Link tagged
-// `metadata.loop_migration === '<RUN_TAG>'` and reuses it if found.
+// `metadata.loop_migration === '<RUN_TAG>'`. If found, updates its
+// after_completion.redirect.url to the current --site-url. If not,
+// creates a fresh one. This means re-running with a different
+// --site-url repoints the same Payment Link (same plink_… ID) at the
+// new redirect URL — useful if .env.local's NEXT_PUBLIC_SITE_URL is
+// localhost (good for dev, useless for Stripe redirects).
 //
 // Test mode only — runs against `sk_test_…` from .env.local. No live
-// charges. Customers who actually click these test-mode URLs and "pay"
-// with `4242 4242 4242 4242` create test-mode subscriptions in Stripe
-// Dashboard (Sandbox view), which Kinga can inspect to validate the flow
-// before the real cutover-day send.
+// charges.
 //
 // Usage:
-//   pnpm tsx --env-file=.env.local scripts/loop-migration-payment-link.ts
+//   pnpm tsx --env-file=.env.local scripts/loop-migration-payment-link.ts \
+//     --site-url=https://mujo-storefront.vercel.app
 //
-// Output: 5 per-customer URLs printed to stdout. The Payment Link itself
-// is created (or reused) on Stripe and tagged for cleanup.
+// Output: 5 per-customer URLs printed to stdout.
 
 import "dotenv/config";
 import { config as loadEnv } from "dotenv";
@@ -60,13 +62,36 @@ const SUBSCRIBERS: Array<{ name: string; email: string }> = [
 
 const RUN_TAG = "v2-2026-05-08-test-with-redirect";
 
-// Where Stripe redirects after the customer completes the migration
-// checkout. /migration-complete is a Mujo-side server component that
-// confirms the migration + hands off to /account/login with email
-// pre-filled. {CHECKOUT_SESSION_ID} is Stripe-substituted.
-const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://mujoworld.com"
-).replace(/\/$/, "");
+// CLI: --site-url=<url> is required. Stripe redirects there after the
+// customer completes the migration Payment Link checkout.
+// /migration-complete is a Mujo-side server component that confirms
+// the migration + hands off to /account/login with email pre-filled.
+// {CHECKOUT_SESSION_ID} is Stripe-substituted.
+//
+// Required as a CLI flag (NOT defaulted to NEXT_PUBLIC_SITE_URL)
+// because that env var is typically `http://localhost:3000` in
+// .env.local for local dev — and a localhost redirect URL would
+// silently break the Stripe checkout flow (browser can't reach
+// localhost from outside).
+const argv = process.argv.slice(2);
+const siteUrlArg = argv.find((a) => a.startsWith("--site-url="));
+if (!siteUrlArg) {
+  console.error(
+    "Required: --site-url=https://<your-deployed-domain>\n" +
+      "  Test mode example:  --site-url=https://mujo-storefront.vercel.app\n" +
+      "  Cutover example:    --site-url=https://mujoworld.com\n" +
+      "  (do not use localhost — Stripe needs a public URL it can redirect to)",
+  );
+  process.exit(1);
+}
+const SITE_URL = siteUrlArg.split("=")[1]?.replace(/\/$/, "") ?? "";
+if (!SITE_URL.startsWith("https://")) {
+  console.error(
+    `Invalid --site-url: ${SITE_URL}\n` +
+      "Must start with https:// — Stripe rejects http (non-TLS) redirect URLs.",
+  );
+  process.exit(1);
+}
 const REDIRECT_URL = `${SITE_URL}/migration-complete?session_id={CHECKOUT_SESSION_ID}`;
 
 async function main() {
@@ -76,13 +101,38 @@ async function main() {
   console.log(`  Coupon: ${COUPON_ID || "(none — full retail)"}`);
   console.log();
 
-  // 1. Look for an existing tagged Payment Link to reuse (idempotency).
+  console.log(`  Site URL: ${SITE_URL}`);
+  console.log(`  Redirect URL: ${REDIRECT_URL}`);
+  console.log();
+
+  // 1. Look for an existing tagged Payment Link. If found and its current
+  //    redirect URL matches → reuse. If found but redirect points at a
+  //    different URL (e.g. previous run used localhost by mistake) →
+  //    update via stripe.paymentLinks.update so the same plink_… ID
+  //    keeps working.
   let paymentLink: Stripe.PaymentLink | null = null;
   const existing = await stripe.paymentLinks.list({ limit: 100, active: true });
   for (const pl of existing.data) {
     if (pl.metadata?.loop_migration === RUN_TAG) {
       paymentLink = pl;
-      console.log(`  Reusing existing Payment Link: ${pl.id}`);
+      const currentRedirect =
+        pl.after_completion?.type === "redirect"
+          ? (pl.after_completion.redirect?.url ?? null)
+          : null;
+      if (currentRedirect === REDIRECT_URL) {
+        console.log(`  Reusing existing Payment Link: ${pl.id} (redirect already current)`);
+      } else {
+        console.log(`  Found existing Payment Link: ${pl.id}`);
+        console.log(`  Current redirect: ${currentRedirect ?? "(none)"}`);
+        console.log(`  Updating redirect → ${REDIRECT_URL}`);
+        paymentLink = await stripe.paymentLinks.update(pl.id, {
+          after_completion: {
+            type: "redirect",
+            redirect: { url: REDIRECT_URL },
+          },
+        });
+        console.log(`  ✓ Redirect updated`);
+      }
       break;
     }
   }
