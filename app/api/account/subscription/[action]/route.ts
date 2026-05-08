@@ -184,12 +184,16 @@ export async function POST(
       );
     } else if (action === "send-now") {
       // Advance billing — bills immediately and resets the cycle anchor to now.
-      // Used both as a customer-facing "Send my next box now" action AND as
-      // recovery from over-pausing during testing.
+      // `trial_end: 'now'` is required because skip-next uses trial_end to
+      // shift the next charge date forward; without clearing it, Stripe
+      // rejects the anchor change ("trial_end cannot be after
+      // billing_cycle_anchor"). Acts both as a customer-facing "Send my
+      // next box now" action AND as recovery from over-pausing during testing.
       updatedSub = await stripe.subscriptions.update(
         subRow.stripeSubscriptionId,
         {
           billing_cycle_anchor: "now",
+          trial_end: "now",
           proration_behavior: "create_prorations",
         },
       );
