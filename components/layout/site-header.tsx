@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { AnnouncementBar } from "components/layout/announcement-bar";
 import { Nav } from "components/layout/nav";
 import { MobileMenu } from "components/layout/mobile-menu";
@@ -17,6 +18,16 @@ export function SiteHeader() {
   const [cartOpen, setCartOpen] = useState(false);
   const { totalQuantity } = useCart();
   const cartCount = totalQuantity;
+  const pathname = usePathname();
+
+  // Close any open drawer on route change. Lets in-drawer <Link>s navigate
+  // naturally without a synchronous setState in their onClick — that pattern
+  // unmounts the <Link> mid-tap on iOS Safari and requires a second tap to
+  // navigate. The drawer closes when the new route's pathname commits.
+  useEffect(() => {
+    setMenuOpen(false);
+    setCartOpen(false);
+  }, [pathname]);
 
   useEffect(() => {
     const locked = menuOpen || cartOpen;

@@ -142,7 +142,6 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
               <div className="cart-item-info">
                 <Link
                   href={`/products/${item.productHandle}`}
-                  onClick={onClose}
                   className="cart-item-name"
                 >
                   {item.productTitle}
@@ -220,7 +219,6 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
           className="cart-checkout"
           href={checkoutHref}
           prefetch={!empty}
-          onClick={onClose}
         >
           {empty ? "Browse the shop" : "Checkout"}
           <svg
