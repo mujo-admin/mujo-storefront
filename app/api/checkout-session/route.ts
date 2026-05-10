@@ -154,13 +154,16 @@ export async function POST(req: NextRequest) {
     if (customerEmail) {
       params.customer_email = customerEmail;
     }
-    // Force Stripe to create a Customer for every guest checkout. Without
-    // this, mode='payment' sessions complete with `customer: null`, the
-    // checkout-completed webhook handler can't link the order, and no
+    // Force Stripe to create a Customer for guest one-time checkouts.
+    // Without this, mode='payment' sessions complete with `customer: null`,
+    // the checkout-completed webhook handler can't link the order, and no
     // order_mirror / Shopify order is created (customer charged, nothing
-    // ships). `customer_creation` is only honored when no `customer:` is
-    // passed, so this only applies to the guest branch.
-    params.customer_creation = 'always';
+    // ships). Stripe rejects `customer_creation` on subscription mode (it
+    // always creates a Customer for subs anyway), so this is gated to
+    // payment mode only.
+    if (mode === 'payment') {
+      params.customer_creation = 'always';
+    }
   }
 
   try {
