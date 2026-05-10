@@ -67,10 +67,10 @@ const requestSchema = z.object({
  * Allowed gift Price IDs. Customer can only gift Mujo subscription Prices —
  * not retail one-time Prices (member rate is a subscriber benefit) and not
  * arbitrary Stripe Prices (defense against tampered request bodies).
+ * 10-serving is one-time only, so it's never giftable.
  */
 const ALLOWED_GIFT_PRICE_IDS: Set<string> = new Set(
   [
-    RITUAL_PRICE_IDS["10-subscription"],
     RITUAL_PRICE_IDS["25-subscription"],
   ].filter((id) => id.length > 0),
 );

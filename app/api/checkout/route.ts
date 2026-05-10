@@ -3,6 +3,7 @@ import Stripe from 'stripe';
 import { z } from 'zod';
 import { stripe } from 'lib/stripe';
 import {
+  RITUAL_PRICE_IDS,
   SHIPPING_RATE_FLAT_ID,
   SHIPPING_RATE_FREE_ID,
   SUBSCRIPTION_COUPON_ID,
@@ -101,10 +102,17 @@ export async function POST(req: NextRequest) {
     params.shipping_options = buildShippingOptions();
   } else if (mode === 'subscription') {
     params.subscription_data = { metadata: parsed.metadata };
-    // Apply the 15%-off subscription coupon. Stripe rejects combining
-    // discounts[] with allow_promotion_codes, so honor explicit coupon over
-    // the promo-code field on subscription mode.
-    if (SUBSCRIPTION_COUPON_ID) {
+    // Apply the 15%-off subscription coupon, but only if every line item is
+    // the 25-serving subscription Price. Smaller bags cost more per unit so
+    // they never carry the discount; today the 25-sub is the only sub Price
+    // anyway, but this gate keeps the rule explicit if more subs ship later.
+    // Stripe rejects combining discounts[] with allow_promotion_codes, so
+    // honor explicit coupon over the promo-code field on subscription mode.
+    const ritual25SubId = RITUAL_PRICE_IDS['25-subscription'];
+    const allDiscountable =
+      ritual25SubId.length > 0 &&
+      parsed.line_items.every((li) => li.stripe_price_id === ritual25SubId);
+    if (SUBSCRIPTION_COUPON_ID && allDiscountable) {
       params.discounts = [{ coupon: SUBSCRIPTION_COUPON_ID }];
       delete params.allow_promotion_codes;
     }

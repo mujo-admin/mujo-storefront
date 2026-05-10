@@ -767,8 +767,8 @@ function formatBrand(brand: string): string {
  * estimate applied for the per-delivery label).
  */
 async function buildSwapOptions(currentPriceId: string): Promise<SwapOption[]> {
+  // 10-serving is one-time only — never offered as a swap target.
   const subPriceIds = [
-    RITUAL_PRICE_IDS["10-subscription"],
     RITUAL_PRICE_IDS["25-subscription"],
   ].filter((id) => id.length > 0 && id !== currentPriceId);
 
@@ -823,8 +823,8 @@ async function buildGiftOptions(
   currentPriceId: string,
   discountPercent: number,
 ): Promise<GiftableProduct[]> {
+  // 10-serving is one-time only — never giftable as a sub.
   const subPriceIds = [
-    RITUAL_PRICE_IDS["10-subscription"],
     RITUAL_PRICE_IDS["25-subscription"],
   ].filter((id) => id.length > 0);
 

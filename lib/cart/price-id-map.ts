@@ -32,7 +32,8 @@ const RITUAL_IMAGE = {
 
 type RitualKey = keyof typeof RITUAL_PRICE_IDS;
 
-// (size · plan) → cart line metadata for Mujo Ritual Stripe Prices.
+// 10-serving is one-time only — small bag costs more to produce, so it
+// never ships as a subscription and never carries the MUJO_SUB_15 discount.
 const RITUAL_LINES: Record<RitualKey, PriceIdResolution> = {
   '10-onetime': {
     productHandle: 'mujo-ritual',
@@ -42,15 +43,6 @@ const RITUAL_LINES: Record<RitualKey, PriceIdResolution> = {
     unitAmountCents: 2700,
     currency: 'usd',
     isSubscription: false,
-  },
-  '10-subscription': {
-    productHandle: 'mujo-ritual',
-    productTitle: 'The Ritual',
-    variantTitle: '10 servings · Subscribe & save',
-    image: RITUAL_IMAGE,
-    unitAmountCents: 2295,
-    currency: 'usd',
-    isSubscription: true,
   },
   '25-onetime': {
     productHandle: 'mujo-ritual',

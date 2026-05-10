@@ -11,16 +11,16 @@ import { useCart } from "components/cart/cart-context";
 import { resolveRitualSelection } from "lib/cart/price-id-map";
 
 // Pricing table — drives all in-page prices off (size, plan).
-// Subscribe & save = 15% off the one-time price.
+// Subscribe & save = 15% off the one-time price. The 10-serving bag is
+// one-time only (smaller bag, higher unit cost — no sub option, no discount).
 type PriceCell = {
   now: string;
   was?: string;
   daily: string;
 };
-const PRICES: Record<RitualSize, Record<RitualPlan, PriceCell>> = {
+const PRICES: Record<RitualSize, Partial<Record<RitualPlan, PriceCell>>> = {
   "10": {
     onetime: { now: "$27.00", daily: "$2.70/serving" },
-    subscription: { now: "$22.95", was: "$27.00", daily: "$2.30/serving" },
   },
   "25": {
     onetime: { now: "$65.00", daily: "$2.60/serving" },
@@ -28,9 +28,16 @@ const PRICES: Record<RitualSize, Record<RitualPlan, PriceCell>> = {
   },
 };
 
+function effectivePlan(size: RitualSize, plan: RitualPlan): RitualPlan {
+  // 10-serving has no subscription Price — coerce to one-time.
+  return size === "10" ? "onetime" : plan;
+}
+
 function formatStickyLine(size: RitualSize, plan: RitualPlan): string {
-  const price = PRICES[size][plan].now;
-  const tail = plan === "subscription" ? "Subscribe & save" : "One-time";
+  const resolvedPlan = effectivePlan(size, plan);
+  const cell = PRICES[size][resolvedPlan];
+  const price = cell?.now ?? "";
+  const tail = resolvedPlan === "subscription" ? "Subscribe & save" : "One-time";
   return `${price} · ${tail}`;
 }
 
@@ -57,8 +64,10 @@ type Shared = {
 
 function BuyBox({ size, plan, setSize, setPlan, onAddToCart, pending }: Shared) {
   const sub = PRICES[size].subscription;
-  const once = PRICES[size].onetime;
-  const headline = PRICES[size][plan].now;
+  const once = PRICES[size].onetime!; // every size has a one-time Price
+  const resolvedPlan = effectivePlan(size, plan);
+  const headline = PRICES[size][resolvedPlan]?.now ?? "";
+  const showSubscribe = size === "25" && sub !== undefined;
 
   return (
     <>
@@ -98,33 +107,35 @@ function BuyBox({ size, plan, setSize, setPlan, onAddToCart, pending }: Shared) 
       <div className="purchase-block">
         <div className="purchase-label">Choose your plan</div>
         <div className="purchase-options">
-          <div
-            className={`pur-opt${plan === "subscription" ? " active" : ""}`}
-            onClick={() => setPlan("subscription")}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) =>
-              (e.key === "Enter" || e.key === " ") && setPlan("subscription")
-            }
-          >
-            <div className="pur-opt-radio" />
-            <div className="pur-opt-info">
-              <div className="pur-opt-name">
-                Subscribe &amp; save{" "}
-                <span className="pur-opt-save">Save 15%</span>
+          {showSubscribe && sub && (
+            <div
+              className={`pur-opt${resolvedPlan === "subscription" ? " active" : ""}`}
+              onClick={() => setPlan("subscription")}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) =>
+                (e.key === "Enter" || e.key === " ") && setPlan("subscription")
+              }
+            >
+              <div className="pur-opt-radio" />
+              <div className="pur-opt-info">
+                <div className="pur-opt-name">
+                  Subscribe &amp; save{" "}
+                  <span className="pur-opt-save">Save 15%</span>
+                </div>
+                <div className="pur-opt-desc">
+                  Ships every 4 weeks · min. commitment of 2 delivery cycles
+                </div>
               </div>
-              <div className="pur-opt-desc">
-                Ships every 4 weeks · min. commitment of 2 delivery cycles
+              <div className="pur-opt-price">
+                <div className="pur-opt-price-now">{sub.now}</div>
+                <div className="pur-opt-price-was">{sub.was}</div>
+                <div className="pur-opt-daily">{sub.daily}</div>
               </div>
             </div>
-            <div className="pur-opt-price">
-              <div className="pur-opt-price-now">{sub.now}</div>
-              <div className="pur-opt-price-was">{sub.was}</div>
-              <div className="pur-opt-daily">{sub.daily}</div>
-            </div>
-          </div>
+          )}
           <div
-            className={`pur-opt${plan === "onetime" ? " active" : ""}`}
+            className={`pur-opt${resolvedPlan === "onetime" ? " active" : ""}`}
             onClick={() => setPlan("onetime")}
             role="button"
             tabIndex={0}
@@ -203,10 +214,12 @@ export function RitualPdpClient() {
 
   function onAddToCart() {
     if (pending) return;
-    const resolved = resolveRitualSelection(size, plan);
+    // Coerce plan: 10-serving has no subscription Price.
+    const planForCart = effectivePlan(size, plan);
+    const resolved = resolveRitualSelection(size, planForCart);
     if (!resolved) {
       console.error(
-        `[ritual-pdp] Missing Stripe Price ID for ${size}-${plan}. Check NEXT_PUBLIC_RITUAL_PRICE_* env vars.`,
+        `[ritual-pdp] Missing Stripe Price ID for ${size}-${planForCart}. Check NEXT_PUBLIC_RITUAL_PRICE_* env vars.`,
       );
       return;
     }
