@@ -272,7 +272,7 @@ export async function setEmailMarketingConsent(args: {
               attributes: {
                 email: args.email,
                 subscriptions: {
-                  email: { marketing: true },
+                  email: { marketing: { consent: "UNSUBSCRIBED" } },
                 },
               },
             },
