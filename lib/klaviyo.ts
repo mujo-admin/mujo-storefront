@@ -135,7 +135,11 @@ export async function subscribeToList(args: {
               type: "profile",
               attributes: {
                 email: args.email,
-                properties: args.properties ?? {},
+                // NOTE: `properties` is intentionally omitted here.
+                // The profile-subscription-bulk-create-job endpoint only manages
+                // list subscriptions — Klaviyo rejects requests with `properties`
+                // present (HTTP 400). To set profile properties, callers must
+                // make a separate profile-bulk-import-job call. See Issue #16.
                 subscriptions: {
                   email: { marketing: { consent: "SUBSCRIBED" } },
                 },
