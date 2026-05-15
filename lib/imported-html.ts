@@ -61,6 +61,10 @@ function dedupeChrome(html: string): string {
     [/<aside[^>]*class="cart-drawer"[\s\S]*?<\/aside>/, ""],
     [/<div[^>]*class="menu-overlay"[\s\S]*?<\/div>/, ""],
     [/<footer[^>]*class="mujo-foot"[\s\S]*?<\/footer>/, ""],
+    // Merch PDP template chrome (different class names than the original imports).
+    [/<div\s+class="announcement"[\s\S]*?<\/div>/, ""],
+    [/<nav\s+class="nav"[\s\S]*?<\/nav>/, ""],
+    [/<div\s+class="breadcrumb"[\s\S]*?<\/div>/, ""],
     [/<script[\s\S]*?<\/script>/g, ""],
     // Note: the static `.quiz-pill` button + `.qs-overlay` modal in the
     // source HTMLs stay opacity:0/pointer-events:none by default (they only
@@ -89,7 +93,10 @@ function tagInteractionHooks(html: string): string {
     .replace(/onclick="addToCart\(([^)]*)\)"/g, 'data-mujo-action="add-to-cart" data-mujo-args="$1"')
     .replace(/onsubmit="handle[A-Za-z]+\(\)"/g, 'data-mujo-form="generic"')
     .replace(/onsubmit="handle[A-Za-z]+\(event\)"/g, 'data-mujo-form="generic"')
-    .replace(/Mujo_logo_orange\.png/g, "/images/logo/mujo-logo-orange.png");
+    .replace(/Mujo_logo_orange\.png/g, "/images/logo/mujo-logo-orange.png")
+    // Old Shopify-Liquid collection URL used in merch breadcrumbs / nav links.
+    // Breadcrumbs are stripped above, but rewrite defensively for any survivors.
+    .replace(/\/collections\/mujo-performance/g, "/shop");
 }
 
 /** Pull all <style>...</style> blocks out of the head/body. */

@@ -24,7 +24,59 @@ export function ImportedPageRuntime({ children }: ImportedPageRuntimeProps) {
   useEffect(() => {
     function onClick(ev: MouseEvent) {
       const target = ev.target as HTMLElement | null;
-      const trigger = target?.closest<HTMLElement>("[data-mujo-action]");
+      if (!target) return;
+
+      // Merch PDP interactivity. The source HTMLs ship inline <script> blocks
+      // that the loader strips for safety; these handlers restore the four
+      // behaviors via event delegation. Each branch is gated on `closest()`
+      // so non-merch pages no-op.
+
+      const accordionToggle = target.closest<HTMLElement>(".accordion-toggle");
+      if (accordionToggle) {
+        accordionToggle.closest(".accordion")?.classList.toggle("open");
+        return;
+      }
+
+      const swatch = target.closest<HTMLElement>(".color-swatch");
+      if (swatch) {
+        const optionGroup = swatch.closest(".option-group");
+        optionGroup
+          ?.querySelectorAll(".color-swatch")
+          .forEach((el) => el.classList.remove("active"));
+        swatch.classList.add("active");
+        const label = optionGroup?.querySelector(".option-label .selected");
+        if (label) {
+          label.textContent = swatch.getAttribute("title") ?? label.textContent;
+        }
+        return;
+      }
+
+      const pill = target.closest<HTMLElement>(".size-pill");
+      if (pill) {
+        if (pill.classList.contains("soldout")) return;
+        const optionGroup = pill.closest(".option-group");
+        optionGroup
+          ?.querySelectorAll(".size-pill")
+          .forEach((el) => el.classList.remove("active"));
+        pill.classList.add("active");
+        const label = optionGroup?.querySelector(".option-label .selected");
+        if (label && pill.textContent) {
+          label.textContent = pill.textContent.trim();
+        }
+        return;
+      }
+
+      const thumb = target.closest<HTMLElement>(".gallery-thumb");
+      if (thumb) {
+        thumb
+          .closest(".gallery-thumbs")
+          ?.querySelectorAll(".gallery-thumb")
+          .forEach((el) => el.classList.remove("active"));
+        thumb.classList.add("active");
+        return;
+      }
+
+      const trigger = target.closest<HTMLElement>("[data-mujo-action]");
       if (!trigger) return;
       const action = trigger.dataset.mujoAction;
       switch (action) {
