@@ -1,0 +1,254 @@
+{
+  "ingredients/ashwagandha-macro-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AOzLouvOo/nZr//it//it//qwe3Qp+rNn/3et/7kuwDKoW/rxpX72a3z1KX93bL/8Mf/+NH/573iw5r12K8ARywKWD0boX5T7MKQ/Nin/+7E/+jB//bQ/+e99ditAFAvBVUxB188FmJBG6F+U9i0h//gsf/4zf/nvvbWrQApCwBCJABfOw9mQRddPRduSyO7lGX/2qP/68D/47sAGQAAKA8AWjgSWjgPYToNkGg0/+Cs/Nag/+e2/NyvADwkCDEZACgMAB4AADsdAH1PHf/ntOK0eP/muf/juQBMPCZNOB9GLRQ6IwYlEQAnDgCSbUb/57n93bL21q4AT0E0UEEyVkY4a1Y/oYVl0a+L9dGl/Nyx89Sp5sKaAIRyVqGHa9CwiPDOn/fVqffVqe/NofDOo/LQo+zLoqFCrv73Lb7JAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#e8c8a8"
+  },
+  "ingredients/bacopa-macro-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABLklEQVR4nGPoKA7tKQtHQx2FoW35wS25gQz3TqzctbhpflvWxMoYCPL3lMpPsClNcXa2lWD4/+P2/++3/r898/ra5i0LyjfMqWov9w12lxBmZAABkPSXy/8/Xbpxeva8qS5VxQaZsZJGxgz+jkJ6qgwM/z9dAqHvt/7/vD5/ckxIEIO2CoOJAUNurPHDEwsZQFq/Xyso1pnZH9rV6Oruw9jV6FiQbHjz4Oz7J5aAdX+5HJfCUFagGRUsWJFvZOPGIC7AcHpz74drmxleX9v85/nxzw/27lzVdmB12/3TKzvqA4K8FSpTXW8fmc+wfWHT1T1zXlxc+/PJwf9vz/x/e/rv86O/nxx6eWnD59vbGOZ2Fy6eVLp3cdv1/fOenF7+6e5ukLqXx78/2v3t7k4Ax52tpbMcPwYAAAAASUVORK5CYII=",
+    "width": 2048,
+    "height": 2048,
+    "color": "#e8d8b8"
+  },
+  "ingredients/cacao-macro-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AP/+7+7bwsuuhItbIqF0O8SdacSdafbjyNzAm8+zhwD//O7w38TQsIaQXCOgbzLDmGDEn2746c3cwJvSto8A//vq9eLK0rOKkV0hoG8yvpJdcUEYsnE4zqRw0rOKAP/76vXmzdW0i5BcIKFxNjsOACwAALV9Sql1Rda3jQDbuY7YtIfKnmq2gESlcTg4DwByPCNwNBdgMgavgEkA1Kp31q120qNq16dr2qtydkMofkgsbTkQTyEAwYxMAP3er+m9jNuygb+LYYdQLFAgCi0HACcAAFUpAGg4BwDz0JzHmW1qOyFaLRdMIQVbMBOIXTfElF/dsHLYqmsA8MqYvZNmflEpo3RH3LB437J42Ktv3Ktv2Kpr0p9jAKx4Qa96Qal2PKpzOaZtMKJqLJ5mKJliI5ZeI5JZHoM9m+CFIOEhAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#c8a878"
+  },
+  "ingredients/carob-macro-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AO/auN3HpdC2lsatj8Gpir6mh76mhr6mhrqigbmhgAD/+dv/99r/8dH337vw2bTfxKPSuJbIrovBpoe7pIMA//rd//fa1LSWIgAAXTsoupt9/eS++N+27c6o38KbAP/z1N+9l3ZRN4RbMHFMLkwjDXdQN9Gzj//ovv/itwD/9tf/8NC2j22ASyN3Rh/Cl2l/WDtdMRiefl343bIA//nX//XSx5p2gU0scD8bXy8RpoFacksyJwUAkXVUAP/vzf/mw1UdACYAACEAAI5gO3Q/FaqIY6OHY5p8WADpzar33ba5lHKIaE3Eqonozaedd01xUzDHqoj+4LQAy7OV17yb4sml79Gt+N+2/+a8/+i++d+29Nir+9+0AMatj8eukMivk9K2lt7Cn+3OqvbZsvnetvjdsvbasEKavkKC+9SDAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#f8e8c8"
+  },
+  "ingredients/chaga-macro-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+ANG9ntG9ntG9ntG9ntG9nc67m866m8u3l8a0k8KujwDv38Dq2Lvbxp/yyZbetIDXuY/Xwp/UwKDRvZ3OupsA//3m/+7K/9Sb3LF5oH9WmG5Hqm435rmC7sWT7sufAPvXp/HBh2VPNRsWBj0iCbVOAIc2AFotBMqgbvrIigDuvIGnglURCgA8JhGxUwB6KQBgIgBNIgCIcFD5xYwAkGY1Ri8RBwAAaTEAqEUAQw0AUBkAOywbZVU99cSKAIxkLXhSHxAAAIY9AKNFAEYOADYHADMkFLCHWfC9gwC+klqYcD1oSCJ9SRfCgD21gUnAj1bQn2XntHztvoMAvI1Y2Kly88SK/M2S+siK7LR457J47ryD88SK78GGAP/x2OXRrs2th+i/jdinbei0efnFjPfIjfbFi+64fCzJouoauadBAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#e8b888"
+  },
+  "ingredients/cinnamon-macro-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AIRuSn5jPreff6CIZJF2UbugfaWPaqiTbpF2U6uVdQCfiGaTele0nH2kjmqxmHawmXawmXa0nH2mj2+mj28AuqODv6eHt59/xKqLv6eHyrKSxKuOwamLx6+RvaSHAOvTsu3UtOXKp/Pau97HpeTHou3UtOnTtOvUtunTtAD44L7648FnOgBrOQCOVQubWwnaoGH/7sz/+Nf/784Atp97iGxIjlseMQAAYzIASBgAXi8AaTcA3LqM//HSAJR9XiUHACQAAEsmAPPKm6NuOGAnAJJfKu/Wtv/rzQDq1bLr07Ly2rn13Lv34LvauZHQpXjRpXPw1rT96cgA0rqa3sel4Men4Men69Oy4smp8du78du769S29Ny9AMSqi8yzlNG4mtG4mNzCpNK6mtzGqNe+odfCo9jCprKFuzcPocvIAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#c8b898"
+  },
+  "ingredients/cordyceps-macro-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+APXdufzqyMafa8mjb6+GUHNJGVEtADkWAEAdACMAAAD13bn86sjGn2vHoGm0i1Z3SRpPKwA4FAA9GwAkAAAA8dq0+OPBxJ5qxpxkr4ZTcEcUSSUAMg0ANxcAHwAAAO3VqvXducKbaLyUXKtZFo4zAGkrAEAfADobACMAAADcvpfXtovEn3G5aSe+aBPBZxCpSQCyil2ogFOZdEgA//zm/+/U6saT6bBp23gKylwAuFwQ0JpTtX89pXA3APnXp/zZpuKRQfKYMdVlAK80AKA6ALtOAMJcAMh/LQDKn2fdtHvhrm3mr2jYnlWcSQCZKgB2FABsAQBzJgAAnHJGroBNr4NMv5BV1KJlyIlIyIlIxZFPvYdGwZBLAMGkgL6if7ubeKSAXYtmQZRoPJFiLqZxOMCMS9eoZnACjRa/tvg5AAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#583818"
+  },
+  "ingredients/ginger-allspice-macro-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AEs3G1E9H1ZDJF9HKWBJK2ZONGtSOWtVOm1XPXFbPwBWQyRgSStpUjRzXT2EaUmQeFakimi7oX/TuZfr0qwApodipYVeyad348ed8dev/+W+/+7H/+7I//LO//LOAJt+VSoNAGI8B+/KlP/vxfnftpV7V8Kngv/ux//20QAkBgBGJQAwAQDtxGb/6LT+5bxEKg0AAACCZEH/9s4AHgAAMQ8Abk0W1q1N/+2h/+W9inBMWDQQon5V/+rCAOTHmezRooNiMItkAOnEcf/nwObLoMCcctG5kvHYsgDozZ/x1Kjw1q7u0abw1q7mzaThx6K5oXyUe1mul3QA1LaJ1LaI0bKIya2DwKN9tJhypIxnk3xZiXJUiHJWAKmMYqOFXZt/W5B4VIRvTIFrTIFrTINtUIFuUYFtULaUo8fsVRuRAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#e8d8b8"
+  },
+  "ingredients/lemna-macro-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AP/41/7syuvYt8y2m7aihqmYfKeUeKSRdaCPc5uKbgD/+Nf/787/9NH/6sTy2rbeyKfQupu5o4SnlHikkXUA2MGV3MKUp5tKt6ZcvKxn1L2U4c2n79ez38ijxa2NAHBwAHVyAFNcADA1ACgpAExVAL6xeOjVr//pv/vjugBqbAAkHwA/PQA/RQAiHgAiHgCDeCbLupSbglr33bUAWl8AIx0AIRsAOD8AIBcAODgAoZVA5s2glnlO172ZAIR1NF9aADU3ADUuAF5bAI1+MtjHj8KfaFg5C3hOGQCZilJJQwA8OAA8OABvYwCUfje+nmmeflBpShwAAAAA3syv1cCfrJh2m4ZeoYlkr5d0waiEo4piIQAAJhQAAMW6o9HApd/MrenUsuXMrOfOru7Xs/3mwPvhu+bLp0xVmuq5+M5fAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#e8d8b8"
+  },
+  "ingredients/lions-mane-macro-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AHFIInFJIHBIH3JHH29GHm9GHm5GHW1EHmhBHmM9GgCzhEyqeUGbaTeLXCyEVSeAUCR8TSR5SyB0SB5vRh4A3a1t26Ri3qpo0plW/tOW8cGBxpJTwIpNqnc8p3I4AN6qZtafW+7Div/irue7gdqueoFXLGxBGZBeK82RSgDfqm3vxIr/+c7/4rLdt4eVbkWbd0x6UiZlOQqQXyQA36pl+c6U//HH99aqyKF0kmg+k2lBaT4WJQAAKAYAAOStavO8eP/xxOjElbKCUIlWKX1LHkMfACIAADASAADkr2zyuHD7w4DWqW+VYjJBHAAsCAAqBwAzFQBEJAgA36pr5K9u6bVx36pjw45QlWY1d0wgaUAbWzUWYDsaANinZtWjZNinZNmnZNSgXdGbV9SgW9OcWb6HR7V/Qd6/jZ9Rf1NYAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#c89868"
+  },
+  "ingredients/maca-macro-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AI52To92T5N4Upp/WJ2DXJ2DXJ2DXKKKZa2Vc7KbdwCbgFqehF6ehF6ni2Wyl3C9o3++poHLtJHr2Lv87NAAuqJ9x6+N0ruY0biS7ti3/u7P/OzM9N/C/OzQ//zkAPThwPrnylM4GpptOv/yxf/52v/1186vifrfu//12ADcxaOihmEsAACUZhr3zoPeu4ZYNQa5lWr/8dT/9toAMxwAJQAALgAARhkAmGIHWSkAgVsZ6cF8//LU//baAGhQK4BlQ5p/WItvSzMRAEEaAJltJtq0bfjguf/12AD24cH348T24cH/7dHYvI6wk2nHqHj54sT+7s/+7tEA9uLF9OHA/OnL//DU/+3R/+3P/OzM+ufK9uLF7Ni8APTfwvLfvvrnyvzpy/bhwfHcvODLqt7Gp9e+ns+3l/y0xr73vPVVAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#e8d8c8"
+  },
+  "ingredients/mct-oil-macro-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+ALCcgbWlib+vk9bCpPXcvf/rzf/v0fvlyPzp0u3g0QC9qIzYwKP23bn/6MP/6cj/7dH/79Ho0K7/9Nn/9d0A8tSv+d+41bub5Meq5Mqt3Man/+/R2cCc/OnH//fZAP7gu/HXscqukdnBo7SYcs20lt/Hrvfny//x0P/32QD+4LnJqYXfyq/TwqqskW6jglrmza/cwZz/+Nr/+twA8s6gy6d5waeJ7ePTyqVzwJZg4sqt3sSj//TX//TXAKuQa21UNjwjBOTNtO/dxOHNtNe7nf7gu//w0P/v0QBcRiczGAAjAAAdAABlRyi9lGfjv5b/6Mb/683/7s4ARy8QNhwANBkAPCQAiWY/7saU/eO9/+jG/+bF/+jIAHRgRW9XO3dgQrOSae7GlvfZsf7mwP/ow//oxvrlxAyu1cY1jq2dAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#e8d8b8"
+  },
+  "ingredients/rhodiola-macro-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AH9pSIhwU41zVJiCYJZ8WqqTcpVyS7+db//apP/4yACWe12af2CgiGmqk3Kbe1Gtk2q0lnG0lna9nHT606AAqYtrrpNwr41ptJZu3Ko0n4MzoZZawqt1pJRf3LeHAK6TcLOberOUcMKnfculOlxSAEVAAEA3AE0/AJZ1LwCtk3C4oH/ruFbdqkqHdjlsYyU0KwAsGACTbRKKVwAAtJt+qIZYw4sA1ZYATDYAEwEAGgAAjWUH7K83VSUAAJ6BXrKZeYZoJFc8ACYTACIDAJ52JJFcAGs6ACAAAACgiGmoknWbi3ByaUxLNxOMYhaASgAvAABVLABVNg8AoYtsoYtutJ+Gq5NzhWY/mHlPZkoom3hP0Kh3/+CuAKaSc7unjLikiJ+CX5R2U62TcMWmgNi1h+fCj//ntvOQiX5NOyBkAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#a89878"
+  },
+  "ingredients/ritual-flatlay-five-adaptogens-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+ANrEn//qxOnRqtS+nXJdQq6adK2WcIdpQ3VYMY12UwDnzaO9n3ynh1qkjm3LtpvcyK3Ks5VuUi5fPhJ3YD0AtZx1iXFOV0EbXk01vqyW+O/h8ujZlIBhRi0AbFc1AODLqHhfPWBOLoRlSLt8XP/36uPRwH9sUIRoRZWBXwC7pIOulnV3Xj2tjnLam3n/9ObNwLJ1Xj5MJQCDZkMAiHNVtqJ4s5x0yrOY87SR//vwvrOhd1cxYBsARSIAAGZcGVhVJnNpPuDHqvOzkPXSvad+ZYBpR4tjM2dLKABaVS0fHQAsJQB+bEi6lXiom4d+a1FwRxZuPAB3WC8AiHlWFgMAIxkAYlM3Ig0AYEwuckcXVyEASR4Aalo7ALGgfWVVOWVVO15NNQ8AAGZXO3BNJUwlAFtCI4BwVGuciQRxEZ6QAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#988868"
+  },
+  "ingredients/ritual-hero-apothecary-vessel-editorial-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAKCAIAAAD3rtNaAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA50lEQVR4nAHcACP/AGNQOWpYQnBeSHpnUYp1X6uXgtzNugBsWUVwXkh8aVKfi3a7pJColH23pZAAcF5Id2RPoYx2vp+Gz5Fv18Sy4Mu5AGxZRYlzXcW2otjArcaOburWx/jp3QBQQSmJc13LuqPp1sLDi2z56df/+e4Am4l0uZt6k3VRr5iBxJJ19sqz+drFAPrs4IhlOoFCBLKOcuLSwP/26fvt3gCWhXEXAABdKgDRspfn1cbz5NX/9+wAx7anl4d5oot31Masjnhpg2ZN4c26AIFuV4NxW5SCbc++r+fVyPPi1fvt3q9ef5nMgHOjAAAAAElFTkSuQmCC",
+    "width": 1744,
+    "height": 2336,
+    "color": "#887868"
+  },
+  "ingredients/ritual-hero-radial-cross-section-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AP/46P7v4Ord0eDQs+XUud7KrdG8ncetjbqjf7CadQD85NP249X06+Pj1L3/8tjo1LPj0rTjzrHbx6rSv6AA/+TO+tvK6uHaiXJd897EyKZ/mIJh7Nu+7Nu+3suvAP/15fbHseHIuKKIdKKIcunWu8Kngn9dMtvHquXUuQD//OvgvqfLs5zx4cuQdV4qAADey6/iyKfVu5fp1rsA//bi2MCjoX9g486zn4ZxLAAAbFEyn3Ayfk0P0r2gAP7w2OnWvsSwkKCGWv/75OTStqB8T5xxQdS7m+XUuQD05M7z5ctfSS1TQCSZdU6ijnXQkFGEPADSv5/t3cQA8eHL7t/F8ePJ8+LJeU4iORkA5MWjo3A6xLCQ7t/FAPHjye7fxe3dxPHjyfXnzMu5n+7fxfPly+7fxe7fxTnk1HK7W114AAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#d8c8b8"
+  },
+  "ingredients/ritual-specimen-plate-second-tier-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AP/22P/83//83//u0efUvdzNt+XYwuXYwuXYwurdxQDlzrL/8NPg0Jn/+t3/7tHs2sLczbeMfWro2cPm1sAA/ObF18WXuadop5de6tiz9ePCKQkAGQAA4tO96t3FAOzWtenQpHNpJoV7O+7cvv/x0JR2VSUAANK9p+LTvQDXwqPx3LrUvI27qoH648T/9tX+6sqylG+wmoHizrMAyLGX3cel38eg48mn/uXD++S+/+O3+eC97dq75tK1AMCrkLCXeJ+MbqOMbd7Cnee+erKBANSsY+C+f+XRsQC5o4VjTDHWx7LIsY6oj3CviFRgPgGIZimefUXq0rQAppBxVT4dRS4TalU6qpNzqZFt3MGbs5p2wa+R3siqAJ2GZ4BpR4ZsS6uXeLOgg7Kegs23mt/IqMCrjb2nibRayoy8WmYKAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#e8d8c8"
+  },
+  "ingredients/tapioca-fiber-macro-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AMi0l8i1l8q1mM66ns66ntC9odK+o9K+o9LBqNTCqQDKs5fPuJ3PuJ3TvqLXxKfdyq3l07bu277z4cf66c0A4cut28Ch79m769Ky+ebF+ufI/u7Q/u7QxJ11/ujMAPffvlxBKWBEKdK+o//23/bgwPDau7KUdM2pgf3r0ACwlGwhAgA4GgBCMCL879j979bIspa1nYXv2sT/7tMAak4qKRMAJQgAcUUlg3Fd//DU/evU5tK4//zu//PcAHNYNEguDx0AADYWAIJTMKqUgv/13vjp0vzs2P7s1ACVe1hwVDBBKAYdAABNKgtgPR6ymn7/7ND969D7688AwqmIpo9uhWpIWz8eSS4PtpRy79m7/+zQ++vM++vPAPbfue3VsN7GotW+meXMrPnmxfnmyPzoy/vrz/vrzx7oxn7zV8s4AAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#e8d8c8"
+  },
+  "ingredients/turmeric-macro-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+ALqeebqbdmRBFlw7AoFaIpRuOp12QZ94Q555R598SAC1mXW0lnFdPA5KKQB4URyMZzKXcDubc0CZdUKbdkcArJJtqo9oclMqbk8kiGY4l3RHn3pNoYBRpYNWpYNWANG1lMqwi8GngsClfr6ccMClftSnWrmNUJtwPI9qPQD/99n/9tb/8M7YjUl1AADBbQjsfwC8bAA/FABQIgAA//LL/96j7cCFtF4NXQAAYgAAtC4AzXIAPQ0ASg8AAP/61//xv+SzdrJvH00AAG4hAHwiAD0AACUAACgAAAD75sf/8NL/9M3/6q/wu1DhqUvbsHLTr3vTr3nZvZgAy7SQzriU1LuV1LuV2LyU4MGX6Myp7NWv8t27+uPBAM20lM20kc64lMu0jsqzjM2yjc2yjcqwi8iviseviSoSnzIgJ+RbAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#c8b898"
+  },
+  "lifestyle/ritual-frother-action-editorial-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/AIFZKpZpMO3Ss6xsSiYAAKhxR7KLYZZqOACMZjqOYC+5oIvalW0lAABzQyCSbUilg10AfV44XTsWRyAAaEIjOxQAbz8b3rqS7MyfAJt7W1cqAHlLI4VaNYZXL6p5Tf/6zP/wxACTbkpfNAqNXTNgNw+OYjjssnf/67b/2qkAXC0AaTsQmHRNWDMYoHBJ0Jljw4ND25tTAHVDFZZiMP7Wo39cNJZqOKl1PLB3O8+FMQCRXy+iajb2zZZ5UyOOXCV2RxiTWiOtbCIAkV8vnWcxo3U/YTsPXTIAQhcATCYAWC4AAIpbK41dLYtYIm47AHI8AHc/AH1OHH5WJ3+fYHpp6j5UAAAAAElFTkSuQmCC",
+    "width": 1856,
+    "height": 2304,
+    "color": "#986838"
+  },
+  "lifestyle/ritual-hands-mug-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AP/46Pzx3//+7vzm0t6neVdMQJ9oRoxdRI55aZ2KeAD78N7+8uD/+ObImXnTmW1PRDisdlGdZkaYeGLf1MMA//jo/fDc//voi1k9sHNJgVQtqGA5qmxKrYls7+DLAPDex/fo0tjFsnJHKtGWao9aN59bObJ5U76NbfbcxADQrpC6m4GmdVbXp4bLlmpcNhe0flmZYjGncUHcp24Ajlo8SycSXDMYnWZGvH9To3lZ3LKW0Z9xg1QttoFLACwZByMNAC4TADgYBH9JM+ylf/e5lL+ARbJ5Qb6ESwAgFAcOAAAbAgArEABuQCjkq4PXkVbIiEa/hUmhcT8AFQoADgAAYzcHZjwUVTIMeE0jhlMmfk8jgVcphFsvABIFAB8OAJRYG104D0UmB1IvEUwtDkUmCjghBTMbAG7mic8IwmjFAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#482818"
+  },
+  "lifestyle/ritual-jessica-morning-editorial-4x3.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/AJRyR8CxlJuUgdzPu8ewk5R5VnRaOGBHJFE6Gko0GAC0nHmmknbu3sjy48zXw6q9p4u0oYWZhWpCLw5VOBIAoItvrZZ5spuAmX5irpV1sXJNwq6RoIhsaUwsWD0eAGdOLIx2V31ZPFQsC2A7HNWcfcKni72niI93UIhtUAB0Wjje0LlBFQAyAAB/XT3Un32vj3CulnaaglzIsJAAPSYFUjcZNBMAPR8AbVIw2sap//vl3MutwKqJjHZWACUOACQBAGdLLH9iP4JmQqiUcrWmiJuKamlUNVxCIV3CYL+2l54JAAAAAElFTkSuQmCC",
+    "width": 2336,
+    "height": 1744,
+    "color": "#886848"
+  },
+  "lifestyle/ritual-kettle-pour-editorial-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/ANvGp5BmO8iebNamcXBGHV84EEwnAnFBFwDt2r2UYC9+TCCMXTNdMwxXNRVpRClXKhQA8t3ApHE9pHRFnW5CZD0WHhgPMh0OWSwQAPThxKh1QZVhMKB0S1g0Dk88JAYEAF89HAD548OvfkabaTufckeNZkFwVT0HBQBILBIA9d/Anm49hloujmI6pnhTx5ZwlG9KcUATAPHcu62GXKZ4TbJ/TsSZctengKd6U5RsQQD/+9//9M3x1a+VbUHOqn/y0ajWroPKo3YA/+3L/+m9+titimU7vpdr5cCS882cupZrAOPLsOjNqfvdt/3XqurDlKiFX1U5HjsgAgdpdu0lfmO4AAAAAElFTkSuQmCC",
+    "width": 1856,
+    "height": 2304,
+    "color": "#080808"
+  },
+  "lifestyle/ritual-marcus-kitchen-editorial-4x3.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/ADcjA1Q8HFxCIG1UMXpeO4ZpRpByUJt/W6qRbZSJhAAvGQBSPCKbgmLZv6HSuZqnjG2YeValiGPAp4x9c3EAKQAAKQAAoG9G8LWL0rmabU4qYD8YcE0lp4xvOjItAOevdNWdYPXBkP/Urceqi6GAWJVtPbJ5OL6ceY53ZgDjyJ/kxZn/27X/0qq5j2nmzqhgSiXBn3eylXZ5UCwA6s+o4sij7M+o5sajvJ152r+ZgmtLrJh+5tK12L+fAOjLpeTJo+jLpeTGoNvAmezPqP/41t3Ls9jIsubSuQs/dkYg/Lt4AAAAAElFTkSuQmCC",
+    "width": 2336,
+    "height": 1744,
+    "color": "#c8b898"
+  },
+  "lifestyle/ritual-merch-tile-editorial-4x3.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/AO/ZtLCXeJZ/X5N+YYhzWIRyVoFuVnZmTW5dRWFSOQD/99T74r3VwJ60nX7BsZyZiG6SfmWCc1h0Y0xlVjwA//jR/eS9v6uFvKiM4tS9rZ2Bn4twi3thcmFIYVI5AP/ruf/ptraggmNOL6iYfbyniM27oqydg6KSfqWZhADku4XLn2ewl3hWRShzX0KDZkGvm3ray7Syp5KuoY4A0qt2m3VCZUUeJgAALxgAWT4ckHhUqpR0nIpwPS8XAOrEkc2ncKJ5R2xGGEEgADQAAEsfAH5WM6yRcHBbPIKoa5eH0Bo4AAAAAElFTkSuQmCC",
+    "width": 2336,
+    "height": 1744,
+    "color": "#a89878"
+  },
+  "lifestyle/ritual-padel-conscious-performer-editorial-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAKCAIAAAD3rtNaAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA50lEQVR4nAHcACP/ADw/K2pmRJuJXGlcLz87HjQzGCQoEQBNTzh/elusnHXNsoOllGallGZ2bUkAUE8vd3A/fnU+f3VDjX5coJBpiX1dAJCOeeXcxfrpy+zgyJuMcLGvnI2fnwBdcnPRrZL92r7/+uO0m3ahm4aYn5UAp6mb3bKU/dO3//vmu595wZ9xwpxrANGocuy7k/3Wtv/r1Lufef/fusifagDcrXTmpHf4za3ox6qmkXG7t65uaFgAzp9mwJhlS0EuGhcHEA4AFxsWGSQjAKqEUKJ5R8COUIloPDcxHQEIAAgBAFdxbVmo/xDFAAAAAElFTkSuQmCC",
+    "width": 1744,
+    "height": 2336,
+    "color": "#d8c8b8"
+  },
+  "lifestyle/ritual-pouch-mug-hero-editorial-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAKCAIAAAD3rtNaAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA50lEQVR4nAHcACP/AO/i0NfFstbFsNPEr8u6o8e0m8KtlQD/8N/l0rveyrjRwLDTxLLOvKrLt6YA//Hg5ryi9OrZzryq1sGv08CtzbqnAP/56NyQavvt29S7odfFtdHAsM68qgD/6M7rp4D76dPVvaO+n4ivlYC5oY0A+tq68qmC/eXOwZ+BSyoLhGBCcUEXAPjexOWvj+TEqsypkcCjhp91RNGibQDWtJTvxpuPaExtRimzjmxqRBvBiVEAwK2f4Miwu6OJsZN5Nw4AKAAAMQgAALSiks7Dts28rU40IT0XAFswCTMMAFEyhgrWQ2VmAAAAAElFTkSuQmCC",
+    "width": 1744,
+    "height": 2336,
+    "color": "#b8a898"
+  },
+  "lifestyle/ritual-pouch-scoop-spill-editorial-4x3.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/ANvOvqyahbynktfKuH5kTIFpUqOOd4h2ZLenmHtpWAC/sJ/BrZvr283izr3XuqBFLReIdmK2qZidiXh/cV8Azr6t7uDR+e7g7d7N982omY14fm5Zy72uu6qbua2gAPHl1tPEr//77/fs3e/Cm6yahZGFcefaytvOvZKAbQDOvaqchXH37N3awq/InX+WdFaEalJ1Y1N9cWBoWEoAvrCcgGtYyrKcShsALAAARCUGXks4UUI1c2pbhnxwAJiHeX9wXtjKuXFTPCcAAEgxH4RtWayekKeZipKHe3hveLniu/Q4AAAAAElFTkSuQmCC",
+    "width": 2336,
+    "height": 1744,
+    "color": "#a89888"
+  },
+  "lifestyle/ritual-rebel-club-journal-editorial-4x3.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/APTct+7VsOfKpP/syPTexNvEqLujiGVMK1VAHkg0FgD33rnr0K3JqoHszqrfpYPz3Mm9qJJ2XzhiSShPOhwAjXBK2b6atJdup4li3aB77NG5lYRqblYyXkclTDYYAN3Eo9vAoOPHo93An96jhefIq4VrTIllQW1VNkMxFgDly67Supvfyqr/7M7Vr5HkxafLr5COcU4jBABNOiEA+Nq8//vi/enKc2JH//TZoohp7dWzp45sIg8AHgMAAO3RtMqqjVM7HCwWAGNKKpuAYtG2lsSqibWdfpiBYpu+eN4uHc/aAAAAAElFTkSuQmCC",
+    "width": 2336,
+    "height": 1744,
+    "color": "#d8c8b8"
+  },
+  "lifestyle/ritual-sarah-ritual-editorial-4x3.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/APPs4FVPRqOKbLeXcVE6Hkg0GzswHyYeECEZChMEAAD27+ZsZVypkHO6l3BWPiWFcFTQs5bAqImZhW0TBAAA//vsg3pvknhdnHlWaVAzm3NV1pRuwq+UiXhgDgIAAFpSR4uAdJR9YX5gP4ZtU5x6YOSsicezl3dsWw4CAAD/9urXxa2qmYBRPCS2p5T93MfqtJTGoYSBcFolGg4APjMjgGxTvqmPg3Fcmn1WzaqD3sGqsJiCtKWR8ePRAKibjKeSeW5dRePYyPPjzcW0m+vg0ubczdfLvMe5qmbHbQecG936AAAAAElFTkSuQmCC",
+    "width": 2336,
+    "height": 1744,
+    "color": "#282818"
+  },
+  "products/merch/mujo-frother-pdp-editorial-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAKCAIAAAD3rtNaAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA50lEQVR4nAHcACP/ALyifMqxisCngaaJZZV5Vo10T4ZuTQDRuZjQuZTMtJC+qom1m3eih2OYfl0A28Kh1r2b2cCfzb6r69a0wKeEqpNvANe+nNa9m9e+nNTHsvvmxPTeu9a9mwCDb0/WvZvawZ7cz7r/7sv96MX448EAJhcAgGxL0bmUz8Kt/+7L//HN/+3IABcAADorEYp1UdTHsv/93P/41f/10QAgCAA/Kw2FaUXLu6fly6LKsIjCp30AUDkbnH1YwaN6uKaJm4Jdr5Rpqo1oAEArD3ZaNKWCVqeFWJ9+UJV0S4dnP7/+f1YERk61AAAAAElFTkSuQmCC",
+    "width": 1744,
+    "height": 2336,
+    "color": "#c8b898"
+  },
+  "products/ritual/ritual-cacao-texture-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AP/rqv/Tlei2gr2Tab6WcoZqTbmOdrBxVbaNc7ShiAD/7rL/7a7/7rL/y439zJi1iV3Io4DVoYSJX0GigWkA/+yw/+2y//W52J9lbUEjcj4awIJLu4RVhVYyqFw7AP/usv/tsvLGkiwGAD4QAEkiApJXLVYyE8KTYOGGUQD/6ar/05aFYD1XHQFRGwIjAADGh08aAAAzGgCHZksA/9OWrW0+hFMscSkMVRkAKgUALw8AOxoALhYATDUXAP/QlsuPWoZGHkgUADMGAC8GAD0RAEklBTggBVQ5GwC8kmjGj19kIABdKQuAQx1oNhJZNRZDKhNfRStXQCEAk3VWeVk7VTEXr31SvYRT3a11hWZDaE40emFDYUYpAJN2WY5wUpZzU7CIYM6fcNqncO20eMuaZdyqdqBzSPtlhKvwwHyYAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#180808"
+  },
+  "products/ritual/ritual-card-cream-mug-editorial-4x3.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA4klEQVR4nGP4/+nKpnkNU+pjo5yUYlyUE7w0skKNU/y0PU2EzZQYGP68PL1hVt3/j4/+f3z0+dmVFD/twmiLrFDjUAd5azVGhg+3di+eWHBpbt3/l9fvXzqY5m9QGG0NkTZXYmDYt7h547TSl/uXvD+/8+yRjck+emn+BnEeGj4WEnpSDAz/v1z3N+KdkOjy/Oj6+a25EysjZjYlL+hKn9uSsqgrg+HTlfUGwgzqDAx1CR7tReGNmd7VyW4VCS4QxHBqQ9/hFR2d6c6umlwre3PObZ16adfMS7tmHl7RsbQnFwDtPWVNPs0ErQAAAABJRU5ErkJggg==",
+    "width": 2336,
+    "height": 1744,
+    "color": "#a89878"
+  },
+  "products/ritual/ritual-hero-pour-hot-with-pouch-editorial-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAKCAIAAAD3rtNaAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA50lEQVR4nAHcACP/AP/95/bgyGlNKnNXNXZZN5N5W8KulwD/++f759BtUC92WTeEZkOskXKdckwA9ujQ2sWqlnlZlHpcim5Ojl49WzQWAN/JrLiNa8i4nMKpi5l9X3JFJLufhQC/l3G0aD3dxavUtZOvmHn/78rt2L4AsY1ozYRc58qt1bmaoopt3cCX5M21AJt9WtB8T+PAn7iTb7qYdfzdwN7MtgCYdU/Ni2S0jGl2TycvAAAvCADwvYcA/9an8sSMil0wTywALwEAJgAAQSIAAIlpR3hSLIBZLZlrO7B+RsSQVdWhY/SpccaZVv4IAAAAAElFTkSuQmCC",
+    "width": 1744,
+    "height": 2336,
+    "color": "#987858"
+  },
+  "products/ritual/ritual-hero-pour-iced-with-pouch-editorial-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAKCAIAAAD3rtNaAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA50lEQVR4nAHcACP/ABoBAEU4IWZUOXZkSYd2XJB8Y5aFaQAjFAA6KxdoV0F/b1iPfmeXh22dinEAaFpJqp2Lyr2rzcCxm4l1kHdgmHlcAG9ZRr2XgOfczu/g0Z2PeHFOOKGCZQBtV0alaU7t5Nb67d+aiXe7rJT/+OAAdmdVsX5j79/R+u3ii3xpyLOX0cGsAGRPO6NlRe3WxOnSvbCWfcevlLWbegAzHwaicVXWuaWqjHAwCACUZzvMqH4AVTUOupVpu5hwiGlGNxsAXzwUo31RACMAADIWAEcrBmhKJ1E0D10/GpR1T4MHZKzxbhTrAAAAAElFTkSuQmCC",
+    "width": 1744,
+    "height": 2336,
+    "color": "#a89888"
+  },
+  "products/ritual/ritual-mug-steam-cream-editorial-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/AP/xy//74vHdxP/75f/11//v0Zp3RbKSZAD/9tb/8dXl0K3y2rnjw5rJp32TazanhFgArolcp4RWqoVXu5hpy6Nzo4FXkW1CgmAzAKqHXqeEW6F+UZ94Rr6MUIRdLnZSJG1JGwCNYzKKYjOlgFeykG/Rp3mvimBxTR9mQhYAfFcqelUpiWg+Ui8AdEcRjWI0ck4iXzwRAHBKIW1LJH5bL04nAG1CCpRoMo1lNnxQIgCac0atglSOaz9SKgBsPwiUZTSteDyqcjUAq4RXtI1feVMqNQ8AOxcAPBsAflAdkV4fAJRwSn5YLlcxAzUOADAAAC8AADIAAC0AACN9aB21AbRpAAAAAElFTkSuQmCC",
+    "width": 1856,
+    "height": 2304,
+    "color": "#886848"
+  },
+  "products/ritual/ritual-pouch-10-serving-hero-monumental-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AP/86P/45f/v2PLiyuPMssq0j6eMaXlfPVM7FjEXAADy4sr/9eH/8N3/8tv/7dXu273SvJu0mnePdFFtUS4Aootq4suv9+bN9+3j7uDV693R5dfI2L+ftp15mXxYAE41FZuCXtbAoOPCrerRxP307N3QwuTQsc62lLmeegAqDwBTOxabgl7JlHXctqD58+nLvbLr2LvjzK3RtpQAIgAALxcAW0Eg27qm37ej6dvOu62f6NG06NG03semABgAACgNAEAoBq1zUuXCsMirm6GMfNe9nN/IpN7HpgBBKwRdQyB1WjXjxLHx1cW9m4qIbl1yVzV9ZUGAZ0YArZJurpBstJdzyK+Py7SWyK+TwaeIxqqGwKaBu514AEEoAEsyDFk+GFk+GF9DHmNGI19DHmJGIF1BG11BG8XMrvRX21iyAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#e8d8b8"
+  },
+  "products/ritual/ritual-pouch-hero-monumental-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AO3YtOPKoePKodW3kcmthLaZbK2OYp2AVY9zRoBjNQDQtIrjyqHkza3t28Do0bbjza3axqiul3KVeUyPc0YAsZdpvqJ27tu77c6w9+fS9OjR6dzFppFvjHFDiW5AAKSHWbGXafHcvJ1OG72HY//24c22n25bOoFkOIRpPACvkmakh1nn0bKeSxTLoYD879qjm4ZgTS2HaTyEaTwApIdZmHpJ3ceix4JVzJ5848uvfXJiW0kneVwrjHFDAHZZJpByQtXAmeewjL2HY+/gyV9SPk47FV9CEG5RIQCNb0Cjg1PgyaOrWybdu5yqfFkjAABeRiJ+Xy55XC4Aimo9mXhJ2b2W3aN448GjwKWJGgIAJBAAMRoAPigAALKUaLmbbsGhd7eabbOUbL6idreabbmbbqyMX5Z2Rkzmo2CVUBo0AAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#d8b898"
+  },
+  "products/ritual/ritual-recipe-hot-latte-editorial-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/AD8uFU04Hl9JL3NdRXZhSJWDb9HEssi5qAA9KxRJNRpXQSdtVz92YUiWg2vIl37MvasAOyoQRDAXV0Qod2FGZlM7lH9qyYxx0MKxADkmED0pEU04HmlTOWNQN4p1Ydmqj8evmgB2YERjTTNtVz+Ve2FtVj2Cb1zRmn2+noQA/OLD//nf+9y5/9ew+8+foXxXv5uDsY1wANCuja+HYMufcY9fNl8sAJtnM699TIxiNgBcNg2fbzvco2l3PxBBEAC0gET/0ovXnF0AuYpV/9KU/+WjiFwwJQAAORIAUiwBk2U1AJRpPJhtQNKfaf3Fg+WxcptvPYdcMnlSJnrVbaBITPfIAAAAAElFTkSuQmCC",
+    "width": 1856,
+    "height": 2304,
+    "color": "#b8a898"
+  },
+  "products/ritual/ritual-recipe-iced-latte-editorial-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/AOfQn/vz4rmbfcqvkZ14T2ZGIVU4GkMsEADayJb/9+e6n4TKrpGbdk1jQiFTNhhBKw8A4M2c//3puaGFvqOCmHJKYEAenoJhuZdyAP3x29bBqcelg9Oxj7mRaY1qQufStv/y1ACyjmqvl37/4L3/577stYrSonLwy5zZpl8A2NTK6eTd/cWQrWs1u2gqpFgp/9eRvYRHANC4oZpsQct3N1wfCDwEBHM0Ff/Om//LhQCsflX/0aP9tG1GGAYPAAA8Hguwfk7sr20Ac0sklG1Izpxq0IpIajwWWy0LckUbj2M9AGVAHlk6F1c2FGpCHZxoNKVsN5toOqFxRVMqfoOpBen4AAAAAElFTkSuQmCC",
+    "width": 1856,
+    "height": 2304,
+    "color": "#583818"
+  },
+  "products/ritual/ritual-recipe-mujo-black-editorial-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABA0lEQVR4nGP4/+PR3nml6zribuyb/uH2vq+Pjn5+cPj9vcMM/38+OTi/eHNPwq290z/e3vf5weHPDw5/unuA4f/vZ0fml27tib13cMbnu3u/3UNIPDkyv2hbb/y9gzM+3gZJfLsHlXh8aHbuhQ0dT48ufH1h7ee7ez/c2vvh9j6G/78fHpqVM7c8rNDXsirIekVX4bOza15d3szw/9uND8enNkQ4sjEwcDAzpHjrPdjaeGlxFsP/J1v/v9p5e1OzqhALBwtDZbjZ2tbIQ7PSGSZkOM4qct/YGrVvUuKGpoDWOPN9k+O2tIUwdGV4ZrooJtuIJ1tLpdhIp9hIZzpKl/uqAwAMi5XY8+9eDAAAAABJRU5ErkJggg==",
+    "width": 1856,
+    "height": 2304,
+    "color": "#d8c8a8"
+  },
+  "products/ritual/ritual-recipe-pour-editorial-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/AMq2lf/87Nu5jLiffo93VcO2n8W+q+jcxADKtpX//e3fwJO9oYC5oX/Fp3m0k2KxkF8AxrSR//zs5cWbwaeCn4FTclUwfV00aUskAL6qh//65eHBmL6lgpyCXFhAH1Q8HllCJQCynHn/9eTZu5O4mXWym3e7p4zVwKbWwqkAnIhmzr2hyKqIn3hRy6d95syu7tzE//HaAK2OYMSaa5tcL4FJIWs/HZNoQtWxhuTEnQDywIL1w4PVhjxCEQALAABDJQ6jd0ewf0EA4q904K9236dlhVIePiIFPiIFWTYMZj0XAHZPIXFQKXpVJ4BZLIJZKoVcLYVcLYNZK/4WgxZjkNHOAAAAAElFTkSuQmCC",
+    "width": 1856,
+    "height": 2304,
+    "color": "#e8d8c8"
+  }
+}
