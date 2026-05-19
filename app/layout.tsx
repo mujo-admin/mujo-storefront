@@ -6,6 +6,7 @@ import { QuizProvider, QuizPill, QuizSheet } from "components/MujoQuiz";
 import { ReactNode } from "react";
 import { Toaster } from "sonner";
 import "./globals.css";
+import { generalSans } from "./fonts";
 import { getSession } from "lib/session";
 import { baseUrl } from "lib/utils";
 
@@ -34,13 +35,12 @@ export default async function RootLayout({
     : null;
 
   return (
-    <html lang="en">
+    <html lang="en" className={generalSans.variable}>
       <head>
         {/*
-          General Sans is self-hosted via @font-face in tokens.css with
-          font-display: swap. No preload needed — same-origin fonts get
-          prioritized automatically once CSS parses; explicit preload caused
-          double-fetches that hurt perf.
+          General Sans is self-hosted via next/font/local (see app/fonts.ts) —
+          Next emits @font-face + preload tags + a stable CSS variable
+          (--font-general-sans) that tokens.css consumes.
 
           Instrument Serif (italic accent) + DM Mono (eyebrow / footer) come
           from Google Fonts via <link> — not LCP-critical.
