@@ -16,7 +16,7 @@ import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { customers, db } from "db";
 import { checkRateLimit, generateToken } from "lib/magic-link";
-import { resend, RESEND_FROM } from "lib/resend";
+import { resend, RESEND_FROM, uniqueSubject } from "lib/resend";
 import { getSession } from "lib/session";
 import { EmailChangeVerificationEmail } from "emails/email-change-verification";
 
@@ -111,7 +111,7 @@ export async function POST(req: NextRequest) {
     const result = await resend.emails.send({
       from: RESEND_FROM,
       to: parsed.newEmail,
-      subject: "Confirm your new Mujo email",
+      subject: uniqueSubject("Confirm your new Mujo email"),
       react: EmailChangeVerificationEmail({
         href,
         oldEmail: session.email,

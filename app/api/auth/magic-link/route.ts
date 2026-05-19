@@ -19,7 +19,7 @@ import type { NextRequest } from 'next/server';
 import { z } from 'zod';
 import { customers, db } from 'db';
 import { checkRateLimit, generateToken } from 'lib/magic-link';
-import { resend, RESEND_FROM } from 'lib/resend';
+import { resend, RESEND_FROM, uniqueSubject } from 'lib/resend';
 import { findCustomerByEmail } from 'lib/shopify-admin';
 import { LoginLinkEmail } from 'emails/login-link';
 
@@ -107,7 +107,7 @@ export async function POST(req: NextRequest) {
     const result = await resend.emails.send({
       from: RESEND_FROM,
       to: email,
-      subject: 'Your Mujo login link',
+      subject: uniqueSubject('Your Mujo login link'),
       react: LoginLinkEmail({ href, email }),
     });
 

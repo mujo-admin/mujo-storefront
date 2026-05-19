@@ -9,6 +9,8 @@ import { eq } from 'drizzle-orm';
 import { db, orderMirror, subscriptions } from 'db';
 import { stripe } from 'lib/stripe';
 import { createOrder } from 'lib/shopify-admin';
+import { trackOrderPlaced } from 'lib/klaviyo';
+import { sendCapiEvent } from 'lib/meta-capi';
 import {
   echoSubscriptionStatusToShopify,
   extractInvoicePaymentIntentId,
@@ -200,4 +202,58 @@ export async function handleInvoicePaid(event: Stripe.Event) {
     type,
     shopifyOrder: shopifyOrder.name,
   });
+
+  // Server-fired analytics for the subscription initial purchase. Matches the
+  // one-time path in checkout-completed.ts / payment-intent-succeeded.ts so
+  // Klaviyo "Order Placed" + Meta CAPI "Purchase" cover both buyer journeys.
+  // Gated to subscription_create only — renewals and plan changes mirror to
+  // order_mirror + Shopify but don't re-fire Purchase (renewal ≠ conversion).
+  // event_id comes from sub.metadata.mujo_event_id (set in /api/checkout-session
+  // subscription_data.metadata at session-create time); Pixel on /checkout/success
+  // fires with the same id for dedup.
+  if (type === 'subscription_initial') {
+    void trackOrderPlaced({
+      email,
+      orderId: shopifyOrder.name,
+      value: (invoice.amount_paid ?? 0) / 100,
+      currency: (invoice.currency ?? 'usd').toUpperCase(),
+      items: invoice.lines.data.map((li) => {
+        const priceId =
+          typeof li.pricing?.price_details?.price === 'string'
+            ? li.pricing.price_details.price
+            : '';
+        return {
+          name: li.description ?? priceId,
+          quantity: li.quantity ?? 1,
+          priceId,
+        };
+      }),
+    }).catch((err) =>
+      console.error('[invoice.paid] Klaviyo Order Placed failed', err),
+    );
+
+    const eventId =
+      typeof sub.metadata?.mujo_event_id === 'string'
+        ? sub.metadata.mujo_event_id
+        : undefined;
+    if (eventId) {
+      void sendCapiEvent({
+        eventName: 'Purchase',
+        eventId,
+        userData: { email },
+        customData: {
+          currency: (invoice.currency ?? 'usd').toUpperCase(),
+          value: (invoice.amount_paid ?? 0) / 100,
+          num_items: invoice.lines.data.length,
+          content_ids: invoice.lines.data.map((li) =>
+            typeof li.pricing?.price_details?.price === 'string'
+              ? li.pricing.price_details.price
+              : '',
+          ),
+        },
+      }).catch((err) =>
+        console.error('[invoice.paid] Meta CAPI Purchase failed', err),
+      );
+    }
+  }
 }

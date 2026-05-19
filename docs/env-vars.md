@@ -57,12 +57,6 @@ HMAC secret for the `mujo_session` JWT cookie (7-day TTL, sliding refresh) used 
 `EMAIL_CHANGE_SECRET`
 HMAC secret for the `audience: 'email-change'` magic-link tokens (24-hour TTL, sent to the *new* email address before commit). Generate with `openssl rand -base64 32`. Distinct from session + billing-portal secrets per the three-audience separation.
 
-`NEXT_PUBLIC_ENABLE_EXPRESS_CHECKOUT`
-Feature flag for `<ExpressCheckoutElement />` (Apple Pay / Google Pay / Link). `false` on staging because Stripe's domain-verification crawler only accepts production domains; flipped to `true` after Phase 8 cutover plus Apple Pay verification on `mujoworld.com`.
-
-`NEXT_PUBLIC_ENABLE_ON_SITE_CHECKOUT`
-Feature flag for routing the cart drawer's "Checkout" button to `/checkout` (Stripe Elements) vs. the legacy `/api/checkout` (Hosted Checkout). `false` until Phase 2 ships, then `true`. The legacy `/api/checkout` route stays alive as a 30-day 308 compat shim post-cutover for stale tabs.
-
 ## Vercel Postgres / Neon (W1 wired, schema empty)
 
 `POSTGRES_URL` / `POSTGRES_PRISMA_URL` / `POSTGRES_URL_NON_POOLING`

@@ -15,7 +15,7 @@ import type { NextRequest } from 'next/server';
 import { z } from 'zod';
 import { customers, db } from 'db';
 import { checkRateLimit, generateToken } from 'lib/magic-link';
-import { resend, RESEND_FROM } from 'lib/resend';
+import { resend, RESEND_FROM, uniqueSubject } from 'lib/resend';
 import { MagicLinkEmail } from 'emails/magic-link';
 
 export const dynamic = 'force-dynamic';
@@ -70,7 +70,7 @@ export async function POST(req: NextRequest) {
     const result = await resend.emails.send({
       from: RESEND_FROM,
       to: email,
-      subject: 'Manage your Mujo subscription',
+      subject: uniqueSubject('Manage your Mujo subscription'),
       react: MagicLinkEmail({ href, email }),
     });
 

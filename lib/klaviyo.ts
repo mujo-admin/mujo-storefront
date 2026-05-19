@@ -166,7 +166,108 @@ export async function subscribeToList(args: {
   if (!res.ok && res.status !== 202) {
     const text = await res.text().catch(() => "");
     console.error("[klaviyo] subscribeToList failed", res.status, text);
+    return; // Don't write properties if subscribe itself failed.
   }
+
+  // Issue #16 — properties are NOT accepted by profile-subscription-bulk-create-job
+  // (the endpoint above), so they're written via a separate profile upsert here.
+  // Klaviyo's subscribe-job is async (202 Accepted) and may not yet have created
+  // the profile by the time setProfileProperties runs — that's fine because
+  // setProfileProperties uses POST /api/profiles (which creates if new, returns
+  // 409 with the existing profile ID if dedup'd by email). Either ordering
+  // converges on the same final state via Klaviyo's email-as-dedup-key.
+  if (args.properties && Object.keys(args.properties).length > 0) {
+    await setProfileProperties({
+      email: args.email,
+      properties: args.properties,
+    });
+  }
+}
+
+/**
+ * Upsert profile properties for a given email. Used by callers of
+ * `subscribeToList` that need to attach custom properties (gift-recipient
+ * metadata, contact-form context, etc.) — properties are not accepted on
+ * Klaviyo's bulk subscribe endpoint and must be written via a separate
+ * profile upsert.
+ *
+ * Strategy:
+ *   1. POST /api/profiles with email + properties → 201 if new, 409 if exists
+ *   2. On 409, Klaviyo returns the existing profile ID in the error meta;
+ *      PATCH that profile with the properties (merge semantics).
+ *
+ * Fire-and-forget: logs errors but never throws. Lower-stakes than consent
+ * toggle — losing one gift-recipient property is preferable to blocking the
+ * whole gift transaction.
+ */
+async function setProfileProperties(args: {
+  email: string;
+  properties: Record<string, unknown>;
+}): Promise<void> {
+  if (!privateKey()) return;
+  const createBody = {
+    data: {
+      type: "profile",
+      attributes: {
+        email: args.email,
+        properties: args.properties,
+      },
+    },
+  };
+  const createRes = await fetch(`${KLAVIYO_API_BASE}/profiles/`, {
+    method: "POST",
+    headers: authHeaders(),
+    body: JSON.stringify(createBody),
+  });
+
+  if (createRes.status === 201) return; // Created fresh.
+
+  if (createRes.status === 409) {
+    // Profile already exists — extract its ID from the error meta and PATCH.
+    const errBody = (await createRes.json().catch(() => ({}))) as {
+      errors?: Array<{ meta?: { duplicate_profile_id?: string } }>;
+    };
+    const existingId = errBody.errors?.[0]?.meta?.duplicate_profile_id;
+    if (!existingId) {
+      console.warn(
+        "[klaviyo] setProfileProperties: 409 without duplicate_profile_id",
+        errBody,
+      );
+      return;
+    }
+    const patchBody = {
+      data: {
+        type: "profile",
+        id: existingId,
+        attributes: { properties: args.properties },
+      },
+    };
+    const patchRes = await fetch(
+      `${KLAVIYO_API_BASE}/profiles/${existingId}`,
+      {
+        method: "PATCH",
+        headers: authHeaders(),
+        body: JSON.stringify(patchBody),
+      },
+    );
+    if (!patchRes.ok) {
+      const text = await patchRes.text().catch(() => "");
+      console.error(
+        "[klaviyo] setProfileProperties PATCH failed",
+        patchRes.status,
+        text,
+      );
+    }
+    return;
+  }
+
+  // Any other status — log and move on.
+  const text = await createRes.text().catch(() => "");
+  console.error(
+    "[klaviyo] setProfileProperties create failed",
+    createRes.status,
+    text,
+  );
 }
 
 /**
@@ -247,19 +348,61 @@ export async function setEmailMarketingConsent(args: {
   consent: "subscribed" | "unsubscribed";
   customSource?: string;
 }): Promise<void> {
-  if (!privateKey()) return;
+  if (!privateKey()) {
+    // Dev/staging with no Klaviyo key — skip silently. Production always has
+    // the key set, so this branch never executes there.
+    return;
+  }
 
+  // Both directions THROW on non-2xx response. Compliance-critical path: the
+  // PATCH route at app/api/account/profile/route.ts catches this and returns
+  // 502 "Could not update preferences" so the UI shows an error instead of
+  // lying with a success state. See Issue #15b in QA checklist for the
+  // umbrella reasoning — prior silent-swallow let TWO P0 compliance bugs
+  // (#15 unsubscribe shape, #15a subscribe properties) ship undetected.
   if (args.consent === "subscribed") {
     const listId = process.env.KLAVIYO_NEWSLETTER_LIST_ID;
     if (!listId) {
-      console.error("[klaviyo] KLAVIYO_NEWSLETTER_LIST_ID not set");
-      return;
+      throw new Error("KLAVIYO_NEWSLETTER_LIST_ID is not configured");
     }
-    await subscribeToList({
-      email: args.email,
-      listId,
-      customSource: args.customSource ?? "Account profile toggle",
-    });
+    const body = {
+      data: {
+        type: "profile-subscription-bulk-create-job",
+        attributes: {
+          custom_source: args.customSource ?? "Account profile toggle",
+          profiles: {
+            data: [
+              {
+                type: "profile",
+                attributes: {
+                  email: args.email,
+                  subscriptions: {
+                    email: { marketing: { consent: "SUBSCRIBED" } },
+                  },
+                },
+              },
+            ],
+          },
+        },
+        relationships: {
+          list: { data: { type: "list", id: listId } },
+        },
+      },
+    };
+    const res = await fetch(
+      `${KLAVIYO_API_BASE}/profile-subscription-bulk-create-jobs`,
+      {
+        method: "POST",
+        headers: authHeaders(),
+        body: JSON.stringify(body),
+      },
+    );
+    if (!res.ok && res.status !== 202) {
+      const text = await res.text().catch(() => "");
+      throw new Error(
+        `Klaviyo subscribe failed: ${res.status} ${text.slice(0, 200)}`,
+      );
+    }
     return;
   }
 
@@ -297,7 +440,9 @@ export async function setEmailMarketingConsent(args: {
 
   if (!res.ok && res.status !== 202) {
     const text = await res.text().catch(() => "");
-    console.error("[klaviyo] setEmailMarketingConsent unsubscribe failed", res.status, text);
+    throw new Error(
+      `Klaviyo unsubscribe failed: ${res.status} ${text.slice(0, 200)}`,
+    );
   }
 }
 
