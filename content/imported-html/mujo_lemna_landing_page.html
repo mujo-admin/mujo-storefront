@@ -2231,57 +2231,28 @@ body.locked { overflow: hidden; }
 
 
 <script id="lemna-klaviyo-handlers">
-// ─────────────────────────────────────────────────────────
-// LEMNA LANDING — Klaviyo email capture wiring
-//
-// Drop your real Klaviyo keys into the constants below to go live.
-// Until then, the forms run in DEV MODE: the email is validated, the
-// success message is shown, and the payload is logged to console for
-// you to verify the structure before going live.
-//
-// KLAVIYO_PUBLIC_KEY: your 6-char company ID
-//   → Klaviyo → Account → Settings → API Keys → Public Key
-// KLAVIYO_LEMNA_LIST_ID: list ID for the Lemna early access waitlist
-//   → Lists & Segments → [Your List] → Settings → List ID
-// ─────────────────────────────────────────────────────────
-const KLAVIYO_PUBLIC_KEY = 'YOUR_KLAVIYO_PUBLIC_KEY';
-const KLAVIYO_LEMNA_LIST_ID = 'YOUR_LEMNA_LIST_ID';
+// Lemna landing — email capture wired through /api/klaviyo/subscribe.
+// The route handles list assignment + profile property write + 409-merge dance.
+// lemna_early_access + source: "Lemna waitlist" are added by the route's
+// PROPERTIES_BY_SOURCE map for `list: "lemna_waitlist"`; per-form extras
+// (signup_position, source_page, discount_code_issued) ride in properties.
 
 function lemnaSubscribe(email, sourcePage, customSource, extraProps) {
-  const profileProps = {
-    email: email,
-    properties: Object.assign({
-      source: 'lemna_landing',
-      source_page: sourcePage,
-      lemna_early_access: true,
-      lemna_signup_at: new Date().toISOString(),
-      discount_code_issued: 'LEMNA15',
-      page_url: window.location.href
-    }, extraProps || {})
-  };
-
-  if (KLAVIYO_PUBLIC_KEY !== 'YOUR_KLAVIYO_PUBLIC_KEY') {
-    return fetch(`https://a.klaviyo.com/client/subscriptions/?company_id=${KLAVIYO_PUBLIC_KEY}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'revision': '2024-10-15' },
-      body: JSON.stringify({
-        data: {
-          type: 'subscription',
-          attributes: {
-            profile: { data: { type: 'profile', attributes: profileProps } },
-            custom_source: customSource
-          },
-          relationships: {
-            list: { data: { type: 'list', id: KLAVIYO_LEMNA_LIST_ID } }
-          }
-        }
-      })
-    }).catch(err => console.warn('Klaviyo subscribe error:', err));
-  } else {
-    console.log('[DEV MODE] Lemna Klaviyo payload would be:', { profileProps, customSource });
-    console.log('[DEV MODE] Replace KLAVIYO_PUBLIC_KEY and KLAVIYO_LEMNA_LIST_ID to go live.');
-    return Promise.resolve();
-  }
+  return fetch('/api/klaviyo/subscribe', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      email: email,
+      list: 'lemna_waitlist',
+      source: customSource,
+      properties: Object.assign({
+        source_page: sourcePage,
+        lemna_signup_at: new Date().toISOString(),
+        discount_code_issued: 'LEMNA15',
+        page_url: window.location.href
+      }, extraProps || {})
+    })
+  }).catch(err => console.warn('Klaviyo subscribe error:', err));
 }
 
 function isValidEmail(email) {

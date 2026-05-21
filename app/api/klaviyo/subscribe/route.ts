@@ -14,6 +14,7 @@ const requestSchema = z.object({
       "contact_form",
       "journal_newsletter",
       "rebel_club",
+      "ritual_quiz",
     ])
     .optional(),
   source: z.string().max(80).optional(),
@@ -37,6 +38,7 @@ const PROPERTIES_BY_SOURCE: Record<string, Record<string, unknown>> = {
   contact_form: { contact_form_submitted: true, source: "Contact form" },
   journal_newsletter: { journal_subscriber: true, source: "Journal" },
   rebel_club: { rebel_club_member: true, source: "Rebel Club" },
+  ritual_quiz: { quiz_completed: true, source: "Ritual landing page quiz" },
 };
 
 export async function POST(req: NextRequest) {

@@ -1479,37 +1479,40 @@ function selectTribe(tribe, el) {
   });
 }
 
-// Handle join — fires from either the hero form or the bottom #join form
+// Handle join — fires from either the hero form or the bottom #join form.
+// Routes through /api/klaviyo/subscribe; profile properties carry the
+// selected tribe so Klaviyo segments can target tribe-specific letters
+// from a single list (rebel_club_member: true + tribe: <tribe>).
 function handleJoin(e) {
   e.preventDefault();
-  const email = e.target.querySelector('.join-input').value;
+  const form = e.target;
+  const email = form.querySelector('.join-input').value.trim();
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    form.querySelector('.join-input').focus();
+    return;
+  }
 
-  // ───────────────────────────────────────────────
-  // KLAVIYO INTEGRATION
-  // ───────────────────────────────────────────────
-  // In production, POST to Klaviyo with the email + a list of tags.
-  // Every signup gets the base 'rebel_club' tag. The selected tribe
-  // adds an additional segment tag so we can target tribe-specific
-  // letters from a single list.
-  //
-  // Tag map:
-  //   selectedTribe === 'all'      → ['rebel_club', 'tribe_all']
-  //   selectedTribe === 'mamis'    → ['rebel_club', 'tribe_mamis']
-  //   selectedTribe === 'padel'    → ['rebel_club', 'tribe_padel']
-  //   selectedTribe === 'creators' → ['rebel_club', 'tribe_creators']
-  //
-  // Example Klaviyo payload (replace with actual API call):
-  //   await fetch('/api/klaviyo/subscribe', {
-  //     method: 'POST',
-  //     body: JSON.stringify({
-  //       email,
-  //       list_id: KLAVIYO_REBEL_CLUB_LIST_ID,
-  //       tags: ['rebel_club', `tribe_${selectedTribe}`]
-  //     })
-  //   });
-  // ───────────────────────────────────────────────
+  fetch('/api/klaviyo/subscribe', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      email: email,
+      list: 'rebel_club',
+      source: 'Rebel Club join',
+      properties: {
+        tribe: selectedTribe,
+        source_page: 'rebel_club',
+        rebel_club_joined_at: new Date().toISOString(),
+        page_url: window.location.href
+      }
+    })
+  }).catch(err => console.warn('Klaviyo subscribe error:', err));
 
-  alert(`In production: POST to Klaviyo\nEmail: ${email}\nTags: rebel_club, tribe_${selectedTribe}`);
+  // UI: swap the form for a success state so the customer gets feedback.
+  const successEl = form.querySelector('.join-success');
+  const rowEl = form.querySelector('.join-row');
+  if (rowEl) rowEl.style.display = 'none';
+  if (successEl) successEl.style.display = 'block';
 }
 </script>
 

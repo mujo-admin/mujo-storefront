@@ -3277,60 +3277,31 @@ function showResult() {
   // Determine persona from Q3 (morning pattern). Drives the result copy.
   const persona = qAnswers.q3 || 'burnout';
 
-  // Build profile properties for Klaviyo
-  const profileProps = {
-    email: email,
-    properties: {
-      source: 'ritual_landing',
-      source_page: 'ritual_landing_quiz',
-      quiz_completed: true,
-      quiz_completed_at: new Date().toISOString(),
-      quiz_profile: persona,
-      quiz_q1_energy_pattern: qAnswers.q1 || null,
-      quiz_q2_caffeine_history: qAnswers.q2 || null,
-      quiz_q3_morning_pattern: qAnswers.q3 || null,
-      quiz_q4_goal: qAnswers.q4 || null,
-      quiz_q5_sleep: qAnswers.q5 || null,
-      quiz_q6_caffeine_load: qAnswers.q6 || null,
-      discount_code_issued: 'RITUAL15',
-      page_url: window.location.href
-    }
-  };
-
-  // ─────────────────────────────────────────────────────────
-  // KLAVIYO INTEGRATION
-  // Replace the placeholder values below with your live keys.
-  // KLAVIYO_PUBLIC_KEY: your 6-char company ID from Klaviyo dashboard
-  //   → Account > Settings > API Keys > Public Key
-  // KLAVIYO_QUIZ_LIST_ID: the list ID for quiz completers
-  //   → Lists & Segments > [Your List] > Settings > List ID
-  // ─────────────────────────────────────────────────────────
-  const KLAVIYO_PUBLIC_KEY = 'YOUR_KLAVIYO_PUBLIC_KEY';
-  const KLAVIYO_QUIZ_LIST_ID = 'YOUR_QUIZ_LIST_ID';
-
-  if (KLAVIYO_PUBLIC_KEY !== 'YOUR_KLAVIYO_PUBLIC_KEY') {
-    // Live mode: subscribe + tag with source
-    fetch(`https://a.klaviyo.com/client/subscriptions/?company_id=${KLAVIYO_PUBLIC_KEY}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'revision': '2024-10-15' },
-      body: JSON.stringify({
-        data: {
-          type: 'subscription',
-          attributes: {
-            profile: { data: { type: 'profile', attributes: profileProps } },
-            custom_source: 'Ritual Landing Page Quiz'
-          },
-          relationships: {
-            list: { data: { type: 'list', id: KLAVIYO_QUIZ_LIST_ID } }
-          }
-        }
-      })
-    }).catch(err => console.warn('Klaviyo subscribe error:', err));
-  } else {
-    // Dev mode: log payload so you can verify the structure before going live
-    console.log('[DEV MODE] Klaviyo payload would be:', profileProps);
-    console.log('[DEV MODE] Replace KLAVIYO_PUBLIC_KEY and KLAVIYO_QUIZ_LIST_ID to enable live submission.');
-  }
+  // POST to the hardened /api/klaviyo/subscribe route — handles list assignment,
+  // profile property write, and the 409-merge dance. Properties land on the
+  // master list keyed by `quiz_completed: true` for segment filtering.
+  fetch('/api/klaviyo/subscribe', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      email: email,
+      list: 'ritual_quiz',
+      source: 'Ritual landing page quiz',
+      properties: {
+        source_page: 'ritual_landing_quiz',
+        quiz_completed_at: new Date().toISOString(),
+        quiz_profile: persona,
+        quiz_q1_energy_pattern: qAnswers.q1 || null,
+        quiz_q2_caffeine_history: qAnswers.q2 || null,
+        quiz_q3_morning_pattern: qAnswers.q3 || null,
+        quiz_q4_goal: qAnswers.q4 || null,
+        quiz_q5_sleep: qAnswers.q5 || null,
+        quiz_q6_caffeine_load: qAnswers.q6 || null,
+        discount_code_issued: 'RITUAL15',
+        page_url: window.location.href
+      }
+    })
+  }).catch(err => console.warn('Klaviyo subscribe error:', err));
 
   // Render the result panel with persona-specific copy
   const results = {
@@ -3410,42 +3381,22 @@ function submitExitDiscount() {
     return;
   }
 
-  const profileProps = {
-    email: email,
-    properties: {
-      source: 'ritual_landing',
-      source_page: 'ritual_landing_exit_popup',
-      exit_popup_signup: true,
-      exit_popup_at: new Date().toISOString(),
-      discount_code_issued: 'RITUAL15',
-      page_url: window.location.href
-    }
-  };
-
-  // KLAVIYO INTEGRATION (uses same keys as quiz)
-  const KLAVIYO_PUBLIC_KEY = 'YOUR_KLAVIYO_PUBLIC_KEY';
-  const KLAVIYO_NEWSLETTER_LIST_ID = 'YOUR_NEWSLETTER_LIST_ID';
-
-  if (KLAVIYO_PUBLIC_KEY !== 'YOUR_KLAVIYO_PUBLIC_KEY') {
-    fetch(`https://a.klaviyo.com/client/subscriptions/?company_id=${KLAVIYO_PUBLIC_KEY}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'revision': '2024-10-15' },
-      body: JSON.stringify({
-        data: {
-          type: 'subscription',
-          attributes: {
-            profile: { data: { type: 'profile', attributes: profileProps } },
-            custom_source: 'Ritual Landing Exit Popup'
-          },
-          relationships: {
-            list: { data: { type: 'list', id: KLAVIYO_NEWSLETTER_LIST_ID } }
-          }
-        }
-      })
-    }).catch(err => console.warn('Klaviyo subscribe error:', err));
-  } else {
-    console.log('[DEV MODE] Exit popup Klaviyo payload:', profileProps);
-  }
+  fetch('/api/klaviyo/subscribe', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      email: email,
+      list: 'journal_newsletter',
+      source: 'Ritual landing exit popup',
+      properties: {
+        source_page: 'ritual_landing_exit_popup',
+        exit_popup_signup: true,
+        exit_popup_at: new Date().toISOString(),
+        discount_code_issued: 'RITUAL15',
+        page_url: window.location.href
+      }
+    })
+  }).catch(err => console.warn('Klaviyo subscribe error:', err));
 
   // UI: hide form, show success, then auto-close after 3s
   document.querySelector('.eform').style.display = 'none';
