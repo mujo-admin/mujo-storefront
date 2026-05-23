@@ -67,6 +67,29 @@ function refreshMerchSizesForActiveColor(slug: MerchSlug) {
   }
 }
 
+/** Swap the merch gallery (main image + visible thumbs) to the chosen colorway.
+ *  Each .gallery-thumb carries data-color + data-full; only thumbs matching the
+ *  active color stay visible, and the main <img class="gallery-main-img"> follows
+ *  the first visible thumb. No-ops on pages without a gallery. */
+function swapGalleryForColor(color: MerchColor) {
+  const thumbs = document.querySelectorAll<HTMLElement>(".gallery-thumb");
+  if (!thumbs.length) return;
+  thumbs.forEach((t) => {
+    const match = t.dataset.color === color;
+    t.style.display = match ? "" : "none";
+    t.classList.remove("active");
+  });
+  const firstVisible = document.querySelector<HTMLElement>(
+    `.gallery-thumb[data-color="${color}"]`,
+  );
+  if (!firstVisible) return;
+  firstVisible.classList.add("active");
+  const mainImg = document.querySelector<HTMLImageElement>(".gallery-main-img");
+  if (mainImg && firstVisible.dataset.full) {
+    mainImg.src = firstVisible.dataset.full;
+  }
+}
+
 /** Flash + scroll the PDP option-groups to nudge a user who hit Add to Cart
  *  without a valid color/size selection. Inline style toggle keeps this CSS-free. */
 function flashOptionGroups() {
@@ -150,6 +173,9 @@ export function ImportedPageRuntime({ children }: ImportedPageRuntimeProps) {
         if (isMerchSlug(slug)) {
           refreshMerchSizesForActiveColor(slug);
         }
+        // Swap the gallery photos to the newly-selected colorway.
+        const galleryColor = colorFromTitle(swatch.getAttribute("title"));
+        if (galleryColor) swapGalleryForColor(galleryColor);
         return;
       }
 
@@ -175,6 +201,10 @@ export function ImportedPageRuntime({ children }: ImportedPageRuntimeProps) {
           ?.querySelectorAll(".gallery-thumb")
           .forEach((el) => el.classList.remove("active"));
         thumb.classList.add("active");
+        const mainImg = document.querySelector<HTMLImageElement>(".gallery-main-img");
+        if (mainImg && thumb.dataset.full) {
+          mainImg.src = thumb.dataset.full;
+        }
         return;
       }
 

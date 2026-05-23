@@ -203,6 +203,24 @@
     "height": 2048,
     "color": "#080808"
   },
+  "products/merch/mujo-crew-bone-back-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAuElEQVR4nGNgIAbw8/N3tjVu2bJ+y6a13V2tAgICCDlJScmn92/8//3l//d3IPT7y/NHd+Tk5KDSUyb1guRQ0exZU0By4uLiPz6/vXX1HEj07zcQ+v3l3o1LP76+k5GRYQjw8/n/+8uZY4eQpU8dPfD/95fQkGAGERGRvz8+QfgQOaj0z8+SkpIg808cObB2zXJki9esXnbh1DGo05iZmfX1tVMS4zLTUzPTU1MS4wyN9JiZmQkHCADOpo5yejA/6wAAAABJRU5ErkJggg==",
+    "width": 2048,
+    "height": 2048,
+    "color": "#080808"
+  },
+  "products/merch/mujo-crew-bone-card-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAv0lEQVR4nGNgIAbw8/N3dTRv27Jx25b1PZ0tAgICCDkpKakn92/+//vt/5+vEPT88R05OTmo9JTJff9+fwFJfHn1/9tbiIrZM6eA5MTFxX98eXvvxiWQ7m9vIdKP7l77/e2DlJQUg7+vz/8/X88ePwiShiEINyw0mEFUVPTf7y+njh2AyoFNBnH/fJWUlASZf/LI3rWrloIkYNJrVy29eOYo1GnMzMwGBjopSQnZGWnZGWkpSQmGRnpsbGyEAwQABKuO1oXfvXYAAAAASUVORK5CYII=",
+    "width": 2048,
+    "height": 2048,
+    "color": "#080808"
+  },
+  "products/merch/mujo-crew-bone-hero-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABOklEQVR4nC3LTUjCUAAA4Afd69g5gujoIYhArwXirUPHDt2Djp06FR2CNESo/EUyWKIxTBijp8hiYzVTaW6ktnzTKc63ZmIRlgvL88cHzLasK4IqMsmox7mysLPpEuAlmw4ypC8Td4M+fuk2Ski6W3UsH2057XMzAfceR4XZlB8mTsDAQEZTQhI7PQUON+y2WbC+Zr+nLzgqzJBnY8YtWeQoAIBraT6yv318sJsjQ2NOBcGHqeFWhb9NOGyLUgFaXxijEk9HJ/y3K0qZGxjKT0ey3tVqnspDgk2HxtzDqt6UtdrjcKBZI7NbLwqQkLibLHmeI/0T7jTEzx6yRqZShJnrQL3MwLgvkzwFbzrSm3Ifv1rfhjUyawW6+sTks1c04aUJLzA6ioZE9flh2G+b7QqfjvwbFfNQMc8v9U3aQ0m+7vgAAAAASUVORK5CYII=",
+    "width": 2048,
+    "height": 2048,
+    "color": "#b8a898"
+  },
   "products/merch/mujo-crew-card-editorial-1x1.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAw0lEQVR4nGNgIAbw83JPLE88urD50PzGieWJAny8CDlxYcHvp5f/f7kPhJ7t+f9sz/fTy6XEhKHSsxsz/z/ZDZL7cub/h1MQRcs780FyYkL8/x/sfHFgDkj0wymQipf73h9d/P/RTklRIYZAR5P/L/dd3zTx/6uDUATjhrlZMQgL8f1/tgfEf7kPIgeVfrZHXFgQZP6V9f3bplVBnQa2eNu0qvvbpkOdxszMrKculxHmnhvrmR3pkRHmbqguz8zMTDhAALqEgMO/HUaJAAAAAElFTkSuQmCC",
     "width": 2048,
@@ -245,6 +263,30 @@
     "height": 2048,
     "color": "#080808"
   },
+  "products/merch/mujo-hat-white-back-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAs0lEQVR4nIXPoQqDUBgFYGcRrDeY7lNYBbnNZPINTBrME4SFTZvV5iuZ3F7Ci+Bv+fH3zsG4KIyxnXTgK+cYp58x9mbbthAiCALG2CeHYTgMA70DAFmWHew4zjiO67oqpYhoWRYAcF1XcxzHiKiU2p4bESHiPM9FUWjO8xwRu64ry7JpGiklANR1rdnzvGmaoigyTdOyrLZtH/fe9/1jGuc8TdOqul0v5yRJ9vHHsT+/v/IL7k5XwSbkGlcAAAAASUVORK5CYII=",
+    "width": 2048,
+    "height": 2048,
+    "color": "#080808"
+  },
+  "products/merch/mujo-hat-white-card-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAxUlEQVR4nH3QsYqDQBAG4FyphaWtYKlPINai1eJb2IqvIFj5JAd5hoP06VJcc724uMUuO/yrKwTO5cKFkL8a+PhhZk4fb3P6m4IgSNM0z/MwDJ+56zqllDFGay2lHMfxwUmSEJG1dt93ay0AIUSWZY6bpgFgfm7m63O9nOn7KoRo29Zx3/cAtm072lrrZVmGYXBcVRWA9TdEpJTinDPGHDPGiAjAPM/TNEkpOed1XTv2PK8syyiKjm3jOC6Kwvf9f3e/fMsdVGhyUaVy9FoAAAAASUVORK5CYII=",
+    "width": 2048,
+    "height": 2048,
+    "color": "#080808"
+  },
+  "products/merch/mujo-hat-white-hero-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+APbgx+7dwvnmzvPgyOjSu+LKreTNsubUtuXQs+HOsAD/9d7/9+P+8dru38n/8Of+9/Ht38vp1rzn1rvm0LMA//jj8+DI8+TL/PHg//r2//n18evh6da+6da+5tW5APzt1unWvO7dxJyNgqqIcsewo2tdUquciObVueXUuAD25Mzs2sDp1r5BNCfLjWnAgFpXOCReVEfm0Lbl0LQA//jn9uPO49C5NSsjhVlCrHBLIRQNKyIb3Mit4cquAP/z3//y3cq2oZ2JdzwuI3ZIJgAAAB4YEtC6ntvEqAD/8Nzp1r7lzrbQuKCqj3JtTzYHAwA0KSDUvaHVvaEA/e3X8+DL4MiyxquRrY5wl3hZNCgcX0o2y7OU0bidAPPgyPHfxtG6oL+mi6WGaaGAYpV2WItwU8euj82zmEZzzGOq9XGBAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#d8c8b8"
+  },
+  "products/merch/mujo-hat-white-side-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAgElEQVR4nGNgxAsYSJB2dXVdunTp+rXrw8PD0aVjAnx+/vz5Dwaio6MR0kZGRk+unPv27dvv37//gMGtW7eg0ocPH/7169enT5++g8GvX79+//597NgxqPTcuXN//vz59OnTvr6+9evX37hx4/r160lJSQjDZWRkWFlZKfMYpjQAXYpNnzt3jLYAAAAASUVORK5CYII=",
+    "width": 2048,
+    "height": 2048,
+    "color": "#080808"
+  },
   "products/merch/mujo-tee-back-editorial-1x1.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAhElEQVR4nGPoqUvFgxiwim5Z2oWQ3rK0Ky3cMS3cESIEYUNUgKQnt+V52qrBVaSFO8YHWp/avRAqvX5e++S2vPhAa4iKtHDHU7sXrp/XjmK3p61afKA1BG1a0oPuNCVxBk9bNQgiIL1iZhOK9KYlPZPb8ia35W1a0rNpSQ/EXTj9DQ8WAP/ehxkwhQUzAAAAAElFTkSuQmCC",
     "width": 2048,
@@ -262,6 +304,24 @@
     "width": 2048,
     "height": 2048,
     "color": "#d8c8b8"
+  },
+  "products/merch/mujo-tee-white-back-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAZklEQVR4nH2Q0QnAMAhEM40/+XYHM0SWcIpbpBnt1khphaSBNIeg+E4RUz8qRSKJj0hOTLK+yiJZJOpwPNjdzUp03b3WalYALNPDEaY53XsHYFZGtKstpwFQ1WCqusdDG3xa/veWG4+8z2sUmhfdAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#f8f8f8"
+  },
+  "products/merch/mujo-tee-white-card-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAb0lEQVR4nH2QsQ2AMAwE6dIxAGNCkwpofgEvkAW8wI/1EwSBRRBS4BrL+nvJ8lB/GWJIcvdyI+mJJdnFMs/7upkZgDDOuJQCIAwzi9XdX20A05imMYX6tGutJHERHsnXaSRzzmF8xo1O3Kqd9tdbDv1c6hvmLyNYAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#f8f8f8"
+  },
+  "products/merch/mujo-tee-white-hero-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AKiPdrKbgLKcgbSdgoh2YpWEbbmjh76pjL2lhrKbgACym4C5pIu7p4x+b1w1IxpVNiOllHzEr5PErZK7pYsAtJ2CvaiNvKyQOzEnUjgnkV48V0s9wq2UxK+VvaiNALafhL+rkLmnjw8AADQeD3JFKDEmHLKfhL2ojbmkiwC2n4S+rJSyn4cBAAAdEw3DqJS7t7myo5Cym4KynIMAtJ2CvaiOwrGZXldRjYeH9/b77u7u0svFp5F2r5d+ALCbf7unjMGvmPTw8fry8vT099rV09LKxKGIbqeRdgCrlXm2oYe7p4zYx7v7+//h3t/EuLGNVTSVel+hiG4Ap5F2r5uCsp+E1cK19PT3393dy8S+i1c3kndbmoBmAJ6Gb6mTeauQd+rm5PLy9unp6ci7roRXOo11XJN5X/lQsfWHPdxNAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#b8a898"
   },
   "products/ritual/ritual-cacao-texture-editorial-1x1.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AP/rqv/Tlei2gr2Tab6WcoZqTbmOdrBxVbaNc7ShiAD/7rL/7a7/7rL/y439zJi1iV3Io4DVoYSJX0GigWkA/+yw/+2y//W52J9lbUEjcj4awIJLu4RVhVYyqFw7AP/usv/tsvLGkiwGAD4QAEkiApJXLVYyE8KTYOGGUQD/6ar/05aFYD1XHQFRGwIjAADGh08aAAAzGgCHZksA/9OWrW0+hFMscSkMVRkAKgUALw8AOxoALhYATDUXAP/QlsuPWoZGHkgUADMGAC8GAD0RAEklBTggBVQ5GwC8kmjGj19kIABdKQuAQx1oNhJZNRZDKhNfRStXQCEAk3VWeVk7VTEXr31SvYRT3a11hWZDaE40emFDYUYpAJN2WY5wUpZzU7CIYM6fcNqncO20eMuaZdyqdqBzSPtlhKvwwHyYAAAAAElFTkSuQmCC",

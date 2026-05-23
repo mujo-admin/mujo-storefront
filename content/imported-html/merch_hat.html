@@ -47,10 +47,11 @@ img { max-width: 100%; display: block; }
 .gallery-placeholder-note { font-size: 12px; color: var(--mute); margin-top: 4px; max-width: 260px; margin-left: auto; margin-right: auto; line-height: 1.5; }
 .gallery-pill { position: absolute; top: 18px; left: 18px; background: var(--sage); color: #fff; font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; padding: 6px 12px; border-radius: 100px; font-weight: 500; }
 .gallery-pill .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--orange); margin-right: 6px; vertical-align: 1px; }
-.gallery-thumbs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
-.gallery-thumb { background: var(--sand); border-radius: 10px; aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; font-family: var(--f-mono); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sage); cursor: pointer; border: 2px solid transparent; transition: border-color 0.2s; }
-.gallery-thumb.active { border-color: var(--orange); background: var(--orange-soft); }
+.gallery-thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.gallery-thumb { background: var(--sand); background-size: cover; background-position: center; border-radius: 10px; aspect-ratio: 1/1; cursor: pointer; border: 2px solid transparent; transition: border-color 0.2s; }
+.gallery-thumb.active { border-color: var(--orange); }
 .gallery-thumb:hover { border-color: var(--sage-light); }
+.gallery-main-img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .info { padding-top: 4px; }
 .info-eyebrow { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange-deep); font-weight: 500; margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
 .info-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--orange-deep); }
@@ -182,24 +183,17 @@ img { max-width: 100%; display: block; }
   <div class="gallery">
     <div class="gallery-main">
       <div class="gallery-pill"><span class="dot"></span>Embroidered Mujo mark</div>
-      <div class="gallery-placeholder">
-        <svg class="gallery-placeholder-icon" viewBox="0 0 100 100" fill="none" stroke="#2F3D33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M14 56 Q14 36 32 30 Q50 24 68 30 Q86 36 86 56 L86 60 L14 60 Z" />
-          <path d="M14 60 L86 60 L86 66 L14 66 Z" />
-          <path d="M40 36 Q44 32 50 32 Q56 32 60 36" />
-          <circle cx="50" cy="46" r="3" stroke-width="1" />
-        </svg>
-        <div class="gallery-placeholder-label">Hero · Hat</div>
-        <div class="gallery-placeholder-name">Hat, side profile, embroidery visible</div>
-        <div class="gallery-placeholder-note">Replace with hero image — 1:1 square, MUJO embroidered front, adjustable strap visible on back</div>
-      </div>
+      <img class="gallery-main-img" src="/images/responsive/products/merch/mujo-hat-hero-editorial-1x1-800.webp" alt="MUJO baseball hat in Stone, worn">
     </div>
     <div class="gallery-thumbs">
-      <div class="gallery-thumb active">Front</div>
-      <div class="gallery-thumb">Side</div>
-      <div class="gallery-thumb">Back</div>
-      <div class="gallery-thumb">Detail</div>
-      <div class="gallery-thumb">Worn</div>
+      <div class="gallery-thumb active" data-color="stone" data-full="/images/responsive/products/merch/mujo-hat-hero-editorial-1x1-800.webp" style="background-image: url('/images/responsive/products/merch/mujo-hat-hero-editorial-1x1-400.webp');"></div>
+      <div class="gallery-thumb" data-color="stone" data-full="/images/responsive/products/merch/mujo-hat-card-editorial-1x1-800.webp" style="background-image: url('/images/responsive/products/merch/mujo-hat-card-editorial-1x1-400.webp');"></div>
+      <div class="gallery-thumb" data-color="stone" data-full="/images/responsive/products/merch/mujo-hat-side-editorial-1x1-800.webp" style="background-image: url('/images/responsive/products/merch/mujo-hat-side-editorial-1x1-400.webp');"></div>
+      <div class="gallery-thumb" data-color="stone" data-full="/images/responsive/products/merch/mujo-hat-back-editorial-1x1-800.webp" style="background-image: url('/images/responsive/products/merch/mujo-hat-back-editorial-1x1-400.webp');"></div>
+      <div class="gallery-thumb" data-color="white" data-full="/images/responsive/products/merch/mujo-hat-white-hero-editorial-1x1-800.webp" style="background-image: url('/images/responsive/products/merch/mujo-hat-white-hero-editorial-1x1-400.webp'); display: none;"></div>
+      <div class="gallery-thumb" data-color="white" data-full="/images/responsive/products/merch/mujo-hat-white-card-editorial-1x1-800.webp" style="background-image: url('/images/responsive/products/merch/mujo-hat-white-card-editorial-1x1-400.webp'); display: none;"></div>
+      <div class="gallery-thumb" data-color="white" data-full="/images/responsive/products/merch/mujo-hat-white-side-editorial-1x1-800.webp" style="background-image: url('/images/responsive/products/merch/mujo-hat-white-side-editorial-1x1-400.webp'); display: none;"></div>
+      <div class="gallery-thumb" data-color="white" data-full="/images/responsive/products/merch/mujo-hat-white-back-editorial-1x1-800.webp" style="background-image: url('/images/responsive/products/merch/mujo-hat-white-back-editorial-1x1-400.webp'); display: none;"></div>
     </div>
   </div>
 
@@ -229,11 +223,11 @@ img { max-width: 100%; display: block; }
     <div class="option-group">
       <div class="option-label">
         <span>Colour</span>
-        <span class="selected">White</span>
+        <span class="selected">Stone</span>
       </div>
       <div class="color-swatches">
-        <div class="color-swatch active" style="background: #FFFFFF; border: 1px solid var(--line);" title="White"></div>
-        <div class="color-swatch" style="background: #B5AFA3; border: 1px solid var(--line);" title="Stone"></div>
+        <div class="color-swatch" style="background: #FFFFFF; border: 1px solid var(--line);" title="White"></div>
+        <div class="color-swatch active" style="background: #B5AFA3; border: 1px solid var(--line);" title="Stone"></div>
       </div>
     </div>
 
