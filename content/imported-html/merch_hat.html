@@ -226,12 +226,23 @@ img { max-width: 100%; display: block; }
       <div class="tick"><span class="tick-dot"></span>Made on demand</div>
     </div>
 
+    <div class="option-group">
+      <div class="option-label">
+        <span>Colour</span>
+        <span class="selected">White</span>
+      </div>
+      <div class="color-swatches">
+        <div class="color-swatch active" style="background: #FFFFFF; border: 1px solid var(--line);" title="White"></div>
+        <div class="color-swatch" style="background: #B5AFA3; border: 1px solid var(--line);" title="Stone"></div>
+      </div>
+    </div>
+
     <div class="price-block">
       <div class="price">$25.00</div>
       <div class="price-note">One-time · ships in 5–7 days</div>
     </div>
 
-    <button class="cta">
+    <button class="cta" data-mujo-action="add-to-cart-merch" data-product-handle="mujo-hat">
       Add to Cart
       <span class="arrow">→</span>
     </button>

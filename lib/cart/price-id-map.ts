@@ -1,5 +1,6 @@
 import { RITUAL_PRICE_IDS } from 'lib/stripe-constants';
 import type { CartLineItem } from './types';
+import { resolveMerchPriceId } from './merch-config';
 
 /**
  * Resolves a Stripe Price ID to enough product metadata to render a cart line.
@@ -74,6 +75,8 @@ export function resolvePriceId(
       return RITUAL_LINES[key];
     }
   }
+  const merch = resolveMerchPriceId(stripePriceId);
+  if (merch) return merch;
   // Unknown Price ID — return a generic line so the cart still works on
   // pages that haven't been wired into RITUAL_LINES yet (e.g. Lemna PDP
   // pre-launch). The on-site checkout is still authoritative on price.

@@ -33,6 +33,7 @@ export default function CrewPdpPage() {
               image: "https://mujoworld.com/images/logo/mujo-logo-orange.png",
               lowPrice: "40",
               highPrice: "40",
+              offerCount: 9,
               inStock: true,
             }),
           ),

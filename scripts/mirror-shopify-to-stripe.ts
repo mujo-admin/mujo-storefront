@@ -59,6 +59,20 @@ const SUB_INTERVAL: Stripe.PriceCreateParams.Recurring.Interval = 'month';
 const SUB_INTERVAL_COUNT = 1;
 const FREE_SHIPPING_THRESHOLD_CENTS = 5000;
 
+// Stripe tax_code by Shopify handle. Powdered drink mix → 1% IL grocery rate
+// per project_stripe_tax_and_portal memory. Apparel → txcd_30070001 (clothing,
+// taxable in most states, exempt in MN/NJ/PA/VT under thresholds). Frother →
+// general (txcd_99999999). Lemna will need its own snack-foods code at launch.
+const TAX_CODE_BY_HANDLE: Record<string, string> = {
+  'the-ritual': 'txcd_41054002',
+  'vitality-brew': 'txcd_41054002',
+  'mujo-t-shirt': 'txcd_30070001',
+  'mujo-baseball-hat': 'txcd_30070001',
+  'crew-neck-sweatshirt': 'txcd_30070001',
+  'electric-frother': 'txcd_99999999',
+};
+const DEFAULT_TAX_CODE = 'txcd_99999999';
+
 // --- Helpers ---------------------------------------------------------------
 
 function shopifyVariantGidToNumeric(gid: string): string {
@@ -82,6 +96,7 @@ async function upsertStripeProduct(
 ): Promise<Stripe.Product> {
   const description = product.description.slice(0, 500) || undefined;
   const images = product.featuredImage ? [product.featuredImage.url] : [];
+  const taxCode = TAX_CODE_BY_HANDLE[product.handle] ?? DEFAULT_TAX_CODE;
 
   if (product.stripeProductId) {
     const existing = await findStripeProduct(product.stripeProductId);
@@ -91,9 +106,10 @@ async function upsertStripeProduct(
         description,
         images,
         active: product.status === 'ACTIVE',
+        tax_code: taxCode,
         metadata: { shopify_product_id: product.id, shopify_handle: product.handle },
       });
-      console.log(`  ✓ Updated Stripe Product: ${updated.id}`);
+      console.log(`  ✓ Updated Stripe Product: ${updated.id} (tax_code ${taxCode})`);
       return updated;
     }
     console.log(
@@ -106,9 +122,10 @@ async function upsertStripeProduct(
     description,
     images,
     active: product.status === 'ACTIVE',
+    tax_code: taxCode,
     metadata: { shopify_product_id: product.id, shopify_handle: product.handle },
   });
-  console.log(`  ✓ Created Stripe Product: ${created.id}`);
+  console.log(`  ✓ Created Stripe Product: ${created.id} (tax_code ${taxCode})`);
   await setStripeProductIdOnProduct(product.id, created.id);
   return created;
 }
@@ -117,6 +134,7 @@ async function findActivePrice(args: {
   productId: string;
   unitAmount: number;
   recurring: boolean;
+  shopifyVariantGid: string;
 }): Promise<Stripe.Price | null> {
   const list = await stripe.prices.list({
     product: args.productId,
@@ -131,7 +149,11 @@ async function findActivePrice(args: {
         Boolean(p.recurring) === args.recurring &&
         (!args.recurring ||
           (p.recurring?.interval === SUB_INTERVAL &&
-            p.recurring?.interval_count === SUB_INTERVAL_COUNT)),
+            p.recurring?.interval_count === SUB_INTERVAL_COUNT)) &&
+        // Disambiguate by variant — merch products have multiple variants
+        // sharing the same unit_amount (e.g. all Crew sizes = $40). Matching
+        // on amount alone returns the wrong Price for variants 2+.
+        p.metadata.shopify_variant_id === args.shopifyVariantGid,
     ) ?? null
   );
 }
@@ -145,7 +167,7 @@ async function upsertStripePrice(args: {
 }): Promise<Stripe.Price> {
   const cents = Math.round(parseFloat(args.shopifyVariantPrice) * 100);
 
-  // Stripe Prices are immutable. If existing matches amount + recurring shape, reuse.
+  // Stripe Prices are immutable. If existing matches amount + recurring + variant, reuse.
   if (args.existingPriceId) {
     try {
       const existing = await stripe.prices.retrieve(args.existingPriceId);
@@ -154,14 +176,33 @@ async function upsertStripePrice(args: {
         (!args.recurring ||
           (existing.recurring?.interval === SUB_INTERVAL &&
             existing.recurring?.interval_count === SUB_INTERVAL_COUNT));
-      if (existing.active && existing.unit_amount === cents && recurringMatch) {
+      const variantMatch =
+        existing.metadata.shopify_variant_id === args.shopifyVariantGid;
+      if (
+        existing.active &&
+        existing.unit_amount === cents &&
+        recurringMatch &&
+        variantMatch
+      ) {
         return existing;
       }
-      // Drift detected — archive old, create new
-      console.log(
-        `  ⚠ Price drift on ${existing.id} (had ${existing.unit_amount}, want ${cents}); archiving and recreating`,
-      );
-      await stripe.prices.update(existing.id, { active: false });
+      // If the variant_id doesn't match, this metafield points at a *different*
+      // variant's Price (legacy from a buggy mirror run that returned the first
+      // variant's Price for every subsequent variant of the same product). Don't
+      // archive — it still belongs to that other variant. Just fall through and
+      // create a fresh Price for this variant; the metafield gets overwritten
+      // with the new ID by the caller.
+      if (!variantMatch) {
+        console.log(
+          `  ⚠ Metafield pointed at ${existing.id} (variant=${existing.metadata.shopify_variant_id ?? 'unset'}); creating fresh Price for this variant`,
+        );
+      } else {
+        // Amount or recurring shape drifted — archive old, create new.
+        console.log(
+          `  ⚠ Price drift on ${existing.id} (had ${existing.unit_amount}, want ${cents}); archiving and recreating`,
+        );
+        await stripe.prices.update(existing.id, { active: false });
+      }
     } catch (err) {
       if (
         !(err instanceof Stripe.errors.StripeError && err.code === 'resource_missing')
@@ -175,6 +216,7 @@ async function upsertStripePrice(args: {
       productId: args.product.id,
       unitAmount: cents,
       recurring: args.recurring,
+      shopifyVariantGid: args.shopifyVariantGid,
     });
     if (found) return found;
   }

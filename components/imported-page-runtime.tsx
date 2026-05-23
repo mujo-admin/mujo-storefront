@@ -5,10 +5,91 @@ import { useReveal } from "lib/hooks/use-reveal";
 import { useQuizSheet } from "components/MujoQuiz";
 import { useCart } from "components/cart/cart-context";
 import { resolvePriceId } from "lib/cart/price-id-map";
+import {
+  resolveMerchSelection,
+  availableSizesFor,
+  type MerchColor,
+  type MerchSize,
+} from "lib/cart/merch-config";
 
 type ImportedPageRuntimeProps = {
   children: ReactNode;
 };
+
+const MERCH_SLUGS = ["mujo-frother", "mujo-tee", "mujo-hat", "mujo-crew"] as const;
+type MerchSlug = (typeof MERCH_SLUGS)[number];
+
+function isMerchSlug(value: string | undefined): value is MerchSlug {
+  return !!value && (MERCH_SLUGS as readonly string[]).includes(value);
+}
+
+const MERCH_COLORS: MerchColor[] = ["white", "stone", "desert", "bone", "sandstone"];
+const MERCH_SIZES: MerchSize[] = ["xs", "s", "m", "l", "xl"];
+
+/** Convert a swatch title attr ("Desert Dust", "Bone", ...) → MerchColor key. */
+function colorFromTitle(title: string | null | undefined): MerchColor | undefined {
+  if (!title) return undefined;
+  const key = title.trim().split(/\s+/)[0]?.toLowerCase();
+  return MERCH_COLORS.find((c) => c === key);
+}
+
+function sizeFromPill(text: string | null | undefined): MerchSize | undefined {
+  if (!text) return undefined;
+  const key = text.trim().toLowerCase();
+  return MERCH_SIZES.find((s) => s === key);
+}
+
+/** When a merch PDP color changes, mark size pills that don't exist for the
+ *  new color as soldout. If the currently-active pill becomes unavailable,
+ *  unselect it and reset the size label so the user must repick. */
+function refreshMerchSizesForActiveColor(slug: MerchSlug) {
+  const activeSwatch = document.querySelector<HTMLElement>(".color-swatch.active");
+  const color = colorFromTitle(activeSwatch?.getAttribute("title"));
+  const allowed = new Set(availableSizesFor(slug, color));
+  // No-op for slugs without a size dimension.
+  if (allowed.size === 0) return;
+
+  let unselectedActive = false;
+  document.querySelectorAll<HTMLElement>(".size-pill").forEach((pill) => {
+    const size = sizeFromPill(pill.textContent);
+    if (!size) return;
+    const isAllowed = allowed.has(size);
+    pill.classList.toggle("soldout", !isAllowed);
+    if (!isAllowed && pill.classList.contains("active")) {
+      pill.classList.remove("active");
+      unselectedActive = true;
+    }
+  });
+  if (unselectedActive) {
+    const sizeGroup = document.querySelectorAll<HTMLElement>(".option-group")[1];
+    const label = sizeGroup?.querySelector<HTMLElement>(".option-label .selected");
+    if (label) label.textContent = "Select size";
+  }
+}
+
+/** Flash + scroll the PDP option-groups to nudge a user who hit Add to Cart
+ *  without a valid color/size selection. Inline style toggle keeps this CSS-free. */
+function flashOptionGroups() {
+  const groups = document.querySelectorAll<HTMLElement>(".option-group");
+  groups.forEach((g) => {
+    g.style.transition = "outline 0.32s ease-out";
+    g.style.outline = "2px solid var(--orange, #f2682f)";
+    g.style.outlineOffset = "8px";
+  });
+  window.setTimeout(() => {
+    groups.forEach((g) => {
+      g.style.outline = "2px solid transparent";
+    });
+  }, 640);
+  window.setTimeout(() => {
+    groups.forEach((g) => {
+      g.style.removeProperty("outline");
+      g.style.removeProperty("outline-offset");
+      g.style.removeProperty("transition");
+    });
+  }, 1000);
+  groups[0]?.scrollIntoView({ behavior: "smooth", block: "center" });
+}
 
 /**
  * Client wrapper that activates the shared behaviors needed by imported
@@ -22,6 +103,18 @@ export function ImportedPageRuntime({ children }: ImportedPageRuntimeProps) {
   const { addItem } = useCart();
 
   useEffect(() => {
+    // Initial-mount refresh: mark unavailable sizes as soldout based on the
+    // HTML's default active color (e.g. Crew Bone defaults active in the source
+    // HTML, so XS must render struck-through on first paint, not just after
+    // the user changes color).
+    const merchBtn = document.querySelector<HTMLElement>(
+      '[data-mujo-action="add-to-cart-merch"]',
+    );
+    const initialSlug = merchBtn?.dataset.productHandle;
+    if (isMerchSlug(initialSlug)) {
+      refreshMerchSizesForActiveColor(initialSlug);
+    }
+
     function onClick(ev: MouseEvent) {
       const target = ev.target as HTMLElement | null;
       if (!target) return;
@@ -47,6 +140,15 @@ export function ImportedPageRuntime({ children }: ImportedPageRuntimeProps) {
         const label = optionGroup?.querySelector(".option-label .selected");
         if (label) {
           label.textContent = swatch.getAttribute("title") ?? label.textContent;
+        }
+        // On merch PDPs, recompute size availability for the new color.
+        // Crew Bone has no XS — see lib/cart/merch-config.ts.
+        const merchBtn = document.querySelector<HTMLElement>(
+          '[data-mujo-action="add-to-cart-merch"]',
+        );
+        const slug = merchBtn?.dataset.productHandle;
+        if (isMerchSlug(slug)) {
+          refreshMerchSizesForActiveColor(slug);
         }
         return;
       }
@@ -128,6 +230,40 @@ export function ImportedPageRuntime({ children }: ImportedPageRuntimeProps) {
           });
           // CartProvider's addItem dispatches mujo:cart:open already; no
           // explicit dispatch needed here.
+          break;
+        }
+        case "add-to-cart-merch": {
+          ev.preventDefault();
+          const slug = trigger.dataset.productHandle;
+          if (!isMerchSlug(slug)) {
+            console.warn(
+              "[merch-cart] missing or invalid data-product-handle on add-to-cart-merch trigger",
+            );
+            return;
+          }
+          const activeSwatch = document.querySelector<HTMLElement>(
+            ".color-swatch.active",
+          );
+          const color = colorFromTitle(activeSwatch?.getAttribute("title"));
+          const activePill = document.querySelector<HTMLElement>(
+            ".size-pill.active",
+          );
+          const size = sizeFromPill(activePill?.textContent);
+          const resolved = resolveMerchSelection(slug, color, size);
+          if (!resolved) {
+            // Either no size picked (tee/crew) or an asymmetric combo
+            // (Crew + Bone + XS). Nudge the user back to the option groups.
+            console.warn(
+              `[merch-cart] no valid variant for ${slug} (color=${color}, size=${size})`,
+            );
+            flashOptionGroups();
+            return;
+          }
+          addItem({
+            stripePriceId: resolved.stripePriceId,
+            ...resolved.line,
+            quantity: 1,
+          });
           break;
         }
         default:

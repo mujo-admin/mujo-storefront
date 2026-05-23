@@ -9,7 +9,7 @@ import {
 export const metadata: Metadata = {
   title: "Mujo Organic T-Shirt · Clean outside. Clean inside.",
   description:
-    "Mujo Organic Tee. GOTS-certified, unisex, no shortcuts. Sand and White. Same standard as what you put in your body. $30.",
+    "Mujo Organic Tee. GOTS-certified, unisex, no shortcuts. Desert Dust and White. Same standard as what you put in your body. $30.",
   alternates: { canonical: "/products/mujo-tee" },
   openGraph: {
     type: "website",
@@ -29,10 +29,11 @@ export default function TeePdpPage() {
               url: "/products/mujo-tee",
               name: "Mujo Organic T-Shirt",
               description:
-                "GOTS + OCS certified 100% organic cotton tee. Ring-spun combed, lightweight, regular unisex fit. Sand or White.",
+                "GOTS + OCS certified 100% organic cotton tee. Ring-spun combed, lightweight, regular unisex fit. Desert Dust or White.",
               image: "https://mujoworld.com/images/logo/mujo-logo-orange.png",
               lowPrice: "30",
               highPrice: "30",
+              offerCount: 8,
               inStock: true,
             }),
           ),

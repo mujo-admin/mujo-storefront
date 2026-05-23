@@ -77,6 +77,7 @@ export function productSchema(args: {
   image: string;
   lowPrice: string;
   highPrice: string;
+  offerCount?: number;
   currency?: string;
   inStock?: boolean;
 }) {
@@ -93,6 +94,7 @@ export function productSchema(args: {
       priceCurrency: args.currency ?? "USD",
       lowPrice: args.lowPrice,
       highPrice: args.highPrice,
+      ...(args.offerCount !== undefined && { offerCount: args.offerCount }),
       availability:
         args.inStock === false
           ? "https://schema.org/PreOrder"

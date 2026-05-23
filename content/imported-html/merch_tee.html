@@ -227,10 +227,10 @@ img { max-width: 100%; display: block; }
     <div class="option-group">
       <div class="option-label">
         <span>Colour</span>
-        <span class="selected">Sand</span>
+        <span class="selected">Desert Dust</span>
       </div>
       <div class="color-swatches">
-        <div class="color-swatch active" style="background: #EEE9E0; border: 1px solid var(--line);" title="Sand"></div>
+        <div class="color-swatch active" style="background: #EEE9E0; border: 1px solid var(--line);" title="Desert Dust"></div>
         <div class="color-swatch" style="background: #FFFFFF; border: 1px solid var(--line);" title="White"></div>
       </div>
     </div>
@@ -241,7 +241,6 @@ img { max-width: 100%; display: block; }
         <span class="selected">M</span>
       </div>
       <div class="size-grid">
-        <div class="size-pill">XS</div>
         <div class="size-pill">S</div>
         <div class="size-pill active">M</div>
         <div class="size-pill">L</div>
@@ -255,7 +254,7 @@ img { max-width: 100%; display: block; }
       <div class="price-note">One-time · ships in 5–7 days</div>
     </div>
 
-    <button class="cta">
+    <button class="cta" data-mujo-action="add-to-cart-merch" data-product-handle="mujo-tee">
       Add to Cart
       <span class="arrow">→</span>
     </button>
@@ -434,7 +433,7 @@ img { max-width: 100%; display: block; }
   document.querySelectorAll('.accordion-toggle').forEach(btn => {
     btn.addEventListener('click', () => { btn.closest('.accordion').classList.toggle('open'); });
   });
-  const colorLabels = { 'Sand': 'Sand', 'White': 'White' };
+  const colorLabels = { 'Desert Dust': 'Desert Dust', 'White': 'White' };
   document.querySelectorAll('.color-swatch').forEach(swatch => {
     swatch.addEventListener('click', () => {
       document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));

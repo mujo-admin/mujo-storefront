@@ -96,16 +96,29 @@ export async function handleCheckoutCompleted(event: Stripe.Event) {
     expand: ['data.price.product'],
   });
 
-  const shopifyOrderLineItems = lineItems.data.map((li) => ({
-    title: li.description ?? 'Item',
-    quantity: li.quantity ?? 1,
-    priceSet: {
-      shopMoney: {
-        amount: ((li.amount_subtotal ?? 0) / 100).toFixed(2),
-        currencyCode: (li.currency ?? session.currency ?? 'usd').toUpperCase(),
+  // The mirror script writes the Shopify ProductVariant GID onto every
+  // Stripe Price as metadata.shopify_variant_id. Pass it through to Shopify's
+  // orderCreate so the line item is linked to the correct variant (color/size
+  // for merch, size/plan for Ritual). When metadata is absent we fall back to
+  // title-only — orderCreate still succeeds, but variant inventory + fulfillment
+  // won't be linked.
+  const shopifyOrderLineItems = lineItems.data.map((li) => {
+    const variantGid =
+      typeof li.price === 'object' && li.price
+        ? li.price.metadata?.shopify_variant_id
+        : undefined;
+    return {
+      ...(variantGid ? { variantId: variantGid } : {}),
+      title: li.description ?? 'Item',
+      quantity: li.quantity ?? 1,
+      priceSet: {
+        shopMoney: {
+          amount: ((li.amount_subtotal ?? 0) / 100).toFixed(2),
+          currencyCode: (li.currency ?? session.currency ?? 'usd').toUpperCase(),
+        },
       },
-    },
-  }));
+    };
+  });
 
   // Dahlia: shipping_details moved to collected_information.shipping_details
   const shipping = session.collected_information?.shipping_details;
