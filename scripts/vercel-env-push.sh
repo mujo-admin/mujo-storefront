@@ -74,6 +74,34 @@ VARS=(
   EMAIL_CHANGE_SECRET                 # JWT signing for email-change token (Phase 5)
   NEXT_PUBLIC_ENABLE_EXPRESS_CHECKOUT # ECE flag (false on staging, true post-cutover)
   NEXT_PUBLIC_ENABLE_ON_SITE_CHECKOUT # legacy flag (vestigial post-pivot, kept for documentation)
+  # --- Phase 3 merch Stripe Price IDs (2026-05-23) ---
+  # 20 vars driving the 4 merch PDP buy boxes. Currently Test-mode IDs —
+  # initial sync 2026-05-23 pushed these to BOTH preview + production scope
+  # (mujo-storefront.vercel.app reads production scope; the rest of the
+  # storefront's keys are already Test-mode in production, so this is
+  # consistent). At Mon 5/25 EOD: re-run the Stripe mirror against Live mode,
+  # update .env.local with Live Price IDs, re-run this script — that flips
+  # production scope to Live IDs and is the cutover.
+  NEXT_PUBLIC_MERCH_FROTHER
+  NEXT_PUBLIC_MERCH_HAT_WHITE
+  NEXT_PUBLIC_MERCH_HAT_STONE
+  NEXT_PUBLIC_MERCH_TEE_DESERT_S
+  NEXT_PUBLIC_MERCH_TEE_DESERT_M
+  NEXT_PUBLIC_MERCH_TEE_DESERT_L
+  NEXT_PUBLIC_MERCH_TEE_DESERT_XL
+  NEXT_PUBLIC_MERCH_TEE_WHITE_S
+  NEXT_PUBLIC_MERCH_TEE_WHITE_M
+  NEXT_PUBLIC_MERCH_TEE_WHITE_L
+  NEXT_PUBLIC_MERCH_TEE_WHITE_XL
+  NEXT_PUBLIC_MERCH_CREW_BONE_S
+  NEXT_PUBLIC_MERCH_CREW_BONE_M
+  NEXT_PUBLIC_MERCH_CREW_BONE_L
+  NEXT_PUBLIC_MERCH_CREW_BONE_XL
+  NEXT_PUBLIC_MERCH_CREW_SANDSTONE_XS
+  NEXT_PUBLIC_MERCH_CREW_SANDSTONE_S
+  NEXT_PUBLIC_MERCH_CREW_SANDSTONE_M
+  NEXT_PUBLIC_MERCH_CREW_SANDSTONE_L
+  NEXT_PUBLIC_MERCH_CREW_SANDSTONE_XL
 )
 
 ENV_SCOPE="${VERCEL_ENV:-production}"
