@@ -158,6 +158,29 @@ export function Footer() {
           </div>
           <div
             style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "8px 18px",
+              fontFamily: "var(--f-mono)",
+              fontSize: 11,
+              letterSpacing: "0.06em",
+            }}
+          >
+            <Link
+              href="/legal/privacy"
+              style={{ color: "rgba(255,255,255,0.5)", textDecoration: "none" }}
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href="/legal/terms"
+              style={{ color: "rgba(255,255,255,0.5)", textDecoration: "none" }}
+            >
+              Terms &amp; Conditions
+            </Link>
+          </div>
+          <div
+            style={{
               fontFamily: "var(--f-mono)",
               fontSize: 11,
               letterSpacing: "0.08em",

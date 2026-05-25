@@ -570,16 +570,56 @@ body.locked { overflow: hidden; }
   .hero-text {
     position: relative;
     z-index: 2;
-    padding: 52px var(--gutter) 48px;
+    min-height: 88vh;
+    min-height: 88svh;            /* full-ish screen so the image shows + the text (eyebrow → rating) frames on the first screen */
+    justify-content: center;      /* vertical-center the text over the image */
+    align-items: center;          /* mobile-only horizontal centering */
+    text-align: center;
+    padding: 64px var(--gutter);
     max-width: none;
   }
+  /* Center the inner rows on mobile */
+  .hero-pills { justify-content: center; }
+  .hero .ctas { justify-content: center; flex-wrap: wrap; }
+  .hero-rating { justify-content: center; }
+  /* Move the "#1 wellness trend" box out of the hero on mobile — it shows as a
+     banner after the hero instead (keeps the hero compact + centered). */
+  .hero-pullquote { display: none; }
   .hero-text .eyebrow { color: #fff; opacity: 0.9; }
   .hero h1 { color: #fff; }
   .hero-sub { color: rgba(255,255,255,0.9); }
   .hero-rating { border-top-color: rgba(255,255,255,0.22); color: rgba(255,255,255,0.8); }
   .hero-rating strong { color: #fff; }
-  .hero-audience { color: rgba(255,255,255,0.88); }
+  /* Hide the audience descriptor on mobile — shortens the hero so the pouch
+     isn't cropped by the full-bleed image (per Kinga). */
+  .hero-audience { display: none; }
   .hero .btn-ghost { border-color: rgba(255,255,255,0.55); color: #fff; }
+  /* Pills + the "Coming soon" pill: white chips with ink text so they stay
+     readable on top of the dark hero image. */
+  .hero .hero-pill { background: rgba(255,255,255,0.92); color: var(--ink); }
+  .hero .cta-pill { background: rgba(255,255,255,0.92); color: var(--ink); }
+}
+
+/* "#1 wellness trend" banner — desktop keeps the quote inside the hero; on mobile
+   the hero pullquote is hidden and this banner shows between the hero and manifesto. */
+.trend-banner { display: none; }
+@media (max-width: 1023px) {
+  .trend-banner {
+    display: block;
+    background: var(--sage);
+    padding: 28px var(--gutter);
+    text-align: center;
+  }
+  .trend-banner p {
+    font-family: var(--f-serif);
+    font-style: italic;
+    font-size: 15px;
+    line-height: 1.5;
+    max-width: 540px;
+    margin: 0 auto;
+    color: rgba(255,255,255,0.85);
+  }
+  .trend-banner strong { color: #fff; font-style: normal; font-weight: 600; font-family: var(--f-display); }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -656,9 +696,10 @@ body.locked { overflow: hidden; }
   border-color: var(--sage-light);
 }
 
-/* Hero product image at top of tile. Locked aspect ratio = images align across all tiles */
+/* Hero product image at top of tile. Locked aspect ratio = images align across all tiles.
+   Height bumped ~25% (16/11 → 16/13.75) so the full pouch shows, less top/bottom crop. */
 .tile-hero {
-  aspect-ratio: 16 / 11;
+  aspect-ratio: 16 / 13.75;
   background: linear-gradient(145deg, var(--sand-deep) 0%, var(--sand) 100%);
   position: relative;
   overflow: hidden;
@@ -1921,6 +1962,13 @@ footer {
     </div>
     <div class="hero-img-wrap reveal d2" style="background-image: url('/images/responsive/lifestyle/ritual-pouch-mug-hero-editorial-4x5-1200.webp'); background-size: cover; background-position: center;">
     </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 1b. #1 WELLNESS TREND BANNER (mobile-only; desktop shows it in the hero) ═══════════════ -->
+<section class="trend-banner">
+  <div class="container">
+    <p>Named the <strong>#1 wellness trend of 2026</strong> by the Global Wellness Summit, and the category Mujo was built for 18 months before it was named.</p>
   </div>
 </section>
 
