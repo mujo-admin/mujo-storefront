@@ -57,7 +57,7 @@ export function Footer() {
                   flex: "1 1 180px",
                   minWidth: 0,
                   padding: "10px 14px",
-                  borderRadius: 999,
+                  borderRadius: "var(--r-structural)",
                   border: "1px solid rgba(255,255,255,0.18)",
                   background: "rgba(255,255,255,0.06)",
                   color: "#fff",

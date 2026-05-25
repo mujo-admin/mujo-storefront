@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tired isn't empty. Tired is slow. · Mujo Journal</title>
 <meta name="description" content="The most useful thing I've learned about energy in three years. It's not about more inputs. It's about the speed of the system you already have.">
-<link rel="preconnect" href="https://api.fontshare.com">
-<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -18,8 +16,8 @@
   --sage-tint: rgba(47, 61, 51, 0.08);
   --ink: #1A1A1A; --ink-soft: #4A4845; --mute: #5C5854;
   --line: rgba(26, 26, 26, 0.09); --line-soft: rgba(26, 26, 26, 0.06);
-  --f-display: 'General Sans', -apple-system, sans-serif;
-  --f-body: 'General Sans', 'Helvetica Neue', sans-serif;
+  --f-display: 'Hanken Grotesk', -apple-system, sans-serif;
+  --f-body: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
   --f-serif: 'Instrument Serif', 'Times New Roman', serif;
   --f-mono: 'DM Mono', monospace;
   --nav-h: 64px;
@@ -62,7 +60,7 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .nav-icon { width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; border: none; background: transparent; color: var(--ink); cursor: pointer; text-decoration: none; position: relative; border-radius: 50%; transition: background 0.2s; }
 .nav-icon:hover { background: var(--sage-tint); }
 .nav-icon svg { width: 20px; height: 20px; }
-.cart-count { position: absolute; top: 4px; right: 4px; background: var(--orange); color: #fff; font-family: var(--f-mono); font-size: 9px; font-weight: 500; min-width: 16px; height: 16px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; padding: 0 4px; line-height: 1; }
+.cart-count { position: absolute; top: 4px; right: 4px; background: var(--orange); color: #fff; font-family: var(--f-mono); font-size: 9px; font-weight: 500; min-width: 16px; height: 16px; border-radius: var(--r-tag); display: inline-flex; align-items: center; justify-content: center; padding: 0 4px; line-height: 1; }
 .cart-count.hidden { display: none; }
 
 .menu-overlay { position: fixed; inset: 0; background: rgba(26,26,26,0.5); z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
@@ -99,7 +97,7 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .cart-progress-fill.full { background: var(--sage); }
 .cart-body { flex: 1; overflow-y: auto; padding: 8px 20px; }
 .cart-item { display: grid; grid-template-columns: 72px 1fr auto; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--line-soft); }
-.cart-item-img { width: 72px; height: 72px; background: var(--sand); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; }
+.cart-item-img { width: 72px; height: 72px; background: var(--sand); border-radius: var(--r-structural); display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; }
 .cart-item-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .cart-item-name { font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.3; }
 .cart-item-variant { font-size: 12px; color: var(--mute); margin-bottom: 6px; }
@@ -135,7 +133,7 @@ body.locked { overflow: hidden; }
 @media (min-width: 768px) { .post-head { padding: 48px 0 32px; } }
 .post-cat-tag { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange-deep); margin-bottom: 18px; display: inline-block; }
 .post-title { font-size: clamp(32px, 6.5vw, 56px); margin-bottom: 20px; line-height: 1.05; max-width: 800px; margin-left: auto; margin-right: auto; }
-.post-title em { font-family: var(--f-serif); font-style: italic; color: var(--orange); font-weight: 400; }
+.post-title em { font-family: inherit; font-style: italic; color: inherit; font-weight: 500; }
 .post-deck { font-family: var(--f-serif); font-size: clamp(18px, 2.6vw, 22px); color: var(--ink-soft); line-height: 1.45; max-width: 600px; margin: 0 auto 28px; font-style: italic; }
 .post-byline { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute); }
 .post-byline .sep { opacity: 0.4; }
@@ -143,16 +141,16 @@ body.locked { overflow: hidden; }
 
 /* ===== HERO IMAGE ===== */
 .post-hero-img { aspect-ratio: 16 / 10; max-width: 1040px; margin: 0 auto 40px; border-radius: 0; background: linear-gradient(135deg, #6B4F3A 0%, #4A3526 100%); display: flex; align-items: center; justify-content: center; font-size: clamp(80px, 18vw, 144px); color: rgba(255,255,255,0.3); }
-@media (min-width: 768px) { .post-hero-img { border-radius: 16px; aspect-ratio: 21 / 9; margin: 0 auto 56px; } }
+@media (min-width: 768px) { .post-hero-img { border-radius: var(--r-structural); aspect-ratio: 21 / 9; margin: 0 auto 56px; } }
 @media (min-width: 1024px) { .post-hero-img { margin: 0 auto 72px; } }
 
 /* ===== BODY PROSE ===== */
 .post-body { padding: 0 0 56px; font-size: 18px; color: var(--ink); }
 @media (min-width: 768px) { .post-body { font-size: 19px; padding: 0 0 80px; } }
 .post-body p { margin-bottom: 1.4em; }
-.post-body p:first-of-type::first-letter { font-family: var(--f-serif); float: left; font-size: 4.4em; line-height: 0.85; margin-right: 8px; margin-top: 4px; color: var(--orange); font-weight: 400; }
+.post-body p:first-of-type::first-letter { font-family: inherit; float: left; font-size: 4.4em; line-height: 0.85; margin-right: 8px; margin-top: 4px; color: inherit; font-weight: 500; }
 .post-body strong { font-weight: 500; }
-.post-body em { font-family: var(--f-serif); font-style: italic; color: var(--ink); }
+.post-body em { font-family: inherit; font-style: italic; color: inherit; }
 .post-body a { color: var(--orange-deep); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
 .post-body a:hover { color: var(--orange); }
 
@@ -161,7 +159,7 @@ body.locked { overflow: hidden; }
   margin: 1.6em 0 0.6em;
   letter-spacing: -0.02em;
 }
-.post-body h2 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.post-body h2 em { font-family: inherit; font-style: italic; color: inherit; }
 
 .post-body h3 {
   font-size: 20px;
@@ -179,7 +177,7 @@ body.locked { overflow: hidden; }
   padding: 20px 24px;
   background: rgba(242, 104, 47, 0.06);
   border-left: 4px solid var(--orange);
-  border-radius: 4px;
+  border-radius: var(--r-structural);
   font-family: var(--f-display);
   font-size: 19px;
   line-height: 1.4;
@@ -187,14 +185,14 @@ body.locked { overflow: hidden; }
   letter-spacing: -0.015em;
 }
 @media (min-width: 768px) { .post-body blockquote { font-size: 22px; padding: 24px 32px; margin: 40px 0; } }
-.post-body blockquote em { font-family: var(--f-serif); font-style: italic; color: var(--orange); font-weight: 400; }
+.post-body blockquote em { font-family: inherit; font-style: italic; color: inherit; font-weight: 500; }
 
 .post-body figure { margin: 40px 0; }
 .post-body figure img, .post-body .figure-placeholder {
   width: 100%;
   aspect-ratio: 4 / 3;
   background: var(--sand);
-  border-radius: 12px;
+  border-radius: var(--r-structural);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -214,14 +212,14 @@ body.locked { overflow: hidden; }
 /* ===== TAKEAWAYS BOX ===== */
 .takeaways {
   background: var(--sand);
-  border-radius: 12px;
+  border-radius: var(--r-structural);
   padding: 24px;
   margin: 40px 0;
 }
 @media (min-width: 768px) { .takeaways { padding: 32px; margin: 56px 0; } }
 .takeaways .eyebrow { margin-bottom: 14px; }
 .takeaways h3 { font-size: 22px; margin-bottom: 16px; }
-.takeaways h3 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.takeaways h3 em { font-family: inherit; font-style: italic; color: inherit; }
 .takeaways ul { margin: 0; padding-left: 20px; list-style: none; }
 .takeaways li { position: relative; padding-left: 24px; margin-bottom: 12px; font-size: 15px; line-height: 1.55; color: var(--ink); }
 .takeaways li::before { content: ''; position: absolute; left: 0; top: 9px; width: 6px; height: 6px; background: var(--orange); border-radius: 50%; }
@@ -234,7 +232,7 @@ body.locked { overflow: hidden; }
   padding: 24px;
   background: #fff;
   border: 1px solid var(--line-soft);
-  border-radius: 14px;
+  border-radius: var(--r-structural);
   margin: 40px 0;
 }
 .author-avatar {
@@ -262,7 +260,7 @@ body.locked { overflow: hidden; }
 @media (min-width: 768px) { .post-cta-section { padding: 80px 0; } }
 .post-cta-section .eyebrow { color: var(--orange); margin-bottom: 14px; }
 .post-cta-section h2 { color: #fff; font-size: clamp(28px, 5vw, 40px); margin-bottom: 14px; max-width: 600px; margin-left: auto; margin-right: auto; }
-.post-cta-section h2 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.post-cta-section h2 em { font-family: inherit; font-style: italic; color: inherit; }
 .post-cta-section p { color: rgba(255,255,255,0.65); font-size: 16px; max-width: 480px; margin: 0 auto 28px; line-height: 1.6; }
 .post-cta-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: #fff; text-decoration: none; padding: 16px 28px; border-radius: 100px; font-size: 15px; font-weight: 500; transition: all 0.2s; }
 .post-cta-btn:hover { background: var(--orange-deep); transform: translateY(-1px); }
@@ -274,18 +272,18 @@ body.locked { overflow: hidden; }
 .related-head { text-align: center; margin-bottom: 32px; }
 .related-head .eyebrow { margin-bottom: 10px; }
 .related-head h2 { font-size: clamp(24px, 4vw, 32px); }
-.related-head h2 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.related-head h2 em { font-family: inherit; font-style: italic; color: inherit; }
 .related-grid { display: grid; gap: 24px; grid-template-columns: 1fr; }
 @media (min-width: 768px) { .related-grid { grid-template-columns: repeat(3, 1fr); gap: 28px; } }
 .related-card { display: flex; flex-direction: column; text-decoration: none; color: inherit; transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
 .related-card:hover { transform: translateY(-3px); }
-.related-img { aspect-ratio: 4 / 3; border-radius: 12px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; font-size: 56px; }
+.related-img { aspect-ratio: 4 / 3; border-radius: var(--r-structural); margin-bottom: 12px; display: flex; align-items: center; justify-content: center; font-size: 56px; }
 .related-img.bg-cocoa { background: linear-gradient(135deg, #6B4F3A 0%, #4A3526 100%); color: rgba(255,255,255,0.4); }
 .related-img.bg-orange { background: linear-gradient(135deg, #FDEFE6 0%, #F2C8AB 100%); }
 .related-img.bg-green { background: linear-gradient(135deg, #D4E4CC 0%, #8FA396 100%); color: rgba(47,61,51,0.5); }
 .related-tag { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--orange-deep); margin-bottom: 6px; }
 .related-card h3 { font-size: 18px; line-height: 1.25; margin-bottom: 8px; }
-.related-card h3 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.related-card h3 em { font-family: inherit; font-style: italic; color: inherit; }
 .related-meta { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute); margin-top: auto; padding-top: 8px; }
 
 /* ===== FOOTER ===== */
@@ -420,7 +418,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
 
   <h2>The slow signal</h2>
 
-  <p>The reason ashwagandha, rhodiola, and the medicinal mushrooms get described as "adaptogens" is because they don't push the system harder. They help it move at full speed without the crash. <strong>KSM-66 ashwagandha</strong> shifts cortisol regulation. <strong>Rhodiola</strong> supports the way your mitochondria handle stress. <strong>Lion's mane</strong> helps the nerves themselves communicate faster.</p>
+  <p>The reason ashwagandha, rhodiola, and the medicinal mushrooms get described as "adaptogens" is because they don't push the system harder. They help it move at full speed without the crash. <strong>KSM-66 ashwagandha</strong> shifts cortisol regulation. Rhodiola supports the way your mitochondria handle stress. Lion's mane helps the nerves themselves communicate faster.</p>
 
   <p>None of those are felt the way coffee is felt. They don't kick. They settle. The change is small at first. Then it isn't.</p>
 
@@ -484,7 +482,6 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
 <section class="related-section">
   <div class="container">
     <div class="related-head">
-      <span class="eyebrow">Keep reading</span>
       <h2>Three more <em>worth your time.</em></h2>
     </div>
     <div class="related-grid">

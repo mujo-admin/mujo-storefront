@@ -5,15 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact · Mujo</title>
 <meta name="description" content="Real humans answer. Most messages get a real reply within a working day.">
-<link rel="preconnect" href="https://api.fontshare.com">
-<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body { font-family: var(--f-body); background: var(--cream); color: var(--ink); -webkit-font-smoothing: antialiased; line-height: 1.55; }
 .eyebrow { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange-deep); display: inline-block; font-weight: 500; }
-.serif-accent { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.serif-accent { font-family: inherit; font-style: italic; color: inherit; }
 h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 500; letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); }
 .container { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
 .container-narrow { max-width: 760px; margin: 0 auto; padding: 0 20px; }
@@ -27,8 +25,8 @@ body.locked { overflow: hidden; }
   --sage-tint: rgba(47, 61, 51, 0.08);
   --ink: #1A1A1A; --ink-soft: #4A4845; --mute: #5C5854;
   --line: rgba(26, 26, 26, 0.09); --line-soft: rgba(26, 26, 26, 0.06);
-  --f-display: 'General Sans', -apple-system, sans-serif;
-  --f-body: 'General Sans', 'Helvetica Neue', sans-serif;
+  --f-display: 'Hanken Grotesk', -apple-system, sans-serif;
+  --f-body: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
   --f-serif: 'Instrument Serif', 'Times New Roman', serif;
   --f-mono: 'DM Mono', monospace;
   --nav-h: 64px;
@@ -143,23 +141,23 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
 .contact-grid { display: grid; gap: 32px; grid-template-columns: 1fr; padding: 16px 0 56px; max-width: 720px; margin: 0 auto; }
 @media (min-width: 900px) { .contact-grid { padding: 24px 0 80px; } }
 
-.contact-form-wrap { background: #fff; border: 1px solid var(--line-soft); border-radius: 16px; padding: 28px 24px; }
+.contact-form-wrap { background: #fff; border: 1px solid var(--line-soft); border-radius: var(--r-structural); padding: 28px 24px; }
 @media (min-width: 768px) { .contact-form-wrap { padding: 40px; } }
 .contact-form-wrap .eyebrow { margin-bottom: 14px; }
 .contact-form-wrap h2 { font-size: clamp(22px, 3vw, 28px); margin-bottom: 8px; line-height: 1.15; }
-.contact-form-wrap h2 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.contact-form-wrap h2 em { font-family: inherit; font-style: italic; color: inherit; }
 .contact-form-wrap > p { font-size: 14px; color: var(--ink-soft); line-height: 1.55; margin-bottom: 24px; }
 
 .field { margin-bottom: 16px; }
 .field label { display: block; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 6px; font-weight: 500; }
-.field input, .field select, .field textarea { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--cream); font-family: var(--f-body); font-size: 14px; color: var(--ink); transition: border-color 0.2s, background 0.2s; }
+.field input, .field select, .field textarea { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--r-structural); background: var(--cream); font-family: var(--f-body); font-size: 14px; color: var(--ink); transition: border-color 0.2s, background 0.2s; }
 .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--orange); background: #fff; }
 .field input::placeholder, .field textarea::placeholder { color: var(--mute); }
 .field textarea { min-height: 140px; resize: vertical; line-height: 1.5; }
 .field-row { display: grid; grid-template-columns: 1fr; gap: 16px; }
 @media (min-width: 560px) { .field-row { grid-template-columns: 1fr 1fr; } }
 .field-row .field { margin-bottom: 0; }
-.contact-submit { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; background: var(--orange); color: #fff; border: none; border-radius: 100px; font-family: var(--f-body); font-size: 15px; font-weight: 500; cursor: pointer; transition: all 0.2s; margin-top: 8px; }
+.contact-submit { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; background: var(--orange); color: #fff; border: none; border-radius: var(--r-pill); font-family: var(--f-body); font-size: 15px; font-weight: 500; cursor: pointer; transition: all 0.2s; margin-top: 8px; }
 .contact-submit:hover { background: var(--orange-deep); }
 .contact-submit svg { width: 14px; height: 14px; }
 
@@ -170,7 +168,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
 @media (max-width: 767px) { .faq-section .container { padding-left: 24px; padding-right: 24px; } }
 .faq-section .eyebrow { margin-bottom: 14px; }
 .faq-section h2 { font-size: clamp(26px, 4vw, 36px); margin-bottom: 8px; }
-.faq-section h2 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.faq-section h2 em { font-family: inherit; font-style: italic; color: inherit; }
 .faq-section .faq-lede { font-size: 15px; color: var(--ink-soft); margin-bottom: 32px; max-width: 560px; line-height: 1.6; }
 .faq-list { max-width: 800px; }
 .faq-item { border-bottom: 1px solid var(--line-soft); }
@@ -250,7 +248,6 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
 
 <section class="contact-hero">
   <div class="container">
-    <span class="eyebrow">Contact</span>
     <h1>Say hello. <span class="serif-accent">We answer.</span></h1>
     <p>A small team, run by Kinga. Most messages get a reply within the working day. The bot ones don't, on purpose. Submit your inquiry below or email us directly at <a href="mailto:hello@mujoworld.com">hello@mujoworld.com</a>.</p>
   </div>

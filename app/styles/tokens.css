@@ -4,9 +4,9 @@
      - context/brand-positioning.md §13 + §14 (v1.2)
      - context/import/branding and positioning assets/mujo_brand_guide_final_updated.html
      - content/marketing/visual-system/typography-and-mobile-floor.md
-   Fonts: General Sans is self-hosted via next/font/local (see app/fonts.ts) —
-   Next emits @font-face + preload tags + the --font-general-sans CSS variable
-   that --f-display and --f-body consume below.
+   Fonts: Hanken Grotesk loads via next/font/google (see app/fonts.ts) —
+   Next emits the --font-hanken CSS variable that --f-display and --f-body
+   consume below (Brand Guide v1.3; replaced the prior self-hosted display font).
    Instrument Serif + DM Mono come from Google Fonts via <link> in layout.tsx
    (italic accent + monospace eyebrow — not LCP-critical).
 */
@@ -40,13 +40,13 @@
   --line:          rgba(26, 26, 26, 0.09);
 
 
-  /* ----- Font families — General Sans primary for display AND body.
-     Loaded via next/font/local (see app/fonts.ts), which exposes the family
-     through --font-general-sans on <html>. Native fallbacks last so something
-     always renders if the network is slow. ----- */
+  /* ----- Font families — Hanken Grotesk primary for display AND body
+     (Brand Guide v1.3, replaced the prior display font). Loaded via next/font/google
+     (see app/fonts.ts), exposed through --font-hanken on <html>. Native
+     fallbacks last so something always renders if the network is slow. ----- */
 
-  --f-display: var(--font-general-sans), 'General Sans', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --f-body:    var(--font-general-sans), 'General Sans', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --f-display: var(--font-hanken), 'Hanken Grotesk', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --f-body:    var(--font-hanken), 'Hanken Grotesk', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --f-serif:   'Instrument Serif', Georgia, 'Times New Roman', serif;
   --f-mono:    'DM Mono', 'SF Mono', 'Menlo', 'Courier New', monospace;
 
@@ -95,11 +95,20 @@
   --space-12:  120px;
 
 
-  /* ----- Radii ----- */
+  /* ----- Radii — Brand Guide v1.3, three registers -----
+     Structural (cards/inputs/images/sections/cart/modals) = 4px,
+     Primary CTA = full pill, Tags/badges/chips/mono-pills = 2px.
+     The comic frame keeps its own 20px (handled in its component, not here). */
 
+  --r-structural: 4px;
+  --r-card:       4px;   /* alias of structural, for clarity on card components */
+  --r-pill:       999px; /* primary CTA buttons only */
+  --r-tag:        2px;   /* eyebrow tags, dose badges, ingredient tags, category chips */
+
+  /* Legacy aliases repointed to the v1.3 registers so existing components inherit. */
   --radius-pill:   999px;
-  --radius-card:   12px;
-  --radius-input:  8px;
+  --radius-card:   4px;   /* was 12px → structural */
+  --radius-input:  4px;   /* was 8px → structural */
   --radius-cta:    999px;
   --radius-image:  4px;
 

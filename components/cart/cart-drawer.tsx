@@ -121,9 +121,6 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
       <div className="cart-body">
         {empty ? (
           <div className="cart-empty">
-            <div className="cart-empty-illo" aria-hidden>
-              🍵
-            </div>
             <h3>Nothing in here yet.</h3>
             <p>
               Your ritual is one click away. The Mujo Ritual is the place most
@@ -138,9 +135,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
                 {item.image?.url ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={item.image.url} alt={item.image.alt} />
-                ) : (
-                  <span aria-hidden>🍵</span>
-                )}
+                ) : null}
               </div>
               <div className="cart-item-info">
                 <Link
@@ -202,7 +197,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
           <span>Shipping</span>
           <span className="price">
             {empty
-              ? "—"
+              ? "-"
               : unlocked
                 ? "Free"
                 : "Calculated at checkout"}
@@ -332,7 +327,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
         .cart-item-img {
           width: 72px; height: 72px;
           background: var(--sand);
-          border-radius: 8px;
+          border-radius: var(--r-structural);
           display: flex;
           align-items: center;
           justify-content: center;

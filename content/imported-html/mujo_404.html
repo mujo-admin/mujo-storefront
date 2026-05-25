@@ -5,15 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Page not found · Mujo</title>
 <meta name="description" content="The link is broken, the URL is mistyped, or the page has moved.">
-<link rel="preconnect" href="https://api.fontshare.com">
-<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body { font-family: var(--f-body); background: var(--cream); color: var(--ink); -webkit-font-smoothing: antialiased; line-height: 1.55; }
 .eyebrow { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange-deep); display: inline-block; font-weight: 500; }
-.serif-accent { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.serif-accent { font-family: inherit; font-style: italic; color: inherit; }
 h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 500; letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); }
 .container { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
 .container-narrow { max-width: 760px; margin: 0 auto; padding: 0 20px; }
@@ -27,8 +25,8 @@ body.locked { overflow: hidden; }
   --sage-tint: rgba(47, 61, 51, 0.08);
   --ink: #1A1A1A; --ink-soft: #4A4845; --mute: #5C5854;
   --line: rgba(26, 26, 26, 0.09); --line-soft: rgba(26, 26, 26, 0.06);
-  --f-display: 'General Sans', -apple-system, sans-serif;
-  --f-body: 'General Sans', 'Helvetica Neue', sans-serif;
+  --f-display: 'Hanken Grotesk', -apple-system, sans-serif;
+  --f-body: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
   --f-serif: 'Instrument Serif', 'Times New Roman', serif;
   --f-mono: 'DM Mono', monospace;
   --nav-h: 64px;
@@ -58,7 +56,7 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .nav-icon { width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; border: none; background: transparent; color: var(--ink); cursor: pointer; text-decoration: none; position: relative; border-radius: 50%; transition: background 0.2s; }
 .nav-icon:hover { background: var(--sage-tint); }
 .nav-icon svg { width: 20px; height: 20px; }
-.cart-count { position: absolute; top: 4px; right: 4px; background: var(--orange); color: #fff; font-family: var(--f-mono); font-size: 9px; font-weight: 500; min-width: 16px; height: 16px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; padding: 0 4px; line-height: 1; }
+.cart-count { position: absolute; top: 4px; right: 4px; background: var(--orange); color: #fff; font-family: var(--f-mono); font-size: 9px; font-weight: 500; min-width: 16px; height: 16px; border-radius: var(--r-tag); display: inline-flex; align-items: center; justify-content: center; padding: 0 4px; line-height: 1; }
 .cart-count.hidden { display: none; }
 .menu-overlay { position: fixed; inset: 0; background: rgba(26,26,26,0.5); z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
 .menu-overlay.open { opacity: 1; pointer-events: auto; }
@@ -75,7 +73,7 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .mm-foot { padding: 24px; background: var(--sage); color: #fff; }
 .mm-foot-eyebrow { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); margin-bottom: 10px; }
 .mm-foot p { font-size: 14px; line-height: 1.55; color: rgba(255,255,255,0.7); margin-bottom: 16px; }
-.mm-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--orange); color: #fff; text-decoration: none; padding: 12px 20px; border-radius: 100px; font-size: 14px; font-weight: 500; }
+.mm-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--orange); color: #fff; text-decoration: none; padding: 12px 20px; border-radius: var(--r-pill); font-size: 14px; font-weight: 500; }
 .cart-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(440px, 100vw); background: var(--cream); z-index: 999; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; box-shadow: -20px 0 60px rgba(0,0,0,0.1); }
 .cart-drawer.open { transform: translateX(0); }
 .cart-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); }
@@ -93,11 +91,11 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .cart-progress-fill.full { background: var(--sage); }
 .cart-body { flex: 1; overflow-y: auto; padding: 8px 20px; }
 .cart-item { display: grid; grid-template-columns: 72px 1fr auto; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--line-soft); }
-.cart-item-img { width: 72px; height: 72px; background: var(--sand); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; }
+.cart-item-img { width: 72px; height: 72px; background: var(--sand); border-radius: var(--r-structural); display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; }
 .cart-item-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .cart-item-name { font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.3; }
 .cart-item-variant { font-size: 12px; color: var(--mute); margin-bottom: 6px; }
-.cart-item-controls { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 100px; background: #fff; width: fit-content; margin-top: auto; }
+.cart-item-controls { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: var(--r-pill); background: #fff; width: fit-content; margin-top: auto; }
 .qty-btn { width: 28px; height: 28px; background: transparent; border: none; cursor: pointer; font-size: 14px; color: var(--ink-soft); display: inline-flex; align-items: center; justify-content: center; }
 .qty-val { font-family: var(--f-mono); font-size: 12px; min-width: 24px; text-align: center; }
 .cart-item-meta { display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; text-align: right; }
@@ -107,13 +105,13 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .cart-empty-illo { font-size: 52px; opacity: 0.5; }
 .cart-empty h3 { font-size: 22px; font-weight: 500; }
 .cart-empty p { font-size: 14px; color: var(--mute); max-width: 260px; line-height: 1.5; }
-.cart-empty a { margin-top: 6px; background: var(--orange); color: #fff; text-decoration: none; padding: 12px 22px; border-radius: 100px; font-size: 14px; font-weight: 500; }
+.cart-empty a { margin-top: 6px; background: var(--orange); color: #fff; text-decoration: none; padding: 12px 22px; border-radius: var(--r-pill); font-size: 14px; font-weight: 500; }
 .cart-foot { border-top: 1px solid var(--line-soft); padding: 16px 20px 20px; }
 .cart-row { display: flex; justify-content: space-between; align-items: baseline; padding: 4px 0; font-size: 14px; color: var(--ink-soft); }
 .cart-row.total { padding-top: 10px; font-size: 18px; font-weight: 500; color: var(--ink); font-family: var(--f-display); }
 .cart-row .price { font-family: var(--f-mono); }
 .cart-shipping-note { font-size: 11px; color: var(--mute); font-family: var(--f-mono); letter-spacing: 0.04em; margin: 8px 0 14px; line-height: 1.4; }
-.cart-checkout { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: var(--orange); color: #fff; text-decoration: none; border: none; cursor: pointer; padding: 16px 24px; border-radius: 100px; font-size: 15px; font-weight: 500; transition: background 0.2s; }
+.cart-checkout { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: var(--orange); color: #fff; text-decoration: none; border: none; cursor: pointer; padding: 16px 24px; border-radius: var(--r-pill); font-size: 15px; font-weight: 500; transition: background 0.2s; }
 .cart-checkout:hover { background: var(--orange-deep); }
 .cart-secure { text-align: center; font-size: 11px; color: var(--mute); font-family: var(--f-mono); letter-spacing: 0.08em; margin-top: 10px; text-transform: uppercase; }
 
@@ -152,7 +150,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
   margin-bottom: 16px;
   line-height: 1.1;
 }
-.nf-card h1 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.nf-card h1 em { font-family: inherit; font-style: italic; color: inherit; }
 .nf-card > p {
   font-size: 16px;
   color: var(--ink-soft);
@@ -178,7 +176,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
   background: var(--orange);
   color: #fff;
   text-decoration: none;
-  border-radius: 100px;
+  border-radius: var(--r-pill);
   font-size: 15px;
   font-weight: 500;
   transition: all 0.2s;
@@ -194,7 +192,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
   color: var(--ink);
   text-decoration: none;
   border: 1px solid var(--ink);
-  border-radius: 100px;
+  border-radius: var(--r-pill);
   font-size: 15px;
   font-weight: 500;
   transition: all 0.2s;
@@ -204,7 +202,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
 .nf-suggestions {
   text-align: left;
   background: var(--sand);
-  border-radius: 14px;
+  border-radius: var(--r-structural);
   padding: 24px;
   max-width: 540px;
   margin: 0 auto;
@@ -212,7 +210,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
 @media (min-width: 768px) { .nf-suggestions { padding: 28px 32px; } }
 .nf-suggestions .eyebrow { margin-bottom: 14px; display: block; }
 .nf-suggestions h3 { font-size: 18px; margin-bottom: 14px; }
-.nf-suggestions h3 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.nf-suggestions h3 em { font-family: inherit; font-style: italic; color: inherit; }
 .nf-list { list-style: none; padding: 0; margin: 0; }
 .nf-list li { border-top: 1px solid rgba(26,26,26,0.07); padding: 0; }
 .nf-list li:first-child { border-top: none; }
@@ -306,7 +304,6 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
       </div>
 
       <div class="nf-suggestions">
-        <span class="eyebrow">Or try one of these</span>
         <h3>The most-visited <em>routes back in.</em></h3>
         <ul class="nf-list">
           <li><a href="/products/mujo-ritual"><span>Mujo Ritual</span><span>Best seller →</span></a></li>

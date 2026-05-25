@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Lemna Bar · Mujo · Founding Member Access</title>
 <meta name="description" content="The world's first protein bar made with Lemna leaf. 14-17g protein. 7g fiber. Real ingredients. No natural flavors, no sugar alcohols, no isolates. Summer 2026. Founding members get 15% off first order.">
-<link rel="preconnect" href="https://api.fontshare.com">
-<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
@@ -29,8 +27,8 @@
   --line: rgba(26, 26, 26, 0.09);
   --line-soft: rgba(26, 26, 26, 0.06);
 
-  --f-display: 'General Sans', -apple-system, sans-serif;
-  --f-body: 'General Sans', 'Helvetica Neue', sans-serif;
+  --f-display: 'Hanken Grotesk', -apple-system, sans-serif;
+  --f-body: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
   --f-serif: 'Instrument Serif', 'Times New Roman', serif;
   --f-mono: 'DM Mono', monospace;
 }
@@ -99,9 +97,9 @@ h1, h2, h3 {
   line-height: 1.1;
 }
 h1 em, h2 em, h3 em {
-  font-family: var(--f-serif);
+  font-family: inherit;
   font-style: italic;
-  color: var(--orange);
+  color: inherit;
   font-weight: 400;
 }
 
@@ -155,7 +153,7 @@ h1 em, h2 em, h3 em {
 .nav-logo {
   font-family: var(--f-display);
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--orange);
   letter-spacing: -0.04em;
   text-decoration: none;
@@ -173,7 +171,7 @@ h1 em, h2 em, h3 em {
   color: #fff;
   background: var(--orange);
   padding: 9px 20px;
-  border-radius: 100px;
+  border-radius: var(--r-pill);
   text-decoration: none;
   font-weight: 500;
   transition: background 0.2s;
@@ -210,7 +208,7 @@ h1 em, h2 em, h3 em {
   font-weight: 500;
   background: var(--orange-soft);
   padding: 8px 16px;
-  border-radius: 100px;
+  border-radius: var(--r-tag);
   margin-bottom: 28px;
 }
 .hero-tag-dot {
@@ -255,7 +253,7 @@ h1 em, h2 em, h3 em {
   color: var(--ink);
   background: #fff;
   border: 1.5px solid var(--ink);
-  border-radius: 100px;
+  border-radius: var(--r-structural);
   padding: 14px 22px;
   transition: border-color 0.2s;
 }
@@ -271,7 +269,7 @@ h1 em, h2 em, h3 em {
   color: #fff;
   background: var(--orange);
   border: none;
-  border-radius: 100px;
+  border-radius: var(--r-pill);
   padding: 14px 28px;
   cursor: pointer;
   transition: background 0.2s, transform 0.2s;
@@ -308,7 +306,7 @@ h1 em, h2 em, h3 em {
   background: rgba(143, 163, 150, 0.18);
   color: var(--sage, #2F3D33);
   padding: 16px 22px;
-  border-radius: 12px;
+  border-radius: var(--r-structural);
   font-size: 14.5px;
   line-height: 1.55;
   margin-top: 18px;
@@ -324,7 +322,7 @@ h1 em, h2 em, h3 em {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 24px;
+  border-radius: var(--r-structural);
   background: linear-gradient(160deg, var(--sand-deep) 0%, var(--sand) 100%);
   box-shadow: 0 24px 48px rgba(47, 61, 51, 0.12), 0 8px 16px rgba(47, 61, 51, 0.06);
 }
@@ -395,7 +393,7 @@ h1 em, h2 em, h3 em {
 }
 .recog-bubble {
   background: var(--cream);
-  border-radius: 24px;
+  border-radius: var(--r-structural);
   padding: 28px 28px 30px;
   position: relative;
   transition: transform 0.3s;
@@ -417,7 +415,7 @@ h1 em, h2 em, h3 em {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
+  border-radius: var(--r-structural);
   background: var(--sand);
   position: relative;
 }
@@ -431,7 +429,7 @@ h1 em, h2 em, h3 em {
 .recog-line {
   font-family: var(--f-display);
   font-size: 17px;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.3;
   letter-spacing: -0.01em;
   margin-bottom: 12px;
@@ -457,7 +455,7 @@ h1 em, h2 em, h3 em {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   padding: 4px 10px;
-  border-radius: 100px;
+  border-radius: var(--r-tag);
   font-weight: 500;
   transform: rotate(3deg);
 }
@@ -529,7 +527,7 @@ h1 em, h2 em, h3 em {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 24px;
+  border-radius: var(--r-structural);
   background: linear-gradient(160deg, var(--sand-deep) 0%, var(--sand) 100%);
   box-shadow: 0 24px 48px rgba(47, 61, 51, 0.12), 0 8px 16px rgba(47, 61, 51, 0.06);
   padding: 32px;
@@ -558,14 +556,14 @@ h1 em, h2 em, h3 em {
 }
 .lemna-stat {
   background: var(--sand);
-  border-radius: 18px;
+  border-radius: var(--r-structural);
   padding: 28px 24px;
   text-align: center;
 }
 .lemna-stat-num {
   font-family: var(--f-display);
   font-size: clamp(26px, 3vw, 36px);
-  font-weight: 700;
+  font-weight: 500;
   color: var(--orange-deep);
   letter-spacing: -0.04em;
   line-height: 1;
@@ -632,7 +630,7 @@ h1 em, h2 em, h3 em {
 }
 .macro-card {
   background: var(--sage-mid);
-  border-radius: 20px;
+  border-radius: var(--r-structural);
   padding: 36px 28px;
   text-align: center;
   position: relative;
@@ -640,7 +638,7 @@ h1 em, h2 em, h3 em {
 .macro-num {
   font-family: var(--f-display);
   font-size: clamp(36px, 4.5vw, 56px);
-  font-weight: 700;
+  font-weight: 500;
   color: var(--orange);
   letter-spacing: -0.04em;
   line-height: 1;
@@ -678,7 +676,7 @@ h1 em, h2 em, h3 em {
   margin-top: 40px;
   padding: 32px 32px;
   background: var(--sage-mid);
-  border-radius: 16px;
+  border-radius: var(--r-structural);
   max-width: 880px;
   margin-left: auto;
   margin-right: auto;
@@ -737,7 +735,7 @@ h1 em, h2 em, h3 em {
 }
 .ing-row {
   background: #fff;
-  border-radius: 14px;
+  border-radius: var(--r-structural);
   padding: 22px 26px;
   border: 1px solid var(--line-soft);
   display: grid;
@@ -766,7 +764,7 @@ h1 em, h2 em, h3 em {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
+  border-radius: var(--r-structural);
   background: var(--sand);
   font-family: var(--f-mono);
   font-size: 8px;
@@ -792,7 +790,7 @@ h1 em, h2 em, h3 em {
 .ing-name {
   font-family: var(--f-display);
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: -0.01em;
   color: var(--ink);
 }
@@ -804,7 +802,7 @@ h1 em, h2 em, h3 em {
   background: var(--sage-tint);
   color: var(--sage);
   padding: 3px 8px;
-  border-radius: 100px;
+  border-radius: var(--r-tag);
   font-weight: 500;
 }
 .ing-purpose {
@@ -817,7 +815,7 @@ h1 em, h2 em, h3 em {
   margin-top: 32px;
   background: var(--orange-soft);
   border-left: 4px solid var(--orange);
-  border-radius: 8px;
+  border-radius: var(--r-structural);
   padding: 22px 28px;
   max-width: 1100px;
   margin-left: auto;
@@ -867,7 +865,7 @@ h1 em, h2 em, h3 em {
 .not-item {
   background: var(--cream);
   border: 1px solid var(--line-soft);
-  border-radius: 12px;
+  border-radius: var(--r-structural);
   padding: 20px 22px;
   text-align: left;
   position: relative;
@@ -911,7 +909,7 @@ h1 em, h2 em, h3 em {
   margin: 10px 0 14px;
   color: #fff;
 }
-.flavor-reveal h2 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.flavor-reveal h2 em { font-style: italic; }
 .flavor-reveal p { font-size: 16px; line-height: 1.6; color: rgba(255,255,255,0.78); max-width: 520px; margin: 0 auto; }
 
 /* ═══════════ PANEL 7, FLAVORS ═══════════ */
@@ -944,7 +942,7 @@ h1 em, h2 em, h3 em {
 }
 .flav-card {
   background: #fff;
-  border-radius: 24px;
+  border-radius: var(--r-structural);
   border: 1px solid var(--line-soft);
   overflow: hidden;
   display: flex;
@@ -981,7 +979,7 @@ h1 em, h2 em, h3 em {
   color: var(--sage);
   background: var(--sage-tint);
   padding: 4px 10px;
-  border-radius: 100px;
+  border-radius: var(--r-tag);
   font-weight: 500;
 }
 .flav-diet.vegan {
@@ -991,12 +989,12 @@ h1 em, h2 em, h3 em {
 .flav-name {
   font-family: var(--f-display);
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 500;
   margin-bottom: 4px;
   letter-spacing: -0.02em;
 }
 .flav-tagline {
-  font-family: var(--f-serif);
+  font-family: var(--f-body);
   font-style: italic;
   font-size: 17px;
   color: var(--orange);
@@ -1017,7 +1015,7 @@ h1 em, h2 em, h3 em {
 .flav-macro-num {
   font-family: var(--f-display);
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--ink);
   letter-spacing: -0.02em;
   display: block;
@@ -1041,7 +1039,7 @@ h1 em, h2 em, h3 em {
 .flav-differences {
   margin-top: 56px;
   background: var(--sand);
-  border-radius: 18px;
+  border-radius: var(--r-structural);
   padding: 36px 40px;
   max-width: 1080px;
   margin-left: auto;
@@ -1160,12 +1158,12 @@ h1 em, h2 em, h3 em {
   text-align: center;
   padding: 18px 14px;
   background: var(--sage-mid);
-  border-radius: 12px;
+  border-radius: var(--r-structural);
 }
 .fm-benefit-num {
   font-family: var(--f-display);
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--orange);
   letter-spacing: -0.03em;
   display: block;
@@ -1198,7 +1196,7 @@ h1 em, h2 em, h3 em {
 .story-image {
   aspect-ratio: 4 / 5;
   background: linear-gradient(160deg, var(--sand-deep) 0%, var(--sand) 100%);
-  border-radius: 24px;
+  border-radius: var(--r-structural);
   position: relative;
   display: flex;
   align-items: center;
@@ -1241,7 +1239,7 @@ h1 em, h2 em, h3 em {
 .story-sign-name {
   font-family: var(--f-display);
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--ink);
   font-size: 15px;
   margin-top: 4px;
@@ -1333,7 +1331,7 @@ h1 em, h2 em, h3 em {
 .faq-list { display: flex; flex-direction: column; gap: 10px; }
 .faq-item {
   background: var(--sand);
-  border-radius: 14px;
+  border-radius: var(--r-structural);
   padding: 20px 28px;
   cursor: pointer;
   border: 1px solid transparent;
@@ -1348,7 +1346,7 @@ h1 em, h2 em, h3 em {
   cursor: pointer;
   font-family: var(--f-display);
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--ink);
   letter-spacing: -0.005em;
 }
@@ -1381,7 +1379,7 @@ h1 em, h2 em, h3 em {
 .footer-logo {
   font-family: var(--f-display);
   font-size: 28px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--orange);
   letter-spacing: -0.04em;
   margin-bottom: 12px;
@@ -1425,8 +1423,8 @@ h1 em, h2 em, h3 em {
   --sage-tint: rgba(47, 61, 51, 0.08);
   --ink: #1A1A1A; --ink-soft: #4A4845; --mute: #5C5854;
   --line: rgba(26, 26, 26, 0.09); --line-soft: rgba(26, 26, 26, 0.06);
-  --f-display: 'General Sans', -apple-system, sans-serif;
-  --f-body: 'General Sans', 'Helvetica Neue', sans-serif;
+  --f-display: 'Hanken Grotesk', -apple-system, sans-serif;
+  --f-body: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
   --f-serif: 'Instrument Serif', 'Times New Roman', serif;
   --f-mono: 'DM Mono', monospace;
   --nav-h: 64px;
@@ -1455,7 +1453,7 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .nav-icon { width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; border: none; background: transparent; color: var(--ink); cursor: pointer; text-decoration: none; position: relative; border-radius: 50%; transition: background 0.2s; }
 .nav-icon:hover { background: var(--sage-tint); }
 .nav-icon svg { width: 20px; height: 20px; }
-.cart-count { position: absolute; top: 4px; right: 4px; background: var(--orange); color: #fff; font-family: var(--f-mono); font-size: 9px; font-weight: 500; min-width: 16px; height: 16px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; padding: 0 4px; line-height: 1; }
+.cart-count { position: absolute; top: 4px; right: 4px; background: var(--orange); color: #fff; font-family: var(--f-mono); font-size: 9px; font-weight: 500; min-width: 16px; height: 16px; border-radius: var(--r-tag); display: inline-flex; align-items: center; justify-content: center; padding: 0 4px; line-height: 1; }
 .cart-count.hidden { display: none; }
 .menu-overlay { position: fixed; inset: 0; background: rgba(26,26,26,0.5); z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
 .menu-overlay.open { opacity: 1; pointer-events: auto; }
@@ -1472,7 +1470,7 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .mm-foot { padding: 24px; background: var(--sage); color: #fff; }
 .mm-foot-eyebrow { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); margin-bottom: 10px; }
 .mm-foot p { font-size: 14px; line-height: 1.55; color: rgba(255,255,255,0.7); margin-bottom: 16px; }
-.mm-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--orange); color: #fff; text-decoration: none; padding: 12px 20px; border-radius: 100px; font-size: 14px; font-weight: 500; }
+.mm-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--orange); color: #fff; text-decoration: none; padding: 12px 20px; border-radius: var(--r-pill); font-size: 14px; font-weight: 500; }
 .cart-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(440px, 100vw); background: var(--cream); z-index: 999; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; box-shadow: -20px 0 60px rgba(0,0,0,0.1); }
 .cart-drawer.open { transform: translateX(0); }
 .cart-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); }
@@ -1490,11 +1488,11 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .cart-progress-fill.full { background: var(--sage); }
 .cart-body { flex: 1; overflow-y: auto; padding: 8px 20px; }
 .cart-item { display: grid; grid-template-columns: 72px 1fr auto; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--line-soft); }
-.cart-item-img { width: 72px; height: 72px; background: var(--sand); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; }
+.cart-item-img { width: 72px; height: 72px; background: var(--sand); border-radius: var(--r-structural); display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; }
 .cart-item-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .cart-item-name { font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.3; }
 .cart-item-variant { font-size: 12px; color: var(--mute); margin-bottom: 6px; }
-.cart-item-controls { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 100px; background: #fff; width: fit-content; margin-top: auto; }
+.cart-item-controls { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: var(--r-pill); background: #fff; width: fit-content; margin-top: auto; }
 .qty-btn { width: 28px; height: 28px; background: transparent; border: none; cursor: pointer; font-size: 14px; color: var(--ink-soft); display: inline-flex; align-items: center; justify-content: center; }
 .qty-val { font-family: var(--f-mono); font-size: 12px; min-width: 24px; text-align: center; }
 .cart-item-meta { display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; text-align: right; }
@@ -1504,13 +1502,13 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .cart-empty-illo { font-size: 52px; opacity: 0.5; }
 .cart-empty h3 { font-size: 22px; font-weight: 500; }
 .cart-empty p { font-size: 14px; color: var(--mute); max-width: 260px; line-height: 1.5; }
-.cart-empty a { margin-top: 6px; background: var(--orange); color: #fff; text-decoration: none; padding: 12px 22px; border-radius: 100px; font-size: 14px; font-weight: 500; }
+.cart-empty a { margin-top: 6px; background: var(--orange); color: #fff; text-decoration: none; padding: 12px 22px; border-radius: var(--r-pill); font-size: 14px; font-weight: 500; }
 .cart-foot { border-top: 1px solid var(--line-soft); padding: 16px 20px 20px; }
 .cart-row { display: flex; justify-content: space-between; align-items: baseline; padding: 4px 0; font-size: 14px; color: var(--ink-soft); }
 .cart-row.total { padding-top: 10px; font-size: 18px; font-weight: 500; color: var(--ink); font-family: var(--f-display); }
 .cart-row .price { font-family: var(--f-mono); }
 .cart-shipping-note { font-size: 11px; color: var(--mute); font-family: var(--f-mono); letter-spacing: 0.04em; margin: 8px 0 14px; line-height: 1.4; }
-.cart-checkout { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: var(--orange); color: #fff; text-decoration: none; border: none; cursor: pointer; padding: 16px 24px; border-radius: 100px; font-size: 15px; font-weight: 500; transition: background 0.2s; }
+.cart-checkout { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: var(--orange); color: #fff; text-decoration: none; border: none; cursor: pointer; padding: 16px 24px; border-radius: var(--r-pill); font-size: 15px; font-weight: 500; transition: background 0.2s; }
 .cart-checkout:hover { background: var(--orange-deep); }
 .cart-secure { text-align: center; font-size: 11px; color: var(--mute); font-family: var(--f-mono); letter-spacing: 0.08em; margin-top: 10px; text-transform: uppercase; }
 body.locked { overflow: hidden; }
@@ -1622,8 +1620,7 @@ body.locked { overflow: hidden; }
 <section class="recognition">
   <div class="recog-inner">
     <div class="recog-header">
-      <div class="eyebrow">Why we built this</div>
-      <h2>A bar your body actually likes.</h2>
+      <h2 style="margin-top: 38px;">A bar your body actually likes.</h2>
       <p class="recog-sub">A plant-based protein bar without allergens or gut-unfriendly ingredients, that actually tastes like a treat and is nice to your waistline. GLP-1 friendly.</p>
     </div>
 
@@ -1662,10 +1659,9 @@ body.locked { overflow: hidden; }
       <div class="lemna-illustration" style="background-image:url('/images/responsive/ingredients/lemna-macro-editorial-1x1-1200.webp');background-size:cover;background-position:center;padding:0;"></div>
 
       <div class="lemna-text">
-        <div class="eyebrow">The hero ingredient</div>
-        <h2 style="font-size:clamp(30px,3.6vw,44px);letter-spacing:-0.02em;line-height:1.08;margin-bottom:18px;">Meet <em>Lemna leaf.</em></h2>
+        <h2 style="font-size:clamp(30px,3.6vw,44px);letter-spacing:-0.02em;line-height:1.08;margin-bottom:18px;margin-top:38px;">Meet <em>Lemna leaf.</em></h2>
         <p>Lemna leaf is the smallest flowering plant in the world. It has been studied for decades but only recently became commercially viable for human nutrition.</p>
-        <p>Lemna leaf has a <strong>complete amino acid profile</strong>, comparable to whey on every metric that matters for muscle protein synthesis. It even has a <strong>perfect digestibility score of 1.0, like eggs and whey.</strong> But unlike whey, soy, or pea, Lemna grows on water in closed tanks, requires no arable land, and doubles its biomass every 24 to 48 hours.</p>
+        <p>Lemna leaf has a complete amino acid profile, comparable to whey on every metric that matters for muscle protein synthesis. It even has a <strong>perfect digestibility score of 1.0, like eggs and whey.</strong> But unlike whey, soy, or pea, Lemna grows on water in closed tanks, requires no arable land, and doubles its biomass every 24 to 48 hours.</p>
         <p>The bar isn't a protein bar with Lemna added. It's <strong>a Lemna bar.</strong></p>
       </div>
     </div>
@@ -1762,8 +1758,7 @@ body.locked { overflow: hidden; }
 <section class="not-in-it in-it">
   <div class="not-inner">
     <div class="not-header">
-      <div class="eyebrow">What's in it</div>
-      <h2>The short list of <em>yes.</em></h2>
+      <h2 style="margin-top: 38px;">The short list of <em>yes.</em></h2>
       <p>Real food, and not much else. The full breakdown lands at launch.</p>
     </div>
     <div class="not-grid">
@@ -1780,8 +1775,7 @@ body.locked { overflow: hidden; }
 
 <!-- ═══════════ FLAVOR REVEAL TEASER ═══════════ -->
 <section class="flavor-reveal">
-  <div class="eyebrow">Coming soon</div>
-  <h2>Flavor reveal <em>coming soon.</em></h2>
+  <h2 style="margin-top: 38px;">Flavor reveal <em>coming soon.</em></h2>
   <p>We're keeping the flavors under wraps a little longer. Join the founding list and you'll be the first to know.</p>
   <!-- IMAGE: flavor teaser shots can drop in here when ready -->
 </section>
@@ -1796,8 +1790,7 @@ body.locked { overflow: hidden; }
       </div>
     </div>
     <div class="story-text">
-      <div class="eyebrow">Why this bar exists</div>
-      <h2>It started with my sisters.</h2>
+      <h2 style="margin-top: 38px;">It started with my sisters.</h2>
       <p>I have two sisters. One has celiac. One has multiple food allergies. Their snack drawer is limited, but their high-performer lives demand high-quality, conscious nutrition on the go. Most bars left them bloated, made them sick, or offended their taste. And because I love making healthy snacks in my kitchen, I decided to surprise them with a protein bar.</p>
       <p>They hated the first flavor. They told me to stop. I refused. About fifty attempts later, I handed them a bar. My sister Gabi closed her eyes, smiled, and said: "cake." The other tasters looked surprised, in a good way. A few actually moaned.</p>
 
@@ -1820,8 +1813,7 @@ body.locked { overflow: hidden; }
 <!-- ═══════════ PANEL 10, FINAL CTA — Be first to taste it ═══════════ -->
 <section class="final-cta">
   <div class="final-inner">
-    <div class="eyebrow">Last chance to sign up early</div>
-    <h2>Be first <em>to taste it.</em></h2>
+    <h2 style="margin-top: 38px;">Be first <em>to taste it.</em></h2>
     <p>Drop your email. We'll send the launch link the moment the bar is live, your 15% discount locked in.</p>
 
     <div class="fm-benefits">

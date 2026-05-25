@@ -63,7 +63,7 @@ const ELEMENT_APPEARANCE: StripeElementsOptions["appearance"] = {
     colorTextPlaceholder: "#999",
     colorDanger: "#9b3d2c",
     fontFamily:
-      '"General Sans", system-ui, sans-serif',
+      '"Hanken Grotesk", system-ui, sans-serif',
     spacingUnit: "4px",
     borderRadius: "10px",
   },

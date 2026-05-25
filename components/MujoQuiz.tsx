@@ -58,7 +58,7 @@
  *         'mujo-ink': '#1A1A1A',
  *       },
  *       fontFamily: {
- *         display: ['var(--font-general-sans)', 'sans-serif'],
+ *         display: ['var(--font-hanken)', 'sans-serif'],
  *         serif: ['var(--font-instrument-serif)', 'serif'],
  *         mono: ['var(--font-dm-mono)', 'monospace'],
  *       },
@@ -470,7 +470,7 @@ export function QuizSheet() {
     : 100;
 
   const progressLabel = resultPersona
-    ? 'Plan ready ✓'
+    ? 'Plan ready'
     : currentStep <= TOTAL_STEPS
     ? `Step ${currentStep} of ${TOTAL_STEPS}`
     : '';
@@ -813,8 +813,10 @@ function EmailGate({
                 color: 'rgba(255,255,255,0.7)',
               }}
             >
-              <span style={{ marginTop: 1, flexShrink: 0, color: '#8FA396' }} aria-hidden="true">
-                ✓
+              <span style={{ marginTop: 2, flexShrink: 0, color: '#8FA396', lineHeight: 0 }} aria-hidden="true">
+                <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M3 8.5l3.5 3.5L13 4.5" />
+                </svg>
               </span>
               {line}
             </li>
@@ -947,7 +949,7 @@ function ResultPanel({ persona, onClose }: { persona: Persona; onClose: () => vo
             color: '#ffffff',
           }}
         >
-          ✓ Plan sent to your inbox
+          Plan sent to your inbox
         </span>
       </div>
 
@@ -993,9 +995,6 @@ function ResultPanel({ persona, onClose }: { persona: Persona; onClose: () => vo
           marginBottom: 22,
         }}
       >
-        <span style={{ flexShrink: 0, fontSize: 26, color: '#F2682F' }} aria-hidden="true">
-          📋
-        </span>
         <div style={{ fontSize: 13, lineHeight: 1.5, color: 'rgba(255,255,255,0.7)' }}>
           <strong style={{ display: 'block', marginBottom: 2, fontSize: 14, color: '#ffffff', fontWeight: 500 }}>
             {result.pdfTitle}

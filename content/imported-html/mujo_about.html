@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About · Mujo</title>
 <meta name="description" content="A small brand of stubborn standards. Why Mujo exists, what it stands for, and the family that started it.">
-<link rel="preconnect" href="https://api.fontshare.com">
-<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -27,8 +25,8 @@
   --mute: #5C5854;
   --line: rgba(26, 26, 26, 0.09);
   --line-soft: rgba(26, 26, 26, 0.06);
-  --f-display: 'General Sans', -apple-system, sans-serif;
-  --f-body: 'General Sans', 'Helvetica Neue', sans-serif;
+  --f-display: 'Hanken Grotesk', -apple-system, sans-serif;
+  --f-body: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
   --f-serif: 'Instrument Serif', 'Times New Roman', serif;
   --f-mono: 'DM Mono', monospace;
   --nav-h: 64px;
@@ -56,7 +54,7 @@ body {
 .eyebrow.orange-light { color: var(--orange); }
 .eyebrow.sage { color: var(--sage); }
 
-.serif-accent { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.serif-accent { font-family: inherit; font-style: italic; color: inherit; }
 .serif-accent.light { color: var(--orange); }
 
 h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 500; letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); }
@@ -194,7 +192,7 @@ body.locked { overflow: hidden; }
   max-width: 880px;
   margin: 0 auto;
 }
-.manifesto em { font-family: var(--f-serif); font-style: italic; color: var(--orange); font-weight: 400; }
+.manifesto em { font-family: inherit; font-style: italic; color: inherit; font-weight: 500; }
 
 .signoff {
   font-family: var(--f-mono);
@@ -223,13 +221,13 @@ body.locked { overflow: hidden; }
 .meaning-card {
   background: var(--sage);
   color: #fff;
-  border-radius: 16px;
+  border-radius: var(--r-structural);
   padding: 32px 24px;
   text-align: center;
   position: relative;
   overflow: hidden;
 }
-@media (min-width: 768px) { .meaning-card { border-radius: 24px; padding: 56px 40px; } }
+@media (min-width: 768px) { .meaning-card { border-radius: var(--r-structural); padding: 56px 40px; } }
 .meaning-kanji {
   font-family: var(--f-serif);
   font-size: clamp(72px, 18vw, 144px);
@@ -244,7 +242,7 @@ body.locked { overflow: hidden; }
   font-size: clamp(22px, 4vw, 32px);
   margin-bottom: 16px;
 }
-.meaning-card h2 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.meaning-card h2 em { font-family: inherit; font-style: italic; color: inherit; }
 .meaning-card p {
   font-size: 16px;
   color: rgba(255,255,255,0.7);
@@ -271,7 +269,7 @@ body.locked { overflow: hidden; }
   margin-left: auto;
   margin-right: auto;
 }
-.thesis-head h2 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.thesis-head h2 em { font-family: inherit; font-style: italic; color: inherit; }
 .thesis-head p {
   font-size: 16px;
   color: var(--ink-soft);
@@ -288,7 +286,7 @@ body.locked { overflow: hidden; }
 @media (min-width: 768px) { .pillars { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
 .pillar {
   background: #fff;
-  border-radius: 14px;
+  border-radius: var(--r-structural);
   padding: 28px 24px;
   border: 1px solid var(--line-soft);
 }
@@ -305,7 +303,7 @@ body.locked { overflow: hidden; }
   margin-bottom: 12px;
   letter-spacing: -0.015em;
 }
-.pillar h3 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.pillar h3 em { font-family: inherit; font-style: italic; color: inherit; }
 .pillar p {
   font-size: 15px;
   color: var(--ink-soft);
@@ -314,10 +312,10 @@ body.locked { overflow: hidden; }
 /* "What you get" — image + text split (added 2026-05-25) */
 .thesis-split { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: center; }
 @media (min-width: 900px) { .thesis-split { grid-template-columns: 0.85fr 1.15fr; gap: 56px; } }
-.thesis-image { aspect-ratio: 4 / 5; border-radius: 16px; background-color: var(--sand); background-size: cover; background-position: center; min-height: 300px; }
+.thesis-image { aspect-ratio: 4 / 5; border-radius: var(--r-structural); background-color: var(--sand); background-size: cover; background-position: center; min-height: 300px; }
 .thesis-content .eyebrow { margin-bottom: 14px; }
 .thesis-content > h2 { font-size: clamp(28px, 4vw, 42px); letter-spacing: -0.02em; margin-bottom: 18px; line-height: 1.1; }
-.thesis-content > h2 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.thesis-content > h2 em { font-family: inherit; font-style: italic; color: inherit; }
 .thesis-content > p { font-size: 16px; line-height: 1.7; color: var(--ink-soft); }
 .thesis-items { margin-top: 28px; display: flex; flex-direction: column; gap: 16px; }
 
@@ -338,7 +336,7 @@ body.locked { overflow: hidden; }
   max-width: 720px;
   margin: 0 auto;
 }
-.story-head h2 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.story-head h2 em { font-family: inherit; font-style: italic; color: inherit; }
 
 .story-frame {
   display: grid;
@@ -352,7 +350,7 @@ body.locked { overflow: hidden; }
   position: relative;
   aspect-ratio: 4 / 5;
   background: linear-gradient(135deg, #2F3D33 0%, #1F2A23 100%);
-  border-radius: 12px;
+  border-radius: var(--r-structural);
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -373,7 +371,7 @@ body.locked { overflow: hidden; }
   bottom: 14px; left: 14px;
   background: rgba(243, 242, 233, 0.95);
   padding: 6px 12px;
-  border-radius: 100px;
+  border-radius: var(--r-tag);
   font-family: var(--f-mono);
   font-size: 10px;
   letter-spacing: 0.14em;
@@ -393,7 +391,7 @@ body.locked { overflow: hidden; }
   color: var(--ink);
 }
 .story-prose em {
-  font-family: var(--f-serif);
+  font-family: inherit;
   font-style: italic;
   color: var(--ink);
 }
@@ -402,7 +400,7 @@ body.locked { overflow: hidden; }
   margin: 32px -8px;
   padding: 24px 28px;
   background: var(--sage);
-  border-radius: 12px;
+  border-radius: var(--r-structural);
   font-family: var(--f-display);
   font-size: 19px;
   line-height: 1.45;
@@ -431,7 +429,7 @@ body.locked { overflow: hidden; }
   position: relative;
   aspect-ratio: 4 / 5;
   background: linear-gradient(135deg, #D4E4CC 0%, #8FA396 100%);
-  border-radius: 12px;
+  border-radius: var(--r-structural);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -446,7 +444,7 @@ body.locked { overflow: hidden; }
   font-size: clamp(28px, 5vw, 42px);
   margin-bottom: 20px;
 }
-.lemna-text h2 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.lemna-text h2 em { font-family: inherit; font-style: italic; color: inherit; }
 .lemna-text p {
   font-size: 16px;
   line-height: 1.7;
@@ -463,7 +461,7 @@ body.locked { overflow: hidden; }
   border-top: 1px solid var(--line);
 }
 .lemna-stat-num {
-  font-family: 'General Sans', -apple-system, 'Segoe UI', sans-serif;
+  font-family: 'Hanken Grotesk', -apple-system, 'Segoe UI', sans-serif;
   font-size: 32px;
   font-weight: 500;
   color: var(--orange-deep);
@@ -498,7 +496,7 @@ body.locked { overflow: hidden; }
   max-width: 720px;
   margin: 0 auto 12px;
 }
-.standards-head h2 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.standards-head h2 em { font-family: inherit; font-style: italic; color: inherit; }
 .standards-head p {
   color: rgba(255,255,255,0.65);
   font-size: 16px;
@@ -546,7 +544,7 @@ body.locked { overflow: hidden; }
   letter-spacing: -0.01em;
   line-height: 1.25;
 }
-.std-title em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.std-title em { font-family: inherit; font-style: italic; color: inherit; }
 .std-desc {
   font-size: 14px;
   color: rgba(255,255,255,0.7);
@@ -569,7 +567,7 @@ body.locked { overflow: hidden; }
   max-width: 720px;
   margin: 0 auto 24px;
 }
-.close-section h2 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.close-section h2 em { font-family: inherit; font-style: italic; color: inherit; }
 .close-prose {
   max-width: 580px;
   margin: 0 auto;
@@ -610,7 +608,7 @@ body.locked { overflow: hidden; }
   color: #fff;
   text-decoration: none;
   padding: 16px 28px;
-  border-radius: 100px;
+  border-radius: var(--r-pill);
   font-size: 15px;
   font-weight: 500;
   transition: all 0.2s;
@@ -749,8 +747,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
     <div class="thesis-split">
       <div class="thesis-image" style="background-image:url('/images/responsive/lifestyle/ritual-pouch-mug-hero-editorial-4x5-800.webp');"></div>
       <div class="thesis-content">
-        <span class="eyebrow">What you get from Mujo</span>
-        <h2>Modern performance built on a <em>balanced foundation.</em></h2>
+        <h2 style="margin-top: 28px;">Modern performance built on a <em>balanced foundation.</em></h2>
         <p>Mujo is foundational nervous system support, so you can be the top performer in your own pursuit. If you've been looking for functional food that's serious about what it puts in the tin, you're in the right place.</p>
         <div class="thesis-items">
           <div class="pillar">
@@ -780,8 +777,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
 <section class="story-section">
   <div class="container">
     <div class="story-head">
-      <span class="eyebrow sage">A short founder note</span>
-      <h2>Mujo started with motherhood. <span class="serif-accent">And a kitchen full of plant and mushroom powders.</span></h2>
+      <h2 style="margin-top: 28px;">Mujo started with motherhood. <span class="serif-accent">And a kitchen full of plant and mushroom powders.</span></h2>
     </div>
     <div class="story-frame">
       <div class="story-portrait" style="background-image: url('/images/responsive/lifestyle/ritual-kinga-portrait-warm-natural-1-editorial-3x4-800.webp'); background-size: cover; background-position: center;">
@@ -806,8 +802,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
   <div class="container">
     <div class="lemna-grid">
       <div class="lemna-text">
-        <span class="eyebrow sage">The Lemna chapter</span>
-        <h2>Then my sisters <em>asked the same question</em> about protein.</h2>
+        <h2 style="margin-top: 28px;">Then my sisters <em>asked the same question</em> about protein.</h2>
         <p>I have two sisters (I'm the middle child). One is celiac, and the other has a list of food intolerances. Between them, almost every protein bar on the shelf was off the table. They needed a clean, complete protein source that didn't trade off taste for label virtue.</p>
         <p>Life works in mysterious ways, because just then I came across Lemna leaf: a tiny plant protein with a complete amino acid profile, a PDCAAS of 1, and roughly ten times less land use than soy.</p>
         <p>I made several flavors between nursing a newborn (now my third). We're launching two of them this summer. They're delicious, and you feel good after eating one too. <strong>Food allergy sisters approved. Trained chef husband flavor approved.</strong> Coming this summer.</p>
@@ -841,8 +836,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
 <section class="standards-section">
   <div class="container">
     <div class="standards-head">
-      <span class="eyebrow orange-light">Standards we hold</span>
-      <h2>The things we <em>won't</em> compromise on.</h2>
+      <h2 style="margin-top: 28px;">The things we <em>won't</em> compromise on.</h2>
       <p>Stubbornness, but the productive kind. These are the lines we drew on day one and haven't moved since.</p>
     </div>
     <ul class="standards-list">
@@ -875,8 +869,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
      ============================================================ -->
 <section class="close-section">
   <div class="container-narrow">
-    <span class="eyebrow">A note from Kinga</span>
-    <h2>If you've read this far, we made this for you.</h2>
+    <h2 style="margin-top: 28px;">If you've read this far, we made this for you.</h2>
     <div class="close-prose">
       <p>You're the kind of person who reads labels. Who cares about provenance. Who has learned, often the slow way, that the small daily inputs compound into the big, hard-to-name outcomes: sleep, mood, presence, energy that's actually yours.</p>
       <p>That's who Mujo is for. Welcome. The ritual is one click away.</p>

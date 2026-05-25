@@ -5,15 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Account · Mujo</title>
 <meta name="description" content="Manage your subscription, orders, and address. Two taps from anywhere.">
-<link rel="preconnect" href="https://api.fontshare.com">
-<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body { font-family: var(--f-body); background: var(--cream); color: var(--ink); -webkit-font-smoothing: antialiased; line-height: 1.55; }
 .eyebrow { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange-deep); display: inline-block; font-weight: 500; }
-.serif-accent { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.serif-accent { font-family: inherit; font-style: italic; color: inherit; }
 h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 500; letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); }
 .container { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
 .container-narrow { max-width: 760px; margin: 0 auto; padding: 0 20px; }
@@ -27,8 +25,8 @@ body.locked { overflow: hidden; }
   --sage-tint: rgba(47, 61, 51, 0.08);
   --ink: #1A1A1A; --ink-soft: #4A4845; --mute: #5C5854;
   --line: rgba(26, 26, 26, 0.09); --line-soft: rgba(26, 26, 26, 0.06);
-  --f-display: 'General Sans', -apple-system, sans-serif;
-  --f-body: 'General Sans', 'Helvetica Neue', sans-serif;
+  --f-display: 'Hanken Grotesk', -apple-system, sans-serif;
+  --f-body: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
   --f-serif: 'Instrument Serif', 'Times New Roman', serif;
   --f-mono: 'DM Mono', monospace;
   --nav-h: 64px;
@@ -137,7 +135,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
 @media (min-width: 768px) { .acc-hero { padding: 48px 0 28px; } }
 .acc-hero .eyebrow { margin-bottom: 12px; }
 .acc-hero h1 { font-size: clamp(28px, 5vw, 42px); margin-bottom: 8px; line-height: 1.05; }
-.acc-hero h1 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.acc-hero h1 em { font-family: inherit; font-style: italic; color: inherit; }
 .acc-hero p { font-size: 15px; color: var(--ink-soft); line-height: 1.55; max-width: 540px; }
 .acc-tabs { border-bottom: 1px solid var(--line-soft); margin-bottom: 28px; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
 .acc-tabs::-webkit-scrollbar { display: none; }
@@ -153,7 +151,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
 @media (min-width: 768px) { .dash-grid { grid-template-columns: 1fr 1fr; gap: 28px; } }
 @media (min-width: 1024px) { .dash-grid { grid-template-columns: 1.4fr 1fr; gap: 32px; } }
 
-.dash-card { background: #fff; border: 1px solid var(--line-soft); border-radius: 14px; padding: 24px; }
+.dash-card { background: #fff; border: 1px solid var(--line-soft); border-radius: var(--r-structural); padding: 24px; }
 @media (min-width: 768px) { .dash-card { padding: 28px; } }
 .dash-card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; gap: 12px; }
 .dash-card-head .eyebrow { margin-bottom: 0; }
@@ -162,12 +160,12 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
 
 .sub-summary { display: flex; align-items: flex-start; gap: 16px; padding: 16px 0; border-top: 1px solid var(--line-soft); }
 .sub-summary:first-of-type { border-top: none; padding-top: 0; }
-.sub-summary-img { width: 64px; height: 64px; background: var(--sand); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; }
+.sub-summary-img { width: 64px; height: 64px; background: var(--sand); border-radius: var(--r-structural); display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; }
 .sub-summary-info { flex: 1; min-width: 0; }
 .sub-summary-info .sub-name { font-size: 15px; font-weight: 500; margin-bottom: 4px; line-height: 1.3; }
 .sub-summary-info .sub-meta { font-size: 13px; color: var(--ink-soft); margin-bottom: 4px; }
 .sub-summary-info .sub-next { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; color: var(--orange-deep); text-transform: uppercase; }
-.sub-summary-link { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); text-decoration: none; padding: 8px 14px; border: 1px solid var(--line); border-radius: 100px; transition: all 0.2s; flex-shrink: 0; align-self: center; }
+.sub-summary-link { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); text-decoration: none; padding: 8px 14px; border: 1px solid var(--line); border-radius: var(--r-pill); transition: all 0.2s; flex-shrink: 0; align-self: center; }
 .sub-summary-link:hover { border-color: var(--ink); background: var(--ink); color: #fff; }
 
 .order-row { display: grid; grid-template-columns: 1fr auto; gap: 12px; padding: 14px 0; border-top: 1px solid var(--line-soft); align-items: center; }
@@ -175,26 +173,26 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
 .order-num { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.06em; color: var(--mute); margin-bottom: 4px; }
 .order-info-line { font-size: 14px; font-weight: 500; line-height: 1.3; }
 .order-date { font-size: 12px; color: var(--ink-soft); margin-top: 2px; font-family: var(--f-mono); letter-spacing: 0.04em; }
-.order-status { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; font-weight: 500; }
+.order-status { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; padding: 4px 10px; border-radius: var(--r-tag); font-weight: 500; }
 .order-status.delivered { background: rgba(47,61,51,0.08); color: var(--sage); }
 .order-status.shipped { background: rgba(242,104,47,0.1); color: var(--orange-deep); }
 .order-status.processing { background: rgba(212,196,168,0.4); color: var(--ink-soft); }
 
 .quick-actions { display: grid; grid-template-columns: 1fr; gap: 8px; }
-.qa-link { display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: var(--cream); border: 1px solid transparent; border-radius: 10px; text-decoration: none; color: var(--ink); transition: all 0.2s; }
+.qa-link { display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: var(--cream); border: 1px solid transparent; border-radius: var(--r-structural); text-decoration: none; color: var(--ink); transition: all 0.2s; }
 .qa-link:hover { border-color: var(--orange); background: #fff; }
-.qa-link-icon { width: 36px; height: 36px; background: #fff; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--orange-deep); }
+.qa-link-icon { width: 36px; height: 36px; background: #fff; border-radius: var(--r-structural); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--orange-deep); }
 .qa-link-icon svg { width: 18px; height: 18px; }
 .qa-link-text { flex: 1; min-width: 0; }
 .qa-link-text strong { display: block; font-size: 14px; font-weight: 500; line-height: 1.3; margin-bottom: 2px; }
 .qa-link-text span { font-size: 12px; color: var(--ink-soft); }
 .qa-link-arrow svg { width: 16px; height: 16px; opacity: 0.4; }
 
-.dash-savings { background: linear-gradient(135deg, var(--sage) 0%, var(--sage-mid) 100%); color: #fff; border-radius: 14px; padding: 24px; }
+.dash-savings { background: linear-gradient(135deg, var(--sage) 0%, var(--sage-mid) 100%); color: #fff; border-radius: var(--r-structural); padding: 24px; }
 @media (min-width: 768px) { .dash-savings { padding: 28px; } }
 .dash-savings .eyebrow { color: var(--orange); margin-bottom: 12px; }
 .dash-savings h3 { color: #fff; font-size: 24px; margin-bottom: 8px; }
-.dash-savings h3 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.dash-savings h3 em { font-family: inherit; font-style: italic; color: inherit; }
 .dash-savings p { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.55; margin-bottom: 16px; }
 .dash-savings-stat { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; color: rgba(255,255,255,0.55); text-transform: uppercase; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.12); }
 .dash-savings-stat strong { color: var(--orange); }

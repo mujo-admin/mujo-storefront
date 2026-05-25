@@ -7,10 +7,8 @@
 <title>Mujo · Conscious performance nutrition for people who read the label.</title>
 <meta name="description" content="A ritual for the nervous system that's been running hot. Caffeine-free mushroom cacao, dosed to the research.">
 
-<link rel="preconnect" href="https://api.fontshare.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
@@ -54,8 +52,8 @@
   --line-soft: rgba(26, 26, 26, 0.06);
 
   /* Typography */
-  --f-display: 'General Sans', -apple-system, sans-serif;
-  --f-body: 'General Sans', 'Helvetica Neue', sans-serif;
+  --f-display: 'Hanken Grotesk', -apple-system, sans-serif;
+  --f-body: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
   --f-serif: 'Instrument Serif', 'Times New Roman', serif;
   --f-mono: 'DM Mono', monospace;
 
@@ -137,10 +135,8 @@ h2 { font-size: clamp(28px, 5.4vw, 42px); line-height: 1.12; }
 h3 { font-size: clamp(20px, 3vw, 24px); letter-spacing: -0.015em; line-height: 1.2; }
 
 .serif-acc {
-  font-family: var(--f-serif);
   font-style: italic;
   font-weight: 400;
-  color: var(--orange);
 }
 .serif-acc.cream { color: var(--cream); }
 
@@ -152,7 +148,7 @@ h3 { font-size: clamp(20px, 3vw, 24px); letter-spacing: -0.015em; line-height: 1
   gap: 6px;
   min-height: 52px;
   padding: 0 22px;
-  border-radius: 100px;
+  border-radius: var(--r-pill);
   font-family: var(--f-body);
   font-size: 15px;
   font-weight: 500;
@@ -181,7 +177,7 @@ h3 { font-size: clamp(20px, 3vw, 24px); letter-spacing: -0.015em; line-height: 1
   letter-spacing: 0.12em;
   text-transform: uppercase;
   padding: 4px 8px;
-  border-radius: 100px;
+  border-radius: var(--r-tag);
   font-weight: 500;
   margin-left: 6px;
 }
@@ -210,7 +206,7 @@ h3 { font-size: clamp(20px, 3vw, 24px); letter-spacing: -0.015em; line-height: 1
   justify-content: center;
   text-align: center;
   padding: 16px;
-  border-radius: 8px;
+  border-radius: var(--r-structural);
   position: relative;
   overflow: hidden;
 }
@@ -308,7 +304,7 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.05); }
   background: var(--orange); color: #fff;
   font-family: var(--f-mono); font-size: 9px; font-weight: 500;
   min-width: 16px; height: 16px;
-  border-radius: 8px;
+  border-radius: var(--r-tag);
   display: inline-flex; align-items: center; justify-content: center;
   padding: 0 4px; line-height: 1;
 }
@@ -381,7 +377,7 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.05); }
   background: var(--orange); color: #fff;
   text-decoration: none;
   padding: 12px 20px;
-  border-radius: 100px;
+  border-radius: var(--r-pill);
   font-size: 14px; font-weight: 500;
 }
 
@@ -427,7 +423,7 @@ body.locked { overflow: hidden; }
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   padding: 6px 12px;
-  border-radius: 100px;
+  border-radius: var(--r-tag);
 }
 
 @media (min-width: 1024px) {
@@ -472,7 +468,7 @@ body.locked { overflow: hidden; }
   letter-spacing: 0.14em;
   text-transform: uppercase;
   padding: 7px 12px;
-  border-radius: 100px;
+  border-radius: var(--r-tag);
   font-weight: 500;
 }
 
@@ -510,48 +506,6 @@ body.locked { overflow: hidden; }
   max-width: 460px;
 }
 @media (min-width: 768px) { .hero-audience { font-size: 17px; margin-top: 18px; } }
-
-/* Hero pull-quote. Sand-tinted card with sage left-accent and a quotation mark.
-   Sits below the audience descriptor as a category-creation flex. */
-.hero-pullquote {
-  margin-top: 20px;
-  background: var(--sand);
-  border-left: 3px solid var(--sage);
-  border-radius: 8px;
-  padding: 18px 20px 18px 48px;
-  position: relative;
-  max-width: 540px;
-}
-.hero-pullquote::before {
-  content: '\201C';
-  font-family: var(--f-serif);
-  font-style: italic;
-  font-size: 48px;
-  color: var(--sage);
-  position: absolute;
-  left: 14px;
-  top: 6px;
-  line-height: 1;
-}
-.hero-pullquote-body {
-  font-family: var(--f-serif);
-  font-style: italic;
-  font-size: 14.5px;
-  line-height: 1.5;
-  color: var(--ink-soft);
-  margin: 0;
-}
-.hero-pullquote-body strong {
-  color: var(--ink);
-  font-weight: 600;
-  font-style: normal;
-  font-family: var(--f-display);
-}
-@media (min-width: 768px) {
-  .hero-pullquote { margin-top: 24px; padding: 20px 24px 20px 54px; }
-  .hero-pullquote-body { font-size: 15.5px; }
-  .hero-pullquote::before { font-size: 56px; left: 16px; }
-}
 
 /* ── Mobile hero: full-bleed product image + scrim, text overlaid (Option A) ──
    On mobile the image was stacking below the text and never showed on the first
@@ -595,17 +549,14 @@ body.locked { overflow: hidden; }
   .hero-pills { justify-content: center; }
   .hero .ctas { justify-content: center; flex-wrap: wrap; }
   .hero-rating { justify-content: center; }
-  /* Move the "#1 wellness trend" box out of the hero on mobile — it shows as a
-     banner after the hero instead (keeps the hero compact + centered). */
-  .hero-pullquote { display: none; }
-  /* Drop the eyebrow on mobile — the pills above the headline now carry the
+  /* Drop the eyebrow on mobile. The pills above the headline now carry the
      "what it does," so this de-clutters the hero (desktop keeps the eyebrow). */
   .hero-text .eyebrow { display: none; }
   .hero h1 { color: #fff; }
   .hero-sub { color: rgba(255,255,255,0.9); }
   .hero-rating { border-top-color: rgba(255,255,255,0.22); color: rgba(255,255,255,0.8); }
   .hero-rating strong { color: #fff; }
-  /* Hide the audience descriptor on mobile — shortens the hero so the pouch
+  /* Hide the audience descriptor on mobile. Shortens the hero so the pouch
      isn't cropped by the full-bleed image (per Kinga). */
   .hero-audience { display: none; }
   .hero .btn-ghost { border-color: rgba(255,255,255,0.55); color: #fff; }
@@ -617,27 +568,25 @@ body.locked { overflow: hidden; }
   .hero-guarantee { color: rgba(255,255,255,0.9); }
 }
 
-/* "#1 wellness trend" banner — desktop keeps the quote inside the hero; on mobile
-   the hero pullquote is hidden and this banner shows between the hero and manifesto. */
-.trend-banner { display: none; }
-@media (max-width: 1023px) {
-  .trend-banner {
-    display: block;
-    background: var(--sage);
-    padding: 28px var(--gutter);
-    text-align: center;
-  }
-  .trend-banner p {
-    font-family: var(--f-serif);
-    font-style: italic;
-    font-size: 15px;
-    line-height: 1.5;
-    max-width: 540px;
-    margin: 0 auto;
-    color: rgba(255,255,255,0.85);
-  }
-  .trend-banner strong { color: #fff; font-style: normal; font-weight: 600; font-family: var(--f-display); }
+/* "#1 wellness trend" banner. Single consolidated placement on all viewports
+   (the hero pullquote was removed to avoid the duplicate). Sits between the hero
+   and the manifesto. */
+.trend-banner {
+  display: block;
+  background: var(--sage);
+  padding: 28px var(--gutter);
+  text-align: center;
 }
+.trend-banner p {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-size: 15px;
+  line-height: 1.5;
+  max-width: 540px;
+  margin: 0 auto;
+  color: rgba(255,255,255,0.85);
+}
+.trend-banner strong { color: #fff; font-style: normal; font-weight: 600; font-family: var(--f-display); }
 
 /* ═══════════════════════════════════════════════════════════
    2. MANIFESTO (sage, full-bleed)
@@ -646,7 +595,9 @@ body.locked { overflow: hidden; }
   background: var(--sage);
   color: #fff;
   text-align: center;
+  padding: 100px var(--gutter);
 }
+@media (min-width: 768px) { .manifesto { padding: 140px var(--gutter); } }
 .manifesto-eyebrow {
   font-family: var(--f-mono);
   font-size: 11px;
@@ -657,24 +608,23 @@ body.locked { overflow: hidden; }
   display: inline-block;
 }
 .manifesto p {
-  font-family: var(--f-display);
+  font-family: var(--f-serif);
+  font-style: italic;
   font-weight: 400;
   font-size: 22px;
   line-height: 1.4;
-  color: rgba(255, 255, 255, 0.92);
+  color: var(--orange);
   letter-spacing: -0.01em;
 }
 @media (min-width: 768px) { .manifesto p { font-size: 28px; line-height: 1.35; } }
 @media (min-width: 1024px) { .manifesto p { font-size: 32px; } }
-.manifesto .serif-acc { color: var(--orange); }
 
 /* ═══════════════════════════════════════════════════════════
    3. WHAT WE MAKE. AG1-style benefits-led tiles
    ═══════════════════════════════════════════════════════════ */
 .wwm { background: var(--cream); }
 .wwm-head { text-align: center; max-width: 640px; margin: 0 auto 48px; }
-.wwm-head .eyebrow { margin-bottom: 14px; }
-.wwm-head h2 { margin-bottom: 16px; }
+.wwm-head h2 { margin-top: 28px; margin-bottom: 16px; }
 .wwm-sub {
   font-family: var(--f-display);
   font-style: italic;
@@ -700,7 +650,7 @@ body.locked { overflow: hidden; }
   text-decoration: none;
   color: var(--ink);
   background: #fff;
-  border-radius: 18px;
+  border-radius: var(--r-structural);
   border: 1px solid var(--line-soft);
   overflow: hidden;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s, border-color 0.3s;
@@ -736,7 +686,7 @@ body.locked { overflow: hidden; }
   color: rgba(0, 0, 0, 0.4);
   background: rgba(255, 255, 255, 0.6);
   padding: 5px 10px;
-  border-radius: 100px;
+  border-radius: var(--r-tag);
   z-index: 1;
 }
 
@@ -746,7 +696,7 @@ body.locked { overflow: hidden; }
   background: var(--sage);
   color: #fff;
   padding: 5px 12px;
-  border-radius: 100px;
+  border-radius: var(--r-tag);
   font-family: var(--f-mono);
   font-size: 9.5px;
   letter-spacing: 0.14em;
@@ -777,7 +727,7 @@ body.locked { overflow: hidden; }
 
 .tile-name {
   font-family: var(--f-display);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 24px;
   line-height: 1.2;
   color: var(--ink);
@@ -843,7 +793,7 @@ body.locked { overflow: hidden; }
 }
 .tile-price {
   font-family: var(--f-display);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 22px;
   letter-spacing: -0.015em;
   color: var(--ink);
@@ -861,7 +811,7 @@ body.locked { overflow: hidden; }
   background: var(--orange-soft);
   color: var(--orange-deep);
   padding: 4px 10px;
-  border-radius: 100px;
+  border-radius: var(--r-tag);
   font-family: var(--f-mono);
   font-size: 10px;
   letter-spacing: 0.06em;
@@ -881,7 +831,7 @@ body.locked { overflow: hidden; }
   width: 100%;
   min-height: 48px;
   padding: 0 20px;
-  border-radius: 100px;
+  border-radius: var(--r-pill);
   background: var(--orange);
   color: #fff;
   border: 1.5px solid var(--orange);
@@ -945,7 +895,7 @@ body.locked { overflow: hidden; }
   scroll-snap-align: start;
   background: #fff;
   border: 1px solid var(--line-soft);
-  border-radius: 14px;
+  border-radius: var(--r-structural);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -991,7 +941,7 @@ body.locked { overflow: hidden; }
 .ing-body { padding: 14px 14px 16px; flex: 1; display: flex; flex-direction: column; }
 .ing-name {
   font-family: var(--f-display);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14.5px;
   line-height: 1.2;
   color: var(--ink);
@@ -1011,7 +961,7 @@ body.locked { overflow: hidden; }
   background: var(--sage-tint);
   color: var(--sage);
   padding: 3px 9px;
-  border-radius: 100px;
+  border-radius: var(--r-tag);
   font-family: var(--f-mono);
   font-size: 9.5px;
   letter-spacing: 0.04em;
@@ -1078,7 +1028,7 @@ body.locked { overflow: hidden; }
   max-width: 220px;
   aspect-ratio: 1 / 1;
   scroll-snap-align: start;
-  border-radius: 12px;
+  border-radius: var(--r-structural);
   overflow: hidden;
   position: relative;
   background: linear-gradient(135deg, var(--sand-deep) 0%, var(--sage-light) 100%);
@@ -1101,7 +1051,7 @@ body.locked { overflow: hidden; }
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   padding: 5px 10px;
-  border-radius: 100px;
+  border-radius: var(--r-tag);
   font-weight: 500;
 }
 .ugc-tile.t4 .ugc-tile-handle { color: rgba(0, 0, 0, 0.7); background: rgba(255, 255, 255, 0.7); }
@@ -1145,7 +1095,7 @@ body.locked { overflow: hidden; }
 .reviews { background: var(--sand); }
 .reviews-head { text-align: center; max-width: 640px; margin: 0 auto 40px; }
 @media (min-width: 768px) { .reviews-head { margin-bottom: 56px; } }
-.reviews-head .eyebrow { margin-bottom: 14px; }
+.reviews-head h2 { margin-top: 28px; }
 
 .reviews-grid {
   display: grid;
@@ -1158,7 +1108,7 @@ body.locked { overflow: hidden; }
 .review {
   background: #fff;
   border: 1px solid var(--line-soft);
-  border-radius: 18px;
+  border-radius: var(--r-structural);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -1181,7 +1131,7 @@ body.locked { overflow: hidden; }
   background: rgba(255, 255, 255, 0.92);
   color: var(--ink);
   padding: 5px 11px;
-  border-radius: 100px;
+  border-radius: var(--r-tag);
   font-family: var(--f-mono);
   font-size: 9.5px;
   letter-spacing: 0.14em;
@@ -1287,21 +1237,21 @@ body.locked { overflow: hidden; }
   aspect-ratio: 3 / 4;
   width: 100%;
   margin: 0;
-  border-radius: 18px;
+  border-radius: var(--r-structural);
   overflow: hidden;
 }
 .founder-portrait .ph {
   width: 100%; height: 100%;
   background: linear-gradient(160deg, var(--sage-light) 0%, var(--sand-deep) 100%);
-  border-radius: 18px;
+  border-radius: var(--r-structural);
 }
 
-.founder-text .eyebrow { margin-bottom: 16px; }
 .founder-body {
   font-family: var(--f-body);
   font-size: 17px;
   line-height: 1.6;
   color: var(--ink);
+  margin-top: 28px;
   margin-bottom: 18px;
   max-width: 520px;
   font-weight: 400;
@@ -1360,7 +1310,6 @@ body.locked { overflow: hidden; }
 
 .rebel-text .eyebrow.light { color: var(--orange); margin-bottom: 14px; display: inline-block; }
 .rebel h2 { color: #fff; margin-bottom: 16px; }
-.rebel h2 .serif-acc { color: var(--orange); }
 
 .rebel-sub {
   font-family: var(--f-body);
@@ -1388,7 +1337,7 @@ body.locked { overflow: hidden; }
   min-width: 0;
   padding: 0 18px;
   min-height: 52px;
-  border-radius: 100px;
+  border-radius: var(--r-structural);
   border: 1.5px solid rgba(255, 255, 255, 0.18);
   background: rgba(255, 255, 255, 0.06);
   color: #fff;
@@ -1409,7 +1358,7 @@ body.locked { overflow: hidden; }
   color: rgba(255, 255, 255, 0.5);
 }
 
-/* Tribe selector — radio chips inside the Rebel Club signup */
+/* Tribe selector: radio chips inside the Rebel Club signup */
 .rebel-tribe {
   border: 0;
   padding: 0;
@@ -1551,7 +1500,7 @@ footer {
   z-index: 270;
   background: var(--orange);
   color: #fff;
-  border-radius: 100px;
+  border-radius: var(--r-pill);
   padding: 12px 22px;
   display: flex;
   align-items: center;
@@ -1589,7 +1538,7 @@ footer {
   right: 0;
   z-index: 510;
   background: var(--sage);
-  border-radius: 24px 24px 0 0;
+  border-radius: var(--r-structural) var(--r-structural) 0 0;
   padding: 10px 24px 40px;
   max-height: 90vh;
   overflow-y: auto;
@@ -1598,7 +1547,7 @@ footer {
 }
 .qs-overlay.on .qs-sheet { transform: translateY(0); }
 @media (min-width: 768px) {
-  .qs-sheet { max-width: 540px; left: 50%; transform: translate(-50%, 100%); border-radius: 24px; bottom: 24px; padding: 10px 32px 36px; }
+  .qs-sheet { max-width: 540px; left: 50%; transform: translate(-50%, 100%); border-radius: var(--r-structural); bottom: 24px; padding: 10px 32px 36px; }
   .qs-overlay.on .qs-sheet { transform: translate(-50%, 0); }
 }
 
@@ -1619,7 +1568,7 @@ footer {
 .qs-prog-bar {
   height: 2px;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 100px;
+  border-radius: var(--r-pill);
   margin-bottom: 26px;
   overflow: hidden;
 }
@@ -1657,7 +1606,7 @@ footer {
 .qs-tile {
   background: rgba(255, 255, 255, 0.05);
   border: 1.5px solid rgba(255, 255, 255, 0.1);
-  border-radius: 14px;
+  border-radius: var(--r-structural);
   padding: 14px 13px;
   cursor: pointer;
   transition: all 0.18s;
@@ -1691,7 +1640,7 @@ footer {
 .qs-offer {
   background: rgba(242, 104, 47, 0.1);
   border: 1px solid rgba(242, 104, 47, 0.25);
-  border-radius: 14px;
+  border-radius: var(--r-structural);
   padding: 16px 18px;
   margin-bottom: 18px;
 }
@@ -1724,7 +1673,7 @@ footer {
 .qs-email-in {
   width: 100%;
   padding: 14px 18px;
-  border-radius: 13px;
+  border-radius: var(--r-structural);
   border: 1.5px solid rgba(255, 255, 255, 0.14);
   background: rgba(255, 255, 255, 0.07);
   font-size: 15px;
@@ -1740,7 +1689,7 @@ footer {
 .qs-submit {
   width: 100%;
   padding: 15px;
-  border-radius: 100px;
+  border-radius: var(--r-pill);
   background: var(--orange);
   color: #fff;
   border: none;
@@ -1798,7 +1747,7 @@ footer {
 .res-tag {
   display: inline-flex; align-items: center; gap: 6px;
   background: var(--orange); color: #fff;
-  padding: 5px 14px; border-radius: 100px;
+  padding: 5px 14px; border-radius: var(--r-tag);
   font-size: 11px; font-weight: 500;
   letter-spacing: 0.06em; text-transform: uppercase;
   margin-bottom: 14px;
@@ -1831,7 +1780,7 @@ footer {
 .res-pdf {
   background: rgba(242, 104, 47, 0.12);
   border: 1px solid rgba(242, 104, 47, 0.28);
-  border-radius: 13px;
+  border-radius: var(--r-structural);
   padding: 14px 16px;
   margin-bottom: 16px;
   display: flex;
@@ -1858,7 +1807,7 @@ footer {
 .res-cta {
   width: 100%;
   padding: 15px;
-  border-radius: 100px;
+  border-radius: var(--r-pill);
   background: var(--orange);
   color: #fff;
   border: none;
@@ -1967,7 +1916,7 @@ footer {
       <div class="ctas reveal d4">
         <a href="/products/mujo-ritual" class="btn btn-primary">Shop the Ritual Cacao <span class="arrow">→</span></a>
       </div>
-      <!-- Lemna Protein Bars CTA removed from the hero 2026-05-25 — restore when pre-sale opens. -->
+      <!-- Lemna Protein Bars CTA removed from the hero 2026-05-25. Restore when pre-sale opens. -->
       <div class="hero-guarantee reveal d4">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M12 2 4 5v6c0 5 3.4 8.4 8 10 4.6-1.6 8-5 8-10V5l-8-3z" />
@@ -1980,16 +1929,13 @@ footer {
         <div><strong>4.9</strong> · 100+ verified reviews</div>
       </div>
       <p class="hero-audience reveal d4">Built for the conscious performer, parents, athletes, founders, label-readers.</p>
-      <div class="hero-pullquote reveal d4">
-        <p class="hero-pullquote-body">Named the <strong>#1 wellness trend of 2026</strong> by the Global Wellness Summit, and the category Mujo was built for 18 months before it was named.</p>
-      </div>
     </div>
     <div class="hero-img-wrap reveal d2" style="background-image: url('/images/responsive/lifestyle/ritual-pouch-mug-hero-editorial-4x5-1200.webp'); background-size: cover; background-position: center;">
     </div>
   </div>
 </section>
 
-<!-- ═══════════════ 1b. #1 WELLNESS TREND BANNER (mobile-only; desktop shows it in the hero) ═══════════════ -->
+<!-- ═══════════════ 1b. #1 WELLNESS TREND BANNER (single placement, all viewports) ═══════════════ -->
 <section class="trend-banner">
   <div class="container">
     <p>Named the <strong>#1 wellness trend of 2026</strong> by the Global Wellness Summit, and the category Mujo was built for 18 months before it was named.</p>
@@ -1999,8 +1945,7 @@ footer {
 <!-- ═══════════════ 2. MANIFESTO ═══════════════ -->
 <section class="manifesto">
   <div class="container-narrow">
-    <div class="manifesto-eyebrow reveal">The thesis</div>
-    <p class="reveal d1">If you've been overwhelmed by the wellness aisle, and underwhelmed by the effects, the ingredients, the flavors, <span class="serif-acc">you're in the right place.</span></p>
+    <p class="reveal d1">If you've been overwhelmed by the wellness aisle, and underwhelmed by the effects, the ingredients, the flavors, you're in the right place.</p>
   </div>
 </section>
 
@@ -2008,7 +1953,6 @@ footer {
 <section class="wwm">
   <div class="container">
     <div class="wwm-head">
-      <div class="eyebrow reveal">What we make</div>
       <h2 class="reveal d1">Two rituals.</h2>
       <p class="wwm-sub reveal d2">One mission.</p>
     </div>
@@ -2024,9 +1968,9 @@ footer {
           <div class="tile-tagline">Replace your 9am coffee.</div>
           <ul class="tile-benefits">
             <li class="tile-benefit"><span><strong>Calm, focused energy</strong> from 6am to 10pm. No 3pm crash.</span></li>
-            <li class="tile-benefit"><span><strong>Five clinically dosed</strong> mushrooms and adaptogens, including KSM-66 and Lion's Mane.</span></li>
-            <li class="tile-benefit"><span><strong>Caffeine-free</strong> organic cacao base. Tastes like <strong>a treat.</strong></span></li>
-            <li class="tile-benefit"><span><strong>Fruiting body only.</strong> Never mycelium on grain.</span></li>
+            <li class="tile-benefit"><span>Five clinically dosed mushrooms and adaptogens, including KSM-66 and Lion's Mane.</span></li>
+            <li class="tile-benefit"><span>Caffeine-free organic cacao base. Tastes like a treat.</span></li>
+            <li class="tile-benefit"><span>Fruiting body only. Never mycelium on grain.</span></li>
           </ul>
           <div class="tile-meta">
             <span class="tile-price">$65</span>
@@ -2047,16 +1991,16 @@ footer {
           <div class="tile-tagline">The first protein bar built on Lemna leaf.</div>
           <ul class="tile-benefits">
             <li class="tile-benefit"><span><strong>15g protein · 7g fiber.</strong> Made with Lemna leaf. Complete amino profile.</span></li>
-            <li class="tile-benefit"><span><strong>Nut butter base.</strong> No flavor systems, no syrup base. Real ingredients only.</span></li>
-            <li class="tile-benefit"><span><strong>No soy, dairy, whey, or lecithins.</strong> Just food.</span></li>
-            <li class="tile-benefit"><span><strong>10× more land-efficient</strong> than soy. The most sustainable protein you can eat.</span></li>
+            <li class="tile-benefit"><span>Nut butter base. No flavor systems, no syrup base. Real ingredients only.</span></li>
+            <li class="tile-benefit"><span>No soy, dairy, whey, or lecithins. Just food.</span></li>
+            <li class="tile-benefit"><span>10× more land-efficient than soy. The most sustainable protein you can eat.</span></li>
           </ul>
           <div class="tile-meta">
             <span class="tile-price">From $42</span>
             <span class="tile-price-meta">12-bar box · Founding pricing</span>
             <span class="tile-save">Limited founding spots</span>
           </div>
-          <span class="tile-cta">Sneak a Peek at the Protein Bars <span class="arrow">→</span></span>
+          <span class="tile-cta">Preview the Lemna Bar <span class="arrow">→</span></span>
         </div>
       </a>
 
@@ -2070,9 +2014,9 @@ footer {
           <div class="tile-tagline">Earned, not bought.</div>
           <ul class="tile-benefits">
             <li class="tile-benefit"><span><strong>The frother</strong> we test every batch with. Built for the ritual.</span></li>
-            <li class="tile-benefit"><span><strong>The Rebel Club T-shirt.</strong> Soft from day one.</span></li>
-            <li class="tile-benefit"><span><strong>The crew neck.</strong> Heavyweight French terry.</span></li>
-            <li class="tile-benefit"><span><strong>The hat.</strong> Washed twill, embroidered mark.</span></li>
+            <li class="tile-benefit"><span>The Rebel Club T-shirt. Soft from day one.</span></li>
+            <li class="tile-benefit"><span>The crew neck. Heavyweight French terry.</span></li>
+            <li class="tile-benefit"><span>The hat. Washed twill, embroidered mark.</span></li>
           </ul>
           <div class="tile-meta">
             <span class="tile-price">From $20</span>
@@ -2152,14 +2096,9 @@ footer {
 
 <!-- ═══════════════ 5. UGC STRIP ═══════════════ -->
 <section class="ugc">
-  <div class="container">
-    <div class="ugc-head">
-      <div class="ugc-eyebrow reveal">From the Mujo community</div>
-    </div>
-  </div>
   <div class="ugc-strip-wrap">
     <div class="ugc-strip">
-      <!-- Placeholder studio/lifestyle shots. Fabricated @handles removed — swap
+      <!-- Placeholder studio/lifestyle shots. Fabricated @handles removed. Swap
            in real customer UGC (with real attributions) when Kinga supplies them. -->
       <div class="ugc-tile t1" style="background-image: url('/images/responsive/products/ritual/ritual-card-cream-mug-editorial-4x3-800.webp'); background-size: cover; background-position: center;"></div>
       <div class="ugc-tile t2" style="background-image: url('/images/responsive/lifestyle/ritual-rebel-club-journal-editorial-4x3-800.webp'); background-size: cover; background-position: center;"></div>
@@ -2181,7 +2120,6 @@ footer {
 <section class="reviews">
   <div class="container">
     <div class="reviews-head">
-      <div class="eyebrow reveal">From people who read the label</div>
       <h2 class="reveal d1">Real reviews, <span class="serif-acc">real impact.</span></h2>
     </div>
 
@@ -2250,7 +2188,6 @@ footer {
       <div class="founder-portrait reveal" style="background-image: url('/images/responsive/lifestyle/ritual-kinga-portrait-warm-natural-1-editorial-3x4-800.webp'); background-size: cover; background-position: center;">
       </div>
       <div class="founder-text">
-        <div class="eyebrow reveal">Our story</div>
         <p class="founder-body reveal d1">Mujo exists because I needed a one-step morning routine that <strong>actually supported my nervous system, naturally.</strong> So I found what I think are the <strong>most remarkable, science-backed ingredients,</strong> and I blended them into a smooth cacao that I <strong>look forward to drinking every day.</strong></p>
         <p class="founder-sign reveal d2">Kinga, founder.</p>
         <a href="/about" class="founder-link reveal d3">Read about us <span class="arrow">→</span></a>
@@ -2259,7 +2196,7 @@ footer {
   </div>
 </section>
 
-<!-- Rebel Club body email signup removed 2026-05-25 — the footer signup is the
+<!-- Rebel Club body email signup removed 2026-05-25. The footer signup is the
      single email capture (this section was a duplicate). Tribe picker removed too. -->
 
 

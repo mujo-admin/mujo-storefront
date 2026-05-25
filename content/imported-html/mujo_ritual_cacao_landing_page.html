@@ -8,10 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!--
-  FONTS: General Sans (Fontshare, free), locked display/body workhorse.
+  FONTS: Hanken Grotesk (Fontshare, free), locked display/body workhorse.
 -->
-<link rel="preconnect" href="https://api.fontshare.com">
-<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -32,8 +30,8 @@
   --mute: #5C5854;
   --line: rgba(26, 26, 26, 0.09);
   --line-soft: rgba(26, 26, 26, 0.06);
-  --f-display: 'General Sans', -apple-system, sans-serif;
-  --f-body: 'General Sans', 'Helvetica Neue', sans-serif;
+  --f-display: 'Hanken Grotesk', -apple-system, sans-serif;
+  --f-body: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
   --f-serif: 'Instrument Serif', 'Times New Roman', serif;
   --f-mono: 'DM Mono', monospace;
   --s1: 0 2px 8px rgba(0, 0, 0, 0.04);
@@ -90,12 +88,8 @@ h1 { font-size: clamp(36px, 4.2vw, 56px); line-height: 1.05; }
 h2 { font-size: clamp(26px, 2.8vw, 36px); line-height: 1.15; }
 h3 { font-size: clamp(18px, 1.6vw, 20px); line-height: 1.25; }
 
-.serif-accent {
-  font-family: var(--f-serif);
-  font-style: italic;
-  font-weight: 400;
-  color: var(--orange);
-}
+/* Brand v1.3: inline accent now Hanken italic, normal ink. */
+.serif-accent { font-style: italic; }
 .serif-accent.light { color: var(--sage-light); }
 
 .body-lg {
@@ -119,7 +113,7 @@ section { padding: 88px 0; position: relative; }
   min-width: 220px;
   min-height: 54px;
   padding: 0 28px;
-  border-radius: 100px;
+  border-radius: var(--r-pill);
   font-family: var(--f-body);
   font-size: 15px;
   font-weight: 500;
@@ -173,7 +167,7 @@ nav {
 .nav-logo {
   font-family: var(--f-display);
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: -0.04em;
   color: var(--orange);
   text-decoration: none;
@@ -188,7 +182,7 @@ nav {
   background: var(--orange);
   color: #fff;
   padding: 9px 20px;
-  border-radius: 100px;
+  border-radius: var(--r-pill);
   font-size: 13px;
   font-weight: 500;
   text-decoration: none;
@@ -221,7 +215,7 @@ nav {
   margin-top: 22px;
   padding: 12px 16px;
   background: var(--sage-tint);
-  border-radius: 10px;
+  border-radius: var(--r-structural);
   border-left: 3px solid var(--sage);
   display: flex;
   align-items: flex-start;
@@ -230,13 +224,13 @@ nav {
   line-height: 1.5;
   color: var(--ink-soft);
   max-width: 540px;
-  font-family: var(--f-serif);
+  font-family: var(--f-body);
   font-style: italic;
 }
 .hero-citation strong {
   color: var(--sage);
   font-family: var(--f-display);
-  font-weight: 600;
+  font-weight: 500;
   font-style: normal;
 }
 .citation-mark {
@@ -331,7 +325,7 @@ nav {
   width: 100%;
   max-width: 420px;
   background: linear-gradient(145deg, var(--sand) 0%, var(--cream) 100%);
-  border-radius: 22px;
+  border-radius: var(--r-structural);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -363,7 +357,7 @@ nav {
 .ph-icon { font-size: 72px; filter: sepia(0.2) saturate(0.8); }
 .ph-text {
   font-family: var(--f-display);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 20px;
   color: var(--sage);
   text-align: center;
@@ -379,7 +373,7 @@ nav {
 .hero-fact {
   position: absolute;
   background: #fff;
-  border-radius: 13px;
+  border-radius: var(--r-structural);
   padding: 11px 15px;
   box-shadow: var(--s1);
   border: 1px solid var(--line-soft);
@@ -389,7 +383,7 @@ nav {
 .hero-fact-num {
   font-family: var(--f-display);
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--orange);
   line-height: 1;
   letter-spacing: -0.02em;
@@ -473,7 +467,7 @@ nav {
 .paside {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
+  border-radius: var(--r-structural);
   padding: 36px;
   position: sticky;
   top: 100px;
@@ -488,7 +482,7 @@ nav {
   letter-spacing: -0.01em;
 }
 .pa-h em {
-  font-family: var(--f-serif);
+  
   font-style: italic;
   color: var(--sage-light);
   font-weight: 400;
@@ -506,7 +500,7 @@ nav {
 .pa-num {
   font-family: var(--f-display);
   font-size: 42px;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--orange);
   line-height: 1;
   letter-spacing: -0.03em;
@@ -573,9 +567,9 @@ nav {
   letter-spacing: -0.02em;
 }
 .video-h em {
-  font-family: var(--f-serif);
+  
   font-style: italic;
-  color: var(--orange);
+  color: inherit;
   font-weight: 400;
 }
 .video-sub {
@@ -598,7 +592,7 @@ nav {
   width: 100%;
   aspect-ratio: 16 / 9;
   background: var(--sage);
-  border-radius: 20px;
+  border-radius: var(--r-structural);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -632,7 +626,7 @@ nav {
   gap: 5px;
   background: rgba(255, 255, 255, 0.1);
   padding: 4px 11px;
-  border-radius: 100px;
+  border-radius: var(--r-tag);
   font-size: 12px;
   color: rgba(255, 255, 255, 0.5);
   margin-top: 6px;
@@ -655,14 +649,14 @@ nav {
 }
 .sol-vis {
   background: var(--sand);
-  border-radius: 24px;
+  border-radius: var(--r-structural);
   padding: 40px 32px;
   text-align: center;
 }
 .sv-t {
   font-family: var(--f-display);
   font-size: 17px;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--sage);
   margin-bottom: 4px;
   letter-spacing: -0.01em;
@@ -690,7 +684,7 @@ nav {
   font-size: 11px;
   background: #FEF0EE;
   padding: 2px 8px;
-  border-radius: 100px;
+  border-radius: var(--r-tag);
   text-align: center;
 }
 .cgood {
@@ -699,7 +693,7 @@ nav {
   font-size: 11px;
   background: var(--sage-tint);
   padding: 2px 8px;
-  border-radius: 100px;
+  border-radius: var(--r-tag);
   text-align: center;
 }
 .chdr {
@@ -726,7 +720,7 @@ nav {
 .sp-i {
   width: 38px;
   height: 38px;
-  border-radius: 10px;
+  border-radius: var(--r-structural);
   background: var(--sage-tint);
   color: var(--sage);
   display: flex;
@@ -766,7 +760,7 @@ nav {
 .pc {
   background: #fff;
   border: 1px solid var(--line-soft);
-  border-radius: 18px;
+  border-radius: var(--r-structural);
   padding: 24px;
 }
 .pstars {
@@ -821,7 +815,7 @@ nav {
   gap: 1px;
   background: var(--line);
   border: 1px solid var(--line);
-  border-radius: 18px;
+  border-radius: var(--r-structural);
   overflow: hidden;
   margin-top: 38px;
 }
@@ -833,7 +827,7 @@ nav {
 .psn {
   font-family: var(--f-display);
   font-size: 32px;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--orange);
   line-height: 1;
   letter-spacing: -0.02em;
@@ -899,9 +893,9 @@ nav {
   letter-spacing: -0.02em;
 }
 .qcs-h em {
-  font-family: var(--f-serif);
+  
   font-style: italic;
-  color: var(--orange);
+  color: inherit;
   font-weight: 400;
 }
 .qcs-body {
@@ -922,7 +916,7 @@ nav {
 .qcs-item {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.09);
-  border-radius: 12px;
+  border-radius: var(--r-structural);
   padding: 12px 14px;
   display: flex;
   align-items: flex-start;
@@ -976,7 +970,7 @@ nav {
 .ic {
   background: #fff;
   border: 1px solid var(--line-soft);
-  border-radius: 18px;
+  border-radius: var(--r-structural);
   padding: 22px 20px;
   transition: all 0.3s;
   position: relative;
@@ -1031,7 +1025,7 @@ nav {
   background: var(--sage-tint);
   color: var(--sage);
   padding: 3px 10px;
-  border-radius: 100px;
+  border-radius: var(--r-tag);
   font-family: var(--f-mono);
   font-size: 10px;
   font-weight: 500;
@@ -1048,7 +1042,7 @@ nav {
   margin-top: 28px;
   padding: 20px 24px;
   background: var(--sage);
-  border-radius: 14px;
+  border-radius: var(--r-structural);
   display: flex;
   align-items: flex-start;
   gap: 13px;
@@ -1094,7 +1088,7 @@ nav {
 .compare-table {
   background: #fff;
   border: 1px solid var(--line-soft);
-  border-radius: 18px;
+  border-radius: var(--r-structural);
   overflow: hidden;
   box-shadow: var(--s1);
   min-width: 640px;
@@ -1206,7 +1200,7 @@ nav {
   width: 100%;
   aspect-ratio: 3 / 4;
   background: linear-gradient(160deg, var(--sage-light) 0%, var(--sand) 100%);
-  border-radius: 22px;
+  border-radius: var(--r-structural);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1227,9 +1221,8 @@ nav {
   font-weight: 500;
 }
 .fpull em {
-  font-family: var(--f-serif);
   font-style: italic;
-  color: var(--orange);
+  color: inherit;
   font-weight: 400;
 }
 .fbody {
@@ -1273,7 +1266,7 @@ nav {
 .objcard {
   background: #fff;
   border: 1px solid var(--line-soft);
-  border-radius: 17px;
+  border-radius: var(--r-structural);
   padding: 24px;
 }
 .objq {
@@ -1315,7 +1308,7 @@ nav {
 .panchor {
   background: rgba(242, 104, 47, 0.12);
   border: 1px solid rgba(242, 104, 47, 0.25);
-  border-radius: 11px;
+  border-radius: var(--r-structural);
   padding: 14px 20px;
   margin-bottom: 34px;
   max-width: 680px;
@@ -1334,7 +1327,7 @@ nav {
 .pcard {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 22px;
+  border-radius: var(--r-structural);
   padding: 38px;
   position: relative;
 }
@@ -1350,7 +1343,7 @@ nav {
   background: var(--orange);
   color: #fff;
   padding: 5px 18px;
-  border-radius: 100px;
+  border-radius: var(--r-tag);
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.04em;
@@ -1367,7 +1360,7 @@ nav {
 .pprice {
   font-family: var(--f-display);
   font-size: 44px;
-  font-weight: 700;
+  font-weight: 500;
   color: #fff;
   line-height: 1;
   letter-spacing: -0.03em;
@@ -1413,7 +1406,7 @@ nav {
   margin-top: 15px;
   padding: 14px;
   background: rgba(255, 255, 255, 0.04);
-  border-radius: 10px;
+  border-radius: var(--r-structural);
 }
 .gicon { font-size: 19px; flex-shrink: 0; color: var(--orange); }
 .gtxt {
@@ -1436,7 +1429,7 @@ nav {
   background: #fff;
   color: var(--ink);
   padding: 14px 28px;
-  border-radius: 100px;
+  border-radius: var(--r-pill);
   font-size: 14px;
   font-weight: 500;
   width: 100%;
@@ -1463,9 +1456,9 @@ nav {
   letter-spacing: -0.02em;
 }
 .prrh em {
-  font-family: var(--f-serif);
+  
   font-style: italic;
-  color: var(--orange);
+  color: inherit;
   font-weight: 400;
 }
 .prrb {
@@ -1491,7 +1484,7 @@ nav {
 .ponet {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 18px;
+  border-radius: var(--r-structural);
   padding: 26px;
 }
 
@@ -1537,9 +1530,9 @@ nav {
   letter-spacing: -0.02em;
 }
 .fctah em {
-  font-family: var(--f-serif);
+  
   font-style: italic;
-  color: var(--orange);
+  color: inherit;
   font-weight: 400;
 }
 .fctas {
@@ -1591,7 +1584,7 @@ footer {
 .flogo {
   font-family: var(--f-display);
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: -0.04em;
   color: var(--orange);
   margin-bottom: 12px;
@@ -1651,7 +1644,7 @@ footer {
   font-family: var(--f-display);
   font-size: 22px;
   color: #fff;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: -0.02em;
 }
 .sb-price s {
@@ -1665,7 +1658,7 @@ footer {
   background: var(--orange);
   color: #fff;
   padding: 10px 22px;
-  border-radius: 100px;
+  border-radius: var(--r-pill);
   font-size: 13px;
   font-weight: 500;
   text-decoration: none;
@@ -1698,7 +1691,7 @@ footer {
   z-index: 270;
   background: var(--orange);
   color: #fff;
-  border-radius: 100px;
+  border-radius: var(--r-pill);
   padding: 12px 22px;
   display: flex;
   align-items: center;
@@ -1766,7 +1759,7 @@ footer {
 .qs-prog-bar {
   height: 2px;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 100px;
+  border-radius: var(--r-tag);
   margin-bottom: 28px;
   overflow: hidden;
 }
@@ -1803,7 +1796,7 @@ footer {
 .qs-tile {
   background: rgba(255, 255, 255, 0.05);
   border: 1.5px solid rgba(255, 255, 255, 0.1);
-  border-radius: 14px;
+  border-radius: var(--r-structural);
   padding: 14px 13px;
   cursor: pointer;
   transition: all 0.18s;
@@ -1842,7 +1835,7 @@ footer {
 .qs-offer {
   background: rgba(242, 104, 47, 0.1);
   border: 1px solid rgba(242, 104, 47, 0.25);
-  border-radius: 14px;
+  border-radius: var(--r-structural);
   padding: 16px 18px;
   margin-bottom: 18px;
 }
@@ -1876,7 +1869,7 @@ footer {
 .qs-email-in {
   width: 100%;
   padding: 14px 18px;
-  border-radius: 13px;
+  border-radius: var(--r-structural);
   border: 1.5px solid rgba(255, 255, 255, 0.14);
   background: rgba(255, 255, 255, 0.07);
   font-size: 15px;
@@ -1891,7 +1884,7 @@ footer {
 .qs-submit {
   width: 100%;
   padding: 15px;
-  border-radius: 100px;
+  border-radius: var(--r-pill);
   background: var(--orange);
   color: #fff;
   border: none;
@@ -1957,7 +1950,7 @@ footer {
   background: var(--orange);
   color: #fff;
   padding: 5px 14px;
-  border-radius: 100px;
+  border-radius: var(--r-tag);
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.06em;
@@ -1975,7 +1968,7 @@ footer {
   letter-spacing: -0.01em;
 }
 .res-h em {
-  font-family: var(--f-serif);
+  
   font-style: italic;
   color: var(--sage-light);
   font-weight: 400;
@@ -1990,7 +1983,7 @@ footer {
 .res-pdf {
   background: rgba(242, 104, 47, 0.12);
   border: 1px solid rgba(242, 104, 47, 0.28);
-  border-radius: 13px;
+  border-radius: var(--r-structural);
   padding: 14px 16px;
   margin-bottom: 16px;
   display: flex;
@@ -2028,7 +2021,7 @@ footer {
 .res-cta {
   width: 100%;
   padding: 15px;
-  border-radius: 100px;
+  border-radius: var(--r-pill);
   background: var(--orange);
   color: #fff;
   border: none;
@@ -2056,7 +2049,7 @@ footer {
   z-index: 265;
   background: var(--sage);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
+  border-radius: var(--r-structural);
   padding: 16px 18px;
   max-width: 270px;
   box-shadow: var(--s3);
@@ -2102,7 +2095,7 @@ footer {
 .geo-opt {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 100px;
+  border-radius: var(--r-pill);
   padding: 5px 12px;
   font-size: 12px;
   color: rgba(255, 255, 255, 0.65);
@@ -2148,7 +2141,7 @@ footer {
 .eov.on { opacity: 1; pointer-events: all; }
 .epop {
   background: var(--cream);
-  border-radius: 22px;
+  border-radius: var(--r-structural);
   padding: 40px;
   max-width: 440px;
   width: 100%;
@@ -2195,7 +2188,7 @@ footer {
 .einput {
   flex: 1;
   padding: 13px 16px;
-  border-radius: 100px;
+  border-radius: var(--r-structural);
   border: 1px solid var(--line);
   background: #fff;
   font-size: 14px;
@@ -2210,7 +2203,7 @@ footer {
   color: #fff;
   border: none;
   padding: 13px 20px;
-  border-radius: 100px;
+  border-radius: var(--r-pill);
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -2223,13 +2216,13 @@ footer {
   background: rgba(143, 163, 150, 0.15);
   color: var(--sage);
   padding: 14px 18px;
-  border-radius: 10px;
+  border-radius: var(--r-structural);
   font-size: 14px;
   line-height: 1.5;
   margin-top: 12px;
 }
 .exit-success strong { color: var(--ink); }
-.eh em { font-family: var(--f-serif); font-style: italic; color: var(--orange); font-weight: 400; }
+.eh em { font-style: italic; color: inherit; font-weight: 400; }
 .eskip {
   text-align: center;
   margin-top: 10px;
@@ -2277,8 +2270,8 @@ footer {
   --sage-tint: rgba(47, 61, 51, 0.08);
   --ink: #1A1A1A; --ink-soft: #4A4845; --mute: #5C5854;
   --line: rgba(26, 26, 26, 0.09); --line-soft: rgba(26, 26, 26, 0.06);
-  --f-display: 'General Sans', -apple-system, sans-serif;
-  --f-body: 'General Sans', 'Helvetica Neue', sans-serif;
+  --f-display: 'Hanken Grotesk', -apple-system, sans-serif;
+  --f-body: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
   --f-serif: 'Instrument Serif', 'Times New Roman', serif;
   --f-mono: 'DM Mono', monospace;
   --nav-h: 64px;
@@ -2307,7 +2300,7 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .nav-icon { width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; border: none; background: transparent; color: var(--ink); cursor: pointer; text-decoration: none; position: relative; border-radius: 50%; transition: background 0.2s; }
 .nav-icon:hover { background: var(--sage-tint); }
 .nav-icon svg { width: 20px; height: 20px; }
-.cart-count { position: absolute; top: 4px; right: 4px; background: var(--orange); color: #fff; font-family: var(--f-mono); font-size: 9px; font-weight: 500; min-width: 16px; height: 16px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; padding: 0 4px; line-height: 1; }
+.cart-count { position: absolute; top: 4px; right: 4px; background: var(--orange); color: #fff; font-family: var(--f-mono); font-size: 9px; font-weight: 500; min-width: 16px; height: 16px; border-radius: var(--r-tag); display: inline-flex; align-items: center; justify-content: center; padding: 0 4px; line-height: 1; }
 .cart-count.hidden { display: none; }
 .menu-overlay { position: fixed; inset: 0; background: rgba(26,26,26,0.5); z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
 .menu-overlay.open { opacity: 1; pointer-events: auto; }
@@ -2324,7 +2317,7 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .mm-foot { padding: 24px; background: var(--sage); color: #fff; }
 .mm-foot-eyebrow { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); margin-bottom: 10px; }
 .mm-foot p { font-size: 14px; line-height: 1.55; color: rgba(255,255,255,0.7); margin-bottom: 16px; }
-.mm-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--orange); color: #fff; text-decoration: none; padding: 12px 20px; border-radius: 100px; font-size: 14px; font-weight: 500; }
+.mm-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--orange); color: #fff; text-decoration: none; padding: 12px 20px; border-radius: var(--r-pill); font-size: 14px; font-weight: 500; }
 .cart-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(440px, 100vw); background: var(--cream); z-index: 999; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; box-shadow: -20px 0 60px rgba(0,0,0,0.1); }
 .cart-drawer.open { transform: translateX(0); }
 .cart-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); }
@@ -2342,11 +2335,11 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .cart-progress-fill.full { background: var(--sage); }
 .cart-body { flex: 1; overflow-y: auto; padding: 8px 20px; }
 .cart-item { display: grid; grid-template-columns: 72px 1fr auto; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--line-soft); }
-.cart-item-img { width: 72px; height: 72px; background: var(--sand); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; }
+.cart-item-img { width: 72px; height: 72px; background: var(--sand); border-radius: var(--r-structural); display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; }
 .cart-item-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .cart-item-name { font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.3; }
 .cart-item-variant { font-size: 12px; color: var(--mute); margin-bottom: 6px; }
-.cart-item-controls { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 100px; background: #fff; width: fit-content; margin-top: auto; }
+.cart-item-controls { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: var(--r-pill); background: #fff; width: fit-content; margin-top: auto; }
 .qty-btn { width: 28px; height: 28px; background: transparent; border: none; cursor: pointer; font-size: 14px; color: var(--ink-soft); display: inline-flex; align-items: center; justify-content: center; }
 .qty-val { font-family: var(--f-mono); font-size: 12px; min-width: 24px; text-align: center; }
 .cart-item-meta { display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; text-align: right; }
@@ -2356,13 +2349,13 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .cart-empty-illo { font-size: 52px; opacity: 0.5; }
 .cart-empty h3 { font-size: 22px; font-weight: 500; }
 .cart-empty p { font-size: 14px; color: var(--mute); max-width: 260px; line-height: 1.5; }
-.cart-empty a { margin-top: 6px; background: var(--orange); color: #fff; text-decoration: none; padding: 12px 22px; border-radius: 100px; font-size: 14px; font-weight: 500; }
+.cart-empty a { margin-top: 6px; background: var(--orange); color: #fff; text-decoration: none; padding: 12px 22px; border-radius: var(--r-pill); font-size: 14px; font-weight: 500; }
 .cart-foot { border-top: 1px solid var(--line-soft); padding: 16px 20px 20px; }
 .cart-row { display: flex; justify-content: space-between; align-items: baseline; padding: 4px 0; font-size: 14px; color: var(--ink-soft); }
 .cart-row.total { padding-top: 10px; font-size: 18px; font-weight: 500; color: var(--ink); font-family: var(--f-display); }
 .cart-row .price { font-family: var(--f-mono); }
 .cart-shipping-note { font-size: 11px; color: var(--mute); font-family: var(--f-mono); letter-spacing: 0.04em; margin: 8px 0 14px; line-height: 1.4; }
-.cart-checkout { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: var(--orange); color: #fff; text-decoration: none; border: none; cursor: pointer; padding: 16px 24px; border-radius: 100px; font-size: 15px; font-weight: 500; transition: background 0.2s; }
+.cart-checkout { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: var(--orange); color: #fff; text-decoration: none; border: none; cursor: pointer; padding: 16px 24px; border-radius: var(--r-pill); font-size: 15px; font-weight: 500; transition: background 0.2s; }
 .cart-checkout:hover { background: var(--orange-deep); }
 .cart-secure { text-align: center; font-size: 11px; color: var(--mute); font-family: var(--f-mono); letter-spacing: 0.08em; margin-top: 10px; text-transform: uppercase; }
 body.locked { overflow: hidden; }
@@ -2465,7 +2458,7 @@ body.locked { overflow: hidden; }
       </div>
       <div class="hero-citation reveal d4">
         <span class="citation-mark">★</span>
-        <div><strong>Neurowellness</strong> was named the <strong>#1 wellness trend of 2026</strong> by the Global Wellness Summit, the category Mujo was built for, <em>18 months before it had a name.</em></div>
+        <div>Neurowellness was named the <strong>#1 wellness trend of 2026</strong> by the Global Wellness Summit, the category Mujo was built for, <em>18 months before it had a name.</em></div>
       </div>
       <div class="scroll-cue reveal d4">
         <span>Scroll to meet the Ritual</span>
@@ -2493,8 +2486,7 @@ body.locked { overflow: hidden; }
 <section class="problem">
   <div class="container">
     <div class="problem-header">
-      <div class="eyebrow light reveal">The hidden tax of high performance</div>
-      <h2 class="reveal d1">What's <span class="serif-accent">actually happening</span> when you're optimized but still depleted.</h2>
+      <h2 class="reveal d1" style="margin-top: 28px;">What's <span class="serif-accent">actually happening</span> when you're optimized but still depleted.</h2>
     </div>
     <div class="problem-grid">
       <div class="pitems">
@@ -2568,8 +2560,7 @@ body.locked { overflow: hidden; }
       </div>
     </div>
     <div>
-      <div class="eyebrow sage reveal">The solution</div>
-      <h2 class="reveal d1">A ritual that <span class="serif-accent">earns its place.</span></h2>
+      <h2 class="reveal d1" style="margin-top: 28px;">A ritual that <span class="serif-accent">earns its place.</span></h2>
       <p class="body-lg reveal d2" style="margin-top: 16px;">A functional cacao with eight mushrooms and adaptogens. Every one mindfully chosen and dosed for impact. Tastes so good you won't want to skip it.</p>
       <div class="sol-pts">
         <div class="sp reveal">
@@ -2604,8 +2595,7 @@ body.locked { overflow: hidden; }
 <section class="proof" id="reviews">
   <div class="container">
     <div class="proof-header">
-      <div class="eyebrow reveal">Real reviews</div>
-      <h2 class="reveal d1" style="margin-top: 16px;">From people who also <span class="serif-accent">read the label</span> before they buy.</h2>
+      <h2 class="reveal d1" style="margin-top: 28px;">From people who also <span class="serif-accent">read the label</span> before they buy.</h2>
     </div>
     <div class="proof-grid">
       <div class="pc reveal">
@@ -2711,8 +2701,7 @@ body.locked { overflow: hidden; }
   <div class="container">
     <div class="iintro">
       <div>
-        <div class="eyebrow reveal">The formula</div>
-        <h2 class="reveal d1" style="margin-top: 16px;">Every ingredient <span class="serif-accent">earned</span> its place.</h2>
+        <h2 class="reveal d1" style="margin-top: 28px;">Every ingredient <span class="serif-accent">earned</span> its place.</h2>
       </div>
       <p class="body-lg reveal d2">Peer-reviewed research behind them, work in combination, and dosed to the studies, not the label. 9,600mg mushroom equivalent + 3,000mg adaptogens equivalent + 3,400mg nootropics equivalent per serving.</p>
     </div>
@@ -2785,7 +2774,7 @@ body.locked { overflow: hidden; }
 
     <div class="inote reveal">
       <div class="ico">🔬</div>
-      <div class="itxt"><strong>The mycelium problem:</strong> Most products use mycelium on grain, not actual mushrooms. Beta-glucans live in the fruiting body. A product can legally say "mushroom extract" using mycelium with under 5% beta-glucan content. Mujo Ritual uses fruiting body at 8:1, standardized for beta-glucans. <strong>If the label doesn't say "fruiting body", it probably isn't.</strong></div>
+      <div class="itxt"><strong>The mycelium problem:</strong> Most products use mycelium on grain, not actual mushrooms. Beta-glucans live in the fruiting body. A product can legally say "mushroom extract" using mycelium with under 5% beta-glucan content. Mujo Ritual uses fruiting body at 8:1, standardized for beta-glucans. If the label doesn't say "fruiting body", it probably isn't.</div>
     </div>
   </div>
 </section>
@@ -2806,8 +2795,7 @@ body.locked { overflow: hidden; }
       </div>
     </div>
     <div>
-      <div class="eyebrow reveal">Our story</div>
-      <div class="fpull reveal d1" style="margin-top: 20px;">"I built Mujo Cacao because I wanted <em>a ritual that brought me nervous system regulation</em> and <em>joy.</em>"</div>
+      <div class="fpull reveal d1" style="margin-top: 44px;">"I built Mujo Cacao because I wanted <em>a ritual that brought me nervous system regulation</em> and <em>joy.</em>"</div>
       <p class="fbody reveal d2">When I became a mom, I began to shift from treating my body like a machine that needed to be hacked towards emotional repair, nervous system support, and just simple joy. Coffee was contributing to my near burnout and constant anxiety, so I had to quit.</p>
       <p class="fbody reveal d2">To fill the void coffee left, I started mixing the most remarkable plants and mushrooms into a coffee-like drink. Real fruiting body extracts. Clinically studied adaptogens. I <em>obsessed</em> over the research.</p>
       <p class="fbody reveal d3">I drank it every day. I felt sharper. Mentally clearer. Not tired. And my sleep was never better. I even <em>looked</em> younger. While my nervous system was shifting to a regulated mode, a Ritual for <strong>neurowellness</strong> was born. <em>And it was born to be shared.</em></p>
@@ -2821,8 +2809,7 @@ body.locked { overflow: hidden; }
      ═══════════════════════════════════════════ -->
 <section class="obj">
   <div class="container">
-    <div class="eyebrow reveal">The honest answers</div>
-    <h2 class="reveal d1" style="margin-top: 16px;">The questions we'd ask <span class="serif-accent">if we were you.</span></h2>
+    <h2 class="reveal d1" style="margin-top: 28px;">The questions we'd ask <span class="serif-accent">if we were you.</span></h2>
     <div class="obj-grid">
       <div class="objcard reveal">
         <div class="objq"><span class="objqi">🤔</span>Do I need to quit coffee to drink Mujo?</div>
@@ -2849,9 +2836,8 @@ body.locked { overflow: hidden; }
      ═══════════════════════════════════════════ -->
 <section class="pric" id="pricing">
   <div class="container">
-    <div class="eyebrow reveal">Start your ritual</div>
-    <h2 class="reveal d1" style="margin-top: 16px; max-width: 440px;">Your morning ritual, <span class="serif-accent">finally on your side.</span></h2>
-    <div class="panchor reveal d2"><strong>In perspective:</strong> A daily flat white is $5–7 and keeps your cortisol elevated. Mujo Ritual on subscription is <strong>$1.73 per serving</strong>. One swap that stops costing you how you feel.</div>
+    <h2 class="reveal d1" style="margin-top: 28px; max-width: 440px;">Your morning ritual, <span class="serif-accent">finally on your side.</span></h2>
+    <div class="panchor reveal d2"><strong>In perspective:</strong> A daily flat white is $5–7 and keeps your cortisol elevated. Mujo Ritual on subscription is $1.73 per serving. One swap that stops costing you how you feel.</div>
     <div class="priced">
       <div>
         <div class="pcard feat reveal">
@@ -2868,7 +2854,7 @@ body.locked { overflow: hidden; }
             <div class="pfeat"><span class="pfck">✓</span>Min commitment of 2 delivery cycles</div>
             <div class="pfeat"><span class="pfck">✓</span>Priority access to Lemna Bar launch</div>
           </div>
-          <button class="btwh primary">Subscribe & Save. Start Today</button>
+          <button class="btwh primary">Subscribe and save. Start today</button>
           <div class="gbox">
             <div class="gicon">🛡</div>
             <div class="gtxt">
@@ -2893,7 +2879,7 @@ body.locked { overflow: hidden; }
           <div class="pprice" style="font-size: 34px;"><sup>$</sup>65</div>
           <div class="pper">25 servings · free shipping over $100</div>
           <div class="pdiv"></div>
-          <button class="btwh">Buy Once. No Commitment</button>
+          <button class="btwh">Buy once. No commitment</button>
         </div>
       </div>
     </div>
@@ -2905,8 +2891,7 @@ body.locked { overflow: hidden; }
      ═══════════════════════════════════════════ -->
 <section class="fcta">
   <div class="container">
-    <div class="eyebrow center reveal">The decision</div>
-    <h2 class="fctah reveal d1" style="margin-top: 16px;">Less noise. <em>More honest ingredients.</em></h2>
+    <h2 class="fctah reveal d1" style="margin-top: 28px;">Less noise. <em>More honest ingredients.</em></h2>
     <p class="fctas reveal d2">30 days. If your 3pm doesn't feel different, we'll refund you.</p>
     <div class="cta-stack reveal d3" style="justify-content: center;">
       <a href="#pricing" class="btn btn-primary">

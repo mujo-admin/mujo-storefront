@@ -6,8 +6,6 @@
 <title>Ingredients · Mujo. Get to know our unique ingredients.</title>
 <meta name="description" content="Ingredient nuances matter. The dose, the form, the active compound. Get to know the unique ingredients inside Mujo Ritual and the Lemna Protein Bar.">
 
-<link rel="preconnect" href="https://api.fontshare.com">
-<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,8 +26,8 @@
   --mute: #5C5854;
   --line: rgba(26, 26, 26, 0.09);
   --line-soft: rgba(26, 26, 26, 0.06);
-  --f-display: 'General Sans', -apple-system, sans-serif;
-  --f-body: 'General Sans', 'Helvetica Neue', sans-serif;
+  --f-display: 'Hanken Grotesk', -apple-system, sans-serif;
+  --f-body: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
   --f-serif: 'Instrument Serif', 'Times New Roman', serif;
   --f-mono: 'DM Mono', monospace;
   --s1: 0 2px 8px rgba(0,0,0,0.04);
@@ -88,10 +86,10 @@ h2 { font-size: clamp(26px, 2.8vw, 36px); line-height: 1.15; }
 h3 { font-size: clamp(18px, 1.6vw, 20px); line-height: 1.25; }
 
 .serif-accent {
-  font-family: var(--f-serif);
+  font-family: inherit;
   font-style: italic;
-  font-weight: 400;
-  color: var(--orange);
+  font-weight: 500;
+  color: inherit;
 }
 .serif-accent.cream { color: var(--cream); }
 .serif-accent.sage { color: var(--sage); }
@@ -113,7 +111,7 @@ h3 { font-size: clamp(18px, 1.6vw, 20px); line-height: 1.25; }
   min-width: 220px;
   min-height: 54px;
   padding: 0 28px;
-  border-radius: 100px;
+  border-radius: var(--r-pill);
   font-family: var(--f-body);
   font-size: 15px;
   font-weight: 500;
@@ -166,7 +164,7 @@ nav {
   background: var(--orange);
   color: #fff;
   padding: 10px 22px;
-  border-radius: 100px;
+  border-radius: var(--r-pill);
   font-size: 14px;
   font-weight: 500;
   text-decoration: none;
@@ -189,7 +187,7 @@ nav {
 /* Ingredients hero — image + text split (added 2026-05-25) */
 .hero-split { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: center; }
 @media (min-width: 900px) { .hero-split { grid-template-columns: 1.1fr 0.9fr; gap: 56px; } }
-.hero-image { aspect-ratio: 1 / 1; border-radius: 16px; background-color: var(--sand); background-size: cover; background-position: center; min-height: 280px; }
+.hero-image { aspect-ratio: 1 / 1; border-radius: var(--r-structural); background-color: var(--sand); background-size: cover; background-position: center; min-height: 280px; }
 .hero-eye {
   font-family: var(--f-mono);
   font-size: 11px;
@@ -225,7 +223,7 @@ nav {
 .hs-num {
   font-family: var(--f-display);
   font-size: 30px;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--ink);
   letter-spacing: -0.03em;
   line-height: 1;
@@ -366,7 +364,7 @@ nav {
   background: var(--orange);
   color: #fff;
   padding: 6px 14px;
-  border-radius: 100px;
+  border-radius: var(--r-tag);
   font-family: var(--f-mono);
   font-size: 10px;
   letter-spacing: 0.16em;
@@ -387,7 +385,7 @@ nav {
 .fact-eyebrow {
   font-family: var(--f-display);
   font-size: clamp(20px, 2.4vw, 26px);
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.3;
   letter-spacing: -0.015em;
   color: var(--ink);
@@ -514,7 +512,7 @@ body:has(#product-lemna:checked) #ritual-section { display: none; }
   font-family: var(--f-body);
   font-size: 13px;
   padding: 8px 16px;
-  border-radius: 100px;
+  border-radius: var(--r-pill);
   background: #fff;
   border: 1px solid var(--line);
   color: var(--ink-soft);
@@ -568,7 +566,7 @@ body:has(#product-lemna:checked) #ritual-section { display: none; }
   background: var(--sage-tint);
   color: var(--sage);
   padding: 6px 14px;
-  border-radius: 100px;
+  border-radius: var(--r-tag);
   font-family: var(--f-mono);
   font-size: 11px;
   letter-spacing: 0.1em;
@@ -610,7 +608,7 @@ body:has(#product-lemna:checked) #ritual-section { display: none; }
 .ing-card {
   background: #fff;
   border: 1px solid var(--line-soft);
-  border-radius: 16px;
+  border-radius: var(--r-structural);
   overflow: hidden;
   transition: all 0.3s;
   display: grid;
@@ -637,7 +635,7 @@ body:has(#product-lemna:checked) #ritual-section { display: none; }
   width: 110px;
   height: 110px;
   background: linear-gradient(145deg, var(--sand-deep) 0%, var(--sand) 100%);
-  border-radius: 12px;
+  border-radius: var(--r-structural);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -692,7 +690,7 @@ body:has(#product-lemna:checked) #ritual-section { display: none; }
 .ing-name {
   font-family: var(--f-display);
   font-size: 17px;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--ink);
   letter-spacing: -0.01em;
   line-height: 1.25;
@@ -702,7 +700,7 @@ body:has(#product-lemna:checked) #ritual-section { display: none; }
   background: var(--orange);
   color: #fff;
   padding: 3px 10px;
-  border-radius: 100px;
+  border-radius: var(--r-tag);
   font-family: var(--f-mono);
   font-size: 9px;
   letter-spacing: 0.08em;
@@ -778,7 +776,7 @@ body:has(#product-lemna:checked) #ritual-section { display: none; }
   color: var(--sage);
   background: var(--sage-tint);
   padding: 3px 9px;
-  border-radius: 100px;
+  border-radius: var(--r-tag);
   font-weight: 500;
 }
 .ing-refs {
@@ -813,7 +811,7 @@ body:has(#product-lemna:checked) #ritual-section { display: none; }
     column-gap: 12px;
     padding: 14px 14px 14px 12px;
   }
-  .ing-img { width: 88px; height: 88px; border-radius: 10px; }
+  .ing-img { width: 88px; height: 88px; border-radius: var(--r-structural); }
   .ing-img-emoji { font-size: 36px; }
   .ing-card.feat .ing-img-emoji { font-size: 42px; }
   .ing-name { font-size: 16px; }
@@ -858,10 +856,10 @@ body:has(#product-lemna:checked) #ritual-section { display: none; }
 }
 .philosophy-head h2 { color: #fff; margin-top: 14px; margin-bottom: 16px; }
 .philosophy-head h2 em {
-  font-family: var(--f-serif);
+  font-family: inherit;
   font-style: italic;
-  color: var(--orange);
-  font-weight: 400;
+  color: inherit;
+  font-weight: 500;
 }
 .philosophy-head .eyebrow { color: var(--sage-light); justify-content: center; }
 .philosophy-head .eyebrow::before { display: none; }
@@ -885,7 +883,7 @@ body:has(#product-lemna:checked) #ritual-section { display: none; }
 .principle {
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 18px;
+  border-radius: var(--r-structural);
   padding: 28px 26px;
 }
 .principle-num {
@@ -899,7 +897,7 @@ body:has(#product-lemna:checked) #ritual-section { display: none; }
 .principle-h {
   font-family: var(--f-display);
   font-size: 19px;
-  font-weight: 600;
+  font-weight: 500;
   color: #fff;
   margin-bottom: 10px;
   letter-spacing: -0.01em;
@@ -937,10 +935,10 @@ body:has(#product-lemna:checked) #ritual-section { display: none; }
 }
 .lemna h2 { margin-bottom: 18px; }
 .lemna h2 em {
-  font-family: var(--f-serif);
+  font-family: inherit;
   font-style: italic;
-  font-weight: 400;
-  color: var(--orange);
+  font-weight: 500;
+  color: inherit;
 }
 .lemna-body {
   font-size: 16px;
@@ -971,7 +969,7 @@ body:has(#product-lemna:checked) #ritual-section { display: none; }
   flex: 1;
   min-width: 220px;
   padding: 14px 18px;
-  border-radius: 100px;
+  border-radius: var(--r-structural);
   border: 1.5px solid var(--line);
   background: #fff;
   font-family: var(--f-body);
@@ -989,7 +987,7 @@ body:has(#product-lemna:checked) #ritual-section { display: none; }
     — Replace with actual product photography when available
   */
   aspect-ratio: 4 / 3;
-  border-radius: 20px;
+  border-radius: var(--r-structural);
   background: linear-gradient(135deg, var(--sand-deep) 0%, var(--sand) 100%);
   position: relative;
   overflow: hidden;
@@ -1072,7 +1070,7 @@ body:has(#product-lemna:checked) #ritual-section { display: none; }
 .trust-h {
   font-family: var(--f-display);
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--ink);
   margin-bottom: 6px;
   letter-spacing: -0.01em;
@@ -1103,10 +1101,10 @@ body:has(#product-lemna:checked) #ritual-section { display: none; }
 }
 .cta-band h2 { color: #fff; margin-bottom: 16px; max-width: 680px; margin-left: auto; margin-right: auto; }
 .cta-band h2 em {
-  font-family: var(--f-serif);
+  font-family: inherit;
   font-style: italic;
-  color: var(--orange);
-  font-weight: 400;
+  color: inherit;
+  font-weight: 500;
 }
 .cta-band-sub {
   font-size: 16px;
@@ -1207,8 +1205,8 @@ footer {
   --sage-tint: rgba(47, 61, 51, 0.08);
   --ink: #1A1A1A; --ink-soft: #4A4845; --mute: #5C5854;
   --line: rgba(26, 26, 26, 0.09); --line-soft: rgba(26, 26, 26, 0.06);
-  --f-display: 'General Sans', -apple-system, sans-serif;
-  --f-body: 'General Sans', 'Helvetica Neue', sans-serif;
+  --f-display: 'Hanken Grotesk', -apple-system, sans-serif;
+  --f-body: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
   --f-serif: 'Instrument Serif', 'Times New Roman', serif;
   --f-mono: 'DM Mono', monospace;
   --nav-h: 64px;
@@ -1432,7 +1430,7 @@ body.locked { overflow: hidden; }
           Lemna Protein Bar · Launching summer 2026
         </div>
         <h2>A new kind of protein bar, <em>made with Lemna leaf.</em></h2>
-        <p class="lemna-body">We're looking forward to sharing the full ingredient dossier of the Lemna Protein Bars when they launch this summer. We wanted to strike the perfect balance between <strong>clean ingredients you can pronounce</strong> and <strong>great macros your body will love</strong>.</p>
+        <p class="lemna-body">We're looking forward to sharing the full ingredient dossier of the Lemna Protein Bars when they launch this summer. We wanted to strike the perfect balance between <strong>clean ingredients you can pronounce</strong> and great macros your body will love.</p>
         <p class="lemna-body">We're especially excited to introduce <strong>Rubi Protein™ from Plantible Foods</strong>, a remarkable plant protein that's just getting started making a real dent in the nutrition space. Complete amino acid profile, DIAAS close to 1.0, water-grown, and an environmental footprint roughly 10x lower than soy.</p>
         <div class="lemna-cta-row">
           <a href="/lemna-bar" class="btn btn-primary">Learn more <span class="btn-arrow">→</span></a>
@@ -1778,8 +1776,8 @@ body.locked { overflow: hidden; }
       <div class="fact-bubble">
         <div class="fact-tag">Ingredient deep dive</div>
         <div class="fact-eyebrow">On Lion's Mane: what the research actually says</div>
-        <p class="fact-body">Most mushroom coffee alternatives on the market use around <strong>500 mg of lion's mane powder</strong> per serving. That's well below any dose that has shown cognitive effects in human trials. The clinical evidence sits much higher: from <strong>1,800 mg/day to 3,200 mg/day</strong> (Mori 2009, Saitsu 2019, Docherty 2023). All of it fruiting body. None of it mycelium-on-grain.</p>
-        <p class="fact-body">We use <strong>500 mg of an 8:1 fruiting body extract</strong>. That's equivalent to <strong>4,000 mg of raw mushroom</strong>, standardised for β-glucans, no grain fillers, no mycelium padding. It's the form and the concentration the research actually uses, not the powder-by-weight number that fits neatly on a label.</p>
+        <p class="fact-body">Most mushroom coffee alternatives on the market use around 500 mg of lion's mane powder per serving. That's well below any dose that has shown cognitive effects in human trials. The clinical evidence sits much higher: from <strong>1,800 mg/day to 3,200 mg/day</strong> (Mori 2009, Saitsu 2019, Docherty 2023). All of it fruiting body. None of it mycelium-on-grain.</p>
+        <p class="fact-body">We use <strong>500 mg of an 8:1 fruiting body extract</strong>. That's equivalent to 4,000 mg of raw mushroom, standardised for β-glucans, no grain fillers, no mycelium padding. It's the form and the concentration the research actually uses, not the powder-by-weight number that fits neatly on a label.</p>
       </div>
       <!-- Tail pointing DOWN toward the rebel guy below the bubble -->
       <div class="fact-bubble-tail fact-bubble-tail-down" aria-hidden="true">

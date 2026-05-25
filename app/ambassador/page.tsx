@@ -12,13 +12,13 @@ export const metadata: Metadata = {
  * /ambassador route ports `mujo_affiliate.html`.
  * Inline patches per W3 plan (Resolved decision #4):
  *   - "Affiliate" → "Ambassador" (public-facing only; FTC link kept verbatim)
- *   - Inter Tight → General Sans (typography drift)
+ *   - Inter Tight → Hanken Grotesk (typography drift)
  *   - --mute #7A7570 → #5C5854 (WCAG-corrected)
  * Patches are applied via the override <style> below; ImportedPage renders
  * the source markup unchanged, this style block wins via specificity + load order.
  */
 const AMBASSADOR_OVERRIDES = `
-  /* Patch font drift — Inter Tight → General Sans */
+  /* Patch font drift — Inter Tight → Hanken Grotesk */
   body, .mujo-imported, .mujo-imported * {
     font-family: var(--f-body) !important;
   }

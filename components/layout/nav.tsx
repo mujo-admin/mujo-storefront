@@ -206,7 +206,7 @@ export function Nav({ cartCount, onOpenMenu, onOpenCart }: NavProps) {
           font-weight: 500;
           min-width: 16px;
           height: 16px;
-          border-radius: 8px;
+          border-radius: var(--r-tag);
           display: inline-flex;
           align-items: center;
           justify-content: center;

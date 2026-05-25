@@ -4,8 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mujo Icon Guide · v1.0</title>
-<link rel="preconnect" href="https://api.fontshare.com">
-<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
@@ -27,10 +25,13 @@
   --mute: #5C5854;
   --line: rgba(26, 26, 26, 0.09);
   --line-soft: rgba(26, 26, 26, 0.06);
-  --f-display: 'General Sans', -apple-system, sans-serif;
-  --f-body: 'General Sans', 'Helvetica Neue', sans-serif;
+  --f-display: 'Hanken Grotesk', -apple-system, sans-serif;
+  --f-body: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
   --f-serif: 'Instrument Serif', 'Times New Roman', serif;
   --f-mono: 'DM Mono', monospace;
+  --r-structural: 4px;
+  --r-pill: 999px;
+  --r-tag: 2px;
 }
 
 html { scroll-behavior: smooth; }
@@ -174,7 +175,7 @@ section.chunk h2 em {
 section.chunk h3 {
   font-family: var(--f-display);
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: -0.01em;
   margin: 32px 0 12px;
 }
@@ -205,7 +206,7 @@ section.chunk p strong { color: var(--ink); font-weight: 500; }
 }
 .rule {
   background: #fff;
-  border-radius: 12px;
+  border-radius: var(--r-structural);
   padding: 22px 24px;
   border: 1px solid var(--line-soft);
 }
@@ -228,7 +229,7 @@ section.chunk p strong { color: var(--ink); font-weight: 500; }
 .icon-dossier {
   background: #fff;
   border: 1px solid var(--line-soft);
-  border-radius: 16px;
+  border-radius: var(--r-structural);
   overflow: hidden;
   margin-bottom: 18px;
   display: grid;
@@ -255,7 +256,7 @@ section.chunk p strong { color: var(--ink); font-weight: 500; }
 .icon-name {
   font-family: var(--f-display);
   font-size: 19px;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: -0.01em;
 }
 .icon-id {
@@ -265,7 +266,7 @@ section.chunk p strong { color: var(--ink); font-weight: 500; }
   color: var(--mute);
   background: var(--sand);
   padding: 3px 9px;
-  border-radius: 100px;
+  border-radius: var(--r-tag);
 }
 .icon-latin {
   font-family: var(--f-mono);
@@ -286,7 +287,7 @@ section.chunk p strong { color: var(--ink); font-weight: 500; }
   background: var(--sage);
   color: rgba(243,242,233,0.9);
   padding: 14px 16px;
-  border-radius: 8px;
+  border-radius: var(--r-structural);
   font-family: var(--f-mono);
   font-size: 10.5px;
   line-height: 1.55;
@@ -323,13 +324,13 @@ section.chunk p strong { color: var(--ink); font-weight: 500; }
 .marker-card {
   background: #fff;
   border: 1px solid var(--line-soft);
-  border-radius: 14px;
+  border-radius: var(--r-structural);
   padding: 24px 28px;
 }
 .marker-demo {
   background: var(--sand);
   padding: 22px;
-  border-radius: 10px;
+  border-radius: var(--r-structural);
   margin-bottom: 18px;
   display: flex;
   align-items: center;
@@ -348,7 +349,7 @@ section.chunk p strong { color: var(--ink); font-weight: 500; }
 .marker-h {
   font-family: var(--f-display);
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: -0.01em;
   margin-bottom: 6px;
 }
@@ -364,7 +365,7 @@ section.chunk p strong { color: var(--ink); font-weight: 500; }
 .size-row {
   background: #fff;
   border: 1px solid var(--line-soft);
-  border-radius: 14px;
+  border-radius: var(--r-structural);
   padding: 28px 32px;
   display: flex;
   align-items: center;
@@ -375,7 +376,7 @@ section.chunk p strong { color: var(--ink); font-weight: 500; }
 .size-preview {
   background: var(--sand);
   padding: 24px;
-  border-radius: 10px;
+  border-radius: var(--r-structural);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -391,7 +392,7 @@ section.chunk p strong { color: var(--ink); font-weight: 500; }
   letter-spacing: 0.04em;
   background: var(--sage-tint);
   padding: 4px 10px;
-  border-radius: 100px;
+  border-radius: var(--r-tag);
   display: inline-block;
   margin-right: 6px;
   margin-bottom: 4px;
@@ -402,7 +403,7 @@ section.chunk p strong { color: var(--ink); font-weight: 500; }
   width: 100%;
   border-collapse: collapse;
   background: #fff;
-  border-radius: 14px;
+  border-radius: var(--r-structural);
   overflow: hidden;
   border: 1px solid var(--line-soft);
   margin: 16px 0 24px;
@@ -432,7 +433,7 @@ section.chunk p strong { color: var(--ink); font-weight: 500; }
   background: var(--sage);
   color: rgba(255,255,255,0.9);
   padding: 28px 32px;
-  border-radius: 14px;
+  border-radius: var(--r-structural);
   margin: 28px 0;
   position: relative;
   overflow: hidden;
@@ -475,7 +476,7 @@ code {
   font-family: var(--f-mono);
   background: var(--sand);
   padding: 2px 6px;
-  border-radius: 4px;
+  border-radius: var(--r-structural);
   font-size: 12px;
   color: var(--sage);
 }
@@ -498,8 +499,8 @@ code {
   --sage-tint: rgba(47, 61, 51, 0.08);
   --ink: #1A1A1A; --ink-soft: #4A4845; --mute: #5C5854;
   --line: rgba(26, 26, 26, 0.09); --line-soft: rgba(26, 26, 26, 0.06);
-  --f-display: 'General Sans', -apple-system, sans-serif;
-  --f-body: 'General Sans', 'Helvetica Neue', sans-serif;
+  --f-display: 'Hanken Grotesk', -apple-system, sans-serif;
+  --f-body: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
   --f-serif: 'Instrument Serif', 'Times New Roman', serif;
   --f-mono: 'DM Mono', monospace;
   --nav-h: 64px;
@@ -528,7 +529,7 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .nav-icon { width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; border: none; background: transparent; color: var(--ink); cursor: pointer; text-decoration: none; position: relative; border-radius: 50%; transition: background 0.2s; }
 .nav-icon:hover { background: var(--sage-tint); }
 .nav-icon svg { width: 20px; height: 20px; }
-.cart-count { position: absolute; top: 4px; right: 4px; background: var(--orange); color: #fff; font-family: var(--f-mono); font-size: 9px; font-weight: 500; min-width: 16px; height: 16px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; padding: 0 4px; line-height: 1; }
+.cart-count { position: absolute; top: 4px; right: 4px; background: var(--orange); color: #fff; font-family: var(--f-mono); font-size: 9px; font-weight: 500; min-width: 16px; height: 16px; border-radius: var(--r-tag); display: inline-flex; align-items: center; justify-content: center; padding: 0 4px; line-height: 1; }
 .cart-count.hidden { display: none; }
 .menu-overlay { position: fixed; inset: 0; background: rgba(26,26,26,0.5); z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
 .menu-overlay.open { opacity: 1; pointer-events: auto; }
@@ -545,7 +546,7 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .mm-foot { padding: 24px; background: var(--sage); color: #fff; }
 .mm-foot-eyebrow { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); margin-bottom: 10px; }
 .mm-foot p { font-size: 14px; line-height: 1.55; color: rgba(255,255,255,0.7); margin-bottom: 16px; }
-.mm-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--orange); color: #fff; text-decoration: none; padding: 12px 20px; border-radius: 100px; font-size: 14px; font-weight: 500; }
+.mm-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--orange); color: #fff; text-decoration: none; padding: 12px 20px; border-radius: var(--r-pill); font-size: 14px; font-weight: 500; }
 .cart-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(440px, 100vw); background: var(--cream); z-index: 999; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; box-shadow: -20px 0 60px rgba(0,0,0,0.1); }
 .cart-drawer.open { transform: translateX(0); }
 .cart-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); }
@@ -563,11 +564,11 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .cart-progress-fill.full { background: var(--sage); }
 .cart-body { flex: 1; overflow-y: auto; padding: 8px 20px; }
 .cart-item { display: grid; grid-template-columns: 72px 1fr auto; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--line-soft); }
-.cart-item-img { width: 72px; height: 72px; background: var(--sand); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; }
+.cart-item-img { width: 72px; height: 72px; background: var(--sand); border-radius: var(--r-structural); display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; }
 .cart-item-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .cart-item-name { font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.3; }
 .cart-item-variant { font-size: 12px; color: var(--mute); margin-bottom: 6px; }
-.cart-item-controls { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 100px; background: #fff; width: fit-content; margin-top: auto; }
+.cart-item-controls { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: var(--r-pill); background: #fff; width: fit-content; margin-top: auto; }
 .qty-btn { width: 28px; height: 28px; background: transparent; border: none; cursor: pointer; font-size: 14px; color: var(--ink-soft); display: inline-flex; align-items: center; justify-content: center; }
 .qty-val { font-family: var(--f-mono); font-size: 12px; min-width: 24px; text-align: center; }
 .cart-item-meta { display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; text-align: right; }
@@ -577,13 +578,13 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .cart-empty-illo { font-size: 52px; opacity: 0.5; }
 .cart-empty h3 { font-size: 22px; font-weight: 500; }
 .cart-empty p { font-size: 14px; color: var(--mute); max-width: 260px; line-height: 1.5; }
-.cart-empty a { margin-top: 6px; background: var(--orange); color: #fff; text-decoration: none; padding: 12px 22px; border-radius: 100px; font-size: 14px; font-weight: 500; }
+.cart-empty a { margin-top: 6px; background: var(--orange); color: #fff; text-decoration: none; padding: 12px 22px; border-radius: var(--r-pill); font-size: 14px; font-weight: 500; }
 .cart-foot { border-top: 1px solid var(--line-soft); padding: 16px 20px 20px; }
 .cart-row { display: flex; justify-content: space-between; align-items: baseline; padding: 4px 0; font-size: 14px; color: var(--ink-soft); }
 .cart-row.total { padding-top: 10px; font-size: 18px; font-weight: 500; color: var(--ink); font-family: var(--f-display); }
 .cart-row .price { font-family: var(--f-mono); }
 .cart-shipping-note { font-size: 11px; color: var(--mute); font-family: var(--f-mono); letter-spacing: 0.04em; margin: 8px 0 14px; line-height: 1.4; }
-.cart-checkout { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: var(--orange); color: #fff; text-decoration: none; border: none; cursor: pointer; padding: 16px 24px; border-radius: 100px; font-size: 15px; font-weight: 500; transition: background 0.2s; }
+.cart-checkout { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: var(--orange); color: #fff; text-decoration: none; border: none; cursor: pointer; padding: 16px 24px; border-radius: var(--r-pill); font-size: 15px; font-weight: 500; transition: background 0.2s; }
 .cart-checkout:hover { background: var(--orange-deep); }
 .cart-secure { text-align: center; font-size: 11px; color: var(--mute); font-family: var(--f-mono); letter-spacing: 0.08em; margin-top: 10px; text-transform: uppercase; }
 body.locked { overflow: hidden; }
@@ -668,25 +669,25 @@ body.locked { overflow: hidden; }
     <header class="page-header" id="intro">
       <div class="eyebrow">Mujo Icon Guide · v1.0 · April 2026</div>
       <h1 class="title">The icon system. <em>Every rule, every file.</em></h1>
-      <p class="lede">This document is the single source of truth for <strong>every icon used in any Mujo surface</strong> — website, packaging, social templates, emails, decks, partner co-marketing. It contains the six botanical illustrations in the working set, the functional markers (dots, arrows, stars), usage rules, size specs, and a commission brief for whoever extends the set later. <strong>If an icon isn't here, it's not in the system yet.</strong></p>
+      <p class="lede">This document is the single source of truth for <strong>every icon used in any Mujo surface</strong>: website, packaging, social templates, emails, decks, partner co-marketing. It contains the six botanical illustrations in the working set, the functional markers (dots, arrows, stars), usage rules, size specs, and a commission brief for whoever extends the set later. <strong>If an icon isn't here, it's not in the system yet.</strong></p>
     </header>
 
     <!-- ═══ PHILOSOPHY ═══ -->
     <section class="chunk" id="philosophy">
       <h2>Icon philosophy. <em>Quiet, organic, inevitable.</em></h2>
-      <p>Mujo's icon system takes its cues from the apothecary tradition — hand-drawn botanical illustrations that feel like they could be rendered on the inside cover of a 1920s herbal dispensatory, then pared back for a modern minimalist system. The guiding principles:</p>
+      <p>Mujo's icon system takes its cues from the apothecary tradition: hand-drawn botanical illustrations that feel like they could be rendered on the inside cover of a 1920s herbal dispensatory, then pared back for a modern minimalist system. The guiding principles:</p>
 
       <h4>1 / Ingredient-first</h4>
-      <p>Every primary icon is a <strong>real ingredient from the Mujo formula</strong>, not a generic symbol. "Calm focus" is Lion's Mane, not a brain. "Lower cortisol" is an Ashwagandha root, not a stress meter. This makes the visual system inseparable from the product — the icons teach the ingredient story even when the copy doesn't. It's also a competitive moat: no other brand's benefit icons look like this.</p>
+      <p>Every primary icon is a <strong>real ingredient from the Mujo formula</strong>, not a generic symbol. "Calm focus" is Lion's Mane, not a brain. "Lower cortisol" is an Ashwagandha root, not a stress meter. This makes the visual system inseparable from the product. The icons teach the ingredient story even when the copy doesn't. It's also a competitive moat: no other brand's benefit icons look like this.</p>
 
       <h4>2 / Single weight, single colour</h4>
-      <p>All botanical icons are drawn at <strong>1.1–1.2px stroke weight in sage (#2F3D33) on light backgrounds</strong>, or cream (#F3F2E9) on sage backgrounds. Never orange. Never filled. Never gradient. This restraint is what gives the system its editorial quality — the eye reads them as illustrations, not UI.</p>
+      <p>All botanical icons are drawn at <strong>1.1–1.2px stroke weight in sage (#2F3D33) on light backgrounds</strong>, or cream (#F3F2E9) on sage backgrounds. Never orange. Never filled. Never gradient. This restraint is what gives the system its editorial quality. The eye reads them as illustrations, not UI.</p>
 
       <h4>3 / Slight organic imperfection</h4>
-      <p>The icons use <strong>rounded line caps</strong> and slight variance in stroke — a curve that isn't perfectly regular, a leaf that's a touch asymmetric. This is the difference between "designed by a human who cared" and "generated by an icon library." Reinforce this if you commission more.</p>
+      <p>The icons use <strong>rounded line caps</strong> and slight variance in stroke: a curve that isn't perfectly regular, a leaf that's a touch asymmetric. This is the difference between "designed by a human who cared" and "generated by an icon library." Reinforce this if you commission more.</p>
 
       <h4>4 / Paired with DM Mono attribution</h4>
-      <p>When an icon represents an ingredient, it's paired with a DM Mono caption that names the ingredient ("Lion's Mane fruiting body · 8:1"). This is a specific brand pattern — it turns every benefit callout into a subtle ingredient credit. Use this pattern in every benefits section going forward.</p>
+      <p>When an icon represents an ingredient, it's paired with a DM Mono caption that names the ingredient ("Lion's Mane fruiting body · 8:1"). This is a specific brand pattern: it turns every benefit callout into a subtle ingredient credit. Use this pattern in every benefits section going forward.</p>
     </section>
 
     <!-- ═══ RULES ═══ -->
@@ -737,17 +738,17 @@ body.locked { overflow: hidden; }
       <h2>What's forbidden. <em>Don't even consider these.</em></h2>
       <p>A short list of things that are never acceptable in the Mujo icon system, even if someone suggests them:</p>
       <ul style="list-style: none; padding: 0; margin: 16px 0 24px;">
-        <li style="padding: 8px 0; border-bottom: 1px solid var(--line-soft); font-size: 14px; color: var(--ink-soft);"><strong style="color: var(--ink);">Emoji</strong> — render differently per device, no brand voice, wrong cultural register</li>
-        <li style="padding: 8px 0; border-bottom: 1px solid var(--line-soft); font-size: 14px; color: var(--ink-soft);"><strong style="color: var(--ink);">Generic icon libraries</strong> (Heroicons, Material Icons, Feather, Lucide, Font Awesome) — every competitor uses them</li>
-        <li style="padding: 8px 0; border-bottom: 1px solid var(--line-soft); font-size: 14px; color: var(--ink-soft);"><strong style="color: var(--ink);">Filled / solid shape icons</strong> — break the line-illustration register, read as enterprise software</li>
-        <li style="padding: 8px 0; border-bottom: 1px solid var(--line-soft); font-size: 14px; color: var(--ink-soft);"><strong style="color: var(--ink);">Gradient fills</strong> — always flat colour, never blended</li>
-        <li style="padding: 8px 0; border-bottom: 1px solid var(--line-soft); font-size: 14px; color: var(--ink-soft);"><strong style="color: var(--ink);">Orange as primary icon colour</strong> — orange is reserved for CTAs and italic accents only</li>
-        <li style="padding: 8px 0; border-bottom: 1px solid var(--line-soft); font-size: 14px; color: var(--ink-soft);"><strong style="color: var(--ink);">AI-generated icon sets</strong> — MidJourney or similar for icons — inconsistent, uncanny, identifiable as AI within the year</li>
-        <li style="padding: 8px 0; font-size: 14px; color: var(--ink-soft);"><strong style="color: var(--ink);">Stock illustrations</strong> — Shutterstock, Freepik, NounProject — traceable and used by every small brand</li>
+        <li style="padding: 8px 0; border-bottom: 1px solid var(--line-soft); font-size: 14px; color: var(--ink-soft);"><strong style="color: var(--ink);">Emoji</strong>: render differently per device, no brand voice, wrong cultural register</li>
+        <li style="padding: 8px 0; border-bottom: 1px solid var(--line-soft); font-size: 14px; color: var(--ink-soft);"><strong style="color: var(--ink);">Generic icon libraries</strong> (Heroicons, Material Icons, Feather, Lucide, Font Awesome): every competitor uses them</li>
+        <li style="padding: 8px 0; border-bottom: 1px solid var(--line-soft); font-size: 14px; color: var(--ink-soft);"><strong style="color: var(--ink);">Filled / solid shape icons</strong>: break the line-illustration register, read as enterprise software</li>
+        <li style="padding: 8px 0; border-bottom: 1px solid var(--line-soft); font-size: 14px; color: var(--ink-soft);"><strong style="color: var(--ink);">Gradient fills</strong>: always flat colour, never blended</li>
+        <li style="padding: 8px 0; border-bottom: 1px solid var(--line-soft); font-size: 14px; color: var(--ink-soft);"><strong style="color: var(--ink);">Orange as primary icon colour</strong>: orange is reserved for CTAs and italic accents only</li>
+        <li style="padding: 8px 0; border-bottom: 1px solid var(--line-soft); font-size: 14px; color: var(--ink-soft);"><strong style="color: var(--ink);">AI-generated icon sets</strong>, MidJourney or similar for icons: inconsistent, uncanny, identifiable as AI within the year</li>
+        <li style="padding: 8px 0; font-size: 14px; color: var(--ink-soft);"><strong style="color: var(--ink);">Stock illustrations</strong>, Shutterstock, Freepik, NounProject: traceable and used by every small brand</li>
       </ul>
     </section>
 
-    <!-- ═══ BOTANICAL ICONS — the six ═══ -->
+    <!-- ═══ BOTANICAL ICONS, the six ═══ -->
     <section class="chunk">
       <h2>The botanical set. <em>Six working icons.</em></h2>
       <p>These six icons form the primary Mujo working set, one for each of the six benefit stories and each mapped to a real ingredient in the formula. Copy the SVG code directly from any of the panels below to drop into a new page, email template, or deck. They're optimized for web, scale cleanly from 24px to 200px, and use only the Mujo sage colour token.</p>
@@ -966,13 +967,13 @@ body.locked { overflow: hidden; }
     <!-- ═══ FUNCTIONAL MARKERS ═══ -->
     <section class="chunk" id="markers">
       <h2>Functional markers. <em>The workhorse shapes.</em></h2>
-      <p>Beyond botanicals, Mujo uses four minimal functional markers for non-narrative UI purposes. These are never decorative — each has a specific job.</p>
+      <p>Beyond botanicals, Mujo uses four minimal functional markers for non-narrative UI purposes. These are never decorative. Each has a specific job.</p>
 
       <div class="marker-grid">
         <!-- Arrow -->
         <div class="marker-card" id="arrow">
           <div class="marker-demo">
-            <span style="font-family: var(--f-body); font-size: 14px; font-weight: 500; color: #fff; background: var(--orange); padding: 10px 20px; border-radius: 100px; display: inline-flex; align-items: center; gap: 8px;">Start Your Ritual <span style="font-size: 16px;">→</span></span>
+            <span style="font-family: var(--f-body); font-size: 14px; font-weight: 500; color: #fff; background: var(--orange); padding: 10px 20px; border-radius: var(--r-pill); display: inline-flex; align-items: center; gap: 8px;">Start your ritual <span style="font-size: 16px;">→</span></span>
           </div>
           <div class="marker-label">Unicode U+2192</div>
           <div class="marker-h">Right arrow →</div>
@@ -1023,10 +1024,10 @@ body.locked { overflow: hidden; }
       <h4>Structure</h4>
       <ol style="margin: 8px 0 20px 20px; padding: 0; font-size: 14px; color: var(--ink-soft); line-height: 1.75;">
         <li>Eyebrow: DM Mono, 11px, 0.2em letter-spacing, orange-deep (#D85A22), uppercase, with 22px horizontal rule accent before text</li>
-        <li>H2: General Sans 500, v2 scale clamp(26px, 2.8vw, 36px), with Instrument Serif italic orange accent flowing inline (no <code>&lt;br&gt;</code>)</li>
-        <li>Lede: General Sans 400, 16px, line-height 1.65, max-width 680px, center-aligned</li>
+        <li>H2: Hanken Grotesk 500, v2 scale clamp(26px, 2.8vw, 36px), with Instrument Serif italic orange accent flowing inline (no <code>&lt;br&gt;</code>)</li>
+        <li>Lede: Hanken Grotesk 400, 16px, line-height 1.65, max-width 680px, center-aligned</li>
         <li>Card grid: 3 columns desktop, 2 columns tablet, 1 column mobile, 16px gap</li>
-        <li>Each card contains: 48px botanical SVG → benefit h3 (General Sans 600, 19px) → 1-sentence body (14px, line-height 1.6) → DM Mono ingredient attribution (10px, 0.12em tracking)</li>
+        <li>Each card contains: 48px botanical SVG → benefit h3 (Hanken Grotesk 600, 19px) → 1-sentence body (14px, line-height 1.6) → DM Mono ingredient attribution (10px, 0.12em tracking)</li>
       </ol>
 
       <h4>Card container</h4>
@@ -1124,7 +1125,7 @@ body.locked { overflow: hidden; }
           <div class="size-spec">deep-dive sections</div>
           <div class="size-spec">editorial callouts</div>
           <div class="size-spec">social templates</div>
-          <p style="margin-top: 10px;">For prominent moments — ingredient spotlight blocks, single-benefit editorial cards, social post templates where the icon is the visual anchor.</p>
+          <p style="margin-top: 10px;">For prominent moments: ingredient spotlight blocks, single-benefit editorial cards, social post templates where the icon is the visual anchor.</p>
         </div>
       </div>
 
@@ -1218,7 +1219,7 @@ body.locked { overflow: hidden; }
       </div>
 
       <h3>Where to find someone</h3>
-      <p><strong>Dribbble</strong> (filter for "botanical, illustration, hand-drawn, apothecary"). <strong>Working Not Working</strong>. <strong>Contra</strong>. <strong>Behance</strong> — look for illustrators who've worked with apothecary or herbal brands. Portuguese illustrators often have a strong hand for this style if you want someone local. Ask to see sketch process and previous single-weight line work, not just final icon sets.</p>
+      <p><strong>Dribbble</strong> (filter for "botanical, illustration, hand-drawn, apothecary"). <strong>Working Not Working</strong>. <strong>Contra</strong>. <strong>Behance</strong>. Look for illustrators who've worked with apothecary or herbal brands. Portuguese illustrators often have a strong hand for this style if you want someone local. Ask to see sketch process and previous single-weight line work, not just final icon sets.</p>
     </section>
 
     <!-- ═══ NEW ICONS ═══ -->
@@ -1238,11 +1239,11 @@ body.locked { overflow: hidden; }
       <h4>4 / Priority candidates for v1.1</h4>
       <p>The icons most likely to be commissioned next:</p>
       <ul style="list-style: none; padding: 0; margin: 12px 0;">
-        <li style="padding: 8px 0; border-bottom: 1px solid var(--line-soft); font-size: 14px; color: var(--ink-soft);"><strong style="color: var(--ink);">ic-lemna</strong> · Lemna minor, floating leaf — for the Lemna Bar launch</li>
-        <li style="padding: 8px 0; border-bottom: 1px solid var(--line-soft); font-size: 14px; color: var(--ink-soft);"><strong style="color: var(--ink);">ic-maca</strong> · Lepidium meyenii root — high-altitude energy, hormonal balance</li>
-        <li style="padding: 8px 0; border-bottom: 1px solid var(--line-soft); font-size: 14px; color: var(--ink-soft);"><strong style="color: var(--ink);">ic-bacopa</strong> · Bacopa monnieri leaf — memory consolidation, learning</li>
-        <li style="padding: 8px 0; border-bottom: 1px solid var(--line-soft); font-size: 14px; color: var(--ink-soft);"><strong style="color: var(--ink);">ic-curcumin</strong> · Turmeric root — cognitive inflammation, mood (only if Bioavailable Curcumin gets a visual)</li>
-        <li style="padding: 8px 0; font-size: 14px; color: var(--ink-soft);"><strong style="color: var(--ink);">ic-coconut</strong> · C8/C10 MCT source — sustained cognitive energy</li>
+        <li style="padding: 8px 0; border-bottom: 1px solid var(--line-soft); font-size: 14px; color: var(--ink-soft);"><strong style="color: var(--ink);">ic-lemna</strong> · Lemna minor, floating leaf, for the Lemna Bar launch</li>
+        <li style="padding: 8px 0; border-bottom: 1px solid var(--line-soft); font-size: 14px; color: var(--ink-soft);"><strong style="color: var(--ink);">ic-maca</strong> · Lepidium meyenii root, high-altitude energy, hormonal balance</li>
+        <li style="padding: 8px 0; border-bottom: 1px solid var(--line-soft); font-size: 14px; color: var(--ink-soft);"><strong style="color: var(--ink);">ic-bacopa</strong> · Bacopa monnieri leaf, memory consolidation, learning</li>
+        <li style="padding: 8px 0; border-bottom: 1px solid var(--line-soft); font-size: 14px; color: var(--ink-soft);"><strong style="color: var(--ink);">ic-curcumin</strong> · Turmeric root, cognitive inflammation, mood (only if Bioavailable Curcumin gets a visual)</li>
+        <li style="padding: 8px 0; font-size: 14px; color: var(--ink-soft);"><strong style="color: var(--ink);">ic-coconut</strong> · C8/C10 MCT source, sustained cognitive energy</li>
       </ul>
     </section>
 

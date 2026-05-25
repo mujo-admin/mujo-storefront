@@ -6,7 +6,7 @@ import { QuizProvider, QuizPill, QuizSheet } from "components/MujoQuiz";
 import { ReactNode } from "react";
 import { Toaster } from "sonner";
 import "./globals.css";
-import { generalSans } from "./fonts";
+import { hanken } from "./fonts";
 import { getSession } from "lib/session";
 import { baseUrl } from "lib/utils";
 
@@ -35,15 +35,14 @@ export default async function RootLayout({
     : null;
 
   return (
-    <html lang="en" className={generalSans.variable}>
+    <html lang="en" className={hanken.variable}>
       <head>
         {/*
-          General Sans is self-hosted via next/font/local (see app/fonts.ts) —
-          Next emits @font-face + preload tags + a stable CSS variable
-          (--font-general-sans) that tokens.css consumes.
+          Hanken Grotesk (display + body) loads via next/font/google (app/fonts.ts),
+          which emits a stable CSS variable (--font-hanken) that tokens.css consumes.
 
-          Instrument Serif (italic accent) + DM Mono (eyebrow / footer) come
-          from Google Fonts via <link> — not LCP-critical.
+          Instrument Serif (rare editorial italic) + DM Mono (eyebrow / footer) come
+          from Google Fonts via <link>, not LCP-critical.
         */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -52,7 +51,7 @@ export default async function RootLayout({
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap"
           rel="stylesheet"
         />
       </head>

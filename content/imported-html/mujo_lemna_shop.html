@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Lemna Bar · Pre-order · Mujo</title>
 <meta name="description" content="Pre-order the Lemna Bar. Two flavors: Peanut Butter Crunch (17g protein) and Cashew Chocolate (14g protein). 7g fiber, under 250 calories, no natural flavors. Founding member pricing locked in. Ships summer 2026.">
-<link rel="preconnect" href="https://api.fontshare.com">
-<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
@@ -29,8 +27,8 @@
   --line: rgba(26, 26, 26, 0.09);
   --line-soft: rgba(26, 26, 26, 0.06);
 
-  --f-display: 'General Sans', -apple-system, sans-serif;
-  --f-body: 'General Sans', 'Helvetica Neue', sans-serif;
+  --f-display: 'Hanken Grotesk', -apple-system, sans-serif;
+  --f-body: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
   --f-serif: 'Instrument Serif', 'Times New Roman', serif;
   --f-mono: 'DM Mono', monospace;
 }
@@ -96,9 +94,9 @@ h1, h2, h3 {
   line-height: 1.1;
 }
 h1 em, h2 em, h3 em {
-  font-family: var(--f-serif);
+  font-family: inherit;
   font-style: italic;
-  color: var(--orange);
+  color: inherit;
   font-weight: 400;
 }
 
@@ -152,7 +150,7 @@ h1 em, h2 em, h3 em {
 .nav-logo {
   font-family: var(--f-display);
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--orange);
   letter-spacing: -0.04em;
   text-decoration: none;
@@ -170,7 +168,7 @@ h1 em, h2 em, h3 em {
   color: #fff;
   background: var(--orange);
   padding: 9px 20px;
-  border-radius: 100px;
+  border-radius: var(--r-pill);
   text-decoration: none;
   font-weight: 500;
   transition: background 0.2s;
@@ -216,7 +214,7 @@ h1 em, h2 em, h3 em {
   align-items: center;
   justify-content: center;
   margin-bottom: 16px;
-  border-radius: 20px;
+  border-radius: var(--r-structural);
   background: linear-gradient(160deg, var(--sand-deep) 0%, var(--sand) 100%);
   box-shadow: 0 24px 48px rgba(47, 61, 51, 0.12), 0 8px 16px rgba(47, 61, 51, 0.06);
 }
@@ -229,7 +227,7 @@ h1 em, h2 em, h3 em {
 .gallery-thumb {
   aspect-ratio: 1 / 1;
   background: var(--sand);
-  border-radius: 12px;
+  border-radius: var(--r-structural);
   border: 1.5px solid transparent;
   cursor: pointer;
   display: flex;
@@ -258,7 +256,7 @@ h1 em, h2 em, h3 em {
   font-weight: 500;
   background: var(--orange-soft);
   padding: 6px 14px;
-  border-radius: 100px;
+  border-radius: var(--r-tag);
   margin-bottom: 20px;
 }
 .info-tag-dot {
@@ -323,7 +321,7 @@ h1 em, h2 em, h3 em {
 .variant {
   background: #fff;
   border: 1.5px solid var(--line);
-  border-radius: 16px;
+  border-radius: var(--r-structural);
   padding: 18px 20px;
   cursor: pointer;
   transition: all 0.2s;
@@ -350,7 +348,7 @@ h1 em, h2 em, h3 em {
 .variant-name {
   font-family: var(--f-display);
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
   margin-bottom: 4px;
   letter-spacing: -0.01em;
 }
@@ -371,7 +369,7 @@ h1 em, h2 em, h3 em {
 .pack {
   background: #fff;
   border: 1.5px solid var(--line);
-  border-radius: 14px;
+  border-radius: var(--r-structural);
   padding: 16px 14px;
   text-align: center;
   cursor: pointer;
@@ -393,14 +391,14 @@ h1 em, h2 em, h3 em {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   padding: 3px 10px;
-  border-radius: 100px;
+  border-radius: var(--r-tag);
   font-weight: 500;
   white-space: nowrap;
 }
 .pack-count {
   font-family: var(--f-display);
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: -0.02em;
   color: var(--ink);
   margin-bottom: 2px;
@@ -416,7 +414,7 @@ h1 em, h2 em, h3 em {
 .pack-price {
   font-family: var(--f-display);
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--orange-deep);
 }
 .pack-saving {
@@ -430,7 +428,7 @@ h1 em, h2 em, h3 em {
 /* Pricing block */
 .price-block {
   background: var(--sand);
-  border-radius: 16px;
+  border-radius: var(--r-structural);
   padding: 24px 28px;
   margin-bottom: 24px;
 }
@@ -443,7 +441,7 @@ h1 em, h2 em, h3 em {
 .price-amount {
   font-family: var(--f-display);
   font-size: 36px;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: -0.03em;
   color: var(--ink);
 }
@@ -462,7 +460,7 @@ h1 em, h2 em, h3 em {
   color: var(--orange-deep);
   background: var(--orange-soft);
   padding: 4px 10px;
-  border-radius: 100px;
+  border-radius: var(--r-tag);
   font-weight: 500;
   margin-bottom: 10px;
 }
@@ -484,7 +482,7 @@ h1 em, h2 em, h3 em {
   background: var(--orange);
   color: #fff;
   padding: 18px 28px;
-  border-radius: 100px;
+  border-radius: var(--r-pill);
   font-family: var(--f-display);
   font-weight: 500;
   font-size: 17px;
@@ -577,14 +575,14 @@ h1 em, h2 em, h3 em {
 }
 .macro-card {
   background: var(--sage-mid);
-  border-radius: 18px;
+  border-radius: var(--r-structural);
   padding: 32px 24px;
   text-align: center;
 }
 .macro-num {
   font-family: var(--f-display);
   font-size: clamp(32px, 4vw, 48px);
-  font-weight: 700;
+  font-weight: 500;
   color: var(--orange);
   letter-spacing: -0.04em;
   line-height: 1;
@@ -662,7 +660,7 @@ h1 em, h2 em, h3 em {
 }
 .ing-row {
   background: #fff;
-  border-radius: 12px;
+  border-radius: var(--r-structural);
   padding: 18px 22px;
   border: 1px solid var(--line-soft);
   display: grid;
@@ -686,7 +684,7 @@ h1 em, h2 em, h3 em {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 8px;
+  border-radius: var(--r-structural);
   background: var(--sand);
   font-family: var(--f-mono);
   font-size: 8px;
@@ -703,7 +701,7 @@ h1 em, h2 em, h3 em {
 .ing-name {
   font-family: var(--f-display);
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: -0.01em;
 }
 .ing-tag {
@@ -714,7 +712,7 @@ h1 em, h2 em, h3 em {
   background: var(--sage-tint);
   color: var(--sage);
   padding: 2px 7px;
-  border-radius: 100px;
+  border-radius: var(--r-tag);
   font-weight: 500;
 }
 @media (max-width: 800px) {
@@ -753,7 +751,7 @@ h1 em, h2 em, h3 em {
 }
 .fit-card {
   background: var(--cream);
-  border-radius: 16px;
+  border-radius: var(--r-structural);
   padding: 32px 24px;
   text-align: left;
   border: 1px solid var(--line-soft);
@@ -761,7 +759,7 @@ h1 em, h2 em, h3 em {
 .fit-num {
   font-family: var(--f-display);
   font-size: 32px;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--orange);
   letter-spacing: -0.03em;
   line-height: 1;
@@ -770,7 +768,7 @@ h1 em, h2 em, h3 em {
 .fit-h {
   font-family: var(--f-display);
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 500;
   margin-bottom: 8px;
   letter-spacing: -0.01em;
 }
@@ -808,7 +806,7 @@ h1 em, h2 em, h3 em {
 .not-pill {
   background: var(--sand);
   border: 1px solid var(--line);
-  border-radius: 100px;
+  border-radius: var(--r-tag);
   padding: 8px 16px;
   font-family: var(--f-display);
   font-size: 13px;
@@ -844,7 +842,7 @@ h1 em, h2 em, h3 em {
 .faq-list { display: flex; flex-direction: column; gap: 10px; }
 .faq-item {
   background: var(--cream);
-  border-radius: 14px;
+  border-radius: var(--r-structural);
   padding: 20px 28px;
   cursor: pointer;
   border: 1px solid transparent;
@@ -859,7 +857,7 @@ h1 em, h2 em, h3 em {
   cursor: pointer;
   font-family: var(--f-display);
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--ink);
   letter-spacing: -0.005em;
 }
@@ -894,7 +892,7 @@ h1 em, h2 em, h3 em {
 .footer-logo {
   font-family: var(--f-display);
   font-size: 28px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--orange);
   letter-spacing: -0.04em;
   margin-bottom: 12px;
@@ -938,8 +936,8 @@ h1 em, h2 em, h3 em {
   --sage-tint: rgba(47, 61, 51, 0.08);
   --ink: #1A1A1A; --ink-soft: #4A4845; --mute: #5C5854;
   --line: rgba(26, 26, 26, 0.09); --line-soft: rgba(26, 26, 26, 0.06);
-  --f-display: 'General Sans', -apple-system, sans-serif;
-  --f-body: 'General Sans', 'Helvetica Neue', sans-serif;
+  --f-display: 'Hanken Grotesk', -apple-system, sans-serif;
+  --f-body: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
   --f-serif: 'Instrument Serif', 'Times New Roman', serif;
   --f-mono: 'DM Mono', monospace;
   --nav-h: 64px;
@@ -968,7 +966,7 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .nav-icon { width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; border: none; background: transparent; color: var(--ink); cursor: pointer; text-decoration: none; position: relative; border-radius: 50%; transition: background 0.2s; }
 .nav-icon:hover { background: var(--sage-tint); }
 .nav-icon svg { width: 20px; height: 20px; }
-.cart-count { position: absolute; top: 4px; right: 4px; background: var(--orange); color: #fff; font-family: var(--f-mono); font-size: 9px; font-weight: 500; min-width: 16px; height: 16px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; padding: 0 4px; line-height: 1; }
+.cart-count { position: absolute; top: 4px; right: 4px; background: var(--orange); color: #fff; font-family: var(--f-mono); font-size: 9px; font-weight: 500; min-width: 16px; height: 16px; border-radius: var(--r-tag); display: inline-flex; align-items: center; justify-content: center; padding: 0 4px; line-height: 1; }
 .cart-count.hidden { display: none; }
 .menu-overlay { position: fixed; inset: 0; background: rgba(26,26,26,0.5); z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
 .menu-overlay.open { opacity: 1; pointer-events: auto; }
@@ -985,7 +983,7 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .mm-foot { padding: 24px; background: var(--sage); color: #fff; }
 .mm-foot-eyebrow { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); margin-bottom: 10px; }
 .mm-foot p { font-size: 14px; line-height: 1.55; color: rgba(255,255,255,0.7); margin-bottom: 16px; }
-.mm-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--orange); color: #fff; text-decoration: none; padding: 12px 20px; border-radius: 100px; font-size: 14px; font-weight: 500; }
+.mm-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--orange); color: #fff; text-decoration: none; padding: 12px 20px; border-radius: var(--r-pill); font-size: 14px; font-weight: 500; }
 .cart-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(440px, 100vw); background: var(--cream); z-index: 999; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; box-shadow: -20px 0 60px rgba(0,0,0,0.1); }
 .cart-drawer.open { transform: translateX(0); }
 .cart-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); }
@@ -1003,11 +1001,11 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .cart-progress-fill.full { background: var(--sage); }
 .cart-body { flex: 1; overflow-y: auto; padding: 8px 20px; }
 .cart-item { display: grid; grid-template-columns: 72px 1fr auto; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--line-soft); }
-.cart-item-img { width: 72px; height: 72px; background: var(--sand); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; }
+.cart-item-img { width: 72px; height: 72px; background: var(--sand); border-radius: var(--r-structural); display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; }
 .cart-item-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .cart-item-name { font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.3; }
 .cart-item-variant { font-size: 12px; color: var(--mute); margin-bottom: 6px; }
-.cart-item-controls { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 100px; background: #fff; width: fit-content; margin-top: auto; }
+.cart-item-controls { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: var(--r-pill); background: #fff; width: fit-content; margin-top: auto; }
 .qty-btn { width: 28px; height: 28px; background: transparent; border: none; cursor: pointer; font-size: 14px; color: var(--ink-soft); display: inline-flex; align-items: center; justify-content: center; }
 .qty-val { font-family: var(--f-mono); font-size: 12px; min-width: 24px; text-align: center; }
 .cart-item-meta { display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; text-align: right; }
@@ -1017,13 +1015,13 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .cart-empty-illo { font-size: 52px; opacity: 0.5; }
 .cart-empty h3 { font-size: 22px; font-weight: 500; }
 .cart-empty p { font-size: 14px; color: var(--mute); max-width: 260px; line-height: 1.5; }
-.cart-empty a { margin-top: 6px; background: var(--orange); color: #fff; text-decoration: none; padding: 12px 22px; border-radius: 100px; font-size: 14px; font-weight: 500; }
+.cart-empty a { margin-top: 6px; background: var(--orange); color: #fff; text-decoration: none; padding: 12px 22px; border-radius: var(--r-pill); font-size: 14px; font-weight: 500; }
 .cart-foot { border-top: 1px solid var(--line-soft); padding: 16px 20px 20px; }
 .cart-row { display: flex; justify-content: space-between; align-items: baseline; padding: 4px 0; font-size: 14px; color: var(--ink-soft); }
 .cart-row.total { padding-top: 10px; font-size: 18px; font-weight: 500; color: var(--ink); font-family: var(--f-display); }
 .cart-row .price { font-family: var(--f-mono); }
 .cart-shipping-note { font-size: 11px; color: var(--mute); font-family: var(--f-mono); letter-spacing: 0.04em; margin: 8px 0 14px; line-height: 1.4; }
-.cart-checkout { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: var(--orange); color: #fff; text-decoration: none; border: none; cursor: pointer; padding: 16px 24px; border-radius: 100px; font-size: 15px; font-weight: 500; transition: background 0.2s; }
+.cart-checkout { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: var(--orange); color: #fff; text-decoration: none; border: none; cursor: pointer; padding: 16px 24px; border-radius: var(--r-pill); font-size: 15px; font-weight: 500; transition: background 0.2s; }
 .cart-checkout:hover { background: var(--orange-deep); }
 .cart-secure { text-align: center; font-size: 11px; color: var(--mute); font-family: var(--f-mono); letter-spacing: 0.08em; margin-top: 10px; text-transform: uppercase; }
 body.locked { overflow: hidden; }
@@ -1106,7 +1104,7 @@ body.locked { overflow: hidden; }
     <div class="gallery">
       <div class="gallery-main">
         <div class="placeholder-label">
-          <span class="title">The Lemna Bar — hero photograph</span>
+          <span class="title">The Lemna Bar: hero photograph</span>
           <span class="spec">Product photography · square 1:1 · macro detail of texture · natural light · NOT illustration</span>
         </div>
       </div>
@@ -1204,8 +1202,7 @@ body.locked { overflow: hidden; }
 <section class="macros-section">
   <div class="macros-inner">
     <div class="macros-header">
-      <div class="eyebrow">The macros</div>
-      <h2>What's in every bar. <em>The full count.</em></h2>
+      <h2 style="margin-top: 38px;">What's in every bar. <em>The full count.</em></h2>
       <p>We don't hide the numbers. The bar earns its place on macros, not just on the ingredient story.</p>
     </div>
 
@@ -1242,8 +1239,7 @@ body.locked { overflow: hidden; }
 <section class="ing-block">
   <div class="ing-inner">
     <div class="ing-header">
-      <div class="eyebrow">Every ingredient, named</div>
-      <h2>The full list. <em>And what each ingredient is doing here.</em></h2>
+      <h2 style="margin-top: 38px;">The full list. <em>And what each ingredient is doing here.</em></h2>
       <p>Real food, real amounts, real reasons. If we can't explain why an ingredient is in the formula, it's not in the formula.</p>
       <a href="/ingredients" class="ing-link">Read the full ingredient dossier →</a>
     </div>
@@ -1452,7 +1448,7 @@ body.locked { overflow: hidden; }
 
       <details class="faq-item">
         <summary>Is it vegan?</summary>
-        <div class="faq-answer"><strong>Peanut Butter Crunch is fully vegan</strong> (uses date syrup as the binder). <strong>Cashew Chocolate is vegetarian but not vegan</strong> (uses raw honey).</div>
+        <div class="faq-answer"><strong>Peanut Butter Crunch is fully vegan</strong> (uses date syrup as the binder). Cashew Chocolate is vegetarian but not vegan (uses raw honey).</div>
       </details>
 
       <details class="faq-item">
