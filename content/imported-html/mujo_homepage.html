@@ -487,6 +487,19 @@ body.locked { overflow: hidden; }
 .hero-stars { color: var(--orange); letter-spacing: 2px; font-size: 13px; }
 .hero-rating strong { color: var(--ink); font-weight: 500; }
 
+/* Risk-reversal line under the hero CTA */
+.hero-guarantee {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  font-family: var(--f-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+.hero-guarantee svg { width: 18px; height: 18px; color: var(--orange-deep); flex-shrink: 0; }
+
 .hero-audience {
   margin-top: 16px;
   font-family: var(--f-serif);
@@ -585,7 +598,9 @@ body.locked { overflow: hidden; }
   /* Move the "#1 wellness trend" box out of the hero on mobile — it shows as a
      banner after the hero instead (keeps the hero compact + centered). */
   .hero-pullquote { display: none; }
-  .hero-text .eyebrow { color: #fff; opacity: 0.9; }
+  /* Drop the eyebrow on mobile — the pills above the headline now carry the
+     "what it does," so this de-clutters the hero (desktop keeps the eyebrow). */
+  .hero-text .eyebrow { display: none; }
   .hero h1 { color: #fff; }
   .hero-sub { color: rgba(255,255,255,0.9); }
   .hero-rating { border-top-color: rgba(255,255,255,0.22); color: rgba(255,255,255,0.8); }
@@ -598,6 +613,8 @@ body.locked { overflow: hidden; }
      readable on top of the dark hero image. */
   .hero .hero-pill { background: rgba(255,255,255,0.92); color: var(--ink); }
   .hero .cta-pill { background: rgba(255,255,255,0.92); color: var(--ink); }
+  /* Guarantee line: light text on the dark image (shield stays orange). */
+  .hero-guarantee { color: rgba(255,255,255,0.9); }
 }
 
 /* "#1 wellness trend" banner — desktop keeps the quote inside the hero; on mobile
@@ -1940,16 +1957,23 @@ footer {
   <div class="hero-grid">
     <div class="hero-text">
       <div class="eyebrow reveal">Modern performance without the crash</div>
-      <h1 class="reveal d1">For a nervous system that's been <span class="serif-acc">running hot.</span></h1>
-      <p class="hero-sub reveal d2">Caffeine-free mushroom-adaptogen cacao dosed to the research. Tastes so good you won't want to skip it.</p>
-      <div class="hero-pills reveal d3">
+      <div class="hero-pills reveal d1">
         <span class="hero-pill">Energy</span>
         <span class="hero-pill">Focus</span>
         <span class="hero-pill">Neurowellness</span>
       </div>
+      <h1 class="reveal d1">For a nervous system that's been <span class="serif-acc">running hot.</span></h1>
+      <p class="hero-sub reveal d2">Caffeine-free mushroom-adaptogen cacao dosed to the research. Tastes so good you won't want to skip it.</p>
       <div class="ctas reveal d4">
         <a href="/products/mujo-ritual" class="btn btn-primary">Shop the Ritual Cacao <span class="arrow">→</span></a>
-        <a href="/lemna" class="btn btn-ghost">Lemna Protein Bars <span class="cta-pill">Coming soon</span></a>
+      </div>
+      <!-- Lemna Protein Bars CTA removed from the hero 2026-05-25 — restore when pre-sale opens. -->
+      <div class="hero-guarantee reveal d4">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 2 4 5v6c0 5 3.4 8.4 8 10 4.6-1.6 8-5 8-10V5l-8-3z" />
+          <path d="M9 12l2 2 4-4" />
+        </svg>
+        30-day money-back guarantee
       </div>
       <div class="hero-rating reveal d4">
         <div class="hero-stars">★★★★★</div>
