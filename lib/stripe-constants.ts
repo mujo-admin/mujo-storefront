@@ -7,7 +7,7 @@
 export const SHIPPING_RATE_FREE_ID = process.env.STRIPE_SHIPPING_FREE_ID ?? '';
 export const SHIPPING_RATE_FLAT_ID = process.env.STRIPE_SHIPPING_FLAT_ID ?? '';
 
-export const FREE_SHIPPING_THRESHOLD_CENTS = 5000;
+export const FREE_SHIPPING_THRESHOLD_CENTS = 10000;
 
 // Ritual Stripe Price IDs — populated by scripts/fetch-ritual-price-ids.mjs.
 // Mirrored to NEXT_PUBLIC_* for client-side consumption by the PDP buy box.

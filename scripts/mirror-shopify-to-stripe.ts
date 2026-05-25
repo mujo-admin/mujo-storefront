@@ -57,7 +57,10 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const SUB_INTERVAL: Stripe.PriceCreateParams.Recurring.Interval = 'month';
 const SUB_INTERVAL_COUNT = 1;
-const FREE_SHIPPING_THRESHOLD_CENTS = 5000;
+// Free-shipping order minimum, in cents. $100 per Kinga (2026-05-25).
+// NOTE: changing this only updates NEWLY-created Stripe shipping rates — re-run
+// this mirror (and at the Live-mode cutover) to update the live rate's minimum.
+const FREE_SHIPPING_THRESHOLD_CENTS = 10000;
 
 // Stripe tax_code by Shopify handle. Powdered drink mix → 1% IL grocery rate
 // per project_stripe_tax_and_portal memory. Apparel → txcd_30070001 (clothing,

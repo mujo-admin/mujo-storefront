@@ -111,24 +111,24 @@ type PriceIdResolution = Pick<
   | 'isSubscription'
 >;
 
-// Image paths point at slots in public/images/products/. If a file is missing
-// the cart drawer falls back to /og-default.png — Phase 4 imagery sprint
-// (apparel /batch-produce) populates the real shots.
+// Cart line-item thumbnails — point at the real primary-colorway hero shots in
+// public/images/products/merch/. (The old /images/products/mujo-*.webp paths
+// never existed and rendered a broken-image box.) Falls back to 🍵 if missing.
 const MERCH_IMAGES: Record<MerchHandleSlug, { url: string; alt: string }> = {
   'mujo-frother': {
-    url: '/images/products/mujo-frother.webp',
+    url: '/images/products/merch/mujo-frother-pdp-editorial-4x5.webp',
     alt: 'Matte black electric milk frother',
   },
   'mujo-hat': {
-    url: '/images/products/mujo-hat.webp',
+    url: '/images/products/merch/mujo-hat-hero-editorial-1x1.webp',
     alt: 'Mujo baseball hat with embroidered mark',
   },
   'mujo-tee': {
-    url: '/images/products/mujo-tee.webp',
-    alt: 'Mujo cotton tee with embroidered wordmark',
+    url: '/images/products/merch/mujo-tee-hero-editorial-1x1.webp',
+    alt: 'Mujo cotton T-shirt with embroidered wordmark',
   },
   'mujo-crew': {
-    url: '/images/products/mujo-crew.webp',
+    url: '/images/products/merch/mujo-crew-hero-editorial-1x1.webp',
     alt: 'Mujo crew neck sweatshirt',
   },
 };

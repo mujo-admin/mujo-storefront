@@ -417,7 +417,7 @@ footer.mujo-foot {
 <body>
 
 <div class="announce">
-  Free shipping over <strong>$60</strong>
+  Free shipping over <strong>$100</strong>
   <span class="sep announce-secondary">·</span>
   <span class="announce-secondary">Use <strong>WELCOME10</strong> for 10% off your first order</span>
 </div>
@@ -478,7 +478,7 @@ footer.mujo-foot {
     </button>
   </div>
   <div class="cart-progress">
-    <div class="cart-progress-msg" id="progressMsg">Free shipping at <strong>$60</strong>.</div>
+    <div class="cart-progress-msg" id="progressMsg">Free shipping at <strong>$100</strong>.</div>
     <div class="cart-progress-track"><div class="cart-progress-fill" id="progressFill" style="width: 0%;"></div></div>
   </div>
   <div class="cart-body" id="cartBody"></div>
@@ -747,7 +747,7 @@ function renderCart() {
   const fill = document.getElementById('progressFill');
   const msg = document.getElementById('progressMsg');
   fill.style.width = pct + '%';
-  if (count === 0) { fill.classList.remove('full'); msg.innerHTML = 'Free shipping at <strong>$60</strong>.'; }
+  if (count === 0) { fill.classList.remove('full'); msg.innerHTML = 'Free shipping at <strong>$100</strong>.'; }
   else if (remaining <= 0) { fill.classList.add('full'); msg.innerHTML = '<strong>Free shipping</strong> unlocked. Nice work.'; }
   else { fill.classList.remove('full'); msg.innerHTML = '<span class="accent">' + fmt(remaining) + '</span> away from <strong>free shipping</strong>.'; }
 

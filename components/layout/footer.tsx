@@ -83,12 +83,8 @@ export function Footer() {
                 Join Rebel Club →
               </button>
             </form>
-            <div className="foot-tribes">
-              <span className="foot-tribes-label">Pick a tribe:</span>
-              <Link href="/rebel-club#tribes" className="foot-tribe-chip">Mujo Mamis</Link>
-              <Link href="/rebel-club#tribes" className="foot-tribe-chip">Mujo Padel Club</Link>
-              <Link href="/rebel-club#tribes" className="foot-tribe-chip">Mujo Creatives</Link>
-            </div>
+            {/* "Pick a tribe" chips removed 2026-05-25 — confusing without context.
+                "About the Club" link kept so people can learn more. */}
             <a
               href="/rebel-club"
               style={{
@@ -108,7 +104,10 @@ export function Footer() {
             title="Shop"
             links={[
               { href: "/products/mujo-ritual", label: "Mujo Ritual" },
-              { href: "/products/lemna", label: "Lemna Bar" },
+              // Points to the /lemna landing — the pre-order PDP (/products/lemna)
+              // is hidden until launch (see next.config.ts redirects). Restore to
+              // /products/lemna when pre-orders open.
+              { href: "/lemna", label: "Lemna Bar" },
               { href: "/shop", label: "Subscribe & save" },
               { href: "/rebel-club", label: "Rebel Club" },
             ]}

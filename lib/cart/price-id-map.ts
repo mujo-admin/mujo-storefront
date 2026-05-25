@@ -26,9 +26,15 @@ type PriceIdResolution = Pick<
   | 'isSubscription'
 >;
 
-const RITUAL_IMAGE = {
-  url: '/products/mujo-ritual-25-servings.png',
-  alt: 'The Mujo Ritual canister, 25 servings',
+// Cart line-item thumbnails. Point at real square masters in public/images —
+// the old /products/*.png paths didn't exist and rendered a broken-image box.
+const RITUAL_IMAGE_25 = {
+  url: '/images/products/ritual/ritual-pouch-hero-monumental-editorial-1x1.webp',
+  alt: 'The Mujo Ritual pouch',
+};
+const RITUAL_IMAGE_10 = {
+  url: '/images/products/ritual/ritual-pouch-10-serving-hero-monumental-editorial-1x1.webp',
+  alt: 'The Mujo Ritual pouch, 10 servings',
 };
 
 type RitualKey = keyof typeof RITUAL_PRICE_IDS;
@@ -40,7 +46,7 @@ const RITUAL_LINES: Record<RitualKey, PriceIdResolution> = {
     productHandle: 'mujo-ritual',
     productTitle: 'The Ritual',
     variantTitle: '10 servings · One-time',
-    image: RITUAL_IMAGE,
+    image: RITUAL_IMAGE_10,
     unitAmountCents: 2700,
     currency: 'usd',
     isSubscription: false,
@@ -49,7 +55,7 @@ const RITUAL_LINES: Record<RitualKey, PriceIdResolution> = {
     productHandle: 'mujo-ritual',
     productTitle: 'The Ritual',
     variantTitle: '25 servings · One-time',
-    image: RITUAL_IMAGE,
+    image: RITUAL_IMAGE_25,
     unitAmountCents: 6500,
     currency: 'usd',
     isSubscription: false,
@@ -58,7 +64,7 @@ const RITUAL_LINES: Record<RitualKey, PriceIdResolution> = {
     productHandle: 'mujo-ritual',
     productTitle: 'The Ritual',
     variantTitle: '25 servings · Subscribe & save',
-    image: RITUAL_IMAGE,
+    image: RITUAL_IMAGE_25,
     unitAmountCents: 5525,
     currency: 'usd',
     isSubscription: true,

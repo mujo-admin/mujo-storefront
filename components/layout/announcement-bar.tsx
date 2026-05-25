@@ -17,7 +17,7 @@ const DEFAULT_LINES: AnnouncementLine[] = [
   {
     primary: (
       <>
-        Free shipping over <strong>$60</strong>
+        Free shipping over <strong>$100</strong>
       </>
     ),
     secondary: (

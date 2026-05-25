@@ -108,6 +108,25 @@ const config: NextConfig = {
         destination: "/ambassador",
         permanent: true,
       },
+      // ── Lemna pre-order pages HIDDEN until pre-orders launch (2026-05-25) ──
+      // The pre-order PDP (/products/lemna) and its shop spoke (/lemna/shop) are
+      // parked until Kinga opens pre-orders. The /lemna landing stays live.
+      // Source is preserved + editable at:
+      //   content/imported-html/mujo_lemna_bar_shop_pdp.html
+      //   (rendered by app/products/lemna/page.tsx)
+      // TO UN-HIDE AT LAUNCH: delete these two redirects and restore the footer
+      // "Lemna Bar" link to /products/lemna. permanent:false (307) so nothing
+      // caches the hide.
+      {
+        source: "/products/lemna",
+        destination: "/lemna",
+        permanent: false,
+      },
+      {
+        source: "/lemna/shop",
+        destination: "/lemna",
+        permanent: false,
+      },
       // /account, /account/login*, /account/expired all live as real routes
       // post-Phase-3 (2026-05-07). Phase 5 fills out /account/{orders,
       // subscription, profile, payment-method}. No redirects needed.

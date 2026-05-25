@@ -167,7 +167,7 @@ function BuyBox({ size, plan, setSize, setPlan, onAddToCart, pending }: Shared) 
           <span className="atc-btn-price">{headline}</span>
         </button>
         <div className="atc-trust">
-          <div className="atc-trust-item">Free shipping over $60</div>
+          <div className="atc-trust-item">Free shipping over $100</div>
           <div className="atc-trust-item">30-day money back</div>
         </div>
       </div>

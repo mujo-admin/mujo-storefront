@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import { useCart } from "components/cart/cart-context";
 import {
   freeShippingProgress,
-  shippingCents,
   subtotalCents,
 } from "lib/cart/pricing";
 import { FREE_SHIPPING_THRESHOLD_CENTS } from "lib/stripe-constants";
@@ -30,7 +29,10 @@ function formatMoneyCents(cents: number): string {
  * <CartDrawer /> — slide-from-right cart drawer.
  * Reads cart from useCart() — Mujo on-site cart, keyed off Stripe Price IDs.
  * Free-shipping threshold reads from FREE_SHIPPING_THRESHOLD_CENTS in
- * lib/stripe-constants.ts (single source of truth, currently $50).
+ * lib/stripe-constants.ts (single source of truth, currently $100).
+ * Shipping itself is applied by Stripe at checkout (shipping_options + the
+ * free-rate order minimum), so the drawer Total = subtotal — no flat fee is
+ * added here, and the Shipping line reads "Calculated at checkout".
  */
 export function CartDrawer({ open, onClose }: CartDrawerProps) {
   const { cart, totalQuantity, updateQuantity, removeItem } = useCart();
@@ -44,8 +46,9 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
   }, [open, onClose]);
 
   const subtotal = subtotalCents(cart);
-  const shipping = shippingCents(subtotal);
-  const total = subtotal + shipping;
+  // Shipping is applied by Stripe at checkout — don't add a phantom flat fee
+  // to the drawer Total (that was the "$27 item shows $32" confusion).
+  const total = subtotal;
   const { remainingCents, pct, unlocked } = freeShippingProgress(subtotal);
   const empty = totalQuantity === 0;
 

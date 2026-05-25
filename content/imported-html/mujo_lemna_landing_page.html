@@ -388,9 +388,10 @@ h1 em, h2 em, h3 em {
 }
 .recog-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 24px;
-  margin-bottom: 48px;
+  max-width: 880px;
+  margin: 0 auto 48px;
 }
 .recog-bubble {
   background: var(--cream);
@@ -893,6 +894,25 @@ h1 em, h2 em, h3 em {
 @media (max-width: 480px) {
   .not-grid { grid-template-columns: 1fr; }
 }
+/* What's IN it — same format as "what's not in it", positive (sage check, cream bg) */
+.in-it { background: var(--cream); }
+.in-it .not-item::before { content: '✓'; color: var(--sage); }
+/* Flavor-reveal teaser banner */
+.flavor-reveal {
+  background: var(--sage);
+  color: var(--cream);
+  padding: 72px 32px;
+  text-align: center;
+}
+.flavor-reveal .eyebrow { color: var(--sage-light); }
+.flavor-reveal h2 {
+  font-size: clamp(28px, 4vw, 44px);
+  letter-spacing: -0.025em;
+  margin: 10px 0 14px;
+  color: #fff;
+}
+.flavor-reveal h2 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.flavor-reveal p { font-size: 16px; line-height: 1.6; color: rgba(255,255,255,0.78); max-width: 520px; margin: 0 auto; }
 
 /* ═══════════ PANEL 7, FLAVORS ═══════════ */
 .flavors {
@@ -1573,7 +1593,7 @@ body.locked { overflow: hidden; }
         Founding member access · Summer 2026
       </div>
       <h1>The world's first protein bar made with <em>Lemna leaf.</em></h1>
-      <p class="hero-lede">14 to 17g of complete protein. Real ingredients you can name. <strong>No natural flavors. No sugar alcohols. No isolates.</strong> Built around a plant most people have never heard of, that quietly outperforms every protein source on the planet.</p>
+      <p class="hero-lede">15g of protein. Ingredients you can name. <strong>No natural flavors or sugar alcohols.</strong> Built around a low-key water plant that outperforms every protein source on the planet.</p>
 
       <form class="signup-form" id="heroForm" onsubmit="return submitHeroForm(event);">
         <div class="signup-row">
@@ -1581,7 +1601,6 @@ body.locked { overflow: hidden; }
           <button type="submit" class="signup-btn">Reserve →</button>
         </div>
         <div class="signup-incentive">15% off your first order as a founding member</div>
-        <p class="signup-fineprint">No spam. We'll only email you for the launch and the occasional honest update.</p>
         <div class="hero-success" id="heroSuccess" style="display:none;">
           <strong>You're on the founding list.</strong> Check your inbox for confirmation, the launch link arrives summer 2026.
         </div>
@@ -1596,13 +1615,7 @@ body.locked { overflow: hidden; }
     </div>
   </div>
 
-  <div class="hero-trust">
-    <div class="trust-item">14-17g complete protein</div>
-    <div class="trust-item">Under 250 calories</div>
-    <div class="trust-item">7g real fiber</div>
-    <div class="trust-item">No natural flavors</div>
-    <div class="trust-item">No isolates</div>
-  </div>
+  <!-- hero-trust bullet row removed 2026-05-25 per Kinga (duplicated the lede; carried stale 14-17g / no-isolates claims) -->
 </section>
 
 <!-- ═══════════ PANEL 2, RECOGNITION ═══════════ -->
@@ -1610,62 +1623,34 @@ body.locked { overflow: hidden; }
   <div class="recog-inner">
     <div class="recog-header">
       <div class="eyebrow">Why we built this</div>
-      <h2>Most protein bars have a problem.</h2>
-      <p class="recog-sub">You've probably noticed. You just haven't named it.</p>
+      <h2>A bar your body actually likes.</h2>
+      <p class="recog-sub">A plant-based protein bar without allergens or gut-unfriendly ingredients, that actually tastes like a treat and is nice to your waistline. GLP-1 friendly.</p>
     </div>
 
     <div class="recog-grid">
       <div class="recog-bubble">
-        <div class="recog-tag">Texture</div>
-        <!-- IMAGE: Founder sketch · chalky bar texture · 3:4 portrait -->
-        <div class="recog-sketch placeholder" aria-label="Founder sketch · chalky texture"></div>
-        <div class="recog-line">It tastes like chalk pretending to be chocolate.</div>
-        <div class="recog-why">Whey isolate + sucralose, every time.</div>
+        <div class="recog-tag">Protein</div>
+        <div class="recog-line">High-quality protein</div>
+        <div class="recog-desc" style="font-size:14px;line-height:1.55;color:var(--ink-soft);">Made with Lemna leaf protein, a complete protein with a perfect digestibility score. Fully vegan and gluten-free. No added collagen (an incomplete protein) to game the label into a higher number without the benefit.</div>
+      </div>
+
+      <div class="recog-bubble">
+        <div class="recog-tag">Taste</div>
+        <div class="recog-line">Texture and taste</div>
+        <div class="recog-desc" style="font-size:14px;line-height:1.55;color:var(--ink-soft);">Tastes like a real treat. No weird aftertaste, no chalky texture.</div>
       </div>
 
       <div class="recog-bubble">
         <div class="recog-tag">Gut</div>
-        <!-- IMAGE: Founder sketch · 2pm gut discomfort · 3:4 portrait -->
-        <div class="recog-sketch placeholder" aria-label="Founder sketch · gut discomfort"></div>
-        <div class="recog-line">Your stomach knows something is wrong by 2pm.</div>
-        <div class="recog-why">Sugar alcohols don't actually digest.</div>
-      </div>
-
-      <div class="recog-bubble">
-        <div class="recog-tag">Label</div>
-        <!-- IMAGE: Founder sketch · long ingredient label · 3:4 portrait -->
-        <div class="recog-sketch placeholder" aria-label="Founder sketch · ingredient label"></div>
-        <div class="recog-line">17 ingredients. You can pronounce six.</div>
-        <div class="recog-why">"Natural flavors" is hiding a lot.</div>
+        <div class="recog-line">Gut friendly</div>
+        <div class="recog-desc" style="font-size:14px;line-height:1.55;color:var(--ink-soft);">No sugar alcohols, no ridiculous fiber syrups, no artificial sweeteners or added flavors that throw off your gut balance.</div>
       </div>
 
       <div class="recog-bubble">
         <div class="recog-tag">Energy</div>
-        <!-- IMAGE: Founder sketch · caffeine crash chase · 3:4 portrait -->
-        <div class="recog-sketch placeholder" aria-label="Founder sketch · caffeine chase"></div>
-        <div class="recog-line">A protein bar that needs caffeine to land.</div>
-        <div class="recog-why">Sucralose hits dopamine, not real energy.</div>
+        <div class="recog-line">No energy crash</div>
+        <div class="recog-desc" style="font-size:14px;line-height:1.55;color:var(--ink-soft);">Designed with blood sugar in mind. The sugar comes from real food, and high-quality fiber balances the glucose response.</div>
       </div>
-
-      <div class="recog-bubble">
-        <div class="recog-tag">Soy</div>
-        <!-- IMAGE: Founder sketch · soy isolate stamp · 3:4 portrait -->
-        <div class="recog-sketch placeholder" aria-label="Founder sketch · soy isolate"></div>
-        <div class="recog-line">Even the "clean" ones lean on soy isolate.</div>
-        <div class="recog-why">Industrial extraction, environmental footprint.</div>
-      </div>
-
-      <div class="recog-bubble">
-        <div class="recog-tag">After</div>
-        <!-- IMAGE: Founder sketch · 4pm energy slump · 3:4 portrait -->
-        <div class="recog-sketch placeholder" aria-label="Founder sketch · 4pm slump"></div>
-        <div class="recog-line">Heavy after. Tired by 4. You ate the bar to avoid this.</div>
-        <div class="recog-why">Cheap protein, slow digestion, blood sugar swing.</div>
-      </div>
-    </div>
-
-    <div class="recog-conclusion">
-      Every "performance bar" you've tried is solving the wrong problem with the wrong ingredients.
     </div>
   </div>
 </section>
@@ -1673,25 +1658,15 @@ body.locked { overflow: hidden; }
 <!-- ═══════════ PANEL 3, LEMNA STORY ═══════════ -->
 <section class="lemna-story">
   <div class="lemna-inner">
-    <div class="lemna-header">
-      <div class="eyebrow">The hero ingredient</div>
-      <h2>Meet <em>Lemna leaf.</em></h2>
-      <p>The smallest flowering plant in the world. <strong>A complete protein with a PDCAAS of 1.0, equivalent to egg and whey.</strong> Grown on water in closed systems, not on land. Less than ten years ago, almost no one was eating it. Now it's quietly the most efficient protein source on the planet, and we built our bar around it.</p>
-    </div>
-
     <div class="lemna-grid">
-      <div class="lemna-illustration">
-        <div class="placeholder-label">
-          <span class="title">Lemna leaf</span>
-          <span class="spec">Product photography · macro detail of fresh Lemna leaf<br>natural light · cream or sage backdrop · NOT illustration</span>
-        </div>
-      </div>
+      <div class="lemna-illustration" style="background-image:url('/images/responsive/ingredients/lemna-macro-editorial-1x1-1200.webp');background-size:cover;background-position:center;padding:0;"></div>
 
       <div class="lemna-text">
-        <h3>Why nobody else has it.</h3>
-        <p>Lemna leaf has been studied for decades but only recently became commercially viable for human nutrition. We use Rubi Protein™ from Plantible Foods, the only producer of food-grade Lemna leaf protein available at meaningful scale.</p>
-        <p>Lemna leaf has a <strong>complete amino acid profile</strong>, comparable to whey on every metric that matters for muscle protein synthesis. <strong>It actually has a perfect digestibility score of 1.0, like eggs and whey.</strong> But unlike whey, soy, or pea, Lemna grows on water in closed tanks, requires no arable land, and doubles its biomass every 24 to 48 hours.</p>
-        <p>The bar isn't a protein bar with Lemna added. It's <strong>a Lemna bar</strong>. The plant is the point.</p>
+        <div class="eyebrow">The hero ingredient</div>
+        <h2 style="font-size:clamp(30px,3.6vw,44px);letter-spacing:-0.02em;line-height:1.08;margin-bottom:18px;">Meet <em>Lemna leaf.</em></h2>
+        <p>Lemna leaf is the smallest flowering plant in the world. It has been studied for decades but only recently became commercially viable for human nutrition.</p>
+        <p>Lemna leaf has a <strong>complete amino acid profile</strong>, comparable to whey on every metric that matters for muscle protein synthesis. It even has a <strong>perfect digestibility score of 1.0, like eggs and whey.</strong> But unlike whey, soy, or pea, Lemna grows on water in closed tanks, requires no arable land, and doubles its biomass every 24 to 48 hours.</p>
+        <p>The bar isn't a protein bar with Lemna added. It's <strong>a Lemna bar.</strong></p>
       </div>
     </div>
 
@@ -1724,29 +1699,22 @@ body.locked { overflow: hidden; }
 <section class="macros">
   <div class="macros-inner">
     <div class="macros-header">
-      <div class="eyebrow">The macros, fully revealed</div>
-      <h2>What's in every bar. <em>The full count.</em></h2>
-      <p>We don't hide the numbers. The bar earns its place on macros, not just on the ingredient story.</p>
+      <div class="eyebrow">The macros</div>
+      <h2>What's in every bar.</h2>
     </div>
 
     <div class="macro-grid">
       <div class="macro-card">
-        <div class="macro-num">14-17</div>
+        <div class="macro-num">15</div>
         <div class="macro-unit">g protein</div>
         <div class="macro-label">Complete</div>
-        <div class="macro-flavor-note">14g cashew chocolate · 17g peanut butter crunch</div>
+        <div class="macro-flavor-note">Lemna + a dash of pea + nut butters</div>
       </div>
       <div class="macro-card">
         <div class="macro-num">7</div>
         <div class="macro-unit">g fiber</div>
         <div class="macro-label">Real, food-based</div>
-        <div class="macro-flavor-note">Tapioca, chicory, real food</div>
-      </div>
-      <div class="macro-card">
-        <div class="macro-num">7-8</div>
-        <div class="macro-unit">g sugar</div>
-        <div class="macro-label">From dates &amp; honey</div>
-        <div class="macro-flavor-note">No sugar alcohols, no syrups</div>
+        <div class="macro-flavor-note">Tapioca, lemna, nut butters, dates</div>
       </div>
       <div class="macro-card">
         <div class="macro-num">&lt;250</div>
@@ -1754,190 +1722,12 @@ body.locked { overflow: hidden; }
         <div class="macro-label">Per bar</div>
         <div class="macro-flavor-note">Real food density</div>
       </div>
-    </div>
-
-    <div class="macros-vs">
-      <div class="macros-vs-label">How that compares to the category average</div>
-      <div class="vs-row">
-        <div class="vs-item">Mujo: <strong>14-17g protein</strong> from Lemna + nut butters</div>
-        <div class="vs-item">Most bars: <strong>10-15g protein</strong> from whey or soy isolate</div>
-        <div class="vs-item">Mujo: <strong>0 sugar alcohols</strong></div>
-        <div class="vs-item">Most bars: <strong>5-15g sugar alcohols</strong></div>
+      <div class="macro-card">
+        <div class="macro-num">8</div>
+        <div class="macro-unit">g sugar</div>
+        <div class="macro-label">From dates</div>
+        <div class="macro-flavor-note">No sugar alcohols, no syrups</div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════ PANEL 5, INGREDIENTS BREAKDOWN ═══════════ -->
-<section class="ingredients">
-  <div class="ing-inner">
-    <div class="ing-header">
-      <div class="eyebrow">The full ingredient list</div>
-      <h2>Every ingredient. <em>And what it's doing there.</em></h2>
-      <p>Real food, in real amounts, with a reason for being in the bar. If we can't explain why an ingredient is in the formula, it's not in the formula.</p>
-    </div>
-
-    <div class="ing-grid">
-      <!-- Hero ingredient -->
-      <div class="ing-row hero-ing">
-        <!-- ICON: Lemna leaf · sage · 40px · botanical-line -->
-        <div class="ing-icon icon-placeholder" data-icon="lemna-leaf">Lemna</div>
-        <div class="ing-content">
-          <div class="ing-namerow">
-            <span class="ing-name">Lemna leaf (Rubi Protein™)</span>
-            <span class="ing-tag">The hero</span>
-          </div>
-          <div class="ing-purpose">Complete plant protein. PDCAAS of 1.0. The reason this bar exists.</div>
-        </div>
-      </div>
-
-      <div class="ing-row">
-        <!-- ICON: Nut butter · sage · 40px · botanical-line -->
-        <div class="ing-icon icon-placeholder" data-icon="nut-butter">Nut</div>
-        <div class="ing-content">
-          <div class="ing-namerow">
-            <span class="ing-name">Cashew butter / peanut butter</span>
-            <span class="ing-tag">Base</span>
-          </div>
-          <div class="ing-purpose">The body of the bar. Real nut butter, never powdered. Healthy fats and structure.</div>
-        </div>
-      </div>
-
-      <div class="ing-row">
-        <!-- ICON: Date · sage · 40px · botanical-line -->
-        <div class="ing-icon icon-placeholder" data-icon="date">Date</div>
-        <div class="ing-content">
-          <div class="ing-namerow">
-            <span class="ing-name">Dates</span>
-            <span class="ing-tag">Sweetener</span>
-          </div>
-          <div class="ing-purpose">Whole-food sweetness with fiber and minerals. Slower glucose response than refined sugar.</div>
-        </div>
-      </div>
-
-      <div class="ing-row">
-        <!-- ICON: Honey or date syrup · sage · 40px · botanical-line -->
-        <div class="ing-icon icon-placeholder" data-icon="honey">Bind</div>
-        <div class="ing-content">
-          <div class="ing-namerow">
-            <span class="ing-name">Honey or date syrup</span>
-            <span class="ing-tag">Bind</span>
-          </div>
-          <div class="ing-purpose">Honey in the Cashew Chocolate (vegetarian). Date syrup in the Peanut Butter Crunch (vegan). Single-source sweetness, no corn syrup, no agave, no maltitol.</div>
-        </div>
-      </div>
-
-      <div class="ing-row">
-        <!-- ICON: Coconut · sage · 40px · botanical-line -->
-        <div class="ing-icon icon-placeholder" data-icon="coconut">Coco</div>
-        <div class="ing-content">
-          <div class="ing-namerow">
-            <span class="ing-name">Coconut butter</span>
-            <span class="ing-tag">Texture</span>
-          </div>
-          <div class="ing-purpose">MCT-rich fat that gives the bar its melt and richness. Smooth without seed oils.</div>
-        </div>
-      </div>
-
-      <div class="ing-row">
-        <!-- ICON: Pea crisp · sage · 40px · botanical-line -->
-        <div class="ing-icon icon-placeholder" data-icon="pea">Pea</div>
-        <div class="ing-content">
-          <div class="ing-namerow">
-            <span class="ing-name">Pea crisps</span>
-            <span class="ing-tag">Crunch</span>
-          </div>
-          <div class="ing-purpose">A small amount, for texture. Adds bite without compromising the macro profile.</div>
-        </div>
-      </div>
-
-      <div class="ing-row">
-        <!-- ICON: Cacao chip · sage · 40px · botanical-line -->
-        <div class="ing-icon icon-placeholder" data-icon="cacao-chip">Cacao</div>
-        <div class="ing-content">
-          <div class="ing-namerow">
-            <span class="ing-name">Unsweetened chocolate chips</span>
-            <span class="ing-tag">Flavor</span>
-          </div>
-          <div class="ing-purpose">Real cacao. No added sugar in the chips. The flavor comes from quality, not from sweetness.</div>
-        </div>
-      </div>
-
-      <div class="ing-row">
-        <!-- ICON: Mesquite pod · sage · 40px · botanical-line -->
-        <div class="ing-icon icon-placeholder" data-icon="mesquite">Mesq</div>
-        <div class="ing-content">
-          <div class="ing-namerow">
-            <span class="ing-name">Mesquite powder</span>
-            <span class="ing-tag">Depth</span>
-          </div>
-          <div class="ing-purpose">Adds caramel-like depth and trace minerals. The reason the bar tastes like food, not like a supplement.</div>
-        </div>
-      </div>
-
-      <div class="ing-row">
-        <!-- ICON: Tapioca fiber · sage · 40px · botanical-line -->
-        <div class="ing-icon icon-placeholder" data-icon="tapioca-fiber">Fiber</div>
-        <div class="ing-content">
-          <div class="ing-namerow">
-            <span class="ing-name">FiberSmart™ tapioca fiber</span>
-            <span class="ing-tag">Fiber</span>
-          </div>
-          <div class="ing-purpose">Branded prebiotic fiber that digests cleanly. No bloat, no GI distress. The fiber that doesn't punish you.</div>
-        </div>
-      </div>
-
-      <div class="ing-row">
-        <!-- ICON: Chicory root · sage · 40px · botanical-line -->
-        <div class="ing-icon icon-placeholder" data-icon="chicory">Chic</div>
-        <div class="ing-content">
-          <div class="ing-namerow">
-            <span class="ing-name">Chicory root fiber</span>
-            <span class="ing-tag">Cashew only</span>
-          </div>
-          <div class="ing-purpose">Inulin from chicory root. Feeds gut bacteria. Pairs with FiberSmart in the Cashew Chocolate to hit 7g of fiber. The Peanut Butter Crunch reaches 7g with FiberSmart alone.</div>
-        </div>
-      </div>
-
-      <div class="ing-row">
-        <!-- ICON: Sunflower lecithin · sage · 40px · botanical-line -->
-        <div class="ing-icon icon-placeholder" data-icon="sunflower-lecithin">Sun</div>
-        <div class="ing-content">
-          <div class="ing-namerow">
-            <span class="ing-name">Sunflower lecithin</span>
-            <span class="ing-tag">Bind</span>
-          </div>
-          <div class="ing-purpose">Organic, non-GMO emulsifier. Replaces the soy lecithin most bars use. Keeps everything cohesive.</div>
-        </div>
-      </div>
-
-      <div class="ing-row">
-        <!-- ICON: Sea salt · sage · 40px · botanical-line -->
-        <div class="ing-icon icon-placeholder" data-icon="sea-salt">Salt</div>
-        <div class="ing-content">
-          <div class="ing-namerow">
-            <span class="ing-name">Sea salt</span>
-            <span class="ing-tag">Cashew only</span>
-          </div>
-          <div class="ing-purpose">A pinch in the Cashew Chocolate. Lifts the cacao, sharpens the contrast. The single most underrated ingredient in food.</div>
-        </div>
-      </div>
-
-      <div class="ing-row">
-        <!-- ICON: Vegetable glycerin · sage · 40px · botanical-line -->
-        <div class="ing-icon icon-placeholder" data-icon="glycerin">Glyc</div>
-        <div class="ing-content">
-          <div class="ing-namerow">
-            <span class="ing-name">Vegetable glycerin</span>
-            <span class="ing-tag">Shelf life</span>
-          </div>
-          <div class="ing-purpose">From coconut. Keeps the bar soft without refrigeration. The honest tradeoff for a shelf-stable bar made without preservatives.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="ing-honest">
-      <strong>About the glycerin.</strong> A careful reader will notice it on the label. Vegetable glycerin (from coconut) is what keeps a real-ingredient bar soft on the shelf without refrigeration or preservatives. It's the cleanest workable solution we found. We could have skipped explaining it. We'd rather you knew.
     </div>
   </div>
 </section>
@@ -1948,7 +1738,7 @@ body.locked { overflow: hidden; }
     <div class="not-header">
       <div class="eyebrow">What's not in it</div>
       <h2>The list of <em>nope.</em></h2>
-      <p>What's missing from this bar is as deliberate as what's in it. None of these are in any Lemna Bar, in any flavor, ever.</p>
+      <p>What's missing from this bar is as deliberate as what's in it. None of these are in any Lemna Bar, ever.</p>
     </div>
 
     <div class="not-grid">
@@ -1968,131 +1758,32 @@ body.locked { overflow: hidden; }
   </div>
 </section>
 
-<!-- ═══════════ PANEL 7, FLAVORS ═══════════ -->
-<section class="flavors">
-  <div class="flav-inner">
-    <div class="flav-header">
-      <div class="eyebrow">Two flavors at launch</div>
-      <h2>Two bars. <em>Two approaches.</em></h2>
-      <p>Same Lemna leaf foundation. Two ingredient stacks built for different palates and dietary needs. Pick the one that fits, or rotate.</p>
+<!-- ═══════════ PANEL 6b, WHAT'S IN IT ═══════════ -->
+<section class="not-in-it in-it">
+  <div class="not-inner">
+    <div class="not-header">
+      <div class="eyebrow">What's in it</div>
+      <h2>The short list of <em>yes.</em></h2>
+      <p>Real food, and not much else. The full breakdown lands at launch.</p>
     </div>
-
-    <div class="flav-grid">
-      <div class="flav-card pb">
-        <div class="flav-image">
-          <div class="placeholder-label">
-            <span class="title">Peanut Butter Crunch</span>
-            <span class="spec">Product photography · single bar staged · macro texture detail · NOT illustration</span>
-          </div>
-        </div>
-        <div class="flav-body">
-          <div class="flav-tag-row">
-            <span class="flav-diet vegan">Vegan</span>
-            <span class="flav-diet">Gluten-free</span>
-          </div>
-          <h3 class="flav-name">Peanut Butter Crunch</h3>
-          <p class="flav-tagline">The grown-up version of the bar you used to love.</p>
-          <div class="flav-macros">
-            <div class="flav-macro">
-              <span class="flav-macro-num">17g</span>
-              <span class="flav-macro-label">Protein</span>
-            </div>
-            <div class="flav-macro">
-              <span class="flav-macro-num">7g</span>
-              <span class="flav-macro-label">Fiber</span>
-            </div>
-            <div class="flav-macro">
-              <span class="flav-macro-num">8g</span>
-              <span class="flav-macro-label">Sugar</span>
-            </div>
-            <div class="flav-macro">
-              <span class="flav-macro-num">240</span>
-              <span class="flav-macro-label">Calories</span>
-            </div>
-          </div>
-          <p class="flav-desc">Roasted peanut butter, dates, dark chocolate chips, pea crisps for crunch, FiberSmart™ tapioca fiber. <strong>Sweetened with date syrup, not honey</strong>, which makes it our fully vegan option.</p>
-        </div>
-      </div>
-
-      <div class="flav-card cc">
-        <div class="flav-image">
-          <div class="placeholder-label">
-            <span class="title">Cashew Chocolate</span>
-            <span class="spec">Product photography · single bar staged · macro texture detail · NOT illustration</span>
-          </div>
-        </div>
-        <div class="flav-body">
-          <div class="flav-tag-row">
-            <span class="flav-diet">Vegetarian</span>
-            <span class="flav-diet">Gluten-free</span>
-          </div>
-          <h3 class="flav-name">Cashew Chocolate</h3>
-          <p class="flav-tagline">Smoother. Richer. Quieter. The afternoon bar.</p>
-          <div class="flav-macros">
-            <div class="flav-macro">
-              <span class="flav-macro-num">14g</span>
-              <span class="flav-macro-label">Protein</span>
-            </div>
-            <div class="flav-macro">
-              <span class="flav-macro-num">7g</span>
-              <span class="flav-macro-label">Fiber</span>
-            </div>
-            <div class="flav-macro">
-              <span class="flav-macro-num">7g</span>
-              <span class="flav-macro-label">Sugar</span>
-            </div>
-            <div class="flav-macro">
-              <span class="flav-macro-num">230</span>
-              <span class="flav-macro-label">Calories</span>
-            </div>
-          </div>
-          <p class="flav-desc">Cashew butter, dates, dark chocolate chips, mesquite for caramel depth, sea salt to lift the cacao, coconut butter for the melt, plus chicory root fiber for prebiotic depth. <strong>Bound with raw honey</strong>, which makes it vegetarian, not vegan.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Side-by-side differences table -->
-    <div class="flav-differences">
-      <div class="flav-diff-header">How they differ, line by line</div>
-      <div class="flav-diff-grid">
-        <div class="flav-diff-row">
-          <div class="flav-diff-label">Sweetener</div>
-          <div class="flav-diff-pb">Date syrup</div>
-          <div class="flav-diff-cc">Raw honey</div>
-        </div>
-        <div class="flav-diff-row">
-          <div class="flav-diff-label">Diet</div>
-          <div class="flav-diff-pb">Vegan</div>
-          <div class="flav-diff-cc">Vegetarian</div>
-        </div>
-        <div class="flav-diff-row">
-          <div class="flav-diff-label">Protein</div>
-          <div class="flav-diff-pb">17g</div>
-          <div class="flav-diff-cc">14g</div>
-        </div>
-        <div class="flav-diff-row">
-          <div class="flav-diff-label">Sugar</div>
-          <div class="flav-diff-pb">8g</div>
-          <div class="flav-diff-cc">7g</div>
-        </div>
-        <div class="flav-diff-row">
-          <div class="flav-diff-label">Fiber source</div>
-          <div class="flav-diff-pb">FiberSmart™ tapioca only</div>
-          <div class="flav-diff-cc">FiberSmart™ + chicory root</div>
-        </div>
-        <div class="flav-diff-row">
-          <div class="flav-diff-label">Sea salt</div>
-          <div class="flav-diff-pb">No</div>
-          <div class="flav-diff-cc">Yes (lifts the cacao)</div>
-        </div>
-        <div class="flav-diff-row">
-          <div class="flav-diff-label">Texture</div>
-          <div class="flav-diff-pb">Crunchy (pea crisps)</div>
-          <div class="flav-diff-cc">Smooth, melt-forward</div>
-        </div>
-      </div>
+    <div class="not-grid">
+      <div class="not-item">Lemna leaf</div>
+      <div class="not-item">Nut butters</div>
+      <div class="not-item">Dates</div>
+      <div class="not-item">Tapioca fiber</div>
+      <div class="not-item">Cocoa</div>
+      <div class="not-item">Sea salt</div>
+      <div class="not-item">Vegetable glycerin</div>
     </div>
   </div>
+</section>
+
+<!-- ═══════════ FLAVOR REVEAL TEASER ═══════════ -->
+<section class="flavor-reveal">
+  <div class="eyebrow">Coming soon</div>
+  <h2>Flavor reveal <em>coming soon.</em></h2>
+  <p>We're keeping the flavors under wraps a little longer. Join the founding list and you'll be the first to know.</p>
+  <!-- IMAGE: flavor teaser shots can drop in here when ready -->
 </section>
 
 <!-- ═══════════ PANEL 9, STORY ═══════════ -->
@@ -2107,14 +1798,16 @@ body.locked { overflow: hidden; }
     <div class="story-text">
       <div class="eyebrow">Why this bar exists</div>
       <h2>It started with my sisters.</h2>
-      <p>One has celiac. One has multiple food allergies. Between us, the family snack drawer is a graveyard of bars we couldn't eat, bars that made someone sick, and bars that technically met the spec but tasted like a science experiment.</p>
-      <p>I started developing this bar because I couldn't find one I'd actually buy for them. The first formulation was wrong. So was the second. Forty-seven batches later, we had the texture, the macros, and the ingredient list I was willing to stand behind.</p>
+      <p>I have two sisters. One has celiac. One has multiple food allergies. Their snack drawer is limited, but their high-performer lives demand high-quality, conscious nutrition on the go. Most bars left them bloated, made them sick, or offended their taste. And because I love making healthy snacks in my kitchen, I decided to surprise them with a protein bar.</p>
+      <p>They hated the first flavor. They told me to stop. I refused. About fifty attempts later, I handed them a bar. My sister Gabi closed her eyes, smiled, and said: "cake." The other tasters looked surprised, in a good way. A few actually moaned.</p>
 
       <div class="story-pull">
-        Lemna isn't a buzzword for us. It's the ingredient that finally let us make a bar that did everything we needed it to.
+        Lemna is basically a swamp plant that surprised us all by being such an incredible protein.
       </div>
 
-      <p>The bar launches in <strong>summer 2026</strong>. Founding members get the launch link 24 hours before public, plus 15% off the first order. There won't be a second round of founding member pricing. If you want in, this is the moment.</p>
+      <p>Making a clean bar wasn't easy. Flavor-first, macro-amazing, and good for your gut is a complicated dance. Then came the co-manufacturer delays. The endless "you can't make a bar this way." "You need allulose." "You need natural flavors." The sleepless nights when I felt like giving up. But my sisters needed this bar. So I kept going.</p>
+
+      <p>The bar launches in <strong>summer/fall 2026</strong>. Founding members get the launch link 24 hours before the public, plus 15% off the first order. There won't be a second round of founding-member pricing. If you want in, this is the moment.</p>
 
       <div class="story-sign">
        Kinga
@@ -2147,18 +1840,18 @@ body.locked { overflow: hidden; }
     </div>
 
     <form class="signup-form" id="finalCtaForm" onsubmit="return submitFinalCta(event);">
-      <div class="signup-row">
+      <div class="signup-row" style="flex-direction:column;align-items:stretch;">
         <input type="email" class="signup-input" id="finalCtaEmail" placeholder="your@email.com" aria-label="Email address" required>
         <button type="submit" class="signup-btn">Reserve →</button>
       </div>
-      <p class="signup-fineprint">Summer 2026 launch. No spam, no cross-promotions, no nonsense.</p>
+      <p class="signup-fineprint">No spam, no cross-promotions, no nonsense.</p>
     </form>
 
     <div class="final-success" id="finalCtaSuccess" style="display:none;">
       <strong>You're on the list.</strong> Watch your inbox for the launch link and your founding member code.
     </div>
     <div class="final-social">
-      Join <strong>the founding list</strong> · Building the cleanest protein bar we know how to make
+      Join <strong>the founding list</strong>.
     </div>
   </div>
 </section>
@@ -2179,17 +1872,17 @@ body.locked { overflow: hidden; }
 
       <details class="faq-item">
         <summary>When does the bar ship?</summary>
-        <div class="faq-answer">Summer 2026. Founding members get the launch link 24 hours before public, with 15% off your first order locked in. We'll email you the moment the launch goes live.</div>
+        <div class="faq-answer">Summer/fall 2026. Founding members get the launch link 24 hours before the public, with 15% off your first order locked in. We'll email you the moment the launch goes live.</div>
       </details>
 
       <details class="faq-item">
         <summary>Is it gluten-free?</summary>
-        <div class="faq-answer">Yes. Both flavors are <strong>gluten-free</strong>. The bar is produced in a facility that handles other allergens, so we'll publish the full allergen statement at launch.</div>
+        <div class="faq-answer">Yes. The bar is <strong>gluten-free</strong>. It's produced in a facility that handles other allergens, so we'll publish the full allergen statement at launch.</div>
       </details>
 
       <details class="faq-item">
         <summary>Is it vegan?</summary>
-        <div class="faq-answer">The <strong>Peanut Butter Crunch is fully vegan</strong>, it uses date syrup as the binder. The <strong>Cashew Chocolate is vegetarian but not vegan</strong>, it uses raw honey. Full nutritional and allergen breakdown will be on each PDP at launch.</div>
+        <div class="faq-answer">Yes. The bar is <strong>fully vegan</strong>. Full nutritional and allergen breakdown will be on the product page at launch.</div>
       </details>
 
       <details class="faq-item">
@@ -2199,12 +1892,12 @@ body.locked { overflow: hidden; }
 
       <details class="faq-item">
         <summary>How much will it cost?</summary>
-        <div class="faq-answer">Pricing locks in closer to launch, but expect to pay a touch more than category-average bars. We're using real nut butters, real chocolate, branded fibers, and Lemna leaf, none of which are cheap. Founding members get 15% off the first order.</div>
+        <div class="faq-answer">$32 for a box of 8 bars. We use real nut butters, real cocoa, branded fibers, and Lemna leaf, none of which are cheap. Founding members get 15% off the first order.</div>
       </details>
 
       <details class="faq-item">
         <summary>Will there be more flavors?</summary>
-        <div class="faq-answer">Two flavors at launch (Peanut Butter Crunch + Cashew Chocolate). Future flavors depend on what founding members ask for. Reply to any of our launch emails with what you'd want next.</div>
+        <div class="faq-answer">The flavor reveal is coming soon. Future flavors depend on what founding members ask for, so reply to any of our launch emails with what you'd want next.</div>
       </details>
 
       <details class="faq-item">

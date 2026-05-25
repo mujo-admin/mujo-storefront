@@ -540,6 +540,48 @@ body.locked { overflow: hidden; }
   .hero-pullquote::before { font-size: 56px; left: 16px; }
 }
 
+/* ── Mobile hero: full-bleed product image + scrim, text overlaid (Option A) ──
+   On mobile the image was stacking below the text and never showed on the first
+   screen. Make it the full-bleed backdrop, lay a legibility scrim over it, and
+   overlay the hero text in light type. Desktop (>=1024px) keeps the two-column
+   layout untouched. */
+@media (max-width: 1023px) {
+  .hero-grid { position: relative; }
+  .hero-img-wrap {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    padding: 0;
+    z-index: 0;
+  }
+  .hero-grid::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(180deg,
+      rgba(18,22,19,0.50) 0%,
+      rgba(18,22,19,0.36) 42%,
+      rgba(18,22,19,0.82) 100%);
+  }
+  .hero-text {
+    position: relative;
+    z-index: 2;
+    padding: 52px var(--gutter) 48px;
+    max-width: none;
+  }
+  .hero-text .eyebrow { color: #fff; opacity: 0.9; }
+  .hero h1 { color: #fff; }
+  .hero-sub { color: rgba(255,255,255,0.9); }
+  .hero-rating { border-top-color: rgba(255,255,255,0.22); color: rgba(255,255,255,0.8); }
+  .hero-rating strong { color: #fff; }
+  .hero-audience { color: rgba(255,255,255,0.88); }
+  .hero .btn-ghost { border-color: rgba(255,255,255,0.55); color: #fff; }
+}
+
 /* ═══════════════════════════════════════════════════════════
    2. MANIFESTO (sage, full-bleed)
    ═══════════════════════════════════════════════════════════ */
@@ -1797,7 +1839,7 @@ footer {
 
 <!-- ═══════════════ ANNOUNCE ═══════════════ -->
 <div class="announce">
-  Free shipping over <strong>$60</strong>
+  Free shipping over <strong>$100</strong>
   <span class="sep announce-secondary">·</span>
   <span class="announce-secondary">Use <strong>WELCOME10</strong> for 10% off your first order</span>
 </div>
@@ -1932,9 +1974,9 @@ footer {
           <div class="tile-name">The Lemna Protein Bar</div>
           <div class="tile-tagline">The first protein bar built on Lemna leaf.</div>
           <ul class="tile-benefits">
-            <li class="tile-benefit"><span><strong>14-17g of protein.</strong> Made with Lemna leaf. Complete amino profile.</span></li>
-            <li class="tile-benefit"><span><strong>Real ingredients only.</strong> No flavor systems, no protein isolates, no syrup base.</span></li>
-            <li class="tile-benefit"><span><strong>Two flavors:</strong> Cashew Chocolate, Peanut Butter Crunch. Zero nonsense ingredients.</span></li>
+            <li class="tile-benefit"><span><strong>15g protein · 7g fiber.</strong> Made with Lemna leaf. Complete amino profile.</span></li>
+            <li class="tile-benefit"><span><strong>Nut butter base.</strong> No flavor systems, no syrup base. Real ingredients only.</span></li>
+            <li class="tile-benefit"><span><strong>No soy, dairy, whey, or lecithins.</strong> Just food.</span></li>
             <li class="tile-benefit"><span><strong>10× more land-efficient</strong> than soy. The most sustainable protein you can eat.</span></li>
           </ul>
           <div class="tile-meta">
@@ -1956,14 +1998,14 @@ footer {
           <div class="tile-tagline">Earned, not bought.</div>
           <ul class="tile-benefits">
             <li class="tile-benefit"><span><strong>The frother</strong> we test every batch with. Built for the ritual.</span></li>
-            <li class="tile-benefit"><span><strong>The ceramic mug.</strong> Heavy-bottomed. Holds heat. Made to last.</span></li>
-            <li class="tile-benefit"><span><strong>The Rebel Club tee.</strong> Garment-dyed. Soft on day one.</span></li>
-            <li class="tile-benefit"><span><strong>The ritual journal.</strong> 90 days of pages. Designed in-house.</span></li>
+            <li class="tile-benefit"><span><strong>The Rebel Club T-shirt.</strong> Soft from day one.</span></li>
+            <li class="tile-benefit"><span><strong>The crew neck.</strong> Heavyweight French terry.</span></li>
+            <li class="tile-benefit"><span><strong>The hat.</strong> Washed twill, embroidered mark.</span></li>
           </ul>
           <div class="tile-meta">
             <span class="tile-price">From $20</span>
             <span class="tile-price-meta">Limited drops · Designed in-house</span>
-            <span class="tile-save">Free shipping over $60</span>
+            <span class="tile-save">Free shipping over $100</span>
           </div>
           <span class="tile-cta">Shop merch <span class="arrow">→</span></span>
         </div>
@@ -2024,8 +2066,8 @@ footer {
         <div class="ing-img" style="background-image: url('/images/responsive/ingredients/rhodiola-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
         <div class="ing-body">
           <div class="ing-name">Rhodiola Rosea</div>
-          <div class="ing-latin">Himalayan / Altai</div>
-          <div class="ing-dose">Wild-harvested</div>
+          <div class="ing-latin">Himalayan · cultivated</div>
+          <div class="ing-dose">1.5% / 5% actives</div>
         </div>
       </div>
     </div>
@@ -2045,27 +2087,15 @@ footer {
   </div>
   <div class="ugc-strip-wrap">
     <div class="ugc-strip">
-      <div class="ugc-tile t1" style="background-image: url('/images/responsive/products/ritual/ritual-card-cream-mug-editorial-4x3-800.webp'); background-size: cover; background-position: center;">
-        <span class="ugc-tile-handle">@sarah.morningritual</span>
-      </div>
-      <div class="ugc-tile t2" style="background-image: url('/images/responsive/lifestyle/ritual-rebel-club-journal-editorial-4x3-800.webp'); background-size: cover; background-position: center;">
-        <span class="ugc-tile-handle">@marcus.k</span>
-      </div>
-      <div class="ugc-tile t3" style="background-image: url('/images/responsive/lifestyle/ritual-hands-mug-editorial-1x1-800.webp'); background-size: cover; background-position: center;">
-        <span class="ugc-tile-handle">@theinconvenientmom</span>
-      </div>
-      <div class="ugc-tile t4" style="background-image: url('/images/responsive/products/ritual/ritual-mug-steam-cream-editorial-4x5-800.webp'); background-size: cover; background-position: center;">
-        <span class="ugc-tile-handle">@calmperformance</span>
-      </div>
-      <div class="ugc-tile t5" style="background-image: url('/images/responsive/lifestyle/ritual-frother-action-editorial-4x5-800.webp'); background-size: cover; background-position: center;">
-        <span class="ugc-tile-handle">@lily.grace</span>
-      </div>
-      <div class="ugc-tile t6" style="background-image: url('/images/responsive/products/ritual/ritual-recipe-iced-latte-editorial-4x5-800.webp'); background-size: cover; background-position: center;">
-        <span class="ugc-tile-handle">@coachmolly</span>
-      </div>
-      <div class="ugc-tile t7" style="background-image: url('/images/responsive/lifestyle/ritual-pouch-scoop-spill-editorial-4x3-800.webp'); background-size: cover; background-position: center;">
-        <span class="ugc-tile-handle">@someonewell</span>
-      </div>
+      <!-- Placeholder studio/lifestyle shots. Fabricated @handles removed — swap
+           in real customer UGC (with real attributions) when Kinga supplies them. -->
+      <div class="ugc-tile t1" style="background-image: url('/images/responsive/products/ritual/ritual-card-cream-mug-editorial-4x3-800.webp'); background-size: cover; background-position: center;"></div>
+      <div class="ugc-tile t2" style="background-image: url('/images/responsive/lifestyle/ritual-rebel-club-journal-editorial-4x3-800.webp'); background-size: cover; background-position: center;"></div>
+      <div class="ugc-tile t3" style="background-image: url('/images/responsive/lifestyle/ritual-hands-mug-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
+      <div class="ugc-tile t4" style="background-image: url('/images/responsive/products/ritual/ritual-mug-steam-cream-editorial-4x5-800.webp'); background-size: cover; background-position: center;"></div>
+      <div class="ugc-tile t5" style="background-image: url('/images/responsive/lifestyle/ritual-frother-action-editorial-4x5-800.webp'); background-size: cover; background-position: center;"></div>
+      <div class="ugc-tile t6" style="background-image: url('/images/responsive/products/ritual/ritual-recipe-iced-latte-editorial-4x5-800.webp'); background-size: cover; background-position: center;"></div>
+      <div class="ugc-tile t7" style="background-image: url('/images/responsive/lifestyle/ritual-pouch-scoop-spill-editorial-4x3-800.webp'); background-size: cover; background-position: center;"></div>
     </div>
   </div>
   <div class="container">
@@ -2157,39 +2187,9 @@ footer {
   </div>
 </section>
 
-<!-- ═══════════════ 8. REBEL CLUB ═══════════════ -->
-<section class="rebel" id="rebel">
-  <div class="container">
-    <div class="rebel-grid">
-      <div class="rebel-text">
-        <div class="eyebrow light reveal">Join the Club</div>
-        <h2 class="reveal d1">You've read this far. <span class="serif-acc">You're probably a rebel.</span></h2>
-        <p class="rebel-sub reveal d2">Drop your email below. Your first letter arrives within 48 hours. <strong>Free forever.</strong> Unsubscribe in one click. No dark patterns.</p>
-        <form class="rebel-form reveal d3" data-mujo-form="rebel-club">
-          <input type="email" name="email" class="rebel-input" placeholder="your@email.com" required aria-label="Email address">
-          <button type="submit" class="btn btn-primary">Join the Rebel Club <span class="arrow">→</span></button>
-        </form>
-        <fieldset class="rebel-tribe reveal d4">
-          <legend class="rebel-tribe-legend">Which tribe are you? <span class="rebel-tribe-optional">Optional. You can change later.</span></legend>
-          <div class="rebel-tribe-options">
-            <label class="rebel-tribe-chip">
-              <input type="radio" name="tribe" value="mami" form="rebel-form">
-              <span>Mujo Mami</span>
-            </label>
-            <label class="rebel-tribe-chip">
-              <input type="radio" name="tribe" value="papi" form="rebel-form">
-              <span>Mujo Papi</span>
-            </label>
-            <label class="rebel-tribe-chip">
-              <input type="radio" name="tribe" value="padel" form="rebel-form">
-              <span>Mujo Padel Club</span>
-            </label>
-          </div>
-        </fieldset>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- Rebel Club body email signup removed 2026-05-25 — the footer signup is the
+     single email capture (this section was a duplicate). Tribe picker removed too. -->
+
 
 <!-- ═══════════════ FOOTER ═══════════════ -->
 <footer class="mujo-foot">

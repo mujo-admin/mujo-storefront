@@ -473,7 +473,7 @@ export function QuizSheet() {
     ? 'Plan ready ✓'
     : currentStep <= TOTAL_STEPS
     ? `Step ${currentStep} of ${TOTAL_STEPS}`
-    : 'Almost there';
+    : '';
 
   return (
     <>
@@ -522,6 +522,34 @@ export function QuizSheet() {
             boxSizing: 'border-box',
           }}
         >
+          {/* Close (X) */}
+          <button
+            type="button"
+            onClick={close}
+            aria-label="Close"
+            style={{
+              position: 'absolute',
+              top: 12,
+              right: 12,
+              zIndex: 2,
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: 32,
+              height: 32,
+              borderRadius: 999,
+              border: 0,
+              background: 'rgba(255,255,255,0.1)',
+              color: '#ffffff',
+              cursor: 'pointer',
+            }}
+          >
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+              <line x1="6" y1="6" x2="18" y2="18" />
+              <line x1="18" y1="6" x2="6" y2="18" />
+            </svg>
+          </button>
+
           {/* Progress */}
           <div style={{ marginBottom: 8 }}>
             <div
@@ -628,7 +656,7 @@ function QuestionStep({
         className="grid grid-cols-1 sm:grid-cols-2"
         style={{ gap: 10 }}
       >
-        {question.tiles.map((tile) => (
+        {question.tiles.map((tile, i) => (
           <button
             key={tile.value}
             type="button"
@@ -646,8 +674,27 @@ function QuestionStep({
               overflowWrap: 'anywhere',
             }}
           >
-            <span style={{ marginTop: 2, flexShrink: 0, fontSize: 18, lineHeight: 1 }} aria-hidden="true">
-              {tile.emoji}
+            <span
+              aria-hidden="true"
+              style={{
+                marginTop: 1,
+                flexShrink: 0,
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 26,
+                height: 26,
+                borderRadius: 8,
+                border: '1.5px solid rgba(242,104,47,0.6)',
+                background: 'rgba(242,104,47,0.12)',
+                color: '#F2682F',
+                fontFamily: 'var(--f-mono), "DM Mono", monospace',
+                fontSize: 13,
+                fontWeight: 600,
+                lineHeight: 1,
+              }}
+            >
+              {String.fromCharCode(65 + i)}
             </span>
             <span style={{ minWidth: 0, flex: 1 }}>
               <span
@@ -719,14 +766,11 @@ function EmailGate({
   return (
     <div className="mujo-step-enter">
       <h2
-        className="mb-2 text-[clamp(19px,4.6vw,23px)] font-medium leading-[1.32] tracking-[-0.01em]"
+        className="mb-6 text-[clamp(19px,4.6vw,23px)] font-medium leading-[1.32] tracking-[-0.01em]"
         style={{ color: '#ffffff' }}
       >
-        We've built your plan.
+        Your plan is ready.
       </h2>
-      <p className="mb-6 text-[13px] leading-[1.5]" style={{ color: 'rgba(255,255,255,0.45)' }}>
-        Based on your answers, here's what we're sending you:
-      </p>
 
       <div
         style={{
@@ -748,7 +792,6 @@ function EmailGate({
             color: '#ffffff',
           }}
         >
-          <span aria-hidden="true">📋</span>
           Your 5-Step Nervous System Reset Plan
         </div>
         <ul style={{ display: 'flex', flexDirection: 'column', gap: 8, listStyle: 'none', padding: 0, margin: 0 }}>
@@ -877,16 +920,6 @@ function EmailGate({
         >
           ← Back
         </button>
-        <div
-          style={{
-            fontFamily: 'var(--f-mono), "DM Mono", monospace',
-            fontSize: 11,
-            letterSpacing: '0.08em',
-            color: 'rgba(255,255,255,0.32)',
-          }}
-        >
-          Almost there
-        </div>
       </div>
     </div>
   );

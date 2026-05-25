@@ -246,24 +246,20 @@ nav {
   top: 100px;
 }
 .gallery-main {
-  /*
-    IMAGE PLACEHOLDER: Main product image
-   , 1:1 square aspect
-   , Hero shot: Mujo Ritual pouch with prepared mug of cacao
-   , Can rotate through: pouch alone, prepared drink, scoop going in, ritual moment
-  */
   aspect-ratio: 1 / 1;
   background: linear-gradient(145deg, var(--sand) 0%, var(--cream) 100%);
   border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  padding: 60px;
   position: relative;
   overflow: hidden;
   margin-bottom: 12px;
+}
+.gallery-main-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 .gallery-main::before {
   content: '';
@@ -302,7 +298,7 @@ nav {
   grid-template-columns: repeat(5, 1fr);
   gap: 8px;
 }
-.thumb {
+.gallery-thumb {
   aspect-ratio: 1 / 1;
   background: var(--sand);
   border-radius: 10px;
@@ -315,8 +311,8 @@ nav {
   filter: saturate(0.6);
   transition: all 0.2s;
 }
-.thumb:hover { filter: saturate(1); transform: translateY(-2px); }
-.thumb.active {
+.gallery-thumb:hover { filter: saturate(1); transform: translateY(-2px); }
+.gallery-thumb.active {
   border-color: var(--orange);
   filter: saturate(1);
 }
@@ -1422,7 +1418,7 @@ details.info-row[open] .info-row-toggle { transform: rotate(45deg); color: var(-
 .howto-card:hover { transform: translateY(-3px); box-shadow: var(--s2); }
 
 .howto-image {
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 4 / 5;
   position: relative;
   display: flex;
   align-items: flex-end;
@@ -2267,19 +2263,24 @@ body.locked { overflow: hidden; }
   <div class="ph-grid">
     <!-- Gallery -->
     <div class="gallery">
-      <div class="gallery-main" style="background-image: url('/images/responsive/products/ritual/ritual-pouch-hero-monumental-editorial-1x1-800.webp'); background-size: cover; background-position: center;">
+      <div class="gallery-main">
+        <img class="gallery-main-img"
+             src="/images/responsive/products/ritual/ritual-pouch-hero-monumental-editorial-1x1-1200.webp"
+             srcset="/images/responsive/products/ritual/ritual-pouch-hero-monumental-editorial-1x1-800.webp 800w, /images/responsive/products/ritual/ritual-pouch-hero-monumental-editorial-1x1-1200.webp 1200w, /images/responsive/products/ritual/ritual-pouch-hero-monumental-editorial-1x1-1920.webp 1920w"
+             sizes="(max-width: 1024px) 100vw, 50vw"
+             alt="The Mujo Ritual cacao pouch" />
       </div>
       <div class="gallery-thumbs">
-        <!-- IMAGE: gallery thumbnail · pouch hero · 1:1 -->
-        <div class="thumb active" data-thumb="pouch" style="background-image: url('/images/responsive/products/ritual/ritual-pouch-hero-monumental-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
-        <!-- IMAGE: gallery thumbnail · prepared drink in mug · 1:1 -->
-        <div class="thumb" data-thumb="drink" style="background-image: url('/images/responsive/products/ritual/ritual-cacao-texture-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
-        <!-- IMAGE: gallery thumbnail · scoop into mug action shot · 1:1 -->
-        <div class="thumb" data-thumb="scoop" style="background-image: url('/images/responsive/lifestyle/ritual-pouch-scoop-spill-editorial-4x3-800.webp'); background-size: cover; background-position: center;"></div>
-        <!-- IMAGE: gallery thumbnail · raw ingredients spread · 1:1 -->
-        <div class="thumb" data-thumb="ingredients" style="background-image: url('/images/responsive/ingredients/ritual-flatlay-five-adaptogens-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
-        <!-- IMAGE: gallery thumbnail · nutrition label / back of pouch · 1:1 -->
-        <div class="thumb" data-thumb="label" style="background-image: url('/images/responsive/products/ritual/ritual-pouch-10-serving-hero-monumental-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
+        <!-- pouch hero -->
+        <div class="gallery-thumb active" data-full="/images/responsive/products/ritual/ritual-pouch-hero-monumental-editorial-1x1-1200.webp" style="background-image: url('/images/responsive/products/ritual/ritual-pouch-hero-monumental-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
+        <!-- cacao texture -->
+        <div class="gallery-thumb" data-full="/images/responsive/products/ritual/ritual-cacao-texture-editorial-1x1-1200.webp" style="background-image: url('/images/responsive/products/ritual/ritual-cacao-texture-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
+        <!-- scoop into mug -->
+        <div class="gallery-thumb" data-full="/images/responsive/lifestyle/ritual-pouch-scoop-spill-editorial-4x3-1200.webp" style="background-image: url('/images/responsive/lifestyle/ritual-pouch-scoop-spill-editorial-4x3-800.webp'); background-size: cover; background-position: center;"></div>
+        <!-- ingredient flatlay -->
+        <div class="gallery-thumb" data-full="/images/responsive/ingredients/ritual-flatlay-five-adaptogens-editorial-1x1-1200.webp" style="background-image: url('/images/responsive/ingredients/ritual-flatlay-five-adaptogens-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
+        <!-- 10-serving pouch -->
+        <div class="gallery-thumb" data-full="/images/responsive/products/ritual/ritual-pouch-10-serving-hero-monumental-editorial-1x1-1200.webp" style="background-image: url('/images/responsive/products/ritual/ritual-pouch-10-serving-hero-monumental-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
       </div>
       <!--
         GALLERY SHOT LIST:
@@ -2374,7 +2375,7 @@ body.locked { overflow: hidden; }
           <span class="atc-btn-price">$55.25</span>
         </button>
         <div class="atc-trust">
-          <div class="atc-trust-item">Free shipping over $60</div>
+          <div class="atc-trust-item">Free shipping over $100</div>
           <div class="atc-trust-item">30-day money back</div>
         </div>
       </div>
@@ -2383,8 +2384,12 @@ body.locked { overflow: hidden; }
 
       <!-- Guarantee callout -->
       <div class="guarantee">
-        <!-- ICON: shield / guarantee · orange · 22px · botanical-line -->
-        <div class="guarantee-icon" data-icon="guarantee">Shield</div>
+        <div class="guarantee-icon" data-icon="guarantee" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2 4 5v6c0 5 3.4 8.4 8 10 4.6-1.6 8-5 8-10V5l-8-3z" />
+            <path d="M9 12l2 2 4-4" />
+          </svg>
+        </div>
         <div class="guarantee-text">
           <strong>Feel the difference or your money back.</strong>
           30 days to notice a shift. No forms, no questions, no explanations needed. We carry the risk, not you.
@@ -2435,7 +2440,9 @@ body.locked { overflow: hidden; }
             <div class="info-row-toggle">+</div>
           </summary>
           <div class="info-row-a">
-            <strong>Third-party tested for purity, heavy metals, and potency.</strong> Mushrooms sourced from fruiting bodies only (never mycelium-on-grain). KSM-66® Ashwagandha from Ixoreal Biomed (the clinically studied form). Rhodiola Rosea from Altai Mountain harvests. Bioavailable Curcumin from Verdure Sciences. Peruvian cacao from organic smallholder farmers. Every batch documented. Certificate of analysis available on request.
+            <!-- Suppliers intentionally not named (proprietary). Origins live on /ingredients.
+                 Optional: a tier-1 citation on chitin/beta-glucan bioavailability can be added here — confirm with Kinga. -->
+            <strong>Third-party tested for purity, heavy metals, and potency.</strong> Our mushrooms are extracted from the fruiting body only, never mycelium grown on grain. Here's why extraction matters: a mushroom's active compounds sit locked inside cell walls made of chitin, and the human gut can't break chitin down. Eat raw or powdered Lion's Mane or Chaga and most of it passes straight through. Extraction opens those cell walls and pulls the compounds out so your body can absorb them. Some are water-soluble (like beta-glucans) and some are oil-soluble (like triterpenes), so we use both hot-water and alcohol extraction to capture the full range. Every batch is documented, with a certificate of analysis available on request.
           </div>
         </details>
       </div>
@@ -2503,13 +2510,15 @@ body.locked { overflow: hidden; }
 </section>
 
 
-<!-- ═══ BOTANICAL BENEFITS, Six benefits, illustrated botanically ═══ -->
+<!-- ═══ BENEFITS — three grouped shifts (reduced from six 2026-05-25).
+     Icons reuse the existing botanical SVGs; Kinga may supply stronger
+     packaging icons later. ═══ -->
 <section class="benefits">
   <div class="container">
     <div class="benefits-header">
       <div class="eyebrow center reveal">What you'll feel</div>
       <h2 class="reveal d1">The shifts we built for.</h2>
-      <p class="benefits-sub reveal d2">Each shift traces back to a specific ingredient in the formula. The botanical tells you where the change comes from.</p>
+      <p class="benefits-sub reveal d2">Each one traces back to specific ingredients in the formula.</p>
     </div>
 
     <div class="benefits-grid">
@@ -2529,9 +2538,9 @@ body.locked { overflow: hidden; }
             <path d="M32 24 Q32 30 34 34" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
           </svg>
         </div>
-        <div class="benefit-h">Calm focus</div>
-        <div class="benefit-b">Lion's Mane is studied for Nerve Growth Factor activation. Clarity that builds steadily, no jitter.</div>
-        <div class="benefit-ing">Lion's Mane fruiting body · 8:1</div>
+        <div class="benefit-h">Focus + mental clarity</div>
+        <div class="benefit-b">Lion's Mane is studied for Nerve Growth Factor support, Bioavailable Curcumin for a healthy inflammatory response in the brain, and Rhodiola for working with the stress response behind mental fog. Clarity that builds, no jitter.</div>
+        <div class="benefit-ing">Lion's Mane · Curcumin · Rhodiola</div>
       </div>
 
       <!-- 2. Sustained energy / Cordyceps -->
@@ -2551,8 +2560,8 @@ body.locked { overflow: hidden; }
             <path d="M14 38 L34 38" stroke="#2F3D33" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
           </svg>
         </div>
-        <div class="benefit-h">Sustained energy</div>
-        <div class="benefit-b">Cordyceps militaris is studied for cellular ATP production. Energy that holds, from a real source.</div>
+        <div class="benefit-h">Calm + sustained energy</div>
+        <div class="benefit-b">No caffeine masking the problem. A more regulated nervous system means deeper overnight recovery, while Cordyceps and antioxidant compounds support the mitochondria, the powerhouses inside your cells that produce energy. Energy that holds, from a real source.</div>
         <div class="benefit-ing">Cordyceps militaris · fruiting body</div>
       </div>
 
@@ -2574,78 +2583,9 @@ body.locked { overflow: hidden; }
             <path d="M22 36 L21 40 M24 38 L24 41 M26 36 L27 40" stroke="#2F3D33" stroke-width="1" stroke-linecap="round" opacity="0.55"/>
           </svg>
         </div>
-        <div class="benefit-h">Steadier stress response</div>
-        <div class="benefit-b">KSM-66® at 300mg, the dose used in the published cortisol-response trials. The whole nervous system unwinds a notch.</div>
-        <div class="benefit-ing">KSM-66® Ashwagandha · 300mg</div>
-      </div>
-
-      <!-- 4. Deeper sleep / Rhodiola flower -->
-      <div class="benefit reveal">
-        <div class="benefit-icon" aria-hidden="true">
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Rhodiola, succulent flower with fleshy leaves -->
-            <!-- Central flower cluster -->
-            <circle cx="24" cy="15" r="1.6" fill="#2F3D33"/>
-            <circle cx="20" cy="16" r="1.2" fill="#2F3D33"/>
-            <circle cx="28" cy="16" r="1.2" fill="#2F3D33"/>
-            <circle cx="22" cy="19" r="1.1" fill="#2F3D33"/>
-            <circle cx="26" cy="19" r="1.1" fill="#2F3D33"/>
-            <circle cx="18" cy="18" r="0.9" fill="#2F3D33"/>
-            <circle cx="30" cy="18" r="0.9" fill="#2F3D33"/>
-            <!-- Stem -->
-            <path d="M24 22 L24 37" stroke="#2F3D33" stroke-width="1.2" stroke-linecap="round"/>
-            <!-- Fleshy leaves (alternating) -->
-            <path d="M24 26 Q19 25 17 28 Q20 30 24 28" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linejoin="round"/>
-            <path d="M24 30 Q29 29 31 32 Q28 34 24 32" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linejoin="round"/>
-            <path d="M24 34 Q20 33 18 36" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <div class="benefit-h">Restorative rest</div>
-        <div class="benefit-b">Rhodiola Rosea at premium 5% / 1.5% standardization, supporting the recovery that precedes good sleep.</div>
-        <div class="benefit-ing">Rhodiola Rosea · Altai wild</div>
-      </div>
-
-      <!-- 5. Daily defense / Chaga -->
-      <div class="benefit reveal d1">
-        <div class="benefit-icon" aria-hidden="true">
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Chaga on birch bark, conk fungus with irregular edges -->
-            <!-- Birch branch -->
-            <path d="M12 22 L36 22" stroke="#2F3D33" stroke-width="1.3" stroke-linecap="round"/>
-            <!-- Birch lines on branch -->
-            <path d="M16 20 L16 24 M22 20 L22 24 M30 20 L30 24" stroke="#2F3D33" stroke-width="0.8" opacity="0.5" stroke-linecap="round"/>
-            <!-- Chaga growth (irregular, gnarled) -->
-            <path d="M18 22 Q16 24 15 27 Q14 30 16 32 Q19 33 22 32 Q25 34 28 33 Q31 32 32 29 Q33 25 31 23 Q28 22 26 23 Q23 22 18 22 Z" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
-            <!-- Texture lines inside chaga -->
-            <path d="M19 26 Q21 28 24 27" stroke="#2F3D33" stroke-width="0.9" fill="none" opacity="0.55" stroke-linecap="round"/>
-            <path d="M22 30 Q25 31 28 29" stroke="#2F3D33" stroke-width="0.9" fill="none" opacity="0.55" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <div class="benefit-h">Daily resilience</div>
-        <div class="benefit-b">Wild-harvested chaga, rich in beta-glucans and antioxidant compounds. The steady supporting layer behind the formula.</div>
-        <div class="benefit-ing">Chaga · wild-harvested</div>
-      </div>
-
-      <!-- 6. Steady mood / Cacao -->
-      <div class="benefit reveal d2">
-        <div class="benefit-icon" aria-hidden="true">
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Cacao pod with stem and ridges -->
-            <!-- Stem -->
-            <path d="M24 8 L24 12" stroke="#2F3D33" stroke-width="1.2" stroke-linecap="round"/>
-            <!-- Pod outline (oval with pointed ends) -->
-            <path d="M24 12 Q17 13 14 20 Q12 28 15 36 Q19 40 24 40 Q29 40 33 36 Q36 28 34 20 Q31 13 24 12 Z" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
-            <!-- Ridges running lengthwise -->
-            <path d="M18 14 Q17 26 18 38" stroke="#2F3D33" stroke-width="0.9" fill="none" opacity="0.55"/>
-            <path d="M24 12 L24 40" stroke="#2F3D33" stroke-width="0.9" fill="none" opacity="0.55"/>
-            <path d="M30 14 Q31 26 30 38" stroke="#2F3D33" stroke-width="0.9" fill="none" opacity="0.55"/>
-            <!-- Leaf detail at stem -->
-            <path d="M24 10 Q21 8 19 9 Q21 11 24 11" stroke="#2F3D33" stroke-width="1" fill="none" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div class="benefit-h">Steady mood</div>
-        <div class="benefit-b">Peruvian ceremonial cacao brings theobromine and PEA. The gentle warm lift that makes the whole ritual something you actually want.</div>
-        <div class="benefit-ing">Ceremonial cacao · single-origin Peru</div>
+        <div class="benefit-h">Stress resilience support</div>
+        <div class="benefit-b">KSM-66® Ashwagandha at 300mg, the dose used in published cortisol-response trials, with Rhodiola alongside it. Cortisol is the master hormone behind your stress response. When it steadies, energy, focus, and recovery tend to follow.</div>
+        <div class="benefit-ing">KSM-66® Ashwagandha · 300mg · Rhodiola Rosea</div>
       </div>
 
     </div>
@@ -2661,17 +2601,13 @@ body.locked { overflow: hidden; }
     <div class="timeline-header">
       <div class="eyebrow center reveal">Your first month on Mujo</div>
       <h2 class="reveal d1">Adaptogens don't work in minutes. They work in weeks.</h2>
-      <p class="body-lg reveal d2" style="margin: 0 auto; text-align: center; max-width: 540px;">Here's what most customers notice, in the order they notice it.</p>
+      <p class="body-lg reveal d2" style="margin: 0 auto; text-align: center; max-width: 600px;">Adaptogens build their effect through repeated, supported use. The change is quiet at first. Then it isn't. Here's what most people notice, in the order they notice it.</p>
     </div>
 
     <div class="timeline-layout">
       <div class="timeline-feature reveal" style="background-image: url('/images/responsive/products/ritual/ritual-mug-steam-cream-editorial-4x5-800.webp'); background-size: cover; background-position: center;">
-        <!-- IMAGE: slow morning ritual · 4:5 · prepared mug + scoop, natural light -->
-        <div class="timeline-feature-content">
-          <div class="timeline-feature-eyebrow">A month, not a moment</div>
-          <h3>Small input. <em>Compounding output.</em></h3>
-          <p>Adaptogens build their effect through repeated, supported use. The change is quiet at first. Then it isn't.</p>
-        </div>
+        <!-- Overlay text removed 2026-05-25 — it was unreadable on the photo. The
+             copy now lives legibly in the section header above. Clean image. -->
       </div>
 
       <div class="timeline-grid">
@@ -2679,16 +2615,16 @@ body.locked { overflow: hidden; }
           <div class="tl-marker">1</div>
           <div class="tl-content">
             <div class="tl-week">Week One</div>
-            <div class="tl-title">You notice <em>the taste.</em></div>
-            <div class="tl-body">Rich, deep, a little chocolatey. It doesn't taste like mud, it tastes like something you'd actually choose. The warmth of cacao, rounded out by something you can't quite name. <strong>You look forward to it.</strong></div>
+            <div class="tl-title">You notice <em>the flavor.</em></div>
+            <div class="tl-body">Rich and a little chocolatey, with maybe a small lift in mood. No coffee-style buzz, but you're a little less tired by the end of the day. By the end of the week, <strong>sleep starts feeling a touch deeper.</strong></div>
           </div>
         </div>
         <div class="tl-card reveal d2">
           <div class="tl-marker">2</div>
           <div class="tl-content">
             <div class="tl-week">Week Two</div>
-            <div class="tl-title">You notice <em>the afternoons.</em></div>
-            <div class="tl-body">The 3pm crash you'd written off as "just how you were." <strong>It's calmer.</strong> You're still going. <strong>You're sharper.</strong> Your thoughts feel more coherent. You're not reaching for the second coffee. Sleep starts feeling a little deeper.</div>
+            <div class="tl-title">You notice <em>your focus.</em></div>
+            <div class="tl-body">Focus comes in a little stronger each day. <strong>Your game on the court feels sharper,</strong> and you get more done through the long stretches at work without reaching for another coffee.</div>
           </div>
         </div>
         <div class="tl-card reveal d3">
@@ -2696,7 +2632,7 @@ body.locked { overflow: hidden; }
           <div class="tl-content">
             <div class="tl-week">Week Three+</div>
             <div class="tl-title">You notice <em>the baseline.</em></div>
-            <div class="tl-body">A little steadier. A little clearer. <strong>The anxious hum gets quieter.</strong> You've stopped white-knuckling your focus. <strong>There's less mental fatigue.</strong> This is what adaptogens do when they're actually dosed to work.</div>
+            <div class="tl-body">Calmer, thinking more clearly, the small things stop rattling you. <strong>Your stress response feels steadier,</strong> sleep is deeper, and you wake more rested. You're not as wiped by the end of the day. <strong>It feels natural,</strong> until you remember what it used to feel like.</div>
           </div>
         </div>
       </div>
@@ -2727,7 +2663,7 @@ body.locked { overflow: hidden; }
       <!-- Bioavailable Curcuma, marked as "Unique to Mujo" -->
       <div class="ing-compact reveal feat">
         <!-- ICON: bioavailable curcumin · sage · 32px · botanical-line -->
-        <div class="ing-compact-img"><span class="ing-compact-emoji" data-icon="curcumin" aria-hidden="true"></span></div>
+        <div class="ing-compact-img" style="background-image: url('/images/responsive/ingredients/turmeric-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
         <div class="ing-compact-body">
           <div class="ing-compact-top">
             <div class="ing-compact-name">Bioavailable Curcumin</div>
@@ -2745,7 +2681,7 @@ body.locked { overflow: hidden; }
       <!-- Lion's Mane -->
       <div class="ing-compact reveal d1">
         <!-- ICON: lion's mane mushroom · sage · 32px · botanical-line -->
-        <div class="ing-compact-img"><span class="ing-compact-emoji" data-icon="lions-mane" aria-hidden="true"></span></div>
+        <div class="ing-compact-img" style="background-image: url('/images/responsive/ingredients/lions-mane-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
         <div class="ing-compact-body">
           <div class="ing-compact-top">
             <div class="ing-compact-name">Lion's Mane</div>
@@ -2763,7 +2699,7 @@ body.locked { overflow: hidden; }
       <!-- KSM-66 Ashwagandha -->
       <div class="ing-compact reveal d2">
         <!-- ICON: ashwagandha leaf · sage · 32px · botanical-line -->
-        <div class="ing-compact-img"><span class="ing-compact-emoji" data-icon="ashwagandha" aria-hidden="true"></span></div>
+        <div class="ing-compact-img" style="background-image: url('/images/responsive/ingredients/ashwagandha-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
         <div class="ing-compact-body">
           <div class="ing-compact-top">
             <div class="ing-compact-name">KSM-66® Ashwagandha</div>
@@ -2781,13 +2717,13 @@ body.locked { overflow: hidden; }
       <!-- Rhodiola Rosea -->
       <div class="ing-compact reveal">
         <!-- ICON: rhodiola rosea flower · sage · 32px · botanical-line -->
-        <div class="ing-compact-img"><span class="ing-compact-emoji" data-icon="rhodiola" aria-hidden="true"></span></div>
+        <div class="ing-compact-img" style="background-image: url('/images/responsive/ingredients/rhodiola-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
         <div class="ing-compact-body">
           <div class="ing-compact-top">
             <div class="ing-compact-name">Rhodiola Rosea</div>
             <div class="ing-compact-badge">5% / 1.5%</div>
           </div>
-          <div class="ing-compact-sub">Altai Mountain rhodiola at <strong>premium standardization</strong>, the highest available for clinical-grade rhodiola*</div>
+          <div class="ing-compact-sub">Himalayan rhodiola, cultivated to protect the species · <strong>1.5% / 5% actives</strong></div>
           <div class="ing-compact-pills">
             <span class="ing-pill">Performance</span>
             <span class="ing-pill">Stress</span>
@@ -2799,7 +2735,7 @@ body.locked { overflow: hidden; }
       <!-- Cordyceps -->
       <div class="ing-compact reveal d1">
         <!-- ICON: cordyceps militaris · sage · 32px · botanical-line -->
-        <div class="ing-compact-img"><span class="ing-compact-emoji" data-icon="cordyceps" aria-hidden="true"></span></div>
+        <div class="ing-compact-img" style="background-image: url('/images/responsive/ingredients/cordyceps-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
         <div class="ing-compact-body">
           <div class="ing-compact-top">
             <div class="ing-compact-name">Cordyceps</div>
@@ -2817,7 +2753,7 @@ body.locked { overflow: hidden; }
       <!-- Chaga -->
       <div class="ing-compact reveal d2">
         <!-- ICON: chaga / wild birch · sage · 32px · botanical-line -->
-        <div class="ing-compact-img"><span class="ing-compact-emoji" data-icon="chaga" aria-hidden="true"></span></div>
+        <div class="ing-compact-img" style="background-image: url('/images/responsive/ingredients/chaga-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
         <div class="ing-compact-body">
           <div class="ing-compact-top">
             <div class="ing-compact-name">Chaga</div>
@@ -2851,7 +2787,7 @@ body.locked { overflow: hidden; }
   <div class="container">
     <div class="compare-header">
       <div class="eyebrow center reveal">A new standard</div>
-      <h2 class="reveal d1">What "functional" looks like <span class="serif-accent">when it actually means something.</span></h2>
+      <h2 class="reveal d1">What makes us <span class="serif-accent">different.</span></h2>
     </div>
     <div class="compare-wrap">
       <div class="compare-scroll">
@@ -3065,11 +3001,12 @@ body.locked { overflow: hidden; }
 </section>
 
 <!-- ═══════════════════════════════════════════
-     OKENDO REVIEW FEED SLOT
-     Live Okendo widget will mount here when integrated.
-     The container below holds the position; replace
-     the `.okendo-marker` with: <div data-oke-reviews-product-listing></div>
-     (or whichever Okendo embed you generate from their dashboard).
+     LOOP REVIEW FEED SLOT  (Mujo uses Loop for reviews)
+     TO GO LIVE (needs Kinga's Loop account + embed snippet):
+       1. Add Loop's loader <script> to app/layout.tsx so it loads globally — an
+          inline <script> inside this imported HTML does NOT execute under React.
+       2. Drop Loop's product-listing embed into #loop-reviews below (confirm the
+          exact element/attribute from the Loop dashboard).
      ═══════════════════════════════════════════ -->
 <section class="okendo-slot">
   <div class="container">
@@ -3077,9 +3014,8 @@ body.locked { overflow: hidden; }
       <div class="eyebrow">All reviews</div>
       <h3>Read everything <em>everyone said.</em></h3>
       <p>Filter, sort, and read the full review stream. Updated in real time. Verified purchases only.</p>
-      <div class="okendo-marker">
-        <!-- DEV NOTE: Replace this block with the Okendo embed snippet -->
-        Okendo review feed mounts here.
+      <div class="okendo-marker" id="loop-reviews">
+        <!-- Loop review widget mounts here. Embed snippet pending Kinga's Loop account. -->
       </div>
     </div>
   </div>
@@ -3131,20 +3067,8 @@ body.locked { overflow: hidden; }
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════
-     REBEL CLUB TEASE
-     ═══════════════════════════════════════════ -->
-<section class="rebel-tease">
-  <div class="container">
-    <div class="eyebrow center reveal">The Rebel Club</div>
-    <h2 class="reveal d1">For people building <span class="serif-accent">simpler routines that actually work.</span></h2>
-    <p class="rebel-tease-sub reveal d2">Founder notes from Kinga. Early access to drops. Member-only essays. Twice a month, founder-written, founder-funded. <strong style="color:#fff;font-weight:500;">Free forever.</strong></p>
-    <form class="rebel-tease-form reveal d3" onsubmit="handleRebelJoin(event)">
-      <input type="email" class="rebel-tease-input" placeholder="your@email.com" required>
-      <button type="submit" class="btn btn-primary">Join the Rebel Club</button>
-    </form>
-  </div>
-</section>
+<!-- Rebel Club body email signup removed 2026-05-25 — the footer signup is the
+     single email capture (this was a duplicate before the footer). -->
 
 <!-- ═══════════════════════════════════════════
      FOOTER
@@ -3264,14 +3188,9 @@ function handleRebelJoin(e) {
   alert('In production: POST to Klaviyo with "Rebel Club" tag.');
 }
 
-// Thumbnail gallery (placeholder behavior)
-document.querySelectorAll('.thumb').forEach(t => {
-  t.addEventListener('click', () => {
-    document.querySelectorAll('.thumb').forEach(x => x.classList.remove('active'));
-    t.classList.add('active');
-    // In production: swap main image
-  });
-});
+// Thumbnail gallery is handled by the shared ImportedPageRuntime
+// (.gallery-thumb[data-full] → .gallery-main-img.src). No inline JS needed —
+// inline <script> in imported HTML does not execute under React anyway.
 </script>
 
 <script id="mujo-canonical-nav-js">
