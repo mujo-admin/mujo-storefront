@@ -186,6 +186,10 @@ nav {
   background: var(--cream);
   position: relative;
 }
+/* Ingredients hero — image + text split (added 2026-05-25) */
+.hero-split { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: center; }
+@media (min-width: 900px) { .hero-split { grid-template-columns: 1.1fr 0.9fr; gap: 56px; } }
+.hero-image { aspect-ratio: 1 / 1; border-radius: 16px; background-color: var(--sand); background-size: cover; background-position: center; min-height: 280px; }
 .hero-eye {
   font-family: var(--f-mono);
   font-size: 11px;
@@ -1365,9 +1369,14 @@ body.locked { overflow: hidden; }
      ═══════════════════════════════════════════ -->
 <section class="hero">
   <div class="container">
-    <div class="hero-eye reveal">Ingredient nuances matter</div>
-    <h1 class="reveal d1">Get to know our <span class="serif-accent">unique ingredients.</span></h1>
-    <p class="hero-sub reveal d2">We obsessively research every dose, every format, and every active compound. <strong>It's not enough that an ingredient is listed on a label.</strong> Quality matters. Clinical research matters. That's what makes us different.</p>
+    <div class="hero-split">
+      <div class="hero-copy">
+        <div class="hero-eye reveal">Ingredient nuances matter</div>
+        <h1 class="reveal d1">Get to know our <span class="serif-accent">unique ingredients.</span></h1>
+        <p class="hero-sub reveal d2">We obsessively research every dose, every format, and every active compound. <strong>It's not enough that an ingredient is listed on a label.</strong> Quality matters. Clinical research matters. That's what makes us different.</p>
+      </div>
+      <div class="hero-image" style="background-image:url('/images/responsive/ingredients/ritual-flatlay-five-adaptogens-editorial-1x1-800.webp');"></div>
+    </div>
   </div>
 </section>
 
@@ -1456,8 +1465,8 @@ body.locked { overflow: hidden; }
     <div class="ing-grid">
 
       <!-- ═══════ HERO INGREDIENT: Bioavailable Curcumin ═══════ -->
-      <div class="ing-card feat reveal" data-benefits="brain focus stress resilience">
-        <div class="ing-img" style="background-image: url('/images/responsive/ingredients/ritual-flatlay-five-adaptogens-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
+      <div class="ing-card reveal" data-benefits="brain focus stress resilience">
+        <div class="ing-img" style="background-image: url('/images/responsive/ingredients/turmeric-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
         <div class="ing-content">
           <div class="ing-top">
             <div class="ing-name">Bioavailable Curcumin</div>
