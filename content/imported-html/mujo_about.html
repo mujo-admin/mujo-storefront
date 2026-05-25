@@ -311,6 +311,15 @@ body.locked { overflow: hidden; }
   color: var(--ink-soft);
   line-height: 1.6;
 }
+/* "What you get" — image + text split (added 2026-05-25) */
+.thesis-split { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: center; }
+@media (min-width: 900px) { .thesis-split { grid-template-columns: 0.85fr 1.15fr; gap: 56px; } }
+.thesis-image { aspect-ratio: 4 / 5; border-radius: 16px; background-color: var(--sand); background-size: cover; background-position: center; min-height: 300px; }
+.thesis-content .eyebrow { margin-bottom: 14px; }
+.thesis-content > h2 { font-size: clamp(28px, 4vw, 42px); letter-spacing: -0.02em; margin-bottom: 18px; line-height: 1.1; }
+.thesis-content > h2 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.thesis-content > p { font-size: 16px; line-height: 1.7; color: var(--ink-soft); }
+.thesis-items { margin-top: 28px; display: flex; flex-direction: column; gap: 16px; }
 
 /* FOUNDER STORY · long-form */
 .story-section {
@@ -572,7 +581,7 @@ body.locked { overflow: hidden; }
 
 .signature {
   margin-top: 36px;
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   gap: 6px;
@@ -737,26 +746,29 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
      ============================================================ -->
 <section class="thesis-section">
   <div class="container">
-    <div class="thesis-head">
-      <span class="eyebrow">What you get from Mujo</span>
-      <h2>Modern performance shouldn't <em>cost you</em> the rest of the day.</h2>
-      <p>Mujo is foundational nervous system support, so you can be the top performer in your own pursuit. If you've been looking for functional food that's serious about what it puts in the tin, you're in the right place.</p>
-    </div>
-    <div class="pillars">
-      <div class="pillar">
-        <div class="pillar-num">01 / What you get</div>
-        <h3>Doses that <em>actually do</em> something.</h3>
-        <p>Every active matches the dose the research used. KSM-66® at 300mg. Rhodiola Rosea at premium standardization. Bioavailable Curcumin, not raw turmeric. Read the label. The numbers will check out.</p>
-      </div>
-      <div class="pillar">
-        <div class="pillar-num">02 / What you get</div>
-        <h3>Real ingredients, <em>not lookalikes.</em></h3>
-        <p>Full fruiting bodies. No mycelium grown on grain. No "blends" hiding rice flour. The species and strain are on the label because you asked, and because they should be.</p>
-      </div>
-      <div class="pillar">
-        <div class="pillar-num">03 / What you get</div>
-        <h3>Honest copy. <em>Citations on the label.</em></h3>
-        <p>You won't be sold miracles. You won't be sold fear. You'll be told what the ingredients do, in the doses we use, with citations. Then you decide.</p>
+    <div class="thesis-split">
+      <div class="thesis-image" style="background-image:url('/images/responsive/lifestyle/ritual-pouch-mug-hero-editorial-4x5-800.webp');"></div>
+      <div class="thesis-content">
+        <span class="eyebrow">What you get from Mujo</span>
+        <h2>Modern performance built on a <em>balanced foundation.</em></h2>
+        <p>Mujo is foundational nervous system support, so you can be the top performer in your own pursuit. If you've been looking for functional food that's serious about what it puts in the tin, you're in the right place.</p>
+        <div class="thesis-items">
+          <div class="pillar">
+            <div class="pillar-num">01 / Ingredient quality</div>
+            <h3>Real ingredients, <em>in their optimal forms.</em></h3>
+            <p>Mushroom extracts from the fruiting body are what deliver those studied compounds, not ground-up mycelium. Adaptogens are the same: active-ingredient presence has to be verified.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">02 / Dosed according to research</div>
+            <h3>Amounts that matter, <em>research-validated.</em></h3>
+            <p>Remarkable ingredients on the label only matter if they're dosed at research-validated amounts.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">03 / Delicious and better-for-you</div>
+            <h3>Always delicious. <em>Without the negatives.</em></h3>
+            <p>Rituals that don't make you happy are unlikely to stay in your routine. Ours taste so good you won't want to skip them, and they make you feel good too.</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -818,8 +830,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
           </div>
         </div>
       </div>
-      <!-- ICON: Lemna leaf · sage · 96px · botanical-line -->
-      <div class="lemna-illo image-placeholder icon-placeholder" data-icon="lemna-leaf" style="background-image: url('/images/responsive/ingredients/lemna-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
+      <div class="lemna-illo" style="background-image: url('/images/responsive/ingredients/lemna-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
     </div>
   </div>
 </section>
@@ -837,7 +848,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
     <ul class="standards-list">
       <li class="std-row">
         <div class="std-num">01</div>
-        <div class="std-title">Clinical doses, <em>not theatre.</em></div>
+        <div class="std-title">Clinical doses, <em>nothing less.</em></div>
         <div class="std-desc">If a study used 300mg, we use 300mg. No "proprietary blends" hiding sub-therapeutic amounts behind marketing language.</div>
       </li>
       <li class="std-row">
@@ -847,23 +858,13 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
       </li>
       <li class="std-row">
         <div class="std-num">03</div>
-        <div class="std-title">Patented strains where they matter.</div>
+        <div class="std-title">Patented strains <em>where they matter.</em></div>
         <div class="std-desc">KSM-66® Ashwagandha. Rhodiola Rosea at premium standardization. Bioavailable Curcumin in its solid-lipid form. The standardized, third-party-verified versions. Cheaper alternatives exist. We don't use them.</div>
       </li>
       <li class="std-row">
         <div class="std-num">04</div>
-        <div class="std-title">No fillers. <em>No fakery.</em></div>
+        <div class="std-title">No fillers. <em>No artificial sweetness.</em></div>
         <div class="std-desc">No maltodextrin to bulk out servings. No "natural flavors" doing the heavy lifting. No hidden sugar dressed as something else.</div>
-      </li>
-      <li class="std-row">
-        <div class="std-num">05</div>
-        <div class="std-title">Tested every batch.</div>
-        <div class="std-desc">Heavy metals, microbial counts, active compound verification. Independent lab. Results on file.</div>
-      </li>
-      <li class="std-row">
-        <div class="std-num">06</div>
-        <div class="std-title">Cited claims. <em>Always.</em></div>
-        <div class="std-desc">If we say it does something, we'll show you the paper. The good ones, with proper sample sizes, not the cherry-picked ones.</div>
       </li>
     </ul>
   </div>
