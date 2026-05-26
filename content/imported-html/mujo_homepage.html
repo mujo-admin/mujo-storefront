@@ -474,9 +474,8 @@ body.locked { overflow: hidden; }
 
 .hero-rating {
   display: flex; align-items: center; gap: 10px;
-  margin-top: 28px;
-  padding-top: 24px;
-  border-top: 1px solid var(--line-soft);
+  margin-top: 10px;
+  padding-top: 10px;
   font-size: 13px;
   color: var(--mute);
 }
@@ -507,86 +506,50 @@ body.locked { overflow: hidden; }
 }
 @media (min-width: 768px) { .hero-audience { font-size: 17px; margin-top: 18px; } }
 
-/* ── Mobile hero: full-bleed product image + scrim, text overlaid (Option A) ──
-   On mobile the image was stacking below the text and never showed on the first
-   screen. Make it the full-bleed backdrop, lay a legibility scrim over it, and
-   overlay the hero text in light type. Desktop (>=1024px) keeps the two-column
-   layout untouched. */
+/* ── Mobile hero: image stacks UNDER the centered text (Kinga 2026-05-26).
+   The image flows below the text block (base .hero-img-wrap, 4/5). Text is
+   center-aligned. Desktop (>=1024px) keeps the two-column split, text left. ── */
 @media (max-width: 1023px) {
-  .hero-grid { position: relative; }
-  .hero-img-wrap {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    aspect-ratio: auto;
-    padding: 0;
-    z-index: 0;
-  }
-  .hero-grid::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    background: linear-gradient(180deg,
-      rgba(18,22,19,0.50) 0%,
-      rgba(18,22,19,0.36) 42%,
-      rgba(18,22,19,0.82) 100%);
-  }
-  .hero-text {
-    position: relative;
-    z-index: 2;
-    min-height: 88vh;
-    min-height: 88svh;            /* full-ish screen so the image shows + the text (eyebrow → rating) frames on the first screen */
-    justify-content: center;      /* vertical-center the text over the image */
-    align-items: center;          /* mobile-only horizontal centering */
-    text-align: center;
-    padding: 64px var(--gutter);
-    max-width: none;
-  }
-  /* Center the inner rows on mobile */
-  .hero-pills { justify-content: center; }
+  .hero-text { text-align: center; align-items: center; }
   .hero .ctas { justify-content: center; flex-wrap: wrap; }
   .hero-rating { justify-content: center; }
-  /* Drop the eyebrow on mobile. The pills above the headline now carry the
-     "what it does," so this de-clutters the hero (desktop keeps the eyebrow). */
-  .hero-text .eyebrow { display: none; }
-  .hero h1 { color: #fff; }
-  .hero-sub { color: rgba(255,255,255,0.9); }
-  .hero-rating { border-top-color: rgba(255,255,255,0.22); color: rgba(255,255,255,0.8); }
-  .hero-rating strong { color: #fff; }
-  /* Hide the audience descriptor on mobile. Shortens the hero so the pouch
-     isn't cropped by the full-bleed image (per Kinga). */
-  .hero-audience { display: none; }
-  .hero .btn-ghost { border-color: rgba(255,255,255,0.55); color: #fff; }
-  /* Pills + the "Coming soon" pill: white chips with ink text so they stay
-     readable on top of the dark hero image. */
-  .hero .hero-pill { background: rgba(255,255,255,0.92); color: var(--ink); }
-  .hero .cta-pill { background: rgba(255,255,255,0.92); color: var(--ink); }
-  /* Guarantee line: light text on the dark image (shield stays orange). */
-  .hero-guarantee { color: rgba(255,255,255,0.9); }
+  .hero-guarantee { justify-content: center; }
 }
 
-/* "#1 wellness trend" banner. Single consolidated placement on all viewports
-   (the hero pullquote was removed to avoid the duplicate). Sits between the hero
-   and the manifesto. */
-.trend-banner {
-  display: block;
-  background: var(--sage);
-  padding: 28px var(--gutter);
-  text-align: center;
+/* "Modern performance" / neurowellness section — image + text, after the UGC strip.
+   Image left, copy + #1-trend quote box right; stacks on mobile. */
+.perform { background: var(--cream); }
+.perform-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: center;
 }
-.trend-banner p {
-  font-family: var(--f-serif);
+@media (min-width: 900px) { .perform-grid { grid-template-columns: 1fr 1.1fr; gap: 56px; } }
+.perform-image {
+  aspect-ratio: 4 / 5;
+  border-radius: var(--r-structural);
+  background-color: var(--sand);
+  background-size: cover;
+  background-position: center;
+  min-height: 320px;
+}
+.perform-text h2 { margin-bottom: 18px; }
+.perform-text > p { font-size: 17px; line-height: 1.7; color: var(--ink-soft); margin-bottom: 24px; }
+.perform-quote {
+  border-left: 3px solid var(--sage);
+  background: var(--sand);
+  border-radius: var(--r-structural);
+  padding: 18px 22px;
+}
+.perform-quote p {
   font-style: italic;
   font-size: 15px;
-  line-height: 1.5;
-  max-width: 540px;
-  margin: 0 auto;
-  color: rgba(255,255,255,0.85);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin: 0;
 }
-.trend-banner strong { color: #fff; font-style: normal; font-weight: 600; font-family: var(--f-display); }
+.perform-quote strong { color: var(--ink); font-style: normal; font-weight: 600; }
 
 /* ═══════════════════════════════════════════════════════════
    2. MANIFESTO (sage, full-bleed)
@@ -1905,13 +1868,8 @@ footer {
 <section class="hero">
   <div class="hero-grid">
     <div class="hero-text">
-      <div class="eyebrow reveal">Modern performance without the crash</div>
-      <div class="hero-pills reveal d1">
-        <span class="hero-pill">Energy</span>
-        <span class="hero-pill">Focus</span>
-        <span class="hero-pill">Neurowellness</span>
-      </div>
-      <h1 class="reveal d1">For a nervous system that's been <span class="serif-acc">running hot.</span></h1>
+      <div class="eyebrow reveal">Energy · Focus · Neurowellness</div>
+      <h1 class="reveal d1">For a nervous system that's running hot.</h1>
       <p class="hero-sub reveal d2">Caffeine-free mushroom-adaptogen cacao dosed to the research. Tastes so good you won't want to skip it.</p>
       <div class="ctas reveal d4">
         <a href="/products/mujo-ritual" class="btn btn-primary">Shop the Ritual Cacao <span class="arrow">→</span></a>
@@ -1928,19 +1886,13 @@ footer {
         <div class="hero-stars">★★★★★</div>
         <div><strong>4.9</strong> · 100+ verified reviews</div>
       </div>
-      <p class="hero-audience reveal d4">Built for the conscious performer, parents, athletes, founders, label-readers.</p>
     </div>
     <div class="hero-img-wrap reveal d2" style="background-image: url('/images/responsive/lifestyle/ritual-pouch-mug-hero-editorial-4x5-1200.webp'); background-size: cover; background-position: center;">
     </div>
   </div>
 </section>
 
-<!-- ═══════════════ 1b. #1 WELLNESS TREND BANNER (single placement, all viewports) ═══════════════ -->
-<section class="trend-banner">
-  <div class="container">
-    <p>Named the <strong>#1 wellness trend of 2026</strong> by the Global Wellness Summit, and the category Mujo was built for 18 months before it was named.</p>
-  </div>
-</section>
+<!-- #1 wellness trend quote relocated 2026-05-26 to the new "Modern performance" section after the UGC carousel. -->
 
 <!-- ═══════════════ 2. MANIFESTO ═══════════════ -->
 <section class="manifesto">
@@ -2112,6 +2064,22 @@ footer {
   <div class="container">
     <div class="ugc-foot reveal">
       Tag <strong>@mujoworld</strong> to be featured. <a href="https://instagram.com/mujoworld">See more on Instagram →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 6b. MODERN PERFORMANCE / NEUROWELLNESS (image + text) ═══════════════ -->
+<section class="perform">
+  <div class="container">
+    <div class="perform-grid">
+      <div class="perform-image" style="background-image:url('/images/responsive/lifestyle/ritual-padel-conscious-performer-editorial-4x5-800.webp');"></div>
+      <div class="perform-text">
+        <h2 class="reveal">Modern performance without the crash</h2>
+        <p class="reveal d1">All exceptional performance begins with a balanced nervous system. Mujo Cacao was built for the conscious performer, parent, athlete, founder, label reader. The rebels who do things their way. The modern humans who prioritize neurowellness.</p>
+        <div class="perform-quote reveal d2">
+          <p>Named the <strong>#1 wellness trend of 2026</strong> by the Global Wellness Summit, and the category Mujo was built for 18 months before it was named.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
