@@ -506,11 +506,26 @@ body.locked { overflow: hidden; }
 }
 @media (min-width: 768px) { .hero-audience { font-size: 17px; margin-top: 18px; } }
 
-/* ── Mobile hero: image stacks UNDER the centered text (Kinga 2026-05-26).
-   The image flows below the text block (base .hero-img-wrap, 4/5). Text is
-   center-aligned. Desktop (>=1024px) keeps the two-column split, text left. ── */
+/* ── Mobile hero: image BAND on top, centered text below — both on the first
+   screen at load (Kinga 2026-05-26). The image is reordered above the text via
+   `order` and capped to ~42vh so it reads as a band; the text block is tightened
+   so the headline + CTA clear the fold. Desktop (>=1024px) keeps the two-column
+   split, text left, completely untouched. ── */
 @media (max-width: 1023px) {
-  .hero-text { text-align: center; align-items: center; }
+  .hero-img-wrap {
+    order: 1;
+    aspect-ratio: auto;
+    height: clamp(240px, 42vh, 380px);
+    padding: 16px;
+  }
+  .hero-text {
+    order: 2;
+    text-align: center;
+    align-items: center;
+    padding: 28px var(--gutter) 40px;
+  }
+  .hero h1 { margin-bottom: 14px; }
+  .hero-sub { margin-bottom: 18px; }
   .hero .ctas { justify-content: center; flex-wrap: wrap; }
   .hero-rating { justify-content: center; }
   .hero-guarantee { justify-content: center; }
