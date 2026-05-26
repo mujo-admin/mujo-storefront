@@ -517,7 +517,7 @@ export function QuizSheet() {
             width: '100%',
             maxWidth: '540px',
             maxHeight: '88vh',
-            borderRadius: '20px',
+            borderRadius: 4,
             padding: '28px 22px 28px',
             boxSizing: 'border-box',
           }}
@@ -664,7 +664,7 @@ function QuestionStep({
             className="flex items-start text-left transition-all duration-[180ms] hover:border-[#8FA396] hover:bg-[rgba(143,163,150,0.08)]"
             style={{
               gap: 12,
-              borderRadius: 14,
+              borderRadius: 4,
               border: '1.5px solid rgba(255,255,255,0.1)',
               background: 'rgba(255,255,255,0.05)',
               padding: '14px 18px',
@@ -684,7 +684,7 @@ function QuestionStep({
                 justifyContent: 'center',
                 width: 26,
                 height: 26,
-                borderRadius: 8,
+                borderRadius: 2,
                 border: '1.5px solid rgba(242,104,47,0.6)',
                 background: 'rgba(242,104,47,0.12)',
                 color: '#F2682F',
@@ -775,7 +775,7 @@ function EmailGate({
       <div
         style={{
           marginBottom: 22,
-          borderRadius: 16,
+          borderRadius: 4,
           border: '1px solid rgba(242,104,47,0.25)',
           background: 'rgba(242,104,47,0.1)',
           padding: '16px 18px 18px',
@@ -840,7 +840,7 @@ function EmailGate({
           marginBottom: 12,
           width: '100%',
           boxSizing: 'border-box',
-          borderRadius: 14,
+          borderRadius: 4,
           borderWidth: 1.5,
           borderStyle: 'solid',
           borderColor: error ? '#F2682F' : 'rgba(255,255,255,0.16)',
@@ -988,7 +988,7 @@ function ResultPanel({ persona, onClose }: { persona: Persona; onClose: () => vo
           display: 'flex',
           alignItems: 'center',
           gap: 12,
-          borderRadius: 16,
+          borderRadius: 4,
           border: '1px solid rgba(242,104,47,0.28)',
           background: 'rgba(242,104,47,0.12)',
           padding: '14px 16px',

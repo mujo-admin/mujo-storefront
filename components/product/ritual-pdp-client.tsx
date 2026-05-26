@@ -37,7 +37,7 @@ function formatStickyLine(size: RitualSize, plan: RitualPlan): string {
   const resolvedPlan = effectivePlan(size, plan);
   const cell = PRICES[size][resolvedPlan];
   const price = cell?.now ?? "";
-  const tail = resolvedPlan === "subscription" ? "Subscribe & save" : "One-time";
+  const tail = resolvedPlan === "subscription" ? "Subscribe" : "One-time";
   return `${price} · ${tail}`;
 }
 
@@ -60,13 +60,14 @@ type Shared = {
   setPlan: (p: RitualPlan) => void;
   onAddToCart: () => void;
   pending: boolean;
+  /** Sticky ATC reveal state (mobile, shown after scrolling past the buy box). */
+  shown: boolean;
 };
 
 function BuyBox({ size, plan, setSize, setPlan, onAddToCart, pending }: Shared) {
   const sub = PRICES[size].subscription;
   const once = PRICES[size].onetime!; // every size has a one-time Price
   const resolvedPlan = effectivePlan(size, plan);
-  const headline = PRICES[size][resolvedPlan]?.now ?? "";
   const showSubscribe = size === "25" && sub !== undefined;
 
   return (
@@ -84,7 +85,6 @@ function BuyBox({ size, plan, setSize, setPlan, onAddToCart, pending }: Shared) 
             <div className="size-opt-top">
               <div className="size-opt-count">10 servings</div>
             </div>
-            <div className="size-opt-sub">Try it, 10-day trial</div>
             <div className="size-opt-price">$27.00</div>
           </div>
           <div
@@ -98,7 +98,6 @@ function BuyBox({ size, plan, setSize, setPlan, onAddToCart, pending }: Shared) 
               <div className="size-opt-count">25 servings</div>
               <div className="size-opt-badge">Best value</div>
             </div>
-            <div className="size-opt-sub">Monthly supply</div>
             <div className="size-opt-price">$65.00 · $2.60/serving</div>
           </div>
         </div>
@@ -120,7 +119,7 @@ function BuyBox({ size, plan, setSize, setPlan, onAddToCart, pending }: Shared) 
               <div className="pur-opt-radio" />
               <div className="pur-opt-info">
                 <div className="pur-opt-name">
-                  Subscribe &amp; save{" "}
+                  Subscribe{" "}
                   <span className="pur-opt-save">Save 15%</span>
                 </div>
                 <div className="pur-opt-desc">
@@ -146,7 +145,6 @@ function BuyBox({ size, plan, setSize, setPlan, onAddToCart, pending }: Shared) 
             <div className="pur-opt-radio" />
             <div className="pur-opt-info">
               <div className="pur-opt-name">One-time purchase</div>
-              <div className="pur-opt-desc">No commitment · Single order only</div>
             </div>
             <div className="pur-opt-price">
               <div className="pur-opt-price-now">{once.now}</div>
@@ -163,21 +161,35 @@ function BuyBox({ size, plan, setSize, setPlan, onAddToCart, pending }: Shared) 
           disabled={pending}
           aria-busy={pending}
         >
-          {pending ? "Loading…" : "Add to Cart"}
-          <span className="atc-btn-price">{headline}</span>
+          {pending ? "Loading…" : "Add to cart"}
         </button>
         <div className="atc-trust">
-          <div className="atc-trust-item">Free shipping over $100</div>
-          <div className="atc-trust-item">30-day money back</div>
+          <div className="atc-trust-item" style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M1 5h13v11H1z" />
+              <path d="M14 9h4l3 3v4h-7z" />
+              <circle cx="5.5" cy="18.5" r="1.6" />
+              <circle cx="17.5" cy="18.5" r="1.6" />
+            </svg>
+            Free shipping over $100
+          </div>
+          <div className="atc-trust-item" style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <circle cx="12" cy="9" r="6" />
+              <path d="M9.5 9l1.8 1.8L15 7.2" />
+              <path d="M8.6 14.2L7 22l5-2.8L17 22l-1.6-7.8" />
+            </svg>
+            30-day money back
+          </div>
         </div>
       </div>
     </>
   );
 }
 
-function StickyAtc({ size, plan, onAddToCart, pending }: Shared) {
+function StickyAtc({ size, plan, onAddToCart, pending, shown }: Shared) {
   return (
-    <div className="sticky-atc" id="stickyATC">
+    <div className={`sticky-atc${shown ? " show" : ""}`} id="stickyATC">
       <div className="sticky-atc-info">
         <div className="sticky-atc-name">Mujo Ritual · {size} servings</div>
         <div className="sticky-atc-price" id="stickyATCPrice">
@@ -190,7 +202,7 @@ function StickyAtc({ size, plan, onAddToCart, pending }: Shared) {
         disabled={pending}
         aria-busy={pending}
       >
-        {pending ? "Loading…" : "Add to Cart"}
+        {pending ? "Loading…" : "Add to cart"}
       </button>
     </div>
   );
@@ -207,10 +219,22 @@ export function RitualPdpClient() {
   const [size, setSize] = useState<RitualSize>("25");
   const [plan, setPlan] = useState<RitualPlan>("subscription");
   const [pending, setPending] = useState(false);
+  const [shown, setShown] = useState(false);
   const { addItem } = useCart();
 
   const buyBoxTarget = useMountTarget("ritual-buybox");
   const stickyAtcTarget = useMountTarget("ritual-sticky-atc");
+
+  // Reveal the sticky ATC once the buy box has scrolled past (mobile only —
+  // the bar is display:none ≥901px in CSS). The original show-on-scroll JS
+  // lived in an inline <script>, which is stripped on import, so wire it here.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const onScroll = () => setShown(window.scrollY > 520);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   function onAddToCart() {
     if (pending) return;
@@ -248,6 +272,7 @@ export function RitualPdpClient() {
     setPlan,
     onAddToCart,
     pending,
+    shown,
   };
 
   return (
