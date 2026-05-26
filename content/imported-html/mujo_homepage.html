@@ -472,28 +472,22 @@ body.locked { overflow: hidden; }
   font-weight: 500;
 }
 
-.hero-rating {
-  display: flex; align-items: center; gap: 10px;
-  margin-top: 10px;
-  padding-top: 10px;
-  font-size: 13px;
-  color: var(--mute);
-}
-.hero-stars { color: var(--orange); letter-spacing: 2px; font-size: 13px; }
-.hero-rating strong { color: var(--ink); font-weight: 500; }
-
-/* Risk-reversal line under the hero CTA */
-.hero-guarantee {
-  display: inline-flex;
+/* Combined trust line: 30-day money back + rating on one row (Kinga 2026-05-26) */
+.hero-trust {
+  display: flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 16px;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin-top: 18px;
   font-family: var(--f-body);
   font-size: 13px;
   font-weight: 500;
   color: var(--ink-soft);
 }
-.hero-guarantee svg { width: 18px; height: 18px; color: var(--orange-deep); flex-shrink: 0; }
+.hero-trust .ht-item { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; }
+.hero-trust .ht-item svg { width: 16px; height: 16px; color: var(--orange-deep); flex-shrink: 0; }
+.hero-trust .ht-star { color: var(--orange); letter-spacing: 1px; }
+.hero-trust strong { color: var(--ink); font-weight: 600; }
 
 .hero-audience {
   margin-top: 16px;
@@ -506,29 +500,56 @@ body.locked { overflow: hidden; }
 }
 @media (min-width: 768px) { .hero-audience { font-size: 17px; margin-top: 18px; } }
 
-/* ── Mobile hero: image BAND on top, centered text below — both on the first
-   screen at load (Kinga 2026-05-26). The image is reordered above the text via
-   `order` and capped to ~42vh so it reads as a band; the text block is tightened
-   so the headline + CTA clear the fold. Desktop (>=1024px) keeps the two-column
-   split, text left, completely untouched. ── */
+/* ── Mobile hero (Kinga 2026-05-26): full-bleed image as the background with a
+   dark gradient scrim; the headline + CTA + trust line sit in the LOWER HALF over
+   the image, in white, for a true hero feel. The image is positioned absolutely to
+   fill the hero; the text block drives the height and is bottom-aligned. Desktop
+   (>=1024px) keeps the two-column split, text left, completely untouched. ── */
 @media (max-width: 1023px) {
+  .hero-grid { position: relative; display: block; }
   .hero-img-wrap {
-    order: 1;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    height: 100%;
     aspect-ratio: auto;
-    height: clamp(240px, 42vh, 380px);
-    padding: 16px;
+    padding: 0;
+  }
+  .hero-img-wrap::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg,
+      rgba(18,26,20,0) 0%,
+      rgba(18,26,20,0.12) 42%,
+      rgba(18,26,20,0.60) 68%,
+      rgba(18,26,20,0.92) 100%);
   }
   .hero-text {
-    order: 2;
+    position: relative;
+    z-index: 2;
+    min-height: clamp(540px, 86vh, 760px);
+    justify-content: flex-end;
     text-align: center;
     align-items: center;
-    padding: 28px var(--gutter) 40px;
+    padding: 0 var(--gutter) 44px;
+    color: #fff;
   }
-  .hero h1 { margin-bottom: 14px; }
-  .hero-sub { margin-bottom: 18px; }
+  .hero-text .eyebrow { color: rgba(255,255,255,0.82); }
+  .hero h1 { color: #fff; margin-bottom: 14px; }
+  .hero-sub { color: rgba(255,255,255,0.92); margin-bottom: 22px; max-width: 32ch; }
   .hero .ctas { justify-content: center; flex-wrap: wrap; }
-  .hero-rating { justify-content: center; }
-  .hero-guarantee { justify-content: center; }
+  .hero-trust {
+    justify-content: center;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    gap: 14px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.92);
+  }
+  .hero-trust .ht-item svg { color: #fff; }
+  .hero-trust .ht-star { color: var(--orange); }
+  .hero-trust strong { color: #fff; }
 }
 
 /* "Modern performance" / neurowellness section — image + text, after the UGC strip.
@@ -1890,16 +1911,15 @@ footer {
         <a href="/products/mujo-ritual" class="btn btn-primary">Shop the Ritual Cacao <span class="arrow">→</span></a>
       </div>
       <!-- Lemna Protein Bars CTA removed from the hero 2026-05-25. Restore when pre-sale opens. -->
-      <div class="hero-guarantee reveal d4">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M12 2 4 5v6c0 5 3.4 8.4 8 10 4.6-1.6 8-5 8-10V5l-8-3z" />
-          <path d="M9 12l2 2 4-4" />
-        </svg>
-        30-day money-back guarantee
-      </div>
-      <div class="hero-rating reveal d4">
-        <div class="hero-stars">★★★★★</div>
-        <div><strong>4.9</strong> · 100+ verified reviews</div>
+      <div class="hero-trust reveal d4">
+        <span class="ht-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2 4 5v6c0 5 3.4 8.4 8 10 4.6-1.6 8-5 8-10V5l-8-3z" />
+            <path d="M9 12l2 2 4-4" />
+          </svg>
+          30-day money back
+        </span>
+        <span class="ht-item"><span class="ht-star">★</span> <strong>4.9</strong> · verified reviews</span>
       </div>
     </div>
     <div class="hero-img-wrap reveal d2" style="background-image: url('/images/responsive/lifestyle/ritual-pouch-mug-hero-editorial-4x5-1200.webp'); background-size: cover; background-position: center;">
