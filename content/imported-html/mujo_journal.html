@@ -131,13 +131,6 @@ body.locked { overflow: hidden; }
 @media (min-width: 768px) { .journal-hero p { font-size: 17px; } }
 
 /* ===== CATEGORY FILTER ===== */
-.cat-bar { padding: 16px 0 32px; }
-.cat-row { display: flex; align-items: center; gap: 8px; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; padding: 0 20px; }
-.cat-row::-webkit-scrollbar { display: none; }
-@media (min-width: 768px) { .cat-row { padding: 0 32px; gap: 10px; flex-wrap: wrap; justify-content: center; overflow: visible; } }
-.cat-chip { flex-shrink: 0; padding: 8px 16px; background: transparent; border: 1px solid var(--line); border-radius: 100px; font-family: var(--f-body); font-size: 13px; color: var(--ink-soft); cursor: pointer; text-decoration: none; white-space: nowrap; transition: all 0.2s; font-weight: 500; }
-.cat-chip:hover { border-color: var(--ink); color: var(--ink); }
-.cat-chip.active { background: var(--ink); color: #fff; border-color: var(--ink); }
 
 /* ===== FEATURED POST (full bleed card) ===== */
 .featured-section { padding: 0 0 32px; }
@@ -300,7 +293,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
      ============================================================ -->
 <section class="featured-section">
   <div class="container">
-    <a href="/journal/the-tired-isnt-empty-letter" class="featured-card" data-cat="rituals">
+    <a href="/journal/the-tired-isnt-empty-letter" class="featured-card">
       <div class="featured-img" style="background-image: url('/images/responsive/lifestyle/ritual-rebel-club-journal-editorial-4x3-800.webp'); background-size: cover; background-position: center;"></div>
       <div class="featured-body">
         <div class="featured-tag"><span class="dot"></span>Featured · Rituals</div>
@@ -325,7 +318,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
   <div class="container">
     <div class="posts-grid" id="postsGrid">
 
-      <a href="/journal/why-you-crash-at-3pm" class="post-card" data-cat="science">
+      <a href="/journal/why-you-crash-at-3pm" class="post-card">
         <div class="post-img bg-sage" style="background-image:url('/images/responsive/lifestyle/ritual-iced-pour-pouch-hero-editorial-4x5-800.webp');background-size:cover;background-position:center;"></div>
         <div class="post-tag">Energy</div>
         <h3>Why you crash at 3pm. <em>And what is actually happening.</em></h3>
@@ -333,7 +326,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
         <div class="post-meta"><span>6 min read</span><span>·</span><span>May 2026</span></div>
       </a>
 
-      <a href="/journal/morning-cortisol-spike-and-coffee" class="post-card" data-cat="science">
+      <a href="/journal/morning-cortisol-spike-and-coffee" class="post-card">
         <div class="post-img bg-cocoa" style="background-image:url('/images/responsive/lifestyle/ritual-marcus-kitchen-editorial-4x3-800.webp');background-size:cover;background-position:center;"></div>
         <div class="post-tag">Cortisol</div>
         <h3>The morning cortisol spike. <em>And why coffee makes it worse.</em></h3>
@@ -341,7 +334,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
         <div class="post-meta"><span>6 min read</span><span>·</span><span>May 2026</span></div>
       </a>
 
-      <a href="/journal/tired-but-wired" class="post-card" data-cat="science">
+      <a href="/journal/tired-but-wired" class="post-card">
         <div class="post-img bg-green" style="background-image:url('/images/responsive/lifestyle/ritual-hands-mug-editorial-1x1-800.webp');background-size:cover;background-position:center;"></div>
         <div class="post-tag">Sleep</div>
         <h3>Tired but wired. <em>Why you can't sleep when you're exhausted.</em></h3>
@@ -349,7 +342,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
         <div class="post-meta"><span>7 min read</span><span>·</span><span>May 2026</span></div>
       </a>
 
-      <a href="/journal/vagal-tone-and-composure" class="post-card" data-cat="science">
+      <a href="/journal/vagal-tone-and-composure" class="post-card">
         <div class="post-img bg-orange" style="background-image:url('/images/responsive/lifestyle/ritual-sarah-ritual-editorial-4x3-800.webp');background-size:cover;background-position:center;"></div>
         <div class="post-tag">Nervous System</div>
         <h3>Vagal tone. <em>What it is, and why it decides your composure.</em></h3>
@@ -357,7 +350,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
         <div class="post-meta"><span>7 min read</span><span>·</span><span>May 2026</span></div>
       </a>
 
-      <a href="/journal/why-fruiting-body" class="post-card" data-cat="ingredients">
+      <a href="/journal/why-fruiting-body" class="post-card">
         <div class="post-img bg-cocoa" style="background-image: url('/images/responsive/ingredients/lions-mane-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
         <div class="post-tag">Ingredients</div>
         <h3>Fruiting body vs mycelium. <em>Why we made a fuss.</em></h3>
@@ -365,7 +358,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
         <div class="post-meta"><span>5 min read</span><span>·</span><span>April 2026</span></div>
       </a>
 
-      <a href="/journal/three-children-under-five" class="post-card" data-cat="motherhood">
+      <a href="/journal/three-children-under-five" class="post-card">
         <div class="post-img bg-orange" style="background-image: url('/images/responsive/lifestyle/ritual-jessica-morning-editorial-4x3-800.webp'); background-size: cover; background-position: center;"></div>
         <div class="post-tag">Motherhood</div>
         <h3>Three under five. <em>And a soft place to land.</em></h3>
@@ -373,7 +366,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
         <div class="post-meta"><span>4 min read</span><span>·</span><span>April 2026</span></div>
       </a>
 
-      <a href="/journal/the-lemna-leaf-name" class="post-card" data-cat="ingredients">
+      <a href="/journal/the-lemna-leaf-name" class="post-card">
         <div class="post-img bg-green" style="background-image: url('/images/responsive/ingredients/lemna-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
         <div class="post-tag">Ingredients</div>
         <h3>Why we say <em>Lemna leaf.</em> Naming matters.</h3>
@@ -381,7 +374,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
         <div class="post-meta"><span>3 min read</span><span>·</span><span>March 2026</span></div>
       </a>
 
-      <a href="/journal/the-padel-recovery-stack" class="post-card" data-cat="performance">
+      <a href="/journal/the-padel-recovery-stack" class="post-card">
         <div class="post-img bg-sand" style="background-image: url('/images/responsive/lifestyle/ritual-padel-conscious-performer-editorial-4x5-800.webp'); background-size: cover; background-position: center;"></div>
         <div class="post-tag">Performance</div>
         <h3>The padel recovery stack. <em>What's in mine.</em></h3>
@@ -389,7 +382,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
         <div class="post-meta"><span>5 min read</span><span>·</span><span>March 2026</span></div>
       </a>
 
-      <a href="/journal/cacao-as-ritual" class="post-card" data-cat="rituals">
+      <a href="/journal/cacao-as-ritual" class="post-card">
         <div class="post-img bg-cream" style="background-image: url('/images/responsive/products/ritual/ritual-card-cream-mug-editorial-4x3-800.webp'); background-size: cover; background-position: center;"></div>
         <div class="post-tag">Rituals</div>
         <h3>Cacao as ritual. <em>A short defence.</em></h3>
@@ -397,7 +390,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
         <div class="post-meta"><span>4 min read</span><span>·</span><span>March 2026</span></div>
       </a>
 
-      <a href="/journal/clinical-dose-vs-pixie-dust" class="post-card" data-cat="ingredients">
+      <a href="/journal/clinical-dose-vs-pixie-dust" class="post-card">
         <div class="post-img bg-sage" style="background-image: url('/images/responsive/ingredients/ritual-flatlay-five-adaptogens-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
         <div class="post-tag">Ingredients</div>
         <h3>Clinical dose vs <em>pixie dust.</em></h3>
@@ -405,7 +398,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
         <div class="post-meta"><span>6 min read</span><span>·</span><span>March 2026</span></div>
       </a>
 
-      <a href="/journal/the-iced-latte-version" class="post-card" data-cat="recipes">
+      <a href="/journal/the-iced-latte-version" class="post-card">
         <div class="post-img bg-cream" style="background-image: url('/images/responsive/lifestyle/ritual-kettle-pour-editorial-4x5-800.webp'); background-size: cover; background-position: center;"></div>
         <div class="post-tag">Recipes</div>
         <h3>The iced ritual latte. <em>For the long afternoons.</em></h3>
@@ -413,7 +406,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
         <div class="post-meta"><span>2 min read</span><span>·</span><span>February 2026</span></div>
       </a>
 
-      <a href="/journal/47-batches" class="post-card" data-cat="behind">
+      <a href="/journal/47-batches" class="post-card">
         <div class="post-img bg-sage" style="background-image: url('/images/responsive/lifestyle/ritual-marcus-kitchen-editorial-4x3-800.webp'); background-size: cover; background-position: center;"></div>
         <div class="post-tag">Behind the brand</div>
         <h3>47 batches. <em>The Lemna Bar story.</em></h3>
@@ -421,7 +414,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
         <div class="post-meta"><span>7 min read</span><span>·</span><span>February 2026</span></div>
       </a>
 
-      <a href="/journal/why-caffeine-free" class="post-card" data-cat="rituals">
+      <a href="/journal/why-caffeine-free" class="post-card">
         <div class="post-img bg-cocoa" style="background-image: url('/images/responsive/lifestyle/ritual-sarah-ritual-editorial-4x3-800.webp'); background-size: cover; background-position: center;"></div>
         <div class="post-tag">Rituals</div>
         <h3>Why we left out the caffeine. <em>On purpose.</em></h3>
@@ -533,19 +526,6 @@ function renderCart() {
 }
 function checkout() { alert('Checkout: hand off to Shopify checkout in production.'); }
 renderCart();
-
-// Category filter
-document.querySelectorAll('.cat-chip').forEach(chip => {
-  chip.addEventListener('click', () => {
-    document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
-    chip.classList.add('active');
-    const cat = chip.dataset.cat;
-    document.querySelectorAll('.post-card, .featured-card').forEach(card => {
-      const cardCat = card.dataset.cat;
-      card.style.display = (cat === 'all' || cardCat === cat) ? '' : 'none';
-    });
-  });
-});
 
 function handleSubscribe(e) {
   e.preventDefault();
