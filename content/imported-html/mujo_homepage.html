@@ -593,10 +593,8 @@ body.locked { overflow: hidden; }
    2. TRUST MARQUEE (auto-scrolling icon + label strip)
    ═══════════════════════════════════════════════════════════ */
 .trust-marquee {
-  background: var(--cream);
-  border-top: 1px solid var(--line-soft);
-  border-bottom: 1px solid var(--line-soft);
-  padding: 34px 0;
+  background: var(--sage);
+  padding: 40px 0;
   overflow: hidden;
 }
 .trust-marquee-viewport {
@@ -627,14 +625,19 @@ body.locked { overflow: hidden; }
   margin: 0 24px;
   text-align: center;
 }
-.trust-badge img { width: 46px; height: 46px; display: block; }
+.trust-badge img {
+  width: 46px;
+  height: 46px;
+  display: block;
+  filter: brightness(0) invert(1);
+}
 .trust-badge span {
   font-family: var(--f-mono);
   font-size: 11px;
   line-height: 1.25;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--ink-soft);
+  color: #fff;
 }
 @media (min-width: 768px) {
   .trust-badge { width: 116px; margin: 0 30px; }
