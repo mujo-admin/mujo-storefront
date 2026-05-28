@@ -397,7 +397,37 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
      HERO IMAGE
      ============================================================ -->
 <div class="container">
-  <div class="post-hero-img" aria-hidden="true"></div>
+  <figure class="post-chart">
+    <svg viewBox="0 0 920 460" role="img" aria-label="Two body clocks. Circadian alertness dips in the early afternoon while sleep pressure climbs through the day. They cross around 3pm, producing the afternoon crash." xmlns="http://www.w3.org/2000/svg">
+      <line x1="90" y1="50" x2="90" y2="380" stroke="#2F3D33" stroke-opacity="0.25" stroke-width="1.5"/>
+      <line x1="90" y1="380" x2="870" y2="380" stroke="#2F3D33" stroke-opacity="0.25" stroke-width="1.5"/>
+      <line x1="480" y1="62" x2="480" y2="380" stroke="#F2682F" stroke-width="1.5" stroke-dasharray="3 5"/>
+      <text x="480" y="50" text-anchor="middle" font-family="'DM Mono', monospace" font-size="13" letter-spacing="1.5" fill="#D85A22">3PM</text>
+      <polyline points="90,364 220,314 350,255 480,199 610,142 740,90 870,57" fill="none" stroke="#2F3D33" stroke-opacity="0.55" stroke-width="2.5" stroke-dasharray="7 6" stroke-linejoin="round" stroke-linecap="round"/>
+      <polyline points="90,232 220,123 307,83 350,100 480,241 610,182 740,215 870,314" fill="none" stroke="#2F3D33" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <circle cx="480" cy="241" r="6.5" fill="#F2682F"/>
+      <text x="498" y="246" font-family="'DM Mono', monospace" font-size="12.5" fill="#D85A22">the crash</text>
+      <g font-family="'DM Mono', monospace" font-size="12.5" letter-spacing="1" fill="#5C5854">
+        <text x="90" y="400" text-anchor="middle">6AM</text>
+        <text x="350" y="400" text-anchor="middle">NOON</text>
+        <text x="610" y="400" text-anchor="middle">6PM</text>
+        <text x="870" y="400" text-anchor="middle">MIDNIGHT</text>
+      </g>
+      <g font-family="'DM Mono', monospace" font-size="12.5" letter-spacing="0.5" fill="#5C5854">
+        <line x1="150" y1="432" x2="186" y2="432" stroke="#2F3D33" stroke-width="3.5" stroke-linecap="round"/>
+        <text x="196" y="436">Circadian alertness</text>
+        <line x1="470" y1="432" x2="506" y2="432" stroke="#2F3D33" stroke-opacity="0.55" stroke-width="2.5" stroke-dasharray="7 6" stroke-linecap="round"/>
+        <text x="516" y="436">Sleep pressure (adenosine)</text>
+      </g>
+    </svg>
+    <figcaption>Two clocks. One dips, one climbs. They cross at 3pm.</figcaption>
+  </figure>
+  <style>
+  .post-chart{max-width:860px;margin:0 auto 48px;background:#EEE9E0;border-radius:4px;padding:26px 22px 22px;}
+  .post-chart svg{width:100%;height:auto;display:block;}
+  .post-chart figcaption{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#5C5854;margin-top:16px;text-align:center;line-height:1.5;}
+  @media(min-width:768px){.post-chart{margin:0 auto 64px;padding:34px 38px 28px;}}
+  </style>
 </div>
 
 <!-- ============================================================
