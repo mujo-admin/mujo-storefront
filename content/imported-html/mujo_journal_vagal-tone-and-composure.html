@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Journal · Mujo</title>
-<meta name="description" content="Field notes on rituals, recovery, motherhood, and the slow art of feeling like yourself again.">
+<title>Tired isn't empty. Tired is slow. · Mujo Journal</title>
+<meta name="description" content="The most useful thing I've learned about energy in three years. It's not about more inputs. It's about the speed of the system you already have.">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -24,16 +24,17 @@
 }
 
 html { scroll-behavior: smooth; }
-body { font-family: var(--f-body); background: var(--cream); color: var(--ink); -webkit-font-smoothing: antialiased; line-height: 1.55; }
+body { font-family: var(--f-body); background: var(--cream); color: var(--ink); -webkit-font-smoothing: antialiased; line-height: 1.7; }
 
 .eyebrow { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange-deep); display: inline-block; font-weight: 500; }
 .serif-accent { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
 h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 500; letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); }
 
 .container { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
-@media (min-width: 768px) { .container { padding: 0 32px; } }
+.container-read { max-width: 680px; margin: 0 auto; padding: 0 20px; }
+@media (min-width: 768px) { .container { padding: 0 32px; } .container-read { padding: 0 32px; } }
 
-/* ===== SHARED CHROME (foundation v1.0) ===== */
+/* ===== SHARED CHROME ===== */
 .announce { background: var(--sage); color: #fff; text-align: center; padding: 9px 16px; font-size: 12px; letter-spacing: 0.01em; position: relative; z-index: 200; line-height: 1.4; }
 .announce strong { color: var(--orange); font-weight: 500; }
 .announce .sep { opacity: 0.4; margin: 0 8px; }
@@ -122,83 +123,168 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 
 body.locked { overflow: hidden; }
 
-/* ===== JOURNAL HEAD ===== */
-.journal-hero { padding: 56px 0 32px; text-align: center; }
-@media (min-width: 768px) { .journal-hero { padding: 80px 0 40px; } }
-.journal-hero .eyebrow { margin-bottom: 14px; }
-.journal-hero h1 { font-size: clamp(36px, 7vw, 64px); margin-bottom: 14px; line-height: 1.02; }
-.journal-hero p { font-size: 16px; color: var(--ink-soft); max-width: 560px; margin: 0 auto; line-height: 1.6; padding: 0 8px; }
-@media (min-width: 768px) { .journal-hero p { font-size: 17px; } }
+/* ===== POST HEADER ===== */
+.post-back { padding: 20px 0 0; }
+.post-back a { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mute); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: color 0.2s; }
+.post-back a:hover { color: var(--ink); }
+.post-back svg { width: 12px; height: 12px; }
 
-/* ===== CATEGORY FILTER ===== */
-.cat-bar { padding: 16px 0 32px; }
-.cat-row { display: flex; align-items: center; gap: 8px; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; padding: 0 20px; }
-.cat-row::-webkit-scrollbar { display: none; }
-@media (min-width: 768px) { .cat-row { padding: 0 32px; gap: 10px; flex-wrap: wrap; justify-content: center; overflow: visible; } }
-.cat-chip { flex-shrink: 0; padding: 8px 16px; background: transparent; border: 1px solid var(--line); border-radius: 100px; font-family: var(--f-body); font-size: 13px; color: var(--ink-soft); cursor: pointer; text-decoration: none; white-space: nowrap; transition: all 0.2s; font-weight: 500; }
-.cat-chip:hover { border-color: var(--ink); color: var(--ink); }
-.cat-chip.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+.post-head { padding: 32px 0 24px; text-align: center; }
+@media (min-width: 768px) { .post-head { padding: 48px 0 32px; } }
+.post-cat-tag { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange-deep); margin-bottom: 18px; display: inline-block; }
+.post-title { font-size: clamp(32px, 6.5vw, 56px); margin-bottom: 20px; line-height: 1.05; max-width: 800px; margin-left: auto; margin-right: auto; }
+.post-title em { font-family: inherit; font-style: italic; color: inherit; font-weight: 500; }
+.post-deck { font-family: var(--f-serif); font-size: clamp(18px, 2.6vw, 22px); color: var(--ink-soft); line-height: 1.45; max-width: 600px; margin: 0 auto 28px; font-style: italic; }
+.post-byline { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute); }
+.post-byline .sep { opacity: 0.4; }
+.post-byline strong { color: var(--ink); font-weight: 500; }
 
-/* ===== FEATURED POST (full bleed card) ===== */
-.featured-section { padding: 0 0 32px; }
-@media (min-width: 768px) { .featured-section { padding: 0 0 48px; } }
-.featured-card { display: grid; grid-template-columns: 1fr; gap: 0; background: var(--sage); color: #fff; border-radius: var(--r-structural); overflow: hidden; text-decoration: none; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
-.featured-card:hover { transform: translateY(-3px); }
-@media (min-width: 768px) { .featured-card { grid-template-columns: 1.1fr 1fr; border-radius: var(--r-structural); } }
-.featured-img { aspect-ratio: 4 / 3; background: linear-gradient(135deg, #6B4F3A 0%, #4A3526 100%); display: flex; align-items: center; justify-content: center; font-size: clamp(80px, 18vw, 144px); color: rgba(255,255,255,0.3); }
-@media (min-width: 768px) { .featured-img { aspect-ratio: auto; min-height: 480px; } }
-.featured-body { padding: 28px 24px 32px; display: flex; flex-direction: column; justify-content: center; }
-@media (min-width: 768px) { .featured-body { padding: 56px 48px; } }
-.featured-tag { display: inline-flex; align-items: center; gap: 8px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--orange); margin-bottom: 20px; }
-.featured-tag .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--orange); }
-.featured-card h2 { color: #fff; font-size: clamp(26px, 4.5vw, 40px); margin-bottom: 14px; line-height: 1.1; }
-.featured-card h2 em { font-family: inherit; font-style: italic; color: inherit; }
-.featured-card .lede { font-size: 15px; color: rgba(255,255,255,0.7); line-height: 1.6; margin-bottom: 20px; max-width: 480px; }
-@media (min-width: 768px) { .featured-card .lede { font-size: 16px; } }
-.featured-meta { display: flex; align-items: center; gap: 16px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
-.featured-meta .sep { opacity: 0.3; }
+/* ===== HERO IMAGE ===== */
+.post-hero-img { aspect-ratio: 16 / 10; max-width: 1040px; margin: 0 auto 40px; border-radius: 0; background: linear-gradient(135deg, #6B4F3A 0%, #4A3526 100%); display: flex; align-items: center; justify-content: center; font-size: clamp(80px, 18vw, 144px); color: rgba(255,255,255,0.3); }
+@media (min-width: 768px) { .post-hero-img { border-radius: var(--r-structural); aspect-ratio: 21 / 9; margin: 0 auto 56px; } }
+@media (min-width: 1024px) { .post-hero-img { margin: 0 auto 72px; } }
 
-/* ===== POST GRID ===== */
-.posts-section { padding: 16px 0 56px; }
-@media (min-width: 768px) { .posts-section { padding: 16px 0 80px; } }
-.posts-grid { display: grid; grid-template-columns: 1fr; gap: 32px; }
-@media (min-width: 640px) { .posts-grid { grid-template-columns: 1fr 1fr; gap: 24px 20px; } }
-@media (min-width: 1024px) { .posts-grid { grid-template-columns: repeat(3, 1fr); gap: 36px 28px; } }
+/* ===== BODY PROSE ===== */
+.post-body { padding: 0 0 56px; font-size: 18px; color: var(--ink); }
+@media (min-width: 768px) { .post-body { font-size: 19px; padding: 0 0 80px; } }
+.post-body p { margin-bottom: 1.4em; }
+.post-body p:first-of-type::first-letter { font-family: inherit; float: left; font-size: 4.4em; line-height: 0.85; margin-right: 8px; margin-top: 4px; color: inherit; font-weight: 500; }
+.post-body strong { font-weight: 500; }
+.post-body em { font-family: inherit; font-style: italic; color: inherit; }
+.post-body a { color: var(--orange-deep); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.post-body a:hover { color: var(--orange); }
 
-.post-card { display: flex; flex-direction: column; text-decoration: none; color: inherit; transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
-.post-card:hover { transform: translateY(-3px); }
-.post-img { aspect-ratio: 4 / 3; background: var(--sand); border-radius: var(--r-structural); overflow: hidden; margin-bottom: 14px; display: flex; align-items: center; justify-content: center; font-size: clamp(48px, 12vw, 80px); position: relative; }
-@media (min-width: 768px) { .post-img { border-radius: var(--r-structural); } }
-.post-img.bg-cocoa { background: linear-gradient(135deg, #6B4F3A 0%, #4A3526 100%); color: rgba(255,255,255,0.4); }
-.post-img.bg-sage { background: linear-gradient(135deg, #3D4D40 0%, #2F3D33 100%); color: rgba(255,255,255,0.4); }
-.post-img.bg-cream { background: linear-gradient(135deg, #F0E5D5 0%, #D4C4A8 100%); }
-.post-img.bg-sand { background: linear-gradient(135deg, #EEE9E0 0%, #D4C4A8 100%); }
-.post-img.bg-orange { background: linear-gradient(135deg, #FDEFE6 0%, #F2C8AB 100%); }
-.post-img.bg-green { background: linear-gradient(135deg, #D4E4CC 0%, #8FA396 100%); color: rgba(47,61,51,0.5); }
+.post-body h2 {
+  font-size: clamp(26px, 4vw, 32px);
+  margin: 1.6em 0 0.6em;
+  letter-spacing: -0.02em;
+}
+.post-body h2 em { font-family: inherit; font-style: italic; color: inherit; }
 
-.post-tag { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--orange-deep); margin-bottom: 8px; }
-.post-card h3 { font-size: 19px; line-height: 1.25; margin-bottom: 10px; letter-spacing: -0.015em; }
-@media (min-width: 768px) { .post-card h3 { font-size: 20px; } }
-.post-card h3 em { font-family: inherit; font-style: italic; color: inherit; font-weight: 500; }
-.post-card p { font-size: 14px; color: var(--ink-soft); line-height: 1.55; margin-bottom: 14px; }
-.post-meta { display: flex; align-items: center; gap: 12px; font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute); margin-top: auto; }
+.post-body h3 {
+  font-size: 20px;
+  margin: 1.4em 0 0.5em;
+  letter-spacing: -0.01em;
+}
+@media (min-width: 768px) { .post-body h3 { font-size: 22px; } }
 
-/* ===== NEWSLETTER STRIP ===== */
-.newsletter { background: var(--sand); padding: 48px 0; }
-@media (min-width: 768px) { .newsletter { padding: 72px 0; } }
-.newsletter-card { max-width: 720px; margin: 0 auto; text-align: center; padding: 0 8px; }
-.newsletter-card .eyebrow { margin-bottom: 14px; }
-.newsletter-card h2 { font-size: clamp(26px, 4.4vw, 38px); margin-bottom: 12px; line-height: 1.1; }
-.newsletter-card h2 em { font-family: inherit; font-style: italic; color: inherit; }
-.newsletter-card p { font-size: 15px; color: var(--ink-soft); line-height: 1.6; margin-bottom: 24px; max-width: 540px; margin-left: auto; margin-right: auto; }
-.newsletter-form { display: flex; flex-direction: column; gap: 10px; max-width: 480px; margin: 0 auto; }
-@media (min-width: 560px) { .newsletter-form { flex-direction: row; } }
-.newsletter-input { flex: 1; padding: 14px 18px; border: 1px solid var(--line); border-radius: 100px; background: #fff; font-family: var(--f-body); font-size: 14px; color: var(--ink); }
-.newsletter-input:focus { outline: 2px solid var(--orange); outline-offset: -1px; border-color: var(--orange); }
-.newsletter-input::placeholder { color: var(--mute); }
-.newsletter-btn { padding: 14px 24px; background: var(--orange); color: #fff; border: none; border-radius: 100px; font-family: var(--f-body); font-size: 14px; font-weight: 500; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
-.newsletter-btn:hover { background: var(--orange-deep); }
-.newsletter-fineprint { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.1em; color: var(--mute); margin-top: 16px; }
+.post-body ul, .post-body ol { margin: 0 0 1.4em 1.2em; padding: 0; }
+.post-body li { margin-bottom: 0.5em; line-height: 1.65; }
+.post-body li::marker { color: var(--orange); font-family: var(--f-mono); font-size: 0.9em; }
+
+.post-body blockquote {
+  margin: 32px -8px;
+  padding: 20px 24px;
+  background: rgba(242, 104, 47, 0.06);
+  border-left: 4px solid var(--orange);
+  border-radius: var(--r-structural);
+  font-family: var(--f-display);
+  font-size: 19px;
+  line-height: 1.4;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+@media (min-width: 768px) { .post-body blockquote { font-size: 22px; padding: 24px 32px; margin: 40px 0; } }
+.post-body blockquote em { font-family: inherit; font-style: italic; color: inherit; font-weight: 500; }
+
+.post-body figure { margin: 40px 0; }
+.post-body figure img, .post-body .figure-placeholder {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: var(--sand);
+  border-radius: var(--r-structural);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64px;
+  opacity: 0.6;
+}
+.post-body figcaption {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mute);
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* ===== TAKEAWAYS BOX ===== */
+.takeaways {
+  background: var(--sand);
+  border-radius: var(--r-structural);
+  padding: 24px;
+  margin: 40px 0;
+}
+@media (min-width: 768px) { .takeaways { padding: 32px; margin: 56px 0; } }
+.takeaways .eyebrow { margin-bottom: 14px; }
+.takeaways h3 { font-size: 22px; margin-bottom: 16px; }
+.takeaways h3 em { font-family: inherit; font-style: italic; color: inherit; }
+.takeaways ul { margin: 0; padding-left: 20px; list-style: none; }
+.takeaways li { position: relative; padding-left: 24px; margin-bottom: 12px; font-size: 15px; line-height: 1.55; color: var(--ink); }
+.takeaways li::before { content: ''; position: absolute; left: 0; top: 9px; width: 6px; height: 6px; background: var(--orange); border-radius: 50%; }
+
+/* ===== AUTHOR CARD ===== */
+.author-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 24px;
+  background: #fff;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-structural);
+  margin: 40px 0;
+}
+.author-avatar {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #2F3D33 0%, #1F2A23 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  color: rgba(255,255,255,0.4);
+  flex-shrink: 0;
+}
+.author-info h4 { font-size: 16px; margin-bottom: 4px; font-weight: 500; }
+.author-info p { font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
+
+/* ===== END OF POST CTA ===== */
+.post-cta-section {
+  background: var(--sage);
+  color: #fff;
+  padding: 56px 0;
+  text-align: center;
+}
+@media (min-width: 768px) { .post-cta-section { padding: 80px 0; } }
+.post-cta-section .eyebrow { color: var(--orange); margin-bottom: 14px; }
+.post-cta-section h2 { color: #fff; font-size: clamp(28px, 5vw, 40px); margin-bottom: 14px; max-width: 600px; margin-left: auto; margin-right: auto; }
+.post-cta-section h2 em { font-family: inherit; font-style: italic; color: inherit; }
+.post-cta-section p { color: rgba(255,255,255,0.65); font-size: 16px; max-width: 480px; margin: 0 auto 28px; line-height: 1.6; }
+.post-cta-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: #fff; text-decoration: none; padding: 16px 28px; border-radius: 100px; font-size: 15px; font-weight: 500; transition: all 0.2s; }
+.post-cta-btn:hover { background: var(--orange-deep); transform: translateY(-1px); }
+.post-cta-btn svg { width: 14px; height: 14px; }
+
+/* ===== RELATED POSTS ===== */
+.related-section { padding: 56px 0 72px; }
+@media (min-width: 768px) { .related-section { padding: 80px 0 96px; } }
+.related-head { text-align: center; margin-bottom: 32px; }
+.related-head .eyebrow { margin-bottom: 10px; }
+.related-head h2 { font-size: clamp(24px, 4vw, 32px); }
+.related-head h2 em { font-family: inherit; font-style: italic; color: inherit; }
+.related-grid { display: grid; gap: 24px; grid-template-columns: 1fr; }
+@media (min-width: 768px) { .related-grid { grid-template-columns: repeat(3, 1fr); gap: 28px; } }
+.related-card { display: flex; flex-direction: column; text-decoration: none; color: inherit; transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+.related-card:hover { transform: translateY(-3px); }
+.related-img { aspect-ratio: 4 / 3; border-radius: var(--r-structural); margin-bottom: 12px; display: flex; align-items: center; justify-content: center; font-size: 56px; }
+.related-img.bg-cocoa { background: linear-gradient(135deg, #6B4F3A 0%, #4A3526 100%); color: rgba(255,255,255,0.4); }
+.related-img.bg-orange { background: linear-gradient(135deg, #FDEFE6 0%, #F2C8AB 100%); }
+.related-img.bg-green { background: linear-gradient(135deg, #D4E4CC 0%, #8FA396 100%); color: rgba(47,61,51,0.5); }
+.related-tag { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--orange-deep); margin-bottom: 6px; }
+.related-card h3 { font-size: 18px; line-height: 1.25; margin-bottom: 8px; }
+.related-card h3 em { font-family: inherit; font-style: italic; color: inherit; }
+.related-meta { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute); margin-top: auto; padding-top: 8px; }
 
 /* ===== FOOTER ===== */
 footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); padding: 56px 0 28px; }
@@ -285,184 +371,127 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
 </aside>
 
 <!-- ============================================================
-     JOURNAL HEAD
+     POST: BACK LINK + HEAD
      ============================================================ -->
-<section class="journal-hero">
-  <div class="container">
-    <span class="eyebrow">The Journal</span>
-    <h1>Field notes from the <span class="serif-accent">slow lane.</span></h1>
-    <p>Things we've learned, tested, or quietly rolled our eyes at. Rituals, recovery, motherhood, ingredients, the science behind a steadier afternoon. Read what's useful. Ignore what isn't.</p>
+<div class="container-read post-back">
+  <a href="/journal">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="11 6 5 12 11 18"/></svg>
+    Back to the Journal
+  </a>
+</div>
+
+<header class="container-read post-head">
+  <div class="post-cat-tag">Nervous System</div>
+  <h1 class="post-title">Vagal tone. <em>What it is, and why it decides your composure.</em></h1>
+  <p class="post-deck">Why can two people get the same bad news and one stays steady while the other unravels? A surprising amount of the answer is one nerve, and how well-conditioned it is.</p>
+  <div class="post-byline">
+    <span>By <strong>Kinga</strong></span>
+    <span class="sep">·</span>
+    <span>May 2026</span>
+    <span class="sep">·</span>
+    <span>7 min read</span>
   </div>
-</section>
+</header>
 
 <!-- ============================================================
-     CATEGORY FILTER
+     HERO IMAGE
      ============================================================ -->
-<div class="cat-bar">
-  <div class="cat-row">
-    <button class="cat-chip active" data-cat="all">All</button>
-    <button class="cat-chip" data-cat="rituals">Rituals</button>
-    <button class="cat-chip" data-cat="ingredients">Ingredients</button>
-    <button class="cat-chip" data-cat="motherhood">Motherhood</button>
-    <button class="cat-chip" data-cat="performance">Performance</button>
-    <button class="cat-chip" data-cat="recipes">Recipes</button>
-    <button class="cat-chip" data-cat="behind">Behind the brand</button>
-    <button class="cat-chip" data-cat="science">Science</button>
-  </div>
+<div class="container">
+  <div class="post-hero-img" aria-hidden="true"></div>
 </div>
 
 <!-- ============================================================
-     FEATURED POST
+     POST BODY
      ============================================================ -->
-<section class="featured-section">
+<article class="container-read post-body">
+  <p>Picture two people getting the same difficult email. Same words, same stakes. One reads it, feels the jolt, takes a breath, and is composed enough to think clearly within a minute. The other reads it and is still rattled an hour later, heart going, thoughts spinning.</p>
+  <p>We tend to explain that difference with personality. One of them is just calmer. More resilient. Better at this. But a real part of the difference is not personality at all. It is physiology, and it has a name: vagal tone. The good news is that, unlike personality, vagal tone is trainable.</p>
+  <h2>Meet the vagus nerve</h2>
+  <p>Your nervous system has that go mode and rest mode we have mentioned before. The go mode revs you up. The rest mode, the parasympathetic side, brings you back down: it slows the heart, settles digestion, and allows recovery.</p>
+  <p>The vagus nerve is the main highway of that rest mode. It is the single longest nerve of the system, running from the brainstem down through the neck and chest into the gut, touching the heart and lungs along the way. When your body needs to come down from a stress response, the vagus nerve is the cable that carries the signal.</p>
+  <p>Vagal tone is simply how well that cable does its job. Think of it less as a fixed trait and more as a level of fitness. Strong vagal tone means your body is quick and efficient at shifting from stressed back to settled. Lower vagal tone means that shift is slow and effortful. The brake works, but it is soft.</p>
+  <blockquote>Composure is not only a personality trait. A real part of it is how quickly your body can apply its own brake.</blockquote>
+  <h2>How we can actually measure it</h2>
+  <p>This is the part that makes vagal tone more than a nice metaphor. We can measure it, fairly precisely, through something called heart rate variability, or HRV.</p>
+  <p>Here is the idea, and it is initially counterintuitive. A healthy heart does not beat like a metronome. The gap between one beat and the next varies, slightly, all the time. That variation is not a flaw. It is a sign of a responsive system. Your heart is constantly making tiny adjustments to whatever is happening, and the vagus nerve is doing much of that fine-tuning.</p>
+  <p>So more variability between beats generally points to stronger vagal influence: a nervous system that is flexible and responsive. Little variability, a heart beating like a metric click, tends to point the other way, toward a system stuck in go mode. This is exactly the number your smartwatch or fitness ring is estimating when it shows you an HRV score in the morning.</p>
+  <h2>One honest caveat about HRV</h2>
+  <p>HRV is genuinely useful, but it is easy to misread. It moves with your age, your fitness, your hydration, whether you have just moved or eaten, and plain individual difference. The number that matters is not how you compare to a friend. It is your own trend, measured consistently, over weeks. Treat it as a long-range gauge, not a daily verdict.</p>
+  <h2>Why this decides your composure</h2>
+  <p>Now the link back to those two people and the difficult email.</p>
+  <p>A large body of psychophysiology research has found that people with higher resting vagal tone, measured through HRV, tend to regulate their emotions more effectively. They report steadier moods, recover from stress faster, and lean on healthier coping strategies. The connection runs both ways, body and mind on one loop, which is the whole point: emotional regulation is not purely mental. It has a physical channel, and the vagus nerve is a major part of it.</p>
+  <p>It makes intuitive sense once the brake is the picture. Composure is not the absence of a stress response. The steady person in our example still felt the jolt. Composure is how fast and how smoothly you can come back down afterwards. Strong vagal tone is a responsive brake. That is what lets someone feel the hit, then settle, rather than feel the hit and stay hijacked by it.</p>
+  <blockquote>Composure is not never getting knocked. It is how quickly, and how smoothly, you come back.</blockquote>
+  <h2>A note on what we are not claiming</h2>
+  <p>Vagal tone has become a wellness buzzword, and with the hype has come a lot of overclaiming: elaborate theories presented as settled fact, and quick fixes promising to fundamentally rewire you in a week.</p>
+  <p>So, plainly: the well-supported science is the part above. The parasympathetic nervous system is real, the vagus nerve is its main pathway, HRV gives us a usable window onto it, and higher resting vagal tone is reliably associated with better emotional regulation. The grander, more dramatic theories layered on top of that are far more contested, and we are not going to lean on them. The solid version is genuinely enough. It is also genuinely encouraging, because vagal tone responds to ordinary, unglamorous practice.</p>
+  <h2>What actually helps</h2>
+  <p>Vagal tone behaves like fitness. It responds to consistent, modest practice far more than to intensity. None of this is exotic.</p>
+  <ul>
+    <li><strong>Slow your breathing, especially the out-breath.</strong> This is the most direct lever there is. Breathing at around five or six slow breaths a minute, with the exhale longer than the inhale, actively engages the vagus nerve. A few minutes is a real intervention, not a token gesture.</li>
+    <li><strong>Move regularly.</strong> Consistent aerobic activity is one of the most reliable long-term ways to raise resting vagal tone. Frequency matters more than punishing intensity.</li>
+    <li><strong>Protect your sleep.</strong> Vagal tone and sleep quality move together. Each post in this series connects here: a calmer day supports better sleep, and better sleep supports a stronger brake.</li>
+    <li><strong>Use connection deliberately.</strong> Warm, unhurried social contact and calm conversation engage the same rest-mode system. Genuine downtime with people is not indulgence. It is conditioning.</li>
+    <li><strong>Watch your trend, not your daily score.</strong> If you track HRV, look at the multi-week direction and ignore the daily wobble. The trend is the signal.</li>
+  </ul>
+  <h2>Where Mujo fits</h2>
+  <p>We will keep this measured, in keeping with the post. There is no food or drink that simply hands you a stronger vagus nerve. Vagal tone is built by practice and recovery, full stop, and anyone selling a shortcut deserves the raised eyebrow.</p>
+  <p>What we can say honestly is this. Vagal tone is the body's capacity to recover from stress, and that capacity is hard to build on a nervous system that is running hot all day. Mujo Ritual is a caffeine-free morning cup built around adaptogens studied at clinical doses, including KSM-66&reg; Ashwagandha, researched for the body's cortisol response. It is not a vagus-nerve hack. It is foundational nervous system support, the cup that helps keep the underlying system from running hot, so the conditioning work, the breathing, the movement, the rest, has a steadier baseline to build on.</p>
+  <p>The brake is yours to build. Our job is just to help keep the engine from redlining while you do.</p>
+  <h2>The one thing to take away</h2>
+  <p>Composure is less mysterious than it looks. A real part of it is vagal tone: how good your nervous system is at applying its own brake. It is measurable, through HRV, and, far more importantly, it is trainable. The steady person in our story was not born unflappable. Their brake was simply better conditioned. Yours can be too.</p>
+  <h2>Sources</h2>
+  <ul>
+    <li>Laborde S, Mosley E, Thayer JF. Heart rate variability and cardiac vagal tone in psychophysiological research. <em>Frontiers in Psychology</em>, 8:213, 2017.</li>
+    <li>Thayer JF, Lane RD. Claude Bernard and the heart-brain connection. <em>Neuroscience &amp; Biobehavioral Reviews</em>, 33(2):81&ndash;88, 2009.</li>
+    <li>Smith R, et al. Resting vagally-mediated heart rate variability is associated with momentary negative affect and emotion regulation in daily life. <em>Psychophysiology</em>, 2024.</li>
+    <li>Holzman JB, Bridgett DJ. Heart rate variability indices as bio-markers of top-down self-regulatory mechanisms: a meta-analytic review. <em>Neuroscience &amp; Biobehavioral Reviews</em>, 74:233&ndash;255, 2017.</li>
+  </ul>
+<p style="font-size:13px;color:var(--ink-soft);margin-top:2.4em;">These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.</p>
+</article>
+
+<!-- ============================================================
+     END OF POST CTA
+     ============================================================ -->
+<section class="post-cta-section">
   <div class="container">
-    <a href="/journal/the-tired-isnt-empty-letter" class="featured-card" data-cat="rituals">
-      <div class="featured-img" style="background-image: url('/images/responsive/lifestyle/ritual-rebel-club-journal-editorial-4x3-800.webp'); background-size: cover; background-position: center;"></div>
-      <div class="featured-body">
-        <div class="featured-tag"><span class="dot"></span>Featured · Rituals</div>
-        <h2>Tired isn't empty. <em>Tired is slow.</em></h2>
-        <p class="lede">The most useful thing I've learned about energy in three years of running a brand and a household. It's not about more inputs. It's about the speed of the system you already have.</p>
-        <div class="featured-meta">
-          <span>By Kinga</span>
-          <span class="sep">·</span>
-          <span>6 min read</span>
-          <span class="sep">·</span>
-          <span>April 2026</span>
-        </div>
-      </div>
+    <span class="eyebrow">If you've read this far</span>
+    <h2>The ritual is <em>one click away.</em></h2>
+    <p>Same cacao I drink most mornings. Clinical doses. Caffeine-free. Try it. Skip or pause your subscription anytime.</p>
+    <a href="/products/mujo-ritual" class="post-cta-btn">
+      Try Mujo Ritual
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
     </a>
   </div>
 </section>
 
 <!-- ============================================================
-     POSTS GRID
+     RELATED POSTS
      ============================================================ -->
-<section class="posts-section">
+<section class="related-section">
   <div class="container">
-    <div class="posts-grid" id="postsGrid">
-
-      <a href="/journal/why-you-crash-at-3pm" class="post-card" data-cat="science">
-        <div class="post-img bg-sage" aria-hidden="true"></div>
-        <div class="post-tag">Energy</div>
-        <h3>Why you crash at 3pm. <em>And what is actually happening.</em></h3>
-        <p>It isn't laziness, and it isn't your lunch. It's two body clocks crossing in your afternoon. Here's how to work with the dip instead of hitting it.</p>
-        <div class="post-meta"><span>6 min read</span><span>·</span><span>May 2026</span></div>
-      </a>
-
-      <a href="/journal/morning-cortisol-spike-and-coffee" class="post-card" data-cat="science">
-        <div class="post-img bg-cocoa" aria-hidden="true"></div>
-        <div class="post-tag">Cortisol</div>
-        <h3>The morning cortisol spike. <em>And why coffee makes it worse.</em></h3>
-        <p>Your body runs a cortisol surge in the first hour after waking. Drink a strong coffee on top and it can feel wired, not awake. The honest version.</p>
-        <div class="post-meta"><span>6 min read</span><span>·</span><span>May 2026</span></div>
-      </a>
-
-      <a href="/journal/tired-but-wired" class="post-card" data-cat="science">
-        <div class="post-img bg-green" aria-hidden="true"></div>
-        <div class="post-tag">Sleep</div>
-        <h3>Tired but wired. <em>Why you can't sleep when you're exhausted.</em></h3>
-        <p>Exhausted all day, then wide awake at bedtime. It isn't a contradiction. It's hyperarousal, and here's how to help the system stand down.</p>
-        <div class="post-meta"><span>7 min read</span><span>·</span><span>May 2026</span></div>
-      </a>
-
-      <a href="/journal/vagal-tone-and-composure" class="post-card" data-cat="science">
-        <div class="post-img bg-orange" aria-hidden="true"></div>
-        <div class="post-tag">Nervous System</div>
-        <h3>Vagal tone. <em>What it is, and why it decides your composure.</em></h3>
-        <p>Why two people meet the same bad news so differently comes down, in part, to one nerve. What vagal tone is, and how to train it.</p>
-        <div class="post-meta"><span>7 min read</span><span>·</span><span>May 2026</span></div>
-      </a>
-
-      <a href="/journal/why-fruiting-body" class="post-card" data-cat="ingredients">
-        <div class="post-img bg-cocoa" style="background-image: url('/images/responsive/ingredients/lions-mane-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
-        <div class="post-tag">Ingredients</div>
-        <h3>Fruiting body vs mycelium. <em>Why we made a fuss.</em></h3>
-        <p>Half the mushroom market is grain mycelium with the studies of fruiting body printed on the label. Here's what the chemistry actually says.</p>
-        <div class="post-meta"><span>5 min read</span><span>·</span><span>April 2026</span></div>
-      </a>
-
-      <a href="/journal/three-children-under-five" class="post-card" data-cat="motherhood">
-        <div class="post-img bg-orange" style="background-image: url('/images/responsive/lifestyle/ritual-jessica-morning-editorial-4x3-800.webp'); background-size: cover; background-position: center;"></div>
-        <div class="post-tag">Motherhood</div>
-        <h3>Three under five. <em>And a soft place to land.</em></h3>
-        <p>What I actually do on the mornings my nervous system is already on the ceiling by 6am. (Hint: it isn't an extra coffee.)</p>
-        <div class="post-meta"><span>4 min read</span><span>·</span><span>April 2026</span></div>
-      </a>
-
-      <a href="/journal/the-lemna-leaf-name" class="post-card" data-cat="ingredients">
-        <div class="post-img bg-green" style="background-image: url('/images/responsive/ingredients/lemna-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
-        <div class="post-tag">Ingredients</div>
-        <h3>Why we say <em>Lemna leaf.</em> Naming matters.</h3>
-        <p>Most of the world calls this plant by an unflattering common name. We don't. The naming convention matters because the plant matters.</p>
-        <div class="post-meta"><span>3 min read</span><span>·</span><span>March 2026</span></div>
-      </a>
-
-      <a href="/journal/the-padel-recovery-stack" class="post-card" data-cat="performance">
-        <div class="post-img bg-sand" style="background-image: url('/images/responsive/lifestyle/ritual-padel-conscious-performer-editorial-4x5-800.webp'); background-size: cover; background-position: center;"></div>
-        <div class="post-tag">Performance</div>
-        <h3>The padel recovery stack. <em>What's in mine.</em></h3>
-        <p>A weekly padel habit and three kids under five is its own kind of cardio. What I take, when, and the things I stopped bothering with.</p>
-        <div class="post-meta"><span>5 min read</span><span>·</span><span>March 2026</span></div>
-      </a>
-
-      <a href="/journal/cacao-as-ritual" class="post-card" data-cat="rituals">
-        <div class="post-img bg-cream" style="background-image: url('/images/responsive/products/ritual/ritual-card-cream-mug-editorial-4x3-800.webp'); background-size: cover; background-position: center;"></div>
-        <div class="post-tag">Rituals</div>
-        <h3>Cacao as ritual. <em>A short defence.</em></h3>
-        <p>The thing about a good morning ritual is that it's boring on purpose. The reliable bit is what makes it work. Here's the case for one.</p>
-        <div class="post-meta"><span>4 min read</span><span>·</span><span>March 2026</span></div>
-      </a>
-
-      <a href="/journal/clinical-dose-vs-pixie-dust" class="post-card" data-cat="ingredients">
-        <div class="post-img bg-sage" style="background-image: url('/images/responsive/ingredients/ritual-flatlay-five-adaptogens-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
-        <div class="post-tag">Ingredients</div>
-        <h3>Clinical dose vs <em>pixie dust.</em></h3>
-        <p>Why "contains ashwagandha" tells you almost nothing. Five questions to ask of any supplement label, with worked examples.</p>
-        <div class="post-meta"><span>6 min read</span><span>·</span><span>March 2026</span></div>
-      </a>
-
-      <a href="/journal/the-iced-latte-version" class="post-card" data-cat="recipes">
-        <div class="post-img bg-cream" style="background-image: url('/images/responsive/lifestyle/ritual-kettle-pour-editorial-4x5-800.webp'); background-size: cover; background-position: center;"></div>
-        <div class="post-tag">Recipes</div>
-        <h3>The iced ritual latte. <em>For the long afternoons.</em></h3>
-        <p>Same ritual, half the heat. A summer version with oat milk, a pinch of sea salt, and ten ice cubes. Pour over slowly.</p>
-        <div class="post-meta"><span>2 min read</span><span>·</span><span>February 2026</span></div>
-      </a>
-
-      <a href="/journal/47-batches" class="post-card" data-cat="behind">
-        <div class="post-img bg-sage" style="background-image: url('/images/responsive/lifestyle/ritual-marcus-kitchen-editorial-4x3-800.webp'); background-size: cover; background-position: center;"></div>
-        <div class="post-tag">Behind the brand</div>
-        <h3>47 batches. <em>The Lemna Bar story.</em></h3>
-        <p>Eighteen months of development. A reformulation in March that finally landed. Here's what we changed, why, and what we learned.</p>
-        <div class="post-meta"><span>7 min read</span><span>·</span><span>February 2026</span></div>
-      </a>
-
-      <a href="/journal/why-caffeine-free" class="post-card" data-cat="rituals">
-        <div class="post-img bg-cocoa" style="background-image: url('/images/responsive/lifestyle/ritual-sarah-ritual-editorial-4x3-800.webp'); background-size: cover; background-position: center;"></div>
-        <div class="post-tag">Rituals</div>
-        <h3>Why we left out the caffeine. <em>On purpose.</em></h3>
-        <p>The whole point of Mujo Ritual is that it works without it. Here's what the cacao, KSM-66, and rhodiola are doing instead.</p>
-        <div class="post-meta"><span>5 min read</span><span>·</span><span>February 2026</span></div>
-      </a>
-
+    <div class="related-head">
+      <h2>Three more <em>worth your time.</em></h2>
     </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     NEWSLETTER
-     ============================================================ -->
-<section class="newsletter">
-  <div class="container">
-    <div class="newsletter-card">
-      <span class="eyebrow">The Sunday Note</span>
-      <h2>One short read. <em>Sundays. No fluff.</em></h2>
-      <p>A short weekly letter from Kinga. One useful thing to try, one thing we got wrong, one ingredient explained properly. Read in three minutes. Unsubscribe in two clicks.</p>
-      <form class="newsletter-form" onsubmit="handleSubscribe(event)">
-        <input type="email" class="newsletter-input" placeholder="your@email.com" required>
-        <button type="submit" class="newsletter-btn">Subscribe</button>
-      </form>
-      <div class="newsletter-fineprint">No spam. No selling your data. Just the letter.</div>
+    <div class="related-grid">
+      <a href="/journal/why-you-crash-at-3pm" class="related-card">
+        <div class="related-img bg-orange" aria-hidden="true"></div>
+        <div class="related-tag">Energy</div>
+        <h3>Why you crash at 3pm. <em>And what is actually happening.</em></h3>
+        <div class="related-meta">6 min read · May 2026</div>
+      </a>
+      <a href="/journal/morning-cortisol-spike-and-coffee" class="related-card">
+        <div class="related-img bg-cocoa" aria-hidden="true"></div>
+        <div class="related-tag">Cortisol</div>
+        <h3>The morning cortisol spike. <em>And why coffee makes it worse.</em></h3>
+        <div class="related-meta">6 min read · May 2026</div>
+      </a>
+      <a href="/journal/tired-but-wired" class="related-card">
+        <div class="related-img bg-green" aria-hidden="true"></div>
+        <div class="related-tag">Sleep</div>
+        <h3>Tired but wired. <em>Why you can't sleep when you're exhausted.</em></h3>
+        <div class="related-meta">7 min read · May 2026</div>
+      </a>
     </div>
   </div>
 </section>
@@ -514,7 +543,6 @@ const PRICES = { 'ritual-25': 55.25, 'ritual-10': 27, 'bar-pb': 54, 'bar-cashew'
 const NAMES = { 'ritual-25': 'Mujo Ritual · 25 servings', 'ritual-10': 'Mujo Ritual · 10 servings', 'bar-pb': 'Lemna Bar · PB Crunch', 'bar-cashew': 'Lemna Bar · Cashew Chocolate', 'mug': 'Ritual Mug', 'tee': 'Rebel Club Tee', 'tote': 'Market Tote' };
 const ICONS = { 'ritual-25': '🍵', 'ritual-10': '🍵', 'bar-pb': '🥜', 'bar-cashew': '🍫', 'mug': '☕', 'tee': '👕', 'tote': '🛍️' };
 let cart = {};
-
 function openMenu() { document.getElementById('mobileMenu').classList.add('open'); document.getElementById('overlay').classList.add('open'); document.body.classList.add('locked'); }
 function closeMenu() { document.getElementById('mobileMenu').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); if (!document.getElementById('cartDrawer').classList.contains('open')) document.body.classList.remove('locked'); }
 function openCart() { document.getElementById('cartDrawer').classList.add('open'); document.getElementById('overlay').classList.add('open'); document.body.classList.add('locked'); }
@@ -522,13 +550,11 @@ function closeCart() { document.getElementById('cartDrawer').classList.remove('o
 function closeAll() { closeMenu(); closeCart(); }
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAll(); });
 window.addEventListener('scroll', () => { const nav = document.getElementById('nav'); if (window.scrollY > 8) nav.classList.add('scrolled'); else nav.classList.remove('scrolled'); });
-
 function updateQty(id, delta) { cart[id] = Math.max(0, (cart[id] || 0) + delta); if (cart[id] === 0) delete cart[id]; renderCart(); }
 function removeItem(id) { delete cart[id]; renderCart(); }
 function getSubtotal() { return Object.entries(cart).reduce((s, [id, q]) => s + (PRICES[id] || 0) * q, 0); }
 function getCount() { return Object.values(cart).reduce((s, q) => s + q, 0); }
 function fmt(n) { return '$' + (Math.round(n * 100) / 100).toFixed(n % 1 === 0 ? 0 : 2); }
-
 function renderCart() {
   const subtotal = getSubtotal(); const count = getCount();
   const remaining = Math.max(0, 100 - subtotal); const pct = Math.min(100, (subtotal / 100) * 100);
@@ -549,24 +575,6 @@ function renderCart() {
 }
 function checkout() { alert('Checkout: hand off to Shopify checkout in production.'); }
 renderCart();
-
-// Category filter
-document.querySelectorAll('.cat-chip').forEach(chip => {
-  chip.addEventListener('click', () => {
-    document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
-    chip.classList.add('active');
-    const cat = chip.dataset.cat;
-    document.querySelectorAll('.post-card, .featured-card').forEach(card => {
-      const cardCat = card.dataset.cat;
-      card.style.display = (cat === 'all' || cardCat === cat) ? '' : 'none';
-    });
-  });
-});
-
-function handleSubscribe(e) {
-  e.preventDefault();
-  alert('Subscription handler: wire to Klaviyo / Mailchimp in production.');
-}
 </script>
 </body>
 </html>
