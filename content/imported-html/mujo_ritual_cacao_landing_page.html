@@ -730,6 +730,7 @@ nav {
   flex-shrink: 0;
   margin-top: 2px;
 }
+.sp-i img { width: 22px; height: 22px; display: block; }
 .sp-t {
   font-size: 15px;
   font-weight: 500;
@@ -923,9 +924,18 @@ nav {
   gap: 10px;
 }
 .qcs-item-icon {
-  font-size: 18px;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: var(--orange);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
-  line-height: 1.2;
+  line-height: 1;
 }
 .qcs-item-text {
   font-size: 13px;
@@ -997,7 +1007,8 @@ nav {
   background: linear-gradient(135deg, #fff 0%, var(--orange-soft) 100%);
   border-color: var(--orange);
 }
-.ie { font-size: 26px; margin-bottom: 11px; display: block; }
+.ie { display: block; width: 48px; height: 48px; border-radius: var(--r-structural); overflow: hidden; margin-bottom: 11px; }
+.ie img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .in {
   font-size: 14px;
   font-weight: 500;
@@ -1048,6 +1059,7 @@ nav {
   gap: 13px;
 }
 .ico { font-size: 18px; flex-shrink: 0; color: var(--orange); }
+.ico img { width: 20px; height: 20px; display: block; }
 .itxt {
   font-size: 13px;
   line-height: 1.7;
@@ -1409,6 +1421,7 @@ nav {
   border-radius: var(--r-structural);
 }
 .gicon { font-size: 19px; flex-shrink: 0; color: var(--orange); }
+.gicon svg { width: 20px; height: 20px; display: block; }
 .gtxt {
   font-size: 13px;
   line-height: 1.6;
@@ -2536,7 +2549,7 @@ body.locked { overflow: hidden; }
       <div class="video-ph-txt">
         <strong>Kinga. Founder, Mujo</strong>
         <span>Replace with iPhone founder video · Under 90 seconds</span>
-        <div class="video-time">⏱ ~90 seconds</div>
+        <div class="video-time">~90 seconds</div>
       </div>
     </div>
   </div>
@@ -2564,21 +2577,21 @@ body.locked { overflow: hidden; }
       <p class="body-lg reveal d2" style="margin-top: 16px;">A functional cacao with eight mushrooms and adaptogens. Every one mindfully chosen and dosed for impact. Tastes so good you won't want to skip it.</p>
       <div class="sol-pts">
         <div class="sp reveal">
-          <div class="sp-i">🎯</div>
+          <div class="sp-i"><img src="/images/icons/science-backed.svg" alt="" aria-hidden="true" /></div>
           <div>
             <div class="sp-t">Dosed to the research, not the margin</div>
             <div class="sp-b">300mg KSM-66 Ashwagandha. That's the clinical trial dose that reduced cortisol by up to 27.9%.</div>
           </div>
         </div>
         <div class="sp reveal d1">
-          <div class="sp-i">🍄</div>
+          <div class="sp-i"><img src="/images/icons/mushroom.svg" alt="" aria-hidden="true" /></div>
           <div>
             <div class="sp-t">Fruiting body extracts, never mycelium on grain</div>
             <div class="sp-b">Beta-(3,1)-glucans live in the fruiting body. Most brands use mycelium because it's 7x cheaper. We use 8:1 fruiting body, dual extract.</div>
           </div>
         </div>
         <div class="sp reveal d2">
-          <div class="sp-i">🧠</div>
+          <div class="sp-i"><img src="/images/icons/stress-hpa.svg" alt="" aria-hidden="true" /></div>
           <div>
             <div class="sp-t">HPA axis support, not stimulation</div>
             <div class="sp-b">Clinically studied adaptogens calibrate your stress response. Energy comes from your own cells, not a drug.</div>
@@ -2670,19 +2683,19 @@ body.locked { overflow: hidden; }
     <div class="qcs-body reveal d2">60 seconds. Six questions. We analyze your pattern and build you a personalized protocol, emailed to you instantly.</div>
     <div class="qcs-what reveal d3">
       <div class="qcs-item">
-        <div class="qcs-item-icon">🔍</div>
+        <div class="qcs-item-icon">1</div>
         <div class="qcs-item-text"><strong>The root cause</strong>Why your specific pattern is happening, not a generic explanation</div>
       </div>
       <div class="qcs-item">
-        <div class="qcs-item-icon">⏰</div>
+        <div class="qcs-item-icon">2</div>
         <div class="qcs-item-text"><strong>Your morning sequence</strong>Exact timing built around your answers</div>
       </div>
       <div class="qcs-item">
-        <div class="qcs-item-icon">💊</div>
+        <div class="qcs-item-icon">3</div>
         <div class="qcs-item-text"><strong>Your key ingredients</strong>The 2–3 that matter most for your pattern</div>
       </div>
       <div class="qcs-item">
-        <div class="qcs-item-icon">🎯</div>
+        <div class="qcs-item-icon">4</div>
         <div class="qcs-item-text"><strong>One thing to stop</strong>The habit that's quietly making it worse</div>
       </div>
     </div>
@@ -2708,63 +2721,63 @@ body.locked { overflow: hidden; }
 
     <div class="igrid">
       <div class="ic hero-ing reveal">
-        <span class="ie">✨</span>
+        <span class="ie"><img src="/images/responsive/ingredients/turmeric-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
         <div class="in">Bioavailable Curcumin</div>
         <div class="ia">285x bioavailable · 29+ trials</div>
         <div class="ib">Standard curcumin is 99% wasted. Bioavailable Curcuma is clinically shown to <strong>cross the blood-brain barrier</strong> with 7.5hr half-life. Supports cognition, mood, inflammation.*</div>
         <div class="id-tag unique">Unique to Mujo</div>
       </div>
       <div class="ic reveal">
-        <span class="ie">🦁</span>
+        <span class="ie"><img src="/images/responsive/ingredients/lions-mane-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
         <div class="in">Lion's Mane</div>
         <div class="ia">Hericium erinaceus · FB 8:1</div>
         <div class="ib">Stimulates Nerve Growth Factor, signals your brain to build new neural connections. Clinically studied for focus, memory, neuroplasticity.</div>
         <div class="id-tag">Fruiting body · 8:1</div>
       </div>
       <div class="ic reveal d1">
-        <span class="ie">🌿</span>
+        <span class="ie"><img src="/images/responsive/ingredients/ashwagandha-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
         <div class="in">KSM-66 Ashwagandha</div>
         <div class="ia">300mg · Clinical dose</div>
         <div class="ib">The most clinically studied ashwagandha on the market. At the exact 300mg dose that reduced cortisol by up to 27.9% in RCTs. Not 50mg for the label.</div>
         <div class="id-tag">300mg · KSM-66®</div>
       </div>
       <div class="ic reveal d2">
-        <span class="ie">🌸</span>
+        <span class="ie"><img src="/images/responsive/ingredients/rhodiola-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
         <div class="in">Rhodiola Rosea</div>
         <div class="ia">Himalayan · cultivated</div>
         <div class="ib">One of the most studied adaptogens in the world. <strong>Rhodiola Rosea, cultivated in the Himalayas to protect the species.</strong> Works on the HPA axis alongside KSM-66 for stress resilience.*</div>
         <div class="id-tag">Himalayan · 1.5% / 5% actives</div>
       </div>
       <div class="ic reveal">
-        <span class="ie">⚡</span>
+        <span class="ie"><img src="/images/responsive/ingredients/cordyceps-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
         <div class="in">Cordyceps militaris</div>
         <div class="ia">Fruiting body 8:1</div>
         <div class="ib">Supports ATP synthesis, the energy molecule every cell runs on. Human VO₂ max trials. Militaris fruiting body, not fermented mycelium.</div>
         <div class="id-tag">Militaris FB · 8:1</div>
       </div>
       <div class="ic reveal d1">
-        <span class="ie">⛰️</span>
+        <span class="ie"><img src="/images/responsive/ingredients/chaga-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
         <div class="in">Chaga</div>
         <div class="ia">Wild Siberia · FB 8:1</div>
         <div class="ib">ORAC 146,700, 4x acai. Beta-glucans and antioxidant compounds, wild birch-harvested fruiting body. Counters oxidative stress amplified by chronic cortisol.</div>
         <div class="id-tag">Wild FB · 8:1</div>
       </div>
       <div class="ic reveal d2">
-        <span class="ie">🌼</span>
+        <span class="ie"><img src="/images/responsive/ingredients/bacopa-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
         <div class="in">Bacopa Monnieri</div>
         <div class="ia">Standardized · India</div>
         <div class="ib">Ayurvedic nootropic studied for memory consolidation and processing speed. <strong>Works synergistically with Lion's Mane</strong>, growth and retention together.*</div>
         <div class="id-tag">Standardized</div>
       </div>
       <div class="ic reveal d3">
-        <span class="ie">🍫</span>
+        <span class="ie"><img src="/images/responsive/ingredients/cacao-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
         <div class="in">Cacao</div>
         <div class="ia">Single-origin Peru · Ceremonial</div>
         <div class="ib">Theobromine for gentle 6-hour energy. PQQ for mitochondrial support. Magnesium, flavanols, and the reason this tastes like something you'd choose.</div>
         <div class="id-tag">Ceremonial · Organic</div>
       </div>
       <div class="ic reveal d4">
-        <span class="ie">🌼</span>
+        <span class="ie"><img src="/images/responsive/ingredients/maca-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
         <div class="in">Maca</div>
         <div class="ia">Single-origin Peru · Gelatinized</div>
         <div class="ib">Grown in Peru, our yellow maca is gelatinized to remove starch and make it easier on digestion. Delivers natural energy.</div>
@@ -2773,7 +2786,7 @@ body.locked { overflow: hidden; }
     </div>
 
     <div class="inote reveal">
-      <div class="ico">🔬</div>
+      <div class="ico"><img src="/images/icons/mushroom.svg" alt="" aria-hidden="true" /></div>
       <div class="itxt"><strong>The mycelium problem:</strong> Most products use mycelium on grain, not actual mushrooms. Beta-glucans live in the fruiting body. A product can legally say "mushroom extract" using mycelium with under 5% beta-glucan content. Mujo Ritual uses fruiting body at 8:1, standardized for beta-glucans. If the label doesn't say "fruiting body", it probably isn't.</div>
     </div>
   </div>
@@ -2812,19 +2825,19 @@ body.locked { overflow: hidden; }
     <h2 class="reveal d1" style="margin-top: 28px;">The questions we'd ask <span class="serif-accent">if we were you.</span></h2>
     <div class="obj-grid">
       <div class="objcard reveal">
-        <div class="objq"><span class="objqi">🤔</span>Do I need to quit coffee to drink Mujo?</div>
+        <div class="objq">Do I need to quit coffee to drink Mujo?</div>
         <div class="obja">No, but you might naturally want to drink less coffee. <strong>We recommend reducing caffeine gradually over 1–2 weeks</strong> while introducing Mujo Ritual. Caffeine withdrawal is a real thing. A tough morning in those first days is your adenosine receptors coming back online. Most people find the clarity around day 6–14 was worth the caffeine detox.</div>
       </div>
       <div class="objcard reveal d1">
-        <div class="objq"><span class="objqi">🔬</span>How do I verify the dosing independently?</div>
+        <div class="objq">How do I verify the dosing independently?</div>
         <div class="obja">We invite you to. <strong>Google "KSM-66 ashwagandha 300mg clinical trial", you'll find the Chandrasekhar 2012 RCT. Google "Bioavailable Curcumin bioavailability", you'll find 285x.</strong> Every ingredient is on the label with its exact dose and form. We built this to make verification easy, not prevent it.</div>
       </div>
       <div class="objcard reveal d2">
-        <div class="objq"><span class="objqi">⏱️</span>How quickly will I notice a difference?</div>
+        <div class="objq">How quickly will I notice a difference?</div>
         <div class="obja">Adaptogens work over weeks. <strong>Sleep quality usually shifts within 7–10 days.</strong> Reduced afternoon crash in weeks 2–3. Cognitive clarity and anxiety baseline in weeks 3–6, although every body is different because it's started from a different baseline.</div>
       </div>
       <div class="objcard reveal d3">
-        <div class="objq"><span class="objqi">🍫</span>What does it taste like?</div>
+        <div class="objq">What does it taste like?</div>
         <div class="obja">Warm, rich cacao latte, genuinely good, not something you're tolerating. <strong>No mushroom taste. No aftertaste.</strong> Oat or coconut milk recommended. It's the first functional drink most people say they look forward to.</div>
       </div>
     </div>
@@ -2856,7 +2869,7 @@ body.locked { overflow: hidden; }
           </div>
           <button class="btwh primary">Subscribe and save. Start today</button>
           <div class="gbox">
-            <div class="gicon">🛡</div>
+            <div class="gicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
             <div class="gtxt">
               <strong>30-day money-back guarantee</strong>
               No difference after 30 days? Full refund. No forms. No questions. We carry the risk.

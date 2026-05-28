@@ -890,7 +890,7 @@ details.info-row[open] .info-row-toggle { transform: rotate(45deg); color: var(-
   max-width: 1180px;
   margin: 0 auto;
 }
-@media (min-width: 1024px) { .timeline-layout { grid-template-columns: 1fr 1.1fr; gap: 48px; align-items: start; } }
+@media (min-width: 1024px) { .timeline-layout { grid-template-columns: 1fr 1.1fr; gap: 48px; align-items: stretch; } }
 
 .timeline-feature {
   position: relative;
@@ -903,7 +903,7 @@ details.info-row[open] .info-row-toggle { transform: rotate(45deg); color: var(-
   padding: 28px;
   color: #fff;
 }
-@media (min-width: 1024px) { .timeline-feature { position: sticky; top: 100px; aspect-ratio: 4 / 5; } }
+@media (min-width: 1024px) { .timeline-feature { aspect-ratio: auto; height: 100%; } }
 .timeline-feature::before {
   content: '';
   position: absolute;
@@ -2040,7 +2040,8 @@ footer {
   justify-content: center;
   margin-bottom: 22px;
 }
-.benefit-icon svg {
+.benefit-icon svg,
+.benefit-icon img {
   display: block;
   width: 48px;
   height: 48px;
@@ -2469,18 +2470,6 @@ body.locked { overflow: hidden; }
   </div>
 </section>
 
-<!-- ═══ GWS CITATION STRIP ═══ -->
-<div class="gws-strip">
-  <div class="gws-inner">
-    <span class="gws-mark">★</span>
-    <div class="gws-text">
-      Neurowellness was named the <strong>#1 wellness trend of 2026</strong> by the Global Wellness Summit. Mujo Ritual was formulated around the thesis <em>18 months before it had a name.</em>
-    </div>
-  </div>
-</div>
-
-
-
 <!-- ═══ KINGA VIDEO, author voice, 30 seconds ═══ -->
 <section class="kinga-video">
   <div class="kinga-video-wrap">
@@ -2519,17 +2508,7 @@ body.locked { overflow: hidden; }
       <!-- 1. Calm focus / Lion's Mane -->
       <div class="benefit reveal">
         <div class="benefit-icon" aria-hidden="true">
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Lion's Mane mushroom cap with cascading tendrils -->
-            <path d="M14 20 Q16 13 24 13 Q32 13 34 20 L34 24 Q32 22 29 24 Q27 22 24 24 Q21 22 19 24 Q16 22 14 24 Z" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
-            <path d="M16 24 Q16 30 14 34" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M19 24 Q19 30 17 35" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M22 24 Q22 31 20 36" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M24 24 Q24 32 23 37" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M26 24 Q26 31 28 36" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M29 24 Q29 30 31 35" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M32 24 Q32 30 34 34" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-          </svg>
+          <img src="/images/icons/cognitive-support.svg" alt="" />
         </div>
         <div class="benefit-h">Focus + mental clarity</div>
         <div class="benefit-b">Lion's Mane is studied for Nerve Growth Factor support, Bioavailable Curcumin for a healthy inflammatory response in the brain, and Rhodiola for working with the stress response behind mental fog. Clarity that builds, no jitter.</div>
@@ -2539,19 +2518,7 @@ body.locked { overflow: hidden; }
       <!-- 2. Sustained energy / Cordyceps -->
       <div class="benefit reveal d1">
         <div class="benefit-icon" aria-hidden="true">
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Cordyceps militaris, slender fruiting body cluster -->
-            <path d="M20 38 Q19 28 21 20 Q22 16 24 14" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-            <path d="M24 38 Q24 26 25 18 Q26 14 27 12" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-            <path d="M28 38 Q29 28 29 22 Q29 18 30 16" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-            <!-- Tips (club-shaped) -->
-            <ellipse cx="24" cy="13.5" rx="1.3" ry="2.5" fill="#2F3D33"/>
-            <ellipse cx="27" cy="11.5" rx="1.3" ry="2.8" fill="#2F3D33"/>
-            <ellipse cx="30" cy="15" rx="1.2" ry="2.2" fill="#2F3D33"/>
-            <ellipse cx="21" cy="19" rx="1.1" ry="2" fill="#2F3D33"/>
-            <!-- Ground line -->
-            <path d="M14 38 L34 38" stroke="#2F3D33" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
-          </svg>
+          <img src="/images/icons/sustained-energy.svg" alt="" />
         </div>
         <div class="benefit-h">Calm + sustained energy</div>
         <div class="benefit-b">No caffeine masking the problem. A more regulated nervous system means deeper overnight recovery, while Cordyceps and antioxidant compounds support the mitochondria, the powerhouses inside your cells that produce energy. Energy that holds, from a real source.</div>
@@ -2561,20 +2528,7 @@ body.locked { overflow: hidden; }
       <!-- 3. Lower cortisol / Ashwagandha -->
       <div class="benefit reveal d2">
         <div class="benefit-icon" aria-hidden="true">
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Ashwagandha, stem with leaves and root -->
-            <path d="M24 11 L24 26" stroke="#2F3D33" stroke-width="1.2" stroke-linecap="round"/>
-            <!-- Leaf pair 1 -->
-            <path d="M24 15 Q20 13 17 16 Q19 19 24 17" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linejoin="round"/>
-            <path d="M24 15 Q28 13 31 16 Q29 19 24 17" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linejoin="round"/>
-            <!-- Leaf pair 2 -->
-            <path d="M24 20 Q21 19 19 22 Q21 24 24 22" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linejoin="round"/>
-            <path d="M24 20 Q27 19 29 22 Q27 24 24 22" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linejoin="round"/>
-            <!-- Root bulb -->
-            <path d="M24 26 Q19 28 18 32 Q20 37 24 38 Q28 37 30 32 Q29 28 24 26 Z" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
-            <!-- Root fibers -->
-            <path d="M22 36 L21 40 M24 38 L24 41 M26 36 L27 40" stroke="#2F3D33" stroke-width="1" stroke-linecap="round" opacity="0.55"/>
-          </svg>
+          <img src="/images/icons/stress-support.svg" alt="" />
         </div>
         <div class="benefit-h">Stress resilience support</div>
         <div class="benefit-b">KSM-66® Ashwagandha at 300mg, the dose used in published cortisol-response trials, with Rhodiola alongside it. Cortisol is the master hormone behind your stress response. When it steadies, energy, focus, and recovery tend to follow.</div>
@@ -2837,14 +2791,6 @@ body.locked { overflow: hidden; }
     <div class="howto-header">
       <h2 class="reveal d1" style="margin-top: 26px;">Endless ways to drink it. No rules.</h2>
     </div>
-
-    <!-- Base method — numbered list, paragraph form -->
-    <ol class="howto-steps reveal d3">
-      <li>Add 1 scoop to your mug.</li>
-      <li>Pour hot water, around 80°C.</li>
-      <li>Whisk until smooth.</li>
-      <li>Top with milk and sip.</li>
-    </ol>
 
     <!-- Three recipe cards with photo + recipe-specific steps -->
     <div class="howto-grid">
