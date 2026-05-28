@@ -590,35 +590,61 @@ body.locked { overflow: hidden; }
 .perform-quote strong { color: var(--ink); font-style: normal; font-weight: 600; }
 
 /* ═══════════════════════════════════════════════════════════
-   2. MANIFESTO (sage, full-bleed)
+   2. TRUST MARQUEE (auto-scrolling icon + label strip)
    ═══════════════════════════════════════════════════════════ */
-.manifesto {
-  background: var(--sage);
-  color: #fff;
-  text-align: center;
-  padding: 100px var(--gutter);
+.trust-marquee {
+  background: var(--cream);
+  border-top: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+  padding: 34px 0;
+  overflow: hidden;
 }
-@media (min-width: 768px) { .manifesto { padding: 140px var(--gutter); } }
-.manifesto-eyebrow {
+.trust-marquee-viewport {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+.trust-track {
+  display: flex;
+  flex-shrink: 0;
+  align-items: flex-start;
+  animation: trustScroll 42s linear infinite;
+}
+.trust-marquee:hover .trust-track { animation-play-state: paused; }
+@keyframes trustScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-100%); }
+}
+.trust-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 13px;
+  flex-shrink: 0;
+  width: 104px;
+  margin: 0 24px;
+  text-align: center;
+}
+.trust-badge img { width: 46px; height: 46px; display: block; }
+.trust-badge span {
   font-family: var(--f-mono);
   font-size: 11px;
-  letter-spacing: 0.2em;
+  line-height: 1.25;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--orange);
-  margin-bottom: 24px;
-  display: inline-block;
+  color: var(--ink-soft);
 }
-.manifesto p {
-  font-family: var(--f-serif);
-  font-style: italic;
-  font-weight: 400;
-  font-size: 22px;
-  line-height: 1.4;
-  color: var(--orange);
-  letter-spacing: -0.01em;
+@media (min-width: 768px) {
+  .trust-badge { width: 116px; margin: 0 30px; }
+  .trust-badge img { width: 52px; height: 52px; }
 }
-@media (min-width: 768px) { .manifesto p { font-size: 28px; line-height: 1.35; } }
-@media (min-width: 1024px) { .manifesto p { font-size: 32px; } }
+@media (prefers-reduced-motion: reduce) {
+  .trust-marquee-viewport { -webkit-mask-image: none; mask-image: none; }
+  .trust-track { animation: none; flex-wrap: wrap; justify-content: center; row-gap: 28px; }
+  .trust-track-dup { display: none; }
+}
 
 /* ═══════════════════════════════════════════════════════════
    3. WHAT WE MAKE. AG1-style benefits-led tiles
@@ -1941,10 +1967,29 @@ footer {
 
 <!-- #1 wellness trend quote relocated 2026-05-26 to the new "Modern performance" section after the UGC carousel. -->
 
-<!-- ═══════════════ 2. MANIFESTO ═══════════════ -->
-<section class="manifesto">
-  <div class="container-narrow">
-    <p class="reveal d1">If you've been overwhelmed by the wellness aisle, and underwhelmed by the effects, the ingredients, the flavors, you're in the right place.</p>
+<!-- ═══════════════ 2. TRUST MARQUEE ═══════════════ -->
+<section class="trust-marquee" aria-label="What's in every Mujo ritual">
+  <div class="trust-marquee-viewport">
+    <div class="trust-track">
+      <div class="trust-badge"><img src="/images/icons/mushroom.svg" alt="Fruiting-body mushrooms" loading="lazy" /><span>Fruiting-body mushrooms</span></div>
+      <div class="trust-badge"><img src="/images/icons/dna-verified.svg" alt="DNA-verified adaptogens" loading="lazy" /><span>DNA-verified adaptogens</span></div>
+      <div class="trust-badge"><img src="/images/icons/delicious.svg" alt="Tastes like a treat" loading="lazy" /><span>Tastes like a treat</span></div>
+      <div class="trust-badge"><img src="/images/icons/gluten-free.svg" alt="Gluten-free" loading="lazy" /><span>Gluten-free</span></div>
+      <div class="trust-badge"><img src="/images/icons/vegan.svg" alt="Vegan" loading="lazy" /><span>Vegan</span></div>
+      <div class="trust-badge"><img src="/images/icons/glp-1-friendly.svg" alt="GLP-1 friendly" loading="lazy" /><span>GLP-1 friendly</span></div>
+      <div class="trust-badge"><img src="/images/icons/keto-friendly.svg" alt="Keto-friendly" loading="lazy" /><span>Keto-friendly</span></div>
+      <div class="trust-badge"><img src="/images/icons/better-for-you.svg" alt="Better-for-you rituals" loading="lazy" /><span>Better-for-you rituals</span></div>
+    </div>
+    <div class="trust-track trust-track-dup" aria-hidden="true">
+      <div class="trust-badge"><img src="/images/icons/mushroom.svg" alt="" loading="lazy" /><span>Fruiting-body mushrooms</span></div>
+      <div class="trust-badge"><img src="/images/icons/dna-verified.svg" alt="" loading="lazy" /><span>DNA-verified adaptogens</span></div>
+      <div class="trust-badge"><img src="/images/icons/delicious.svg" alt="" loading="lazy" /><span>Tastes like a treat</span></div>
+      <div class="trust-badge"><img src="/images/icons/gluten-free.svg" alt="" loading="lazy" /><span>Gluten-free</span></div>
+      <div class="trust-badge"><img src="/images/icons/vegan.svg" alt="" loading="lazy" /><span>Vegan</span></div>
+      <div class="trust-badge"><img src="/images/icons/glp-1-friendly.svg" alt="" loading="lazy" /><span>GLP-1 friendly</span></div>
+      <div class="trust-badge"><img src="/images/icons/keto-friendly.svg" alt="" loading="lazy" /><span>Keto-friendly</span></div>
+      <div class="trust-badge"><img src="/images/icons/better-for-you.svg" alt="" loading="lazy" /><span>Better-for-you rituals</span></div>
+    </div>
   </div>
 </section>
 

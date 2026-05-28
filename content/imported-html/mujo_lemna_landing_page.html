@@ -831,43 +831,58 @@ h1 em, h2 em, h3 em {
   .ing-row.hero-ing { grid-column: span 1; }
 }
 
-/* ═══════════ PANEL 6, WHAT'S NOT IN IT ═══════════ */
-.not-in-it {
+/* ═══════════ PANEL 6, WHAT'S IN / WHAT'S NOT (combined two-column table) ═══════════ */
+.in-not {
   background: var(--sand);
   padding: 110px 32px;
 }
-.not-inner {
+.in-not-inner {
   max-width: 1080px;
   margin: 0 auto;
   text-align: center;
 }
-.not-header {
+.in-not-header {
   margin-bottom: 56px;
 }
-.not-header h2 {
+.in-not-header h2 {
   font-size: clamp(34px, 4.5vw, 52px);
   margin-bottom: 18px;
   letter-spacing: -0.025em;
 }
-.not-header p {
+.in-not-header p {
   font-size: 16px;
   color: var(--ink-soft);
-  max-width: 560px;
+  max-width: 580px;
   margin: 0 auto;
 }
-.not-grid {
+.in-not-table {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  max-width: 880px;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 28px;
+  max-width: 900px;
   margin: 0 auto;
+  text-align: left;
 }
-.not-item {
+.in-not-col-head {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-bottom: 14px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+.in-not-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.in-not-item {
   background: var(--cream);
   border: 1px solid var(--line-soft);
   border-radius: var(--r-structural);
-  padding: 20px 22px;
-  text-align: left;
+  padding: 16px 18px;
   position: relative;
   font-size: 14px;
   font-family: var(--f-display);
@@ -878,23 +893,18 @@ h1 em, h2 em, h3 em {
   align-items: center;
   gap: 12px;
 }
-.not-item::before {
-  content: '✕';
+.in-not-item::before {
   font-family: var(--f-mono);
   font-weight: 700;
-  color: var(--orange);
   font-size: 16px;
   flex-shrink: 0;
 }
-@media (max-width: 700px) {
-  .not-grid { grid-template-columns: 1fr 1fr; }
+.col-in .in-not-item::before  { content: '✓'; color: var(--sage); }
+.col-not .in-not-item::before { content: '✕'; color: var(--orange); }
+@media (max-width: 560px) {
+  .in-not-table { grid-template-columns: 1fr; }
+  .in-not-col + .in-not-col { margin-top: 32px; }
 }
-@media (max-width: 480px) {
-  .not-grid { grid-template-columns: 1fr; }
-}
-/* What's IN it — same format as "what's not in it", positive (sage check, cream bg) */
-.in-it { background: var(--cream); }
-.in-it .not-item::before { content: '✓'; color: var(--sage); }
 /* Flavor-reveal teaser banner */
 .flavor-reveal {
   background: var(--sage);
@@ -1728,47 +1738,41 @@ body.locked { overflow: hidden; }
   </div>
 </section>
 
-<!-- ═══════════ PANEL 6, WHAT'S NOT IN IT ═══════════ -->
-<section class="not-in-it">
-  <div class="not-inner">
-    <div class="not-header">
-      <div class="eyebrow">What's not in it</div>
-      <h2>The list of <em>nope.</em></h2>
-      <p>What's missing from this bar is as deliberate as what's in it. None of these are in any Lemna Bar, ever.</p>
+<!-- ═══════════ PANEL 6, WHAT'S IN / WHAT'S NOT (combined table) ═══════════ -->
+<section class="in-not">
+  <div class="in-not-inner">
+    <div class="in-not-header">
+      <div class="eyebrow">What's in, what's not</div>
+      <h2>What's in. <em>What's not.</em></h2>
+      <p>What's missing from this bar is as deliberate as what's in it. Real food on the left, a hard no on the right, in every Lemna Bar, ever.</p>
     </div>
 
-    <div class="not-grid">
-      <div class="not-item">Natural flavors</div>
-      <div class="not-item">Sugar alcohols</div>
-      <div class="not-item">Sucralose</div>
-      <div class="not-item">Soy isolate</div>
-      <div class="not-item">Whey isolate</div>
-      <div class="not-item">Synthetic fibers</div>
-      <div class="not-item">Seed oils</div>
-      <div class="not-item">Maltitol</div>
-      <div class="not-item">Corn syrup</div>
-      <div class="not-item">Stevia extracts</div>
-      <div class="not-item">Erythritol</div>
-      <div class="not-item">Preservatives</div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════ PANEL 6b, WHAT'S IN IT ═══════════ -->
-<section class="not-in-it in-it">
-  <div class="not-inner">
-    <div class="not-header">
-      <h2 style="margin-top: 38px;">The short list of <em>yes.</em></h2>
-      <p>Real food, and not much else. The full breakdown lands at launch.</p>
-    </div>
-    <div class="not-grid">
-      <div class="not-item">Lemna leaf</div>
-      <div class="not-item">Nut butters</div>
-      <div class="not-item">Dates</div>
-      <div class="not-item">Tapioca fiber</div>
-      <div class="not-item">Cocoa</div>
-      <div class="not-item">Sea salt</div>
-      <div class="not-item">Vegetable glycerin</div>
+    <div class="in-not-table">
+      <div class="in-not-col col-in">
+        <div class="in-not-col-head">What's in</div>
+        <div class="in-not-list">
+          <div class="in-not-item">Lemna leaf</div>
+          <div class="in-not-item">Nut butters</div>
+          <div class="in-not-item">Dates</div>
+          <div class="in-not-item">Tapioca fiber</div>
+          <div class="in-not-item">Cocoa</div>
+          <div class="in-not-item">Sea salt</div>
+          <div class="in-not-item">Vegetable glycerin</div>
+        </div>
+      </div>
+      <div class="in-not-col col-not">
+        <div class="in-not-col-head">What's not — ever</div>
+        <div class="in-not-list">
+          <div class="in-not-item">Natural flavors</div>
+          <div class="in-not-item">Sucralose &amp; stevia extracts</div>
+          <div class="in-not-item">Sugar alcohols (maltitol, erythritol)</div>
+          <div class="in-not-item">Soy &amp; whey isolate</div>
+          <div class="in-not-item">Synthetic fibers</div>
+          <div class="in-not-item">Seed oils</div>
+          <div class="in-not-item">Corn syrup</div>
+          <div class="in-not-item">Preservatives</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
