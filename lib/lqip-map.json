@@ -125,6 +125,12 @@
     "height": 2048,
     "color": "#482818"
   },
+  "lifestyle/ritual-iced-pour-pouch-hero-editorial-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAKCAIAAAD3rtNaAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA50lEQVR4nAHcACP/AKOQd418Y4FvVn5sU3lpVHdoUX1oTgD78OC5q5SVhW2MfWmKe2eReWJGIAAA7OPXy76vyb2qyL2to5aGeFRAUzAWAPLi0bSEbNPLvNXHub6xoNjMwLSmlADo08GiWTbWyrrazsHg1cPg1cO2qZQAsJmErW9R0sOy3NPI//zu8ebTuKuWAJyJcrFuUtLDtdPDs+DVxePXx+PVxAD15M2kVzbCpZHAoIiUdlwtGAKYelkAu6CEgFU3fWlTXUcwOh4AIQAAeFs4AP/x1t27mb2bc5RxSUEmACkFADAYAAhxeEsiPi/0AAAAAElFTkSuQmCC",
+    "width": 1744,
+    "height": 2336,
+    "color": "#c8c8b8"
+  },
   "lifestyle/ritual-jessica-morning-editorial-4x3.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/AJRyR8CxlJuUgdzPu8ewk5R5VnRaOGBHJFE6Gko0GAC0nHmmknbu3sjy48zXw6q9p4u0oYWZhWpCLw5VOBIAoItvrZZ5spuAmX5irpV1sXJNwq6RoIhsaUwsWD0eAGdOLIx2V31ZPFQsC2A7HNWcfcKni72niI93UIhtUAB0Wjje0LlBFQAyAAB/XT3Un32vj3CulnaaglzIsJAAPSYFUjcZNBMAPR8AbVIw2sap//vl3MutwKqJjHZWACUOACQBAGdLLH9iP4JmQqiUcrWmiJuKamlUNVxCIV3CYL+2l54JAAAAAElFTkSuQmCC",
     "width": 2336,
@@ -162,10 +168,10 @@
     "color": "#c8b898"
   },
   "lifestyle/ritual-merch-tile-editorial-4x3.webp": {
-    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/AO/ZtLCXeJZ/X5N+YYhzWIRyVoFuVnZmTW5dRWFSOQD/99T74r3VwJ60nX7BsZyZiG6SfmWCc1h0Y0xlVjwA//jR/eS9v6uFvKiM4tS9rZ2Bn4twi3thcmFIYVI5AP/ruf/ptraggmNOL6iYfbyniM27oqydg6KSfqWZhADku4XLn2ewl3hWRShzX0KDZkGvm3ray7Syp5KuoY4A0qt2m3VCZUUeJgAALxgAWT4ckHhUqpR0nIpwPS8XAOrEkc2ncKJ5R2xGGEEgADQAAEsfAH5WM6yRcHBbPIKoa5eH0Bo4AAAAAElFTkSuQmCC",
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/APfUobuYaZ1+UZt6Uo1xSopuR4lsR4BlQHNZN2hOKwD/9r3/36rivYm8m27Ms42fhF2YfFaKb0p6Y0BsVTEA//W7/+Kqyqd4xqV669KptZtxp4hikndSeGE9aFEtAP/po//mpL6cb2lMJrOVccSneta5j7SXcqyTbayUcQDuuXLUnVi6l2peQR95XDaKYzW6l2rjxZ28pYG3n3wA3Kdmo3E2bEQQKQAANRYAXjsQlnVEtJRmooZgQSoMAPbCgNelYqp1N3JECUoeADgAAFEdAIZTJ7GOX3JZLkyZaPT8kYC4AAAAAElFTkSuQmCC",
     "width": 2336,
     "height": 1744,
-    "color": "#a89878"
+    "color": "#b89878"
   },
   "lifestyle/ritual-padel-conscious-performer-editorial-4x5.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAKCAIAAAD3rtNaAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA50lEQVR4nAHcACP/ADw/K2pmRJuJXGlcLz87HjQzGCQoEQBNTzh/elusnHXNsoOllGallGZ2bUkAUE8vd3A/fnU+f3VDjX5coJBpiX1dAJCOeeXcxfrpy+zgyJuMcLGvnI2fnwBdcnPRrZL92r7/+uO0m3ahm4aYn5UAp6mb3bKU/dO3//vmu595wZ9xwpxrANGocuy7k/3Wtv/r1Lufef/fusifagDcrXTmpHf4za3ox6qmkXG7t65uaFgAzp9mwJhlS0EuGhcHEA4AFxsWGSQjAKqEUKJ5R8COUIloPDcxHQEIAAgBAFdxbVmo/xDFAAAAAElFTkSuQmCC",
@@ -388,5 +394,23 @@
     "width": 1856,
     "height": 2304,
     "color": "#e8d8c8"
+  },
+  "reviews/brandon-l.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABO0lEQVR4nGP4/eHd3w/v/375+OTcvr1zO78+ffD/5y8Q+v7998f3DD/evf75/t3nJw+P1wVfrIvYluv+98N7iPS/758ZPj1+/O3Ny9fXz7+bkvlnWdP1uuAPN85CDfj6jeHDk8efX79+cXTflTL/V7UhdypD3q2b8v/nb6j0uydPPjx/9eb27SdtCbeqkq+V+3y9fQ5q+KcvDK/uP3jz5Nn7l68vLep/15lxvDb01YN7/z59+ffpy+8P7xie3Lj54s69Zw8e7V2x+MLEstePnxqYehzctf/bqzdfXr9guH/1yrF9Bzw8whPMPVZlVqdl1zOwqTPxqfZ0T3735CHDnYsXra29GBgkN8UVrs9pZGBTZ2BUYeBSZeBS9wlMYrh66gSngKK6ls0yBi0nLQcGZlWQNIcaA6MqI58GAHYpyUwGvUxfAAAAAElFTkSuQmCC",
+    "width": 256,
+    "height": 256,
+    "color": "#e8d8d8"
+  },
+  "reviews/gabriela-w.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+ANLY5Ovz/+Pt/eDm9JGQm3+Ai+Dm9OXr++Xr++Xr+wDW2+Lg5u3h4umUgoXKlIOfaFVpY2TX1t3W1tjY2d4A8fT/9vr/8/j/fVxd3KWXw4JyglNG5urz8fb/8fT/APH2//f7/+3u9lEsJ++2p+qhi4lfUNDR2vH2//H2/wDx9P/2+v/Z0tpNKyqJY1jpp5hLNzW7usPx9P/x9v8A5uvx8/X7uK2wNh4cOTc37efrq5+fVUdKzMvT7O/8AOzt8urr8NPQ1hQAAAkAA+Pd5b6+w4p/gfz+/+7w/ADq6/Lz9Prk2t4UAAEaBAfY0tfV1Nq+s7P4+//4/P8A1Nbb8fP48/D0ZUlIRiwq6ejv9/v/1dHW9vf/9vr/ANfY3e3v9Pv6/5p9ebOlp+jp9PH2/93S0+nPyOjp9JMP4Vnpq+nfAAAAAElFTkSuQmCC",
+    "width": 256,
+    "height": 256,
+    "color": "#d8d8e8"
+  },
+  "reviews/maria-m.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AFJeFkhSBUdNFlplJicnAR0eAhkeBRgcAAAAAAADAAA6RABWYxxRXyFjZi5HMhlUPitXSCwaHgATFwAZGwAASFYAUmIWQkobTjkZ57mj/+nbkWxQTkklPD0ZJy0PAGBwL0tdGlJTH3JNL8qfienCr598Y35oQTU3GSwwFwBMWxhcbSJXVR52TjzqvKX/3MjCloBkRiETGQAUGAAAYXAsV2kAbHAzSzMa3KaT/9XAkmpJa1szChgAAA8AAFdmJFpnGW1jLVU4HMCObuy7nX9cNI2KT2FxMFFfIQCJlkyrqIO9qY/WtJrquZjbq4uXcUiqilytvHCbsFYAvbmU/PDk8uTV++XX/9nI/c+/48et4sit//rtobZoAMC3n+zez/To3P/69P/t5v/59v/y6P/57//y47LAilHihq6Sp8WDAAAAAElFTkSuQmCC",
+    "width": 256,
+    "height": 256,
+    "color": "#f8e8e8"
   }
 }
