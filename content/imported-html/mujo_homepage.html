@@ -633,6 +633,10 @@ body.locked { overflow: hidden; }
   height: 46px;
   display: block;
 }
+/* The gluten-free mark is a full circle that fills its canvas, so it reads larger
+   than the other (padded) icons. Scale it down visually; the 46px box is kept so
+   layout + label alignment stay identical. */
+.trust-badge img[src*="gluten-free"] { transform: scale(0.72); }
 .trust-badge span {
   font-family: var(--f-mono);
   font-size: 11px;
