@@ -443,7 +443,10 @@ body.locked { overflow: hidden; }
   max-width: 640px;
 }
 @media (min-width: 1024px) {
-  .hero-text { padding: 96px 56px 96px max(var(--gutter), calc((100vw - 1200px) / 2)); max-width: 620px; }
+  /* Left padding aligns the text's left edge to the centered 1200px content container.
+     No max-width: a border-box cap here would combine with the growing left padding to
+     shrink the text as the window widens. Width now stays stable on large screens. */
+  .hero-text { padding: 96px 56px 96px max(var(--gutter), calc((100vw - 1200px) / 2)); max-width: none; }
 }
 
 .hero-text .eyebrow { color: var(--orange-deep); margin-bottom: 16px; }
@@ -629,7 +632,6 @@ body.locked { overflow: hidden; }
   width: 46px;
   height: 46px;
   display: block;
-  filter: brightness(0) invert(1);
 }
 .trust-badge span {
   font-family: var(--f-mono);
