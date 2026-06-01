@@ -226,59 +226,38 @@ type KlaviyoPayload = {
   email: string;
   answers: Answers;
   persona: Persona;
+  /** "homepage_quiz" | "ritual_landing_quiz" — set by where the quiz was opened. */
+  signupSource: string;
 };
 
-async function submitToKlaviyo({ email, answers, persona }: KlaviyoPayload): Promise<void> {
-  const publicKey = process.env.NEXT_PUBLIC_KLAVIYO_PUBLIC_KEY;
-  const listId = process.env.NEXT_PUBLIC_KLAVIYO_QUIZ_LIST_ID;
-
-  const profileProperties = {
-    source: 'homepage',
-    source_page: 'homepage_quiz',
-    quiz_completed: true,
-    quiz_completed_at: new Date().toISOString(),
-    quiz_profile: persona,
-    quiz_q1_energy_pattern: answers.q1 ?? null,
-    quiz_q2_caffeine_history: answers.q2 ?? null,
-    quiz_q3_morning_pattern: answers.q3 ?? null,
-    quiz_q4_goal: answers.q4 ?? null,
-    quiz_q5_sleep: answers.q5 ?? null,
-    quiz_q6_caffeine_load: answers.q6 ?? null,
-    discount_code_issued: DISCOUNT_CODE,
-    page_url: typeof window !== 'undefined' ? window.location.href : '',
-  };
-
-  if (!publicKey || !listId) {
-    // Dev mode: log payload so you can verify before going live.
-    console.log('[Klaviyo DEV] payload:', { email, properties: profileProperties });
-    console.log('[Klaviyo DEV] Set NEXT_PUBLIC_KLAVIYO_PUBLIC_KEY and NEXT_PUBLIC_KLAVIYO_QUIZ_LIST_ID to enable.');
-    return;
-  }
-
-  const response = await fetch(`https://a.klaviyo.com/client/subscriptions/?company_id=${publicKey}`, {
+/**
+ * Submit the quiz through the hardened server route (single master list +
+ * private key + profile-property upsert + a server-fired "Completed Quiz"
+ * event). This replaces the prior client-side Klaviyo call against a separate
+ * quiz list, so quiz takers land on the same master list as every other signup
+ * and the result flow can be sequenced ahead of the welcome flow.
+ */
+async function submitToKlaviyo({ email, answers, persona, signupSource }: KlaviyoPayload): Promise<void> {
+  const response = await fetch('/api/klaviyo/subscribe', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      revision: '2024-10-15',
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      data: {
-        type: 'subscription',
-        attributes: {
-          profile: {
-            data: {
-              type: 'profile',
-              attributes: {
-                email,
-                properties: profileProperties,
-              },
-            },
-          },
-          custom_source: 'Homepage Quiz',
-        },
-        relationships: {
-          list: { data: { type: 'list', id: listId } },
-        },
+      email,
+      list: 'ritual_quiz',
+      source: 'Ritual quiz',
+      properties: {
+        signup_source: signupSource,
+        quiz_profile: persona,
+        quiz_completed: true,
+        quiz_completed_at: new Date().toISOString(),
+        quiz_q1_energy_pattern: answers.q1 ?? null,
+        quiz_q2_caffeine_history: answers.q2 ?? null,
+        quiz_q3_morning_pattern: answers.q3 ?? null,
+        quiz_q4_goal: answers.q4 ?? null,
+        quiz_q5_sleep: answers.q5 ?? null,
+        quiz_q6_caffeine_load: answers.q6 ?? null,
+        discount_code_issued: DISCOUNT_CODE,
+        page_url: typeof window !== 'undefined' ? window.location.href : '',
       },
     }),
   });
@@ -292,7 +271,9 @@ async function submitToKlaviyo({ email, answers, persona }: KlaviyoPayload): Pro
 
 type QuizContextValue = {
   isOpen: boolean;
-  open: () => void;
+  /** Where the quiz was opened from — drives the signup_source on submit. */
+  source: string;
+  open: (source?: string) => void;
   close: () => void;
   toggle: () => void;
 };
@@ -301,8 +282,12 @@ const QuizContext = createContext<QuizContextValue | null>(null);
 
 export function QuizProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [source, setSource] = useState('homepage_quiz');
 
-  const open = useCallback(() => setIsOpen(true), []);
+  const open = useCallback((src?: string) => {
+    if (src) setSource(src);
+    setIsOpen(true);
+  }, []);
   const close = useCallback(() => setIsOpen(false), []);
   const toggle = useCallback(() => setIsOpen((s) => !s), []);
 
@@ -326,7 +311,7 @@ export function QuizProvider({ children }: { children: ReactNode }) {
     return () => window.removeEventListener('keydown', onKey);
   }, [isOpen]);
 
-  const value = useMemo(() => ({ isOpen, open, close, toggle }), [isOpen, open, close, toggle]);
+  const value = useMemo(() => ({ isOpen, source, open, close, toggle }), [isOpen, source, open, close, toggle]);
 
   return <QuizContext.Provider value={value}>{children}</QuizContext.Provider>;
 }
@@ -373,7 +358,13 @@ export function QuizPill() {
       `}</style>
       <button
         type="button"
-        onClick={open}
+        onClick={() =>
+          open(
+            typeof window !== 'undefined' && window.location.pathname === '/ritual'
+              ? 'ritual_landing_quiz'
+              : 'homepage_quiz',
+          )
+        }
         className={`mujo-pill-pulse fixed z-[270] flex items-center justify-center rounded-full border-0 bg-[#F2682F] font-medium text-white shadow-[0_4px_20px_rgba(242,104,47,0.45)] transition-[opacity,background] duration-300 hover:bg-[#D85A22] ${
           shown ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
         }`}
@@ -397,7 +388,7 @@ export function QuizPill() {
 // Bottom-up modal with the 6-question flow + email gate + result panel.
 
 export function QuizSheet() {
-  const { isOpen, close } = useQuizSheet();
+  const { isOpen, close, source } = useQuizSheet();
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [answers, setAnswers] = useState<Answers>({});
   const [email, setEmail] = useState('');
@@ -447,14 +438,14 @@ export function QuizSheet() {
     const persona: Persona = (answers.q3 as Persona) || 'burnout';
 
     try {
-      await submitToKlaviyo({ email: trimmed, answers, persona });
+      await submitToKlaviyo({ email: trimmed, answers, persona, signupSource: source });
       setResultPersona(persona);
     } catch (err) {
       setSubmitError(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
     } finally {
       setSubmitting(false);
     }
-  }, [email, answers]);
+  }, [email, answers, source]);
 
   const handleOverlayClick = useCallback(
     (e: ReactMouseEvent<HTMLDivElement>) => {

@@ -115,6 +115,30 @@ function flashOptionGroups() {
 }
 
 /**
+ * Signup forms wired through the live runtime. The import helper rewrites each
+ * form's dead inline `onsubmit="..."` to `data-mujo-form="<key>"`; this map
+ * drives list assignment, the custom source label, and the optimistic success
+ * message. All POST to /api/klaviyo/subscribe (single master list + profile
+ * properties keyed by source). Add a new signup form by adding a row here plus
+ * an onsubmit rewrite in lib/imported-html.ts.
+ */
+const SIGNUP_FORMS: Record<
+  string,
+  { list: string; source: string; success: string }
+> = {
+  "rebel-club": {
+    list: "rebel_club",
+    source: "Rebel Club signup",
+    success: "You're in. First letter lands within 48 hours.",
+  },
+  "lemna-waitlist": {
+    list: "lemna_waitlist",
+    source: "Lemna waitlist",
+    success: "You're on the founding-member list. Watch your inbox.",
+  },
+};
+
+/**
  * Client wrapper that activates the shared behaviors needed by imported
  * pages: scroll-reveal animations, and event delegation for `data-mujo-*`
  * action hooks (e.g. data-mujo-action="open-cart" / "checkout"). Also
@@ -226,13 +250,21 @@ export function ImportedPageRuntime({ children }: ImportedPageRuntimeProps) {
           ev.preventDefault();
           window.dispatchEvent(new CustomEvent("mujo:overlay:close"));
           break;
-        case "open-quiz":
+        case "open-quiz": {
           ev.preventDefault();
           // Compound triggers (mobile menu's "Take the audit") also need the
           // menu drawer to close first. Cheap to dispatch unconditionally.
           window.dispatchEvent(new CustomEvent("mujo:overlay:close"));
-          openQuiz();
+          // Tag where the quiz was taken so the four shared result flows can be
+          // attributed by page. Only / and /ritual are distinguished; any other
+          // entry point (the site-wide pill) defaults to homepage_quiz.
+          const quizSource =
+            window.location.pathname === "/ritual"
+              ? "ritual_landing_quiz"
+              : "homepage_quiz";
+          openQuiz(quizSource);
           break;
+        }
         case "checkout": {
           ev.preventDefault();
           const priceId = trigger.dataset.stripePriceId;
@@ -307,45 +339,48 @@ export function ImportedPageRuntime({ children }: ImportedPageRuntimeProps) {
       const form = ev.target as HTMLFormElement | null;
       if (!form) return;
       const formType = form.dataset.mujoForm;
+      if (!formType) return;
 
+      // Generic forms are intentionally inert (no native submit, no subscribe).
       if (formType === "generic") {
         ev.preventDefault();
         return;
       }
 
-      if (formType === "rebel-club") {
-        ev.preventDefault();
-        const data = new FormData(form);
-        const email = (data.get("email") || "").toString().trim();
-        const tribe = (data.get("tribe") || "").toString().trim();
-        if (!email) return;
+      const cfg = SIGNUP_FORMS[formType];
+      if (!cfg) return;
 
-        const properties: Record<string, string> = {};
-        if (tribe) properties.mujo_tribe = tribe;
+      ev.preventDefault();
+      const data = new FormData(form);
+      const email = (data.get("email") || "").toString().trim();
+      if (!email) return;
 
-        // Optimistic UI: replace form with success message immediately.
-        const successHtml =
-          '<p style="font-family: var(--f-body); font-size: 15px; line-height: 1.5; color: rgba(255,255,255,0.92); margin: 0;">' +
-          "You're in. First letter lands within 48 hours." +
-          "</p>";
-        form.outerHTML = successHtml;
+      const properties: Record<string, string> = {};
+      const tribe = (data.get("tribe") || "").toString().trim();
+      if (tribe) properties.mujo_tribe = tribe;
 
-        fetch("/api/klaviyo/subscribe", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email,
-            list: "rebel_club",
-            source: "Rebel Club signup",
-            properties,
-          }),
-        }).catch((err) => {
-          // Failure logs server-side too. We've already shown success client-side
-          // (Klaviyo dedup handles repeats; user can resubmit if it never arrives).
-          console.warn("[rebel-club] subscribe error", err);
-        });
-        return;
-      }
+      // Optimistic UI: replace form with success message immediately.
+      // color:inherit so it reads on both the dark footer and light sections.
+      const successHtml =
+        '<p style="font-family: var(--f-body); font-size: 15px; line-height: 1.5; color: inherit; margin: 0;">' +
+        cfg.success +
+        "</p>";
+      form.outerHTML = successHtml;
+
+      fetch("/api/klaviyo/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          list: cfg.list,
+          source: cfg.source,
+          properties,
+        }),
+      }).catch((err) => {
+        // Failure logs server-side too. We've already shown success client-side
+        // (Klaviyo dedup handles repeats; user can resubmit if it never arrives).
+        console.warn(`[signup:${formType}] subscribe error`, err);
+      });
     }
     document.addEventListener("submit", handleForms);
 

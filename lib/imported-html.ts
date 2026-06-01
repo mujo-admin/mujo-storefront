@@ -91,8 +91,15 @@ function tagInteractionHooks(html: string): string {
     .replace(/onclick="closeMenu\(\);\s*openQuizSheet\(\);\s*return false;"/g, 'data-mujo-action="open-quiz"')
     .replace(/onclick="openQuizSheet\(\)"/g, 'data-mujo-action="open-quiz"')
     .replace(/onclick="addToCart\(([^)]*)\)"/g, 'data-mujo-action="add-to-cart" data-mujo-args="$1"')
-    .replace(/onsubmit="handle[A-Za-z]+\(\)"/g, 'data-mujo-form="generic"')
-    .replace(/onsubmit="handle[A-Za-z]+\(event\)"/g, 'data-mujo-form="generic"')
+    // Signup forms wired to the live runtime (SIGNUP_FORMS in
+    // imported-page-runtime.tsx). Specific rules MUST precede the generic
+    // catch-all below so they win the rewrite.
+    .replace(/onsubmit="handleJoin\(event\)"/g, 'data-mujo-form="rebel-club"')
+    .replace(/onsubmit="return submit(?:HeroForm|FinalCta)\(event\);"/g, 'data-mujo-form="lemna-waitlist"')
+    // Any other inline onsubmit is made inert: the runtime preventDefaults
+    // data-mujo-form="generic" (the original handler <script> was stripped, so
+    // leaving the attribute would either throw or trigger a native page reload).
+    .replace(/onsubmit="[^"]*"/g, 'data-mujo-form="generic"')
     .replace(/Mujo_logo_orange\.png/g, "/images/logo/mujo-logo-orange.png")
     // Old Shopify-Liquid collection URL used in merch breadcrumbs / nav links.
     // Breadcrumbs are stripped above, but rewrite defensively for any survivors.

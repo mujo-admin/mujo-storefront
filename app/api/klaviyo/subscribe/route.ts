@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import { z } from "zod";
-import { subscribeToList } from "lib/klaviyo";
+import { subscribeToList, trackEvent } from "lib/klaviyo";
 
 export const dynamic = "force-dynamic";
 
@@ -11,8 +11,6 @@ const requestSchema = z.object({
     .enum([
       "lemna_waitlist",
       "ambassador_applications",
-      "contact_form",
-      "journal_newsletter",
       "rebel_club",
       "ritual_quiz",
     ])
@@ -33,12 +31,28 @@ const MASTER_LIST_ID = (): string | undefined =>
   process.env.KLAVIYO_LEMNA_LIST_ID?.trim();
 
 const PROPERTIES_BY_SOURCE: Record<string, Record<string, unknown>> = {
-  lemna_waitlist: { lemna_early_access: true, source: "Lemna waitlist" },
-  ambassador_applications: { ambassador_applicant: true, source: "Ambassador" },
-  contact_form: { contact_form_submitted: true, source: "Contact form" },
-  journal_newsletter: { journal_subscriber: true, source: "Journal" },
-  rebel_club: { rebel_club_member: true, source: "Rebel Club" },
-  ritual_quiz: { quiz_completed: true, source: "Ritual landing page quiz" },
+  lemna_waitlist: {
+    mujo_protein_waitlist: true,
+    signup_source: "lemna_landing",
+    source: "Lemna waitlist",
+  },
+  ambassador_applications: {
+    ambassador_applicant: true,
+    signup_source: "ambassador",
+    source: "Ambassador",
+  },
+  rebel_club: {
+    rebel_club_member: true,
+    signup_source: "rebel_club",
+    source: "Rebel Club",
+  },
+  // Default signup_source for the quiz is homepage_quiz; the quiz client
+  // overrides it to ritual_landing_quiz when opened from /ritual.
+  ritual_quiz: {
+    quiz_completed: true,
+    signup_source: "homepage_quiz",
+    source: "Ritual quiz",
+  },
 };
 
 export async function POST(req: NextRequest) {
@@ -82,6 +96,20 @@ export async function POST(req: NextRequest) {
       customSource: sourceLabel,
       properties: merged,
     });
+
+    // Quiz completions fire a distinct metric event so the quiz-result flow can
+    // trigger instantly (and be sequenced ahead of the welcome flow, which
+    // carries a small starting delay in Klaviyo). Fire-and-forget.
+    if (sourceKey === "ritual_quiz") {
+      await trackEvent({
+        email: parsed.email,
+        metric: "Completed Quiz",
+        properties: {
+          quiz_profile: merged.quiz_profile ?? null,
+          signup_source: merged.signup_source ?? "homepage_quiz",
+        },
+      });
+    }
   } catch (err) {
     console.error("[klaviyo/subscribe] failed", err);
   }

@@ -95,8 +95,13 @@ Default sending address. **`hello@mujo.life`** for Mujo. Domain must be verified
 `KLAVIYO_PRIVATE_API_KEY`
 Server-only events key. Scopes: Events Full Access, Profiles Full Access. Get from Klaviyo → Settings → API Keys → Create Private API Key.
 
+`KLAVIYO_NEWSLETTER_LIST_ID`
+6-char code for the single **master subscriber list**. Every storefront signup (Lemna waitlist, Rebel Club, footer, quiz) joins this one list via `/api/klaviyo/subscribe`; the signup location is recorded as the `signup_source` profile property plus a per-source boolean flag (`mujo_protein_waitlist`, `rebel_club_member`, `quiz_completed`) so segments and flows are built on properties, not separate lists. The route falls back to `KLAVIYO_LEMNA_LIST_ID` if this is unset.
+
 `KLAVIYO_LEMNA_LIST_ID` / `KLAVIYO_LEMNA_FORM_ID`
-6-char codes for the Lemna pre-launch list and embed form. Found in Klaviyo dashboard URLs.
+6-char codes for the Lemna pre-launch list and embed form. Found in Klaviyo dashboard URLs. `KLAVIYO_LEMNA_LIST_ID` doubles as the master-list fallback (see above).
+
+> **Deprecated:** `NEXT_PUBLIC_KLAVIYO_QUIZ_LIST_ID` is no longer used. The homepage/Ritual quiz previously posted client-side to a separate quiz list; it now routes through `/api/klaviyo/subscribe` onto the master list and fires a `Completed Quiz` event. Do not reintroduce it.
 
 `KLAVIYO_GIFT_RECIPIENT_LIST_ID`
 6-char code for the "Gift Recipients" Klaviyo list. Used by `/api/account/subscription/send-gift`: when a customer sends a gift, the recipient's email gets added to this list IF they're not already in any Mujo list (dedupe avoids spamming returning customers). Profile properties attached: `gifted_by_email`, `gifted_product`, `gifted_at`, `gift_message`. Powers a "How was your gift?" follow-up flow built on the Klaviyo side. Set up: create a list named "Gift Recipients" in Klaviyo, copy its 6-char ID from the dashboard URL into this var. Without this var the gift route still works (PI succeeds, Shopify order ships) — just no recipient capture.
