@@ -2080,6 +2080,80 @@ footer {
   .benefit { padding: 28px 26px 24px; }
 }
 
+/* ═══════════════════════════════════════════════════════════
+   UGC REEL MARQUEE — real customer reels, silent auto-scroll
+   ═══════════════════════════════════════════════════════════ */
+.reels {
+  background: var(--cream);
+  padding: 56px 0 60px;
+  overflow: hidden;
+}
+@media (min-width: 768px) { .reels { padding: 72px 0 80px; } }
+.reels-head { text-align: center; margin: 0 auto 32px; padding: 0 var(--gutter); }
+.reels-eyebrow {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--orange-deep);
+  margin-bottom: 12px;
+}
+.reels-head h2 { margin: 0; }
+.reels-viewport {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+.reel-track {
+  display: flex;
+  flex-shrink: 0;
+  align-items: stretch;
+  animation: reelScroll 64s linear infinite;
+}
+.reels:hover .reel-track { animation-play-state: paused; }
+@keyframes reelScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-100%); }
+}
+.reel-tile {
+  flex: 0 0 auto;
+  width: 60vw;
+  max-width: 230px;
+  margin: 0 8px;
+  aspect-ratio: 9 / 16;
+  border-radius: var(--r-structural);
+  overflow: hidden;
+  position: relative;
+  background: var(--sand-deep);
+}
+.reel-tile video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+@media (min-width: 1024px) {
+  .reel-tile { width: 248px; max-width: 248px; margin: 0 10px; }
+}
+.reels-foot {
+  text-align: center;
+  margin-top: 30px;
+  padding: 0 var(--gutter);
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--mute);
+}
+.reels-foot a { color: var(--orange-deep); text-decoration: none; font-weight: 500; }
+.reels-foot a:hover { color: var(--orange); }
+@media (prefers-reduced-motion: reduce) {
+  .reels-viewport { -webkit-mask-image: none; mask-image: none; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .reel-track { animation: none; }
+  .reel-track-dup { display: none; }
+}
+
 </style>
 <style id="mujo-canonical-nav">
 :root {
@@ -2536,6 +2610,36 @@ body.locked { overflow: hidden; }
       </div>
 
     </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════ UGC REEL MARQUEE — real customer reels, silent auto-scroll ═══════════════ -->
+<section class="reels" aria-label="Mujo customers on camera">
+  <div class="reels-head">
+    <div class="reels-eyebrow reveal">Real mornings, real rituals</div>
+    <h2 class="reveal d1">People on Mujo.</h2>
+  </div>
+  <div class="reels-viewport">
+    <div class="reel-track">
+      <div class="reel-tile"><video src="/videos/ugc/eila.mp4" poster="/videos/ugc/eila.jpg" autoplay muted loop playsinline preload="metadata" disablepictureinpicture></video></div>
+      <div class="reel-tile"><video src="/videos/ugc/khyati.mp4" poster="/videos/ugc/khyati.jpg" autoplay muted loop playsinline preload="metadata" disablepictureinpicture></video></div>
+      <div class="reel-tile"><video src="/videos/ugc/pari.mp4" poster="/videos/ugc/pari.jpg" autoplay muted loop playsinline preload="metadata" disablepictureinpicture></video></div>
+      <div class="reel-tile"><video src="/videos/ugc/anya.mp4" poster="/videos/ugc/anya.jpg" autoplay muted loop playsinline preload="metadata" disablepictureinpicture></video></div>
+      <div class="reel-tile"><video src="/videos/ugc/guillaume.mp4" poster="/videos/ugc/guillaume.jpg" autoplay muted loop playsinline preload="metadata" disablepictureinpicture></video></div>
+      <div class="reel-tile"><video src="/videos/ugc/moreia.mp4" poster="/videos/ugc/moreia.jpg" autoplay muted loop playsinline preload="metadata" disablepictureinpicture></video></div>
+    </div>
+    <div class="reel-track reel-track-dup" aria-hidden="true">
+      <div class="reel-tile"><video src="/videos/ugc/eila.mp4" poster="/videos/ugc/eila.jpg" autoplay muted loop playsinline preload="metadata" disablepictureinpicture tabindex="-1"></video></div>
+      <div class="reel-tile"><video src="/videos/ugc/khyati.mp4" poster="/videos/ugc/khyati.jpg" autoplay muted loop playsinline preload="metadata" disablepictureinpicture tabindex="-1"></video></div>
+      <div class="reel-tile"><video src="/videos/ugc/pari.mp4" poster="/videos/ugc/pari.jpg" autoplay muted loop playsinline preload="metadata" disablepictureinpicture tabindex="-1"></video></div>
+      <div class="reel-tile"><video src="/videos/ugc/anya.mp4" poster="/videos/ugc/anya.jpg" autoplay muted loop playsinline preload="metadata" disablepictureinpicture tabindex="-1"></video></div>
+      <div class="reel-tile"><video src="/videos/ugc/guillaume.mp4" poster="/videos/ugc/guillaume.jpg" autoplay muted loop playsinline preload="metadata" disablepictureinpicture tabindex="-1"></video></div>
+      <div class="reel-tile"><video src="/videos/ugc/moreia.mp4" poster="/videos/ugc/moreia.jpg" autoplay muted loop playsinline preload="metadata" disablepictureinpicture tabindex="-1"></video></div>
+    </div>
+  </div>
+  <div class="reels-foot">
+    Tag <strong>@mujoworld</strong> to be featured. <a href="https://instagram.com/mujoworld">See more on Instagram →</a>
   </div>
 </section>
 
