@@ -124,13 +124,13 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 body.locked { overflow: hidden; }
 
 /* ===== POST HEADER ===== */
-.post-back { padding: 20px 0 0; }
+.post-back { padding-top: 20px; }
 .post-back a { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mute); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: color 0.2s; }
 .post-back a:hover { color: var(--ink); }
 .post-back svg { width: 12px; height: 12px; }
 
-.post-head { padding: 32px 0 24px; text-align: center; }
-@media (min-width: 768px) { .post-head { padding: 48px 0 32px; } }
+.post-head { padding-top: 32px; padding-bottom: 24px; text-align: center; }
+@media (min-width: 768px) { .post-head { padding-top: 48px; padding-bottom: 32px; } }
 .post-cat-tag { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange-deep); margin-bottom: 18px; display: inline-block; }
 .post-title { font-size: clamp(32px, 6.5vw, 56px); margin-bottom: 20px; line-height: 1.05; max-width: 800px; margin-left: auto; margin-right: auto; }
 .post-title em { font-family: inherit; font-style: italic; color: inherit; font-weight: 500; }
@@ -145,8 +145,8 @@ body.locked { overflow: hidden; }
 @media (min-width: 1024px) { .post-hero-img { margin: 0 auto 72px; } }
 
 /* ===== BODY PROSE ===== */
-.post-body { padding: 0 0 56px; font-size: 18px; color: var(--ink); }
-@media (min-width: 768px) { .post-body { font-size: 19px; padding: 0 0 80px; } }
+.post-body { padding-bottom: 56px; font-size: 18px; color: var(--ink); }
+@media (min-width: 768px) { .post-body { font-size: 19px; padding-bottom: 80px; } }
 .post-body p { margin-bottom: 1.4em; }
 .post-body p:first-of-type::first-letter { font-family: inherit; float: left; font-size: 4.4em; line-height: 0.85; margin-right: 8px; margin-top: 4px; color: inherit; font-weight: 500; }
 .post-body strong { font-weight: 500; }
