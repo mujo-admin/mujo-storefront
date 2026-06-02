@@ -150,6 +150,100 @@ const SIGNUP_FORMS: Record<
 };
 
 /**
+ * UGC reel marquee (Ritual PDP) — auto-scrolls AND is manually scrollable.
+ * The source markup ships a CSS keyframe marquee inside an `overflow:hidden`
+ * viewport, so visitors can't scroll it themselves (hover only pauses it).
+ * Here we switch the viewport to native horizontal scroll and drive the
+ * auto-advance with rAF on `scrollLeft` instead — so swipe / drag / wheel all
+ * work, auto-advance pauses while the visitor interacts (or hovers) and resumes
+ * shortly after, and the duplicated track gives a seamless loop. Pauses when the
+ * strip scrolls offscreen and honors prefers-reduced-motion (manual-only).
+ * No-ops on pages without a `.reels-viewport`.
+ */
+function initReelsMarquee(): () => void {
+  const viewport = document.querySelector<HTMLElement>(".reels-viewport");
+  const track = viewport?.querySelector<HTMLElement>(".reel-track");
+  if (!viewport || !track) return () => {};
+
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Hand scrolling to the browser; replace the CSS marquee with a rAF loop.
+  viewport.style.overflowX = "auto";
+  viewport.style.overflowY = "hidden";
+  viewport
+    .querySelectorAll<HTMLElement>(".reel-track")
+    .forEach((t) => (t.style.animation = "none"));
+
+  const ac = new AbortController();
+  const signal = ac.signal;
+  let paused = reduce; // reduced motion → manual scroll only, no auto-advance
+  let onscreen = true;
+  let raf = 0;
+  let resumeTimer = 0;
+  const SPEED = 0.5; // px per frame ≈ 30px/s, matching the original gentle drift
+
+  const step = () => {
+    if (!paused && onscreen) {
+      const setWidth = track.getBoundingClientRect().width; // one tile-set
+      viewport.scrollLeft += SPEED;
+      if (setWidth > 0 && viewport.scrollLeft >= setWidth) {
+        viewport.scrollLeft -= setWidth; // seamless wrap into the dup track
+      }
+    }
+    raf = requestAnimationFrame(step);
+  };
+
+  const pause = () => {
+    paused = true;
+  };
+  const resumeSoon = (delay = 1000) => {
+    if (reduce) return;
+    window.clearTimeout(resumeTimer);
+    resumeTimer = window.setTimeout(() => {
+      paused = false;
+    }, delay);
+  };
+
+  viewport.addEventListener("pointerenter", pause, { signal });
+  viewport.addEventListener("pointerleave", () => resumeSoon(400), { signal });
+  viewport.addEventListener("pointerdown", pause, { signal });
+  viewport.addEventListener("pointerup", () => resumeSoon(), { signal });
+  viewport.addEventListener("touchstart", pause, { passive: true, signal });
+  viewport.addEventListener("touchend", () => resumeSoon(), {
+    passive: true,
+    signal,
+  });
+  viewport.addEventListener(
+    "wheel",
+    () => {
+      pause();
+      resumeSoon();
+    },
+    { passive: true, signal },
+  );
+
+  let io: IntersectionObserver | undefined;
+  if ("IntersectionObserver" in window) {
+    io = new IntersectionObserver(
+      (entries) => {
+        onscreen = entries[0]?.isIntersecting ?? true;
+      },
+      { threshold: 0 },
+    );
+    io.observe(viewport);
+  }
+
+  raf = requestAnimationFrame(step);
+
+  return () => {
+    cancelAnimationFrame(raf);
+    window.clearTimeout(resumeTimer);
+    io?.disconnect();
+    ac.abort();
+  };
+}
+
+/**
  * Client wrapper that activates the shared behaviors needed by imported
  * pages: scroll-reveal animations, and event delegation for `data-mujo-*`
  * action hooks (e.g. data-mujo-action="open-cart" / "checkout"). Also
@@ -400,6 +494,9 @@ export function ImportedPageRuntime({ children }: ImportedPageRuntimeProps) {
       document.removeEventListener("submit", handleForms);
     };
   }, [openQuiz, addItem]);
+
+  // UGC reel marquee: make it manually scrollable while keeping auto-advance.
+  useEffect(() => initReelsMarquee(), []);
 
   return <>{children}</>;
 }

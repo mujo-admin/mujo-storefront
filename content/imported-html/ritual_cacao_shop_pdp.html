@@ -2106,6 +2106,12 @@ footer {
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
           mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
 }
+/* Manual-scroll affordance — the runtime flips this viewport to overflow-x:auto
+   and drives auto-advance via JS, so show a subtle scrollbar to signal it. */
+.reels-viewport { scrollbar-width: thin; scrollbar-color: var(--sage-light) transparent; }
+.reels-viewport::-webkit-scrollbar { height: 6px; }
+.reels-viewport::-webkit-scrollbar-track { background: transparent; }
+.reels-viewport::-webkit-scrollbar-thumb { background: var(--sage-light); border-radius: 3px; }
 .reel-track {
   display: flex;
   flex-shrink: 0;
