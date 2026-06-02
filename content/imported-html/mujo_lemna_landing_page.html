@@ -268,13 +268,14 @@ h1 em, h2 em, h3 em {
 .signup-input::placeholder { color: var(--mute); }
 .signup-btn {
   font-family: var(--f-display);
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 500;
   color: #fff;
   background: var(--orange);
   border: none;
   border-radius: var(--r-pill);
-  padding: 14px 28px;
+  padding: 19px 28px;
+  width: 100%;
   cursor: pointer;
   transition: background 0.2s, transform 0.2s;
   white-space: nowrap;
@@ -1642,7 +1643,7 @@ body.locked { overflow: hidden; }
       <p class="hero-lede">15g of protein. Ingredients you can name. <strong>No natural flavors or sugar alcohols.</strong> Built around a low-key water plant that outperforms every protein source on the planet.</p>
 
       <form class="signup-form" id="heroForm" onsubmit="return submitHeroForm(event);">
-        <div class="signup-row">
+        <div class="signup-row" style="flex-direction:column;align-items:stretch;">
           <input type="email" name="email" class="signup-input" id="heroEmail" placeholder="your@email.com" aria-label="Email address" required>
           <button type="submit" class="signup-btn">Reserve →</button>
         </div>
