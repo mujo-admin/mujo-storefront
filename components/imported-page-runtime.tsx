@@ -86,8 +86,19 @@ function swapGalleryForColor(color: MerchColor) {
   firstVisible.classList.add("active");
   const mainImg = document.querySelector<HTMLImageElement>(".gallery-main-img");
   if (mainImg && firstVisible.dataset.full) {
-    mainImg.src = firstVisible.dataset.full;
+    swapMainImage(mainImg, firstVisible.dataset.full);
   }
+}
+
+/** Point the gallery main <img> at a new source. Critically, clears srcset +
+ *  sizes: when an <img> has a srcset, the browser ignores .src, so a plain
+ *  .src assignment silently does nothing (this is exactly why the Ritual PDP
+ *  gallery — whose main img ships a srcset — appeared dead while the merch
+ *  galleries, with no srcset, worked). */
+function swapMainImage(mainImg: HTMLImageElement, src: string) {
+  mainImg.src = src;
+  mainImg.removeAttribute("srcset");
+  mainImg.removeAttribute("sizes");
 }
 
 /** Flash + scroll the PDP option-groups to nudge a user who hit Add to Cart
@@ -227,7 +238,7 @@ export function ImportedPageRuntime({ children }: ImportedPageRuntimeProps) {
         thumb.classList.add("active");
         const mainImg = document.querySelector<HTMLImageElement>(".gallery-main-img");
         if (mainImg && thumb.dataset.full) {
-          mainImg.src = thumb.dataset.full;
+          swapMainImage(mainImg, thumb.dataset.full);
         }
         return;
       }

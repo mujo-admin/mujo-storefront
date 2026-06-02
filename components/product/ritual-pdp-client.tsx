@@ -236,6 +236,39 @@ export function RitualPdpClient() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Drive the imported-HTML gallery off the selected size: 10 servings shows the
+  // 10-serving bag, 25 servings the default hero. The gallery lives in the
+  // dangerouslySetInnerHTML'd markup (plain DOM), so reach it directly. Clearing
+  // srcset/sizes is essential — the main <img> ships a srcset that otherwise
+  // overrides .src (same gotcha the runtime thumb handler fixes).
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const base =
+      size === "10"
+        ? "ritual-pouch-10-serving-hero-monumental-editorial-1x1"
+        : "ritual-pouch-hero-monumental-editorial-1x1";
+    const full = `/images/responsive/products/ritual/${base}-1200.webp`;
+    const mainImg =
+      document.querySelector<HTMLImageElement>(".gallery-main-img");
+    if (mainImg) {
+      mainImg.src = full;
+      mainImg.removeAttribute("srcset");
+      mainImg.removeAttribute("sizes");
+    }
+    // Sync the active thumbnail to the size's hero, if present.
+    const thumbs =
+      document.querySelectorAll<HTMLElement>(".gallery-thumb[data-full]");
+    let matched = false;
+    thumbs.forEach((t) => {
+      const isMatch = (t.dataset.full ?? "").includes(`${base}-`);
+      if (isMatch && !matched) {
+        thumbs.forEach((o) => o.classList.remove("active"));
+        t.classList.add("active");
+        matched = true;
+      }
+    });
+  }, [size]);
+
   function onAddToCart() {
     if (pending) return;
     // Coerce plan: 10-serving has no subscription Price.
