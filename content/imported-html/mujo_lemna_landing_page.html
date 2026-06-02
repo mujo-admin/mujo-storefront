@@ -894,7 +894,7 @@ h1 em, h2 em, h3 em {
   margin: 0 auto;
   text-align: left;
 }
-.in-not-col { flex: 1 1 0; min-width: 240px; }
+.in-not-col { flex: 1 1 0; min-width: 360px; }
 .in-not-col-head {
   font-family: var(--f-mono);
   font-size: 12px;
@@ -924,6 +924,7 @@ h1 em, h2 em, h3 em {
   display: flex;
   align-items: center;
   gap: 12px;
+  white-space: nowrap;
 }
 .in-not-item::before {
   font-family: var(--f-mono);
@@ -932,12 +933,14 @@ h1 em, h2 em, h3 em {
   flex-shrink: 0;
 }
 .col-in .in-not-item::before  { content: '✓'; color: var(--sage); }
+.col-not .in-not-item { background: #FDEFE6; border-color: #F6DBC9; }
 .col-not .in-not-item::before { content: '✕'; color: var(--orange); }
 @media (max-width: 600px) {
   .in-not { padding: 80px 0 90px; }
   .in-not-header { padding: 0 20px; margin-bottom: 36px; }
   .in-not-table { padding-left: 14px; padding-right: 14px; gap: 12px; }
-  .in-not-col { min-width: 230px; }
+  .in-not-col { min-width: 340px; }
+  .in-not-item { padding: 14px 16px; font-size: 13.5px; gap: 10px; }
   /* mobile-only fade hint that more content peeks past the right edge */
   .in-not-scroll {
     -webkit-mask-image: linear-gradient(90deg, #000 92%, transparent 100%);
@@ -1806,8 +1809,7 @@ body.locked { overflow: hidden; }
             <div class="in-not-item">Sugar alcohols (maltitol, erythritol)</div>
             <div class="in-not-item">Soy &amp; whey isolate</div>
             <div class="in-not-item">Synthetic fibers</div>
-            <div class="in-not-item">Seed oils</div>
-            <div class="in-not-item">Corn syrup</div>
+            <div class="in-not-item">Seed oils &amp; corn syrup</div>
             <div class="in-not-item">Preservatives</div>
           </div>
         </div>
