@@ -196,7 +196,7 @@ const QUESTIONS: Question[] = [
 
 const RESULTS: Record<Persona, ResultCopy> = {
   performer: {
-    headline: 'Your pattern is <em>The Optimized but Overcaffeinated.</em>',
+    headline: 'Your pattern is <em>The Dialed-In but Overcaffeinated.</em>',
     body: "You've done the hard work, tracking, training, dialing in the inputs. But caffeine is quietly capping your ceiling. It's keeping cortisol elevated when it should be recovering, disrupting the deep sleep your metrics are measuring, and creating the 3pm wall your zone 2 sessions can't fix. <strong>Your plan targets the HPA axis recalibration your nervous system is ready for.</strong>",
     pdfTitle: 'Your 5-Step Reset Plan, Performer Edition',
   },
