@@ -1757,35 +1757,24 @@ details.info-row[open] .info-row-toggle { transform: rotate(45deg); color: var(-
 .review-name { font-size: 14px; font-weight: 500; color: var(--ink); }
 .review-role { font-size: 12px; color: var(--mute); margin-top: 2px; }
 
-/* Okendo slot, placeholder note for live integration */
-.okendo-slot {
+/* Loox reviews feed section */
+.loox-slot {
   background: var(--cream);
   padding: 56px 0;
   border-top: 1px solid var(--line-soft);
 }
-@media (min-width: 768px) { .okendo-slot { padding: 80px 0; } }
-.okendo-note {
+@media (min-width: 768px) { .loox-slot { padding: 80px 0; } }
+.loox-note {
   max-width: 720px;
   margin: 0 auto;
   text-align: center;
   padding: 0 20px;
 }
-.okendo-note .eyebrow { margin-bottom: 12px; }
-.okendo-note h3 { font-size: clamp(22px, 3.5vw, 28px); margin-bottom: 10px; line-height: 1.2; }
-.okendo-note h3 em { font-style: italic; color: inherit; }
-.okendo-note p { font-size: 14px; color: var(--ink-soft); line-height: 1.55; }
-.okendo-marker {
-  margin-top: 24px;
-  padding: 24px 28px;
-  background: rgba(242,104,47,0.04);
-  border: 1px dashed rgba(242,104,47,0.4);
-  border-radius: var(--r-structural);
-  font-family: var(--f-mono);
-  font-size: 12px;
-  color: var(--orange-deep);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
+.loox-note .eyebrow { margin-bottom: 12px; }
+.loox-note h3 { font-size: clamp(22px, 3.5vw, 28px); margin-bottom: 10px; line-height: 1.2; }
+.loox-note h3 em { font-style: italic; color: inherit; }
+.loox-note p { font-size: 14px; color: var(--ink-soft); line-height: 1.55; }
+.loox-note #looxReviews { margin-top: 24px; text-align: left; }
 @media (max-width: 900px) {
   .reviews { padding: 80px 0; }
   .reviews-header { grid-template-columns: 1fr; gap: 20px; }
@@ -2375,8 +2364,9 @@ body.locked { overflow: hidden; }
       <div class="info-subtitle">Mushroom Cacao · The morning moment that makes everything else possible.</div>
 
       <div class="info-rating">
-        <div class="info-stars">★★★★★</div>
-        <div class="info-rating-text"><strong>4.9/5</strong>, <a href="#reviews">100 verified reviews</a></div>
+        <!-- Live Loox rating badge (real average + count). ID stamped + rendered
+             by imported-page-runtime.tsx via lib/loox.ts. -->
+        <div class="loox-rating" data-fetch></div>
       </div>
 
       <p class="info-hook"><strong>The warm, rich cacao that replaces your morning coffee.</strong> You feel it build over the first weeks: clear, connected focus, energy that holds past 3pm, deeper sleep, a longer fuse. Made with the best form of every ingredient, dosed to the research, so it does something you can actually feel.</p>
@@ -3092,21 +3082,17 @@ body.locked { overflow: hidden; }
 </section>
 
 <!-- ═══════════════════════════════════════════
-     LOOP REVIEW FEED SLOT  (Mujo uses Loop for reviews)
-     TO GO LIVE (needs Kinga's Loop account + embed snippet):
-       1. Add Loop's loader <script> to app/layout.tsx so it loads globally — an
-          inline <script> inside this imported HTML does NOT execute under React.
-       2. Drop Loop's product-listing embed into #loop-reviews below (confirm the
-          exact element/attribute from the Loop dashboard).
+     LOOX REVIEW FEED  (Mujo uses Loox for reviews — loox.io)
+     The #looxReviews div is stamped with the numeric product ID and rendered by
+     imported-page-runtime.tsx via lib/loox.ts (Loox's script is injected per PDP
+     route — an inline <script> here would NOT execute under React).
      ═══════════════════════════════════════════ -->
-<section class="okendo-slot">
+<section class="loox-slot" id="reviews-feed">
   <div class="container">
-    <div class="okendo-note">
+    <div class="loox-note">
       <h3 style="margin-top: 26px;">Read everything <em>everyone said.</em></h3>
-      <p>Filter, sort, and read the full review stream. Updated in real time. Verified purchases only.</p>
-      <div class="okendo-marker" id="loop-reviews">
-        <!-- Loop review widget mounts here. Embed snippet pending Kinga's Loop account. -->
-      </div>
+      <p>Filter, sort, and read the full review stream. Verified purchases only.</p>
+      <div id="looxReviews"></div>
     </div>
   </div>
 </section>

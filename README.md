@@ -53,7 +53,7 @@ See [`docs/env-vars.md`](./docs/env-vars.md) for the full reference. Quick summa
 | `POSTGRES_*` | Auto-injected by Vercel Postgres integration | W1 (empty schema), W2 (populated) |
 | `STRIPE_*` | Stripe keys + webhook secret | W2 |
 | `RESEND_API_KEY` | Magic-link emails | W2 |
-| `KLAVIYO_*` / `META_*` / `OKENDO_*` | Marketing instrumentation | W3 |
+| `KLAVIYO_*` / `META_*` / `NEXT_PUBLIC_LOOX_SHOP_DOMAIN` | Marketing instrumentation | W3 |
 
 ---
 

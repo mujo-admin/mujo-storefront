@@ -1,6 +1,6 @@
 # Architecture
 
-The Mujo Storefront is a **headless Next.js 15 app** on Vercel that fronts a stack of best-of-breed services. Shopify owns catalog + inventory + orders + fulfillment; Stripe owns checkout + subscriptions; Vercel Postgres owns subscription cache + magic-link state; Klaviyo + Meta + Okendo own marketing instrumentation.
+The Mujo Storefront is a **headless Next.js 15 app** on Vercel that fronts a stack of best-of-breed services. Shopify owns catalog + inventory + orders + fulfillment; Stripe owns checkout + subscriptions; Vercel Postgres owns subscription cache + magic-link state; Klaviyo + Meta + Loox own marketing instrumentation.
 
 ```
                   ┌────────────────────────┐
@@ -46,7 +46,7 @@ The Mujo Storefront is a **headless Next.js 15 app** on Vercel that fronts a sta
 | Payment methods | Stripe | Never touches our infra |
 | Email — transactional | Resend | Magic-links, migration, etc. |
 | Email — marketing | Klaviyo | Welcome flows, abandoned cart, post-purchase |
-| Reviews | Okendo | Widget rendered on PDPs |
+| Reviews | Loox | Headless widget (feed + star badge) rendered on PDPs |
 | Pixel + attribution | Meta + Klaviyo | Client + server-side events with deduplication |
 
 ## The metafield join

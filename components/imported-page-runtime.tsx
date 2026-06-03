@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, type ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import { useReveal } from "lib/hooks/use-reveal";
+import { looxSlugFromPathname, renderLooxForSlug } from "lib/loox";
 import { useQuizSheet } from "components/MujoQuiz";
 import { useCart } from "components/cart/cart-context";
 import { resolvePriceId } from "lib/cart/price-id-map";
@@ -251,6 +253,7 @@ function initReelsMarquee(): () => void {
  */
 export function ImportedPageRuntime({ children }: ImportedPageRuntimeProps) {
   useReveal();
+  const pathname = usePathname();
   const { open: openQuiz } = useQuizSheet();
   const { addItem } = useCart();
 
@@ -497,6 +500,15 @@ export function ImportedPageRuntime({ children }: ImportedPageRuntimeProps) {
 
   // UGC reel marquee: make it manually scrollable while keeping auto-advance.
   useEffect(() => initReelsMarquee(), []);
+
+  // Loox reviews: on PDP routes, stamp the numeric product ID onto the page's
+  // Loox widget divs and (re)render. Keyed to pathname so client-side nav
+  // between PDPs re-renders against the new product (Loox only scans on load).
+  // No-ops on non-product routes.
+  useEffect(() => {
+    const slug = looxSlugFromPathname(pathname);
+    if (slug) renderLooxForSlug(slug);
+  }, [pathname]);
 
   return <>{children}</>;
 }

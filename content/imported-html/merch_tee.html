@@ -203,8 +203,8 @@ img { max-width: 100%; display: block; }
     <div class="info-tagline">Clean outside. <em>Clean inside.</em> That's the standard.</div>
 
     <div class="reviews-row">
-      <div class="stars">★★★★★</div>
-      <div class="reviews-meta"><strong>4.9</strong> · <a href="#reviews">47 verified reviews</a></div>
+      <!-- Live Loox rating badge — ID stamped + rendered by imported-page-runtime.tsx via lib/loox.ts -->
+      <div class="loox-rating" data-fetch></div>
     </div>
 
     <p class="info-lede">
@@ -371,6 +371,14 @@ img { max-width: 100%; display: block; }
       <div class="spec-value">Tear-away</div>
       <div class="spec-note">No scratchy tag · for comfort against the neck</div>
     </div>
+  </div>
+</section>
+
+<!-- Loox review feed — #looxReviews stamped + rendered by imported-page-runtime.tsx via lib/loox.ts -->
+<section class="loox-feed" id="reviews" style="background: var(--cream); padding: 64px 0; border-top: 1px solid var(--line-soft);">
+  <div style="max-width: 1100px; margin: 0 auto; padding: 0 24px;">
+    <h2 style="font-family: var(--f-display); font-weight: 500; font-size: clamp(26px, 4vw, 38px); letter-spacing: -0.025em; line-height: 1.15; text-align: center; color: var(--ink); margin: 0;">What people <em style="font-style: italic;">are saying.</em></h2>
+    <div id="looxReviews" style="margin-top: 32px;"></div>
   </div>
 </section>
 

@@ -13,7 +13,7 @@ Open every route on a real iPhone in **Safari + Chrome iOS**. Verify:
 |---|---|
 | `/` | Hero renders, sticky nav stays fixed on scroll, cart icon shows badge if items |
 | `/ritual` | Mid-page Klaviyo gate slides up, sticky bottom CTA reveals after hero scroll |
-| `/products/mujo-ritual` | "Add to cart" → cart drawer opens, qty adjuster works, "Subscribe & save" toggle reflects in price, Okendo placeholder visible |
+| `/products/mujo-ritual` | "Add to cart" → cart drawer opens, qty adjuster works, "Subscribe & save" toggle reflects in price, Loox star badge + reviews feed render |
 | `/lemna` | Direct-URL only (not in nav). Form submit → email capture |
 | `/lemna/shop` | Flavor selector, "Pre-order" CTA |
 | `/products/lemna` | 250-cap counter visible, founding-member CTA |

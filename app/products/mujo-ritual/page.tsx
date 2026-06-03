@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { ImportedPage } from "components/imported-page";
 import type { Splice } from "lib/imported-html";
-import { OkendoProductWidget } from "components/integrations/okendo-product-widget";
 import { RitualPdpClient } from "components/product/ritual-pdp-client";
 import {
   productSchema,
@@ -35,8 +34,6 @@ export const metadata: Metadata = {
     description: "Premium mushroom cacao adaptogen ritual.",
   },
 };
-
-const RITUAL_SHOPIFY_PRODUCT_ID = "the-ritual";
 
 export default function RitualPdpPage() {
   return (

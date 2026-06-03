@@ -2,7 +2,7 @@
 
 This document explains every env var the Mujo Storefront uses. The canonical inventory is in `.env.example` (committed). Actual values live in `.env.local` (gitignored locally) and Vercel project settings (production deploys).
 
-W1 ships **Shopify reads + Postgres**. W2 adds **Stripe + Resend + Admin API**. W3 adds **Klaviyo + Meta + Okendo**.
+W1 ships **Shopify reads + Postgres**. W2 adds **Stripe + Resend + Admin API**. W3 adds **Klaviyo + Meta + Loox**.
 
 ---
 
@@ -114,10 +114,10 @@ Server-only events key. Scopes: Events Full Access, Profiles Full Access. Get fr
 `META_CONVERSIONS_API_TOKEN`
 Server-only token for Meta's Conversions API (server-side pixel events with deduplication). Get from Meta Events Manager → Settings → Conversions API → Generate access token.
 
-## Okendo (W3 — empty in W1)
+## Loox (reviews widget)
 
-`NEXT_PUBLIC_OKENDO_SUBSCRIBER_ID`
-Public Subscriber ID for the Okendo review widget. Get from Okendo admin → Settings → API.
+`NEXT_PUBLIC_LOOX_SHOP_DOMAIN`
+The store's myshopify domain (`get-mujo.myshopify.com`). Loox's external-domain (headless) review widgets key off this — no API key required. Loox is installed on the Shopify backend (Convert plan, which unlocks external-domain display + the Klaviyo integration). Widgets render on the PDPs via `lib/loox.ts` + `components/imported-page-runtime.tsx`. See `docs/loox-reviews.md`.
 
 ## App config
 
