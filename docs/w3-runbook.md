@@ -17,6 +17,7 @@
   - `NEXT_PUBLIC_META_PIXEL_ID`, `META_CAPI_TOKEN`
   - (`META_CAPI_TEST_EVENT_CODE` should NOT be in production env post-cutover; remove if present)
 - [ ] Subscriber migration complete (Loop/Skio → Stripe) — verified by spot-checking 5-10 customers in Stripe dashboard.
+- [ ] Loox external domains whitelisted: `mujoworld.com` + `www.mujoworld.com` added in Loox → Settings → General → External domains. (Loox blocks the reviews feed on any non-whitelisted domain; it could NOT be verified on the `*.vercel.app` staging host because Loox forces a `www.` prefix that Vercel's platform subdomain can't serve. Code is verified working — the star badge renders on staging. See `docs/loox-reviews.md`.)
 
 ### Baseline analytics snapshot (Kinga, ~10 min)
 
@@ -135,6 +136,15 @@ Vercel auto-issues a Let's Encrypt certificate. Watch the project's Domains tab 
   - [ ] Click "Manage subscription" in footer → enter Kinga's email → magic link arrives → clicks through to Stripe Billing Portal
 - Cancel subscription in Stripe Billing Portal
 - Verify cancellation cascade: `customer.subscription.updated` webhook fires, Shopify metafield updates within ~30s
+
+#### 7c. Loox reviews render on the live domain
+
+On `https://mujoworld.com/products/mujo-ritual` (and one merch PDP, e.g. `/products/mujo-crew`), verify:
+- the **star badge** by the title shows the real average + count and is **clickable** (scrolls to the feed),
+- the **full reviews feed** (`#looxReviews`) renders below the curated cards with real/seeded reviews,
+- clicking from one PDP to another (no page reload) re-renders the feed against the new product.
+
+If the feed is blank: confirm both `mujoworld.com` and `www.mujoworld.com` are in Loox → External domains (the pre-flight item).
 
 ### Step 8 — Unpublish old Liquid theme (Kinga, 2 min)
 
