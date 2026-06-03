@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Lemna Bar · Mujo · Founding Member Access</title>
-<meta name="description" content="The world's first protein bar made with Lemna leaf. 14-17g protein. 7g fiber. Real ingredients. No natural flavors, no sugar alcohols, no isolates. Summer 2026. Founding members get 15% off first order.">
+<meta name="description" content="The world's first protein bar made with Lemna leaf. 15g protein. 7g fiber. A complete protein that scores like egg and whey, grown on water. No natural flavors, no sugar alcohols. Summer 2026. Founding members get 15% off first order.">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
@@ -1643,7 +1643,7 @@ body.locked { overflow: hidden; }
         Founding member access · Summer 2026
       </div>
       <h1>The world's first protein bar made with <em>Lemna leaf.</em></h1>
-      <p class="hero-lede">15g of protein. Ingredients you can name. <strong>No natural flavors or sugar alcohols.</strong> Built around a low-key water plant that outperforms every protein source on the planet.</p>
+      <p class="hero-lede">15g of protein. Ingredients you can name. <strong>No natural flavors, no sugar alcohols.</strong> Built around Lemna leaf, a complete protein that scores like egg and whey, grown on water instead of farmland.</p>
 
       <form class="signup-form" id="heroForm" onsubmit="return submitHeroForm(event);">
         <div class="signup-row" style="flex-direction:column;align-items:stretch;">
@@ -1713,28 +1713,84 @@ body.locked { overflow: hidden; }
       </div>
     </div>
 
-    <div class="lemna-stats">
-      <div class="lemna-stat">
-        <div class="lemna-stat-num">9</div>
-        <div class="lemna-stat-label">Essential amino acids</div>
-        <div class="lemna-stat-desc">Complete amino acid profile, on par with whey and eggs + PDCAAS 1.0.</div>
-      </div>
-      <div class="lemna-stat">
-        <div class="lemna-stat-num">10×</div>
-        <div class="lemna-stat-label">Less land</div>
-        <div class="lemna-stat-desc">Than soy, per gram of protein produced.</div>
-      </div>
-      <div class="lemna-stat">
-        <div class="lemna-stat-num">24h</div>
-        <div class="lemna-stat-label">Doubling</div>
-        <div class="lemna-stat-desc">The fastest-multiplying plant we eat.</div>
-      </div>
-      <div class="lemna-stat">
-        <div class="lemna-stat-num">0</div>
-        <div class="lemna-stat-label">Arable land</div>
-        <div class="lemna-stat-desc">Grows on water in closed-loop systems.</div>
-      </div>
+  </div>
+</section>
+
+<!-- ═══════════ PANEL 3b, COMPLETE PROTEIN, PROVEN (amino acid module) ═══════════ -->
+<style>
+  .cp { background: var(--cream, #F3F2E9); padding: clamp(64px, 10vw, 120px) 0; }
+  .cp .cp-inner { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+  .cp .cp-eyebrow { display: inline-flex; align-items: center; gap: 12px; font-family: var(--f-mono, monospace); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange-deep, #D85A22); margin-bottom: 16px; }
+  .cp .cp-eyebrow::before { content: ""; width: 22px; height: 1px; background: var(--orange-deep, #D85A22); display: inline-block; }
+  .cp h2 { font-family: var(--f-display); font-weight: 500; font-size: clamp(26px, 3.4vw, 40px); line-height: 1.08; color: var(--sage, #2F3D33); margin: 0 0 16px; letter-spacing: -0.02em; }
+  .cp .cp-intro { font-family: var(--f-body); font-size: 18px; line-height: 1.55; color: var(--ink-soft, #4A4845); max-width: 660px; margin: 0 0 40px; }
+  .cp .cp-beat { font-family: var(--f-mono, monospace); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--sage, #2F3D33); margin: 0 0 16px; opacity: 0.7; }
+  /* Beat 1 — PDCAAS chips */
+  .cp .cp-pdcaas { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 12px; }
+  .cp .cp-chip { display: flex; flex-direction: column; gap: 2px; padding: 14px 18px; border-radius: 14px; background: var(--sand, #EEE9E0); min-width: 92px; }
+  .cp .cp-chip-name { font-family: var(--f-body); font-size: 13px; color: var(--mute, #5C5854); }
+  .cp .cp-chip-num { font-family: var(--f-display); font-weight: 600; font-size: 22px; color: var(--sage, #2F3D33); }
+  .cp .cp-chip.win { background: var(--sage, #2F3D33); }
+  .cp .cp-chip.win .cp-chip-name { color: rgba(243,242,233,0.75); }
+  .cp .cp-chip.win .cp-chip-num { color: var(--orange, #F2682F); }
+  .cp .cp-cap { font-family: var(--f-body); font-size: 15px; line-height: 1.5; color: var(--mute, #5C5854); margin: 0 0 44px; max-width: 640px; }
+  /* Beat 2 — completeness bars */
+  .cp .cp-bars { margin: 0 0 12px; }
+  .cp .cp-bar-row { display: grid; grid-template-columns: 168px 1fr 40px; align-items: center; gap: 14px; padding: 7px 0; }
+  .cp .cp-bar-name { font-family: var(--f-body); font-size: 14px; color: var(--sage, #2F3D33); }
+  .cp .cp-bar-track { position: relative; height: 14px; background: var(--sand, #EEE9E0); border-radius: 999px; }
+  .cp .cp-bar-fill { height: 100%; background: var(--sage, #2F3D33); border-radius: 999px; }
+  .cp .cp-need { position: absolute; top: -5px; bottom: -5px; left: 19.2%; width: 2px; background: var(--orange, #F2682F); }
+  .cp .cp-bar-x { font-family: var(--f-mono, monospace); font-size: 12px; color: var(--mute, #5C5854); text-align: right; }
+  .cp .cp-need-key { font-family: var(--f-mono, monospace); font-size: 11px; letter-spacing: 0.04em; color: var(--orange-deep, #D85A22); margin: 8px 0 44px; }
+  /* Beat 3 — differentiators */
+  .cp .cp-diff { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; border-top: 1px solid var(--line, rgba(26,26,26,0.09)); padding-top: 28px; }
+  .cp .cp-diff-item h4 { font-family: var(--f-display); font-weight: 500; font-size: 17px; color: var(--sage, #2F3D33); margin: 0 0 6px; }
+  .cp .cp-diff-item p { font-family: var(--f-body); font-size: 14px; line-height: 1.5; color: var(--ink-soft, #4A4845); margin: 0; }
+  .cp .cp-close { font-family: var(--f-display); font-weight: 500; font-size: clamp(19px, 2.4vw, 23px); line-height: 1.3; color: var(--sage, #2F3D33); max-width: 760px; margin: 40px 0 0; }
+  @media (max-width: 760px) {
+    .cp .cp-bar-row { grid-template-columns: 130px 1fr 36px; gap: 10px; }
+    .cp .cp-bar-name { font-size: 13px; }
+    .cp .cp-diff { grid-template-columns: 1fr 1fr; gap: 20px; }
+  }
+</style>
+<section class="cp" aria-label="Complete protein, proven">
+  <div class="cp-inner">
+    <div class="cp-eyebrow">The protein, proven</div>
+    <h2>As complete as egg and whey. <em>Grown on water.</em></h2>
+    <p class="cp-intro">Most plant proteins fall short on quality. Lemna leaf (Rubi Protein™ from Plantible) doesn't. Here's the proof, against the proteins you already know.</p>
+
+    <div class="cp-beat">01 · Protein quality (PDCAAS)</div>
+    <div class="cp-pdcaas">
+      <div class="cp-chip"><span class="cp-chip-name">Whey</span><span class="cp-chip-num">1.0</span></div>
+      <div class="cp-chip"><span class="cp-chip-name">Egg</span><span class="cp-chip-num">1.0</span></div>
+      <div class="cp-chip"><span class="cp-chip-name">Soy</span><span class="cp-chip-num">1.0</span></div>
+      <div class="cp-chip win"><span class="cp-chip-name">Lemna</span><span class="cp-chip-num">1.0</span></div>
+      <div class="cp-chip"><span class="cp-chip-name">Pea</span><span class="cp-chip-num">0.82–0.93</span></div>
     </div>
+    <p class="cp-cap">A perfect 1.0, the same score as egg and whey, and higher than pea, the protein most bars actually use. Almost no plant protein gets here.</p>
+
+    <div class="cp-beat">02 · Every essential amino acid, above what you need</div>
+    <div class="cp-bars">
+      <div class="cp-bar-row"><div class="cp-bar-name">Tryptophan</div><div class="cp-bar-track"><div class="cp-bar-fill" style="width:98%;"></div><div class="cp-need"></div></div><div class="cp-bar-x">5.1×</div></div>
+      <div class="cp-bar-row"><div class="cp-bar-name">Phenylalanine + tyrosine</div><div class="cp-bar-track"><div class="cp-bar-fill" style="width:48%;"></div><div class="cp-need"></div></div><div class="cp-bar-x">2.5×</div></div>
+      <div class="cp-bar-row"><div class="cp-bar-name">Threonine</div><div class="cp-bar-track"><div class="cp-bar-fill" style="width:40%;"></div><div class="cp-need"></div></div><div class="cp-bar-x">2.1×</div></div>
+      <div class="cp-bar-row"><div class="cp-bar-name">Histidine</div><div class="cp-bar-track"><div class="cp-bar-fill" style="width:29%;"></div><div class="cp-need"></div></div><div class="cp-bar-x">1.5×</div></div>
+      <div class="cp-bar-row"><div class="cp-bar-name">Methionine + cysteine</div><div class="cp-bar-track"><div class="cp-bar-fill" style="width:28%;"></div><div class="cp-need"></div></div><div class="cp-bar-x">1.5×</div></div>
+      <div class="cp-bar-row"><div class="cp-bar-name">Valine</div><div class="cp-bar-track"><div class="cp-bar-fill" style="width:27%;"></div><div class="cp-need"></div></div><div class="cp-bar-x">1.4×</div></div>
+      <div class="cp-bar-row"><div class="cp-bar-name">Isoleucine</div><div class="cp-bar-track"><div class="cp-bar-fill" style="width:26%;"></div><div class="cp-need"></div></div><div class="cp-bar-x">1.3×</div></div>
+      <div class="cp-bar-row"><div class="cp-bar-name">Leucine</div><div class="cp-bar-track"><div class="cp-bar-fill" style="width:25%;"></div><div class="cp-need"></div></div><div class="cp-bar-x">1.3×</div></div>
+      <div class="cp-bar-row"><div class="cp-bar-name">Lysine</div><div class="cp-bar-track"><div class="cp-bar-fill" style="width:25%;"></div><div class="cp-need"></div></div><div class="cp-bar-x">1.3×</div></div>
+    </div>
+    <div class="cp-need-key">Orange line = what your body needs (FAO reference). Every amino clears it.</div>
+
+    <div class="cp-diff">
+      <div class="cp-diff-item"><h4>Stronger sulfur aminos</h4><p>Methionine + cysteine at 32 mg/g, higher than soy or pea. The aminos most plants miss.</p></div>
+      <div class="cp-diff-item"><h4>No major allergens</h4><p>No soy, dairy, whey, or gluten. None of the usual protein-bar offenders.</p></div>
+      <div class="cp-diff-item"><h4>Grown on water</h4><p>About 10× less land than soy. No arable soil, no pesticides.</p></div>
+      <div class="cp-diff-item"><h4>Tastes like food</h4><p>Real flavor, not the chalk and aftertaste of most plant proteins.</p></div>
+    </div>
+    <p class="cp-close">The story isn't one number. It's the rare combination: egg-level completeness, strong where plants are usually weak, no major allergens, grown on water. Nobody else is putting this in a bar you'll actually crave.</p>
   </div>
 </section>
 
