@@ -70,7 +70,8 @@ button {
   transform: scale(1.25);
 }
 @media (max-width: 700px) {
-  .reviews-grid {
+  .reviews-grid,
+  .howto-grid {
     display: flex !important;
     grid-template-columns: none !important;
     overflow-x: auto;
@@ -79,10 +80,12 @@ button {
     scrollbar-width: none;
     scroll-padding-left: 20px;
   }
-  .reviews-grid::-webkit-scrollbar {
+  .reviews-grid::-webkit-scrollbar,
+  .howto-grid::-webkit-scrollbar {
     display: none;
   }
-  .reviews-grid > * {
+  .reviews-grid > *,
+  .howto-grid > * {
     flex: 0 0 86%;
     scroll-snap-align: center;
   }

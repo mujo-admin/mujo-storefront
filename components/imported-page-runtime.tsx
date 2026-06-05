@@ -153,14 +153,14 @@ const SIGNUP_FORMS: Record<
 
 /**
  * Reviews carousel (homepage + Ritual PDP) — on phones the CSS turns each
- * `.reviews-grid` into a horizontal scroll-snap carousel; this syncs the orange
- * `.reviews-dots` indicators to the scroll position and lets a dot tap scroll to
- * its review. Generic over every `.reviews-grid` on the page (works for both the
- * homepage `.review` articles and the PDP `.review-card` divs). No-ops where
- * there is no `.reviews-grid` + sibling `.reviews-dots`.
+ * `.reviews-grid` (and the Ritual PDP recipe `.howto-grid`) into a horizontal
+ * scroll-snap carousel; this syncs the orange `.reviews-dots` indicators to the
+ * scroll position and lets a dot tap scroll to its card. Generic over every
+ * `.reviews-grid` / `.howto-grid` on the page. No-ops where there is no grid +
+ * sibling `.reviews-dots`.
  */
 function initReviewCarousels(): void {
-  document.querySelectorAll<HTMLElement>(".reviews-grid").forEach((grid) => {
+  document.querySelectorAll<HTMLElement>(".reviews-grid, .howto-grid").forEach((grid) => {
     const dotsWrap = grid.parentElement?.querySelector<HTMLElement>(".reviews-dots");
     if (!dotsWrap) return;
     const dots = Array.from(dotsWrap.querySelectorAll<HTMLElement>(".reviews-dot"));
