@@ -347,6 +347,15 @@ body.locked { overflow: hidden; }
   justify-content: space-between;
   gap: 8px;
 }
+.product-swatches { display: inline-flex; align-items: center; gap: 5px; }
+.swatch-dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  display: inline-block;
+  flex: none;
+}
 .product-price {
   display: flex;
   align-items: baseline;
@@ -567,7 +576,7 @@ footer.mujo-foot {
           </button>
         </div>
         <div class="product-info">
-          <div class="product-name">Mujo Electric Frother</div>
+          <div class="product-name">Electric Frother</div>
           <div class="product-foot">
             <div class="product-price"><span class="amount">$20</span></div>
           </div>
@@ -581,9 +590,13 @@ footer.mujo-foot {
           </button>
         </div>
         <div class="product-info">
-          <div class="product-name">Mujo T-Shirt</div>
+          <div class="product-name">T-Shirt</div>
           <div class="product-foot">
             <div class="product-price"><span class="amount">$30</span></div>
+            <div class="product-swatches" aria-label="Available colors: Desert Dust, White">
+              <span class="swatch-dot" style="background:#EEE9E0;" title="Desert Dust"></span>
+              <span class="swatch-dot" style="background:#FFFFFF;" title="White"></span>
+            </div>
           </div>
         </div>
       </a>
@@ -595,9 +608,13 @@ footer.mujo-foot {
           </button>
         </div>
         <div class="product-info">
-          <div class="product-name">Mujo Baseball Hat</div>
+          <div class="product-name">Baseball Hat</div>
           <div class="product-foot">
             <div class="product-price"><span class="amount">$25</span></div>
+            <div class="product-swatches" aria-label="Available colors: Stone, White">
+              <span class="swatch-dot" style="background:#B5AFA3;" title="Stone"></span>
+              <span class="swatch-dot" style="background:#FFFFFF;" title="White"></span>
+            </div>
           </div>
         </div>
       </a>
@@ -609,9 +626,13 @@ footer.mujo-foot {
           </button>
         </div>
         <div class="product-info">
-          <div class="product-name">Mujo Crew Neck Sweatshirt</div>
+          <div class="product-name">Crewneck Sweatshirt</div>
           <div class="product-foot">
             <div class="product-price"><span class="amount">$40</span></div>
+            <div class="product-swatches" aria-label="Available colors: Bone, Sandstone">
+              <span class="swatch-dot" style="background:#F3F2E9;" title="Bone"></span>
+              <span class="swatch-dot" style="background:#D4C4A8;" title="Sandstone"></span>
+            </div>
           </div>
         </div>
       </a>
