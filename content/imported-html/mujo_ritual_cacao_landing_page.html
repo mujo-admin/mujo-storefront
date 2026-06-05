@@ -590,21 +590,21 @@ nav {
    , See founder video brief for full production notes
   */
   width: 100%;
-  aspect-ratio: 16 / 9;
+  max-width: 400px;
+  margin: 0 auto;
+  aspect-ratio: 9 / 16;
   background: var(--sage);
   border-radius: var(--r-structural);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  cursor: pointer;
   box-shadow: var(--s3);
-  transition: transform 0.3s;
   position: relative;
   overflow: hidden;
 }
-.video-ph:hover { transform: translateY(-3px); }
+.video-ph video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 .play-btn {
   width: 68px;
   height: 68px;
@@ -2541,16 +2541,11 @@ body.locked { overflow: hidden; }
   <div class="video-wrap">
     <div class="video-label reveal">From Kinga · Founder</div>
     <h2 class="video-h reveal d1">Before you read the science, <em>watch this first.</em></h2>
-    <div class="video-sub reveal d2">90 seconds. No pitch. Just the honest reason Mujo Ritual exists, and why it's different from everything else you've tried.</div>
-    <div class="video-ph reveal d3" onclick="playVideo()">
-      <div class="play-btn">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
-      </div>
-      <div class="video-ph-txt">
-        <strong>Kinga. Founder, Mujo</strong>
-        <span>Replace with iPhone founder video · Under 90 seconds</span>
-        <div class="video-time">~90 seconds</div>
-      </div>
+    <div class="video-sub reveal d2">A couple of minutes. No pitch. Just the honest reason Mujo Ritual exists, and why it's different from everything else you've tried.</div>
+    <div class="video-ph reveal d3">
+      <video controls playsinline preload="metadata"
+             poster="/videos/founder/kinga-founder.jpg"
+             src="/videos/founder/kinga-founder.mp4"></video>
     </div>
   </div>
 </div>
@@ -3356,12 +3351,6 @@ if (!sessionStorage.getItem('mujo_geo_seen')) {
     }
   });
 }
-
-// Video
-function playVideo() {
-  alert('Swap the .video-ph div for a real <video> element when footage is ready.\n\nRecommended: 16:9 · Under 90 seconds · Captions on · Autoplay off');
-}
-
 
 function submitExitDiscount() {
   const email = document.getElementById('exitEmail').value.trim();

@@ -1533,23 +1533,18 @@ details.info-row[open] .info-row-toggle { transform: rotate(45deg); color: var(-
 }
 .kinga-video-player {
   position: relative;
-  aspect-ratio: 16 / 9;
-  background: linear-gradient(135deg, #5C432F 0%, #2A1F18 100%);
+  aspect-ratio: 9 / 16;
+  max-width: 400px;
+  margin: 0 auto;
+  background: #2A1F18;
   border-radius: var(--r-structural);
   overflow: hidden;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.kinga-video-player:hover { transform: scale(1.005); }
-.kinga-video-player::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 30% 50%, rgba(242,104,47,0.18) 0%, transparent 60%);
-  pointer-events: none;
+.kinga-video-player video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .kinga-video-emoji {
   position: absolute;
@@ -2544,20 +2539,13 @@ body.locked { overflow: hidden; }
 <section class="kinga-video">
   <div class="kinga-video-wrap">
     <div class="kinga-video-head">
-      <h2 class="reveal d1" style="margin-top: 26px;">30 seconds with Kinga.</h2>
+      <h2 class="reveal d1" style="margin-top: 26px;">Two minutes with Kinga.</h2>
       <p class="reveal d2">Why this exists, and what's actually in it.</p>
     </div>
-    <div class="kinga-video-player reveal d3" onclick="alert('Video: hand off to your video host (e.g. Mux, Vimeo, YouTube embed) in production.')">
-      <!-- IMAGE: Kinga founder video thumbnail · 16:9 · half-body, holding mug, natural light -->
-      <span class="kinga-video-emoji" aria-hidden="true" data-icon="video"></span>
-      <span class="kinga-video-ph-tag">Image · Kinga thumbnail</span>
-      <span class="kinga-video-play">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-      </span>
-      <div class="kinga-video-meta">
-        <span class="kinga-video-tag">Founder · Kinga</span>
-        <span class="kinga-video-duration">0:30</span>
-      </div>
+    <div class="kinga-video-player reveal d3">
+      <video controls playsinline preload="metadata"
+             poster="/videos/founder/kinga-founder.jpg"
+             src="/videos/founder/kinga-founder.mp4"></video>
     </div>
   </div>
 </section>
