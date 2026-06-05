@@ -25,3 +25,20 @@ input,
 button {
   @apply focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50;
 }
+
+/* ---------------------------------------------------------------------------
+   PDP gallery rule — applies to every imported PDP gallery, current + future.
+   Thumbnails ALWAYS stay on a single line: they shrink to fit the row rather
+   than wrapping to a second row. `grid-auto-flow: column` + auto 1fr columns
+   lay every *visible* thumb out in one row; hidden (display:none) thumbs — e.g.
+   the non-active colorway on merch PDPs — create no column, so the row
+   recomputes automatically after a colorway swap. `!important` overrides each
+   page's scoped `.gallery-thumbs { grid-template-columns: repeat(N, 1fr) }`.
+   --------------------------------------------------------------------------- */
+.gallery-thumbs,
+.pdp-gallery-thumbs {
+  display: grid !important;
+  grid-auto-flow: column !important;
+  grid-auto-columns: minmax(0, 1fr) !important;
+  grid-template-columns: none !important;
+}
