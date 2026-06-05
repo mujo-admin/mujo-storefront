@@ -42,3 +42,51 @@ button {
   grid-auto-columns: minmax(0, 1fr) !important;
   grid-template-columns: none !important;
 }
+
+/* ---------------------------------------------------------------------------
+   Reviews carousel rule (phones only) — "Real reviews, real impact" review
+   grids become a horizontal scroll-snap carousel with orange dot indicators.
+   Applies to every `.reviews-grid` (homepage `.review` + PDP `.review-card`).
+   Dot ↔ scroll sync is wired in imported-page-runtime.tsx (initReviewCarousels).
+   --------------------------------------------------------------------------- */
+.reviews-dots {
+  display: none;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 20px;
+}
+.reviews-dots .reviews-dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--line, #d8d2c6);
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.reviews-dots .reviews-dot.active {
+  background: var(--orange, #f2682f);
+  transform: scale(1.25);
+}
+@media (max-width: 700px) {
+  .reviews-grid {
+    display: flex !important;
+    grid-template-columns: none !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    scroll-padding-left: 20px;
+  }
+  .reviews-grid::-webkit-scrollbar {
+    display: none;
+  }
+  .reviews-grid > * {
+    flex: 0 0 86%;
+    scroll-snap-align: center;
+  }
+  .reviews-dots {
+    display: flex;
+  }
+}

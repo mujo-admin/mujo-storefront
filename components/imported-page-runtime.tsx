@@ -152,6 +152,66 @@ const SIGNUP_FORMS: Record<
 };
 
 /**
+ * Reviews carousel (homepage + Ritual PDP) — on phones the CSS turns each
+ * `.reviews-grid` into a horizontal scroll-snap carousel; this syncs the orange
+ * `.reviews-dots` indicators to the scroll position and lets a dot tap scroll to
+ * its review. Generic over every `.reviews-grid` on the page (works for both the
+ * homepage `.review` articles and the PDP `.review-card` divs). No-ops where
+ * there is no `.reviews-grid` + sibling `.reviews-dots`.
+ */
+function initReviewCarousels(): void {
+  document.querySelectorAll<HTMLElement>(".reviews-grid").forEach((grid) => {
+    const dotsWrap = grid.parentElement?.querySelector<HTMLElement>(".reviews-dots");
+    if (!dotsWrap) return;
+    const dots = Array.from(dotsWrap.querySelectorAll<HTMLElement>(".reviews-dot"));
+    const items = Array.from(grid.children) as HTMLElement[];
+    if (!dots.length || !items.length) return;
+
+    const lastDot = dots.length - 1;
+    const sync = () => {
+      const center = grid.scrollLeft + grid.clientWidth / 2;
+      let active = 0;
+      let best = Infinity;
+      items.forEach((item, i) => {
+        const itemCenter = item.offsetLeft + item.offsetWidth / 2;
+        const dist = Math.abs(itemCenter - center);
+        if (dist < best) {
+          best = dist;
+          active = i;
+        }
+      });
+      const clamped = Math.min(active, lastDot);
+      dots.forEach((dot, i) => dot.classList.toggle("active", i === clamped));
+    };
+
+    let ticking = false;
+    grid.addEventListener(
+      "scroll",
+      () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          sync();
+          ticking = false;
+        });
+      },
+      { passive: true },
+    );
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener("click", () => {
+        const item = items[i];
+        if (!item) return;
+        const left = item.offsetLeft - (grid.clientWidth - item.offsetWidth) / 2;
+        grid.scrollTo({ left, behavior: "smooth" });
+      });
+    });
+
+    sync();
+  });
+}
+
+/**
  * UGC reel marquee (Ritual PDP) — auto-scrolls AND is manually scrollable.
  * The source markup ships a CSS keyframe marquee inside an `overflow:hidden`
  * viewport, so visitors can't scroll it themselves (hover only pauses it).
@@ -500,6 +560,10 @@ export function ImportedPageRuntime({ children }: ImportedPageRuntimeProps) {
 
   // UGC reel marquee: make it manually scrollable while keeping auto-advance.
   useEffect(() => initReelsMarquee(), []);
+
+  // Reviews carousel: sync the orange dot indicators to the scroll position
+  // (phones turn the review grid into a scroll-snap carousel via globals.css).
+  useEffect(() => initReviewCarousels(), []);
 
   // Loox reviews: on PDP routes, stamp the numeric product ID onto the page's
   // Loox widget divs and (re)render. Keyed to pathname so client-side nav
