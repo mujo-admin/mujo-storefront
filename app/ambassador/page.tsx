@@ -1,5 +1,17 @@
 import type { Metadata } from "next";
 import { ImportedPage } from "components/imported-page";
+import type { Splice } from "lib/imported-html";
+import { AmbassadorForm } from "components/forms/ambassador-form";
+
+// Splice the dead Tally "Apply now" button out of the apply section, leaving a
+// mount marker that <AmbassadorForm /> targets via createPortal.
+const AMBASSADOR_SPLICES: Splice[] = [
+  {
+    startSentinel: "MUJO_AMBASSADOR_FORM_START",
+    endSentinel: "MUJO_AMBASSADOR_FORM_END",
+    mountId: "ambassador-form",
+  },
+];
 
 export const metadata: Metadata = {
   title: "Ambassador · Partner with Mujo",
@@ -36,7 +48,8 @@ export default function AmbassadorPage() {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: AMBASSADOR_OVERRIDES }} />
-      <ImportedPage filename="mujo_affiliate.html" />
+      <ImportedPage filename="mujo_affiliate.html" splices={AMBASSADOR_SPLICES} />
+      <AmbassadorForm />
     </>
   );
 }
