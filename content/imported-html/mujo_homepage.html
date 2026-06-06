@@ -22,7 +22,7 @@
      2. Hero (image full-bleed on mobile)
      3. Manifesto (sage)
      4. What we make (3 product tiles, benefits-led)
-     5. Inside the Ritual (5-ingredient horizontal scroll)
+     5. Inside the Ritual (9-ingredient horizontal scroll)
      6. UGC strip
      7. Real reviews, real impact (photo + text cards)
      8. Our story (founder)
@@ -888,7 +888,7 @@ body.locked { overflow: hidden; }
 }
 
 /* ═══════════════════════════════════════════════════════════
-   4. INSIDE THE RITUAL. 5-ingredient horizontal scroll on mobile
+   4. INSIDE THE RITUAL. 9-ingredient horizontal scroll on mobile
    ═══════════════════════════════════════════════════════════ */
 .inside { background: var(--sand); }
 .inside-head { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; }
@@ -941,7 +941,7 @@ body.locked { overflow: hidden; }
 @media (min-width: 768px) {
   .ing-strip {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 12px;
     overflow: visible;
     padding: 0;
@@ -2141,6 +2141,42 @@ footer {
           <div class="ing-name">Rhodiola Rosea</div>
           <div class="ing-latin">Himalayan · cultivated</div>
           <div class="ing-dose">1.5% / 5% actives</div>
+        </div>
+      </div>
+
+      <div class="ing-card">
+        <div class="ing-img" style="background-image: url('/images/responsive/ingredients/chaga-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
+        <div class="ing-body">
+          <div class="ing-name">Chaga</div>
+          <div class="ing-latin">Inonotus obliquus</div>
+          <div class="ing-dose">Wild-harvested</div>
+        </div>
+      </div>
+
+      <div class="ing-card">
+        <div class="ing-img" style="background-image: url('/images/responsive/ingredients/bacopa-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
+        <div class="ing-body">
+          <div class="ing-name">Bacopa Monnieri</div>
+          <div class="ing-latin">Bacopa monnieri</div>
+          <div class="ing-dose">55% bacosides</div>
+        </div>
+      </div>
+
+      <div class="ing-card">
+        <div class="ing-img" style="background-image: url('/images/responsive/ingredients/cacao-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
+        <div class="ing-body">
+          <div class="ing-name">Organic Peruvian Cacao</div>
+          <div class="ing-latin">Theobroma cacao</div>
+          <div class="ing-dose">Theobromine</div>
+        </div>
+      </div>
+
+      <div class="ing-card">
+        <div class="ing-img" style="background-image: url('/images/responsive/ingredients/maca-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
+        <div class="ing-body">
+          <div class="ing-name">Gelatinized Maca</div>
+          <div class="ing-latin">Lepidium meyenii</div>
+          <div class="ing-dose">Gelatinized</div>
         </div>
       </div>
     </div>

@@ -97,7 +97,6 @@ type Answers = {
 };
 
 type QuestionTile = {
-  emoji: string;
   primary: string;
   secondary?: string;
   value: string;
@@ -126,10 +125,10 @@ const QUESTIONS: Question[] = [
     question: 'Which of these sounds most like your energy right now?',
     hint: 'Be honest. This is the first clue to your pattern.',
     tiles: [
-      { emoji: '📉', primary: "I hit a wall at 2pm and can't think past it", secondary: 'Reliable. Predictable. Frustrating.', value: 'crash' },
-      { emoji: '⚡', primary: 'Wired and exhausted at the same time', secondary: "Can't focus. Can't switch off.", value: 'wired' },
-      { emoji: '🌫️', primary: 'Functional but foggy, like 70% showed up', secondary: 'Words take longer. Recall is slower.', value: 'fog' },
-      { emoji: '😤', primary: 'Anxious underneath everything', secondary: 'Even when things are going well.', value: 'anxious' },
+      { primary: "I hit a wall at 2pm and can't think past it", secondary: 'Reliable. Predictable. Frustrating.', value: 'crash' },
+      { primary: 'Wired and exhausted at the same time', secondary: "Can't focus. Can't switch off.", value: 'wired' },
+      { primary: 'Functional but foggy, like 70% showed up', secondary: 'Words take longer. Recall is slower.', value: 'fog' },
+      { primary: 'Anxious underneath everything', secondary: 'Even when things are going well.', value: 'anxious' },
     ],
   },
   {
@@ -138,10 +137,10 @@ const QUESTIONS: Question[] = [
     question: 'How long have you been relying on caffeine to manage this?',
     hint: 'This tells us how deep the pattern runs.',
     tiles: [
-      { emoji: '📅', primary: 'Less than a year. Gotten worse lately.', value: 'new' },
-      { emoji: '🗓️', primary: "1 to 3 years. It's become my normal.", value: 'mid' },
-      { emoji: '⏳', primary: "3+ years. I can't remember without it.", value: 'long' },
-      { emoji: '🌱', primary: "I've already quit. Looking for what fills the gap.", value: 'free' },
+      { primary: 'Less than a year. Gotten worse lately.', value: 'new' },
+      { primary: "1 to 3 years. It's become my normal.", value: 'mid' },
+      { primary: "3+ years. I can't remember without it.", value: 'long' },
+      { primary: "I've already quit. Looking for what fills the gap.", value: 'free' },
     ],
   },
   {
@@ -150,10 +149,10 @@ const QUESTIONS: Question[] = [
     question: 'What does your morning look like before 9am?',
     hint: 'No judgement. This shapes which steps matter most.',
     tiles: [
-      { emoji: '📊', primary: 'Coffee first, then I check my metrics', secondary: 'HRV, sleep score, readiness', value: 'performer' },
-      { emoji: '💻', primary: 'Coffee and straight into work', secondary: 'No warm-up. Just output.', value: 'burnout' },
-      { emoji: '👶', primary: 'The morning belongs to everyone else first', secondary: 'Kids, logistics, then maybe me', value: 'mama' },
-      { emoji: '🧘', primary: 'I try to start slow. It rarely works.', secondary: 'The day hijacks the intention', value: 'calm' },
+      { primary: 'Coffee first, then I check my metrics', secondary: 'HRV, sleep score, readiness', value: 'performer' },
+      { primary: 'Coffee and straight into work', secondary: 'No warm-up. Just output.', value: 'burnout' },
+      { primary: 'The morning belongs to everyone else first', secondary: 'Kids, logistics, then maybe me', value: 'mama' },
+      { primary: 'I try to start slow. It rarely works.', secondary: 'The day hijacks the intention', value: 'calm' },
     ],
   },
   {
@@ -162,10 +161,10 @@ const QUESTIONS: Question[] = [
     question: 'If you could change one thing about how you feel by 10am, what would it be?',
     hint: 'This becomes the goal of your personalized plan.',
     tiles: [
-      { emoji: '🎯', primary: "Calm, clear focus that doesn't need a spike", value: 'focus' },
-      { emoji: '😌', primary: 'No anxiety underneath the productivity', value: 'calm' },
-      { emoji: '⚡', primary: 'Enough in the tank to still be present at 7pm', value: 'energy' },
-      { emoji: '🌙', primary: 'Sleep that actually means something', value: 'sleep' },
+      { primary: "Calm, clear focus that doesn't need a spike", value: 'focus' },
+      { primary: 'No anxiety underneath the productivity', value: 'calm' },
+      { primary: 'Enough in the tank to still be present at 7pm', value: 'energy' },
+      { primary: 'Sleep that actually means something', value: 'sleep' },
     ],
   },
   {
@@ -174,10 +173,10 @@ const QUESTIONS: Question[] = [
     question: 'How is your sleep, honestly?',
     hint: 'This is the first place adaptogens usually move the needle.',
     tiles: [
-      { emoji: '🥱', primary: "I wake up feeling like I didn't sleep", secondary: '7+ hours and still depleted', value: 'broken' },
-      { emoji: '😴', primary: 'I fall asleep fine but wake up at 3am', secondary: 'Cortisol hijacks the second half of the night', value: 'fragmented' },
-      { emoji: '🧠', primary: "My mind won't switch off when I get into bed", secondary: 'Wired tired, even at midnight', value: 'sleep_anx' },
-      { emoji: '🌟', primary: 'Sleep is alright. Energy is the real issue.', value: 'okay' },
+      { primary: "I wake up feeling like I didn't sleep", secondary: '7+ hours and still depleted', value: 'broken' },
+      { primary: 'I fall asleep fine but wake up at 3am', secondary: 'Cortisol hijacks the second half of the night', value: 'fragmented' },
+      { primary: "My mind won't switch off when I get into bed", secondary: 'Wired tired, even at midnight', value: 'sleep_anx' },
+      { primary: 'Sleep is alright. Energy is the real issue.', value: 'okay' },
     ],
   },
   {
@@ -186,10 +185,10 @@ const QUESTIONS: Question[] = [
     question: 'How many caffeinated drinks does a typical day include?',
     hint: 'No judgement. This sets the right pace for the transition.',
     tiles: [
-      { emoji: '☕', primary: 'One in the morning', secondary: 'Just the ritual, never more', value: 'light' },
-      { emoji: '☕☕', primary: 'Two or three across the day', secondary: 'Morning + a 3pm pickup', value: 'mid' },
-      { emoji: '☕☕☕', primary: "Four or more, and I'm still tired", secondary: "Cortisol's already running the show", value: 'heavy' },
-      { emoji: '🌱', primary: 'Caffeine-free already', secondary: 'Looking for what fills the gap', value: 'free' },
+      { primary: 'One in the morning', secondary: 'Just the ritual, never more', value: 'light' },
+      { primary: 'Two or three across the day', secondary: 'Morning + a 3pm pickup', value: 'mid' },
+      { primary: "Four or more, and I'm still tired", secondary: "Cortisol's already running the show", value: 'heavy' },
+      { primary: 'Caffeine-free already', secondary: 'Looking for what fills the gap', value: 'free' },
     ],
   },
 ];

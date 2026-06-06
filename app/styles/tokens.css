@@ -113,7 +113,7 @@
   --radius-image:  4px;
 
   /* Free-shipping threshold (cents). Cart drawer reads this to compute progress-to-free-shipping. */
-  --shipping-threshold-cents: 6000;
+  --shipping-threshold-cents: 10000;
 
 
   /* ----- Shadow + divider tokens ----- */
