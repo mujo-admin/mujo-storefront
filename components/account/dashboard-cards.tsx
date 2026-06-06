@@ -407,7 +407,7 @@ function ActiveSubscriptionCard({
         <Link href="/account/subscription">Manage →</Link>
       </div>
       <div className="sub-summary">
-        <div className="sub-summary-img">🍵</div>
+        <div className="sub-summary-img"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 9h12v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V9Z" /><path d="M16 10h2a2 2 0 0 1 0 4h-2" /><path d="M8.5 3c-.4.8.4 1.6 0 2.5M11.5 3c-.4.8.4 1.6 0 2.5" /></svg></div>
         <div className="sub-summary-info">
           <h3 className="sub-summary-name">{productLabel}</h3>
           <p className="sub-summary-meta">{memberRateLabel}</p>

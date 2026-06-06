@@ -89,7 +89,7 @@ export default async function OrdersPage({
       <div className="orders-wrap">
         {isEmpty ? (
           <div className="empty-orders">
-            <div className="empty-orders-illo">🍵</div>
+            <div className="empty-orders-illo"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 9h12v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V9Z" /><path d="M16 10h2a2 2 0 0 1 0 4h-2" /><path d="M8.5 3c-.4.8.4 1.6 0 2.5M11.5 3c-.4.8.4 1.6 0 2.5" /></svg></div>
             <h3>No orders yet</h3>
             <p>
               Once you place your first order, you&rsquo;ll see it here with
@@ -139,7 +139,7 @@ export default async function OrdersPage({
 
                   <div className="order-items">
                     <div className="order-line">
-                      <div className="order-line-img">🍵</div>
+                      <div className="order-line-img"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 9h12v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V9Z" /><path d="M16 10h2a2 2 0 0 1 0 4h-2" /><path d="M8.5 3c-.4.8.4 1.6 0 2.5M11.5 3c-.4.8.4 1.6 0 2.5" /></svg></div>
                       <div className="order-line-info">
                         <div className="order-line-name">{lineName}</div>
                         <div className="order-line-meta">

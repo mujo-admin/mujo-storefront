@@ -107,7 +107,7 @@ export default async function PaymentMethodPage({
           </div>
         ) : (
           <div className="pm-empty">
-            <div className="pm-empty-illo">💳</div>
+            <div className="pm-empty-illo"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2" /><path d="M2.5 9.5h19" /></svg></div>
             <h3>No card on file yet</h3>
             <p>
               You haven&rsquo;t completed a checkout yet, so there&rsquo;s
