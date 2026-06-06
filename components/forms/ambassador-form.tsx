@@ -12,12 +12,13 @@ const PLATFORMS = [
   "Other",
 ] as const;
 
-const AUDIENCE_TYPES = [
-  "Creator / writer",
-  "Functional-medicine practitioner",
-  "Coach / trainer / therapist",
-  "Parent / mama voice",
-  "Padel / tennis / performance athlete",
+const WHO_YOU_ARE = [
+  "Creator",
+  "Entrepreneur",
+  "Wellness professional",
+  "Athlete",
+  "Student",
+  "Parent",
   "Other",
 ] as const;
 
@@ -127,13 +128,24 @@ function Form() {
         <Field name="country" label="Country you're based in" required />
         <Select name="platform" label="Primary platform" options={PLATFORMS} required />
       </div>
-      <Field name="handle" label="Your handle or profile link" required />
-      <Field name="otherLinks" label="Other platforms or links" optional />
+      <Field
+        name="profileLink"
+        label="Link to your profile"
+        type="url"
+        placeholder="https://instagram.com/yourhandle"
+        required
+      />
+      <Field
+        name="otherLinks"
+        label="Other platforms or links"
+        placeholder="Any other profiles you'd like us to see"
+        optional
+      />
       <div className="amb-row">
         <Select
-          name="audienceType"
-          label="Who's your audience?"
-          options={AUDIENCE_TYPES}
+          name="whoYouAre"
+          label="Who are you?"
+          options={WHO_YOU_ARE}
           required
         />
         <Select
@@ -143,6 +155,12 @@ function Form() {
           required
         />
       </div>
+      <Field
+        name="audience"
+        label="Who's your audience?"
+        placeholder="e.g. busy parents into clean wellness, padel players, biohackers"
+        required
+      />
       <div className="amb-row">
         <Field
           name="engagement"
@@ -180,6 +198,7 @@ function Field({
   name,
   label,
   type = "text",
+  placeholder,
   required = false,
   optional = false,
   multiline = false,
@@ -187,6 +206,7 @@ function Field({
   name: string;
   label: string;
   type?: string;
+  placeholder?: string;
   required?: boolean;
   optional?: boolean;
   multiline?: boolean;
@@ -199,9 +219,20 @@ function Field({
         {optional && <span className="amb-optional"> (optional)</span>}
       </span>
       {multiline ? (
-        <textarea id={`amb-${name}`} name={name} required={required} />
+        <textarea
+          id={`amb-${name}`}
+          name={name}
+          placeholder={placeholder}
+          required={required}
+        />
       ) : (
-        <input id={`amb-${name}`} name={name} type={type} required={required} />
+        <input
+          id={`amb-${name}`}
+          name={name}
+          type={type}
+          placeholder={placeholder}
+          required={required}
+        />
       )}
     </label>
   );
@@ -239,11 +270,11 @@ function Select({
 }
 
 // Styled for the sage (--sage) apply section: white labels, light inputs.
-// Field groups get generous spacing; each label hugs its own input so it's
-// always clear which box a label belongs to.
+// Each label is a grid (label-text row flexes, input pinned to the bottom)
+// so side-by-side boxes always align even when one label wraps to two lines.
 const ambStyles = `
   .amb-form { display: flex; flex-direction: column; gap: 26px; max-width: 560px; margin-top: 8px; }
-  .amb-form .amb-row { display: grid; grid-template-columns: 1fr; gap: 26px; }
+  .amb-form .amb-row { display: grid; grid-template-columns: 1fr; gap: 26px; align-items: stretch; }
   @media (min-width: 600px) {
     .amb-form .amb-row { grid-template-columns: 1fr 1fr; }
   }
@@ -254,7 +285,9 @@ const ambStyles = `
     white-space: nowrap; border: 0; padding: 0; margin: -1px;
   }
   .amb-form label {
-    display: flex; flex-direction: column; gap: 7px;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    gap: 7px;
   }
   .amb-label-text {
     font-family: var(--f-body);
@@ -277,6 +310,8 @@ const ambStyles = `
     outline: none;
     transition: border-color 0.2s, box-shadow 0.2s;
   }
+  .amb-form input::placeholder,
+  .amb-form textarea::placeholder { color: #9b968f; }
   .amb-form textarea { min-height: 96px; resize: vertical; line-height: 1.5; }
   .amb-form input:focus-visible,
   .amb-form select:focus-visible,
