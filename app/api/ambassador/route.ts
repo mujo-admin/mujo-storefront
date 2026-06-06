@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 import { z } from "zod";
 import { Resend } from "resend";
-import { subscribeToList } from "lib/klaviyo";
+import { subscribeToList, trackEvent } from "lib/klaviyo";
 
 export const dynamic = "force-dynamic";
 
@@ -82,6 +82,33 @@ export async function POST(req: NextRequest) {
     } catch (err) {
       console.error("[ambassador] Klaviyo subscribe failed", err);
     }
+  }
+
+  // Fire a Klaviyo metric event. This is the reliable flow trigger: a
+  // metric-triggered flow ("When someone does Submitted Ambassador
+  // Application") fires in real-time for EVERYONE — new leads, existing
+  // subscribers, and current customers alike — unlike list/segment triggers
+  // which miss people already on the list or lag on API-set properties.
+  try {
+    await trackEvent({
+      email: parsed.email,
+      metric: "Submitted Ambassador Application",
+      properties: {
+        Name: parsed.name,
+        Country: parsed.country,
+        Platform: parsed.platform,
+        ProfileLink: parsed.profileLink,
+        OtherLinks: parsed.otherLinks ?? null,
+        WhoYouAre: parsed.whoYouAre,
+        Audience: parsed.audience,
+        AudienceSize: parsed.audienceSize,
+        Engagement: parsed.engagement ?? null,
+        UsesMujo: parsed.usesMujo,
+        Why: parsed.why.slice(0, 500),
+      },
+    });
+  } catch (err) {
+    console.error("[ambassador] Klaviyo trackEvent failed", err);
   }
 
   const resendKey = process.env.RESEND_API_KEY;
