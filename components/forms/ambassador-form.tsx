@@ -63,10 +63,14 @@ function Form() {
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    // Capture the form node BEFORE awaiting — React/the browser nulls
+    // e.currentTarget once the event finishes dispatching, so reading it
+    // after `await` throws (which previously surfaced as a false "network
+    // error" even though the request succeeded).
+    const form = e.currentTarget;
     setStatus("loading");
     setErrorMsg("");
-    const fd = new FormData(e.currentTarget);
-    const payload = Object.fromEntries(fd.entries());
+    const payload = Object.fromEntries(new FormData(form).entries());
     try {
       const res = await fetch("/api/ambassador", {
         method: "POST",
@@ -74,15 +78,15 @@ function Form() {
         body: JSON.stringify(payload),
       });
       if (res.ok) {
+        form.reset();
         setStatus("sent");
-        e.currentTarget.reset();
       } else {
         const data = await res.json().catch(() => ({}));
-        setErrorMsg(data.error ?? "Something went wrong. Try again.");
+        setErrorMsg(data.error ?? "Something went wrong. Please try again.");
         setStatus("error");
       }
     } catch {
-      setErrorMsg("Network error. Try again.");
+      setErrorMsg("Couldn't send just now. Please try again.");
       setStatus("error");
     }
   }
@@ -90,11 +94,8 @@ function Form() {
   if (status === "sent") {
     return (
       <div role="status" className="amb-thanks">
-        <h3>Thanks — we got it.</h3>
-        <p>
-          Kinga reads every application personally. We&rsquo;ll be in touch
-          within a few days.
-        </p>
+        <h3>Thanks for your application.</h3>
+        <p>We&rsquo;ll be in touch soon.</p>
         <style>{ambStyles}</style>
       </div>
     );
@@ -102,6 +103,22 @@ function Form() {
 
   return (
     <form className="amb-form" onSubmit={onSubmit} noValidate>
+      {/* Honeypot — hidden from people, catches naive bots. Real submissions
+          leave this blank; the server silently drops any submission that
+          fills it. */}
+      <div className="amb-hp" aria-hidden="true">
+        <label htmlFor="amb-website">
+          Website (leave blank)
+          <input
+            id="amb-website"
+            name="website"
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+          />
+        </label>
+      </div>
+
       <div className="amb-row">
         <Field name="name" label="Full name" required />
         <Field name="email" label="Email" type="email" required />
@@ -111,7 +128,7 @@ function Form() {
         <Select name="platform" label="Primary platform" options={PLATFORMS} required />
       </div>
       <Field name="handle" label="Your handle or profile link" required />
-      <Field name="otherLinks" label="Other platforms / links (optional)" />
+      <Field name="otherLinks" label="Other platforms or links" optional />
       <div className="amb-row">
         <Select
           name="audienceType"
@@ -129,7 +146,8 @@ function Form() {
       <div className="amb-row">
         <Field
           name="engagement"
-          label="Typical engagement, avg likes/views (optional)"
+          label="Typical engagement (avg likes or views per post)"
+          optional
         />
         <Select name="usesMujo" label="Do you already use Mujo?" options={USES_MUJO} required />
       </div>
@@ -141,8 +159,9 @@ function Form() {
       />
       <Field
         name="extra"
-        label="Anything else / a recent post you're proud of (optional)"
+        label="Anything else, or a recent post you're proud of"
         multiline
+        optional
       />
       <button type="submit" className="amb-submit" disabled={status === "loading"}>
         {status === "loading" ? "Sending…" : "Submit application →"}
@@ -162,18 +181,23 @@ function Field({
   label,
   type = "text",
   required = false,
+  optional = false,
   multiline = false,
 }: {
   name: string;
   label: string;
   type?: string;
   required?: boolean;
+  optional?: boolean;
   multiline?: boolean;
 }) {
   return (
     <label htmlFor={`amb-${name}`}>
-      {label}
-      {required && <span aria-hidden> *</span>}
+      <span className="amb-label-text">
+        {label}
+        {required && <span className="amb-req">*</span>}
+        {optional && <span className="amb-optional"> (optional)</span>}
+      </span>
       {multiline ? (
         <textarea id={`amb-${name}`} name={name} required={required} />
       ) : (
@@ -196,11 +220,13 @@ function Select({
 }) {
   return (
     <label htmlFor={`amb-${name}`}>
-      {label}
-      {required && <span aria-hidden> *</span>}
+      <span className="amb-label-text">
+        {label}
+        {required && <span className="amb-req">*</span>}
+      </span>
       <select id={`amb-${name}`} name={name} required={required} defaultValue="">
         <option value="" disabled>
-          Choose one
+          Choose one…
         </option>
         {options.map((o) => (
           <option key={o} value={o}>
@@ -213,19 +239,31 @@ function Select({
 }
 
 // Styled for the sage (--sage) apply section: white labels, light inputs.
+// Field groups get generous spacing; each label hugs its own input so it's
+// always clear which box a label belongs to.
 const ambStyles = `
-  .amb-form { display: flex; flex-direction: column; gap: 16px; max-width: 560px; margin-top: 8px; }
-  .amb-form .amb-row { display: grid; grid-template-columns: 1fr; gap: 16px; }
+  .amb-form { display: flex; flex-direction: column; gap: 26px; max-width: 560px; margin-top: 8px; }
+  .amb-form .amb-row { display: grid; grid-template-columns: 1fr; gap: 26px; }
   @media (min-width: 600px) {
     .amb-form .amb-row { grid-template-columns: 1fr 1fr; }
   }
-  .amb-form label {
-    display: flex; flex-direction: column; gap: 6px;
-    font-family: var(--f-body);
-    font-size: 13px; font-weight: 500;
-    color: rgba(255, 255, 255, 0.9);
+  .amb-hp {
+    position: absolute !important;
+    width: 1px; height: 1px;
+    overflow: hidden; clip: rect(0 0 0 0);
+    white-space: nowrap; border: 0; padding: 0; margin: -1px;
   }
-  .amb-form label span { color: var(--orange); }
+  .amb-form label {
+    display: flex; flex-direction: column; gap: 7px;
+  }
+  .amb-label-text {
+    font-family: var(--f-body);
+    font-size: 14px; font-weight: 600;
+    line-height: 1.3;
+    color: rgba(255, 255, 255, 0.94);
+  }
+  .amb-req { color: var(--orange); margin-left: 3px; }
+  .amb-optional { font-weight: 400; color: rgba(255, 255, 255, 0.55); }
   .amb-form input,
   .amb-form select,
   .amb-form textarea {
@@ -248,7 +286,7 @@ const ambStyles = `
   }
   .amb-submit {
     align-self: flex-start;
-    margin-top: 4px;
+    margin-top: 2px;
     display: inline-flex; align-items: center; gap: 6px;
     background: var(--orange); color: #fff;
     font-family: var(--f-body); font-size: 15px; font-weight: 500;
@@ -262,7 +300,7 @@ const ambStyles = `
     box-shadow: 0 8px 24px rgba(242, 104, 47, 0.3);
   }
   .amb-submit:disabled { opacity: 0.6; cursor: default; }
-  .amb-error { color: #ffd9cc; font-size: 14px; margin-top: 4px; }
+  .amb-error { color: #ffd9cc; font-size: 14px; margin-top: 2px; }
   .amb-thanks {
     padding: 32px;
     background: rgba(255, 255, 255, 0.08);

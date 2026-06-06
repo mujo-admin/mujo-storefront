@@ -6,6 +6,8 @@ import { subscribeToList } from "lib/klaviyo";
 export const dynamic = "force-dynamic";
 
 const requestSchema = z.object({
+  // Honeypot — real people leave this blank; bots tend to fill every field.
+  website: z.string().max(200).optional(),
   name: z.string().min(1).max(120),
   email: z.string().email(),
   country: z.string().min(1).max(80),
@@ -40,6 +42,12 @@ export async function POST(req: NextRequest) {
       },
       { status: 400 },
     );
+  }
+
+  // Honeypot tripped — silently accept (return ok so the bot sees success)
+  // but do nothing. Never email or subscribe.
+  if (parsed.website && parsed.website.trim()) {
+    return Response.json({ ok: true });
   }
 
   // Single-master-list pattern: ambassador applications go to the master
