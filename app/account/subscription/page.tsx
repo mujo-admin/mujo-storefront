@@ -81,7 +81,7 @@ export default async function SubscriptionPage() {
           <div className="sub-empty-illo">🍵</div>
           <h3>No active subscription</h3>
           <p>
-            Subscribe & save 25% on every Ritual delivery. Pause or cancel
+            Subscribe & save 15% on every Ritual delivery. Pause or cancel
             anytime &mdash; no commitment, no cancellation fees, no questions.
           </p>
           <Link href="/products/mujo-ritual" className="sub-empty-cta">

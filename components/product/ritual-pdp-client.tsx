@@ -24,7 +24,7 @@ const PRICES: Record<RitualSize, Partial<Record<RitualPlan, PriceCell>>> = {
   },
   "25": {
     onetime: { now: "$65.00", daily: "$2.60/serving" },
-    subscription: { now: "$55.25", was: "$65.00", daily: "$1.73/serving" },
+    subscription: { now: "$55.25", was: "$65.00", daily: "$2.21/serving" },
   },
 };
 

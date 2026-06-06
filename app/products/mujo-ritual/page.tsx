@@ -26,7 +26,7 @@ const RITUAL_SPLICES: Splice[] = [
 export const metadata: Metadata = {
   title: "The Mujo Ritual · Mushroom Cacao",
   description:
-    "Premium mushroom cacao adaptogen ritual. 25 servings. Subscribe and save 25%.",
+    "Premium mushroom cacao adaptogen ritual. 25 servings. Subscribe and save 15%.",
   alternates: { canonical: "/products/mujo-ritual" },
   openGraph: {
     type: "website",
