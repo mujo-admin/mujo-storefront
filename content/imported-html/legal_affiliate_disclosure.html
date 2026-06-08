@@ -1,380 +1,259 @@
-<!-- Page: /legal/affiliate-disclosure | Gates cleared: N/A (utility) | Canon: v1.2 | DRAFT | FTC-required public disclosure -->
+<!-- Page: /legal/affiliate-disclosure | Canon: v1.3 | REAL DRAFT 2026-06-08 — pending final legal review | FTC-required public disclosure -->
+<!--
+  LAWYER / KINGA REVIEW FLAGS (remove the .review-note banner + this comment on sign-off):
+  1. COMMISSION RATE: states a flat 15% commission publicly (per FTC 16 CFR Part 255 + workspace
+     decision that the rate is disclosed here, while hidden on the /ambassador sales page). Confirm 15%
+     is current before launch. (See section 3.)
+  2. COOKIE/ATTRIBUTION WINDOW: section 3 references how a referral is credited. Fill in the real
+     attribution window (e.g. last-click, 30-day cookie) from the affiliate platform once chosen.
+  3. PROGRAM TERMS: this is the public consumer disclosure. The ambassador-side contract (payout terms,
+     clawbacks, prohibited conduct) lives separately; confirm the link target for "ambassador terms".
+  4. THIRD-PARTY PLATFORMS: section 6 covers Amazon-style affiliate links only if Mujo uses them. Trim
+     if Mujo sells only DTC.
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ambassador Program Disclosure · Mujo Co.</title>
-  <meta name="description" content="FTC-required disclosure of Mujo's ambassador program, commission structure, and disclosure obligations under 16 CFR Part 255.">
-  <link rel="stylesheet" href="../_components/tokens.css">
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: var(--f-body); font-size: 16px; line-height: 1.65; color: var(--ink); background: var(--cream); }
-    .legal-container { max-width: 760px; margin: 0 auto; padding: var(--space-8) var(--space-4); }
-    .draft-banner { background: var(--sage-tint); color: var(--orange-deep); border: 2px solid var(--orange); padding: var(--space-4); border-radius: var(--radius-card); margin-bottom: var(--space-6); font-weight: 600; font-family: var(--f-mono); font-size: 14px; letter-spacing: 0.05em; }
-    .legal-meta { font-family: var(--f-mono); font-size: 12px; color: var(--mute); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: var(--space-4); }
-    h1 { font-family: var(--f-display); font-size: clamp(34px, 5vw, 56px); line-height: 1.1; margin-bottom: var(--space-4); }
-    h2 { font-family: var(--f-display); font-size: 28px; line-height: 1.15; margin: var(--space-8) 0 var(--space-4); }
-    h3 { font-family: var(--f-display); font-size: 20px; line-height: 1.2; margin: var(--space-6) 0 var(--space-3); }
-    p, ul, ol { margin-bottom: var(--space-4); }
-    ul, ol { padding-left: var(--space-6); }
-    li { margin-bottom: var(--space-2); }
-    .toc { background: var(--sand); padding: var(--space-5); border-radius: var(--radius-card); margin-bottom: var(--space-6); }
-    .toc h2 { font-size: 16px; margin: 0 0 var(--space-3); font-family: var(--f-mono); text-transform: uppercase; letter-spacing: 0.1em; color: var(--mute); }
-    .toc ul { padding-left: var(--space-5); margin: 0; }
-    .toc a { color: var(--orange-deep); text-decoration: none; }
-    .toc a:hover { text-decoration: underline; }
-    .lead { font-size: 18px; line-height: 1.6; color: var(--ink-soft); margin-bottom: var(--space-5); }
-    .commission-highlight { background: var(--orange-soft); color: var(--orange-deep); padding: var(--space-4); border-radius: var(--radius-card); font-family: var(--f-display); font-size: 18px; font-weight: 500; margin-bottom: var(--space-4); border-left: 4px solid var(--orange); }
-    .commission-highlight strong { font-weight: 500; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Affiliate &amp; Ambassador Disclosure · Mujo</title>
+<meta name="description" content="How Mujo's ambassador and affiliate program works, what our partners earn, and the honesty we require of them — as required by the FTC.">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--f-body); background: var(--cream); color: var(--ink); -webkit-font-smoothing: antialiased; line-height: 1.55; }
+.eyebrow { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange-deep); display: inline-block; font-weight: 500; }
+h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 500; letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); }
+.container { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
+@media (min-width: 768px) { .container { padding: 0 32px; } }
+body.locked { overflow: hidden; }
+
+:root {
+  --orange: #F2682F; --orange-deep: #D85A22; --orange-soft: #FDEFE6;
+  --cream: #F3F2E9; --sand: #EEE9E0; --sand-deep: #D4C4A8;
+  --sage: #2F3D33; --sage-mid: #3D4D40; --sage-light: #8FA396;
+  --sage-tint: rgba(47, 61, 51, 0.08);
+  --ink: #1A1A1A; --ink-soft: #4A4845; --mute: #5C5854;
+  --line: rgba(26, 26, 26, 0.09); --line-soft: rgba(26, 26, 26, 0.06);
+  --f-display: 'Hanken Grotesk', -apple-system, sans-serif;
+  --f-body: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
+  --f-serif: 'Instrument Serif', 'Times New Roman', serif;
+  --f-mono: 'DM Mono', monospace;
+  --nav-h: 64px;
+}
+
+.announce { background: var(--sage); color: #fff; text-align: center; padding: 9px 16px; font-size: 12px; letter-spacing: 0.01em; position: relative; z-index: 200; line-height: 1.4; }
+.announce strong { color: var(--orange); font-weight: 500; }
+.announce .sep { opacity: 0.4; margin: 0 8px; }
+@media (max-width: 640px) { .announce-secondary { display: none; } }
+@media (min-width: 768px) { .announce { padding: 10px 24px; font-size: 13px; } .announce .sep { margin: 0 10px; } }
+nav.mujo-nav { position: sticky; top: 0; z-index: 150; background: rgba(243, 242, 233, 0.94); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--line-soft); padding: 12px 16px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; height: var(--nav-h); transition: box-shadow 0.3s; }
+nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+@media (min-width: 1024px) { nav.mujo-nav { padding: 14px 32px; grid-template-columns: 1fr auto 1fr; gap: 24px; } }
+.nav-hamburger { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; color: var(--ink); margin-left: -8px; }
+.nav-hamburger svg { width: 22px; height: 22px; }
+@media (min-width: 1024px) { .nav-hamburger { display: none; } }
+.nav-logo { display: inline-flex; align-items: center; text-decoration: none; justify-self: center; }
+.nav-logo img { height: 26px; width: auto; display: block; }
+@media (min-width: 1024px) { .nav-logo { justify-self: start; } .nav-logo img { height: 30px; } }
+.nav-center { display: none; justify-content: center; align-items: center; gap: 32px; }
+.nav-link { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-weight: 500; letter-spacing: 0.01em; transition: color 0.2s; position: relative; padding: 4px 0; }
+.nav-link:hover { color: var(--sage); }
+@media (min-width: 1024px) { .nav-center { display: flex; } }
+.nav-right { display: flex; align-items: center; gap: 4px; justify-self: end; }
+.nav-icon { width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; border: none; background: transparent; color: var(--ink); cursor: pointer; text-decoration: none; position: relative; border-radius: 50%; transition: background 0.2s; }
+.nav-icon:hover { background: var(--sage-tint); }
+.nav-icon svg { width: 20px; height: 20px; }
+
+footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); padding: 56px 0 28px; }
+.foot-grid { display: grid; gap: 32px; grid-template-columns: 1fr; margin-bottom: 32px; }
+@media (min-width: 640px) { .foot-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1024px) { .foot-grid { grid-template-columns: 1.6fr 1fr 1fr 1fr; } }
+.foot-brand img { height: 28px; width: auto; margin-bottom: 14px; }
+.foot-tagline { font-size: 14px; line-height: 1.6; color: rgba(255,255,255,0.6); max-width: 320px; }
+.foot-col-title { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); margin-bottom: 16px; }
+.foot-links { display: flex; flex-direction: column; gap: 10px; }
+.foot-link { font-size: 14px; color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
+.foot-link:hover { color: var(--sage-light); }
+.foot-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; display: flex; flex-direction: column; gap: 16px; }
+@media (min-width: 768px) { .foot-bottom { flex-direction: row; justify-content: space-between; align-items: flex-start; gap: 32px; } }
+.foot-fda { font-size: 11px; line-height: 1.55; color: rgba(255,255,255,0.3); max-width: 680px; font-family: var(--f-mono); letter-spacing: 0.02em; }
+.foot-copy { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.08em; color: rgba(255,255,255,0.3); }
+
+.legal-hero { padding: 48px 0 24px; border-bottom: 1px solid var(--line-soft); }
+@media (min-width: 768px) { .legal-hero { padding: 72px 0 32px; } }
+.legal-hero .eyebrow { margin-bottom: 14px; }
+.legal-hero h1 { font-size: clamp(32px, 6vw, 52px); margin-bottom: 14px; line-height: 1.05; max-width: 720px; }
+.legal-hero h1 em { font-family: inherit; font-style: italic; color: inherit; }
+.legal-hero p { font-size: 15px; color: var(--ink-soft); max-width: 620px; line-height: 1.6; }
+@media (min-width: 768px) { .legal-hero p { font-size: 16px; } }
+.legal-meta { display: flex; gap: 16px; flex-wrap: wrap; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute); margin-top: 16px; }
+.legal-meta strong { color: var(--ink); font-weight: 500; }
+
+.legal-body-wrap { display: grid; gap: 32px; grid-template-columns: 1fr; padding: 40px 0 80px; }
+@media (min-width: 1024px) { .legal-body-wrap { grid-template-columns: 240px 1fr; gap: 56px; padding: 56px 0 96px; } }
+
+.legal-toc { display: none; }
+@media (min-width: 1024px) { .legal-toc { display: block; position: sticky; top: calc(var(--nav-h) + 24px); align-self: start; } }
+.legal-toc-head { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--orange-deep); margin-bottom: 14px; font-weight: 500; }
+.legal-toc-list { display: flex; flex-direction: column; gap: 8px; padding-left: 0; list-style: none; }
+.legal-toc-list a { font-size: 13px; color: var(--ink-soft); text-decoration: none; line-height: 1.5; padding: 4px 0; transition: color 0.2s; }
+.legal-toc-list a:hover { color: var(--orange-deep); }
+
+.legal-prose { font-size: 15px; line-height: 1.7; color: var(--ink); max-width: 720px; }
+@media (min-width: 768px) { .legal-prose { font-size: 16px; } }
+.legal-prose h2 { font-size: clamp(22px, 3vw, 28px); margin: 2em 0 0.6em; letter-spacing: -0.015em; scroll-margin-top: 100px; }
+.legal-prose h2:first-child { margin-top: 0; }
+.legal-prose p { margin-bottom: 1em; color: var(--ink-soft); }
+.legal-prose ul, .legal-prose ol { margin: 0 0 1em 1.4em; padding: 0; }
+.legal-prose li { margin-bottom: 0.4em; line-height: 1.6; color: var(--ink-soft); }
+.legal-prose li::marker { color: var(--orange); font-family: var(--f-mono); }
+.legal-prose strong { color: var(--ink); font-weight: 500; }
+.legal-prose a { color: var(--orange-deep); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
+.legal-prose a:hover { color: var(--orange); }
+.legal-prose .review-note { background: rgba(242,104,47,0.08); border-left: 3px solid var(--orange); padding: 14px 18px; margin: 0 0 28px; font-size: 13px; color: var(--ink); border-radius: 6px; line-height: 1.6; }
+.legal-prose .review-note strong { color: var(--orange-deep); }
+
+.legal-foot-card { background: var(--sand); border-radius: 6px; padding: 24px 28px; margin-top: 40px; font-size: 14px; color: var(--ink-soft); line-height: 1.6; }
+.legal-foot-card strong { color: var(--ink); display: block; margin-bottom: 6px; font-family: var(--f-display); font-weight: 500; font-size: 16px; }
+.legal-foot-card a { color: var(--orange-deep); text-decoration: none; font-weight: 500; }
+</style>
 </head>
 <body>
 
-  <!-- BEGIN COMPONENT: announcement-bar ====================================== -->
-  <style>
-    .mujo-announcement { position: relative; width: 100%; background: var(--sage); color: var(--cream); font-family: var(--f-mono); font-size: 12px; line-height: 1; letter-spacing: 0.12em; text-transform: uppercase; overflow: hidden; }
-    .mujo-announcement__track { position: relative; height: 40px; margin: 0; padding: 0; list-style: none; }
-    .mujo-announcement__line { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 0 16px; text-align: center; opacity: 0; transform: translateY(6px); transition: opacity 0.5s ease, transform 0.5s ease; pointer-events: none; }
-    .mujo-announcement__line.is-active { opacity: 1; transform: translateY(0); pointer-events: auto; }
-    @media (max-width: 480px) { .mujo-announcement__track { height: 36px; } .mujo-announcement { font-size: 11px; letter-spacing: 0.1em; } }
-    @media (prefers-reduced-motion: reduce) { .mujo-announcement__line { transition: none; } }
-  </style>
-  <aside class="mujo-announcement" aria-label="Site announcements" role="region">
-    <ul class="mujo-announcement__track" aria-live="polite" aria-atomic="false">
-      <li class="mujo-announcement__line is-active" data-line="0">Free US shipping on orders $100+</li>
-      <li class="mujo-announcement__line" data-line="1">Clinically dosed</li>
-      <li class="mujo-announcement__line" data-line="2">Rebel Club members get early Lemna access</li>
-    </ul>
-  </aside>
-  <script>(function () { var bar = document.querySelector('.mujo-announcement'); if (!bar) return; var lines = bar.querySelectorAll('.mujo-announcement__line'); if (lines.length < 2) return; if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return; var idx = 0; setInterval(function () { lines[idx].classList.remove('is-active'); idx = (idx + 1) % lines.length; lines[idx].classList.add('is-active'); }, 4000); })();</script>
-  <!-- END COMPONENT: announcement-bar ======================================== -->
+<div class="announce">
+  Free shipping over <strong>$100</strong>
+  <span class="sep announce-secondary">·</span>
+  <span class="announce-secondary">Join the <strong>Ambassador</strong> program</span>
+</div>
 
-  <!-- BEGIN COMPONENT: nav =================================================== -->
-  <style>
-    .mujo-nav { position: sticky; top: 0; z-index: 50; width: 100%; background: var(--cream); border-bottom: var(--line-soft); font-family: var(--f-display); color: var(--ink); }
-    .mujo-nav__inner { max-width: var(--container-wide); margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 72px; }
-    @media (min-width: 1024px) { .mujo-nav__inner { height: 80px; padding: 0 48px; } }
-    .mujo-nav__logo img { height: 28px; width: auto; display: block; }
-    @media (min-width: 1024px) { .mujo-nav__logo img { height: 32px; } }
-    .mujo-nav__links { display: none; gap: 28px; align-items: center; margin: 0; padding: 0; list-style: none; }
-    @media (min-width: 900px) { .mujo-nav__links { display: flex; } }
-    .mujo-nav__links a, .mujo-nav__dropdown-toggle { color: var(--ink); font-family: var(--f-display); font-size: 15px; font-weight: 500; text-decoration: none; background: none; border: 0; padding: 0; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; }
-    .mujo-nav__shop { position: relative; }
-    .mujo-nav__dropdown-toggle::after { content: ""; width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 5px solid currentColor; margin-left: 2px; }
-    .mujo-nav__dropdown { position: absolute; top: calc(100% + 12px); left: -12px; min-width: 220px; background: var(--cream); border: var(--line-soft); border-radius: var(--radius-card); box-shadow: var(--shadow-card); padding: 8px; margin: 0; list-style: none; opacity: 0; transform: translateY(-4px); visibility: hidden; transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s; }
-    .mujo-nav__shop[data-open="true"] .mujo-nav__dropdown { opacity: 1; transform: translateY(0); visibility: visible; }
-    .mujo-nav__dropdown a { display: block; padding: 10px 16px; color: var(--ink); text-decoration: none; border-radius: 6px; }
-    .mujo-nav__dropdown .status { display: block; font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mute); margin-top: 2px; }
-    .mujo-nav__actions { display: flex; align-items: center; gap: 16px; }
-    .mujo-nav__cart { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 0; background: transparent; cursor: pointer; color: var(--ink); position: relative; }
-    .mujo-nav__cart-count { position: absolute; top: 6px; right: 6px; min-width: 18px; height: 18px; padding: 0 4px; background: var(--orange); color: var(--cream); border-radius: var(--r-tag); font-family: var(--f-mono); font-size: 10px; display: inline-flex; align-items: center; justify-content: center; }
-    .mujo-nav__cta { display: none; padding: 10px 20px; background: var(--orange); color: var(--cream); font-size: 14px; font-weight: 500; letter-spacing: var(--track-cta); border-radius: var(--radius-cta); text-decoration: none; }
-    @media (min-width: 640px) { .mujo-nav__cta { display: inline-flex; align-items: center; } }
-    .mujo-nav__hamburger { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 0; background: transparent; cursor: pointer; color: var(--ink); }
-    @media (min-width: 900px) { .mujo-nav__hamburger { display: none; } }
-    .mujo-nav-drawer { position: fixed; inset: 0; background: var(--sage); color: var(--cream); z-index: 100; display: flex; flex-direction: column; padding: 24px; transform: translateX(100%); transition: transform 0.3s ease; overflow-y: auto; }
-    .mujo-nav-drawer[data-open="true"] { transform: translateX(0); }
-    .mujo-nav-drawer__top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 48px; }
-    .mujo-nav-drawer__close { width: 44px; height: 44px; border: 0; background: transparent; color: var(--cream); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
-    .mujo-nav-drawer__links { list-style: none; padding: 0; margin: 0 0 48px; display: flex; flex-direction: column; gap: 20px; }
-    .mujo-nav-drawer__links > li > a { display: block; color: var(--cream); font-family: var(--f-display); font-size: 28px; font-weight: 500; text-decoration: none; padding: 8px 0; border-bottom: 1px solid rgba(243, 242, 233, 0.14); }
-    .mujo-nav-drawer__sub { list-style: none; padding-left: 16px; margin-top: 12px; display: flex; flex-direction: column; gap: 10px; }
-    .mujo-nav-drawer__sub a { font-size: 18px; font-weight: 400; border-bottom: 0; color: rgba(243, 242, 233, 0.85); }
-    .mujo-nav-drawer__cta { display: inline-flex; align-items: center; justify-content: center; padding: 16px 24px; background: var(--orange); color: var(--cream); font-family: var(--f-display); font-size: 16px; font-weight: 500; letter-spacing: var(--track-cta); border-radius: var(--radius-cta); text-decoration: none; margin-bottom: 32px; }
-    .mujo-nav-drawer__socials { display: flex; gap: 16px; margin-top: auto; padding-top: 32px; }
-    .mujo-nav-drawer__socials a { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid rgba(243, 242, 233, 0.24); border-radius: 999px; color: var(--cream); text-decoration: none; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; }
-  </style>
-  <nav class="mujo-nav" aria-label="Primary">
-    <div class="mujo-nav__inner">
-      <a href="/" class="mujo-nav__logo" aria-label="Mujo, home"><img src="../_components/_assets/mujo-logo-orange.png" alt="Mujo" /></a>
-      <ul class="mujo-nav__links">
-        <li class="mujo-nav__shop" data-open="false">
-          <button type="button" class="mujo-nav__dropdown-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="mujo-shop-dropdown">Shop</button>
-          <ul class="mujo-nav__dropdown" id="mujo-shop-dropdown">
-            <li><a href="/products/mujo-ritual">Mujo Ritual</a></li>
-            <li><a href="/products/lemna">Lemna Bar<span class="status">Coming soon</span></a></li>
-            <li><a href="/shop?c=merch">Merch</a></li>
-            <li><a href="/shop">Shop all</a></li>
-          </ul>
-        </li>
-        <li><a href="/science">Science</a></li>
-        <li><a href="/ingredients">Ingredients</a></li>
-        <li><a href="/rebel-club">Rebel Club</a></li>
+<nav class="mujo-nav" id="nav">
+  <button class="nav-hamburger" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg></button>
+  <a href="/" class="nav-logo" aria-label="Mujo home"><img src="Mujo_logo_orange.png" alt="Mujo"></a>
+  <div class="nav-center">
+    <a href="/shop" class="nav-link">Shop</a>
+    <a href="/science" class="nav-link">Science</a>
+    <a href="/ingredients" class="nav-link">Ingredients</a>
+    <a href="/journal" class="nav-link">Journal</a>
+    <a href="/rebel-club" class="nav-link">Rebel Club</a>
+  </div>
+  <div class="nav-right">
+    <a href="/account" class="nav-icon" aria-label="Account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></a>
+  </div>
+</nav>
+
+<section class="legal-hero">
+  <div class="container">
+    <span class="eyebrow">Legal · Disclosure</span>
+    <h1>Affiliate &amp; ambassador disclosure. <em>So you know what’s what.</em></h1>
+    <p>Some of the people who recommend Mujo earn a commission when you buy. Here’s exactly how that works, what they earn, and the honesty we hold them to — written the way the FTC asks us to.</p>
+    <div class="legal-meta">
+      <span>Last updated · <strong>June 8, 2026</strong></span>
+      <span>Effective immediately</span>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="legal-body-wrap">
+    <aside class="legal-toc">
+      <div class="legal-toc-head">In this document</div>
+      <ul class="legal-toc-list">
+<li><a href="#a1">1. The short version</a></li>
+<li><a href="#a2">2. What an affiliate link or code is</a></li>
+<li><a href="#a3">3. What our ambassadors earn</a></li>
+<li><a href="#a4">4. What we require of them</a></li>
+<li><a href="#a5">5. Honesty and independence</a></li>
+<li><a href="#a6">6. Third-party platforms</a></li>
+<li><a href="#a7">7. It costs you nothing extra</a></li>
+<li><a href="#a8">8. Questions and contact</a></li>
       </ul>
-      <div class="mujo-nav__actions">
-        <button type="button" class="mujo-nav__cart" aria-label="Open cart" data-cart-trigger>
-          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16l-1.5 10.5a2 2 0 0 1-2 1.7H7.5a2 2 0 0 1-2-1.7L4 6z"/><path d="M9 6V4a3 3 0 0 1 6 0v2"/></svg>
-          <span class="mujo-nav__cart-count" data-cart-count hidden>0</span>
-        </button>
-        <a href="/shop" class="mujo-nav__cta">Shop Now</a>
-        <button type="button" class="mujo-nav__hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mujo-nav-drawer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="13" x2="20" y2="13"/><line x1="4" y1="19" x2="20" y2="19"/></svg></button>
+    </aside>
+
+    <article class="legal-prose">
+
+<p>This disclosure explains the relationship between Mujo Co. (“Mujo”, “we”, “us”) and the creators, customers, and partners who promote our products through our ambassador and affiliate program. We publish it because the U.S. Federal Trade Commission (FTC) requires that any “material connection” between a brand and the people who endorse it be disclosed clearly, and because we’d want to know too. It should be read alongside our <a href="/legal/terms">Terms of Service</a> and <a href="/legal/privacy">Privacy Notice</a>.</p>
+
+<h2 id="a1">1. The short version</h2>
+<p>When someone shares a Mujo link or discount code and you buy through it, that person may earn a commission from us. That’s a paid relationship, and we want it on the record. It never changes the price you pay, and we never pay anyone to lie about how Mujo works.</p>
+
+<h2 id="a2">2. What an affiliate link or code is</h2>
+<p>An affiliate link or a personalized discount code is a unique link or code we give to an approved ambassador. When you use it, our systems credit that ambassador for the referral so we can pay them a commission. You’ll usually see these shared by creators, athletes, studios, or existing customers on social media, in videos, in newsletters, or in person.</p>
+
+<h2 id="a3">3. What our ambassadors earn</h2>
+<p>Approved Mujo ambassadors earn a <strong>flat 15% commission</strong> on the value of qualifying orders placed through their affiliate link or code. A referral is credited to an ambassador based on the link or code used at checkout, subject to the attribution rules of our affiliate platform. Commissions are paid to ambassadors only — they’re funded entirely by Mujo and have no effect on your price. The full payout terms ambassadors agree to are set out in the separate ambassador agreement.</p>
+
+<h2 id="a4">4. What we require of them</h2>
+<p>We require every Mujo ambassador to disclose their connection to us <strong>clearly and up front</strong>, in line with FTC guidance (16 CFR Part 255). In practice that means:</p>
+<ul>
+<li>using a clear label such as “#ad”, “paid partner”, or “Mujo ambassador” where they promote us — not buried in a wall of hashtags;</li>
+<li>making the disclosure easy to notice on the same screen as the recommendation, before you click or buy;</li>
+<li>and never implying they’re an independent, unpaid reviewer when they earn a commission.</li>
+</ul>
+<p>If you ever see a Mujo recommendation that doesn’t make this relationship clear, please tell us at <a href="mailto:hello@mujoworld.com">hello@mujoworld.com</a> so we can address it.</p>
+
+<h2 id="a5">5. Honesty and independence</h2>
+<p>Earning a commission does not buy a particular opinion. We ask ambassadors to share their genuine, honest experience with Mujo, including what they’d change. We don’t script their reviews, we don’t require five-star praise, and we don’t condition payment on saying nice things. Any health or wellness statements an ambassador makes are their own; the only claims we stand behind are the ones on our own product pages, which carry the FDA disclaimer below.</p>
+
+<h2 id="a6">6. Third-party platforms</h2>
+<p>Where Mujo or its ambassadors link to products through third-party retail platforms (for example, an online marketplace), those links may also be affiliate links that earn a commission, governed by that platform’s own terms in addition to this disclosure.</p>
+
+<h2 id="a7">7. It costs you nothing extra</h2>
+<p>Using an ambassador’s link or code never increases your price. If anything, codes usually save you money. The commission is paid by us, out of our margin, as a thank-you to the people who help others find Mujo.</p>
+
+<h2 id="a8">8. Questions and contact</h2>
+<p>Want to become an ambassador, or have a question about this disclosure? Visit our <a href="/ambassador">ambassador page</a> or contact us at Mujo Co., 433 W. Harrison St #5409, SMB #30446, Chicago IL 60699, or by e-mail at <a href="mailto:hello@mujoworld.com">hello@mujoworld.com</a>.</p>
+
+  <div class="legal-foot-card">
+    <strong>Questions about this?</strong>
+    Email <a href="mailto:hello@mujoworld.com">hello@mujoworld.com</a> or message us through the <a href="/contact">contact page</a>. Real human, working day reply.
+  </div>
+    </article>
+  </div>
+</div>
+
+<footer class="mujo-foot">
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="Mujo_logo_orange.png" alt="Mujo">
+        <p class="foot-tagline">Conscious performance nutrition for people who read the label.</p>
       </div>
-    </div>
-  </nav>
-  <aside class="mujo-nav-drawer" id="mujo-nav-drawer" data-open="false" role="dialog" aria-modal="true" aria-label="Menu">
-    <div class="mujo-nav-drawer__top"><a href="/" aria-label="Mujo, home"><img src="../_components/_assets/mujo-logo-bone.png" alt="Mujo" style="height: 28px;" /></a><button type="button" class="mujo-nav-drawer__close" aria-label="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg></button></div>
-    <ul class="mujo-nav-drawer__links"><li><a href="/shop">Shop</a><ul class="mujo-nav-drawer__sub"><li><a href="/products/mujo-ritual">Mujo Ritual</a></li><li><a href="/products/lemna">Lemna Bar &middot; coming soon</a></li><li><a href="/shop?c=merch">Merch</a></li></ul></li><li><a href="/science">Science</a></li><li><a href="/ingredients">Ingredients</a></li><li><a href="/rebel-club">Rebel Club</a></li><li><a href="/ambassador">Ambassador</a></li></ul>
-    <a href="/rebel-club" class="mujo-nav-drawer__cta">Join the Rebel Club</a>
-    <div class="mujo-nav-drawer__socials"><a href="https://instagram.com/mujoworld">IG</a><a href="https://tiktok.com/@mujoworld">TT</a><a href="https://youtube.com/@mujoworld">YT</a></div>
-  </aside>
-  <script>
-    (function () {
-      var shop = document.querySelector('.mujo-nav__shop');
-      if (shop) { var toggle = shop.querySelector('.mujo-nav__dropdown-toggle'); var setOpen = function (open) { shop.setAttribute('data-open', open ? 'true' : 'false'); toggle.setAttribute('aria-expanded', open ? 'true' : 'false'); }; toggle.addEventListener('click', function () { setOpen(shop.getAttribute('data-open') !== 'true'); }); shop.addEventListener('mouseenter', function () { setOpen(true); }); shop.addEventListener('mouseleave', function () { setOpen(false); }); }
-      var hamburger = document.querySelector('.mujo-nav__hamburger'); var drawer = document.getElementById('mujo-nav-drawer'); var closeBtn = drawer && drawer.querySelector('.mujo-nav-drawer__close');
-      var setDrawer = function (open) { if (!drawer) return; drawer.setAttribute('data-open', open ? 'true' : 'false'); if (hamburger) hamburger.setAttribute('aria-expanded', open ? 'true' : 'false'); document.body.style.overflow = open ? 'hidden' : ''; };
-      if (hamburger) hamburger.addEventListener('click', function () { setDrawer(true); });
-      if (closeBtn) closeBtn.addEventListener('click', function () { setDrawer(false); });
-      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && drawer && drawer.getAttribute('data-open') === 'true') setDrawer(false); });
-      var cartBtn = document.querySelector('[data-cart-trigger]');
-      if (cartBtn) { cartBtn.addEventListener('click', function () { document.dispatchEvent(new CustomEvent('mujo:cart:open')); }); }
-    })();
-  </script>
-  <!-- END COMPONENT: nav ===================================================== -->
-
-  <main class="legal-container">
-    <div class="draft-banner">DRAFT: LAWYER REVIEW REQUIRED BEFORE PUBLISH</div>
-    <div class="legal-meta">Last updated: 2026-04-23 · Version: 0.1, draft</div>
-
-    <h1>Ambassador Program Disclosure</h1>
-    <p class="lead">Per U.S. Federal Trade Commission regulations (16 CFR Part 255), we disclose our material connections with ambassadors and affiliates who promote Mujo products. This page sets out the commercial relationship, the disclosure obligations we place on our ambassadors, and how to report concerns.</p>
-
-    <nav class="toc" aria-label="Table of contents">
-      <h2>Contents</h2>
-      <ul>
-        <li><a href="#program">1. What the Mujo Ambassador Program is</a></li>
-        <li><a href="#compensation">2. Compensation</a></li>
-        <li><a href="#disclosure">3. FTC disclosure requirement for ambassadors</a></li>
-        <li><a href="#restrictions">4. What ambassadors cannot do</a></li>
-        <li><a href="#responsibilities">5. Our responsibilities</a></li>
-        <li><a href="#report">6. How to report concerns</a></li>
-        <li><a href="#changes">7. Changes</a></li>
-        <li><a href="#related">8. Related policies</a></li>
-      </ul>
-    </nav>
-
-    <h2 id="program">1. What the Mujo Ambassador Program is</h2>
-    <p>The Mujo Ambassador Program is a selective partnership program. We invite individuals and organizations, including studios, padel and athletic clubs, creators, practitioners, and community leaders, to promote Mujo products in exchange for compensation. Ambassadors operate as independent third parties, not as Mujo employees or representatives.</p>
-    <p>Program eligibility is by application and review. Details and the application form are at <a href="/ambassador">mujoworld.com/ambassador</a>.</p>
-
-    <h2 id="compensation">2. Compensation</h2>
-    <div class="commission-highlight">
-      <strong>Ambassadors earn a flat 15% commission</strong> on qualifying sales made through their unique discount code or tracked referral link.
-    </div>
-    <p>Commission structure:</p>
-    <ul>
-      <li><strong>Rate:</strong> 15% flat, paid on the subtotal of qualifying orders (excluding taxes and shipping).</li>
-      <li><strong>Recurring on subscriptions:</strong> commission is paid on subscription renewals from referred customers for the lifetime of the subscription. This follows standard premium-DTC practice and reflects the ongoing value ambassadors deliver when their referrals stay on subscription.</li>
-      <li><strong>Payout cadence:</strong> monthly, in arrears, for commissions earned in the previous calendar month.</li>
-      <li><strong>Payout methods:</strong> bank transfer, PayPal, or Stripe, ambassador's choice.</li>
-      <li><strong>Qualifying sales:</strong> sales attributed to the ambassador's unique code or link, where the order completes and is not refunded. Refunded orders and chargebacks are clawed back from the commission balance.</li>
-    </ul>
-    <p>In addition to commission, ambassadors may receive: free product for personal use, early access to new launches and product drops, invitations to ambassador-only events, and ambassador-exclusive Rebel Club benefits.</p>
-
-    <h2 id="disclosure">3. FTC disclosure requirement for ambassadors</h2>
-    <p>Per <strong>FTC §16 CFR 255.5 (Disclosure of Material Connections)</strong>, ambassadors must clearly disclose their material connection to Mujo in every post, reel, story, video, email, blog, podcast mention, or written piece that promotes or mentions Mujo products.</p>
-    <p>Acceptable disclosures include:</p>
-    <ul>
-      <li><code>#MujoAmbassador</code></li>
-      <li><code>#ad</code> or <code>#sponsored</code> (use in addition to, not instead of, ambassador-specific disclosure)</li>
-      <li>"Paid partnership with Mujo"</li>
-      <li>"I'm a Mujo ambassador and receive a commission if you purchase through my link"</li>
-      <li>Equivalent clear and conspicuous language</li>
-    </ul>
-    <p>Disclosures must be:</p>
-    <ul>
-      <li><strong>Clear</strong>: in plain language a reasonable consumer would understand</li>
-      <li><strong>Conspicuous</strong>: visible without the reader having to click "more," scroll past, tap to expand, or hunt through hashtags</li>
-      <li><strong>Close to the claim</strong>: in the same post, caption, video, or written piece as the promotional content, not buried in a linked bio or separate page</li>
-      <li><strong>Platform-appropriate</strong>: in video, included verbally and on-screen; in audio, stated in the episode; in static posts, within the visible caption before the "more" cut</li>
-    </ul>
-
-    <h2 id="restrictions">4. What ambassadors cannot do</h2>
-    <p>Ambassadors agree not to:</p>
-    <ul>
-      <li>Make unauthorized health claims about Mujo products. Mujo products are dietary supplements and functional foods, not medical treatment, and may not be represented as diagnosing, treating, curing, or preventing any disease.</li>
-      <li>Make claims Mujo itself does not make, including clinical, therapeutic, or outcome-specific claims beyond the approved talking points.</li>
-      <li>Misrepresent the product, its ingredients, dosages, or effects.</li>
-      <li>Imply personal endorsement if compensated, without making the required disclosure.</li>
-      <li>Represent themselves as Mujo employees, agents, or spokespeople.</li>
-      <li>Use Mujo's trademarks, brand assets, or imagery outside the guidelines provided in the ambassador toolkit.</li>
-      <li>Engage in coupon-code abuse, fake traffic generation, or any form of commission fraud.</li>
-    </ul>
-    <p>Violations may result in termination from the program, clawback of commissions paid on non-compliant activity, and reporting to the relevant platform or regulator where applicable.</p>
-
-    <h2 id="responsibilities">5. Our responsibilities</h2>
-    <p>Mujo commits to:</p>
-    <ul>
-      <li>Provide ambassadors with accurate product information, a claim-safe talking-points document, approved imagery, and an onboarding FTC-compliance briefing.</li>
-      <li>Train ambassadors on claim discipline (FDA-safe language), disclosure requirements (FTC §16 CFR 255.5), and brand guidelines.</li>
-      <li>Monitor ambassador content for compliance, using both manual review and third-party monitoring tools where appropriate.</li>
-      <li>Communicate promptly when content is non-compliant and give ambassadors a reasonable opportunity to correct the issue.</li>
-      <li>Terminate partnerships that repeatedly violate policy or that violate policy in ways that cannot be corrected.</li>
-      <li>Pay commissions on time and on the terms agreed at the time of the sale.</li>
-    </ul>
-
-    <h2 id="report">6. How to report concerns</h2>
-    <p>If you notice an undisclosed ambassador post, an ambassador making claims outside Mujo's approved guidelines, or any other concern related to the program, please email <a href="mailto:hello@mujoworld.com">hello@mujoworld.com</a> with:</p>
-    <ul>
-      <li>The ambassador name or handle</li>
-      <li>A link or screenshot of the content</li>
-      <li>A short description of the concern</li>
-    </ul>
-    <p>We review every report, usually within 5 business days, and take action as needed.</p>
-
-    <h2 id="changes">7. Changes</h2>
-    <p>Material changes to the ambassador program, including changes to commission rates, disclosure requirements, or eligibility, are notified to active ambassadors at least 30 days in advance by email. This public disclosure page is updated at the same time, and the "Last updated" date at the top reflects the current version.</p>
-
-    <h2 id="related">8. Related policies</h2>
-    <ul>
-      <li><a href="/legal/terms">Terms of Service</a></li>
-      <li><a href="/legal/privacy">Privacy Policy</a></li>
-      <li><a href="/legal/subscription-terms">Subscription Terms</a></li>
-      <li><a href="/ambassador">Ambassador program application</a></li>
-    </ul>
-
-    <p style="margin-top: var(--space-8); font-family: var(--f-mono); font-size: 12px; color: var(--mute); letter-spacing: 0.05em;">*These statements have not been evaluated by the Food and Drug Administration. Mujo products are not intended to diagnose, treat, cure, or prevent any disease.</p>
-
-    <p style="font-family: var(--f-mono); font-size: 12px; color: var(--mute); letter-spacing: 0.05em;">Mujo Co. is a company registered in the United States. For questions about this disclosure, email <a href="mailto:hello@mujoworld.com">hello@mujoworld.com</a>.</p>
-  </main>
-
-  <!-- BEGIN COMPONENT: footer ================================================ -->
-  <style>
-    .mujo-footer { background: var(--sage); color: var(--cream); font-family: var(--f-body); font-size: 15px; line-height: var(--lh-ui); }
-    .mujo-footer a { color: var(--cream); text-decoration: none; }
-    .mujo-footer a:hover { color: var(--orange); }
-    .mujo-footer__inner { max-width: var(--container-wide); margin: 0 auto; padding: 64px 24px 32px; }
-    @media (min-width: 1024px) { .mujo-footer__inner { padding: 96px 48px 48px; } }
-    .mujo-footer__grid { display: grid; grid-template-columns: 1fr; gap: 40px; }
-    @media (min-width: 720px) { .mujo-footer__grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (min-width: 1024px) { .mujo-footer__grid { grid-template-columns: 1.4fr 1fr 1fr 1fr 1.4fr; gap: 48px; } }
-    .mujo-footer__col h3 { font-family: var(--f-mono); font-size: 11px; font-weight: 500; letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--sage-light); margin: 0 0 16px; }
-    .mujo-footer__col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
-    .mujo-footer__brand-pitch { font-family: var(--f-body); font-size: 15px; line-height: 1.55; color: rgba(243, 242, 233, 0.8); margin: 0 0 20px; max-width: 320px; }
-    .mujo-footer__brand-pitch em { font-family: inherit; font-style: italic; color: inherit; }
-    .mujo-footer__logo img { height: 36px; width: auto; display: block; }
-    .mujo-footer__socials { display: flex; gap: 12px; margin-top: 8px; }
-    .mujo-footer__socials a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid rgba(243, 242, 233, 0.24); border-radius: 999px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; }
-    .mujo-footer__form { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
-    .mujo-footer__form input { padding: 14px 16px; background: rgba(243, 242, 233, 0.06); color: var(--cream); border: 1px solid rgba(243, 242, 233, 0.24); border-radius: var(--radius-input); font-family: var(--f-body); font-size: 15px; }
-    .mujo-footer__form button { padding: 14px 20px; background: var(--orange); color: var(--cream); font-family: var(--f-display); font-size: 15px; font-weight: 500; letter-spacing: var(--track-cta); border: 0; border-radius: var(--radius-cta); cursor: pointer; }
-    .mujo-footer__rebel-cta { display: inline-flex; align-items: center; justify-content: center; padding: 12px 20px; background: transparent; color: var(--cream); border: 1px solid var(--cream); border-radius: var(--radius-cta); font-family: var(--f-display); font-size: 14px; font-weight: 500; margin-top: 8px; letter-spacing: var(--track-cta); }
-    .mujo-footer__bottom { margin-top: 56px; padding-top: 24px; border-top: 1px solid rgba(243, 242, 233, 0.16); display: flex; flex-direction: column; gap: 16px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(243, 242, 233, 0.6); }
-    @media (min-width: 720px) { .mujo-footer__bottom { flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: wrap; } }
-    .mujo-footer__fda { font-family: var(--f-body); font-size: 11px; line-height: 1.5; letter-spacing: 0; text-transform: none; color: rgba(243, 242, 233, 0.5); max-width: 720px; margin-top: 16px; }
-    .mujo-footer__legal-links { display: flex; flex-wrap: wrap; gap: 20px; list-style: none; margin: 0; padding: 0; }
-  </style>
-  <footer class="mujo-foot">
-    <div class="mujo-footer__inner">
-      <div class="mujo-footer__grid">
-        <div class="mujo-footer__col">
-          <a href="/" class="mujo-footer__logo" aria-label="Mujo, home"><img src="../_components/_assets/mujo-logo-bone.png" alt="Mujo" /></a>
-          <p class="mujo-footer__brand-pitch">A ritual for people whose nervous system has been <em>running hot</em>. Conscious performance nutrition.</p>
-          <div class="mujo-footer__socials"><a href="https://instagram.com/mujoworld">IG</a><a href="https://tiktok.com/@mujoworld">TT</a><a href="https://youtube.com/@mujoworld">YT</a></div>
-        </div>
-        <div class="mujo-footer__col"><h3>Shop</h3><ul><li><a href="/products/mujo-ritual">Mujo Ritual</a></li><li><a href="/products/lemna">Lemna Bar</a></li><li><a href="/shop?c=merch">Merch</a></li><li><a href="/shop">Shop all</a></li></ul></div>
-        <div class="mujo-footer__col"><h3>Learn</h3><ul><li><a href="/science">Science</a></li><li><a href="/ingredients">Ingredients</a></li><li><a href="/journal">Journal</a></li><li><a href="/rebel-club">Rebel Club</a></li><li><a href="/about">About</a></li></ul></div>
-        <div class="mujo-footer__col"><h3>Support</h3><ul><li><a href="/contact">Contact</a></li><li><a href="/legal/shipping">Shipping</a></li><li><a href="/legal/returns">Returns</a></li><li><a href="/legal/accessibility">Accessibility</a></li><li><a href="/ambassador">Ambassador program</a></li></ul></div>
-        <div class="mujo-footer__col">
-          <h3>Join the Rebel Club</h3>
-          <p class="mujo-footer__brand-pitch" style="margin-bottom: 8px;">Monthly notes on clarity, sleep, nervous-system recalibration. First in line for Lemna.</p>
-          <form class="mujo-footer__form" action="#" method="post" data-klaviyo-list="rebel-club">
-            <label for="footer-email" style="font-family: var(--f-mono); font-size: 11px; letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--sage-light);">Email</label>
-            <input id="footer-email" type="email" name="email" placeholder="you@example.com" required autocomplete="email" />
-            <button type="submit">Subscribe</button>
-          </form>
-          <a href="/rebel-club" class="mujo-footer__rebel-cta">Join the Rebel Club</a>
+      <div>
+        <div class="foot-col-title">Shop</div>
+        <div class="foot-links">
+          <a href="/products/mujo-ritual" class="foot-link">Mujo Ritual</a>
+          <a href="/lemna" class="foot-link">Lemna Bar</a>
+          <a href="/shop" class="foot-link">Subscribe &amp; save</a>
+          <a href="/rebel-club" class="foot-link">Rebel Club</a>
         </div>
       </div>
-      <div class="mujo-footer__bottom">
-        <div>&copy; 2026 Mujo Co.</div>
-        <ul class="mujo-footer__legal-links">
-          <li><a href="/legal/privacy">Privacy</a></li>
-          <li><a href="/legal/terms">Terms</a></li>
-          <li><a href="/legal/cookies">Cookies</a></li>
-          <li><a href="/legal/privacy#do-not-sell">Do Not Sell My Info</a></li>
-        </ul>
+      <div>
+        <div class="foot-col-title">Learn</div>
+        <div class="foot-links">
+          <a href="/ingredients" class="foot-link">Ingredients</a>
+          <a href="/science" class="foot-link">The Science</a>
+          <a href="/about" class="foot-link">Our story</a>
+          <a href="/journal" class="foot-link">Journal</a>
+        </div>
       </div>
-      <p class="mujo-footer__fda">*These statements have not been evaluated by the FDA. This product is not intended to diagnose, treat, cure, or prevent any disease.</p>
+      <div>
+        <div class="foot-col-title">Support</div>
+        <div class="foot-links">
+          <a href="/contact" class="foot-link">Contact</a>
+          <a href="/legal/shipping" class="foot-link">Shipping &amp; returns</a>
+          <a href="/account" class="foot-link">Manage subscription</a>
+          <a href="/ambassador" class="foot-link">Ambassador program</a>
+        </div>
+      </div>
     </div>
-  </footer>
-  <!-- END COMPONENT: footer ================================================== -->
-
-  <!-- BEGIN COMPONENT: cart-drawer =========================================== -->
-  <style>
-    .mujo-cart-backdrop { position: fixed; inset: 0; background: rgba(26, 26, 26, 0.4); z-index: 110; opacity: 0; visibility: hidden; transition: opacity 0.25s ease, visibility 0.25s; }
-    .mujo-cart-backdrop[data-open="true"] { opacity: 1; visibility: visible; }
-    .mujo-cart { position: fixed; top: 0; right: 0; height: 100vh; width: 100%; max-width: 420px; background: var(--cream); color: var(--ink); z-index: 120; display: flex; flex-direction: column; box-shadow: var(--shadow-drawer); transform: translateX(100%); transition: transform 0.3s ease; font-family: var(--f-body); }
-    .mujo-cart[data-open="true"] { transform: translateX(0); }
-    .mujo-cart__header { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; border-bottom: var(--line-soft); }
-    .mujo-cart__title { font-family: var(--f-display); font-size: 18px; font-weight: 500; margin: 0; }
-    .mujo-cart__close { width: 44px; height: 44px; border: 0; background: transparent; cursor: pointer; color: var(--ink); }
-    .mujo-cart__body { flex: 1; overflow-y: auto; padding: 16px 24px; }
-    .mujo-cart__shipping { display: flex; flex-direction: column; gap: 8px; padding: 14px 16px; margin-bottom: 16px; background: var(--sage-tint); border-radius: var(--radius-card); }
-    .mujo-cart__shipping[data-unlocked="true"] { background: var(--orange-soft); }
-    .mujo-cart__shipping-label { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-family: var(--f-display); font-size: 13px; font-weight: 500; line-height: 1.3; color: var(--sage); }
-    .mujo-cart__shipping[data-unlocked="true"] .mujo-cart__shipping-label { color: var(--orange-deep); }
-    .mujo-cart__shipping-label em { font-family: inherit; font-style: italic; font-weight: 400; color: inherit; }
-    .mujo-cart__shipping-amount { font-family: var(--f-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; }
-    .mujo-cart__shipping-bar { position: relative; height: 4px; background: rgba(47, 61, 51, 0.12); border-radius: 999px; overflow: hidden; }
-    .mujo-cart__shipping-fill { position: absolute; top: 0; left: 0; height: 100%; width: 0%; background: var(--orange); border-radius: 999px; transition: width 0.35s ease; }
-    .mujo-cart__shipping[data-unlocked="true"] .mujo-cart__shipping-fill { width: 100% !important; background: var(--orange); }
-    .mujo-cart__empty { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 48px 24px; gap: 16px; }
-    .mujo-cart__empty h4 { font-family: var(--f-display); font-size: 22px; font-weight: 500; margin: 0; }
-    .mujo-cart__empty p { color: var(--mute); margin: 0 0 8px; }
-    .mujo-cart__items { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px; }
-    .mujo-cart__footer { padding: 20px 24px 24px; border-top: var(--line-soft); background: var(--cream); }
-    .mujo-cart__subtotal { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; font-family: var(--f-display); font-weight: 500; }
-    .mujo-cart__subtotal-value { font-family: var(--f-mono); }
-    .mujo-cart__note { font-family: var(--f-mono); font-size: 11px; color: var(--mute); letter-spacing: 0.06em; margin: 0 0 16px; }
-    .mujo-cart__checkout { display: inline-flex; align-items: center; justify-content: center; width: 100%; padding: 16px; background: var(--orange); color: var(--cream); border: 0; border-radius: var(--radius-cta); font-family: var(--f-display); font-size: 16px; font-weight: 500; letter-spacing: var(--track-cta); cursor: pointer; text-decoration: none; }
-    .mujo-cart__checkout[disabled] { opacity: 0.5; cursor: not-allowed; }
-    .mujo-cart__trust { display: flex; justify-content: center; gap: 8px; margin-top: 12px; font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute); }
-  </style>
-  <div class="mujo-cart-backdrop" data-open="false" aria-hidden="true"></div>
-  <aside class="mujo-cart" data-open="false" role="dialog" aria-modal="true" aria-labelledby="mujo-cart-title" aria-hidden="true">
-    <header class="mujo-cart__header"><h2 class="mujo-cart__title" id="mujo-cart-title">Your cart (<span data-cart-count>0</span>)</h2><button type="button" class="mujo-cart__close" aria-label="Close cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg></button></header>
-    <div class="mujo-cart__body">
-      <div class="mujo-cart__shipping" data-cart-shipping data-unlocked="false" hidden>
-        <div class="mujo-cart__shipping-label"><span data-shipping-copy>You're <em>$0.00</em> away from free shipping</span><span class="mujo-cart__shipping-amount" data-shipping-threshold>$100 threshold</span></div>
-        <div class="mujo-cart__shipping-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-shipping-progressbar><div class="mujo-cart__shipping-fill" data-shipping-fill></div></div>
-      </div>
-      <div class="mujo-cart__empty" data-cart-empty>
-        <h4>Your cart is empty</h4>
-        <p>Clarity, sleep, calm. All in a morning ritual.</p>
-        <a href="/shop" class="cta-primary" style="margin-top: 8px;">Shop now</a>
-      </div>
-      <ul class="mujo-cart__items" data-cart-items hidden></ul>
+    <div class="foot-bottom">
+      <div class="foot-fda">*These statements have not been evaluated by the FDA. This product is not intended to diagnose, treat, cure, or prevent any disease. Individual results may vary.</div>
+      <div class="foot-copy">© 2026 Mujo</div>
     </div>
-    <footer class="mujo-cart__footer">
-      <div class="mujo-cart__subtotal"><span>Subtotal</span><span class="mujo-cart__subtotal-value" data-cart-subtotal>$0.00</span></div>
-      <p class="mujo-cart__note">Shipping calculated at checkout</p>
-      <button type="button" class="mujo-cart__checkout" data-cart-checkout disabled>Checkout</button>
-      <div class="mujo-cart__trust"><span>Stripe</span><span>&middot;</span><span>Apple Pay</span><span>&middot;</span><span>Google Pay</span></div>
-    </footer>
-  </aside>
-  <script>
-    (function () {
-      var backdrop = document.querySelector('.mujo-cart-backdrop'); var drawer = document.querySelector('.mujo-cart'); if (!backdrop || !drawer) return;
-      var closeBtn = drawer.querySelector('.mujo-cart__close');
-      var setOpen = function (open) { backdrop.setAttribute('data-open', open ? 'true' : 'false'); drawer.setAttribute('data-open', open ? 'true' : 'false'); drawer.setAttribute('aria-hidden', open ? 'false' : 'true'); document.body.style.overflow = open ? 'hidden' : ''; };
-      document.addEventListener('mujo:cart:open', function () { setOpen(true); });
-      if (closeBtn) closeBtn.addEventListener('click', function () { setOpen(false); });
-      backdrop.addEventListener('click', function () { setOpen(false); });
-      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && drawer.getAttribute('data-open') === 'true') setOpen(false); });
-      var shippingBlock = drawer.querySelector('[data-cart-shipping]');
-      var thresholdCents = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--shipping-threshold-cents'), 10) || 0;
-      var formatDollars = function (cents) { var v = Math.max(0, cents) / 100; return '$' + v.toFixed(2); };
-      var formatThresholdLabel = function (cents) { var v = cents / 100; return '$' + (v % 1 === 0 ? v.toFixed(0) : v.toFixed(2)) + ' threshold'; };
-      var setShippingState = function (subtotalCents, itemCount) { if (!shippingBlock || thresholdCents <= 0) return; if (!itemCount) { shippingBlock.hidden = true; return; } shippingBlock.hidden = false; var remaining = Math.max(0, thresholdCents - subtotalCents); var unlocked = remaining === 0; var pct = Math.min(100, Math.round((subtotalCents / thresholdCents) * 100)); var copy = shippingBlock.querySelector('[data-shipping-copy]'); var thr = shippingBlock.querySelector('[data-shipping-threshold]'); var fill = shippingBlock.querySelector('[data-shipping-fill]'); var bar = shippingBlock.querySelector('[data-shipping-progressbar]'); if (unlocked) { shippingBlock.setAttribute('data-unlocked', 'true'); if (copy) copy.innerHTML = "You've <em>unlocked</em> free shipping"; if (thr) thr.textContent = 'Free shipping on'; } else { shippingBlock.setAttribute('data-unlocked', 'false'); if (copy) copy.innerHTML = "You're <em>" + formatDollars(remaining) + "</em> away from free shipping"; if (thr) thr.textContent = formatThresholdLabel(thresholdCents); } if (fill) fill.style.width = pct + '%'; if (bar) bar.setAttribute('aria-valuenow', String(pct)); };
-      window.mujoCart = window.mujoCart || {};
-      window.mujoCart.setSubtotal = function (subtotalCents, itemCount) { var st = drawer.querySelector('[data-cart-subtotal]'); if (st) st.textContent = formatDollars(subtotalCents); setShippingState(subtotalCents, itemCount || 0); };
-      window.mujoCart.getThreshold = function () { return thresholdCents; };
-      setShippingState(0, 0);
-    })();
-  </script>
-  <!-- END COMPONENT: cart-drawer ============================================= -->
+  </div>
+</footer>
 
 </body>
 </html>
