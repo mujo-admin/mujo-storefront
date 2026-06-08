@@ -25,6 +25,7 @@ const PUBLIC_ROUTES: { path: string; changeFrequency?: "daily" | "weekly" | "mon
   { path: "/about", changeFrequency: "monthly", priority: 0.6 },
   { path: "/contact", changeFrequency: "yearly", priority: 0.4 },
   { path: "/journal", changeFrequency: "weekly", priority: 0.6 },
+  { path: "/journal/page/2", changeFrequency: "weekly", priority: 0.4 },
   // Journal posts (migrated from the Shopify blog + science reads + podcast).
   { path: "/journal/what-your-body-actually-needs", changeFrequency: "monthly", priority: 0.5 },
   { path: "/journal/your-gut-is-talking-to-your-brain-right-now", changeFrequency: "monthly", priority: 0.5 },
