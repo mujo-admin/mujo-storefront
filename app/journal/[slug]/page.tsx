@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { ImportedPage } from "components/imported-page";
 import { articleSchema, jsonLdScript } from "lib/schema";
 
@@ -8,9 +9,11 @@ type PageProps = {
 
 /**
  * /journal/[slug]
- * Published posts in PUBLISHED render their own ported HTML file + real SEO
- * metadata. Any other slug falls back to the post-template chrome (the sample
- * cards on the journal index still resolve until they're authored).
+ * Only slugs present in PUBLISHED render — each serves its ported HTML file +
+ * real SEO metadata. Any other slug returns a 404 (notFound) so search engines
+ * never index empty placeholder pages for posts that don't exist.
+ * To publish a new post: add it to PUBLISHED (key = slug) and drop its HTML in
+ * content/imported-html/.
  */
 type Post = {
   file: string;
@@ -182,20 +185,10 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = PUBLISHED[slug];
-  if (post) {
-    return {
-      title: `${post.title} · Mujo Journal`,
-      description: post.description,
-      alternates: { canonical: `/journal/${slug}` },
-    };
-  }
-  const title = slug
-    .split("-")
-    .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
-    .join(" ");
+  if (!post) notFound();
   return {
-    title: `${title} · Mujo Journal`,
-    description: "Field notes on rituals, recovery, and modern performance.",
+    title: `${post.title} · Mujo Journal`,
+    description: post.description,
     alternates: { canonical: `/journal/${slug}` },
   };
 }
@@ -203,15 +196,7 @@ export async function generateMetadata({
 export default async function JournalPostPage({ params }: PageProps) {
   const { slug } = await params;
   const post = PUBLISHED[slug];
-  const headline =
-    post?.headline ??
-    slug
-      .split("-")
-      .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
-      .join(" ");
-  const description =
-    post?.description ??
-    "Field notes on rituals, recovery, and modern performance.";
+  if (!post) notFound();
   return (
     <>
       <script
@@ -220,13 +205,13 @@ export default async function JournalPostPage({ params }: PageProps) {
           __html: jsonLdScript(
             articleSchema({
               url: `/journal/${slug}`,
-              headline,
-              description,
+              headline: post.headline,
+              description: post.description,
             }),
           ),
         }}
       />
-      <ImportedPage filename={post?.file ?? "mujo_journal_post.html"} />
+      <ImportedPage filename={post.file} />
     </>
   );
 }
