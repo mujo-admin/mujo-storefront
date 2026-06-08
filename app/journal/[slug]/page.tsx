@@ -180,6 +180,16 @@ const PUBLISHED: Record<string, Post> = {
   },
 };
 
+// Only the slugs in PUBLISHED are valid routes. dynamicParams=false makes
+// every other slug return a true HTTP 404 at the routing layer (not a soft 404)
+// — required because PPR is on globally, which would otherwise stream a 200
+// shell before notFound() runs. Published posts get statically pre-rendered.
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return Object.keys(PUBLISHED).map((slug) => ({ slug }));
+}
+
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
