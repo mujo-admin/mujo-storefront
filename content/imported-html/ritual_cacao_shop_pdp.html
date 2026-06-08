@@ -2009,6 +2009,8 @@ footer {
   padding: 36px 32px 32px;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 .benefit:hover {
   transform: translateY(-3px);
@@ -2054,6 +2056,7 @@ footer {
   padding-top: 14px;
   border-top: 1px solid var(--line-soft);
   font-weight: 500;
+  margin-top: auto;
 }
 @media (max-width: 900px) {
   .benefits-grid { grid-template-columns: 1fr 1fr; }
