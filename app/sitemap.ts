@@ -2,9 +2,10 @@ import { baseUrl } from "lib/utils";
 import type { MetadataRoute } from "next";
 
 /**
- * Public sitemap. Lemna trio + /migrate + /api/* + /account/* are excluded —
- * those are blocked in robots.txt as well. Lemna routes flip into the sitemap
- * at the launch-day flip task (see plans/lemna-launch-day-flip.md stub).
+ * Public sitemap. The /lemna landing is included (indexed early 2026-06-08 for
+ * SEO runway ahead of the 2026-09-01 launch). The /lemna/shop + /products/lemna
+ * spokes + /migrate + /api/* + /account/* stay excluded (blocked in robots.txt
+ * too); they flip into the sitemap at the launch-day flip task.
  *
  * /journal/[slug] entries are added once Kinga migrates posts to
  * `content/journal/*.md`. Until then the dynamic route renders a placeholder.
@@ -18,6 +19,7 @@ const PUBLIC_ROUTES: { path: string; changeFrequency?: "daily" | "weekly" | "mon
   { path: "/products/mujo-hat", changeFrequency: "weekly", priority: 0.7 },
   { path: "/products/mujo-crew", changeFrequency: "weekly", priority: 0.7 },
   { path: "/shop", changeFrequency: "weekly", priority: 0.8 },
+  { path: "/lemna", changeFrequency: "weekly", priority: 0.8 },
   { path: "/ingredients", changeFrequency: "monthly", priority: 0.7 },
   { path: "/science", changeFrequency: "monthly", priority: 0.7 },
   { path: "/rebel-club", changeFrequency: "monthly", priority: 0.6 },

@@ -6,7 +6,9 @@ export const metadata: Metadata = {
   title: "The Lemna Bar · Mujo · Founding Member Access",
   description:
     "A new clean-label protein bar from Mujo. Founding member access. Limited to 250.",
-  robots: { index: false, follow: false },
+  // Indexed early (2026-06-08) to build SEO runway + capture waitlist signups
+  // ahead of the 2026-09-01 launch. The /lemna/shop + /products/lemna spokes
+  // stay noindex/parked until the launch-day flip.
   alternates: { canonical: "/lemna" },
 };
 

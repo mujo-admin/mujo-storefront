@@ -14,8 +14,11 @@ import type { MetadataRoute } from "next";
  * It flips to the real rules automatically the moment the request host is
  * mujoworld.com at cutover — no code change needed on launch day.
  *
- * On the production host: Lemna trio + /migrate + /api/* + /account/* stay
- * blocked. The Lemna paths get unblocked on the launch-day flip.
+ * On the production host: the /lemna landing is crawlable (indexed early on
+ * 2026-06-08 for SEO runway + waitlist capture ahead of the 2026-09-01 launch).
+ * The /lemna/shop + /products/lemna spokes + /migrate + /api/* + /account/*
+ * stay blocked. The remaining Lemna spokes get unblocked on the launch-day flip.
+ * NB: `Disallow: /lemna/shop` is path-specific so it does NOT block /lemna.
  */
 const PRODUCTION_HOST = "mujoworld.com";
 
@@ -36,7 +39,6 @@ export default async function robots(): Promise<MetadataRoute.Robots> {
         userAgent: "*",
         allow: "/",
         disallow: [
-          "/lemna",
           "/lemna/shop",
           "/products/lemna",
           "/migrate",
