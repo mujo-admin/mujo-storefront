@@ -127,6 +127,19 @@ const config: NextConfig = {
         destination: "/lemna",
         permanent: false,
       },
+      // Old Shopify blog → headless journal. Migrated posts keep their exact
+      // Shopify slugs (see app/journal/[slug]/page.tsx PUBLISHED map), so this
+      // is a clean 1:1 redirect that preserves inbound-link SEO equity.
+      {
+        source: "/blogs/news/:slug",
+        destination: "/journal/:slug",
+        permanent: true,
+      },
+      {
+        source: "/blogs/news",
+        destination: "/journal",
+        permanent: true,
+      },
       // /account, /account/login*, /account/expired all live as real routes
       // post-Phase-3 (2026-05-07). Phase 5 fills out /account/{orders,
       // subscription, profile, payment-method}. No redirects needed.
