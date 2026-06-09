@@ -8,7 +8,11 @@ import type Stripe from 'stripe';
 import { eq } from 'drizzle-orm';
 import { db, orderMirror, subscriptions } from 'db';
 import { stripe } from 'lib/stripe';
-import { createOrder } from 'lib/shopify-admin';
+import { createOrder, type CreateOrderInput } from 'lib/shopify-admin';
+import {
+  FIRST_ORDER_FROTHER_GIFT_ENABLED,
+  FROTHER_GIFT_VARIANT_GID,
+} from 'lib/stripe-constants';
 import { trackOrderPlaced } from 'lib/klaviyo';
 import { sendCapiEvent } from 'lib/meta-capi';
 import {
@@ -138,23 +142,44 @@ export async function handleInvoicePaid(event: Stripe.Event) {
   }
 
   // Build line items from the invoice
-  const lineItems = invoice.lines.data.map((li) => ({
+  const currencyCode = (invoice.currency ?? 'usd').toUpperCase();
+  const lineItems: CreateOrderInput['lineItems'] = invoice.lines.data.map((li) => ({
     title: li.description ?? 'Subscription item',
     quantity: li.quantity ?? 1,
     priceSet: {
       shopMoney: {
         amount: (li.amount / 100).toFixed(2),
-        currencyCode: (li.currency ?? 'USD').toUpperCase(),
+        currencyCode,
       },
     },
   }));
 
+  // First-order subscriber gift: a free frother ships with the FIRST
+  // subscription order only (subscription_initial). Renewals (subscription_cycle)
+  // and plan changes (subscription_update) never get it. Added as a $0 Shopify
+  // line so it's picked + packed; not a Stripe line (never charged). Variant-
+  // linked when the GID is set so inventory decrements; falls back to a custom
+  // title line otherwise. Idempotent via the stripeChargeId order-mirror guard.
+  let frotherGifted = false;
+  if (type === 'subscription_initial' && FIRST_ORDER_FROTHER_GIFT_ENABLED) {
+    lineItems.push({
+      ...(FROTHER_GIFT_VARIANT_GID
+        ? { variantId: FROTHER_GIFT_VARIANT_GID }
+        : { title: 'Rechargeable Milk Frother — welcome gift' }),
+      quantity: 1,
+      priceSet: { shopMoney: { amount: '0.00', currencyCode } },
+    });
+    frotherGifted = true;
+  }
+
   const shopifyOrder = await createOrder({
     email,
     customerId: shopifyCustomerGid,
-    currency: (invoice.currency ?? 'usd').toUpperCase(),
-    tags: tagsFor(type),
-    note: `Stripe invoice: ${invoice.id} | subscription: ${stripeSubscriptionId} | charge: ${chargeId}`,
+    currency: currencyCode,
+    tags: frotherGifted ? [...tagsFor(type), 'free-frother-gift'] : tagsFor(type),
+    note:
+      `Stripe invoice: ${invoice.id} | subscription: ${stripeSubscriptionId} | charge: ${chargeId}` +
+      (frotherGifted ? ' | includes free welcome frother' : ''),
     financialStatus: 'PAID',
     lineItems,
     metafields: [

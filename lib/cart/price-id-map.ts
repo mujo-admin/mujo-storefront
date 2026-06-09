@@ -1,4 +1,4 @@
-import { RITUAL_PRICE_IDS } from 'lib/stripe-constants';
+import { RITUAL_PRICE_IDS, type RitualCadence } from 'lib/stripe-constants';
 import type { CartLineItem } from './types';
 import { resolveMerchPriceId } from './merch-config';
 
@@ -63,7 +63,16 @@ const RITUAL_LINES: Record<RitualKey, PriceIdResolution> = {
   '25-subscription': {
     productHandle: 'mujo-ritual',
     productTitle: 'The Ritual',
-    variantTitle: '25 servings · Subscribe & save',
+    variantTitle: '25 servings · Subscribe · every 4 weeks',
+    image: RITUAL_IMAGE_25,
+    unitAmountCents: 5525,
+    currency: 'usd',
+    isSubscription: true,
+  },
+  '25-subscription-8wk': {
+    productHandle: 'mujo-ritual',
+    productTitle: 'The Ritual',
+    variantTitle: '25 servings · Subscribe · every 8 weeks',
     image: RITUAL_IMAGE_25,
     unitAmountCents: 5525,
     currency: 'usd',
@@ -100,12 +109,20 @@ export function resolvePriceId(
   return null;
 }
 
-/** Given (size, plan), return both the Stripe Price ID and resolved metadata. */
+/**
+ * Given (size, plan, cadence), return both the Stripe Price ID and resolved
+ * metadata. `cadence` only applies to 25-serving subscriptions; '8wk' selects
+ * the every-8-weeks Price, anything else the primary every-4-weeks Price.
+ */
 export function resolveRitualSelection(
   size: '10' | '25',
   plan: 'onetime' | 'subscription',
+  cadence: RitualCadence = '4wk',
 ): { stripePriceId: string; line: PriceIdResolution } | null {
-  const key = `${size}-${plan}` as RitualKey;
+  const key: RitualKey =
+    plan === 'subscription' && size === '25' && cadence === '8wk'
+      ? '25-subscription-8wk'
+      : (`${size}-${plan}` as RitualKey);
   const stripePriceId = RITUAL_PRICE_IDS[key];
   if (!stripePriceId) return null;
   return { stripePriceId, line: RITUAL_LINES[key] };

@@ -6,6 +6,7 @@ import {
   RITUAL_PRICE_IDS,
   type RitualSize,
   type RitualPlan,
+  type RitualCadence,
 } from "lib/stripe-constants";
 import { useCart } from "components/cart/cart-context";
 import { resolveRitualSelection } from "lib/cart/price-id-map";
@@ -56,19 +57,44 @@ function useMountTarget(mountId: string): HTMLElement | null {
 type Shared = {
   size: RitualSize;
   plan: RitualPlan;
+  qty: 1 | 2;
+  cadence: RitualCadence;
   setSize: (s: RitualSize) => void;
   setPlan: (p: RitualPlan) => void;
+  setQty: (q: 1 | 2) => void;
+  setCadence: (c: RitualCadence) => void;
   onAddToCart: () => void;
   pending: boolean;
   /** Sticky ATC reveal state (mobile, shown after scrolling past the buy box). */
   shown: boolean;
 };
 
-function BuyBox({ size, plan, setSize, setPlan, onAddToCart, pending }: Shared) {
+function BuyBox({
+  size,
+  plan,
+  qty,
+  cadence,
+  setSize,
+  setPlan,
+  setQty,
+  setCadence,
+  onAddToCart,
+  pending,
+}: Shared) {
   const sub = PRICES[size].subscription;
   const once = PRICES[size].onetime!; // every size has a one-time Price
   const resolvedPlan = effectivePlan(size, plan);
   const showSubscribe = size === "25" && sub !== undefined;
+  // Quantity (1 bag / 2 bags = "The Ritual Duo") applies to the 25-serving bag
+  // on both one-time and subscribe. The 10-serving bag stays single.
+  const showQuantity = size === "25";
+  const isSubscribe = resolvedPlan === "subscription";
+  // Only offer the 8-week cadence once its Stripe Price ID is configured
+  // (NEXT_PUBLIC_RITUAL_PRICE_25_SUBSCRIPTION_8W). Pre-cutover / pre-env this is
+  // empty, so the cadence toggle hides and every subscription stays 4-week —
+  // no dead "Add to cart" on an unresolvable 8-week selection. Appears
+  // automatically once the env var lands at cutover.
+  const has8wk = Boolean(RITUAL_PRICE_IDS["25-subscription-8wk"]);
 
   return (
     <>
@@ -103,6 +129,51 @@ function BuyBox({ size, plan, setSize, setPlan, onAddToCart, pending }: Shared) 
         </div>
       </div>
 
+      {showQuantity && (
+        <div className="size-block" style={{ marginTop: 4 }}>
+          <div className="size-label">Quantity</div>
+          <div className="size-options">
+            <div
+              className={`size-opt${qty === 1 ? " active" : ""}`}
+              onClick={() => setQty(1)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) =>
+                (e.key === "Enter" || e.key === " ") && setQty(1)
+              }
+            >
+              <div className="size-opt-top">
+                <div className="size-opt-count">1 bag</div>
+              </div>
+              <div className="size-opt-price">A month of rituals</div>
+            </div>
+            <div
+              className={`size-opt${qty === 2 ? " active" : ""}`}
+              onClick={() => setQty(2)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) =>
+                (e.key === "Enter" || e.key === " ") && setQty(2)
+              }
+            >
+              <div className="size-opt-top">
+                <div className="size-opt-count">2 bags</div>
+                <div className="size-opt-badge">The Ritual Duo</div>
+              </div>
+              <div className="size-opt-price">
+                Two-a-day, or one for home + one for the office
+              </div>
+            </div>
+          </div>
+          <div
+            className="pur-opt-desc"
+            style={{ marginTop: 8, color: "var(--mute)" }}
+          >
+            One bag is about a month. Most people never want to run out.
+          </div>
+        </div>
+      )}
+
       <div className="purchase-block">
         <div className="purchase-label">Choose your plan</div>
         <div className="purchase-options">
@@ -123,7 +194,15 @@ function BuyBox({ size, plan, setSize, setPlan, onAddToCart, pending }: Shared) 
                   <span className="pur-opt-save">Save 15%</span>
                 </div>
                 <div className="pur-opt-desc">
-                  Ships every 4 weeks · min. commitment of 2 delivery cycles
+                  {cadence === "8wk"
+                    ? "Ships every 8 weeks · 2-cycle minimum (16 weeks)"
+                    : "Ships every 4 weeks · 2-cycle minimum (8 weeks)"}
+                </div>
+                <div
+                  className="pur-opt-desc"
+                  style={{ color: "var(--orange-deep)", marginTop: 2 }}
+                >
+                  15% off · free shipping · free frother on your first order
                 </div>
               </div>
               <div className="pur-opt-price">
@@ -154,6 +233,42 @@ function BuyBox({ size, plan, setSize, setPlan, onAddToCart, pending }: Shared) 
         </div>
       </div>
 
+      {showSubscribe && isSubscribe && has8wk && (
+        <div className="size-block" style={{ marginTop: 4 }}>
+          <div className="size-label">Delivery</div>
+          <div className="size-options">
+            <div
+              className={`size-opt${cadence === "4wk" ? " active" : ""}`}
+              onClick={() => setCadence("4wk")}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) =>
+                (e.key === "Enter" || e.key === " ") && setCadence("4wk")
+              }
+            >
+              <div className="size-opt-top">
+                <div className="size-opt-count">Every 4 weeks</div>
+              </div>
+              <div className="size-opt-price">One ritual a day</div>
+            </div>
+            <div
+              className={`size-opt${cadence === "8wk" ? " active" : ""}`}
+              onClick={() => setCadence("8wk")}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) =>
+                (e.key === "Enter" || e.key === " ") && setCadence("8wk")
+              }
+            >
+              <div className="size-opt-top">
+                <div className="size-opt-count">Every 8 weeks</div>
+              </div>
+              <div className="size-opt-price">For the every-other-day ritual</div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="atc-block" id="atc">
         <button
           className="atc-btn"
@@ -171,7 +286,9 @@ function BuyBox({ size, plan, setSize, setPlan, onAddToCart, pending }: Shared) 
               <circle cx="5.5" cy="18.5" r="1.6" />
               <circle cx="17.5" cy="18.5" r="1.6" />
             </svg>
-            Free shipping over $100
+            {isSubscribe
+              ? "Free shipping + free frother (first order)"
+              : "Free shipping over $100"}
           </div>
           <div className="atc-trust-item" style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -218,6 +335,8 @@ function StickyAtc({ size, plan, onAddToCart, pending, shown }: Shared) {
 export function RitualPdpClient() {
   const [size, setSize] = useState<RitualSize>("25");
   const [plan, setPlan] = useState<RitualPlan>("subscription");
+  const [qty, setQty] = useState<1 | 2>(1);
+  const [cadence, setCadence] = useState<RitualCadence>("4wk");
   const [pending, setPending] = useState(false);
   const [shown, setShown] = useState(false);
   const { addItem } = useCart();
@@ -273,19 +392,22 @@ export function RitualPdpClient() {
     if (pending) return;
     // Coerce plan: 10-serving has no subscription Price.
     const planForCart = effectivePlan(size, plan);
-    const resolved = resolveRitualSelection(size, planForCart);
+    const resolved = resolveRitualSelection(size, planForCart, cadence);
     if (!resolved) {
       console.error(
-        `[ritual-pdp] Missing Stripe Price ID for ${size}-${planForCart}. Check NEXT_PUBLIC_RITUAL_PRICE_* env vars.`,
+        `[ritual-pdp] Missing Stripe Price ID for ${size}-${planForCart} (${cadence}). Check NEXT_PUBLIC_RITUAL_PRICE_* env vars.`,
       );
       return;
     }
+    // Quantity applies to the 25-serving bag (1 / 2 = "The Ritual Duo") on both
+    // one-time and subscribe. The 10-serving bag is always single.
+    const quantity = size === "25" ? qty : 1;
     setPending(true);
     try {
       addItem({
         stripePriceId: resolved.stripePriceId,
         ...resolved.line,
-        quantity: 1,
+        quantity,
       });
     } finally {
       // addItem is sync; release the pending flag on next tick so the button
@@ -301,8 +423,12 @@ export function RitualPdpClient() {
   const shared: Shared = {
     size,
     plan,
+    qty,
+    cadence,
     setSize,
     setPlan,
+    setQty,
+    setCadence,
     onAddToCart,
     pending,
     shown,
