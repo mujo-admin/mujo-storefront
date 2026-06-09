@@ -113,6 +113,31 @@ function BuyBox({
   // Only the 25-serving bag has a quantity selector.
   const displayQty = size === "25" ? qty : 1;
 
+  // The subscribe box's combined quantity × cadence options. The 8-week pair
+  // only appears once its Stripe Price ID is configured (pre-env it's empty).
+  const subCombos: { qty: 1 | 2; cadence: RitualCadence }[] = [
+    { qty: 1, cadence: "4wk" },
+    { qty: 2, cadence: "4wk" },
+    ...(has8wk
+      ? ([
+          { qty: 1, cadence: "8wk" },
+          { qty: 2, cadence: "8wk" },
+        ] as { qty: 1 | 2; cadence: RitualCadence }[])
+      : []),
+  ];
+  const pouchLabel = (q: number) => (q === 1 ? "1 pouch" : "2 pouches");
+  const cadenceLabel = (c: RitualCadence) =>
+    c === "8wk" ? "every 8 weeks" : "every 4 weeks";
+  const selectSub = (q: 1 | 2, c: RitualCadence) => {
+    setPlan("subscription");
+    setQty(q);
+    setCadence(c);
+  };
+  const selectOnce = (q: 1 | 2) => {
+    setPlan("onetime");
+    setQty(q);
+  };
+
   return (
     <>
       <div className="size-block">
@@ -146,151 +171,158 @@ function BuyBox({
         </div>
       </div>
 
-      {showQuantity && (
-        <div className="size-block" style={{ marginTop: 4 }}>
-          <div className="size-label">Quantity</div>
-          <div className="size-options">
-            <div
-              className={`size-opt${qty === 1 ? " active" : ""}`}
-              onClick={() => setQty(1)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) =>
-                (e.key === "Enter" || e.key === " ") && setQty(1)
-              }
-            >
-              <div className="size-opt-top">
-                <div className="size-opt-count">1 bag</div>
-              </div>
-              <div className="size-opt-price">A month of rituals</div>
-            </div>
-            <div
-              className={`size-opt${qty === 2 ? " active" : ""}`}
-              onClick={() => setQty(2)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) =>
-                (e.key === "Enter" || e.key === " ") && setQty(2)
-              }
-            >
-              <div className="size-opt-top">
-                <div className="size-opt-count">2 bags</div>
-                <div className="size-opt-badge">The Ritual Duo</div>
-              </div>
-              <div className="size-opt-price">
-                Two-a-day, or one for home + one for the office
-              </div>
-            </div>
-          </div>
-          <div
-            className="pur-opt-desc"
-            style={{ marginTop: 8, color: "var(--mute)" }}
-          >
-            One bag is about a month. Most people never want to run out.
-          </div>
-        </div>
-      )}
-
       <div className="purchase-block">
         <div className="purchase-label">Choose your plan</div>
         <div className="purchase-options">
           {showSubscribe && sub && (
             <div
-              className={`pur-opt${resolvedPlan === "subscription" ? " active" : ""}`}
-              onClick={() => setPlan("subscription")}
+              className={`pur-opt${isSubscribe ? " active" : ""}`}
+              style={{ display: "block" }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: 12,
+                  cursor: "pointer",
+                }}
+                onClick={() => setPlan("subscription")}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) =>
+                  (e.key === "Enter" || e.key === " ") &&
+                  setPlan("subscription")
+                }
+              >
+                <div className="pur-opt-radio" />
+                <div className="pur-opt-info" style={{ flex: 1 }}>
+                  <div className="pur-opt-name">
+                    Subscribe &amp; save{" "}
+                    <span className="pur-opt-save">Save 15%</span>
+                  </div>
+                  <div
+                    className="pur-opt-desc"
+                    style={{ color: "var(--orange-deep)", marginTop: 2 }}
+                  >
+                    Free shipping · free frother on your first order
+                  </div>
+                </div>
+                {!isSubscribe && (
+                  <div className="pur-opt-price">
+                    <div className="pur-opt-price-now">
+                      {scalePrice(sub.now, qty)}
+                    </div>
+                    <div className="pur-opt-price-was">
+                      {sub.was ? scalePrice(sub.was, qty) : ""}
+                    </div>
+                  </div>
+                )}
+              </div>
+              {isSubscribe && (
+                <div style={{ marginTop: 12 }}>
+                  <div className="size-options">
+                    {subCombos.map((c) => {
+                      const active = qty === c.qty && cadence === c.cadence;
+                      return (
+                        <div
+                          key={`${c.qty}-${c.cadence}`}
+                          className={`size-opt${active ? " active" : ""}`}
+                          onClick={() => selectSub(c.qty, c.cadence)}
+                          role="button"
+                          tabIndex={0}
+                          onKeyDown={(e) =>
+                            (e.key === "Enter" || e.key === " ") &&
+                            selectSub(c.qty, c.cadence)
+                          }
+                        >
+                          <div className="size-opt-top">
+                            <div className="size-opt-count">
+                              {pouchLabel(c.qty)}
+                            </div>
+                          </div>
+                          <div className="size-opt-sub">
+                            {cadenceLabel(c.cadence)}
+                          </div>
+                          <div className="size-opt-price">
+                            {scalePrice(sub.now, c.qty)} · {sub.daily}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div
+                    className="pur-opt-desc"
+                    style={{ marginTop: 8, color: "var(--mute)" }}
+                  >
+                    2-cycle minimum
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          <div
+            className={`pur-opt${resolvedPlan === "onetime" ? " active" : ""}`}
+            style={{ display: "block" }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+                gap: 12,
+                cursor: "pointer",
+              }}
+              onClick={() => setPlan("onetime")}
               role="button"
               tabIndex={0}
               onKeyDown={(e) =>
-                (e.key === "Enter" || e.key === " ") && setPlan("subscription")
+                (e.key === "Enter" || e.key === " ") && setPlan("onetime")
               }
             >
               <div className="pur-opt-radio" />
-              <div className="pur-opt-info">
-                <div className="pur-opt-name">
-                  Subscribe{" "}
-                  <span className="pur-opt-save">Save 15%</span>
+              <div className="pur-opt-info" style={{ flex: 1 }}>
+                <div className="pur-opt-name">One-time purchase</div>
+              </div>
+              {!(resolvedPlan === "onetime" && showQuantity) && (
+                <div className="pur-opt-price">
+                  <div className="pur-opt-price-now">
+                    {scalePrice(
+                      once.now,
+                      resolvedPlan === "onetime" ? displayQty : 1,
+                    )}
+                  </div>
+                  <div className="pur-opt-daily">{once.daily}</div>
                 </div>
-                <div className="pur-opt-desc">
-                  {cadence === "8wk"
-                    ? "Ships every 8 weeks · 2-cycle minimum"
-                    : "Ships every 4 weeks · 2-cycle minimum"}
-                </div>
-                <div
-                  className="pur-opt-desc"
-                  style={{ color: "var(--orange-deep)", marginTop: 2 }}
-                >
-                  15% off · free shipping · free frother on your first order
+              )}
+            </div>
+            {resolvedPlan === "onetime" && showQuantity && (
+              <div style={{ marginTop: 12 }}>
+                <div className="size-options">
+                  {([1, 2] as const).map((q) => (
+                    <div
+                      key={q}
+                      className={`size-opt${qty === q ? " active" : ""}`}
+                      onClick={() => selectOnce(q)}
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) =>
+                        (e.key === "Enter" || e.key === " ") && selectOnce(q)
+                      }
+                    >
+                      <div className="size-opt-top">
+                        <div className="size-opt-count">{pouchLabel(q)}</div>
+                      </div>
+                      <div className="size-opt-price">
+                        {scalePrice(once.now, q)} · {once.daily}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
-              <div className="pur-opt-price">
-                <div className="pur-opt-price-now">
-                  {scalePrice(sub.now, displayQty)}
-                </div>
-                <div className="pur-opt-price-was">
-                  {sub.was ? scalePrice(sub.was, displayQty) : ""}
-                </div>
-                <div className="pur-opt-daily">{sub.daily}</div>
-              </div>
-            </div>
-          )}
-          <div
-            className={`pur-opt${resolvedPlan === "onetime" ? " active" : ""}`}
-            onClick={() => setPlan("onetime")}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) =>
-              (e.key === "Enter" || e.key === " ") && setPlan("onetime")
-            }
-          >
-            <div className="pur-opt-radio" />
-            <div className="pur-opt-info">
-              <div className="pur-opt-name">One-time purchase</div>
-            </div>
-            <div className="pur-opt-price">
-              <div className="pur-opt-price-now">
-                {scalePrice(once.now, displayQty)}
-              </div>
-              <div className="pur-opt-daily">{once.daily}</div>
-            </div>
+            )}
           </div>
         </div>
       </div>
-
-      {showSubscribe && isSubscribe && has8wk && (
-        <div className="size-block" style={{ marginTop: 4 }}>
-          <div className="size-label">Delivery</div>
-          <div className="size-options">
-            <div
-              className={`size-opt${cadence === "4wk" ? " active" : ""}`}
-              onClick={() => setCadence("4wk")}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) =>
-                (e.key === "Enter" || e.key === " ") && setCadence("4wk")
-              }
-            >
-              <div className="size-opt-top">
-                <div className="size-opt-count">Every 4 weeks</div>
-              </div>
-              <div className="size-opt-price">One ritual a day</div>
-            </div>
-            <div
-              className={`size-opt${cadence === "8wk" ? " active" : ""}`}
-              onClick={() => setCadence("8wk")}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) =>
-                (e.key === "Enter" || e.key === " ") && setCadence("8wk")
-              }
-            >
-              <div className="size-opt-top">
-                <div className="size-opt-count">Every 8 weeks</div>
-              </div>
-              <div className="size-opt-price">For the every-other-day ritual</div>
-            </div>
-          </div>
-        </div>
-      )}
 
       <div className="atc-block" id="atc">
         <button
