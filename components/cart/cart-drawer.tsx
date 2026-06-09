@@ -467,10 +467,10 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
           color: var(--ink);
           font-family: var(--f-display);
         }
-        /* Isolate from any page-level global .price (the merch PDPs inject
-           `.price { font-size: 32px }` for their product price, and imported-HTML
-           CSS isn't scoped — without these explicit values it leaks in and the
-           cart totals render huge). Inherit size/weight/color from the row. */
+        /* Isolate from any page-level global .price. The merch PDPs inject a
+           global .price rule at font-size 32px for their product price, and
+           imported-HTML CSS is not scoped, so without explicit values here it
+           leaks in and blows up the cart totals. Inherit from the row. */
         .cart-row .price {
           font-family: var(--f-mono);
           font-size: inherit;
