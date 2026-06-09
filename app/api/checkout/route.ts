@@ -77,6 +77,23 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  // Dedup layer 1 (see /api/checkout-session for the full rationale): reuse an
+  // existing Stripe Customer matched by email instead of letting Stripe create
+  // a fresh one per attempt. Keeps repeat submits on one Customer so the
+  // customer.subscription.created webhook guard can recognize duplicates.
+  let reusedCustomerId: string | undefined;
+  if (parsed.customer_email) {
+    try {
+      const existing = await stripe.customers.list({
+        email: parsed.customer_email,
+        limit: 1,
+      });
+      reusedCustomerId = existing.data[0]?.id;
+    } catch (err) {
+      console.error('[checkout] customer lookup failed', err);
+    }
+  }
+
   const params: SessionCreateParams = {
     mode,
     line_items: parsed.line_items.map((li) => ({
@@ -84,7 +101,12 @@ export async function POST(req: NextRequest) {
       quantity: li.quantity,
     })),
     automatic_tax: { enabled: true },
-    customer_email: parsed.customer_email,
+    ...(reusedCustomerId
+      ? {
+          customer: reusedCustomerId,
+          customer_update: { address: 'auto', name: 'auto', shipping: 'auto' },
+        }
+      : { customer_email: parsed.customer_email }),
     shipping_address_collection: {
       allowed_countries: [...SUPPORTED_COUNTRIES],
     },

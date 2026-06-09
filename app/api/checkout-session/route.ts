@@ -145,8 +145,30 @@ export async function POST(req: NextRequest) {
 
   // Stripe rejects passing both `customer` and `customer_email` on the same
   // session — `customer` wins when available because it unlocks saved cards.
-  if (customerId) {
-    params.customer = customerId;
+  //
+  // For guests (no signed-in stripeCustomerId) we still try to REUSE an
+  // existing Stripe Customer matched by email, rather than letting Stripe spin
+  // up a brand-new Customer on every attempt. This is dedup layer 1 (the May
+  // 2026 double-bill root cause: 3 pay attempts → 3 Customers → 3 subs). Layer
+  // 2 — the duplicate-subscription guard in the customer.subscription.created
+  // webhook — needs all attempts on ONE Customer to recognize them as dupes.
+  let resolvedCustomerId = customerId;
+  if (!resolvedCustomerId && customerEmail) {
+    try {
+      const existing = await stripe.customers.list({
+        email: customerEmail,
+        limit: 1,
+      });
+      resolvedCustomerId = existing.data[0]?.id ?? null;
+    } catch (err) {
+      // Non-fatal: fall back to customer_email below. Never block checkout on a
+      // lookup hiccup.
+      console.error('[checkout-session] customer lookup failed', err);
+    }
+  }
+
+  if (resolvedCustomerId) {
+    params.customer = resolvedCustomerId;
     // Required by Stripe whenever an existing customer is passed alongside
     // automatic_tax + shipping_address_collection: the session must declare
     // it can write the collected address back to the Customer record (Stripe
