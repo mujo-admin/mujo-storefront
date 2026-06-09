@@ -8,6 +8,7 @@ import {
   SHIPPING_RATE_FLAT_ID,
   SHIPPING_RATE_FREE_ID,
   SUBSCRIPTION_COUPON_ID,
+  SUBSCRIPTION_COUPON_RITUAL_ID,
   SUPPRESS_EXPRESS_FOR_MERCH,
   SUPPORTED_COUNTRIES,
 } from 'lib/stripe-constants';
@@ -167,8 +168,11 @@ export async function POST(req: NextRequest) {
     // must carry the discount; the old single-Price gate silently dropped it
     // for the 8-week Price. Stripe rejects combining discounts[] with
     // allow_promotion_codes, so honor the explicit coupon over the promo field.
-    if (SUBSCRIPTION_COUPON_ID) {
-      params.discounts = [{ coupon: SUBSCRIPTION_COUPON_ID }];
+    // Prefer the Ritual-scoped twin so mixed carts don't discount merch; fall
+    // back to the unscoped coupon when the scoped env var isn't set.
+    const subCoupon = SUBSCRIPTION_COUPON_RITUAL_ID || SUBSCRIPTION_COUPON_ID;
+    if (subCoupon) {
+      params.discounts = [{ coupon: subCoupon }];
       delete params.allow_promotion_codes;
     }
   }

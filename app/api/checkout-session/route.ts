@@ -17,6 +17,7 @@ import {
   SHIPPING_RATE_FLAT_ID,
   SHIPPING_RATE_FREE_ID,
   SUBSCRIPTION_COUPON_ID,
+  SUBSCRIPTION_COUPON_RITUAL_ID,
   SUPPRESS_EXPRESS_FOR_MERCH,
   SUPPORTED_COUNTRIES,
 } from 'lib/stripe-constants';
@@ -194,11 +195,14 @@ export async function POST(req: NextRequest) {
     // honor the explicit 15% coupon over the promo-code field here. (No promo
     // box on subscriptions by design — the auto-applied 15% beats WELCOME10's
     // 10%-once, and a first-time subscriber gets the better deal automatically.)
-    // MIXED CARTS: the coupon MUST be product-scoped in Stripe (applies_to =
-    // the Ritual sub product) so it only discounts the subscription line, never
-    // a one-time add-on in the same checkout. See plan Step 8.
-    if (SUBSCRIPTION_COUPON_ID) {
-      params.discounts = [{ coupon: SUBSCRIPTION_COUPON_ID }];
+    // MIXED CARTS: prefer the Ritual-scoped twin (applies_to the Ritual product)
+    // so it discounts only the subscription line, never a one-time merch add-on
+    // in the same checkout. Falls back to the unscoped coupon when the scoped
+    // env var isn't set. (Migration path stays on the unscoped coupon — see
+    // scripts/scope-subscription-coupon.ts.)
+    const subCoupon = SUBSCRIPTION_COUPON_RITUAL_ID || SUBSCRIPTION_COUPON_ID;
+    if (subCoupon) {
+      params.discounts = [{ coupon: subCoupon }];
     }
   }
 
