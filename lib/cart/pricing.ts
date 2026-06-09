@@ -20,6 +20,18 @@ export function shippingCents(subtotal: number): number {
   return subtotal >= FREE_SHIPPING_THRESHOLD_CENTS ? 0 : FLAT_SHIPPING_CENTS;
 }
 
+/**
+ * Subscription-aware shipping for the cart drawer + checkout summary card.
+ * Any cart containing a subscription ships free (matches the checkout routes,
+ * which pass no shipping_options in subscription mode). Otherwise the $100
+ * threshold applies. This is the display source of truth; Stripe still owns
+ * the authoritative number at checkout.
+ */
+export function effectiveShippingCents(cart: Cart): number {
+  if (cart.items.some((item) => item.isSubscription)) return 0;
+  return shippingCents(subtotalCents(cart));
+}
+
 export function freeShippingProgress(subtotal: number): {
   remainingCents: number;
   pct: number;

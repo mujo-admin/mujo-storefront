@@ -143,16 +143,51 @@ export async function handleInvoicePaid(event: Stripe.Event) {
 
   // Build line items from the invoice
   const currencyCode = (invoice.currency ?? 'usd').toUpperCase();
-  const lineItems: CreateOrderInput['lineItems'] = invoice.lines.data.map((li) => ({
-    title: li.description ?? 'Subscription item',
-    quantity: li.quantity ?? 1,
-    priceSet: {
-      shopMoney: {
-        amount: (li.amount / 100).toFixed(2),
-        currencyCode,
+
+  // Resolve a Shopify variant GID for each line's Stripe Price so the mirrored
+  // order is variant-linked (inventory + fulfilment). This is what lets a
+  // one-time merch item bought alongside a subscription actually ship via
+  // Printify — without it the line is title-only and never fulfils. dahlia:
+  // the line's price is an ID string at pricing.price_details.price, so we
+  // retrieve it to read metadata.shopify_variant_id (mirror writes it).
+  const priceIdOf = (li: (typeof invoice.lines.data)[number]): string | undefined =>
+    typeof li.pricing?.price_details?.price === 'string'
+      ? li.pricing.price_details.price
+      : undefined;
+  const linePriceIds = Array.from(
+    new Set(invoice.lines.data.map(priceIdOf).filter((id): id is string => !!id)),
+  );
+  const variantGidByPriceId = new Map<string, string>();
+  await Promise.all(
+    linePriceIds.map(async (priceId) => {
+      try {
+        const price = await stripe.prices.retrieve(priceId);
+        const gid = price.metadata?.shopify_variant_id;
+        if (gid) variantGidByPriceId.set(priceId, gid);
+      } catch (err) {
+        console.error('[invoice.paid] price retrieve failed for variant link', {
+          priceId,
+          err,
+        });
+      }
+    }),
+  );
+
+  const lineItems: CreateOrderInput['lineItems'] = invoice.lines.data.map((li) => {
+    const priceId = priceIdOf(li);
+    const variantGid = priceId ? variantGidByPriceId.get(priceId) : undefined;
+    return {
+      ...(variantGid ? { variantId: variantGid } : {}),
+      title: li.description ?? 'Subscription item',
+      quantity: li.quantity ?? 1,
+      priceSet: {
+        shopMoney: {
+          amount: (li.amount / 100).toFixed(2),
+          currencyCode,
+        },
       },
-    },
-  }));
+    };
+  });
 
   // First-order subscriber gift: a free frother ships with the FIRST
   // subscription order only (subscription_initial). Renewals (subscription_cycle)
