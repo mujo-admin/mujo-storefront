@@ -78,6 +78,65 @@ function stripRootBlock(css: string): string {
   return css.replace(/:root\s*\{[\s\S]*?\}/, "");
 }
 
+/**
+ * Scope a page's CSS under the `.mujo-imported` wrapper so its generic selectors
+ * (the `*` reset, `body`/`img`, `.price`, `.nav`, `.announcement`, …) can't leak
+ * out and clobber shared React components (cart drawer, nav, footer). Used for
+ * merch pages, whose product `.price { font-size: 32px }` was bleeding into the
+ * cart-drawer totals. Scopes @media/@supports inner rules, leaves
+ * @keyframes/@font-face untouched, and maps html/body to the wrapper itself.
+ */
+const IMPORTED_SCOPE = ".mujo-imported";
+
+function scopeSelectorList(selectorList: string): string {
+  return selectorList
+    .split(",")
+    .map((raw) => {
+      const sel = raw.trim();
+      if (!sel) return "";
+      if (sel === "html" || sel === "body") return IMPORTED_SCOPE;
+      if (/^(html|body)\b/.test(sel)) {
+        return sel.replace(/^(html|body)\b/, IMPORTED_SCOPE);
+      }
+      return `${IMPORTED_SCOPE} ${sel}`;
+    })
+    .filter(Boolean)
+    .join(", ");
+}
+
+function scopeCss(css: string): string {
+  // Strip comments first so stray braces/commas inside them can't confuse the
+  // brace walker below.
+  const clean = css.replace(/\/\*[\s\S]*?\*\//g, "");
+  let out = "";
+  let i = 0;
+  while (i < clean.length) {
+    const open = clean.indexOf("{", i);
+    if (open === -1) break;
+    const prelude = clean.slice(i, open).trim();
+    // Find the matching close brace for this block.
+    let depth = 1;
+    let j = open + 1;
+    while (j < clean.length && depth > 0) {
+      const c = clean[j];
+      if (c === "{") depth++;
+      else if (c === "}") depth--;
+      j++;
+    }
+    const inner = clean.slice(open + 1, j - 1);
+    if (/^@(media|supports|container)/i.test(prelude)) {
+      out += `${prelude} {${scopeCss(inner)}}`;
+    } else if (/^@/.test(prelude)) {
+      // @keyframes / @font-face / @import / @page — leave untouched.
+      out += `${prelude} {${inner}}`;
+    } else if (prelude) {
+      out += `${scopeSelectorList(prelude)} {${inner}}`;
+    }
+    i = j;
+  }
+  return out;
+}
+
 /** Tag CTAs and Klaviyo form slots with data-mujo-* hooks for client wiring. */
 function tagInteractionHooks(html: string): string {
   return html
@@ -142,9 +201,14 @@ export async function loadImportedHtml(
 ): Promise<ImportedHtml> {
   const raw = await readFile(path.join(CONTENT_DIR, filename), "utf8");
   const { styles, rest } = extractStyles(raw);
+  // Merch pages define generic global selectors (.price 32px, .nav, .announcement,
+  // the * reset, …) that leak into shared React UI. Scope their CSS under the
+  // .mujo-imported wrapper. Other imported pages are left as-is (lower blast
+  // radius); the cart drawer is independently hardened against stray .price.
+  const scopedStyles = filename.startsWith("merch_") ? scopeCss(styles) : styles;
   const body = extractBody(rest);
   const deduped = dedupeChrome(body);
   const spliced = options.splices ? applySplices(deduped, options.splices) : deduped;
   const tagged = tagInteractionHooks(spliced);
-  return { styles, body: tagged };
+  return { styles: scopedStyles, body: tagged };
 }
