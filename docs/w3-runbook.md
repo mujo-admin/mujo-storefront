@@ -152,6 +152,18 @@ Shopify Admin → Online Store → Themes → Old theme → Actions → **Unpubl
 
 **Verify:** Old theme shows as "Unpublished"; new traffic now hits Vercel headless only.
 
+### Step 8b — Submit new sitemap to Google Search Console (Kinga, 3 min)
+
+The `mujoworld.com` **Domain property already exists** in Search Console (verified 2026-06-09 — no need to add it; the earlier "add a domain property" note was already complete). The real cutover-day GSC action is submitting the headless sitemap now that the new site serves the domain:
+
+1. Search Console → select the **`mujoworld.com` Domain property** (not the `https://www.mujoworld.com/` URL-prefix one).
+2. Left nav → **Sitemaps** → enter `sitemap.xml` → **Submit**.
+3. Confirm it reads "Success" (may show "Couldn't fetch" for a few minutes until Google crawls — recheck within the hour).
+
+This points Google at the headless `app/sitemap.ts` output (the new 19-route sitemap) so the migrated routes get re-crawled promptly instead of waiting on organic discovery. The Lemna trio stays `noindex` + robots-disallowed regardless, so it won't be indexed early.
+
+**Verify:** Sitemaps page lists `sitemap.xml` with status Success and a discovered-URL count > 0.
+
 ### Step 9 — Re-enable ONE Meta ad set (Kinga, 3 min)
 
 Pick the lowest-spend ad set. Re-enable it. Let it run for 4 hours.
