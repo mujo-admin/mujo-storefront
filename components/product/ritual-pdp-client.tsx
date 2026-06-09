@@ -89,6 +89,12 @@ function BuyBox({
   // on both one-time and subscribe. The 10-serving bag stays single.
   const showQuantity = size === "25";
   const isSubscribe = resolvedPlan === "subscription";
+  // Only offer the 8-week cadence once its Stripe Price ID is configured
+  // (NEXT_PUBLIC_RITUAL_PRICE_25_SUBSCRIPTION_8W). Pre-cutover / pre-env this is
+  // empty, so the cadence toggle hides and every subscription stays 4-week —
+  // no dead "Add to cart" on an unresolvable 8-week selection. Appears
+  // automatically once the env var lands at cutover.
+  const has8wk = Boolean(RITUAL_PRICE_IDS["25-subscription-8wk"]);
 
   return (
     <>
@@ -227,7 +233,7 @@ function BuyBox({
         </div>
       </div>
 
-      {showSubscribe && isSubscribe && (
+      {showSubscribe && isSubscribe && has8wk && (
         <div className="size-block" style={{ marginTop: 4 }}>
           <div className="size-label">Delivery</div>
           <div className="size-options">
