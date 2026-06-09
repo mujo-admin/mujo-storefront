@@ -467,7 +467,17 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
           color: var(--ink);
           font-family: var(--f-display);
         }
-        .cart-row .price { font-family: var(--f-mono); }
+        /* Isolate from any page-level global .price (the merch PDPs inject
+           `.price { font-size: 32px }` for their product price, and imported-HTML
+           CSS isn't scoped — without these explicit values it leaks in and the
+           cart totals render huge). Inherit size/weight/color from the row. */
+        .cart-row .price {
+          font-family: var(--f-mono);
+          font-size: inherit;
+          font-weight: inherit;
+          letter-spacing: normal;
+          color: inherit;
+        }
         /* Long "Calculated at checkout" string must not inherit the big mono
            value size — keep it small, right-aligned, and allowed to wrap so it
            never overlaps the Total row. */
