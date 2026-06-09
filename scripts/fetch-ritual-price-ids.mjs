@@ -42,23 +42,29 @@ async function listActivePrices(productId) {
   return list.data;
 }
 
-// Map prices to the 4 buckets by unit_amount × recurring.
+// Map prices to buckets by unit_amount × recurring × interval_count.
 //   $27.00 = 2700¢ → ritual-10
 //   $65.00 = 6500¢ → ritual-25
 //   recurring → subscription, else one-time
+//   The 25-serving subscription has TWO cadences at the same amount; they are
+//   disambiguated by interval_count: 4 → 4-week (primary), 8 → 8-week.
 function bucketize(prices) {
   const result = {
     RITUAL_PRICE_10_ONETIME: null,
     RITUAL_PRICE_10_SUBSCRIPTION: null,
     RITUAL_PRICE_25_ONETIME: null,
     RITUAL_PRICE_25_SUBSCRIPTION: null,
+    RITUAL_PRICE_25_SUBSCRIPTION_8W: null,
   };
 
   for (const p of prices) {
     const sub = Boolean(p.recurring);
+    const count = p.recurring?.interval_count ?? null;
     if (p.unit_amount === 2700 && !sub) result.RITUAL_PRICE_10_ONETIME = p.id;
     else if (p.unit_amount === 2700 && sub) result.RITUAL_PRICE_10_SUBSCRIPTION = p.id;
     else if (p.unit_amount === 6500 && !sub) result.RITUAL_PRICE_25_ONETIME = p.id;
+    else if (p.unit_amount === 6500 && sub && count === 8)
+      result.RITUAL_PRICE_25_SUBSCRIPTION_8W = p.id;
     else if (p.unit_amount === 6500 && sub) result.RITUAL_PRICE_25_SUBSCRIPTION = p.id;
   }
 
@@ -79,6 +85,7 @@ function writeEnvLocal(updates) {
     NEXT_PUBLIC_RITUAL_PRICE_10_SUBSCRIPTION: updates.RITUAL_PRICE_10_SUBSCRIPTION,
     NEXT_PUBLIC_RITUAL_PRICE_25_ONETIME: updates.RITUAL_PRICE_25_ONETIME,
     NEXT_PUBLIC_RITUAL_PRICE_25_SUBSCRIPTION: updates.RITUAL_PRICE_25_SUBSCRIPTION,
+    NEXT_PUBLIC_RITUAL_PRICE_25_SUBSCRIPTION_8W: updates.RITUAL_PRICE_25_SUBSCRIPTION_8W,
   };
 
   const replaced = new Set();

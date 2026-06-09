@@ -125,6 +125,10 @@ export async function POST(req: NextRequest) {
     metadata: { mujo_event_id: eventId },
   };
 
+  // INTENTIONAL subscriber free-shipping perk: subscription mode deliberately
+  // gets NO shipping_options, so every subscription order (initial + renewals)
+  // ships free regardless of value. Do not add subscription shipping here.
+  // One-time orders keep the $100 free-ship threshold via buildShippingOptions().
   if (mode === 'payment') {
     params.shipping_options = buildShippingOptions();
     // allow_promotion_codes lets customers type a code at checkout — this is the

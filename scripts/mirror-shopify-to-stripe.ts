@@ -55,12 +55,26 @@ if (!hasStaticAdminToken && !hasAdminOAuth) {
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-// Subscription billing cadence. 4-week (28-day) cycle, NOT calendar-monthly —
-// matches the public Subscription Terms ("renews every 4 weeks"). Stripe Prices
-// are immutable, so changing these archives the old price + creates a new one on
-// the next mirror run (drift handling below). ~13 cycles/yr vs. 12 for monthly.
-const SUB_INTERVAL: Stripe.PriceCreateParams.Recurring.Interval = 'week';
-const SUB_INTERVAL_COUNT = 4;
+// Subscription billing cadences. Mujo offers TWO subscribe cadences on the same
+// 25-serving bag: every 4 weeks (primary, daily drinkers) and every 8 weeks
+// (every-other-day drinkers). Both are 28-day-based, NOT calendar-monthly, to
+// match the public Subscription Terms. Flat 15% off is applied at checkout via
+// the MUJO_SUB_15 coupon, not baked into these Prices. Stripe Prices are
+// immutable, so changing a cadence archives the old price + creates a new one on
+// the next mirror run (drift handling below).
+//
+// The FIRST entry is the "primary" cadence written back to the single-valued
+// `stripe_price_id_subscription` variant metafield (back-compat). Additional
+// cadences are created in Stripe and surfaced to the app via
+// scripts/fetch-ritual-price-ids.mjs (which reads them by interval_count).
+type SubInterval = {
+  interval: Stripe.PriceCreateParams.Recurring.Interval;
+  count: number;
+};
+const SUB_INTERVALS: SubInterval[] = [
+  { interval: 'week', count: 4 },
+  { interval: 'week', count: 8 },
+];
 // Free-shipping order minimum, in cents. $100 per Kinga (2026-05-25).
 // NOTE: changing this only updates NEWLY-created Stripe shipping rates — re-run
 // this mirror (and at the Live-mode cutover) to update the live rate's minimum.
@@ -141,6 +155,8 @@ async function findActivePrice(args: {
   productId: string;
   unitAmount: number;
   recurring: boolean;
+  interval?: Stripe.PriceCreateParams.Recurring.Interval;
+  intervalCount?: number;
   shopifyVariantGid: string;
 }): Promise<Stripe.Price | null> {
   const list = await stripe.prices.list({
@@ -155,8 +171,8 @@ async function findActivePrice(args: {
         p.currency === 'usd' &&
         Boolean(p.recurring) === args.recurring &&
         (!args.recurring ||
-          (p.recurring?.interval === SUB_INTERVAL &&
-            p.recurring?.interval_count === SUB_INTERVAL_COUNT)) &&
+          (p.recurring?.interval === args.interval &&
+            p.recurring?.interval_count === args.intervalCount)) &&
         // Disambiguate by variant — merch products have multiple variants
         // sharing the same unit_amount (e.g. all Crew sizes = $40). Matching
         // on amount alone returns the wrong Price for variants 2+.
@@ -170,6 +186,8 @@ async function upsertStripePrice(args: {
   shopifyVariantGid: string;
   shopifyVariantPrice: string; // e.g., "65.00"
   recurring: boolean;
+  interval?: Stripe.PriceCreateParams.Recurring.Interval;
+  intervalCount?: number;
   existingPriceId: string | null;
 }): Promise<Stripe.Price> {
   const cents = Math.round(parseFloat(args.shopifyVariantPrice) * 100);
@@ -181,8 +199,8 @@ async function upsertStripePrice(args: {
       const recurringMatch =
         Boolean(existing.recurring) === args.recurring &&
         (!args.recurring ||
-          (existing.recurring?.interval === SUB_INTERVAL &&
-            existing.recurring?.interval_count === SUB_INTERVAL_COUNT));
+          (existing.recurring?.interval === args.interval &&
+            existing.recurring?.interval_count === args.intervalCount));
       const variantMatch =
         existing.metadata.shopify_variant_id === args.shopifyVariantGid;
       if (
@@ -223,6 +241,8 @@ async function upsertStripePrice(args: {
       productId: args.product.id,
       unitAmount: cents,
       recurring: args.recurring,
+      interval: args.interval,
+      intervalCount: args.intervalCount,
       shopifyVariantGid: args.shopifyVariantGid,
     });
     if (found) return found;
@@ -235,14 +255,14 @@ async function upsertStripePrice(args: {
     metadata: { shopify_variant_id: args.shopifyVariantGid },
     ...(args.recurring && {
       recurring: {
-        interval: SUB_INTERVAL,
-        interval_count: SUB_INTERVAL_COUNT,
+        interval: args.interval ?? 'week',
+        interval_count: args.intervalCount ?? 4,
       },
     }),
   };
   const created = await stripe.prices.create(params);
   console.log(
-    `  ✓ Created Stripe Price: ${created.id} (${cents}¢ ${args.recurring ? `every ${SUB_INTERVAL_COUNT} ${SUB_INTERVAL}(s)` : 'one-time'})`,
+    `  ✓ Created Stripe Price: ${created.id} (${cents}¢ ${args.recurring ? `every ${args.intervalCount} ${args.interval}(s)` : 'one-time'})`,
   );
   return created;
 }
@@ -309,15 +329,27 @@ async function main() {
       }
 
       if (product.isSubscribable) {
-        const subPrice = await upsertStripePrice({
-          product: stripeProduct,
-          shopifyVariantGid: variant.id,
-          shopifyVariantPrice: variant.price, // mirror at variant price; offers/discounts via Stripe coupons
-          recurring: true,
-          existingPriceId: variant.stripePriceIdSubscription,
-        });
-        if (subPrice.id !== variant.stripePriceIdSubscription) {
-          await setStripePriceIdSubscriptionOnVariant(variant.id, subPrice.id);
+        // Create one subscription Price per cadence (4-week + 8-week). The first
+        // cadence is "primary" and written back to the single-valued
+        // stripe_price_id_subscription metafield (back-compat); the rest live in
+        // Stripe only and are picked up by fetch-ritual-price-ids.mjs by interval.
+        for (let i = 0; i < SUB_INTERVALS.length; i++) {
+          const cadence = SUB_INTERVALS[i]!;
+          const isPrimary = i === 0;
+          const subPrice = await upsertStripePrice({
+            product: stripeProduct,
+            shopifyVariantGid: variant.id,
+            shopifyVariantPrice: variant.price, // mirror at variant price; offers/discounts via Stripe coupons
+            recurring: true,
+            interval: cadence.interval,
+            intervalCount: cadence.count,
+            // Only the primary cadence reads/writes the metafield; secondary
+            // cadences resolve via findActivePrice (existingPriceId null).
+            existingPriceId: isPrimary ? variant.stripePriceIdSubscription : null,
+          });
+          if (isPrimary && subPrice.id !== variant.stripePriceIdSubscription) {
+            await setStripePriceIdSubscriptionOnVariant(variant.id, subPrice.id);
+          }
         }
       }
     }

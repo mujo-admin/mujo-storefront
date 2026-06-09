@@ -3,7 +3,6 @@ import Stripe from 'stripe';
 import { z } from 'zod';
 import { stripe } from 'lib/stripe';
 import {
-  RITUAL_PRICE_IDS,
   SHIPPING_RATE_FLAT_ID,
   SHIPPING_RATE_FREE_ID,
   SUBSCRIPTION_COUPON_ID,
@@ -120,24 +119,23 @@ export async function POST(req: NextRequest) {
     allow_promotion_codes: true,
   };
 
-  // Stripe rejects shipping_options outside of payment mode. For subscriptions
-  // we still collect shipping address (above) but recurring shipping cost is
-  // handled at the subscription / invoice level, not the checkout session.
+  // INTENTIONAL subscriber free-shipping perk: Stripe rejects shipping_options
+  // outside of payment mode, and we deliberately add NO recurring shipping rate
+  // to subscriptions — so every subscription order (initial + renewals) ships
+  // free regardless of value. Do NOT add subscription shipping here. One-time
+  // orders keep the $100 free-ship threshold via buildShippingOptions().
   if (mode === 'payment') {
     params.shipping_options = buildShippingOptions();
   } else if (mode === 'subscription') {
     params.subscription_data = { metadata: parsed.metadata };
-    // Apply the 15%-off subscription coupon, but only if every line item is
-    // the 25-serving subscription Price. Smaller bags cost more per unit so
-    // they never carry the discount; today the 25-sub is the only sub Price
-    // anyway, but this gate keeps the rule explicit if more subs ship later.
-    // Stripe rejects combining discounts[] with allow_promotion_codes, so
-    // honor explicit coupon over the promo-code field on subscription mode.
-    const ritual25SubId = RITUAL_PRICE_IDS['25-subscription'];
-    const allDiscountable =
-      ritual25SubId.length > 0 &&
-      parsed.line_items.every((li) => li.stripe_price_id === ritual25SubId);
-    if (SUBSCRIPTION_COUPON_ID && allDiscountable) {
+    // Apply the flat 15%-off MUJO_SUB_15 coupon to ALL subscription checkouts
+    // (matches /api/checkout-session). The 10-serving bag has no subscription
+    // Price, so an all-subscription cart is always a discountable Ritual sub —
+    // and Subscription v2 ships two cadences (4-week + 8-week), both of which
+    // must carry the discount; the old single-Price gate silently dropped it
+    // for the 8-week Price. Stripe rejects combining discounts[] with
+    // allow_promotion_codes, so honor the explicit coupon over the promo field.
+    if (SUBSCRIPTION_COUPON_ID) {
       params.discounts = [{ coupon: SUBSCRIPTION_COUPON_ID }];
       delete params.allow_promotion_codes;
     }

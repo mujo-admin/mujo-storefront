@@ -51,6 +51,12 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
   const total = subtotal;
   const { remainingCents, pct, unlocked } = freeShippingProgress(subtotal);
   const empty = totalQuantity === 0;
+  // Subscriber free-shipping perk: an all-subscription cart always ships free
+  // (no shipping_options on subscription checkouts), so skip the "$X away from
+  // free shipping" nudge — they're already there. One-time carts keep the
+  // $100 threshold + progress bar.
+  const isSubscriptionCart = !empty && cart.items.every((i) => i.isSubscription);
+  const shipsFree = unlocked || isSubscriptionCart;
 
   // The on-site /checkout page (Phase 2) handles both one-time and
   // subscription modes via Stripe Elements. The legacy /api/checkout Hosted
@@ -91,7 +97,11 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
 
       <div className="cart-progress">
         <div className="cart-progress-msg">
-          {unlocked ? (
+          {isSubscriptionCart ? (
+            <>
+              <strong>Subscribers always ship free.</strong>
+            </>
+          ) : unlocked ? (
             <>
               <strong>Free shipping</strong> unlocked. Nice work.
             </>
@@ -110,12 +120,14 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
             </>
           )}
         </div>
-        <div className="cart-progress-track">
-          <div
-            className={`cart-progress-fill ${unlocked ? "full" : ""}`}
-            style={{ width: `${pct}%` }}
-          />
-        </div>
+        {!isSubscriptionCart && (
+          <div className="cart-progress-track">
+            <div
+              className={`cart-progress-fill ${unlocked ? "full" : ""}`}
+              style={{ width: `${pct}%` }}
+            />
+          </div>
+        )}
       </div>
 
       <div className="cart-body">
@@ -198,7 +210,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
           <span className="price">
             {empty
               ? "-"
-              : unlocked
+              : shipsFree
                 ? "Free"
                 : "Calculated at checkout"}
           </span>
