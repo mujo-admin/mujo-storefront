@@ -31,7 +31,6 @@ const SUB_BENEFITS = [
   "Free shipping",
   "Free frother on first order ($20 value)",
   "Save 15% on every order",
-  "Manage delivery frequency in your account",
   "Minimum 2-cycle commitment",
   "Cancel or pause anytime after 2 cycles",
 ];
@@ -78,15 +77,15 @@ function BenefitItem({ children }: { children: ReactNode }) {
       style={{
         display: "flex",
         alignItems: "flex-start",
-        gap: 8,
-        fontSize: 13,
-        lineHeight: 1.45,
+        gap: 7,
+        fontSize: 12,
+        lineHeight: 1.4,
         color: "var(--ink-soft)",
       }}
     >
       <svg
-        width="14"
-        height="14"
+        width="13"
+        height="13"
         viewBox="0 0 24 24"
         fill="none"
         stroke="var(--orange)"
@@ -187,10 +186,10 @@ function BuyBox({ size, plan, setSize, setPlan, onAddToCart, pending }: Shared) 
                 <ul
                   style={{
                     listStyle: "none",
-                    margin: "12px 0 0",
+                    margin: "6px 0 0",
                     padding: 0,
                     display: "grid",
-                    gap: 7,
+                    gap: 6,
                   }}
                 >
                   {SUB_BENEFITS.map((b) => (
@@ -232,30 +231,28 @@ function BuyBox({ size, plan, setSize, setPlan, onAddToCart, pending }: Shared) 
           {pending ? "Loading…" : "Add to cart"}
         </button>
         <div className="atc-trust">
-          {!isSubscribe && (
-            <div
-              className="atc-trust-item"
-              style={{ display: "inline-flex", alignItems: "center", gap: 6 }}
+          <div
+            className="atc-trust-item"
+            style={{ display: "inline-flex", alignItems: "center", gap: 6 }}
+          >
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
             >
-              <svg
-                width="15"
-                height="15"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M1 5h13v11H1z" />
-                <path d="M14 9h4l3 3v4h-7z" />
-                <circle cx="5.5" cy="18.5" r="1.6" />
-                <circle cx="17.5" cy="18.5" r="1.6" />
-              </svg>
-              Free shipping over $100
-            </div>
-          )}
+              <path d="M1 5h13v11H1z" />
+              <path d="M14 9h4l3 3v4h-7z" />
+              <circle cx="5.5" cy="18.5" r="1.6" />
+              <circle cx="17.5" cy="18.5" r="1.6" />
+            </svg>
+            Free shipping over $100
+          </div>
           <div
             className="atc-trust-item"
             style={{ display: "inline-flex", alignItems: "center", gap: 6 }}

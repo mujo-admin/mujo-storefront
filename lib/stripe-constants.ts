@@ -6,8 +6,21 @@
 
 export const SHIPPING_RATE_FREE_ID = process.env.STRIPE_SHIPPING_FREE_ID ?? '';
 export const SHIPPING_RATE_FLAT_ID = process.env.STRIPE_SHIPPING_FLAT_ID ?? '';
+// Express ($15) — optional paid speed upgrade. Empty until the rate is minted
+// + the env var is set; buildShippingOptions() only offers Express when present,
+// so checkout degrades gracefully (Free/Standard still work) before then.
+export const SHIPPING_RATE_EXPRESS_ID = process.env.STRIPE_SHIPPING_EXPRESS_ID ?? '';
 
+// Free shipping is earned at this merchandise subtotal (pre-discount) on
+// one-time carts, OR whenever the cart contains a subscription. $100.
 export const FREE_SHIPPING_THRESHOLD_CENTS = 10000;
+// Doc constant mirroring the Express Stripe shipping-rate fixed amount.
+// (FLAT_SHIPPING_CENTS lives in lib/cart/pricing.ts.)
+export const EXPRESS_SHIPPING_CENTS = 1500;
+// Express is suppressed on carts containing a print-on-demand merch item —
+// POD express is slow and often costs Mujo more than $15. Flip to false to
+// offer Express on merch carts and accept the margin/SLA risk.
+export const SUPPRESS_EXPRESS_FOR_MERCH = true;
 
 // Ritual Stripe Price IDs — populated by scripts/fetch-ritual-price-ids.mjs.
 // Mirrored to NEXT_PUBLIC_* for client-side consumption by the PDP buy box.

@@ -12,11 +12,15 @@ import Stripe from 'stripe';
 import { z } from 'zod';
 import { stripe } from 'lib/stripe';
 import {
+  FREE_SHIPPING_THRESHOLD_CENTS,
+  SHIPPING_RATE_EXPRESS_ID,
   SHIPPING_RATE_FLAT_ID,
   SHIPPING_RATE_FREE_ID,
   SUBSCRIPTION_COUPON_ID,
+  SUPPRESS_EXPRESS_FOR_MERCH,
   SUPPORTED_COUNTRIES,
 } from 'lib/stripe-constants';
+import { resolveMerchPriceId } from 'lib/cart/merch-config';
 import { trackStartedCheckout } from 'lib/klaviyo';
 import { sendCapiEvent } from 'lib/meta-capi';
 import { getSession } from 'lib/session';
@@ -51,11 +55,42 @@ function determineMode(input: CheckoutSessionInput): 'payment' | 'subscription' 
   return 'mixed';
 }
 
-function buildShippingOptions(): NonNullable<SessionCreateParams['shipping_options']> {
+// Resolves the shipping options Stripe shows the customer. Free shipping is
+// EARNED, never a pickable radio sitting next to a paid Standard: at/above the
+// threshold the ONLY base rate is Free; below it, the ONLY base rate is the $5
+// Standard. Express is an optional paid upgrade layered on top — suppressed on
+// merch (POD express is slow/costly) and only when the rate has been minted.
+// Payment mode only; subscription/mixed carts pass no shipping_options (Stripe
+// rejects them in subscription mode → free shipping by construction).
+function buildShippingOptions(
+  subtotalCents: number,
+  hasMerch: boolean,
+): NonNullable<SessionCreateParams['shipping_options']> {
   const options: NonNullable<SessionCreateParams['shipping_options']> = [];
-  if (SHIPPING_RATE_FREE_ID) options.push({ shipping_rate: SHIPPING_RATE_FREE_ID });
-  if (SHIPPING_RATE_FLAT_ID) options.push({ shipping_rate: SHIPPING_RATE_FLAT_ID });
+  const baseRate =
+    subtotalCents >= FREE_SHIPPING_THRESHOLD_CENTS
+      ? SHIPPING_RATE_FREE_ID
+      : SHIPPING_RATE_FLAT_ID;
+  if (baseRate) options.push({ shipping_rate: baseRate });
+  if (SHIPPING_RATE_EXPRESS_ID && !(SUPPRESS_EXPRESS_FOR_MERCH && hasMerch)) {
+    options.push({ shipping_rate: SHIPPING_RATE_EXPRESS_ID });
+  }
   return options;
+}
+
+// Authoritative merchandise subtotal — fetched from Stripe Prices, never
+// trusted from the client (a spoofed cart can't unlock free shipping). Used
+// only in payment mode, where every line item is a one-time Price.
+async function computeSubtotalCents(
+  items: { stripePriceId: string; quantity: number }[],
+): Promise<number> {
+  const prices = await Promise.all(
+    items.map((i) => stripe.prices.retrieve(i.stripePriceId)),
+  );
+  return prices.reduce(
+    (sum, price, idx) => sum + (price.unit_amount ?? 0) * (items[idx]?.quantity ?? 0),
+    0,
+  );
 }
 
 export async function POST(req: NextRequest) {
@@ -130,7 +165,22 @@ export async function POST(req: NextRequest) {
   // ships free regardless of value. Do not add subscription shipping here.
   // One-time orders keep the $100 free-ship threshold via buildShippingOptions().
   if (mode === 'payment') {
-    params.shipping_options = buildShippingOptions();
+    // Compute the authoritative subtotal to gate free shipping ($100+, pre-
+    // discount). On any failure, default to 0 → the paid Standard rate, so an
+    // unverifiable cart never gives away free shipping.
+    let subtotalCents = 0;
+    try {
+      subtotalCents = await computeSubtotalCents(parsed.items);
+    } catch (err) {
+      console.error(
+        '[checkout-session] subtotal computation failed; defaulting to paid shipping',
+        err,
+      );
+    }
+    const hasMerch = parsed.items.some(
+      (i) => resolveMerchPriceId(i.stripePriceId) !== null,
+    );
+    params.shipping_options = buildShippingOptions(subtotalCents, hasMerch);
     // allow_promotion_codes lets customers type a code at checkout — this is the
     // path the first-buyer WELCOME10 code (coupon MUJO_FIRST_10, 10% off once,
     // first_time_transaction only) rides on, plus any partner / press codes.

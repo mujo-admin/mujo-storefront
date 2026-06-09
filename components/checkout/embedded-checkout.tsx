@@ -172,7 +172,6 @@ function CheckoutShell({ children }: { children: React.ReactNode }) {
       <ul className="checkout-trust">
         <li>Secure checkout · Stripe</li>
         <li>30-day money-back guarantee</li>
-        <li>From our US warehouse</li>
       </ul>
 
       <style>{`

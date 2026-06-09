@@ -13,6 +13,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { RITUAL_PRICE_IDS } from "lib/stripe-constants";
 import { GiftModal, type GiftableProduct } from "./gift-modal";
 
 export type SubscriptionDetail = {
@@ -45,6 +46,7 @@ type Action =
   | "resume"
   | "send-now"
   | "swap"
+  | "change-frequency"
   | "gift";
 
 const CANCEL_REASONS: Array<{ id: string; label: string }> = [
@@ -82,10 +84,24 @@ export function SubscriptionControls({
   const [cancelComment, setCancelComment] = useState<string>("");
   const [pauseCycles, setPauseCycles] = useState<1 | 2 | 3>(1);
   const [swapTarget, setSwapTarget] = useState<string>("");
+  const [freqTarget, setFreqTarget] = useState<"4wk" | "8wk">("4wk");
 
   const isPaused = detail.status === "paused" || detail.pausedAt !== null;
   const isCanceling = detail.cancelAtPeriodEnd;
   const isResumable = isPaused || isCanceling;
+
+  // Delivery-frequency switch (4 ↔ 8 weeks). Only offered for the Ritual 25-sub
+  // once the 8-week Price ID is configured (NEXT_PUBLIC_*_8W). For any other SKU
+  // or pre-env, the control hides.
+  const has8wk = Boolean(RITUAL_PRICE_IDS["25-subscription-8wk"]);
+  const currentCadence: "4wk" | "8wk" =
+    detail.stripePriceId === RITUAL_PRICE_IDS["25-subscription-8wk"]
+      ? "8wk"
+      : "4wk";
+  const isRitualSub =
+    detail.stripePriceId === RITUAL_PRICE_IDS["25-subscription"] ||
+    detail.stripePriceId === RITUAL_PRICE_IDS["25-subscription-8wk"];
+  const showFrequency = has8wk && isRitualSub;
 
   function closeModal() {
     setOpenModal(null);
@@ -94,6 +110,7 @@ export function SubscriptionControls({
     setCancelComment("");
     setPauseCycles(1);
     setSwapTarget("");
+    setFreqTarget(currentCadence);
     setError(null);
   }
 
@@ -201,6 +218,33 @@ export function SubscriptionControls({
                 <span className="sub-action-text">
                   <strong>Swap to a different SKU</strong>
                   <span>Try a different size or plan.</span>
+                </span>
+              </button>
+            ) : null}
+
+            {showFrequency ? (
+              <button
+                type="button"
+                className="sub-action-btn"
+                onClick={() => {
+                  setFreqTarget(currentCadence);
+                  setOpenModal("change-frequency");
+                }}
+                disabled={pending !== null}
+              >
+                <span className="sub-action-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="9" />
+                    <polyline points="12 7 12 12 15 14" />
+                  </svg>
+                </span>
+                <span className="sub-action-text">
+                  <strong>Change delivery frequency</strong>
+                  <span>
+                    {currentCadence === "8wk"
+                      ? "Every 8 weeks now."
+                      : "Every 4 weeks now."}
+                  </span>
                 </span>
               </button>
             ) : null}
@@ -493,6 +537,46 @@ export function SubscriptionControls({
           onClose={closeModal}
           onSuccess={() => router.refresh()}
         />
+      ) : null}
+
+      {openModal === "change-frequency" ? (
+        <Modal onClose={closeModal} title="Delivery" titleAccent="frequency.">
+          <p className="modal-body-text">
+            How often would you like your Ritual to arrive? Same member price
+            either way &mdash; only the cadence changes. Your next renewal date
+            stays the same.
+          </p>
+          <div className="modal-options">
+            {(["4wk", "8wk"] as const).map((c) => (
+              <button
+                key={c}
+                type="button"
+                className={`modal-option ${freqTarget === c ? "selected" : ""}`}
+                onClick={() => setFreqTarget(c)}
+              >
+                <strong>
+                  {c === "4wk" ? "Every 4 weeks" : "Every 8 weeks"}
+                </strong>
+                <span className="modal-option-meta">
+                  {c === "4wk"
+                    ? "~13 deliveries a year"
+                    : "~6–7 deliveries a year"}
+                  {c === currentCadence ? " · current" : ""}
+                </span>
+              </button>
+            ))}
+          </div>
+          {error ? <p className="modal-error">{error}</p> : null}
+          <ModalFoot
+            onCancel={closeModal}
+            onConfirm={() =>
+              performAction("change-frequency", { cadence: freqTarget })
+            }
+            confirmLabel="Update frequency"
+            disabled={freqTarget === currentCadence}
+            pending={pending === "change-frequency"}
+          />
+        </Modal>
       ) : null}
 
       {openModal === "swap" ? (
