@@ -34,6 +34,7 @@ const ACTIONS = [
   "resume",
   "send-now",
   "swap",
+  "change-frequency",
 ] as const;
 type Action = (typeof ACTIONS)[number];
 
@@ -56,6 +57,11 @@ const cancelSchema = z.object({
 const swapSchema = z.object({
   /** Target Stripe Price ID. Must be in RITUAL_PRICE_IDS. */
   priceId: z.string().startsWith("price_"),
+});
+
+const frequencySchema = z.object({
+  /** Target delivery cadence. Maps to the 4-week or 8-week Ritual sub Price. */
+  cadence: z.enum(["4wk", "8wk"]),
 });
 
 const STRIPE_FEEDBACK_MAP: Record<
@@ -195,6 +201,46 @@ export async function POST(
           billing_cycle_anchor: "now",
           trial_end: "now",
           proration_behavior: "create_prorations",
+        },
+      );
+    } else if (action === "change-frequency") {
+      // Switch the Ritual subscription between the 4-week and 8-week cadence.
+      // Both cadences are the same product at the same $65 base + standing 15%
+      // coupon, so the per-delivery price is unchanged — only the interval
+      // differs. proration_behavior 'none' + billing_cycle_anchor 'unchanged'
+      // keeps the current renewal date and moves no money; the new cadence
+      // applies from the next cycle onward.
+      const parsed = frequencySchema.parse(body);
+      const targetPriceId =
+        parsed.cadence === "8wk"
+          ? RITUAL_PRICE_IDS["25-subscription-8wk"]
+          : RITUAL_PRICE_IDS["25-subscription"];
+      if (!targetPriceId) {
+        return Response.json(
+          {
+            error: "frequency_unavailable",
+            message: "That delivery frequency isn't available right now.",
+          },
+          { status: 400 },
+        );
+      }
+      const current = await stripe.subscriptions.retrieve(
+        subRow.stripeSubscriptionId,
+      );
+      const itemId = current.items.data[0]?.id;
+      if (!itemId) {
+        return Response.json({ error: "no_subscription_item" }, { status: 502 });
+      }
+      // No-op guard: already on the target cadence.
+      if (current.items.data[0]?.price.id === targetPriceId) {
+        return Response.json({ ok: true, unchanged: true });
+      }
+      updatedSub = await stripe.subscriptions.update(
+        subRow.stripeSubscriptionId,
+        {
+          items: [{ id: itemId, price: targetPriceId }],
+          proration_behavior: "none",
+          billing_cycle_anchor: "unchanged",
         },
       );
     } else {
