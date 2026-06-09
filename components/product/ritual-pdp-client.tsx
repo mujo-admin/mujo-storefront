@@ -34,10 +34,24 @@ function effectivePlan(size: RitualSize, plan: RitualPlan): RitualPlan {
   return size === "10" ? "onetime" : plan;
 }
 
-function formatStickyLine(size: RitualSize, plan: RitualPlan): string {
+// Scale a displayed "$NN.NN" total by quantity. Per-serving (daily) prices are
+// NOT scaled — they stay per serving. Returns "$NN.NN".
+function scalePrice(price: string, qty: number): string {
+  const n = parseFloat(price.replace(/[^0-9.]/g, ""));
+  if (!Number.isFinite(n)) return price;
+  return `$${(n * qty).toFixed(2)}`;
+}
+
+function formatStickyLine(
+  size: RitualSize,
+  plan: RitualPlan,
+  qty: number,
+): string {
   const resolvedPlan = effectivePlan(size, plan);
   const cell = PRICES[size][resolvedPlan];
-  const price = cell?.now ?? "";
+  // Quantity only applies to the 25-serving bag.
+  const displayQty = size === "25" ? qty : 1;
+  const price = cell?.now ? scalePrice(cell.now, displayQty) : "";
   const tail = resolvedPlan === "subscription" ? "Subscribe" : "One-time";
   return `${price} · ${tail}`;
 }
@@ -95,6 +109,9 @@ function BuyBox({
   // no dead "Add to cart" on an unresolvable 8-week selection. Appears
   // automatically once the env var lands at cutover.
   const has8wk = Boolean(RITUAL_PRICE_IDS["25-subscription-8wk"]);
+  // Quantity scales the displayed totals (per-serving stays per serving).
+  // Only the 25-serving bag has a quantity selector.
+  const displayQty = size === "25" ? qty : 1;
 
   return (
     <>
@@ -195,8 +212,8 @@ function BuyBox({
                 </div>
                 <div className="pur-opt-desc">
                   {cadence === "8wk"
-                    ? "Ships every 8 weeks · 2-cycle minimum (16 weeks)"
-                    : "Ships every 4 weeks · 2-cycle minimum (8 weeks)"}
+                    ? "Ships every 8 weeks · 2-cycle minimum"
+                    : "Ships every 4 weeks · 2-cycle minimum"}
                 </div>
                 <div
                   className="pur-opt-desc"
@@ -206,8 +223,12 @@ function BuyBox({
                 </div>
               </div>
               <div className="pur-opt-price">
-                <div className="pur-opt-price-now">{sub.now}</div>
-                <div className="pur-opt-price-was">{sub.was}</div>
+                <div className="pur-opt-price-now">
+                  {scalePrice(sub.now, displayQty)}
+                </div>
+                <div className="pur-opt-price-was">
+                  {sub.was ? scalePrice(sub.was, displayQty) : ""}
+                </div>
                 <div className="pur-opt-daily">{sub.daily}</div>
               </div>
             </div>
@@ -226,7 +247,9 @@ function BuyBox({
               <div className="pur-opt-name">One-time purchase</div>
             </div>
             <div className="pur-opt-price">
-              <div className="pur-opt-price-now">{once.now}</div>
+              <div className="pur-opt-price-now">
+                {scalePrice(once.now, displayQty)}
+              </div>
               <div className="pur-opt-daily">{once.daily}</div>
             </div>
           </div>
@@ -304,13 +327,13 @@ function BuyBox({
   );
 }
 
-function StickyAtc({ size, plan, onAddToCart, pending, shown }: Shared) {
+function StickyAtc({ size, plan, qty, onAddToCart, pending, shown }: Shared) {
   return (
     <div className={`sticky-atc${shown ? " show" : ""}`} id="stickyATC">
       <div className="sticky-atc-info">
         <div className="sticky-atc-name">Mujo Ritual · {size} servings</div>
         <div className="sticky-atc-price" id="stickyATCPrice">
-          {formatStickyLine(size, plan)}
+          {formatStickyLine(size, plan, qty)}
         </div>
       </div>
       <button
