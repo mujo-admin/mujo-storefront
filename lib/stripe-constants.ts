@@ -31,8 +31,11 @@ export const SUPPRESS_EXPRESS_FOR_MERCH = true;
 //
 // The 25-serving subscription has TWO cadences (Subscription v2): the primary
 // 4-week Price (`25-subscription`) and the 8-week Price (`25-subscription-8wk`).
-// Both list at $65 and take the flat 15% MUJO_SUB_15 coupon at checkout; the
-// customer picks quantity (1 / 2 bags) + cadence on the PDP.
+// Both list at the ALREADY-DISCOUNTED $55.25 — the flat 15% subscriber discount
+// is baked into the Price, not a checkout coupon (see
+// scripts/mirror-shopify-to-stripe.ts). This keeps Stripe Checkout's single
+// discount slot free for a promotion code. The customer picks quantity (1 / 2
+// bags) + cadence on the PDP.
 export const RITUAL_PRICE_IDS = {
   '10-onetime': process.env.NEXT_PUBLIC_RITUAL_PRICE_10_ONETIME ?? '',
   '25-onetime': process.env.NEXT_PUBLIC_RITUAL_PRICE_25_ONETIME ?? '',
@@ -50,9 +53,17 @@ export type RitualCadence = '4wk' | '8wk';
 // US-only per project_us_only_shipping memory. Expand as Mujo opens new ship-to regions.
 export const SUPPORTED_COUNTRIES = ['US'] as const;
 
-// Stripe Coupon applied to all subscription checkouts. The PDP advertises
-// "Subscribe & save 15%" — the per-Price values in Stripe are full retail,
-// so the discount is applied at checkout time via this coupon.
+// Standing subscriber discount, as a whole-number percent. Single source of
+// truth for the account "X% off retail" label + any "Save 15%" UI. The discount
+// itself is BAKED INTO the subscription Price (mirrored at retail × (1 − 0.15));
+// keep this in sync with SUBSCRIBER_DISCOUNT in scripts/mirror-shopify-to-stripe.ts.
+export const SUBSCRIBER_DISCOUNT_PERCENT = 15;
+
+// Stripe Coupon — RETAINED FOR LEGACY/MIGRATED SUBSCRIBERS ONLY. New subscription
+// checkouts apply NO coupon (the 15% is in the Price, see above), so the discount
+// box stays open for promo codes. Existing subscribers created before this change
+// (and the not-yet-run Loop migration, per project_checkout_followups) sit on the
+// legacy full-retail Price + this coupon, which nets the same $55.25.
 export const SUBSCRIPTION_COUPON_ID =
   process.env.STRIPE_SUBSCRIPTION_COUPON_ID ?? '';
 

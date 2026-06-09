@@ -152,13 +152,12 @@ export async function POST(req: NextRequest) {
 
   try {
     // Read live state in parallel:
-    //   - The customer's active sub (for the discount percent — member-rate
-    //     pricing is a subscriber benefit, so the gift charge applies the
-    //     customer's coupon to the chosen Price)
-    //   - The chosen gift Price (unit_amount + currency)
+    //   - The customer's active sub (for its default payment method)
+    //   - The chosen gift Price (unit_amount + currency — already the member
+    //     rate, since the 15% is baked into the subscription Price)
     const [stripeSub, giftPrice] = await Promise.all([
       stripe.subscriptions.retrieve(subRow.stripeSubscriptionId, {
-        expand: ["discounts.source.coupon", "default_payment_method"],
+        expand: ["default_payment_method"],
       }),
       stripe.prices.retrieve(parsed.priceId),
     ]);
@@ -174,27 +173,11 @@ export async function POST(req: NextRequest) {
     const currency = giftPrice.currency ?? "usd";
     const priceId = giftPrice.id;
 
-    // Apply customer's sub coupon.percent_off (Mujo's MUJO_SUB_15) so gifts
-    // charge at the customer's member rate — even if the gift Price is a
-    // different SKU than the customer's own active sub.
-    let effectiveAmountCents = unitAmountCents;
-    const firstDiscount = stripeSub.discounts?.[0];
-    const discount =
-      firstDiscount && typeof firstDiscount === "object"
-        ? (firstDiscount as Stripe.Discount)
-        : null;
-    const couponRef = discount?.source?.coupon;
-    const coupon =
-      couponRef && typeof couponRef === "object"
-        ? (couponRef as Stripe.Coupon)
-        : null;
-    if (coupon?.percent_off) {
-      effectiveAmountCents = Math.round(
-        unitAmountCents * (1 - coupon.percent_off / 100),
-      );
-    } else if (coupon?.amount_off) {
-      effectiveAmountCents = Math.max(0, unitAmountCents - coupon.amount_off);
-    }
+    // The gift uses a subscription Price, which now has the 15% subscriber rate
+    // BAKED IN (mirrored at $55.25, not $65 + coupon). So unit_amount IS the
+    // member rate — charge it directly, with no coupon math (applying the
+    // customer's coupon on top would double-discount legacy subscribers).
+    const effectiveAmountCents = unitAmountCents;
 
     // Find the saved default payment method. Sub-level overrides customer.
     let paymentMethodId: string | undefined;

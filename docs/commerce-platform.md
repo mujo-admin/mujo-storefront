@@ -56,6 +56,16 @@ If Postgres goes down, we can replay every Stripe event and re-write Shopify ord
 
 ---
 
+## Discounts & promo codes
+
+Stripe Checkout has **one discount slot per session**: you can pass a coupon in `discounts[]` **or** enable the customer-typed promo box with `allow_promotion_codes: true`, never both, and the box itself accepts a single code. We split the two kinds of discount so the slot stays free for marketing:
+
+- **Standing subscriber discount (15%) → baked into the subscription Price.** The mirror script (`scripts/mirror-shopify-to-stripe.ts`, `SUBSCRIBER_DISCOUNT = 0.15`) creates the subscription Prices at retail × 0.85 (`$65 → $55.25`). No coupon is applied at checkout, so the cart total and Stripe agree with no discount line. `SUBSCRIBER_DISCOUNT_PERCENT = 15` in `lib/stripe-constants.ts` is the single source of truth for the account "% off retail" label.
+- **Promotions (first-purchase, partner, press) → promotion codes in the box.** Both checkout routes set `allow_promotion_codes: true` on **every** cart (one-time and subscription), so a subscribing shopper can redeem `WELCOME10` etc. on top of the already-discounted subscription Price. **Every promo coupon must be `duration: once`** — otherwise a percentage promo would discount every subscription renewal, not just the first invoice.
+- **Legacy / migrated subscribers → keep the `MUJO_SUB_15` coupon.** Subscriptions created before this change (and the not-yet-run Loop migration) sit on the old full-retail Price + coupon, which nets the same `$55.25`. The account `discountPercent` reads `coupon.percent_off` when present, else falls back to `SUBSCRIBER_DISCOUNT_PERCENT`, so both show "15% off retail". Account swap/gift flows charge the subscription Price's `unit_amount` directly (it is already the member rate) — never re-applying the 15%.
+
+---
+
 ## Sequence: One-time purchase
 
 ```

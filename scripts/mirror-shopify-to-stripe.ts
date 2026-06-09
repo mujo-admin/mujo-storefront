@@ -58,10 +58,16 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 // Subscription billing cadences. Mujo offers TWO subscribe cadences on the same
 // 25-serving bag: every 4 weeks (primary, daily drinkers) and every 8 weeks
 // (every-other-day drinkers). Both are 28-day-based, NOT calendar-monthly, to
-// match the public Subscription Terms. Flat 15% off is applied at checkout via
-// the MUJO_SUB_15 coupon, not baked into these Prices. Stripe Prices are
-// immutable, so changing a cadence archives the old price + creates a new one on
-// the next mirror run (drift handling below).
+// match the public Subscription Terms. Stripe Prices are immutable, so changing
+// a cadence (or the discounted amount) archives the old price + creates a new
+// one on the next mirror run (drift handling below).
+//
+// The flat 15% subscriber discount is BAKED INTO these Prices (mirrored at
+// variant price × (1 − SUBSCRIBER_DISCOUNT)), NOT applied as a checkout coupon.
+// This keeps Stripe Checkout's single discount slot free for a promotion code
+// (first-purchase / marketing promos), so a subscribing shopper can still redeem
+// one. The MUJO_SUB_15 coupon is retained ONLY for existing/migrated subscribers
+// (legacy full-retail Prices) — new checkouts apply no coupon.
 //
 // The FIRST entry is the "primary" cadence written back to the single-valued
 // `stripe_price_id_subscription` variant metafield (back-compat). Additional
@@ -75,6 +81,10 @@ const SUB_INTERVALS: SubInterval[] = [
   { interval: 'week', count: 4 },
   { interval: 'week', count: 8 },
 ];
+// Standing subscriber discount, baked into the subscription Price (see above).
+// $65.00 × (1 − 0.15) = $55.25 exact. Keep in sync with SUBSCRIBER_DISCOUNT_PERCENT
+// in lib/stripe-constants.ts (the account "% off retail" label).
+const SUBSCRIBER_DISCOUNT = 0.15;
 // Free-shipping order minimum, in cents. $100 per Kinga (2026-05-25).
 // NOTE: changing this only updates NEWLY-created Stripe shipping rates — re-run
 // this mirror (and at the Live-mode cutover) to update the live rate's minimum.
@@ -336,10 +346,16 @@ async function main() {
         for (let i = 0; i < SUB_INTERVALS.length; i++) {
           const cadence = SUB_INTERVALS[i]!;
           const isPrimary = i === 0;
+          // Subscriber discount is baked into the Price (not a checkout coupon):
+          // mirror at variant price × (1 − SUBSCRIBER_DISCOUNT). $65 → $55.25.
+          const subscriberPrice = (
+            parseFloat(variant.price) *
+            (1 - SUBSCRIBER_DISCOUNT)
+          ).toFixed(2);
           const subPrice = await upsertStripePrice({
             product: stripeProduct,
             shopifyVariantGid: variant.id,
-            shopifyVariantPrice: variant.price, // mirror at variant price; offers/discounts via Stripe coupons
+            shopifyVariantPrice: subscriberPrice,
             recurring: true,
             interval: cadence.interval,
             intervalCount: cadence.count,

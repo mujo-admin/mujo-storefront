@@ -7,7 +7,6 @@ import {
   SHIPPING_RATE_EXPRESS_ID,
   SHIPPING_RATE_FLAT_ID,
   SHIPPING_RATE_FREE_ID,
-  SUBSCRIPTION_COUPON_ID,
   SUPPRESS_EXPRESS_FOR_MERCH,
   SUPPORTED_COUNTRIES,
 } from 'lib/stripe-constants';
@@ -144,7 +143,8 @@ export async function POST(req: NextRequest) {
     client_reference_id: parsed.client_reference_id,
     // Lets customers type a code at checkout — the path the first-buyer WELCOME10
     // code (coupon MUJO_FIRST_10, 10% off once, first_time_transaction only) rides
-    // on. Removed below on all-subscription carts where the 15% coupon auto-applies.
+    // on. Stays on for ALL carts (incl. subscriptions): the subscriber 15% is in
+    // the Price, not a coupon, so the single discount slot is free for a promo.
     allow_promotion_codes: true,
   };
 
@@ -169,17 +169,12 @@ export async function POST(req: NextRequest) {
     params.shipping_options = buildShippingOptions(subtotalCents, hasMerch);
   } else if (mode === 'subscription') {
     params.subscription_data = { metadata: parsed.metadata };
-    // Apply the flat 15%-off MUJO_SUB_15 coupon to ALL subscription checkouts
-    // (matches /api/checkout-session). The 10-serving bag has no subscription
-    // Price, so an all-subscription cart is always a discountable Ritual sub —
-    // and Subscription v2 ships two cadences (4-week + 8-week), both of which
-    // must carry the discount; the old single-Price gate silently dropped it
-    // for the 8-week Price. Stripe rejects combining discounts[] with
-    // allow_promotion_codes, so honor the explicit coupon over the promo field.
-    if (SUBSCRIPTION_COUPON_ID) {
-      params.discounts = [{ coupon: SUBSCRIPTION_COUPON_ID }];
-      delete params.allow_promotion_codes;
-    }
+    // The 15% subscriber discount is BAKED INTO the subscription Price (mirrored
+    // at $55.25, not $65 + coupon — see scripts/mirror-shopify-to-stripe.ts), so
+    // we apply NO coupon and keep the global allow_promotion_codes: true above.
+    // That leaves Stripe Checkout's single discount slot free for a first-purchase
+    // / marketing promo code, which a subscribing shopper can now redeem too.
+    // MUJO_SUB_15 lives on only for existing/migrated subs on legacy Prices.
   }
 
   try {

@@ -16,7 +16,6 @@ import {
   SHIPPING_RATE_EXPRESS_ID,
   SHIPPING_RATE_FLAT_ID,
   SHIPPING_RATE_FREE_ID,
-  SUBSCRIPTION_COUPON_ID,
   SUPPRESS_EXPRESS_FOR_MERCH,
   SUPPORTED_COUNTRIES,
 } from 'lib/stripe-constants';
@@ -187,14 +186,13 @@ export async function POST(req: NextRequest) {
     params.allow_promotion_codes = true;
   } else if (mode === 'subscription') {
     params.subscription_data = { metadata: { mujo_event_id: eventId } };
-    // Apply MUJO_SUB_15 (15% off, forever) to all subscription checkouts.
-    // Stripe rejects combining discounts[] with allow_promotion_codes, so we
-    // honor the explicit 15% coupon over the promo-code field here. (No promo
-    // box on subscriptions by design — the auto-applied 15% beats WELCOME10's
-    // 10%-once, and a first-time subscriber gets the better deal automatically.)
-    if (SUBSCRIPTION_COUPON_ID) {
-      params.discounts = [{ coupon: SUBSCRIPTION_COUPON_ID }];
-    }
+    // The 15% subscriber discount is BAKED INTO the subscription Price (mirrored
+    // at $55.25, not $65 + coupon — see scripts/mirror-shopify-to-stripe.ts). We
+    // apply NO coupon here, which leaves Stripe Checkout's single discount slot
+    // free: the promo box stays open so a subscribing shopper can still redeem a
+    // first-purchase / marketing code (e.g. WELCOME10). MUJO_SUB_15 lives on only
+    // for existing/migrated subscribers on legacy full-retail Prices.
+    params.allow_promotion_codes = true;
   }
 
   // Stripe rejects passing both `customer` and `customer_email` on the same

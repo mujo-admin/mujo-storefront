@@ -21,7 +21,7 @@ import { customers, db, subscriptions } from "db";
 import { stripe } from "lib/stripe";
 import { getSession } from "lib/session";
 import { resolvePriceId } from "lib/cart/price-id-map";
-import { RITUAL_PRICE_IDS, SUBSCRIPTION_COUPON_ID } from "lib/stripe-constants";
+import { RITUAL_PRICE_IDS } from "lib/stripe-constants";
 import { AccountChrome } from "components/account/account-chrome";
 import {
   SubscriptionControls,
@@ -270,7 +270,7 @@ export default async function SubscriptionPage() {
   // it default-selects in the picker).
   const [swapOptions, giftOptions] = await Promise.all([
     buildSwapOptions(livePriceId),
-    buildGiftOptions(livePriceId, discountPercent ?? 0),
+    buildGiftOptions(livePriceId),
   ]);
 
   return (
@@ -762,9 +762,9 @@ function formatBrand(brand: string): string {
 
 /**
  * Build the list of Ritual subscription Price IDs the customer can swap into,
- * excluding the current one. Fetches each Price's unit_amount from Stripe so
- * the swap modal shows live pricing (with the standing 15% sub coupon
- * estimate applied for the per-delivery label).
+ * excluding the current one. Fetches each Price's unit_amount from Stripe — the
+ * 15% subscriber discount is baked into the Price, so unit_amount IS the
+ * per-delivery charge (no coupon math).
  */
 async function buildSwapOptions(currentPriceId: string): Promise<SwapOption[]> {
   // 10-serving is one-time only — never offered as a swap target.
@@ -784,11 +784,6 @@ async function buildSwapOptions(currentPriceId: string): Promise<SwapOption[]> {
     ),
   );
 
-  // Standing subscription coupon: 15% off forever — applied at checkout.
-  // For display in the swap modal, show the post-coupon per-delivery price
-  // since that's what the customer will actually see charged.
-  const couponDiscount = SUBSCRIPTION_COUPON_ID ? 0.15 : 0;
-
   const options: SwapOption[] = [];
   for (const price of prices) {
     if (!price || !price.unit_amount) continue;
@@ -796,7 +791,7 @@ async function buildSwapOptions(currentPriceId: string): Promise<SwapOption[]> {
     const label = meta
       ? `${meta.productTitle} · ${meta.variantTitle.replace(" · Subscribe & save", "")}`
       : "Mujo subscription";
-    const effectiveCents = Math.round(price.unit_amount * (1 - couponDiscount));
+    const effectiveCents = price.unit_amount;
     const priceLabel = `${new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: price.currency.toUpperCase(),
@@ -815,13 +810,11 @@ async function buildSwapOptions(currentPriceId: string): Promise<SwapOption[]> {
 /**
  * Build the list of giftable Mujo sub Prices for the gift modal. Includes
  * the customer's current sub (flagged isCurrent so it default-selects).
- * Pulls live unit_amount from Stripe + applies the customer's actual
- * coupon percent (read live, not hardcoded) so the per-box label matches
- * what the gift PI will actually charge.
+ * Pulls live unit_amount from Stripe; the 15% subscriber rate is baked into the
+ * Price, so unit_amount IS the per-box charge (matches what the gift PI charges).
  */
 async function buildGiftOptions(
   currentPriceId: string,
-  discountPercent: number,
 ): Promise<GiftableProduct[]> {
   // 10-serving is one-time only — never giftable as a sub.
   const subPriceIds = [
@@ -846,9 +839,9 @@ async function buildGiftOptions(
     const label = meta
       ? `${meta.productTitle} · ${meta.variantTitle.replace(" · Subscribe & save", "")}`
       : "Mujo subscription";
-    const effectiveCents = Math.round(
-      price.unit_amount * (1 - discountPercent / 100),
-    );
+    // 15% subscriber rate is baked into the Price, so unit_amount IS the gift
+    // charge — do not apply the discount again.
+    const effectiveCents = price.unit_amount;
     const priceLabel = `${new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: price.currency.toUpperCase(),

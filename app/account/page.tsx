@@ -10,6 +10,7 @@ import { customers, db, orderMirror, subscriptions } from "db";
 import { stripe } from "lib/stripe";
 import { getSession } from "lib/session";
 import { resolvePriceId } from "lib/cart/price-id-map";
+import { SUBSCRIBER_DISCOUNT_PERCENT } from "lib/stripe-constants";
 import { AccountChrome } from "components/account/account-chrome";
 import {
   DashboardCards,
@@ -161,7 +162,10 @@ export default async function AccountPage() {
       liveCancelAtPeriodEnd = stripeSub.cancel_at_period_end;
       liveIsPaused = Boolean(stripeSub.pause_collection);
 
-      // Pull coupon percent_off from the first active discount.
+      // The subscriber discount is baked into the Price for new subs (no coupon),
+      // so prefer a coupon's percent_off when present (legacy/migrated subs on
+      // full-retail Prices), and otherwise fall back to the standing 15%. Never
+      // show 0% off for an active subscription, which has the discount built in.
       const firstDiscount = stripeSub.discounts?.[0];
       const discount =
         firstDiscount && typeof firstDiscount === "object"
@@ -172,9 +176,10 @@ export default async function AccountPage() {
         couponRef && typeof couponRef === "object"
           ? (couponRef as Stripe.Coupon)
           : null;
-      if (coupon && coupon.percent_off) {
-        discountPercent = coupon.percent_off;
-      }
+      discountPercent =
+        coupon && coupon.percent_off
+          ? coupon.percent_off
+          : SUBSCRIBER_DISCOUNT_PERCENT;
     } catch (err) {
       console.error("[account] stripe sub retrieve failed", err);
     }
