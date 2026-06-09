@@ -51,12 +51,12 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
   const total = subtotal;
   const { remainingCents, pct, unlocked } = freeShippingProgress(subtotal);
   const empty = totalQuantity === 0;
-  // Subscriber free-shipping perk: an all-subscription cart always ships free
-  // (no shipping_options on subscription checkouts), so skip the "$X away from
-  // free shipping" nudge — they're already there. One-time carts keep the
-  // $100 threshold + progress bar.
-  const isSubscriptionCart = !empty && cart.items.every((i) => i.isSubscription);
-  const shipsFree = unlocked || isSubscriptionCart;
+  // Subscriber free-shipping perk: ANY cart containing a subscription ships
+  // free (mixed carts run in subscription mode → no shipping_options), so skip
+  // the "$X away from free shipping" nudge — they're already there. One-time
+  // carts keep the $100 threshold + progress bar.
+  const hasSubscription = !empty && cart.items.some((i) => i.isSubscription);
+  const shipsFree = unlocked || hasSubscription;
 
   // The on-site /checkout page (Phase 2) handles both one-time and
   // subscription modes via Stripe Elements. The legacy /api/checkout Hosted
@@ -97,7 +97,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
 
       <div className="cart-progress">
         <div className="cart-progress-msg">
-          {isSubscriptionCart ? (
+          {hasSubscription ? (
             <>
               <strong>Subscribers always ship free.</strong>
             </>
@@ -120,7 +120,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
             </>
           )}
         </div>
-        {!isSubscriptionCart && (
+        {!hasSubscription && (
           <div className="cart-progress-track">
             <div
               className={`cart-progress-fill ${unlocked ? "full" : ""}`}
@@ -207,7 +207,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
         </div>
         <div className="cart-row">
           <span>Shipping</span>
-          <span className="price">
+          <span className={`price${empty || shipsFree ? "" : " ship-tbd"}`}>
             {empty
               ? "-"
               : shipsFree
@@ -468,6 +468,19 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
           font-family: var(--f-display);
         }
         .cart-row .price { font-family: var(--f-mono); }
+        /* Long "Calculated at checkout" string must not inherit the big mono
+           value size — keep it small, right-aligned, and allowed to wrap so it
+           never overlaps the Total row. */
+        .cart-row .price.ship-tbd {
+          font-family: var(--f-body);
+          font-size: 11px;
+          font-weight: 400;
+          color: var(--ink-soft);
+          text-align: right;
+          max-width: 140px;
+          line-height: 1.3;
+          white-space: normal;
+        }
         .cart-shipping-note {
           font-size: 11px;
           color: var(--mute);
