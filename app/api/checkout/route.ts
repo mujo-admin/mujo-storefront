@@ -8,6 +8,7 @@ import {
   SHIPPING_RATE_FLAT_ID,
   SHIPPING_RATE_FREE_ID,
   SUBSCRIPTION_COUPON_ID,
+  SUBSCRIPTION_COUPON_RITUAL_ID,
   SUPPRESS_EXPRESS_FOR_MERCH,
   SUPPORTED_COUNTRIES,
 } from 'lib/stripe-constants';
@@ -39,11 +40,12 @@ const requestSchema = z.object({
 
 type CheckoutInput = z.infer<typeof requestSchema>;
 
-function determineMode(input: CheckoutInput): 'payment' | 'subscription' | 'mixed' {
-  const subs = input.line_items.filter((li) => li.is_subscription === true);
-  if (subs.length === 0) return 'payment';
-  if (subs.length === input.line_items.length) return 'subscription';
-  return 'mixed';
+// Any cart with ≥1 subscription line runs in subscription mode (one-time lines
+// ride the first invoice). Previously a mixed cart was rejected with a 400.
+function determineMode(input: CheckoutInput): 'payment' | 'subscription' {
+  return input.line_items.some((li) => li.is_subscription === true)
+    ? 'subscription'
+    : 'payment';
 }
 
 // See app/api/checkout-session/route.ts for the full rationale. Free shipping
@@ -94,16 +96,6 @@ export async function POST(req: NextRequest) {
   }
 
   const mode = determineMode(parsed);
-  if (mode === 'mixed') {
-    return Response.json(
-      {
-        error: 'mixed_cart_unsupported',
-        message:
-          'Cart contains both one-time and subscription items. Please check out separately.',
-      },
-      { status: 400 },
-    );
-  }
 
   // Dedup layer 1 (see /api/checkout-session for the full rationale): reuse an
   // existing Stripe Customer matched by email instead of letting Stripe create
@@ -176,8 +168,11 @@ export async function POST(req: NextRequest) {
     // must carry the discount; the old single-Price gate silently dropped it
     // for the 8-week Price. Stripe rejects combining discounts[] with
     // allow_promotion_codes, so honor the explicit coupon over the promo field.
-    if (SUBSCRIPTION_COUPON_ID) {
-      params.discounts = [{ coupon: SUBSCRIPTION_COUPON_ID }];
+    // Prefer the Ritual-scoped twin so mixed carts don't discount merch; fall
+    // back to the unscoped coupon when the scoped env var isn't set.
+    const subCoupon = SUBSCRIPTION_COUPON_RITUAL_ID || SUBSCRIPTION_COUPON_ID;
+    if (subCoupon) {
+      params.discounts = [{ coupon: subCoupon }];
       delete params.allow_promotion_codes;
     }
   }
