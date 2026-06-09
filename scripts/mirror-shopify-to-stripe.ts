@@ -55,8 +55,12 @@ if (!hasStaticAdminToken && !hasAdminOAuth) {
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-const SUB_INTERVAL: Stripe.PriceCreateParams.Recurring.Interval = 'month';
-const SUB_INTERVAL_COUNT = 1;
+// Subscription billing cadence. 4-week (28-day) cycle, NOT calendar-monthly —
+// matches the public Subscription Terms ("renews every 4 weeks"). Stripe Prices
+// are immutable, so changing these archives the old price + creates a new one on
+// the next mirror run (drift handling below). ~13 cycles/yr vs. 12 for monthly.
+const SUB_INTERVAL: Stripe.PriceCreateParams.Recurring.Interval = 'week';
+const SUB_INTERVAL_COUNT = 4;
 // Free-shipping order minimum, in cents. $100 per Kinga (2026-05-25).
 // NOTE: changing this only updates NEWLY-created Stripe shipping rates — re-run
 // this mirror (and at the Live-mode cutover) to update the live rate's minimum.
@@ -238,7 +242,7 @@ async function upsertStripePrice(args: {
   };
   const created = await stripe.prices.create(params);
   console.log(
-    `  ✓ Created Stripe Price: ${created.id} (${cents}¢ ${args.recurring ? 'monthly' : 'one-time'})`,
+    `  ✓ Created Stripe Price: ${created.id} (${cents}¢ ${args.recurring ? `every ${SUB_INTERVAL_COUNT} ${SUB_INTERVAL}(s)` : 'one-time'})`,
   );
   return created;
 }

@@ -92,6 +92,9 @@ export async function POST(req: NextRequest) {
     cancel_url: parsed.cancel_url,
     metadata: parsed.metadata,
     client_reference_id: parsed.client_reference_id,
+    // Lets customers type a code at checkout — the path the first-buyer WELCOME10
+    // code (coupon MUJO_FIRST_10, 10% off once, first_time_transaction only) rides
+    // on. Removed below on all-subscription carts where the 15% coupon auto-applies.
     allow_promotion_codes: true,
   };
 

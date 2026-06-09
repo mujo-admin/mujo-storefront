@@ -127,13 +127,17 @@ export async function POST(req: NextRequest) {
 
   if (mode === 'payment') {
     params.shipping_options = buildShippingOptions();
-    // allow_promotion_codes: customers can enter a coupon at checkout (e.g. partner / press codes).
+    // allow_promotion_codes lets customers type a code at checkout — this is the
+    // path the first-buyer WELCOME10 code (coupon MUJO_FIRST_10, 10% off once,
+    // first_time_transaction only) rides on, plus any partner / press codes.
     params.allow_promotion_codes = true;
   } else if (mode === 'subscription') {
     params.subscription_data = { metadata: { mujo_event_id: eventId } };
     // Apply MUJO_SUB_15 (15% off, forever) to all subscription checkouts.
     // Stripe rejects combining discounts[] with allow_promotion_codes, so we
-    // honor explicit coupon over the promo-code field on subscription mode.
+    // honor the explicit 15% coupon over the promo-code field here. (No promo
+    // box on subscriptions by design — the auto-applied 15% beats WELCOME10's
+    // 10%-once, and a first-time subscriber gets the better deal automatically.)
     if (SUBSCRIPTION_COUPON_ID) {
       params.discounts = [{ coupon: SUBSCRIPTION_COUPON_ID }];
     }
