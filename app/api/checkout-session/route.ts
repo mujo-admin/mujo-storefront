@@ -140,16 +140,17 @@ export async function POST(req: NextRequest) {
     shipping_address_collection: {
       allowed_countries: [...SUPPORTED_COUNTRIES],
     },
-    // Per-session branding overrides Stripe Dashboard defaults. Cream matches
-    // tokens.css --cream so the iframe blends with the page background; orange
-    // matches --orange so the Pay button + accents read as Mujo. Border-style
-    // rounded matches our 10-14px brand radius. font_family 'inter' is the
-    // closest clean grotesque sans in Stripe's supported list to Mujo's body
-    // font (Hanken Grotesk — not in Stripe's set). With the Mujo summary card
-    // removed, Stripe's own summary is the single source of truth, so this
-    // branding is what makes the now-dominant iframe read as on-brand Mujo.
+    // Per-session branding overrides Stripe Dashboard defaults. White surface
+    // (the clean Mujo look — Stripe renders its order summary panel on this, so
+    // white makes the summary read white, not cream) + orange matches --orange
+    // so the Pay button + accents read as Mujo. Border-style rounded matches our
+    // 10-14px brand radius. font_family 'inter' is the closest clean grotesque
+    // sans in Stripe's supported list to Mujo's body font (Hanken Grotesk — not
+    // in Stripe's set). With the Mujo summary card removed, Stripe's own summary
+    // is the single source of truth, so this branding is what makes the
+    // now-dominant iframe read as on-brand Mujo.
     branding_settings: {
-      background_color: '#F3F2E9',
+      background_color: '#FFFFFF',
       button_color: '#F2682F',
       border_style: 'rounded',
       font_family: 'inter',
@@ -160,7 +161,7 @@ export async function POST(req: NextRequest) {
           'Free US shipping on orders over $100 (and on every subscription). Ships from our US fulfilment partners.',
       },
       submit: {
-        message: '30-day money-back guarantee. Cancel or change your subscription anytime.',
+        message: '30-day money-back guarantee. Cancel or change your subscription after two billing cycles.',
       },
     },
     metadata: { mujo_event_id: eventId },

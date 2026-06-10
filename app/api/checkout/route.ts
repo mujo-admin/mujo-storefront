@@ -129,10 +129,10 @@ export async function POST(req: NextRequest) {
       allowed_countries: [...SUPPORTED_COUNTRIES],
     },
     // Kept in parity with /api/checkout-session so this hosted-page compat shim
-    // renders the same on-brand Mujo look (cream surface / orange Pay button /
+    // renders the same on-brand Mujo look (white surface / orange Pay button /
     // rounded radius / Inter — closest clean sans to Hanken Grotesk).
     branding_settings: {
-      background_color: '#F3F2E9',
+      background_color: '#FFFFFF',
       button_color: '#F2682F',
       border_style: 'rounded',
       font_family: 'inter',
