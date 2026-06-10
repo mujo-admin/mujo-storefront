@@ -36,6 +36,86 @@ Drop TTL on `mujoworld.com` and `www.mujoworld.com` A/CNAME records from default
 
 ---
 
+## Subscription pricing cutover — `feat/ritual-subscription-v2` (run BEFORE the DNS flip)
+
+> Ships Ritual Subscription v2 (quantity × 4/8-week cadence, free shipping, first-order frother) **and** the bake-15%-into-the-Price change together — they're one branch. Plans: `plans/2026-06-09-ritual-subscription-v2-frequency-quantity.md` + `plans/2026-06-09-checkout-discount-into-price.md`. All code (incl. Step 6 / Loop migration, Option A) is committed + `tsc` clean on the branch; **everything below is live-Stripe operations, zero new code.**
+>
+> **Sequence this BEFORE Step 7b's subscription smoke test** — otherwise that test bills the old $65 calendar-monthly price, not the new $55.25 discounted Price.
+>
+> **Env-var gotcha:** set Vercel Production vars via the **REST API**, not `vercel env add` piped from stdin — the CLI (v52) stores empty values when piped (memory `project_vercel_cli_env_pipe_bug`). Dashboard UI or REST API only.
+
+### S0 — Resolve the frother gift variant GID (Kinga, 5 min)
+
+The first-order frother gift appends a $0 line keyed to the frother's default variant. Get its GID from the single frother product `8907228840178` (Shopify Admin → Products → Frother → variant, or Admin API). Hold it for S3.
+
+**Verify:** a `gid://shopify/ProductVariant/…` string in hand.
+
+### S1 — Mint the discounted subscription Prices in LIVE Stripe (Claude, 10 min)
+
+Temporarily set `STRIPE_SECRET_KEY=sk_live_*` in `.env.local`, then:
+```sh
+cd ~/Documents/Mujo\ AI/mujo-storefront
+pnpm tsx --env-file=.env.local scripts/mirror-shopify-to-stripe.ts
+node --env-file=.env.local scripts/fetch-ritual-price-ids.mjs   # writes the 4 RITUAL_PRICE_* to .env.local
+```
+The mirror creates a 4-week + an 8-week subscription Price, **each at $55.25** (retail × 0.85, `SUBSCRIBER_DISCOUNT = 0.15`), archiving any drifted $65 Price.
+
+**Verify:**
+- [ ] Stripe (live) → Products → Ritual shows two recurring Prices at **$55.25**: `week × 4` and `week × 8`, same product.
+- [ ] `.env.local` now has live values for `NEXT_PUBLIC_RITUAL_PRICE_25_SUBSCRIPTION` + `..._8W` (+ the two one-time Price IDs).
+
+### S2 — Promo-coupon hygiene in LIVE Stripe (Claude, 5 min)
+
+Confirm the first-buyer code exists live and is renewal-safe:
+- [ ] Coupon `MUJO_FIRST_10` = 10% off, **`duration: once`**; promo code `WELCOME10` active with `restrictions.first_time_transaction: true`. Create with `scripts/create-first-buyer-coupon.mjs` (idempotent) if absent in live.
+- [ ] Every other promo coupon is `duration: once` (never `forever`/`repeating`) so a code never discounts subscription renewals.
+
+### S3 — Re-point Vercel Production env (Claude via REST API, 10 min)
+
+Set / update in **Production** (and Preview, to match):
+- [ ] `NEXT_PUBLIC_RITUAL_PRICE_25_SUBSCRIPTION` → live 4-week $55.25 Price ID (from S1)
+- [ ] `NEXT_PUBLIC_RITUAL_PRICE_25_SUBSCRIPTION_8W` → live 8-week $55.25 Price ID
+- [ ] `FIRST_ORDER_FROTHER_GIFT_ENABLED` → `true`
+- [ ] `FROTHER_GIFT_VARIANT_GID` → the GID from S0
+- [ ] Confirm `STRIPE_SUBSCRIPTION_COUPON_ID=MUJO_SUB_15` stays set (legacy/migrated subs only; new checkouts apply no coupon)
+
+**Verify:** `vercel env ls production | grep RITUAL_PRICE_25_SUBSCRIPTION` shows the new IDs (non-empty).
+
+### S4 — Loop migration Payment Link in LIVE mode (Claude + Kinga, 10 min)
+
+Under Option A the migration rides the discounted Price with **no coupon wrap** — `loop-migration-payment-link.ts` applies nothing and points at `NEXT_PUBLIC_RITUAL_PRICE_25_SUBSCRIPTION` (now the $55.25 live Price). The `RUN_TAG` bump mints a fresh live link.
+
+> **Known gotcha:** the script currently **hard-refuses non-`sk_test_` keys** (the `sk_test_` guard near the top). For the live run, temporarily relax that guard to accept `sk_live_*`, run, then restore it — do **not** commit the relaxed guard.
+
+```sh
+pnpm tsx --env-file=.env.local scripts/loop-migration-payment-link.ts \
+  --site-url=https://mujoworld.com
+```
+- [ ] Paste the 5 per-customer URLs into `outputs/marketing-and-sales/emails/_loop-to-stripe-migration-2026-05-07.md` `{{PAYMENT_LINK}}` placeholders.
+- [ ] **Hold the sends until DNS is flipped + healthy** (`/migration-complete` + `/account/login` must resolve on `mujoworld.com`).
+
+**Verify:** clicking a URL loads Stripe Checkout at **$55.25**, email pre-filled, no coupon line, the discount box open (nothing pre-applied).
+
+### S5 — Merge the branch + redeploy (Claude, 5 min)
+
+- [ ] Confirm no concurrent work on the shared routes (repo is shared with Kinga's wife — `feedback_ask_before_scoping`).
+- [ ] Merge `feat/ritual-subscription-v2` → `main`; `vercel deploy --prod` (or let the push auto-deploy).
+- [ ] Reset `.env.local` `STRIPE_SECRET_KEY` to whatever it should be locally (don't leave a live key in a dev file).
+
+**Verify:** `tsc` clean on `main`; production redeploys green.
+
+### S6 — Live subscription smoke test (Claude + Kinga, 10 min) — supersedes Step 7b
+
+Real card, refunded immediately. On `https://mujoworld.com/products/mujo-ritual`:
+- [ ] PDP buy box shows quantity (1 / 2 bags) + cadence (every 4 / 8 weeks), $65 → **$55.25**, "Subscribe & save 15%", per-serving $2.60 → $2.21.
+- [ ] Subscribe → checkout shows **$55.25/bag**, correct interval, **no coupon line**, **discount box visible**.
+- [ ] Enter `WELCOME10` → applies to the **first invoice only**; renewal preview stays $55.25.
+- [ ] Subscription carries free shipping (no `shipping_options`); a mixed sub + merch cart discounts only the Ritual line, merch full price, box still present.
+- [ ] First subscription order: Shopify order has the **$0 frother** line (renewals do not).
+- [ ] `/account` for the new sub shows "Every 4 weeks · 15% off retail" (never 0%).
+
+---
+
 ## Cutover sequence (T-0)
 
 Run in this exact order. Each step has a who + ~time + verification.
@@ -128,7 +208,8 @@ Vercel auto-issues a Let's Encrypt certificate. Watch the project's Domains tab 
   - [ ] Meta Events Manager → Test Events shows paired `Purchase` events (client + server) with matching `event_id`
 - Refund the charge in Stripe dashboard
 
-#### 7b. $65/mo subscription Ritual purchase
+#### 7b. Subscription Ritual purchase ($55.25/bag — see "Subscription pricing cutover" S6)
+> If the `feat/ritual-subscription-v2` branch is merged + its Stripe ops (S1–S5 above) are done, the subscription is now quantity × cadence at **$55.25/bag** with free shipping + a first-order frother — run the fuller **S6** checklist instead of the legacy $65/mo flow below. The checks below remain valid for the webhook/metafield cascade.
 - Repeat with subscription CTA
 - Verify all the same checks PLUS:
   - [ ] Stripe dashboard shows active subscription
