@@ -140,14 +140,21 @@ export async function POST(req: NextRequest) {
     shipping_address_collection: {
       allowed_countries: [...SUPPORTED_COUNTRIES],
     },
-    // Per-session branding overrides Stripe Dashboard defaults. Cream matches
-    // tokens.css --cream so the iframe blends with the page background; orange
-    // matches --orange so the Pay button + accents read as Mujo. Border-style
-    // rounded matches our 10-14px brand radius.
+    // Per-session branding overrides Stripe Dashboard defaults. Cream surface
+    // (matches tokens.css --cream): with ONE background knob, pure white made the
+    // payment field-cards lose contrast and the white "leaked" across the column;
+    // cream keeps them as crisp rounded white cards. The trade-off — Stripe paints
+    // its order-summary panel in this same color, so the summary reads cream, not
+    // white. A true white rounded summary card needs the deferred Custom-UI
+    // (Elements) rebuild: plans/2026-06-10-checkout-elements-custom-ui-rebuild.md.
+    // Orange matches --orange (Pay button + accents); border-style rounded matches
+    // our 10-14px brand radius; font_family 'inter' is the closest clean grotesque
+    // sans in Stripe's supported list to Mujo's body font (Hanken Grotesk).
     branding_settings: {
       background_color: '#F3F2E9',
       button_color: '#F2682F',
       border_style: 'rounded',
+      font_family: 'inter',
     },
     custom_text: {
       shipping_address: {
@@ -155,7 +162,7 @@ export async function POST(req: NextRequest) {
           'Free US shipping on orders over $100 (and on every subscription). Ships from our US fulfilment partners.',
       },
       submit: {
-        message: '30-day money-back guarantee. Cancel or change your subscription anytime.',
+        message: '30-day money-back guarantee. Cancel or change your subscription after two billing cycles.',
       },
     },
     metadata: { mujo_event_id: eventId },
