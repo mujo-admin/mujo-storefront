@@ -1,9 +1,16 @@
 // scripts/loop-migration-payment-link.ts
 //
 // Phase 6 test-mode prep: creates a Stripe Payment Link for the Mujo Ritual
-// 25-serving subscription (with MUJO_SUB_15 coupon attached) and prints
-// the 5 per-customer URLs to use in the Loop → Stripe migration emails
-// drafted at outputs/marketing-and-sales/emails/_loop-to-stripe-migration-2026-05-07.md.
+// 25-serving subscription and prints the 5 per-customer URLs to use in the
+// Loop → Stripe migration emails drafted at
+// outputs/marketing-and-sales/emails/_loop-to-stripe-migration-2026-05-07.md.
+//
+// Option A (2026-06-10, plans/2026-06-09-checkout-discount-into-price.md): the
+// subscriber 15% is now BAKED INTO the subscription Price ($55.25), not a coupon.
+// So this Payment Link points at the discounted Price and applies NO coupon /
+// promo wrap — the migrated subscriber gets $55.25 from first paint with nothing
+// to double-discount. allow_promotion_codes stays on so Kinga can hand a migrating
+// customer a goodwill code, but none is pre-applied.
 //
 // Idempotent: looks for an existing Payment Link tagged
 // `metadata.loop_migration === '<RUN_TAG>'`. If found, updates its
@@ -44,8 +51,10 @@ const stripe = new Stripe(SECRET, {
   apiVersion: "2026-04-22.dahlia",
 });
 
+// The discounted ($55.25, 15%-baked-in) subscription Price after the Option-A
+// mirror + env re-point. The migrated subscriber pays the member rate straight
+// from this Price — no coupon needed.
 const PRICE_ID = process.env.NEXT_PUBLIC_RITUAL_PRICE_25_SUBSCRIPTION;
-const COUPON_ID = process.env.STRIPE_SUBSCRIPTION_COUPON_ID;
 if (!PRICE_ID) {
   console.error("NEXT_PUBLIC_RITUAL_PRICE_25_SUBSCRIPTION not set");
   process.exit(1);
@@ -60,18 +69,11 @@ const SUBSCRIBERS: Array<{ name: string; email: string }> = [
   { name: "Silja", email: "silja.v.kim@gmail.com" },
 ];
 
-const RUN_TAG = "v2-2026-05-08-test-with-redirect";
-
-// Customer-facing promo code that wraps the MUJO_SUB_15 Coupon. Pre-filled
-// in the Payment Link URL so the migrated subscriber sees the $55.25
-// (15% off retail) price on the Stripe Checkout page from first paint —
-// no manual code entry, no full-retail first invoice.
-//
-// Idempotent: if a Promotion Code with this `code` exists wrapping the
-// MUJO_SUB_15 coupon, the script reuses it. Otherwise creates a fresh
-// one (max 10 redemptions, expires 30 days from creation — generous for
-// 5 customers + retry buffer).
-const PROMO_CODE_NAME = "LOOPMIG2026";
+// Bumped for Option A (discounted Price, no coupon wrap). A new RUN_TAG forces a
+// fresh Payment Link pointing at the discounted Price — the idempotent finder only
+// updates redirect/promo flags on an existing tagged link, never its line-item
+// Price, so reusing the old coupon-era tag would keep the stale $65 Price.
+const RUN_TAG = "v2-2026-06-10-discounted-price-no-coupon";
 
 // CLI: --site-url=<url> is required. Stripe redirects there after the
 // customer completes the migration Payment Link checkout.
@@ -105,65 +107,16 @@ if (!SITE_URL.startsWith("https://")) {
 }
 const REDIRECT_URL = `${SITE_URL}/migration-complete?session_id={CHECKOUT_SESSION_ID}`;
 
-async function findOrCreatePromotionCode(
-  couponId: string,
-  code: string,
-): Promise<Stripe.PromotionCode> {
-  // Dahlia API: PromotionCode wraps a Coupon under promotion.coupon
-  // (instead of a top-level coupon field as in pre-dahlia). Same nested
-  // shape applies on create + on read.
-  const existing = await stripe.promotionCodes.list({ code, limit: 100 });
-  for (const pc of existing.data) {
-    const couponRef = pc.promotion?.coupon;
-    if (!couponRef) continue;
-    const matchedCoupon =
-      typeof couponRef === "string"
-        ? couponRef === couponId
-        : couponRef.id === couponId;
-    if (matchedCoupon && pc.active) {
-      return pc;
-    }
-  }
-  // Not found — create. 30-day expiry + 10 max redemptions (covers the 5
-  // Loop subs + buffer for retries / reapplications). Tagged with
-  // metadata.loop_migration so it's findable later for reuse / cleanup.
-  const expiresAt = Math.floor(Date.now() / 1000) + 30 * 86400;
-  return stripe.promotionCodes.create({
-    promotion: { coupon: couponId, type: "coupon" },
-    code,
-    max_redemptions: 10,
-    expires_at: expiresAt,
-    metadata: { loop_migration: RUN_TAG },
-  });
-}
-
 async function main() {
   console.log("→ Phase 6 test-mode Payment Link prep");
   console.log(`  Stripe key: ${SECRET!.slice(0, 8)}… (test mode)`);
-  console.log(`  Subscription Price: ${PRICE_ID}`);
-  console.log(`  Coupon: ${COUPON_ID || "(none — full retail)"}`);
+  console.log(`  Subscription Price: ${PRICE_ID} (discounted $55.25 — 15% in the Price)`);
+  console.log(`  Coupon: (none — discount baked into the Price)`);
   console.log();
 
   console.log(`  Site URL: ${SITE_URL}`);
   console.log(`  Redirect URL: ${REDIRECT_URL}`);
   console.log();
-
-  // 0. Find or create the Promotion Code that auto-applies on the
-  //    Stripe Checkout page (via ?prefilled_promo_code= URL param). This
-  //    is what makes invoice #1 charge at $55.25 instead of $65 retail —
-  //    the coupon is applied at sub-creation time, not after.
-  let promotionCode: Stripe.PromotionCode | null = null;
-  if (COUPON_ID) {
-    promotionCode = await findOrCreatePromotionCode(COUPON_ID, PROMO_CODE_NAME);
-    console.log(
-      `  Promo code: ${promotionCode.code} (id: ${promotionCode.id}, active: ${promotionCode.active})`,
-    );
-    console.log();
-  } else {
-    console.warn(
-      "  ⚠ STRIPE_SUBSCRIPTION_COUPON_ID not set — cannot pre-apply discount.\n",
-    );
-  }
 
   // 1. Look for an existing tagged Payment Link. If found and its current
   //    redirect URL + allow_promotion_codes match → reuse. If not →
@@ -218,7 +171,7 @@ async function main() {
       line_items: [{ price: PRICE_ID!, quantity: 1 }],
       metadata: {
         loop_migration: RUN_TAG,
-        purpose: "Migrate Loop subs to Stripe at MUJO_SUB_15 rate",
+        purpose: "Migrate Loop subs to Stripe at the discounted ($55.25) Price",
       },
       // Subscription line items use subscription_data for sub-level config
       subscription_data: {
@@ -226,9 +179,9 @@ async function main() {
       },
       // Mujo-only US shipping
       shipping_address_collection: { allowed_countries: ["US"] },
-      // Required for ?prefilled_promo_code= URL param to auto-apply the
-      // MUJO_SUB_15 discount on the Stripe Checkout page. Without this,
-      // the discount field doesn't render at all.
+      // Leave the discount box open (consistent with the rest of checkout) so a
+      // goodwill code can be typed if needed — but nothing is pre-applied. The
+      // 15% member rate already lives in the Price, so there is no coupon to wrap.
       allow_promotion_codes: true,
       // Redirect to Mujo-side confirmation page after checkout instead of
       // Stripe's default Stripe-branded thank-you. The page hands the
@@ -240,21 +193,9 @@ async function main() {
       },
     };
 
-    // Stripe Payment Link API: discounts go on `restrictions`? No — discounts
-    // go on `subscription_data` for subscriptions. Setting via
-    // `subscription_data.discounts` would auto-apply the coupon to the sub.
-    // But Payment Links don't support subscription_data.discounts directly
-    // on create — coupons attach via the URL param `?prefilled_promo_code`
-    // OR via Customer-level discounts post-creation.
-    //
-    // Cleanest path for member-rate honoring: customers click through, the
-    // Customer is created, then the post-checkout webhook attaches the
-    // MUJO_SUB_15 coupon to their Customer record. That's outside this
-    // script's scope — Kinga can also manually create a custom coupon at
-    // each customer's old Loop rate, per the migration draft's note.
-    //
-    // For TEST validation, we just want clickable URLs that reach Stripe
-    // Checkout. Coupon plumbing is a Phase-8 (cutover-day) concern.
+    // No coupon plumbing: under Option A the member rate is baked into the
+    // subscription Price ($55.25), so the migrated subscriber pays it straight
+    // from the Price with nothing to apply, wrap, or double-discount.
 
     paymentLink = await stripe.paymentLinks.create(params);
     console.log(`  ✓ Created Payment Link: ${paymentLink.id}`);
@@ -268,10 +209,7 @@ async function main() {
 
   const baseUrl = paymentLink.url;
   for (const sub of SUBSCRIBERS) {
-    const promoFragment = promotionCode
-      ? `&prefilled_promo_code=${encodeURIComponent(promotionCode.code)}`
-      : "";
-    const personalUrl = `${baseUrl}?prefilled_email=${encodeURIComponent(sub.email)}${promoFragment}`;
+    const personalUrl = `${baseUrl}?prefilled_email=${encodeURIComponent(sub.email)}`;
     console.log("│");
     console.log(`│ ${sub.name.padEnd(10)} → ${sub.email}`);
     console.log(`│ ${personalUrl}`);
@@ -294,22 +232,12 @@ async function main() {
   console.log("     _loop-to-stripe-migration-2026-05-07.md and send via Gmail compose.");
   console.log();
 
-  // Coupon attachment heads-up
-  if (!COUPON_ID) {
-    console.warn(
-      "⚠ STRIPE_SUBSCRIPTION_COUPON_ID not set — Payment Link will charge full retail.",
-    );
-  } else if (!promotionCode) {
-    console.warn(
-      "⚠ Could not find or create the promotion code — URLs will not pre-apply the discount.",
-    );
-  } else {
-    console.log(
-      `Pricing: invoice #1 charges $55.25 (15% off retail $65) via auto-applied promo "${promotionCode.code}".\n` +
-        "Belt-and-suspenders: subscription-created webhook also attaches MUJO_SUB_15\n" +
-        "for any sub that somehow lands without the discount (idempotent — skipped if already attached).",
-    );
-  }
+  console.log(
+    "Pricing: every invoice (first + renewals) charges $55.25 — the 15% member rate\n" +
+      "is baked into the subscription Price, no coupon. Confirm PRICE_ID above resolves\n" +
+      "to the discounted ($55.25) Price (run the mirror + fetch scripts + re-point the\n" +
+      "env var first if it still reads the old $65 Price).",
+  );
 }
 
 main().catch((err) => {

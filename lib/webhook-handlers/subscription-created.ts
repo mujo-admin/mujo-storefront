@@ -8,10 +8,12 @@
 //      customer, 3 pay attempts → 3 active subs billing forever). Cancel this
 //      duplicate immediately and refund its initial charge. Idempotent.
 //
-//   2. Loop migration coupon attach (migration subs only). When a sub is created
-//      via the Loop migration Payment Link (sub.metadata.loop_migration set),
-//      auto-attach MUJO_SUB_15 so the migrated subscriber pays the member rate
-//      without typing a promo code.
+//   2. Loop migration coupon attach (LEGACY-PRICE GUARD ONLY). As of 2026-06-10
+//      the migration rides the DISCOUNTED subscription Price ($55.25, 15% baked in)
+//      and the Payment Link no longer wraps MUJO_SUB_15, so this normally no-ops.
+//      It still fires as a guard if a migration sub somehow lands on a genuinely-
+//      legacy FULL-RETAIL Price — attaching the coupon then nets the member rate
+//      without double-discounting. See plans/2026-06-09-checkout-discount-into-price.md.
 //
 // Mirroring (status / period / etc.) into our `subscriptions` table is handled
 // by customer.subscription.updated + invoice.paid — this handler does NOT call
@@ -19,7 +21,7 @@
 
 import type Stripe from 'stripe';
 import { stripe } from 'lib/stripe';
-import { SUBSCRIPTION_COUPON_ID } from 'lib/stripe-constants';
+import { RITUAL_PRICE_IDS, SUBSCRIPTION_COUPON_ID } from 'lib/stripe-constants';
 import { extractInvoicePaymentIntentId } from './_helpers';
 
 // Only rapid double-submits are duplicates. A customer who deliberately starts
@@ -130,10 +132,36 @@ async function refundDuplicateCharge(subId: string): Promise<void> {
   });
 }
 
-/** Loop migration zero-touch coupon attach. No-op for non-migration subs. */
+/**
+ * Loop migration coupon attach — LEGACY-PRICE GUARD ONLY. No-op for non-migration
+ * subs.
+ *
+ * As of 2026-06-10 (Option A, plans/2026-06-09-checkout-discount-into-price.md) the
+ * Loop migration points at the DISCOUNTED subscription Price ($55.25, the flat 15%
+ * baked into the Price) and the migration Payment Link no longer wraps MUJO_SUB_15.
+ * Attaching the coupon on top of a baked-in-discount Price would DOUBLE-discount, so
+ * this attach now fires ONLY as a guard for a genuinely-legacy FULL-RETAIL Price sub
+ * (one not among the currently-configured discounted subscription Prices). In the
+ * normal Option-A flow this is a no-op.
+ */
 async function attachMigrationCoupon(sub: Stripe.Subscription): Promise<void> {
   const migrationTag = sub.metadata?.loop_migration;
   if (!migrationTag) return;
+
+  // Skip when the sub already rides a discounted subscription Price — the 15% is
+  // in the Price, so attaching the coupon would double-discount.
+  const priceId = sub.items.data[0]?.price.id;
+  const discountedSubPriceIds = [
+    RITUAL_PRICE_IDS['25-subscription'],
+    RITUAL_PRICE_IDS['25-subscription-8wk'],
+  ].filter(Boolean);
+  if (priceId && discountedSubPriceIds.includes(priceId)) {
+    console.log(
+      '[sub.created/migration] sub on discounted Price — 15% already baked in, skipping coupon attach',
+      { subId: sub.id, migrationTag, priceId },
+    );
+    return;
+  }
 
   if (!SUBSCRIPTION_COUPON_ID) {
     console.warn(
