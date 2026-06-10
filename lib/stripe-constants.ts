@@ -66,6 +66,13 @@ export const SUBSCRIBER_DISCOUNT_PERCENT = 15;
 // legacy full-retail Price + this coupon, which nets the same $55.25.
 export const SUBSCRIPTION_COUPON_ID =
   process.env.STRIPE_SUBSCRIPTION_COUPON_ID ?? '';
+// Product-scoped twin of the above (applies_to the Ritual product only). The
+// checkout routes prefer this so a MIXED cart discounts only the subscription
+// line, not a one-time merch add-on. Falls back to SUBSCRIPTION_COUPON_ID when
+// unset. NOT used by the Loop-migration webhook (which stays on the unscoped
+// coupon by design — see scripts/scope-subscription-coupon.ts).
+export const SUBSCRIPTION_COUPON_RITUAL_ID =
+  process.env.STRIPE_SUBSCRIPTION_COUPON_RITUAL_ID ?? '';
 
 // First-order subscriber gift (Subscription v2): a free rechargeable milk
 // frother ships with the FIRST subscription order only (billing_reason

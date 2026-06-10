@@ -38,11 +38,12 @@ const requestSchema = z.object({
 
 type CheckoutInput = z.infer<typeof requestSchema>;
 
-function determineMode(input: CheckoutInput): 'payment' | 'subscription' | 'mixed' {
-  const subs = input.line_items.filter((li) => li.is_subscription === true);
-  if (subs.length === 0) return 'payment';
-  if (subs.length === input.line_items.length) return 'subscription';
-  return 'mixed';
+// Any cart with ≥1 subscription line runs in subscription mode (one-time lines
+// ride the first invoice). Previously a mixed cart was rejected with a 400.
+function determineMode(input: CheckoutInput): 'payment' | 'subscription' {
+  return input.line_items.some((li) => li.is_subscription === true)
+    ? 'subscription'
+    : 'payment';
 }
 
 // See app/api/checkout-session/route.ts for the full rationale. Free shipping
@@ -93,16 +94,6 @@ export async function POST(req: NextRequest) {
   }
 
   const mode = determineMode(parsed);
-  if (mode === 'mixed') {
-    return Response.json(
-      {
-        error: 'mixed_cart_unsupported',
-        message:
-          'Cart contains both one-time and subscription items. Please check out separately.',
-      },
-      { status: 400 },
-    );
-  }
 
   // Dedup layer 1 (see /api/checkout-session for the full rationale): reuse an
   // existing Stripe Customer matched by email instead of letting Stripe create
@@ -175,6 +166,10 @@ export async function POST(req: NextRequest) {
     // That leaves Stripe Checkout's single discount slot free for a first-purchase
     // / marketing promo code, which a subscribing shopper can now redeem too.
     // MUJO_SUB_15 lives on only for existing/migrated subs on legacy Prices.
+    //
+    // MIXED CARTS need no coupon scoping: with no coupon applied, a one-time merch
+    // line is charged full price and only the Ritual line carries its baked-in 15%.
+    // The Ritual-scoped twin coupon is obsolete for new checkouts.
   }
 
   try {

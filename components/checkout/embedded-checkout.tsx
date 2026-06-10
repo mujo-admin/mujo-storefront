@@ -7,6 +7,7 @@ import {
 import { loadStripe, type Stripe as StripeJs } from "@stripe/stripe-js";
 import { useEffect, useMemo, useState } from "react";
 import { useCart } from "components/cart/cart-context";
+import { OrderSummaryCard } from "components/checkout/order-summary-card";
 
 const PUBLISHABLE_KEY =
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? "";
@@ -150,7 +151,7 @@ export function EmbeddedCheckoutMount() {
   }
 
   return (
-    <CheckoutShell>
+    <CheckoutShell withSummary>
       <EmbeddedCheckoutProvider
         stripe={getStripePromise()}
         options={{ clientSecret }}
@@ -161,14 +162,23 @@ export function EmbeddedCheckoutMount() {
   );
 }
 
-function CheckoutShell({ children }: { children: React.ReactNode }) {
+function CheckoutShell({
+  children,
+  withSummary = false,
+}: {
+  children: React.ReactNode;
+  withSummary?: boolean;
+}) {
   return (
     <div className="checkout-shell">
       <header className="checkout-header">
         <h1 className="checkout-title">Checkout</h1>
         <a href="/shop" className="checkout-back">← Back to shop</a>
       </header>
-      <div className="checkout-frame">{children}</div>
+      <div className={`checkout-body${withSummary ? " has-summary" : ""}`}>
+        <div className="checkout-frame">{children}</div>
+        {withSummary ? <OrderSummaryCard /> : null}
+      </div>
       <ul className="checkout-trust">
         <li>Secure checkout · Stripe</li>
         <li>30-day money-back guarantee</li>
@@ -207,6 +217,23 @@ function CheckoutShell({ children }: { children: React.ReactNode }) {
           background: var(--cream);
           border-radius: 14px;
           min-height: 480px;
+        }
+        /* Two-column desktop: Stripe form left, Mujo summary sticky right rail. */
+        .checkout-shell:has(.checkout-body.has-summary) { max-width: 1040px; }
+        .checkout-body.has-summary {
+          display: grid;
+          grid-template-columns: 1fr 360px;
+          gap: 28px;
+          align-items: start;
+        }
+        .checkout-body.has-summary .checkout-summary {
+          position: sticky;
+          top: 24px;
+        }
+        /* Mobile: summary stacks ABOVE the form (cost transparency first). */
+        @media (max-width: 900px) {
+          .checkout-body.has-summary { grid-template-columns: 1fr; gap: 18px; }
+          .checkout-body.has-summary .checkout-summary { order: -1; position: static; }
         }
         .checkout-loading,
         .checkout-empty,

@@ -47,11 +47,14 @@ const requestSchema = z.object({
 
 type CheckoutSessionInput = z.infer<typeof requestSchema>;
 
-function determineMode(input: CheckoutSessionInput): 'payment' | 'subscription' | 'mixed' {
-  const subs = input.items.filter((li) => li.isSubscription === true);
-  if (subs.length === 0) return 'payment';
-  if (subs.length === input.items.length) return 'subscription';
-  return 'mixed';
+// Any cart with ≥1 subscription line runs in subscription mode — Stripe bills
+// the one-time lines on the first invoice (20 recurring + 20 one-time max).
+// Previously a mixed cart was rejected with a 400; now it checks out in one go,
+// and (being subscription mode) ships free with no Express option.
+function determineMode(input: CheckoutSessionInput): 'payment' | 'subscription' {
+  return input.items.some((li) => li.isSubscription === true)
+    ? 'subscription'
+    : 'payment';
 }
 
 // Resolves the shipping options Stripe shows the customer. Free shipping is
@@ -108,16 +111,6 @@ export async function POST(req: NextRequest) {
   }
 
   const mode = determineMode(parsed);
-  if (mode === 'mixed') {
-    return Response.json(
-      {
-        error: 'mixed_cart_unsupported',
-        message:
-          'Cart contains both one-time and subscription items. Please check out separately.',
-      },
-      { status: 400 },
-    );
-  }
 
   const eventId = randomUUID();
   const returnUrl = `${parsed.origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}&event_id=${eventId}`;
@@ -156,6 +149,15 @@ export async function POST(req: NextRequest) {
       button_color: '#F2682F',
       border_style: 'rounded',
     },
+    custom_text: {
+      shipping_address: {
+        message:
+          'Free US shipping on orders over $100 (and on every subscription). Ships from our US fulfilment partners.',
+      },
+      submit: {
+        message: '30-day money-back guarantee. Cancel or change your subscription anytime.',
+      },
+    },
     metadata: { mujo_event_id: eventId },
   };
 
@@ -192,6 +194,12 @@ export async function POST(req: NextRequest) {
     // free: the promo box stays open so a subscribing shopper can still redeem a
     // first-purchase / marketing code (e.g. WELCOME10). MUJO_SUB_15 lives on only
     // for existing/migrated subscribers on legacy full-retail Prices.
+    //
+    // MIXED CARTS (sub + one-time merch in one checkout) need no coupon scoping:
+    // with no coupon applied at all, the merch line is simply charged at full
+    // price and only the Ritual line carries its baked-in 15%. The old
+    // Ritual-scoped twin coupon (SUBSCRIPTION_COUPON_RITUAL_ID) is therefore
+    // obsolete for new checkouts.
     params.allow_promotion_codes = true;
   }
 

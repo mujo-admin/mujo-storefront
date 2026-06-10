@@ -939,15 +939,9 @@ body.locked { overflow: hidden; }
 @media (min-width: 480px) { .ing-card { width: 200px; } }
 
 @media (min-width: 768px) {
-  .ing-strip {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    overflow: visible;
-    padding: 0;
-    margin: 0;
-  }
-  .ing-card { width: auto; max-width: none; }
+  /* Keep the horizontal scroll carousel on desktop: 5 cards per window,
+     scroll for the rest. (Was a 3-col grid that made cards oversized.) */
+  .ing-card { width: calc((100% - 4 * 12px) / 5); max-width: none; }
 }
 
 .ing-img {
@@ -1006,16 +1000,6 @@ body.locked { overflow: hidden; }
   margin-top: auto;
 }
 .ing-dose::before { content: '✓'; color: var(--orange-deep); }
-
-.inside-foot {
-  margin-top: 24px;
-  text-align: center;
-  font-family: var(--f-mono);
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  color: var(--mute);
-}
-@media (min-width: 768px) { .inside-foot { margin-top: 32px; } }
 
 /* ═══════════════════════════════════════════════════════════
    5. UGC STRIP. Full-bleed marquee of customer photos
@@ -2027,9 +2011,6 @@ footer {
           <div class="tile-name">The Ritual Cacao</div>
           <ul class="tile-benefits">
             <li class="tile-benefit"><span><strong>The clarity and calm that washes over you by the second week.</strong></span></li>
-            <li class="tile-benefit"><span>Three mushroom extracts, fruiting body only, dual-extracted at 8:1.</span></li>
-            <li class="tile-benefit"><span>Clinically studied adaptogens at the dose the research used.</span></li>
-            <li class="tile-benefit"><span>Deep chocolate. No mushroom taste, no mud, no aftertaste.</span></li>
           </ul>
           <div class="tile-meta">
             <span class="tile-price">$65</span>
@@ -2049,9 +2030,6 @@ footer {
           <div class="tile-name">The Lemna Protein Bar</div>
           <ul class="tile-benefits">
             <li class="tile-benefit"><span><strong>15g protein · 7g fiber.</strong> Made with Lemna leaf. Complete amino profile.</span></li>
-            <li class="tile-benefit"><span>Nut butter base. No flavor systems, no syrup base. Real ingredients only.</span></li>
-            <li class="tile-benefit"><span>No soy, dairy, whey, or lecithins. Just food.</span></li>
-            <li class="tile-benefit"><span>10× more land-efficient than soy. Quality that competes with egg and whey, grown on water.</span></li>
           </ul>
           <div class="tile-meta">
             <span class="tile-price">$32</span>
@@ -2071,9 +2049,6 @@ footer {
           <div class="tile-name">Mujo <span class="serif-acc">merch.</span></div>
           <ul class="tile-benefits">
             <li class="tile-benefit"><span><strong>The frother</strong> we test every batch with. Built for the ritual.</span></li>
-            <li class="tile-benefit"><span>The Rebel Club T-shirt. Soft from day one.</span></li>
-            <li class="tile-benefit"><span>The crew neck. Heavyweight French terry.</span></li>
-            <li class="tile-benefit"><span>The hat. Washed twill, embroidered mark.</span></li>
           </ul>
           <div class="tile-meta">
             <span class="tile-price">From $20</span>
@@ -2180,10 +2155,6 @@ footer {
         </div>
       </div>
     </div>
-
-    <div class="inside-foot reveal">
-      Fruiting body only. Never mycelium on grain. DNA-verified adaptogens. Dosed to the research.
-    </div>
   </div>
 </section>
 
@@ -2202,14 +2173,10 @@ footer {
   .sci .sci-num { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.2em; color: var(--sage-light); margin-bottom: 14px; }
   .sci .sci-label { font-family: var(--f-display); font-weight: 500; font-size: 21px; line-height: 1.2; color: var(--sage); margin: 0 0 10px; }
   .sci .sci-why { font-family: var(--f-body); font-size: 16px; line-height: 1.55; color: var(--ink-soft); margin: 0 0 12px; }
-  .sci .sci-quiet { font-family: var(--f-body); font-size: 14px; line-height: 1.5; color: var(--mute); }
-  .sci .sci-close { font-family: var(--f-display); font-weight: 500; font-size: 22px; line-height: 1.3; color: var(--sage); max-width: 720px; margin: 48px 0 0; }
-  .sci .sci-foot { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.04em; line-height: 1.6; color: var(--mute); margin: 18px 0 0; max-width: 720px; }
   @media (max-width: 880px) {
     .sci h2 { font-size: 26px; }
     .sci .sci-rows { grid-template-columns: 1fr; gap: 8px; }
     .sci .sci-intro { font-size: 18px; }
-    .sci .sci-close { font-size: 20px; }
   }
 </style>
 <section class="sci" aria-label="Why it actually works">
@@ -2225,25 +2192,20 @@ footer {
         <div class="sci-num">01 · The mushrooms</div>
         <h3 class="sci-label">Extracted, not just powdered</h3>
         <p class="sci-why">A mushroom's good stuff is locked inside cell walls your gut can't break down. Eat the raw powder and most of it passes straight through. We extract with both water and oil to pull out the full range, so what's on the label reaches your cells.</p>
-        <p class="sci-quiet">Most brands use mycelium grown on grain, because it's cheaper. If the label doesn't say "fruiting body," it probably isn't.</p>
       </div>
       <div class="sci-row">
         <img class="sci-icon" src="/images/icons/sustainably-sourced.svg" alt="" loading="lazy" width="40" height="40">
         <div class="sci-num">02 · The adaptogens</div>
         <h3 class="sci-label">The dose the studies used</h3>
         <p class="sci-why">KSM-66® Ashwagandha at 300mg. Rhodiola Rosea standardized to 5% rosavins and 1.5% salidrosides, cultivated in the Himalayas to protect the wild plant. An ingredient only does what the research says when it's the same form and dose.</p>
-        <p class="sci-quiet">A lot of products use a fraction of the clinical dose. Enough to print the name. Not enough to feel it.</p>
       </div>
       <div class="sci-row">
         <img class="sci-icon" src="/images/icons/bioavailable-curcuma.svg" alt="" loading="lazy" width="40" height="40">
         <div class="sci-num">03 · The curcumin</div>
         <h3 class="sci-label">Built to reach your brain</h3>
         <p class="sci-why">Ordinary curcumin barely survives digestion and never reaches your brain, so you feel none of the benefit. Ours is specially encapsulated to cross the blood-brain barrier and deliver where it counts. Up to 285x more bioavailable than standard.</p>
-        <p class="sci-quiet">Same ingredient, completely different result, because of the form. It's the whole philosophy in one example.</p>
       </div>
     </div>
-    <p class="sci-close reveal d2">These are the little things almost nobody talks about. They're the whole reason Mujo does something you can feel.</p>
-    <p class="sci-foot reveal d2">Not every ingredient is clinically studied. The adaptogens and standardized forms are. The mushrooms are chosen for the best form. We'll always tell you which is which.</p>
   </div>
 </section>
 
