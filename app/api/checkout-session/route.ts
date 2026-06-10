@@ -143,11 +143,16 @@ export async function POST(req: NextRequest) {
     // Per-session branding overrides Stripe Dashboard defaults. Cream matches
     // tokens.css --cream so the iframe blends with the page background; orange
     // matches --orange so the Pay button + accents read as Mujo. Border-style
-    // rounded matches our 10-14px brand radius.
+    // rounded matches our 10-14px brand radius. font_family 'inter' is the
+    // closest clean grotesque sans in Stripe's supported list to Mujo's body
+    // font (Hanken Grotesk — not in Stripe's set). With the Mujo summary card
+    // removed, Stripe's own summary is the single source of truth, so this
+    // branding is what makes the now-dominant iframe read as on-brand Mujo.
     branding_settings: {
       background_color: '#F3F2E9',
       button_color: '#F2682F',
       border_style: 'rounded',
+      font_family: 'inter',
     },
     custom_text: {
       shipping_address: {

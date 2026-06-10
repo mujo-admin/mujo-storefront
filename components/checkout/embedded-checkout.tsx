@@ -7,7 +7,6 @@ import {
 import { loadStripe, type Stripe as StripeJs } from "@stripe/stripe-js";
 import { useEffect, useMemo, useState } from "react";
 import { useCart } from "components/cart/cart-context";
-import { OrderSummaryCard } from "components/checkout/order-summary-card";
 
 const PUBLISHABLE_KEY =
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? "";
@@ -151,7 +150,7 @@ export function EmbeddedCheckoutMount() {
   }
 
   return (
-    <CheckoutShell withSummary>
+    <CheckoutShell>
       <EmbeddedCheckoutProvider
         stripe={getStripePromise()}
         options={{ clientSecret }}
@@ -162,22 +161,23 @@ export function EmbeddedCheckoutMount() {
   );
 }
 
-function CheckoutShell({
-  children,
-  withSummary = false,
-}: {
-  children: React.ReactNode;
-  withSummary?: boolean;
-}) {
+function CheckoutShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="checkout-shell">
       <header className="checkout-header">
         <h1 className="checkout-title">Checkout</h1>
         <a href="/shop" className="checkout-back">← Back to shop</a>
       </header>
-      <div className={`checkout-body${withSummary ? " has-summary" : ""}`}>
+      {/*
+        Single, always-accurate summary: the Mujo <OrderSummaryCard> is gone.
+        Stripe's own order summary (the source of truth — it IS the charge, so it
+        can never drift on promo codes / cross-sells / tax) is the only summary
+        now. The container is wide so Stripe renders its native two-column desktop
+        layout (payment left, summary right) and single-column-with-summary-on-top
+        on mobile. See plans/explore-2026-06-10-checkout-order-summary-stripe-native.md.
+      */}
+      <div className="checkout-body">
         <div className="checkout-frame">{children}</div>
-        {withSummary ? <OrderSummaryCard /> : null}
       </div>
       <ul className="checkout-trust">
         <li>Secure checkout · Stripe</li>
@@ -186,7 +186,7 @@ function CheckoutShell({
 
       <style>{`
         .checkout-shell {
-          max-width: 720px;
+          max-width: 1080px;
           margin: 0 auto;
           padding: 24px 20px 80px;
           font-family: var(--f-body);
@@ -217,23 +217,6 @@ function CheckoutShell({
           background: var(--cream);
           border-radius: 14px;
           min-height: 480px;
-        }
-        /* Two-column desktop: Stripe form left, Mujo summary sticky right rail. */
-        .checkout-shell:has(.checkout-body.has-summary) { max-width: 1040px; }
-        .checkout-body.has-summary {
-          display: grid;
-          grid-template-columns: 1fr 360px;
-          gap: 28px;
-          align-items: start;
-        }
-        .checkout-body.has-summary .checkout-summary {
-          position: sticky;
-          top: 24px;
-        }
-        /* Mobile: summary stacks ABOVE the form (cost transparency first). */
-        @media (max-width: 900px) {
-          .checkout-body.has-summary { grid-template-columns: 1fr; gap: 18px; }
-          .checkout-body.has-summary .checkout-summary { order: -1; position: static; }
         }
         .checkout-loading,
         .checkout-empty,
