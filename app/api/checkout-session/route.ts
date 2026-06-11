@@ -12,6 +12,8 @@ import Stripe from 'stripe';
 import { z } from 'zod';
 import { stripe } from 'lib/stripe';
 import {
+  FIRST_ORDER_FROTHER_GIFT_ENABLED,
+  FROTHER_GIFT_PRICE_ID,
   FREE_SHIPPING_THRESHOLD_CENTS,
   SHIPPING_RATE_EXPRESS_ID,
   SHIPPING_RATE_FLAT_ID,
@@ -208,6 +210,19 @@ export async function POST(req: NextRequest) {
     // Ritual-scoped twin coupon (SUBSCRIPTION_COUPON_RITUAL_ID) is therefore
     // obsolete for new checkouts.
     params.allow_promotion_codes = true;
+
+    // First-order subscriber gift: append the $0 frother as a one-time line item
+    // so it shows on Stripe's order summary ("Electric Frother — $0.00"). In
+    // subscription mode a one-time line bills only the FIRST invoice, so renewals
+    // never include it; the $0 invoice line then flows to the Shopify order
+    // automatically (variant-linked via the Price's metadata.shopify_variant_id),
+    // and the invoice.paid handler no longer needs to append it manually.
+    if (FIRST_ORDER_FROTHER_GIFT_ENABLED && FROTHER_GIFT_PRICE_ID) {
+      params.line_items = [
+        ...(params.line_items ?? []),
+        { price: FROTHER_GIFT_PRICE_ID, quantity: 1 },
+      ];
+    }
   }
 
   // Stripe rejects passing both `customer` and `customer_email` on the same
