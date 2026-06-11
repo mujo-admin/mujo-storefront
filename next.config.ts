@@ -47,9 +47,15 @@ const config: NextConfig = {
   async redirects() {
     return [
       // Shopify Liquid → headless route map.
-      // The /pages/protein-bars-early-access → /lemna redirect is added at the
-      // launch-day flip (currently /lemna is noindex; redirecting to it pre-launch
-      // would broadcast the URL via cached redirect metadata).
+      // The old Shopify waitlist page. /lemna is now live + indexable (the earlier
+      // noindex was lifted), so we redirect rather than 404 the link that lives in
+      // emails / ads / the IG bio. permanent:false (307) keeps it changeable at the
+      // launch-day flip without browsers hard-caching it.
+      {
+        source: "/pages/protein-bars-early-access",
+        destination: "/lemna",
+        permanent: false,
+      },
       {
         source: "/pages/ritual",
         destination: "/ritual",
