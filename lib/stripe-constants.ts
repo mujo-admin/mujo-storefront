@@ -76,12 +76,21 @@ export const SUBSCRIPTION_COUPON_RITUAL_ID =
 
 // First-order subscriber gift (Subscription v2): a free rechargeable milk
 // frother ships with the FIRST subscription order only (billing_reason
-// subscription_create). Added as a $0 line to the Shopify order in the
-// invoice.paid webhook handler — never charged via Stripe, never on renewals.
-// Toggle so the offer can be switched off without a deploy. The variant GID is
-// Mujo's single frother product's default variant (resolve once, set in env).
+// subscription_create) — never charged, never on renewals.
+// Toggle so the offer can be switched off without a deploy.
+//   - FROTHER_GIFT_PRICE_ID: a $0 one-time Stripe Price on the frother product.
+//     Added as a visible $0 line_item to the subscription Checkout Session so the
+//     gift shows on Stripe's order summary; because it's a real $0 invoice line,
+//     it then flows to the Shopify order automatically (variant-linked via the
+//     Price's metadata.shopify_variant_id). One-time line items in subscription
+//     mode bill only the first invoice, so renewals never include it.
+//   - FROTHER_GIFT_VARIANT_GID: Mujo's single frother product's default variant —
+//     used by the invoice.paid handler's fallback append (for any checkout path
+//     that did not include the $0 line) so there is always exactly one frother.
 export const FIRST_ORDER_FROTHER_GIFT_ENABLED =
   process.env.FIRST_ORDER_FROTHER_GIFT_ENABLED === 'true';
+export const FROTHER_GIFT_PRICE_ID =
+  process.env.FROTHER_GIFT_PRICE_ID ?? '';
 export const FROTHER_GIFT_VARIANT_GID =
   process.env.FROTHER_GIFT_VARIANT_GID ?? '';
 

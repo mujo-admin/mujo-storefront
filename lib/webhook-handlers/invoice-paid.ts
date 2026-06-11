@@ -11,6 +11,7 @@ import { stripe } from 'lib/stripe';
 import { createOrder, type CreateOrderInput } from 'lib/shopify-admin';
 import {
   FIRST_ORDER_FROTHER_GIFT_ENABLED,
+  FROTHER_GIFT_PRICE_ID,
   FROTHER_GIFT_VARIANT_GID,
 } from 'lib/stripe-constants';
 import { trackOrderPlaced } from 'lib/klaviyo';
@@ -189,14 +190,27 @@ export async function handleInvoicePaid(event: Stripe.Event) {
     };
   });
 
-  // First-order subscriber gift: a free frother ships with the FIRST
-  // subscription order only (subscription_initial). Renewals (subscription_cycle)
-  // and plan changes (subscription_update) never get it. Added as a $0 Shopify
-  // line so it's picked + packed; not a Stripe line (never charged). Variant-
-  // linked when the GID is set so inventory decrements; falls back to a custom
-  // title line otherwise. Idempotent via the stripeChargeId order-mirror guard.
-  let frotherGifted = false;
-  if (type === 'subscription_initial' && FIRST_ORDER_FROTHER_GIFT_ENABLED) {
+  // First-order subscriber gift: a free frother ships with the FIRST subscription
+  // order only (subscription_initial); renewals (subscription_cycle) and plan
+  // changes (subscription_update) never get it.
+  //
+  // The gift now arrives as a real $0 line on the first invoice — the Checkout
+  // Session appends a $0 frother Price as a one-time line_item (see
+  // app/api/checkout-session), so `lineItems` (built from invoice.lines above) is
+  // already variant-linked and $0. We just detect it for the tag. The manual
+  // append below is a FALLBACK for a first order whose checkout did not include
+  // the $0 line (e.g. the legacy /api/checkout shim, or an in-flight session
+  // created before this shipped) — so there is always exactly one frother, never
+  // two. Idempotent overall via the stripeChargeId order-mirror guard.
+  const frotherInInvoice =
+    !!FROTHER_GIFT_PRICE_ID &&
+    invoice.lines.data.some((li) => priceIdOf(li) === FROTHER_GIFT_PRICE_ID);
+  let frotherGifted = frotherInInvoice;
+  if (
+    type === 'subscription_initial' &&
+    FIRST_ORDER_FROTHER_GIFT_ENABLED &&
+    !frotherInInvoice
+  ) {
     lineItems.push({
       ...(FROTHER_GIFT_VARIANT_GID
         ? { variantId: FROTHER_GIFT_VARIANT_GID }
