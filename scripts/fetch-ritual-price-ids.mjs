@@ -43,11 +43,17 @@ async function listActivePrices(productId) {
 }
 
 // Map prices to buckets by unit_amount × recurring × interval_count.
-//   $27.00 = 2700¢ → ritual-10
-//   $65.00 = 6500¢ → ritual-25
+//   One-time:      $27.00 = 2700¢ → ritual-10,  $65.00 = 6500¢ → ritual-25
+//   Subscription:  the 15% subscriber discount is BAKED INTO the Price (Option A —
+//     not a checkout coupon), so subscription Prices are retail × 0.85:
+//       2700 × 0.85 = 2295¢ → ritual-10 sub,  6500 × 0.85 = 5525¢ → ritual-25 sub
 //   recurring → subscription, else one-time
 //   The 25-serving subscription has TWO cadences at the same amount; they are
 //   disambiguated by interval_count: 4 → 4-week (primary), 8 → 8-week.
+const SUBSCRIBER_DISCOUNT = 0.15; // keep in sync with mirror-shopify-to-stripe.ts
+const SUB_10 = Math.round(2700 * (1 - SUBSCRIBER_DISCOUNT)); // 2295
+const SUB_25 = Math.round(6500 * (1 - SUBSCRIBER_DISCOUNT)); // 5525
+
 function bucketize(prices) {
   const result = {
     RITUAL_PRICE_10_ONETIME: null,
@@ -61,11 +67,12 @@ function bucketize(prices) {
     const sub = Boolean(p.recurring);
     const count = p.recurring?.interval_count ?? null;
     if (p.unit_amount === 2700 && !sub) result.RITUAL_PRICE_10_ONETIME = p.id;
-    else if (p.unit_amount === 2700 && sub) result.RITUAL_PRICE_10_SUBSCRIPTION = p.id;
+    // 10-serving sub: prefer the 4-week (primary) cadence for the single bucket.
+    else if (p.unit_amount === SUB_10 && sub && count === 4) result.RITUAL_PRICE_10_SUBSCRIPTION = p.id;
     else if (p.unit_amount === 6500 && !sub) result.RITUAL_PRICE_25_ONETIME = p.id;
-    else if (p.unit_amount === 6500 && sub && count === 8)
+    else if (p.unit_amount === SUB_25 && sub && count === 8)
       result.RITUAL_PRICE_25_SUBSCRIPTION_8W = p.id;
-    else if (p.unit_amount === 6500 && sub) result.RITUAL_PRICE_25_SUBSCRIPTION = p.id;
+    else if (p.unit_amount === SUB_25 && sub) result.RITUAL_PRICE_25_SUBSCRIPTION = p.id;
   }
 
   return result;
