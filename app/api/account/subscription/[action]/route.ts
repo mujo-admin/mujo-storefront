@@ -207,9 +207,13 @@ export async function POST(
       // Switch the Ritual subscription between the 4-week and 8-week cadence.
       // Both cadences are the same product at the same $65 base + standing 15%
       // coupon, so the per-delivery price is unchanged — only the interval
-      // differs. proration_behavior 'none' + billing_cycle_anchor 'unchanged'
-      // keeps the current renewal date and moves no money; the new cadence
-      // applies from the next cycle onward.
+      // differs. Switching cadence changes the Price's billing interval, and
+      // Stripe REJECTS `billing_cycle_anchor: "unchanged"` on an interval
+      // change ("there's no way to leave the billing cycle unchanged"). So we
+      // instead hold the existing renewal date by trialing until it: no charge
+      // now, the already-paid current box stands, and the new cadence applies
+      // from that date forward. Same mechanism as skip-next; honors the modal's
+      // "your next renewal date stays the same" promise.
       const parsed = frequencySchema.parse(body);
       const targetPriceId =
         parsed.cadence === "8wk"
@@ -239,8 +243,11 @@ export async function POST(
         subRow.stripeSubscriptionId,
         {
           items: [{ id: itemId, price: targetPriceId }],
+          // Hold the next renewal at the existing period end (trial until then),
+          // then bill the new cadence from that date. Allowed across an interval
+          // change, unlike billing_cycle_anchor: "unchanged".
+          trial_end: Math.floor(subRow.currentPeriodEnd.getTime() / 1000),
           proration_behavior: "none",
-          billing_cycle_anchor: "unchanged",
         },
       );
     } else {
