@@ -1,6 +1,6 @@
-import { RITUAL_PRICE_IDS, type RitualCadence } from 'lib/stripe-constants';
-import type { CartLineItem } from './types';
-import { resolveMerchPriceId } from './merch-config';
+import { RITUAL_PRICE_IDS, type RitualCadence } from "lib/stripe-constants";
+import type { CartLineItem } from "./types";
+import { resolveMerchPriceId } from "./merch-config";
 
 /**
  * Resolves a Stripe Price ID to enough product metadata to render a cart line.
@@ -17,24 +17,24 @@ import { resolveMerchPriceId } from './merch-config';
 
 type PriceIdResolution = Pick<
   CartLineItem,
-  | 'productHandle'
-  | 'productTitle'
-  | 'variantTitle'
-  | 'image'
-  | 'unitAmountCents'
-  | 'currency'
-  | 'isSubscription'
+  | "productHandle"
+  | "productTitle"
+  | "variantTitle"
+  | "image"
+  | "unitAmountCents"
+  | "currency"
+  | "isSubscription"
 >;
 
 // Cart line-item thumbnails. Point at real square masters in public/images —
 // the old /products/*.png paths didn't exist and rendered a broken-image box.
 const RITUAL_IMAGE_25 = {
-  url: '/images/products/ritual/ritual-pouch-hero-monumental-editorial-1x1.webp',
-  alt: 'The Mujo Ritual pouch',
+  url: "/images/products/ritual/ritual-pouch-hero-monumental-editorial-1x1.webp",
+  alt: "The Mujo Ritual pouch",
 };
 const RITUAL_IMAGE_10 = {
-  url: '/images/products/ritual/ritual-pouch-10-serving-hero-monumental-editorial-1x1.webp',
-  alt: 'The Mujo Ritual pouch, 10 servings',
+  url: "/images/products/ritual/ritual-pouch-10-serving-hero-monumental-editorial-1x1.webp",
+  alt: "The Mujo Ritual pouch, 10 servings",
 };
 
 type RitualKey = keyof typeof RITUAL_PRICE_IDS;
@@ -42,40 +42,49 @@ type RitualKey = keyof typeof RITUAL_PRICE_IDS;
 // 10-serving is one-time only — small bag costs more to produce, so it
 // never ships as a subscription and never carries the MUJO_SUB_15 discount.
 const RITUAL_LINES: Record<RitualKey, PriceIdResolution> = {
-  '10-onetime': {
-    productHandle: 'mujo-ritual',
-    productTitle: 'The Ritual',
-    variantTitle: '10 servings · One-time',
+  "10-onetime": {
+    productHandle: "mujo-ritual",
+    productTitle: "The Ritual",
+    variantTitle: "10 servings · One-time",
     image: RITUAL_IMAGE_10,
     unitAmountCents: 2700,
-    currency: 'usd',
+    currency: "usd",
     isSubscription: false,
   },
-  '25-onetime': {
-    productHandle: 'mujo-ritual',
-    productTitle: 'The Ritual',
-    variantTitle: '25 servings · One-time',
+  "25-onetime": {
+    productHandle: "mujo-ritual",
+    productTitle: "The Ritual",
+    variantTitle: "25 servings · One-time",
     image: RITUAL_IMAGE_25,
     unitAmountCents: 6500,
-    currency: 'usd',
+    currency: "usd",
     isSubscription: false,
   },
-  '25-subscription': {
-    productHandle: 'mujo-ritual',
-    productTitle: 'The Ritual',
-    variantTitle: '25 servings · Subscribe · every 4 weeks',
+  "25-subscription": {
+    productHandle: "mujo-ritual",
+    productTitle: "The Ritual",
+    variantTitle: "25 servings · Subscribe · every 4 weeks",
     image: RITUAL_IMAGE_25,
     unitAmountCents: 5525,
-    currency: 'usd',
+    currency: "usd",
     isSubscription: true,
   },
-  '25-subscription-8wk': {
-    productHandle: 'mujo-ritual',
-    productTitle: 'The Ritual',
-    variantTitle: '25 servings · Subscribe · every 8 weeks',
+  "25-subscription-6wk": {
+    productHandle: "mujo-ritual",
+    productTitle: "The Ritual",
+    variantTitle: "25 servings · Subscribe · every 6 weeks",
     image: RITUAL_IMAGE_25,
     unitAmountCents: 5525,
-    currency: 'usd',
+    currency: "usd",
+    isSubscription: true,
+  },
+  "25-subscription-8wk": {
+    productHandle: "mujo-ritual",
+    productTitle: "The Ritual",
+    variantTitle: "25 servings · Subscribe · every 8 weeks",
+    image: RITUAL_IMAGE_25,
+    unitAmountCents: 5525,
+    currency: "usd",
     isSubscription: true,
   },
 };
@@ -97,12 +106,12 @@ export function resolvePriceId(
   // pre-launch). The on-site checkout is still authoritative on price.
   if (hint?.isSubscription !== undefined) {
     return {
-      productHandle: 'shop',
-      productTitle: 'Mujo Product',
-      variantTitle: hint.isSubscription ? 'Subscribe & save' : 'One-time',
-      image: { url: '/og-default.png', alt: 'Mujo' },
+      productHandle: "shop",
+      productTitle: "Mujo Product",
+      variantTitle: hint.isSubscription ? "Subscribe & save" : "One-time",
+      image: { url: "/og-default.png", alt: "Mujo" },
       unitAmountCents: 0,
-      currency: 'usd',
+      currency: "usd",
       isSubscription: hint.isSubscription,
     };
   }
@@ -111,18 +120,22 @@ export function resolvePriceId(
 
 /**
  * Given (size, plan, cadence), return both the Stripe Price ID and resolved
- * metadata. `cadence` only applies to 25-serving subscriptions; '8wk' selects
- * the every-8-weeks Price, anything else the primary every-4-weeks Price.
+ * metadata. `cadence` only applies to 25-serving subscriptions; '6wk'/'8wk'
+ * select the every-6 / every-8-weeks Price, anything else the primary
+ * every-4-weeks Price.
  */
 export function resolveRitualSelection(
-  size: '10' | '25',
-  plan: 'onetime' | 'subscription',
-  cadence: RitualCadence = '4wk',
+  size: "10" | "25",
+  plan: "onetime" | "subscription",
+  cadence: RitualCadence = "4wk",
 ): { stripePriceId: string; line: PriceIdResolution } | null {
+  const isRitualSub = plan === "subscription" && size === "25";
   const key: RitualKey =
-    plan === 'subscription' && size === '25' && cadence === '8wk'
-      ? '25-subscription-8wk'
-      : (`${size}-${plan}` as RitualKey);
+    isRitualSub && cadence === "8wk"
+      ? "25-subscription-8wk"
+      : isRitualSub && cadence === "6wk"
+        ? "25-subscription-6wk"
+        : (`${size}-${plan}` as RitualKey);
   const stripePriceId = RITUAL_PRICE_IDS[key];
   if (!stripePriceId) return null;
   return { stripePriceId, line: RITUAL_LINES[key] };

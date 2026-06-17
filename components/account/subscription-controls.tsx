@@ -84,24 +84,36 @@ export function SubscriptionControls({
   const [cancelComment, setCancelComment] = useState<string>("");
   const [pauseCycles, setPauseCycles] = useState<1 | 2 | 3>(1);
   const [swapTarget, setSwapTarget] = useState<string>("");
-  const [freqTarget, setFreqTarget] = useState<"4wk" | "8wk">("4wk");
+  const [freqTarget, setFreqTarget] = useState<"4wk" | "6wk" | "8wk">("4wk");
 
   const isPaused = detail.status === "paused" || detail.pausedAt !== null;
   const isCanceling = detail.cancelAtPeriodEnd;
   const isResumable = isPaused || isCanceling;
 
-  // Delivery-frequency switch (4 ↔ 8 weeks). Only offered for the Ritual 25-sub
-  // once the 8-week Price ID is configured (NEXT_PUBLIC_*_8W). For any other SKU
-  // or pre-env, the control hides.
+  // Delivery-frequency switch (4 / 6 / 8 weeks). Offered for the Ritual 25-sub
+  // for whichever alternate cadences have a Price ID configured (NEXT_PUBLIC_*_6W
+  // / _8W). For any other SKU, or when no alternate cadence is configured, the
+  // control hides. The 6-week button only appears once its Price is live, so the
+  // option rolls out the moment the env var is set — no code change needed.
+  const has6wk = Boolean(RITUAL_PRICE_IDS["25-subscription-6wk"]);
   const has8wk = Boolean(RITUAL_PRICE_IDS["25-subscription-8wk"]);
-  const currentCadence: "4wk" | "8wk" =
+  const currentCadence: "4wk" | "6wk" | "8wk" =
     detail.stripePriceId === RITUAL_PRICE_IDS["25-subscription-8wk"]
       ? "8wk"
-      : "4wk";
+      : detail.stripePriceId === RITUAL_PRICE_IDS["25-subscription-6wk"]
+        ? "6wk"
+        : "4wk";
   const isRitualSub =
     detail.stripePriceId === RITUAL_PRICE_IDS["25-subscription"] ||
+    detail.stripePriceId === RITUAL_PRICE_IDS["25-subscription-6wk"] ||
     detail.stripePriceId === RITUAL_PRICE_IDS["25-subscription-8wk"];
-  const showFrequency = has8wk && isRitualSub;
+  const showFrequency = (has6wk || has8wk) && isRitualSub;
+  // Cadences offered in the modal: 4-week always, plus each configured alternate.
+  const cadenceOptions: Array<"4wk" | "6wk" | "8wk"> = [
+    "4wk",
+    ...(has6wk ? (["6wk"] as const) : []),
+    ...(has8wk ? (["8wk"] as const) : []),
+  ];
 
   function closeModal() {
     setOpenModal(null);
@@ -139,7 +151,9 @@ export function SubscriptionControls({
         body: JSON.stringify(body ?? {}),
       });
       if (!res.ok) {
-        const data = (await res.json().catch(() => ({}))) as { message?: string };
+        const data = (await res.json().catch(() => ({}))) as {
+          message?: string;
+        };
         throw new Error(data.message ?? `Request failed (${res.status})`);
       }
       closeModal();
@@ -174,7 +188,14 @@ export function SubscriptionControls({
               disabled={pending !== null}
             >
               <span className="sub-action-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <polyline points="13 17 18 12 13 7" />
                   <line x1="6" y1="12" x2="18" y2="12" />
                 </svg>
@@ -192,7 +213,14 @@ export function SubscriptionControls({
               disabled={pending !== null}
             >
               <span className="sub-action-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <polyline points="13 2 13 10 19 10 11 22 11 14 5 14 13 2" />
                 </svg>
               </span>
@@ -210,7 +238,14 @@ export function SubscriptionControls({
                 disabled={pending !== null}
               >
                 <span className="sub-action-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
                     <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
                   </svg>
@@ -233,7 +268,14 @@ export function SubscriptionControls({
                 disabled={pending !== null}
               >
                 <span className="sub-action-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <circle cx="12" cy="12" r="9" />
                     <polyline points="12 7 12 12 15 14" />
                   </svg>
@@ -243,7 +285,9 @@ export function SubscriptionControls({
                   <span>
                     {currentCadence === "8wk"
                       ? "Every 8 weeks now."
-                      : "Every 4 weeks now."}
+                      : currentCadence === "6wk"
+                        ? "Every 6 weeks now."
+                        : "Every 4 weeks now."}
                   </span>
                 </span>
               </button>
@@ -255,7 +299,14 @@ export function SubscriptionControls({
               aria-disabled={pending !== null}
             >
               <span className="sub-action-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <rect x="3" y="6" width="18" height="13" rx="2" />
                   <line x1="3" y1="10" x2="21" y2="10" />
                 </svg>
@@ -273,7 +324,14 @@ export function SubscriptionControls({
               disabled={pending !== null}
             >
               <span className="sub-action-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <polyline points="20 12 20 22 4 22 4 12" />
                   <rect x="2" y="7" width="20" height="5" />
                   <line x1="12" y1="22" x2="12" y2="7" />
@@ -293,7 +351,14 @@ export function SubscriptionControls({
               aria-disabled={pending !== null}
             >
               <span className="sub-action-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
                 </svg>
               </span>
@@ -313,9 +378,7 @@ export function SubscriptionControls({
             {isResumable ? "Resume" : "Need a break"}
           </span>
           <h3>
-            {isResumable
-              ? "Glad to have you back."
-              : "Pause or cancel."}
+            {isResumable ? "Glad to have you back." : "Pause or cancel."}
             {!isResumable ? (
               <>
                 {" "}
@@ -335,8 +398,8 @@ export function SubscriptionControls({
         ) : (
           <p>
             Going on holiday or stepping away for a while? Pause for up to 3
-            months without losing your member rate. Cancelling is fine too —
-            no five-step exit interview, no salt.
+            months without losing your member rate. Cancelling is fine too — no
+            five-step exit interview, no salt.
           </p>
         )}
         <div className="sub-danger-btns">
@@ -357,7 +420,14 @@ export function SubscriptionControls({
                 onClick={() => setOpenModal("pause")}
                 disabled={pending !== null}
               >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <rect x="6" y="4" width="4" height="16" />
                   <rect x="14" y="4" width="4" height="16" />
                 </svg>
@@ -469,8 +539,8 @@ export function SubscriptionControls({
               <p className="modal-body-text">
                 That&rsquo;s fine. No questions, no five-step exit. You&rsquo;ll
                 keep access until{" "}
-                <strong>{formatLongDate(detail.currentPeriodEnd)}</strong>.
-                Then billing stops.
+                <strong>{formatLongDate(detail.currentPeriodEnd)}</strong>. Then
+                billing stops.
               </p>
               <p className="modal-secondary-text">
                 Change your mind? You can resume anytime before that date.
@@ -511,7 +581,11 @@ export function SubscriptionControls({
       ) : null}
 
       {openModal === "send-now" ? (
-        <Modal onClose={closeModal} title="Send the next box" titleAccent="now?">
+        <Modal
+          onClose={closeModal}
+          title="Send the next box"
+          titleAccent="now?"
+        >
           <p className="modal-body-text">
             We&rsquo;ll bill your card today and ship as soon as possible. Your
             cycle resets — your next delivery after this one will be one full
@@ -547,7 +621,7 @@ export function SubscriptionControls({
             stays the same.
           </p>
           <div className="modal-options">
-            {(["4wk", "8wk"] as const).map((c) => (
+            {cadenceOptions.map((c) => (
               <button
                 key={c}
                 type="button"
@@ -555,12 +629,18 @@ export function SubscriptionControls({
                 onClick={() => setFreqTarget(c)}
               >
                 <strong>
-                  {c === "4wk" ? "Every 4 weeks" : "Every 8 weeks"}
+                  {c === "4wk"
+                    ? "Every 4 weeks"
+                    : c === "6wk"
+                      ? "Every 6 weeks"
+                      : "Every 8 weeks"}
                 </strong>
                 <span className="modal-option-meta">
                   {c === "4wk"
                     ? "~13 deliveries a year"
-                    : "~6–7 deliveries a year"}
+                    : c === "6wk"
+                      ? "~8–9 deliveries a year"
+                      : "~6–7 deliveries a year"}
                   {c === currentCadence ? " · current" : ""}
                 </span>
               </button>
@@ -580,7 +660,11 @@ export function SubscriptionControls({
       ) : null}
 
       {openModal === "swap" ? (
-        <Modal onClose={closeModal} title="Swap to a" titleAccent="different SKU.">
+        <Modal
+          onClose={closeModal}
+          title="Swap to a"
+          titleAccent="different SKU."
+        >
           <p className="modal-body-text">
             Pick the new product. Same subscription cadence, same renewal date.
             We&rsquo;ll prorate your next charge.
@@ -601,9 +685,7 @@ export function SubscriptionControls({
           {error ? <p className="modal-error">{error}</p> : null}
           <ModalFoot
             onCancel={closeModal}
-            onConfirm={() =>
-              performAction("swap", { priceId: swapTarget })
-            }
+            onConfirm={() => performAction("swap", { priceId: swapTarget })}
             confirmLabel="Swap subscription"
             disabled={!swapTarget}
             pending={pending === "swap"}

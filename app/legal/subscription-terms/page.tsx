@@ -3,7 +3,8 @@ import { ImportedPage } from "components/imported-page";
 
 export const metadata: Metadata = {
   title: "Subscription Terms · Mujo",
-  description: "30-day cycle, Stripe Billing Portal, and dunning policy.",
+  description:
+    "4, 6, or 8-week billing cycles, minimum commitment, and how to manage or cancel anytime.",
   alternates: { canonical: "/legal/subscription-terms" },
 };
 

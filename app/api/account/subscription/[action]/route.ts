@@ -60,8 +60,8 @@ const swapSchema = z.object({
 });
 
 const frequencySchema = z.object({
-  /** Target delivery cadence. Maps to the 4-week or 8-week Ritual sub Price. */
-  cadence: z.enum(["4wk", "8wk"]),
+  /** Target delivery cadence. Maps to the 4 / 6 / 8-week Ritual sub Price. */
+  cadence: z.enum(["4wk", "6wk", "8wk"]),
 });
 
 const STRIPE_FEEDBACK_MAP: Record<
@@ -136,7 +136,8 @@ export async function POST(
         { expand: ["items.data.price"] },
       );
       const cycleSeconds = getSubscriptionCycleSeconds(current);
-      const resumesAt = Math.floor(Date.now() / 1000) + parsed.cycles * cycleSeconds;
+      const resumesAt =
+        Math.floor(Date.now() / 1000) + parsed.cycles * cycleSeconds;
       updatedSub = await stripe.subscriptions.update(
         subRow.stripeSubscriptionId,
         {
@@ -204,9 +205,9 @@ export async function POST(
         },
       );
     } else if (action === "change-frequency") {
-      // Switch the Ritual subscription between the 4-week and 8-week cadence.
-      // Both cadences are the same product at the same $65 base + standing 15%
-      // coupon, so the per-delivery price is unchanged — only the interval
+      // Switch the Ritual subscription between the 4 / 6 / 8-week cadences.
+      // Every cadence is the same product at the same baked-in $55.25, so the
+      // per-delivery price is unchanged — only the interval
       // differs. Switching cadence changes the Price's billing interval, and
       // Stripe REJECTS `billing_cycle_anchor: "unchanged"` on an interval
       // change ("there's no way to leave the billing cycle unchanged"). So we
@@ -218,7 +219,9 @@ export async function POST(
       const targetPriceId =
         parsed.cadence === "8wk"
           ? RITUAL_PRICE_IDS["25-subscription-8wk"]
-          : RITUAL_PRICE_IDS["25-subscription"];
+          : parsed.cadence === "6wk"
+            ? RITUAL_PRICE_IDS["25-subscription-6wk"]
+            : RITUAL_PRICE_IDS["25-subscription"];
       if (!targetPriceId) {
         return Response.json(
           {
@@ -233,7 +236,10 @@ export async function POST(
       );
       const itemId = current.items.data[0]?.id;
       if (!itemId) {
-        return Response.json({ error: "no_subscription_item" }, { status: 502 });
+        return Response.json(
+          { error: "no_subscription_item" },
+          { status: 502 },
+        );
       }
       // No-op guard: already on the target cadence.
       if (current.items.data[0]?.price.id === targetPriceId) {

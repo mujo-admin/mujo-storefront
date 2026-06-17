@@ -19,10 +19,10 @@
 // by customer.subscription.updated + invoice.paid — this handler does NOT call
 // syncSubscriptionToDb. Single-purpose: dedup + (migration) coupon attach.
 
-import type Stripe from 'stripe';
-import { stripe } from 'lib/stripe';
-import { RITUAL_PRICE_IDS, SUBSCRIPTION_COUPON_ID } from 'lib/stripe-constants';
-import { extractInvoicePaymentIntentId } from './_helpers';
+import type Stripe from "stripe";
+import { stripe } from "lib/stripe";
+import { RITUAL_PRICE_IDS, SUBSCRIPTION_COUPON_ID } from "lib/stripe-constants";
+import { extractInvoicePaymentIntentId } from "./_helpers";
 
 // Only rapid double-submits are duplicates. A customer who deliberately starts
 // a second subscription weeks/months later is NOT a billing bug and must never
@@ -33,13 +33,13 @@ const DUPLICATE_WINDOW_SECONDS = 60 * 60; // 1 hour
 // Subscription statuses that represent a real, billing (or about-to-bill) sub.
 // `incomplete` / `incomplete_expired` / `canceled` never count as a "keeper".
 const LIVE_STATUSES = new Set<Stripe.Subscription.Status>([
-  'active',
-  'trialing',
-  'past_due',
+  "active",
+  "trialing",
+  "past_due",
 ]);
 
 export async function handleSubscriptionCreated(event: Stripe.Event) {
-  if (event.type !== 'customer.subscription.created') return;
+  if (event.type !== "customer.subscription.created") return;
   const sub = event.data.object;
 
   // 1. Dedup guard — if this sub was a duplicate, it's now canceled + refunded;
@@ -63,13 +63,13 @@ export async function handleSubscriptionCreated(event: Stripe.Event) {
  */
 async function cancelIfDuplicate(sub: Stripe.Subscription): Promise<boolean> {
   const customerId =
-    typeof sub.customer === 'string' ? sub.customer : sub.customer.id;
+    typeof sub.customer === "string" ? sub.customer : sub.customer.id;
   const thisPriceId = sub.items.data[0]?.price.id;
   if (!thisPriceId) return false;
 
   const all = await stripe.subscriptions.list({
     customer: customerId,
-    status: 'all',
+    status: "all",
     limit: 100,
   });
 
@@ -89,14 +89,17 @@ async function cancelIfDuplicate(sub: Stripe.Subscription): Promise<boolean> {
   // Idempotency: if a retry already canceled this sub, don't refund twice
   // (the refund is also idempotency-keyed below, but skip the work).
   const current = await stripe.subscriptions.retrieve(sub.id);
-  if (current.status === 'canceled' || current.status === 'incomplete_expired') {
+  if (
+    current.status === "canceled" ||
+    current.status === "incomplete_expired"
+  ) {
     return true;
   }
 
   await stripe.subscriptions.cancel(sub.id);
   await refundDuplicateCharge(sub.id);
 
-  console.warn('[sub.created/dedup] canceled duplicate subscription', {
+  console.warn("[sub.created/dedup] canceled duplicate subscription", {
     duplicate: sub.id,
     keeper: olderKeeper.id,
     customerId,
@@ -111,22 +114,22 @@ async function cancelIfDuplicate(sub: Stripe.Subscription): Promise<boolean> {
  */
 async function refundDuplicateCharge(subId: string): Promise<void> {
   const sub = await stripe.subscriptions.retrieve(subId, {
-    expand: ['latest_invoice.payments'],
+    expand: ["latest_invoice.payments"],
   });
   const invoice = sub.latest_invoice;
-  if (!invoice || typeof invoice === 'string') return;
+  if (!invoice || typeof invoice === "string") return;
 
   const paymentIntentId = await extractInvoicePaymentIntentId(invoice, stripe);
   if (!paymentIntentId) return;
 
   const pi = await stripe.paymentIntents.retrieve(paymentIntentId);
-  if (pi.status !== 'succeeded') return; // nothing captured → nothing to refund
+  if (pi.status !== "succeeded") return; // nothing captured → nothing to refund
 
   await stripe.refunds.create(
-    { payment_intent: paymentIntentId, reason: 'duplicate' },
+    { payment_intent: paymentIntentId, reason: "duplicate" },
     { idempotencyKey: `dup-refund-${subId}` },
   );
-  console.warn('[sub.created/dedup] refunded duplicate charge', {
+  console.warn("[sub.created/dedup] refunded duplicate charge", {
     subId,
     paymentIntent: paymentIntentId,
   });
@@ -152,12 +155,13 @@ async function attachMigrationCoupon(sub: Stripe.Subscription): Promise<void> {
   // in the Price, so attaching the coupon would double-discount.
   const priceId = sub.items.data[0]?.price.id;
   const discountedSubPriceIds = [
-    RITUAL_PRICE_IDS['25-subscription'],
-    RITUAL_PRICE_IDS['25-subscription-8wk'],
+    RITUAL_PRICE_IDS["25-subscription"],
+    RITUAL_PRICE_IDS["25-subscription-6wk"],
+    RITUAL_PRICE_IDS["25-subscription-8wk"],
   ].filter(Boolean);
   if (priceId && discountedSubPriceIds.includes(priceId)) {
     console.log(
-      '[sub.created/migration] sub on discounted Price — 15% already baked in, skipping coupon attach',
+      "[sub.created/migration] sub on discounted Price — 15% already baked in, skipping coupon attach",
       { subId: sub.id, migrationTag, priceId },
     );
     return;
@@ -165,7 +169,7 @@ async function attachMigrationCoupon(sub: Stripe.Subscription): Promise<void> {
 
   if (!SUBSCRIPTION_COUPON_ID) {
     console.warn(
-      '[sub.created/migration] STRIPE_SUBSCRIPTION_COUPON_ID not set — cannot attach coupon',
+      "[sub.created/migration] STRIPE_SUBSCRIPTION_COUPON_ID not set — cannot attach coupon",
       { subId: sub.id, migrationTag },
     );
     return;
@@ -175,20 +179,21 @@ async function attachMigrationCoupon(sub: Stripe.Subscription): Promise<void> {
   // MUJO_SUB_15 is already on the sub. The webhook payload's `discounts` field
   // comes back as IDs unless the destination auto-expands, which we don't rely on.
   const expanded = await stripe.subscriptions.retrieve(sub.id, {
-    expand: ['discounts.source.coupon'],
+    expand: ["discounts.source.coupon"],
   });
 
   const alreadyAttached = (expanded.discounts ?? []).some((d) => {
-    if (typeof d !== 'object' || d === null) return false;
+    if (typeof d !== "object" || d === null) return false;
     const discount = d as Stripe.Discount;
     const couponRef = discount.source?.coupon;
     if (!couponRef) return false;
-    if (typeof couponRef === 'string') return couponRef === SUBSCRIPTION_COUPON_ID;
+    if (typeof couponRef === "string")
+      return couponRef === SUBSCRIPTION_COUPON_ID;
     return couponRef.id === SUBSCRIPTION_COUPON_ID;
   });
 
   if (alreadyAttached) {
-    console.log('[sub.created/migration] coupon already attached, skipping', {
+    console.log("[sub.created/migration] coupon already attached, skipping", {
       subId: sub.id,
       migrationTag,
     });
@@ -203,8 +208,8 @@ async function attachMigrationCoupon(sub: Stripe.Subscription): Promise<void> {
   });
 
   const stripeCustomerId =
-    typeof sub.customer === 'string' ? sub.customer : sub.customer.id;
-  console.log('[sub.created/migration] MUJO_SUB_15 coupon attached', {
+    typeof sub.customer === "string" ? sub.customer : sub.customer.id;
+  console.log("[sub.created/migration] MUJO_SUB_15 coupon attached", {
     subId: sub.id,
     stripeCustomerId,
     migrationTag,

@@ -22,42 +22,43 @@
 // price changes, the script archives the old Stripe Price and creates a new
 // one — and writes the new ID back to the metafield.
 
-import 'dotenv/config';
-import { config as loadEnv } from 'dotenv';
-loadEnv({ path: '.env.local' });
+import "dotenv/config";
+import { config as loadEnv } from "dotenv";
+loadEnv({ path: ".env.local" });
 
-import Stripe from 'stripe';
+import Stripe from "stripe";
 import {
   listProductsForMirror,
   type ShopifyProductForMirror,
-} from '../lib/shopify-admin';
+} from "../lib/shopify-admin";
 import {
   setStripeProductIdOnProduct,
   setStripePriceIdOnetimeOnVariant,
   setStripePriceIdSubscriptionOnVariant,
-} from '../lib/metafields';
+} from "../lib/metafields";
 
 if (!process.env.STRIPE_SECRET_KEY) {
-  console.error('STRIPE_SECRET_KEY not set');
+  console.error("STRIPE_SECRET_KEY not set");
   process.exit(1);
 }
 const hasStaticAdminToken = Boolean(process.env.SHOPIFY_ADMIN_API_ACCESS_TOKEN);
 const hasAdminOAuth = Boolean(
-  process.env.SHOPIFY_ADMIN_CLIENT_ID && process.env.SHOPIFY_ADMIN_CLIENT_SECRET,
+  process.env.SHOPIFY_ADMIN_CLIENT_ID &&
+    process.env.SHOPIFY_ADMIN_CLIENT_SECRET,
 );
 if (!hasStaticAdminToken && !hasAdminOAuth) {
   console.error(
-    'Shopify Admin auth not configured. Set either SHOPIFY_ADMIN_API_ACCESS_TOKEN ' +
-      '(legacy static) or SHOPIFY_ADMIN_CLIENT_ID + SHOPIFY_ADMIN_CLIENT_SECRET (OAuth).',
+    "Shopify Admin auth not configured. Set either SHOPIFY_ADMIN_API_ACCESS_TOKEN " +
+      "(legacy static) or SHOPIFY_ADMIN_CLIENT_ID + SHOPIFY_ADMIN_CLIENT_SECRET (OAuth).",
   );
   process.exit(1);
 }
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-// Subscription billing cadences. Mujo offers TWO subscribe cadences on the same
-// 25-serving bag: every 4 weeks (primary, daily drinkers) and every 8 weeks
-// (every-other-day drinkers). Both are 28-day-based, NOT calendar-monthly, to
+// Subscription billing cadences. Mujo offers THREE subscribe cadences on the same
+// 25-serving bag: every 4 weeks (primary, daily drinkers), every 6 weeks, and
+// every 8 weeks (every-other-day drinkers). All are week-based, NOT calendar-monthly, to
 // match the public Subscription Terms. Stripe Prices are immutable, so changing
 // a cadence (or the discounted amount) archives the old price + creates a new
 // one on the next mirror run (drift handling below).
@@ -78,8 +79,9 @@ type SubInterval = {
   count: number;
 };
 const SUB_INTERVALS: SubInterval[] = [
-  { interval: 'week', count: 4 },
-  { interval: 'week', count: 8 },
+  { interval: "week", count: 4 },
+  { interval: "week", count: 6 },
+  { interval: "week", count: 8 },
 ];
 // Standing subscriber discount, baked into the subscription Price (see above).
 // $65.00 × (1 − 0.15) = $55.25 exact. Keep in sync with SUBSCRIBER_DISCOUNT_PERCENT
@@ -95,27 +97,32 @@ const FREE_SHIPPING_THRESHOLD_CENTS = 10000;
 // taxable in most states, exempt in MN/NJ/PA/VT under thresholds). Frother →
 // general (txcd_99999999). Lemna will need its own snack-foods code at launch.
 const TAX_CODE_BY_HANDLE: Record<string, string> = {
-  'the-ritual': 'txcd_41054002',
-  'vitality-brew': 'txcd_41054002',
-  'mujo-t-shirt': 'txcd_30070001',
-  'mujo-baseball-hat': 'txcd_30070001',
-  'crew-neck-sweatshirt': 'txcd_30070001',
-  'electric-frother': 'txcd_99999999',
+  "the-ritual": "txcd_41054002",
+  "vitality-brew": "txcd_41054002",
+  "mujo-t-shirt": "txcd_30070001",
+  "mujo-baseball-hat": "txcd_30070001",
+  "crew-neck-sweatshirt": "txcd_30070001",
+  "electric-frother": "txcd_99999999",
 };
-const DEFAULT_TAX_CODE = 'txcd_99999999';
+const DEFAULT_TAX_CODE = "txcd_99999999";
 
 // --- Helpers ---------------------------------------------------------------
 
 function shopifyVariantGidToNumeric(gid: string): string {
   // gid://shopify/ProductVariant/123 → 123
-  return gid.split('/').pop() ?? gid;
+  return gid.split("/").pop() ?? gid;
 }
 
-async function findStripeProduct(productId: string): Promise<Stripe.Product | null> {
+async function findStripeProduct(
+  productId: string,
+): Promise<Stripe.Product | null> {
   try {
     return await stripe.products.retrieve(productId);
   } catch (err) {
-    if (err instanceof Stripe.errors.StripeError && err.code === 'resource_missing') {
+    if (
+      err instanceof Stripe.errors.StripeError &&
+      err.code === "resource_missing"
+    ) {
       return null;
     }
     throw err;
@@ -136,11 +143,16 @@ async function upsertStripeProduct(
         name: product.title,
         description,
         images,
-        active: product.status === 'ACTIVE',
+        active: product.status === "ACTIVE",
         tax_code: taxCode,
-        metadata: { shopify_product_id: product.id, shopify_handle: product.handle },
+        metadata: {
+          shopify_product_id: product.id,
+          shopify_handle: product.handle,
+        },
       });
-      console.log(`  ✓ Updated Stripe Product: ${updated.id} (tax_code ${taxCode})`);
+      console.log(
+        `  ✓ Updated Stripe Product: ${updated.id} (tax_code ${taxCode})`,
+      );
       return updated;
     }
     console.log(
@@ -152,11 +164,16 @@ async function upsertStripeProduct(
     name: product.title,
     description,
     images,
-    active: product.status === 'ACTIVE',
+    active: product.status === "ACTIVE",
     tax_code: taxCode,
-    metadata: { shopify_product_id: product.id, shopify_handle: product.handle },
+    metadata: {
+      shopify_product_id: product.id,
+      shopify_handle: product.handle,
+    },
   });
-  console.log(`  ✓ Created Stripe Product: ${created.id} (tax_code ${taxCode})`);
+  console.log(
+    `  ✓ Created Stripe Product: ${created.id} (tax_code ${taxCode})`,
+  );
   await setStripeProductIdOnProduct(product.id, created.id);
   return created;
 }
@@ -178,7 +195,7 @@ async function findActivePrice(args: {
     list.data.find(
       (p) =>
         p.unit_amount === args.unitAmount &&
-        p.currency === 'usd' &&
+        p.currency === "usd" &&
         Boolean(p.recurring) === args.recurring &&
         (!args.recurring ||
           (p.recurring?.interval === args.interval &&
@@ -229,7 +246,7 @@ async function upsertStripePrice(args: {
       // with the new ID by the caller.
       if (!variantMatch) {
         console.log(
-          `  ⚠ Metafield pointed at ${existing.id} (variant=${existing.metadata.shopify_variant_id ?? 'unset'}); creating fresh Price for this variant`,
+          `  ⚠ Metafield pointed at ${existing.id} (variant=${existing.metadata.shopify_variant_id ?? "unset"}); creating fresh Price for this variant`,
         );
       } else {
         // Amount or recurring shape drifted — archive old, create new.
@@ -240,7 +257,10 @@ async function upsertStripePrice(args: {
       }
     } catch (err) {
       if (
-        !(err instanceof Stripe.errors.StripeError && err.code === 'resource_missing')
+        !(
+          err instanceof Stripe.errors.StripeError &&
+          err.code === "resource_missing"
+        )
       ) {
         throw err;
       }
@@ -261,18 +281,18 @@ async function upsertStripePrice(args: {
   const params: Stripe.PriceCreateParams = {
     product: args.product.id,
     unit_amount: cents,
-    currency: 'usd',
+    currency: "usd",
     metadata: { shopify_variant_id: args.shopifyVariantGid },
     ...(args.recurring && {
       recurring: {
-        interval: args.interval ?? 'week',
+        interval: args.interval ?? "week",
         interval_count: args.intervalCount ?? 4,
       },
     }),
   };
   const created = await stripe.prices.create(params);
   console.log(
-    `  ✓ Created Stripe Price: ${created.id} (${cents}¢ ${args.recurring ? `every ${args.intervalCount} ${args.interval}(s)` : 'one-time'})`,
+    `  ✓ Created Stripe Price: ${created.id} (${cents}¢ ${args.recurring ? `every ${args.intervalCount} ${args.interval}(s)` : "one-time"})`,
   );
   return created;
 }
@@ -287,17 +307,17 @@ async function findOrCreateShippingRate(args: {
     (r) =>
       r.display_name === args.displayName &&
       r.fixed_amount?.amount === args.amountCents &&
-      r.fixed_amount?.currency === 'usd',
+      r.fixed_amount?.currency === "usd",
   );
   if (existing) return existing;
 
   const created = await stripe.shippingRates.create({
     display_name: args.displayName,
-    type: 'fixed_amount',
-    fixed_amount: { amount: args.amountCents, currency: 'usd' },
+    type: "fixed_amount",
+    fixed_amount: { amount: args.amountCents, currency: "usd" },
     delivery_estimate: {
-      minimum: { unit: 'business_day', value: 3 },
-      maximum: { unit: 'business_day', value: 7 },
+      minimum: { unit: "business_day", value: 3 },
+      maximum: { unit: "business_day", value: 7 },
     },
     metadata: args.freeShippingMinCents
       ? { free_shipping_min_cents: String(args.freeShippingMinCents) }
@@ -310,22 +330,24 @@ async function findOrCreateShippingRate(args: {
 // --- Main ------------------------------------------------------------------
 
 async function main() {
-  console.log('Listing Shopify products…');
+  console.log("Listing Shopify products…");
   const products = await listProductsForMirror();
   console.log(`Found ${products.length} products in Shopify\n`);
 
   for (const product of products) {
     console.log(`\n→ ${product.title} (${product.handle})`);
 
-    if (product.status !== 'ACTIVE') {
-      console.log('  (skipping — product status is not ACTIVE)');
+    if (product.status !== "ACTIVE") {
+      console.log("  (skipping — product status is not ACTIVE)");
       continue;
     }
 
     const stripeProduct = await upsertStripeProduct(product);
 
     for (const variant of product.variants) {
-      console.log(`  Variant: ${variant.title} (${variant.sku ?? 'no sku'}) — $${variant.price}`);
+      console.log(
+        `  Variant: ${variant.title} (${variant.sku ?? "no sku"}) — $${variant.price}`,
+      );
 
       const onetimePrice = await upsertStripePrice({
         product: stripeProduct,
@@ -339,7 +361,7 @@ async function main() {
       }
 
       if (product.isSubscribable) {
-        // Create one subscription Price per cadence (4-week + 8-week). The first
+        // Create one subscription Price per cadence (4-week + 6-week + 8-week). The first
         // cadence is "primary" and written back to the single-valued
         // stripe_price_id_subscription metafield (back-compat); the rest live in
         // Stripe only and are picked up by fetch-ritual-price-ids.mjs by interval.
@@ -361,36 +383,41 @@ async function main() {
             intervalCount: cadence.count,
             // Only the primary cadence reads/writes the metafield; secondary
             // cadences resolve via findActivePrice (existingPriceId null).
-            existingPriceId: isPrimary ? variant.stripePriceIdSubscription : null,
+            existingPriceId: isPrimary
+              ? variant.stripePriceIdSubscription
+              : null,
           });
           if (isPrimary && subPrice.id !== variant.stripePriceIdSubscription) {
-            await setStripePriceIdSubscriptionOnVariant(variant.id, subPrice.id);
+            await setStripePriceIdSubscriptionOnVariant(
+              variant.id,
+              subPrice.id,
+            );
           }
         }
       }
     }
   }
 
-  console.log('\nProducts + prices mirrored.\n');
-  console.log('Creating shipping rates…');
+  console.log("\nProducts + prices mirrored.\n");
+  console.log("Creating shipping rates…");
   const free = await findOrCreateShippingRate({
-    displayName: 'Free shipping (orders $50+)',
+    displayName: "Free shipping (orders $50+)",
     amountCents: 0,
     freeShippingMinCents: FREE_SHIPPING_THRESHOLD_CENTS,
   });
   const flat = await findOrCreateShippingRate({
-    displayName: 'Standard shipping',
+    displayName: "Standard shipping",
     amountCents: 500,
   });
 
-  console.log('\n=== Add to .env.local + Vercel env vars ===');
+  console.log("\n=== Add to .env.local + Vercel env vars ===");
   console.log(`STRIPE_SHIPPING_FREE_ID=${free.id}`);
   console.log(`STRIPE_SHIPPING_FLAT_ID=${flat.id}`);
-  console.log('===========================================');
-  console.log('\nDone.');
+  console.log("===========================================");
+  console.log("\nDone.");
 }
 
 main().catch((err) => {
-  console.error('Mirror failed:', err);
+  console.error("Mirror failed:", err);
   process.exit(1);
 });
