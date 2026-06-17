@@ -84,36 +84,55 @@ export function SubscriptionControls({
   const [cancelComment, setCancelComment] = useState<string>("");
   const [pauseCycles, setPauseCycles] = useState<1 | 2 | 3>(1);
   const [swapTarget, setSwapTarget] = useState<string>("");
-  const [freqTarget, setFreqTarget] = useState<"4wk" | "6wk" | "8wk">("4wk");
+  const [freqTarget, setFreqTarget] = useState<"4wk" | "6wk" | "8wk" | "12wk">(
+    "4wk",
+  );
 
   const isPaused = detail.status === "paused" || detail.pausedAt !== null;
   const isCanceling = detail.cancelAtPeriodEnd;
   const isResumable = isPaused || isCanceling;
 
-  // Delivery-frequency switch (4 / 6 / 8 weeks). Offered for the Ritual 25-sub
-  // for whichever alternate cadences have a Price ID configured (NEXT_PUBLIC_*_6W
-  // / _8W). For any other SKU, or when no alternate cadence is configured, the
-  // control hides. The 6-week button only appears once its Price is live, so the
-  // option rolls out the moment the env var is set — no code change needed.
-  const has6wk = Boolean(RITUAL_PRICE_IDS["25-subscription-6wk"]);
-  const has8wk = Boolean(RITUAL_PRICE_IDS["25-subscription-8wk"]);
-  const currentCadence: "4wk" | "6wk" | "8wk" =
-    detail.stripePriceId === RITUAL_PRICE_IDS["25-subscription-8wk"]
-      ? "8wk"
-      : detail.stripePriceId === RITUAL_PRICE_IDS["25-subscription-6wk"]
-        ? "6wk"
-        : "4wk";
-  const isRitualSub =
-    detail.stripePriceId === RITUAL_PRICE_IDS["25-subscription"] ||
-    detail.stripePriceId === RITUAL_PRICE_IDS["25-subscription-6wk"] ||
-    detail.stripePriceId === RITUAL_PRICE_IDS["25-subscription-8wk"];
-  const showFrequency = (has6wk || has8wk) && isRitualSub;
+  // Delivery-frequency switch (4 / 6 / 8 / 12 weeks). Offered for the Ritual
+  // 25-sub for whichever alternate cadences have a Price ID configured
+  // (NEXT_PUBLIC_*_6W / _8W / _12W). For any other SKU, or when no alternate
+  // cadence is configured, the control hides. Each alternate button appears only
+  // once its Price is live, so the option rolls out the moment the env var is
+  // set — no code change needed.
+  type Cadence = "4wk" | "6wk" | "8wk" | "12wk";
+  const cadencePriceId: Record<Cadence, string> = {
+    "4wk": RITUAL_PRICE_IDS["25-subscription"],
+    "6wk": RITUAL_PRICE_IDS["25-subscription-6wk"],
+    "8wk": RITUAL_PRICE_IDS["25-subscription-8wk"],
+    "12wk": RITUAL_PRICE_IDS["25-subscription-12wk"],
+  };
+  const currentCadence: Cadence =
+    detail.stripePriceId === cadencePriceId["12wk"]
+      ? "12wk"
+      : detail.stripePriceId === cadencePriceId["8wk"]
+        ? "8wk"
+        : detail.stripePriceId === cadencePriceId["6wk"]
+          ? "6wk"
+          : "4wk";
+  const isRitualSub = (["4wk", "6wk", "8wk", "12wk"] as const).some(
+    (c) => detail.stripePriceId === cadencePriceId[c],
+  );
   // Cadences offered in the modal: 4-week always, plus each configured alternate.
-  const cadenceOptions: Array<"4wk" | "6wk" | "8wk"> = [
-    "4wk",
-    ...(has6wk ? (["6wk"] as const) : []),
-    ...(has8wk ? (["8wk"] as const) : []),
-  ];
+  const cadenceOptions: Cadence[] = (
+    ["4wk", "6wk", "8wk", "12wk"] as const
+  ).filter((c) => c === "4wk" || Boolean(cadencePriceId[c]));
+  const showFrequency = cadenceOptions.length > 1 && isRitualSub;
+  const cadenceLabel: Record<Cadence, string> = {
+    "4wk": "Every 4 weeks",
+    "6wk": "Every 6 weeks",
+    "8wk": "Every 8 weeks",
+    "12wk": "Every 12 weeks",
+  };
+  const cadenceMeta: Record<Cadence, string> = {
+    "4wk": "~13 deliveries a year",
+    "6wk": "~8–9 deliveries a year",
+    "8wk": "~6–7 deliveries a year",
+    "12wk": "~4–5 deliveries a year",
+  };
 
   function closeModal() {
     setOpenModal(null);
@@ -282,13 +301,7 @@ export function SubscriptionControls({
                 </span>
                 <span className="sub-action-text">
                   <strong>Change delivery frequency</strong>
-                  <span>
-                    {currentCadence === "8wk"
-                      ? "Every 8 weeks now."
-                      : currentCadence === "6wk"
-                        ? "Every 6 weeks now."
-                        : "Every 4 weeks now."}
-                  </span>
+                  <span>{`${cadenceLabel[currentCadence]} now.`}</span>
                 </span>
               </button>
             ) : null}
@@ -628,19 +641,9 @@ export function SubscriptionControls({
                 className={`modal-option ${freqTarget === c ? "selected" : ""}`}
                 onClick={() => setFreqTarget(c)}
               >
-                <strong>
-                  {c === "4wk"
-                    ? "Every 4 weeks"
-                    : c === "6wk"
-                      ? "Every 6 weeks"
-                      : "Every 8 weeks"}
-                </strong>
+                <strong>{cadenceLabel[c]}</strong>
                 <span className="modal-option-meta">
-                  {c === "4wk"
-                    ? "~13 deliveries a year"
-                    : c === "6wk"
-                      ? "~8–9 deliveries a year"
-                      : "~6–7 deliveries a year"}
+                  {cadenceMeta[c]}
                   {c === currentCadence ? " · current" : ""}
                 </span>
               </button>

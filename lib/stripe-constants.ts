@@ -45,12 +45,14 @@ export const RITUAL_PRICE_IDS = {
     process.env.NEXT_PUBLIC_RITUAL_PRICE_25_SUBSCRIPTION_6W ?? "", // every 6 weeks
   "25-subscription-8wk":
     process.env.NEXT_PUBLIC_RITUAL_PRICE_25_SUBSCRIPTION_8W ?? "", // every 8 weeks
+  "25-subscription-12wk":
+    process.env.NEXT_PUBLIC_RITUAL_PRICE_25_SUBSCRIPTION_12W ?? "", // every 12 weeks
 } as const;
 
 export type RitualSize = "10" | "25";
 export type RitualPlan = "onetime" | "subscription";
-/** Subscription cadence. Chosen on the account page (not the PDP). */
-export type RitualCadence = "4wk" | "6wk" | "8wk";
+/** Subscription cadence. Picked in the PDP subscribe box; changeable in account. */
+export type RitualCadence = "4wk" | "6wk" | "8wk" | "12wk";
 
 // ISO 3166-1 alpha-2 country codes accepted by Stripe Checkout shipping_address_collection.
 // US-only per project_us_only_shipping memory. Expand as Mujo opens new ship-to regions.

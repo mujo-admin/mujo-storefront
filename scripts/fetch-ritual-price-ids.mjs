@@ -56,8 +56,9 @@ async function listActivePrices(productId) {
 //     not a checkout coupon), so subscription Prices are retail × 0.85:
 //       2700 × 0.85 = 2295¢ → ritual-10 sub,  6500 × 0.85 = 5525¢ → ritual-25 sub
 //   recurring → subscription, else one-time
-//   The 25-serving subscription has THREE cadences at the same amount; they are
-//   disambiguated by interval_count: 4 → 4-week (primary), 6 → 6-week, 8 → 8-week.
+//   The 25-serving subscription has FOUR cadences at the same amount; they are
+//   disambiguated by interval_count: 4 → 4-week (primary), 6 → 6-week, 8 → 8-week,
+//   12 → 12-week.
 const SUBSCRIBER_DISCOUNT = 0.15; // keep in sync with mirror-shopify-to-stripe.ts
 const SUB_10 = Math.round(2700 * (1 - SUBSCRIBER_DISCOUNT)); // 2295
 const SUB_25 = Math.round(6500 * (1 - SUBSCRIBER_DISCOUNT)); // 5525
@@ -70,6 +71,7 @@ function bucketize(prices) {
     RITUAL_PRICE_25_SUBSCRIPTION: null,
     RITUAL_PRICE_25_SUBSCRIPTION_6W: null,
     RITUAL_PRICE_25_SUBSCRIPTION_8W: null,
+    RITUAL_PRICE_25_SUBSCRIPTION_12W: null,
   };
 
   for (const p of prices) {
@@ -85,6 +87,8 @@ function bucketize(prices) {
       result.RITUAL_PRICE_25_SUBSCRIPTION_6W = p.id;
     else if (p.unit_amount === SUB_25 && sub && count === 8)
       result.RITUAL_PRICE_25_SUBSCRIPTION_8W = p.id;
+    else if (p.unit_amount === SUB_25 && sub && count === 12)
+      result.RITUAL_PRICE_25_SUBSCRIPTION_12W = p.id;
     else if (p.unit_amount === SUB_25 && sub)
       result.RITUAL_PRICE_25_SUBSCRIPTION = p.id;
   }
@@ -114,6 +118,8 @@ function writeEnvLocal(updates) {
       updates.RITUAL_PRICE_25_SUBSCRIPTION_6W,
     NEXT_PUBLIC_RITUAL_PRICE_25_SUBSCRIPTION_8W:
       updates.RITUAL_PRICE_25_SUBSCRIPTION_8W,
+    NEXT_PUBLIC_RITUAL_PRICE_25_SUBSCRIPTION_12W:
+      updates.RITUAL_PRICE_25_SUBSCRIPTION_12W,
   };
 
   const replaced = new Set();

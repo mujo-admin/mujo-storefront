@@ -158,6 +158,7 @@ async function attachMigrationCoupon(sub: Stripe.Subscription): Promise<void> {
     RITUAL_PRICE_IDS["25-subscription"],
     RITUAL_PRICE_IDS["25-subscription-6wk"],
     RITUAL_PRICE_IDS["25-subscription-8wk"],
+    RITUAL_PRICE_IDS["25-subscription-12wk"],
   ].filter(Boolean);
   if (priceId && discountedSubPriceIds.includes(priceId)) {
     console.log(

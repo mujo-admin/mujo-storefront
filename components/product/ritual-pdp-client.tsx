@@ -2,15 +2,20 @@
 
 import { useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
-import { type RitualSize, type RitualPlan } from "lib/stripe-constants";
+import {
+  type RitualSize,
+  type RitualPlan,
+  type RitualCadence,
+  RITUAL_PRICE_IDS,
+} from "lib/stripe-constants";
 import { useCart } from "components/cart/cart-context";
 import { resolveRitualSelection } from "lib/cart/price-id-map";
 
 // Pricing table — drives all in-page prices off (size, plan).
 // Subscribe & save = 15% off the one-time price. The 10-serving bag is
 // one-time only (smaller bag, higher unit cost — no sub option, no discount).
-// Quantity is chosen in the cart (+/-); delivery frequency is managed from the
-// account after purchase. The PDP only picks size + plan.
+// Quantity is chosen in the cart (+/-); delivery frequency is picked in the
+// subscribe box (4 / 6 / 8 / 12 weeks) and stays changeable from the account.
 type PriceCell = {
   now: string;
   was?: string;
@@ -27,6 +32,7 @@ const PRICES: Record<RitualSize, Partial<Record<RitualPlan, PriceCell>>> = {
 };
 
 // Subscribe & save benefits, shown as a bullet list on the subscribe option.
+// (The "Ships every <cadence>" line is rendered separately, above these.)
 const SUB_BENEFITS = [
   "Free shipping",
   "Free frother on first order ($20 value)",
@@ -34,6 +40,27 @@ const SUB_BENEFITS = [
   "Minimum 2-cycle commitment",
   "Cancel or pause anytime after 2 cycles",
 ];
+
+// Delivery-frequency dropdown options (the MudWtr-style in-box picker). Maps each
+// cadence to its label + Stripe Price key. Only cadences whose Price ID is
+// configured are offered, so a cadence appears the moment its env var is set —
+// 4 weeks is the always-on default.
+const CADENCE_LABELS: Record<RitualCadence, string> = {
+  "4wk": "4 weeks",
+  "6wk": "6 weeks",
+  "8wk": "8 weeks",
+  "12wk": "12 weeks",
+};
+const CADENCE_PRICE_KEY: Record<RitualCadence, keyof typeof RITUAL_PRICE_IDS> =
+  {
+    "4wk": "25-subscription",
+    "6wk": "25-subscription-6wk",
+    "8wk": "25-subscription-8wk",
+    "12wk": "25-subscription-12wk",
+  };
+const AVAILABLE_CADENCES: RitualCadence[] = (
+  ["4wk", "6wk", "8wk", "12wk"] as const
+).filter((c) => c === "4wk" || Boolean(RITUAL_PRICE_IDS[CADENCE_PRICE_KEY[c]]));
 
 function effectivePlan(size: RitualSize, plan: RitualPlan): RitualPlan {
   // 10-serving has no subscription Price — coerce to one-time.
@@ -63,8 +90,10 @@ function useMountTarget(mountId: string): HTMLElement | null {
 type Shared = {
   size: RitualSize;
   plan: RitualPlan;
+  cadence: RitualCadence;
   setSize: (s: RitualSize) => void;
   setPlan: (p: RitualPlan) => void;
+  setCadence: (c: RitualCadence) => void;
   onAddToCart: () => void;
   pending: boolean;
   /** Sticky ATC reveal state (mobile, shown after scrolling past the buy box). */
@@ -102,7 +131,16 @@ function BenefitItem({ children }: { children: ReactNode }) {
   );
 }
 
-function BuyBox({ size, plan, setSize, setPlan, onAddToCart, pending }: Shared) {
+function BuyBox({
+  size,
+  plan,
+  cadence,
+  setSize,
+  setPlan,
+  setCadence,
+  onAddToCart,
+  pending,
+}: Shared) {
   const sub = PRICES[size].subscription;
   const once = PRICES[size].onetime!; // every size has a one-time Price
   const resolvedPlan = effectivePlan(size, plan);
@@ -192,6 +230,45 @@ function BuyBox({ size, plan, setSize, setPlan, onAddToCart, pending }: Shared) 
                     gap: 6,
                   }}
                 >
+                  {AVAILABLE_CADENCES.length > 1 && (
+                    <BenefitItem>
+                      <span
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: 6,
+                          flexWrap: "wrap",
+                        }}
+                      >
+                        Ships every
+                        <select
+                          value={cadence}
+                          onChange={(e) =>
+                            setCadence(e.target.value as RitualCadence)
+                          }
+                          onClick={(e) => e.stopPropagation()}
+                          aria-label="Delivery frequency"
+                          style={{
+                            font: "inherit",
+                            fontWeight: 600,
+                            color: "var(--ink)",
+                            background: "transparent",
+                            border:
+                              "1px solid var(--line, rgba(26,26,26,0.18))",
+                            borderRadius: 6,
+                            padding: "2px 24px 2px 8px",
+                            cursor: "pointer",
+                          }}
+                        >
+                          {AVAILABLE_CADENCES.map((c) => (
+                            <option key={c} value={c}>
+                              {CADENCE_LABELS[c]}
+                            </option>
+                          ))}
+                        </select>
+                      </span>
+                    </BenefitItem>
+                  )}
                   {SUB_BENEFITS.map((b) => (
                     <BenefitItem key={b}>{b}</BenefitItem>
                   ))}
@@ -308,13 +385,14 @@ function StickyAtc({ size, plan, onAddToCart, pending, shown }: Shared) {
  *   by lib/imported-html.ts splices.
  * - Wires Add to Cart → POST /api/checkout with the right Stripe Price ID.
  *
- * Quantity is adjusted in the cart drawer (+/-); delivery frequency (4 vs 8
- * weeks) is managed from the account after purchase. The PDP always adds a
- * single bag of the primary (4-week) subscription or one-time Price.
+ * Quantity is adjusted in the cart drawer (+/-); delivery frequency (4 / 6 / 8 /
+ * 12 weeks) is picked in the subscribe box and defaults to 4 weeks. The PDP adds
+ * a single bag of the chosen-cadence subscription Price (or the one-time Price).
  */
 export function RitualPdpClient() {
   const [size, setSize] = useState<RitualSize>("25");
   const [plan, setPlan] = useState<RitualPlan>("subscription");
+  const [cadence, setCadence] = useState<RitualCadence>("4wk");
   const [pending, setPending] = useState(false);
   const [shown, setShown] = useState(false);
   const { addItem } = useCart();
@@ -353,8 +431,9 @@ export function RitualPdpClient() {
       mainImg.removeAttribute("sizes");
     }
     // Sync the active thumbnail to the size's hero, if present.
-    const thumbs =
-      document.querySelectorAll<HTMLElement>(".gallery-thumb[data-full]");
+    const thumbs = document.querySelectorAll<HTMLElement>(
+      ".gallery-thumb[data-full]",
+    );
     let matched = false;
     thumbs.forEach((t) => {
       const isMatch = (t.dataset.full ?? "").includes(`${base}-`);
@@ -368,11 +447,12 @@ export function RitualPdpClient() {
 
   function onAddToCart() {
     if (pending) return;
-    // Coerce plan: 10-serving has no subscription Price. Subscriptions start on
-    // the primary 4-week Price (cadence default); the customer changes frequency
-    // later from their account. Quantity is 1 here — adjusted in the cart drawer.
+    // Coerce plan: 10-serving has no subscription Price. Subscriptions use the
+    // cadence picked in the buy box (default 4 weeks); one-time ignores cadence.
+    // Quantity is 1 here — adjusted in the cart drawer.
     const planForCart = effectivePlan(size, plan);
-    const resolved = resolveRitualSelection(size, planForCart);
+    const cadenceForCart = planForCart === "subscription" ? cadence : "4wk";
+    const resolved = resolveRitualSelection(size, planForCart, cadenceForCart);
     if (!resolved) {
       console.error(
         `[ritual-pdp] Missing Stripe Price ID for ${size}-${planForCart}. Check NEXT_PUBLIC_RITUAL_PRICE_* env vars.`,
@@ -396,8 +476,10 @@ export function RitualPdpClient() {
   const shared: Shared = {
     size,
     plan,
+    cadence,
     setSize,
     setPlan,
+    setCadence,
     onAddToCart,
     pending,
     shown,

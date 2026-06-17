@@ -60,9 +60,16 @@ const swapSchema = z.object({
 });
 
 const frequencySchema = z.object({
-  /** Target delivery cadence. Maps to the 4 / 6 / 8-week Ritual sub Price. */
-  cadence: z.enum(["4wk", "6wk", "8wk"]),
+  /** Target delivery cadence. Maps to the 4 / 6 / 8 / 12-week Ritual sub Price. */
+  cadence: z.enum(["4wk", "6wk", "8wk", "12wk"]),
 });
+
+const CADENCE_TO_PRICE_KEY = {
+  "4wk": "25-subscription",
+  "6wk": "25-subscription-6wk",
+  "8wk": "25-subscription-8wk",
+  "12wk": "25-subscription-12wk",
+} as const;
 
 const STRIPE_FEEDBACK_MAP: Record<
   string,
@@ -217,11 +224,7 @@ export async function POST(
       // "your next renewal date stays the same" promise.
       const parsed = frequencySchema.parse(body);
       const targetPriceId =
-        parsed.cadence === "8wk"
-          ? RITUAL_PRICE_IDS["25-subscription-8wk"]
-          : parsed.cadence === "6wk"
-            ? RITUAL_PRICE_IDS["25-subscription-6wk"]
-            : RITUAL_PRICE_IDS["25-subscription"];
+        RITUAL_PRICE_IDS[CADENCE_TO_PRICE_KEY[parsed.cadence]];
       if (!targetPriceId) {
         return Response.json(
           {

@@ -56,9 +56,10 @@ if (!hasStaticAdminToken && !hasAdminOAuth) {
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-// Subscription billing cadences. Mujo offers THREE subscribe cadences on the same
-// 25-serving bag: every 4 weeks (primary, daily drinkers), every 6 weeks, and
-// every 8 weeks (every-other-day drinkers). All are week-based, NOT calendar-monthly, to
+// Subscription billing cadences. Mujo offers FOUR subscribe cadences on the same
+// 25-serving bag: every 4 weeks (primary, daily drinkers), every 6 weeks, every
+// 8 weeks (every-other-day), and every 12 weeks (light drinkers). All are
+// week-based, NOT calendar-monthly, to
 // match the public Subscription Terms. Stripe Prices are immutable, so changing
 // a cadence (or the discounted amount) archives the old price + creates a new
 // one on the next mirror run (drift handling below).
@@ -82,6 +83,7 @@ const SUB_INTERVALS: SubInterval[] = [
   { interval: "week", count: 4 },
   { interval: "week", count: 6 },
   { interval: "week", count: 8 },
+  { interval: "week", count: 12 },
 ];
 // Standing subscriber discount, baked into the subscription Price (see above).
 // $65.00 × (1 − 0.15) = $55.25 exact. Keep in sync with SUBSCRIBER_DISCOUNT_PERCENT

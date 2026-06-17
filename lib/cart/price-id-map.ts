@@ -87,6 +87,15 @@ const RITUAL_LINES: Record<RitualKey, PriceIdResolution> = {
     currency: "usd",
     isSubscription: true,
   },
+  "25-subscription-12wk": {
+    productHandle: "mujo-ritual",
+    productTitle: "The Ritual",
+    variantTitle: "25 servings · Subscribe · every 12 weeks",
+    image: RITUAL_IMAGE_25,
+    unitAmountCents: 5525,
+    currency: "usd",
+    isSubscription: true,
+  },
 };
 
 /** Resolve any Mujo Stripe Price ID to a cart-line shape. Null if unknown. */
@@ -120,8 +129,8 @@ export function resolvePriceId(
 
 /**
  * Given (size, plan, cadence), return both the Stripe Price ID and resolved
- * metadata. `cadence` only applies to 25-serving subscriptions; '6wk'/'8wk'
- * select the every-6 / every-8-weeks Price, anything else the primary
+ * metadata. `cadence` only applies to 25-serving subscriptions; '6wk'/'8wk'/'12wk'
+ * select the every-6 / 8 / 12-weeks Price, anything else the primary
  * every-4-weeks Price.
  */
 export function resolveRitualSelection(
@@ -130,12 +139,15 @@ export function resolveRitualSelection(
   cadence: RitualCadence = "4wk",
 ): { stripePriceId: string; line: PriceIdResolution } | null {
   const isRitualSub = plan === "subscription" && size === "25";
-  const key: RitualKey =
-    isRitualSub && cadence === "8wk"
-      ? "25-subscription-8wk"
-      : isRitualSub && cadence === "6wk"
-        ? "25-subscription-6wk"
-        : (`${size}-${plan}` as RitualKey);
+  const cadenceKey: Record<RitualCadence, RitualKey> = {
+    "4wk": "25-subscription",
+    "6wk": "25-subscription-6wk",
+    "8wk": "25-subscription-8wk",
+    "12wk": "25-subscription-12wk",
+  };
+  const key: RitualKey = isRitualSub
+    ? cadenceKey[cadence]
+    : (`${size}-${plan}` as RitualKey);
   const stripePriceId = RITUAL_PRICE_IDS[key];
   if (!stripePriceId) return null;
   return { stripePriceId, line: RITUAL_LINES[key] };
