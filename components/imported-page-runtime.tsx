@@ -4,7 +4,6 @@ import { useEffect, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import { useReveal } from "lib/hooks/use-reveal";
 import { looxSlugFromPathname, renderLooxForSlug } from "lib/loox";
-import { useQuizSheet } from "components/MujoQuiz";
 import { useCart } from "components/cart/cart-context";
 import { resolvePriceId } from "lib/cart/price-id-map";
 import {
@@ -314,7 +313,6 @@ function initReelsMarquee(): () => void {
 export function ImportedPageRuntime({ children }: ImportedPageRuntimeProps) {
   useReveal();
   const pathname = usePathname();
-  const { open: openQuiz } = useQuizSheet();
   const { addItem } = useCart();
 
   useEffect(() => {
@@ -418,21 +416,12 @@ export function ImportedPageRuntime({ children }: ImportedPageRuntimeProps) {
           ev.preventDefault();
           window.dispatchEvent(new CustomEvent("mujo:overlay:close"));
           break;
-        case "open-quiz": {
+        case "open-quiz":
+          // Diagnostic quiz removed 2026-06-17 (FDA compliance). Any legacy
+          // quiz CTA is now inert; site-wide email capture is the Klaviyo
+          // welcome popup. preventDefault stops inert anchors from jumping.
           ev.preventDefault();
-          // Compound triggers (mobile menu's "Take the audit") also need the
-          // menu drawer to close first. Cheap to dispatch unconditionally.
-          window.dispatchEvent(new CustomEvent("mujo:overlay:close"));
-          // Tag where the quiz was taken so the four shared result flows can be
-          // attributed by page. Only / and /ritual are distinguished; any other
-          // entry point (the site-wide pill) defaults to homepage_quiz.
-          const quizSource =
-            window.location.pathname === "/ritual"
-              ? "ritual_landing_quiz"
-              : "homepage_quiz";
-          openQuiz(quizSource);
           break;
-        }
         case "checkout": {
           ev.preventDefault();
           const priceId = trigger.dataset.stripePriceId;
@@ -556,7 +545,7 @@ export function ImportedPageRuntime({ children }: ImportedPageRuntimeProps) {
       document.removeEventListener("click", onClick);
       document.removeEventListener("submit", handleForms);
     };
-  }, [openQuiz, addItem]);
+  }, [addItem]);
 
   // UGC reel marquee: make it manually scrollable while keeping auto-advance.
   useEffect(() => initReelsMarquee(), []);

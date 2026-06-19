@@ -11,7 +11,6 @@ type NavProps = {
 
 const NAV_LINKS = [
   { href: "/shop", label: "Shop" },
-  { href: "/science", label: "Science" },
   { href: "/ingredients", label: "Ingredients" },
   { href: "/journal", label: "Journal" },
   { href: "/rebel-club", label: "Rebel Club" },

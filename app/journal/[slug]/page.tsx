@@ -23,34 +23,6 @@ type Post = {
 };
 
 const PUBLISHED: Record<string, Post> = {
-  "why-you-crash-at-3pm": {
-    file: "mujo_journal_why-you-crash-at-3pm.html",
-    title: "Why You Crash at 3pm (And What's Actually Happening)",
-    description:
-      "The 3pm crash isn't lunch or willpower. It's two body clocks crossing in your afternoon. Here's what's actually happening, and how to work with the dip.",
-    headline: "Why you crash at 3pm. And what is actually happening.",
-  },
-  "morning-cortisol-spike-and-coffee": {
-    file: "mujo_journal_morning-cortisol-spike-and-coffee.html",
-    title: "The Morning Cortisol Spike (And Why Coffee Hurts)",
-    description:
-      "Your body runs a cortisol surge in the first hour after waking. Pour a strong coffee on top and it can feel wired, not energised. Here's the honest version.",
-    headline: "The morning cortisol spike. And why coffee makes it worse.",
-  },
-  "tired-but-wired": {
-    file: "mujo_journal_tired-but-wired.html",
-    title: "Tired but Wired: Why You Can't Sleep When Exhausted",
-    description:
-      "Exhausted all day, then wide awake at bedtime? It isn't a contradiction. It's hyperarousal, a nervous system stuck in go mode. Here's how to help it stand down.",
-    headline: "Tired but wired. Why you can't sleep when you're exhausted.",
-  },
-  "vagal-tone-and-composure": {
-    file: "mujo_journal_vagal-tone-and-composure.html",
-    title: "Vagal Tone: The Nerve That Decides Your Composure",
-    description:
-      "Why do two people meet the same bad news so differently? A lot comes down to vagal tone, your nervous system's brake. Here's what it is, and how to train it.",
-    headline: "Vagal tone. What it is, and why it decides your composure.",
-  },
   "introducing-mujo-the-coffee-alternative-thats-changing-the-game": {
     file: "mujo_journal_introducing-mujo-the-coffee-alternative-thats-changing-the-game.html",
     title: "Introducing Mujo: The Coffee Alternative for the Modern Human",
@@ -69,15 +41,6 @@ const PUBLISHED: Record<string, Post> = {
       headline:
         "The science of caffeine, the habit loop behind your morning coffee, and why it could be making you tired.",
     },
-  "unlocking-vitality-the-journey-from-stress-to-energy": {
-    file: "mujo_journal_unlocking-vitality-the-journey-from-stress-to-energy.html",
-    title:
-      "From Stress to Energy: The Brain States and Mitochondria Behind Vitality",
-    description:
-      "Your brainwaves and your mitochondria decide how energized you feel. How chronic stress drains both, and how adaptogens and mushrooms help support them.",
-    headline:
-      "How brain states and mitochondria shape your energy, and why chronic stress drains both.",
-  },
   "founding-mujo-the-easiest-way-for-stress-to-not-work-against-you": {
     file: "mujo_journal_founding-mujo-the-easiest-way-for-stress-to-not-work-against-you.html",
     title:
@@ -105,14 +68,6 @@ const PUBLISHED: Record<string, Post> = {
     headline:
       "The microbiome you inherit from your mother shapes your mood, focus, and resilience, and you can reshape it every day.",
   },
-  "caffeine-and-mental-health-what-s-the-buzz-really": {
-    file: "mujo_journal_caffeine-and-mental-health-what-s-the-buzz-really.html",
-    title: "Caffeine and Mental Health: What's the Buzz, Really?",
-    description:
-      "Caffeine is a psychoactive drug that touches anxiety, sleep, hydration, and gut health. Here is how your morning cup affects your mental well-being.",
-    headline:
-      "Caffeine quietly shapes anxiety, sleep, hydration, and gut health, and for many people it works against their mental health.",
-  },
   "powdered-mushrooms-vs-extracts-and-the-ritual-of-potency": {
     file: "mujo_journal_powdered-mushrooms-vs-extracts-and-the-ritual-of-potency.html",
     title: "Powdered Mushrooms vs Extracts: The Ritual of Potency",
@@ -121,24 +76,6 @@ const PUBLISHED: Record<string, Post> = {
     headline:
       "Whole mushroom powders lock their most potent compounds behind chitin, while dual extraction delivers a dose your body can actually use.",
   },
-  "what-we-inherit-from-our-fathers-nervous-systems-stress-and-the-rituals-that-can-heal-them":
-    {
-      file: "mujo_journal_what-we-inherit-from-our-fathers-nervous-systems-stress-and-the-rituals-that-can-heal-them.html",
-      title:
-        "What We Inherit from Our Fathers: Nervous Systems, Stress, and Rituals",
-      description:
-        "We inherit more than our father's eyes. We inherit a nervous system blueprint for stress. Here is how those patterns form, and how they can be rewritten.",
-      headline:
-        "We inherit a nervous system blueprint from our fathers, and those stress patterns can be re-learned with the right rituals.",
-    },
-  "the-biology-of-burnout-and-why-caffeine-makes-it-worse": {
-    file: "mujo_journal_the-biology-of-burnout-and-why-caffeine-makes-it-worse.html",
-    title: "The Biology of Burnout (and Why Caffeine Makes It Worse)",
-    description:
-      "Burnout is a nervous system pushed past recovery, and caffeine intensifies it. The adenosine crash, the cortisol loop, and what to do instead.",
-    headline:
-      "Burnout is a nervous system pushed past its capacity to recover, and caffeine intensifies the loop instead of fixing it.",
-  },
   "the-problem-with-resolutions-and-what-to-do-instead": {
     file: "mujo_journal_the-problem-with-resolutions-and-what-to-do-instead.html",
     title: "The Problem with Resolutions (and What to Do Instead)",
@@ -146,22 +83,6 @@ const PUBLISHED: Record<string, Post> = {
       "Why your New Year's list keeps breaking by January 15th, and what actually drives lasting change: clarity, alignment, and small daily action.",
     headline:
       "Resolutions don't work the way we do them. Clarity, not hype, is what creates lasting change.",
-  },
-  "your-brain-can-grow-new-connections-this-mushroom-helps-it-do-that": {
-    file: "mujo_journal_your-brain-can-grow-new-connections-this-mushroom-helps-it-do-that.html",
-    title: "What Lion's Mane Actually Does for Your Brain",
-    description:
-      "What Lion's Mane really does to your brain, how long it takes, and how to spot a quality extract from expensive grain dust. Honest, science-backed.",
-    headline:
-      "Lion's Mane stimulates Nerve Growth Factor, but only a properly extracted fruiting-body product can deliver it.",
-  },
-  "your-gut-is-talking-to-your-brain-right-now": {
-    file: "mujo_journal_your-gut-is-talking-to-your-brain-right-now.html",
-    title: "Your Gut Is Talking to Your Brain Right Now",
-    description:
-      "The gut-brain axis, explained simply: how the vagus nerve, serotonin, and dopamine in your gut shape your mood, focus, and motivation every day.",
-    headline:
-      "Your gut and brain are in constant two-way conversation, and what you eat is part of it.",
   },
   "what-your-body-actually-needs": {
     file: "mujo_journal_what-your-body-actually-needs.html",
