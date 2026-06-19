@@ -88,8 +88,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
       <div className="mm-foot">
         <div className="mm-foot-eyebrow">New here</div>
         <p>
-          10% off your first order. Take 60 seconds, get a Reset Plan tuned to
-          your specific pattern.
+          10% off your first order when you join the Rebel Club.
         </p>
         <Link href="/rebel-club" className="mm-cta" onClick={onClose}>
           Join the Rebel Club →
