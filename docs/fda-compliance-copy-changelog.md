@@ -73,3 +73,16 @@ Positioning evolved to warm "More Human, Less Optimized" (brand-positioning.md �
 - **Journal — 10 posts unpublished** (the 4 Science-page reads + 6 highest-claim-density posts: gut-brain, vitality/mitochondria, lion's-mane-NGF, burnout-biology, caffeine-mental-health, inherited-nervous-systems). Removed from `app/journal/[slug]/page.tsx` PUBLISHED map + `app/sitemap.ts` + the index + page-2 cards + 21 dead "related-card" cross-links across published posts. All serve the not-found UI (no content; true 404 in prod build via `dynamicParams=false`). Originals archived for future repurposing to `outputs/marketing-and-sales/journal-unpublished-2026-06-19/` (+ INDEX.md with compliant future angles). **Governing rule:** science content must not link back to the product. **Remaining published journal posts (Tier B) still need a de-claim pass.**
 
 **Verification:** `tsc --noEmit` clean; homepage / ritual / PDP / rebel-club 200; all 10 unpublished posts serve not-found (no post content).
+
+## 2026-06-19 (cont.) — DEPLOYED LIVE + second-pass residuals (route metadata / About / chrome)
+
+Kinga authorized deploying to production **ahead of attorney review** (net risk-reducing: the changes *remove* illegal claims). Merged `fix/fda-compliance-copy` → `main` (folded in 2 concurrent subscription-cadence commits, zero overlap) and pushed (`51cb58c3`). **Live on mujoworld.com.**
+
+**Live verification then caught three layers the page-by-page HTML sweep missed** (imported-HTML source ≠ served output):
+1. **Route-file metadata + JSON-LD** — `app/ritual/page.tsx` + `app/ingredients/page.tsx` carried `caffeine-free`, `KSM-66`, **`RhodioLife`, `Longvida`** (unlicensed), "clinical doses", "every dose disclosed" into the live `<head>` + structured data. Rewritten to caffeine-light + generic ingredient names + open-labeling.
+2. **About page** (`mujo_about.html`, live + linked, not in original scope) — "foundational nervous system support", "Dosed according to research / research-validated", "Clinical doses / if a study used 300mg / sub-therapeutic", KSM-66, founder "coffee was wrecking my nervous system" → reframed to form/quality + open labeling + "doing me more harm than good".
+3. **Quiz "Reset Plan" CTA** — still in the shared mobile-menu (`components/layout/mobile-menu.tsx` + 51 imported files' `mm-foot`), served on every page → "Join the Rebel Club"; stale `/science` chrome links removed; homepage `neurowellness` comments + ingredients `KSM-66` comment cleaned.
+
+Second commit `351dd29c` pushed. **Live cross-page sweep clean (0):** home/ritual/ingredients/about/legal — Reset Plan, KSM-66, RhodioLife, Longvida, neurowellness, 285x, cortisol all 0. `tsc` clean.
+
+**Still deferred (known, non-blocking):** Tier B journal posts (kept) + /lemna (pre-launch) carry softer tokens (nervous system, etc.) — scheduled de-claim pass; **email (Klaviyo flows)**; then attorney review of the live state.
