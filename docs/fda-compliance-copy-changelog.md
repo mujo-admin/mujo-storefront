@@ -86,3 +86,24 @@ Kinga authorized deploying to production **ahead of attorney review** (net risk-
 Second commit `351dd29c` pushed. **Live cross-page sweep clean (0):** home/ritual/ingredients/about/legal — Reset Plan, KSM-66, RhodioLife, Longvida, neurowellness, 285x, cortisol all 0. `tsc` clean.
 
 **Still deferred (known, non-blocking):** Tier B journal posts (kept) + /lemna (pre-launch) carry softer tokens (nervous system, etc.) — scheduled de-claim pass; **email (Klaviyo flows)**; then attorney review of the live state.
+
+## 2026-06-19 (cont.) — Full live verification sweep (every page, all metadata + media) + journal Tier B resolved
+
+Per Kinga: live-verify **every** page including all metadata that feeds Google. Scanned the complete served HTML of all 36 routes (title, meta description, OG + Twitter, **JSON-LD**, canonical, **alt text**, **image filenames**, OG images) + sitemap.xml + robots.txt.
+
+**Residuals found by live verification + fixed:**
+- **Route-file metadata** (`app/ritual`, `app/ingredients`) — already fixed in prior entry (caffeine-free/KSM-66/RhodioLife/Longvida/clinical doses).
+- **Quiz "Reset Plan" CTA** in the React + 51 imported-file mobile-menus — fixed (→ Rebel Club).
+- **Image filenames** `stress-hpa.svg` + `stress-support.svg` (HPA in a filename → Google Images) → renamed `steady.svg` / `calm.svg`, refs updated on /ritual + PDP.
+- **Shared journal CTA** "Clinical doses. Caffeine-free." (20 posts) → "Caffeine-light, no jitters."
+- **Homepage `neurowellness` comments + `/ingredients` KSM-66 comment** cleaned.
+- (`/ingredients` "NGF" was a false positive inside a base64 image blob; "caffeine-free" there is factual about carob — both fine.)
+
+**Journal Tier B resolved (live scan revealed hard claims, not just soft):**
+- **Unpublished + archived** (3): `what-you-actually-got-from-your-mama` (KSM-66/lowers cortisol/nootropic/anti-inflammatory), `powdered-mushrooms-vs-extracts` (9,600mg/NGF/anti-inflammatory), `what-your-body-actually-needs` (cortisol/nerve growth/anti-inflammatory). → archived to AIOS `outputs/marketing-and-sales/journal-unpublished-2026-06-19/` (13 posts total + INDEX).
+- **De-claimed + kept** (2): `founding-mujo` (physiology/cortisol/mitochondrial/"stress not to work against you"/Chaga/Bacopa removed; founder story kept), `beta-glucans` (immune-supporting/stimulate-immune/anti-inflammatory → composition/quality education).
+- **Kept as-is:** `story-of-coffee` (adenosine = education about caffeine, not a Mujo claim).
+
+**FINAL LIVE RESULT:** all **30 published pages clean** (0 hard tokens across content/metadata/JSON-LD/alt/image-names); all **13 unpublished posts return 404**; robots + sitemap correct; OG images clean. `tsc` clean. Commits `594bec64` → `057f3c73` → `f2628767` live on mujoworld.com.
+
+**Remaining:** /lemna pre-launch sweep (`mujo_lemna_*` — softer tokens, behind redirect); **email (Klaviyo flows)**; attorney review.
