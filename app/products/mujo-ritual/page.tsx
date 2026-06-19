@@ -26,12 +26,13 @@ const RITUAL_SPLICES: Splice[] = [
 export const metadata: Metadata = {
   title: "The Mujo Ritual · Mushroom Cacao",
   description:
-    "Premium mushroom cacao adaptogen ritual. 25 servings. Subscribe and save 15%.",
+    "A warm mushroom-and-adaptogen cacao that replaces your coffee. Under 5mg of caffeine. 25 servings. Subscribe and save 15%.",
   alternates: { canonical: "/products/mujo-ritual" },
   openGraph: {
     type: "website",
     title: "The Mujo Ritual",
-    description: "Premium mushroom cacao adaptogen ritual.",
+    description:
+      "A warm mushroom-and-adaptogen cacao that replaces your coffee.",
   },
 };
 
@@ -46,7 +47,7 @@ export default function RitualPdpPage() {
               url: "/products/mujo-ritual",
               name: "The Mujo Ritual",
               description:
-                "Premium caffeine-free mushroom cacao with Lion's Mane, Cordyceps, Chaga, KSM-66 Ashwagandha, RhodioLife Rhodiola, Longvida Curcumin.",
+                "A warm, caffeine-light mushroom cacao with lion's mane, cordyceps, chaga, rhodiola, ashwagandha, and a bioavailable form of curcumin.",
               image:
                 "https://mujoworld.com/images/logo/mujo-logo-orange.png",
               lowPrice: "27",

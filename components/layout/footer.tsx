@@ -116,7 +116,6 @@ export function Footer() {
             title="Learn"
             links={[
               { href: "/ingredients", label: "Ingredients" },
-              { href: "/science", label: "The Science" },
               { href: "/about", label: "Our story" },
               { href: "/journal", label: "Journal" },
             ]}
@@ -142,20 +141,6 @@ export function Footer() {
             gap: 16,
           }}
         >
-          <div
-            style={{
-              fontSize: 11,
-              lineHeight: 1.55,
-              color: "rgba(255,255,255,0.3)",
-              maxWidth: 680,
-              fontFamily: "var(--f-mono)",
-              letterSpacing: "0.02em",
-            }}
-          >
-            *These statements have not been evaluated by the FDA. This product
-            is not intended to diagnose, treat, cure, or prevent any disease.
-            Individual results may vary.
-          </div>
           <div
             style={{
               display: "flex",

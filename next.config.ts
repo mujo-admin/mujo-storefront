@@ -46,6 +46,14 @@ const config: NextConfig = {
   },
   async redirects() {
     return [
+      // /science retired 2026-06-19 (conventional-food path: no health-claim science page).
+      // Redirect to /about, which now carries the "why Mujo." permanent:false so a future
+      // replacement page can reclaim the path.
+      {
+        source: "/science",
+        destination: "/about",
+        permanent: false,
+      },
       // Shopify Liquid → headless route map.
       // The old Shopify waitlist page. /lemna is now live + indexable (the earlier
       // noindex was lifted), so we redirect rather than 404 the link that lives in

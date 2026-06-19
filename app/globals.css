@@ -93,3 +93,16 @@ button {
     display: flex;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Toaster footprint fix. Imported content pages declare an un-scoped global
+   `section { padding: var(--section-y) 0 }` (+ a cream `body` background) that
+   leaks onto the Sonner toaster's empty `<section aria-label="Notifications">`,
+   rendering it as a blank cream block below the footer. Zero its layout so the
+   empty toaster takes no space.
+   --------------------------------------------------------------------------- */
+body > section[aria-label] {
+  padding: 0 !important;
+  min-height: 0 !important;
+  background: transparent !important;
+}

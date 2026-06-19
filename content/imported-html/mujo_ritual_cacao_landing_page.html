@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mujo Ritual. The morning ritual for people who read the label</title>
-<meta name="description" content="Clinically dosed mushroom cacao. Caffeine-free. Free 5-step Nervous System Reset Plan with the 60-second audit.">
+<meta name="description" content="A warm mushroom-and-adaptogen cacao made to replace your coffee. Rhodiola for everyday stress, cordyceps for steady energy, under 5mg of caffeine.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!--
@@ -812,13 +812,14 @@ nav {
 
 .pstats {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 1px;
   background: var(--line);
   border: 1px solid var(--line);
   border-radius: var(--r-structural);
   overflow: hidden;
-  margin-top: 38px;
+  margin: 38px auto 0;
+  max-width: 520px;
 }
 .psc {
   background: #fff;
@@ -985,6 +986,8 @@ nav {
   transition: all 0.3s;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 .ic::after {
   content: '';
@@ -1007,7 +1010,7 @@ nav {
   background: linear-gradient(135deg, #fff 0%, var(--orange-soft) 100%);
   border-color: var(--orange);
 }
-.ie { display: block; width: 48px; height: 48px; border-radius: var(--r-structural); overflow: hidden; margin-bottom: 11px; }
+.ie { display: block; width: 100%; height: 150px; border-radius: var(--r-structural); overflow: hidden; margin-bottom: 14px; }
 .ie img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .in {
   font-size: 14px;
@@ -1048,6 +1051,20 @@ nav {
   color: #fff;
 }
 .id-tag.unique::before { color: #fff; }
+.ipills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 4px; }
+.ip-benefit {
+  display: inline-flex;
+  align-items: center;
+  background: var(--orange);
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: var(--r-tag);
+  font-family: var(--f-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
 
 .inote {
   margin-top: 28px;
@@ -2447,31 +2464,27 @@ body.locked { overflow: hidden; }
 <section class="hero">
   <div class="hero-grid">
     <div>
-      <div class="hero-eyebrow eyebrow reveal">Caffeine-free · Neurowellness</div>
+      <div class="hero-eyebrow eyebrow reveal">Caffeine-light · Mushroom cacao</div>
       <h1 class="reveal d1">
-        You've done everything right. <span class="serif-accent">So why the 3pm crash?</span>
+        Doing more with less. <span class="serif-accent">Finally, a ritual that fills your morning cup.</span>
       </h1>
-      <p class="hero-sub reveal d2">It isn't discipline. It's a nervous system that's been running hot for years, and caffeine has been quietly making it worse. Mujo Ritual is the warm cacao that works on the cause, so the afternoon gets quieter and the energy holds. Take 60 seconds to find your pattern, and get a plan built around it.</p>
+      <p class="hero-sub reveal d2">A mushroom-and-adaptogen cacao that tastes so good you won't want to skip it.</p>
       <div class="hero-rating reveal d2">
         <div class="hero-stars">★★★★★</div>
         <div class="hero-rating-text"><strong>4.9/5</strong> · 100+ verified reviews</div>
       </div>
       <div class="cta-stack reveal d3">
-        <button class="btn btn-primary" onclick="openQuizSheet()">
-          Find my pattern (60 sec)
+        <a href="/products/mujo-ritual" class="btn btn-primary">
+          Shop the Ritual
           <span class="btn-arrow">→</span>
-        </button>
+        </a>
         <a href="#ingredients" class="btn btn-ghost">See what's inside</a>
       </div>
       <div class="hero-trust reveal d4">
-        <div class="trust-item"><span class="trust-dot"></span>Zero caffeine</div>
+        <div class="trust-item"><span class="trust-dot"></span>Under 5mg caffeine</div>
         <div class="trust-item"><span class="trust-dot"></span>Fruiting body only</div>
-        <div class="trust-item"><span class="trust-dot"></span>Clinically dosed</div>
+        <div class="trust-item"><span class="trust-dot"></span>Doses on the label</div>
         <div class="trust-item"><span class="trust-dot"></span>30-day guarantee</div>
-      </div>
-      <div class="hero-citation reveal d4">
-        <span class="citation-mark">★</span>
-        <div>Neurowellness was named the <strong>#1 wellness trend of 2026</strong> by the Global Wellness Summit, the category Mujo was built for, <em>18 months before it had a name.</em></div>
       </div>
       <div class="scroll-cue reveal d4">
         <span>Scroll to meet the Ritual</span>
@@ -2482,8 +2495,8 @@ body.locked { overflow: hidden; }
       <div class="hero-card" style="background-image: url('/images/responsive/products/ritual/ritual-hero-pour-hot-with-pouch-editorial-4x5-800.webp'); background-size: cover; background-position: center;">
       </div>
       <div class="hero-fact tr">
-        <div class="hero-fact-num">9,600mg</div>
-        <div class="hero-fact-lbl">Functional mushrooms<br>equivalent dose</div>
+        <div class="hero-fact-num">&lt;5mg</div>
+        <div class="hero-fact-lbl">Caffeine<br>per serving</div>
       </div>
       <div class="hero-fact bl">
         <div class="hero-fact-num">8:1</div>
@@ -2499,34 +2512,34 @@ body.locked { overflow: hidden; }
 <section class="problem">
   <div class="container">
     <div class="problem-header">
-      <h2 class="reveal d1" style="margin-top: 28px;">What's <span class="serif-accent">actually happening</span> when you're doing everything right but still depleted.</h2>
+      <h2 class="reveal d1" style="margin-top: 28px;">Why we made a coffee alternative, <span class="serif-accent">not another coffee.</span></h2>
     </div>
     <div class="problem-grid">
       <div class="pitems">
         <div class="pitem reveal">
           <div class="pn">01</div>
-          <div class="pt"><strong>Caffeine doesn't create energy, it blocks your brain's rest signals.</strong> Adenosine receptors that say "slow down, recover" get hijacked. When caffeine metabolizes, everything it was masking comes back at once. That's not a crash. That's your biology catching up.</div>
+          <div class="pt"><strong>Coffee gives you a lift, then takes it back.</strong> The spike feels great, until the afternoon dip sends you back for another cup. And another.</div>
         </div>
         <div class="pitem reveal d1">
           <div class="pn">02</div>
-          <div class="pt"><strong>Chronic stress keeps your HPA axis in permanent red alert.</strong> Your cells stop producing clean, sustained ATP and start running on emergency fuel. Wired and exhausted simultaneously, a physiology problem, not a mindset one.</div>
+          <div class="pt"><strong>It's easy to end up wired and tired at the same time.</strong> We wanted a morning drink that felt steady instead, the kind you reach for because you want to, not because you have to.</div>
         </div>
         <div class="pitem reveal d2">
           <div class="pn">03</div>
-          <div class="pt"><strong>Most functional products are underdosed on purpose.</strong> Mycelium instead of fruiting body. Ashwagandha at 50mg when the studies used 300mg. Enough of each ingredient to print the name on the label, not enough for your body to feel it. We went the other way.</div>
+          <div class="pt"><strong>Most functional products are underdosed, with mycelium on grain instead of real mushrooms.</strong> We went the other way: fruiting-body extracts, a few real ingredients, every amount on the label.</div>
         </div>
         <div class="pitem reveal d3">
           <div class="pn">04</div>
-          <div class="pt"><strong>Run hot for long enough and the foggy mornings start to feel normal.</strong> The lost words, the slower recall. They aren't normal. They're your body asking for the recovery caffeine keeps postponing. The good news: this is the part that responds.</div>
+          <div class="pt"><strong>The best part of a morning ritual was never the caffeine.</strong> It's the ten quiet minutes that are actually yours. So we built the cup around that.</div>
         </div>
       </div>
       <div class="paside reveal d2">
-        <div class="pa-h">This isn't a willpower problem. It's a nervous system that's been <em>running hot for years.</em></div>
-        <div class="pa-b">You've tracked the metrics, built the routine, read the research. The missing piece was never more effort. It was supporting the system everything else stands on. That's the whole reason Mujo exists.</div>
+        <div class="pa-h">This was never about more discipline. It was about a morning drink <em>worth keeping.</em></div>
+        <div class="pa-b">You've built the routine and read the labels. The missing piece was never more effort. It was a simpler ritual you actually enjoy. That's the whole reason Mujo exists.</div>
         <div class="pa-stat">
-          <div class="pa-num">83%</div>
-          <div class="pa-lbl">of US workers experience chronic work-related stress. 76% say it affects their sleep. The group most likely to lean on caffeine to keep going.</div>
-          <div class="pa-src">American Institute of Stress · APA Work in America 2024</div>
+          <div class="pa-num">&lt;5mg</div>
+          <div class="pa-lbl">Caffeine per serving, roughly a twentieth of a cup of coffee. Calm energy, nothing to spike or crash.</div>
+          <div class="pa-src">Per serving, as made</div>
         </div>
       </div>
     </div>
@@ -2540,7 +2553,7 @@ body.locked { overflow: hidden; }
 <div class="video">
   <div class="video-wrap">
     <div class="video-label reveal">From Kinga · Founder</div>
-    <h2 class="video-h reveal d1">Before you read the science, <em>watch this first.</em></h2>
+    <h2 class="video-h reveal d1">Before you buy, <em>hear why I made it.</em></h2>
     <div class="video-sub reveal d2">A couple of minutes. No pitch. Just the honest reason Mujo Ritual exists, and why it's different from everything else you've tried.</div>
     <div class="video-ph reveal d3">
       <video controls playsinline preload="metadata"
@@ -2557,39 +2570,38 @@ body.locked { overflow: hidden; }
   <div class="sol-grid">
     <div class="sol-vis reveal">
       <div class="sv-t">The different morning</div>
-      <div class="sv-s">What changes when your ritual works with your biology</div>
+      <div class="sv-s">What changes when your morning isn't built on caffeine</div>
       <div class="ctbl">
-        <div class="crow chdr"><span></span><span>Caffeine</span><span>Mujo Ritual</span></div>
-        <div class="crow"><span class="cl">Morning focus</span><span class="cbad">Spike → crash</span><span class="cgood">Builds steadily</span></div>
-        <div class="crow"><span class="cl">3pm energy</span><span class="cbad">Reach for more</span><span class="cgood">Still present</span></div>
-        <div class="crow"><span class="cl">Anxiety</span><span class="cbad">Cortisol elevated</span><span class="cgood">Regulated</span></div>
-        <div class="crow"><span class="cl">Sleep quality</span><span class="cbad">Disrupted</span><span class="cgood">Restored</span></div>
-        <div class="crow"><span class="cl">Dependency</span><span class="cbad">DSM-5 recognized</span><span class="cgood">None</span></div>
+        <div class="crow chdr"><span></span><span>Coffee</span><span>Mujo Ritual</span></div>
+        <div class="crow"><span class="cl">Morning</span><span class="cbad">Spike then crash</span><span class="cgood">Steady</span></div>
+        <div class="crow"><span class="cl">3pm</span><span class="cbad">Reach for more</span><span class="cgood">Still going</span></div>
+        <div class="crow"><span class="cl">Jitters</span><span class="cbad">Often</span><span class="cgood">None (under 5mg)</span></div>
+        <div class="crow"><span class="cl">Taste</span><span class="cbad">Bitter, functional</span><span class="cgood">Rich cacao you look forward to</span></div>
       </div>
     </div>
     <div>
       <h2 class="reveal d1" style="margin-top: 28px;">A ritual that <span class="serif-accent">earns its place.</span></h2>
-      <p class="body-lg reveal d2" style="margin-top: 16px;">A functional cacao with three mushrooms, plus adaptogens and nootropics. Every one mindfully chosen and dosed for impact. Tastes so good you won't want to skip it.</p>
+      <p class="body-lg reveal d2" style="margin-top: 16px;">A warm cacao with mushrooms and adaptogens. A few real ingredients, each one mindfully chosen. Tastes so good you won't want to skip it.</p>
       <div class="sol-pts">
         <div class="sp reveal">
           <div class="sp-i"><img src="/images/icons/science-backed.svg" alt="" aria-hidden="true" /></div>
           <div>
-            <div class="sp-t">Dosed to the research, not the margin</div>
-            <div class="sp-b">300mg KSM-66 Ashwagandha. That's the clinical trial dose that reduced cortisol by up to 27.9%.</div>
+            <div class="sp-t">Rhodiola, at a meaningful dose</div>
+            <div class="sp-b">An adaptogen that helps your body meet everyday stress. Openly dosed and named on the label, never hidden in a blend.</div>
           </div>
         </div>
         <div class="sp reveal d1">
           <div class="sp-i"><img src="/images/icons/mushroom.svg" alt="" aria-hidden="true" /></div>
           <div>
             <div class="sp-t">Fruiting body extracts, never mycelium on grain</div>
-            <div class="sp-b">Beta-(3,1)-glucans live in the fruiting body. Most brands use mycelium because it's 7x cheaper. We use 8:1 fruiting body, dual extract.</div>
+            <div class="sp-b">Beta-(1,3)(1,6)-glucans live in the fruiting body. Most brands use mycelium because it's cheaper. We use 8:1 fruiting body, dual extracted.</div>
           </div>
         </div>
         <div class="sp reveal d2">
           <div class="sp-i"><img src="/images/icons/stress-hpa.svg" alt="" aria-hidden="true" /></div>
           <div>
-            <div class="sp-t">HPA axis support, not stimulation</div>
-            <div class="sp-b">Clinically studied adaptogens calibrate your stress response. Energy comes from your own cells, not a drug.</div>
+            <div class="sp-t">Steady, not stimulating</div>
+            <div class="sp-b">Under 5mg of caffeine, so the energy stays calm and steady, with nothing to crash from.</div>
           </div>
         </div>
       </div>
@@ -2608,7 +2620,7 @@ body.locked { overflow: hidden; }
     <div class="proof-grid">
       <div class="pc reveal">
         <div class="pstars">★★★★★</div>
-        <div class="pq">"Mujo is my top choice for a caffeine alternative. It offers the ideal combination of subtle energy and mental clarity, all without the jitters. <strong>What truly distinguishes it from other options is its commitment to clean, research-backed ingredients,</strong> with absolutely no fillers."</div>
+        <div class="pq">"Mujo is my top choice for a caffeine alternative. It offers the ideal combination of subtle, steady energy, all without the jitters. <strong>What truly distinguishes it from other options is its commitment to clean, well-chosen ingredients,</strong> with absolutely no fillers."</div>
         <div class="pattr">Verified · Trustpilot</div>
         <div class="pau">
           <img class="pav" src="/images/reviews/maria-m.webp" alt="Maria M." width="34" height="34" loading="lazy" style="object-fit: cover;">
@@ -2620,7 +2632,7 @@ body.locked { overflow: hidden; }
       </div>
       <div class="pc reveal d1">
         <div class="pstars">★★★★★</div>
-        <div class="pq">"I used to be a 'don't talk to me until I've had my coffee' person. Ever since I started drinking Mujo, <strong>my creativity came back.</strong> No nausea or anxiety like coffee gave me. I can focus in a meeting and work out without losing steam."</div>
+        <div class="pq">"I used to be the 'don't talk to me until I've had my coffee' kind of person. I fell into the cycle of needing coffee just to function. <strong>Mujo decreased my reliance on coffee,</strong> and is that special ritual I really look forward to every morning. I love the ingredients inside too."</div>
         <div class="pattr">Verified · Google Reviews</div>
         <div class="pau">
           <img class="pav" src="/images/reviews/gabriela-w.webp" alt="Gabriela W." width="34" height="34" loading="lazy" style="object-fit: cover;">
@@ -2632,7 +2644,7 @@ body.locked { overflow: hidden; }
       </div>
       <div class="pc reveal d2">
         <div class="pstars">★★★★★</div>
-        <div class="pq">"Former soccer player, now an entrepreneur with 80-hour work weeks, always chasing an edge. Mujo is my go-to for the energy to dominate a workout or stay sharp through a long day. <strong>It really made a difference with my brain fog.</strong>"</div>
+        <div class="pq">"As a former soccer player and now entrepreneur, I'm always looking for something to give my day a strong start. <strong>Mujo gives me a calm, steady start I could never get with coffee.</strong> Zero jitters and great taste."</div>
         <div class="pattr">Verified · Shopify</div>
         <div class="pau">
           <img class="pav" src="/images/reviews/brandon-l.webp" alt="Brandon L." width="34" height="34" loading="lazy" style="object-fit: cover;">
@@ -2650,16 +2662,6 @@ body.locked { overflow: hidden; }
         <div class="pss">100+ reviews</div>
       </div>
       <div class="psc">
-        <div class="psn">89%</div>
-        <div class="psl">Report reduced afternoon crash</div>
-        <div class="pss">Customer survey · n=214</div>
-      </div>
-      <div class="psc">
-        <div class="psn">76%</div>
-        <div class="psl">Notice difference within 14 days</div>
-        <div class="pss">Customer survey · n=214</div>
-      </div>
-      <div class="psc">
         <div class="psn">94%</div>
         <div class="psl">Would recommend</div>
         <div class="pss">Post-purchase · 30-day</div>
@@ -2668,39 +2670,6 @@ body.locked { overflow: hidden; }
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════
-     QUIZ CTA
-     ═══════════════════════════════════════════ -->
-<section class="quiz-cta">
-  <div class="qcs-inner">
-    <div class="qcs-eye reveal">Free · For you</div>
-    <h2 class="qcs-h reveal d1">Find out what's <em>actually holding back your energy</em>, and get your free 5-step plan.</h2>
-    <div class="qcs-body reveal d2">60 seconds. Six questions. We analyze your pattern and build you a personalized protocol, emailed to you instantly.</div>
-    <div class="qcs-what reveal d3">
-      <div class="qcs-item">
-        <div class="qcs-item-icon">1</div>
-        <div class="qcs-item-text"><strong>The root cause</strong>Why your specific pattern is happening, not a generic explanation</div>
-      </div>
-      <div class="qcs-item">
-        <div class="qcs-item-icon">2</div>
-        <div class="qcs-item-text"><strong>Your morning sequence</strong>Exact timing built around your answers</div>
-      </div>
-      <div class="qcs-item">
-        <div class="qcs-item-icon">3</div>
-        <div class="qcs-item-text"><strong>Your key ingredients</strong>The 2–3 that matter most for your pattern</div>
-      </div>
-      <div class="qcs-item">
-        <div class="qcs-item-icon">4</div>
-        <div class="qcs-item-text"><strong>One thing to stop</strong>The habit that's quietly making it worse</div>
-      </div>
-    </div>
-    <button class="btn btn-primary reveal d4" onclick="openQuizSheet()">
-      Take the 60-second audit
-      <span class="btn-arrow">→</span>
-    </button>
-    <div class="qcs-meta reveal d4">Free · Takes 60 seconds · Emailed instantly · 15% off included</div>
-  </div>
-</section>
 
 <!-- ═══════════════════════════════════════════
      INGREDIENTS, with Rhodiola Rosea elevated
@@ -2711,78 +2680,100 @@ body.locked { overflow: hidden; }
       <div>
         <h2 class="reveal d1" style="margin-top: 28px;">Every ingredient <span class="serif-accent">earned</span> its place.</h2>
       </div>
-      <p class="body-lg reveal d2">Peer-reviewed research behind them, work in combination, and dosed to the studies, not the label. 9,600mg mushroom equivalent + 3,000mg adaptogens equivalent + 3,400mg nootropics equivalent per serving.</p>
+      <p class="body-lg reveal d2">A few real ingredients, each named with its form and source. Our mushrooms are dual-extracted from the fruiting body, water and alcohol, to draw the full spectrum out from behind the cell walls, not just the one number that looks good on a label.</p>
     </div>
 
     <div class="igrid">
       <div class="ic hero-ing reveal">
-        <span class="ie"><img src="/images/responsive/ingredients/turmeric-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
-        <div class="in">Bioavailable Curcumin</div>
-        <div class="ia">285x bioavailable · 29+ trials</div>
-        <div class="ib">Standard curcumin is 99% wasted. Bioavailable Curcuma is clinically shown to <strong>cross the blood-brain barrier</strong> with 7.5hr half-life. Supports cognition, mood, inflammation.*</div>
-        <div class="id-tag unique">Unique to Mujo</div>
-      </div>
-      <div class="ic reveal">
         <span class="ie"><img src="/images/responsive/ingredients/lions-mane-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
         <div class="in">Lion's Mane</div>
-        <div class="ia">Hericium erinaceus · FB 8:1</div>
-        <div class="ib">Stimulates Nerve Growth Factor, signals your brain to build new neural connections. Clinically studied for focus, memory, neuroplasticity.</div>
-        <div class="id-tag">Fruiting body · 8:1</div>
-      </div>
-      <div class="ic reveal d1">
-        <span class="ie"><img src="/images/responsive/ingredients/ashwagandha-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
-        <div class="in">KSM-66 Ashwagandha</div>
-        <div class="ia">300mg · Clinical dose</div>
-        <div class="ib">The most clinically studied ashwagandha on the market. At the exact 300mg dose that reduced cortisol by up to 27.9% in RCTs. Not 50mg for the label.</div>
-        <div class="id-tag">300mg · KSM-66®</div>
-      </div>
-      <div class="ic reveal d2">
-        <span class="ie"><img src="/images/responsive/ingredients/rhodiola-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
-        <div class="in">Rhodiola Rosea</div>
-        <div class="ia">Himalayan · cultivated</div>
-        <div class="ib">One of the most studied adaptogens in the world. <strong>Rhodiola Rosea, cultivated in the Himalayas to protect the species.</strong> Works on the HPA axis alongside KSM-66 for stress resilience.*</div>
-        <div class="id-tag">Himalayan · 1.5% / 5% actives</div>
+        <div class="ia">Hericium erinaceus</div>
+        <div class="ipills">
+          <span class="ip-benefit">Focus</span>
+          <span class="id-tag">Fruiting body</span>
+          <span class="id-tag">Hericenones</span>
+        </div>
       </div>
       <div class="ic reveal">
         <span class="ie"><img src="/images/responsive/ingredients/cordyceps-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
         <div class="in">Cordyceps militaris</div>
-        <div class="ia">Fruiting body 8:1</div>
-        <div class="ib">Supports ATP synthesis, the energy molecule every cell runs on. Human VO₂ max trials. Militaris fruiting body, not fermented mycelium.</div>
-        <div class="id-tag">Militaris FB · 8:1</div>
+        <div class="ia">Cordyceps militaris</div>
+        <div class="ipills">
+          <span class="ip-benefit">Energy</span>
+          <span class="id-tag">Fruiting body</span>
+          <span class="id-tag">Cordycepins</span>
+        </div>
       </div>
       <div class="ic reveal d1">
         <span class="ie"><img src="/images/responsive/ingredients/chaga-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
         <div class="in">Chaga</div>
-        <div class="ia">Wild Siberia · FB 8:1</div>
-        <div class="ib">ORAC 146,700, 4x acai. Beta-glucans and antioxidant compounds, wild birch-harvested fruiting body. Counters oxidative stress amplified by chronic cortisol.</div>
-        <div class="id-tag">Wild FB · 8:1</div>
+        <div class="ia">Inonotus obliquus</div>
+        <div class="ipills">
+          <span class="ip-benefit">Mushroom King</span>
+          <span class="id-tag">Wild-harvested</span>
+          <span class="id-tag">Beta-(1,3)(1,6)-glucans</span>
+        </div>
       </div>
       <div class="ic reveal d2">
-        <span class="ie"><img src="/images/responsive/ingredients/bacopa-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
-        <div class="in">Bacopa Monnieri</div>
-        <div class="ia">Standardized · India</div>
-        <div class="ib">Ayurvedic nootropic studied for memory consolidation and processing speed. <strong>Works synergistically with Lion's Mane</strong>, growth and retention together.*</div>
-        <div class="id-tag">Standardized</div>
+        <span class="ie"><img src="/images/responsive/ingredients/rhodiola-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
+        <div class="in">Rhodiola Rosea</div>
+        <div class="ia">Rhodiola rosea</div>
+        <div class="ipills">
+          <span class="ip-benefit">Adaptogen</span>
+          <span class="id-tag">Altai-grown</span>
+          <span class="id-tag">Rosavins</span>
+        </div>
       </div>
       <div class="ic reveal d3">
-        <span class="ie"><img src="/images/responsive/ingredients/cacao-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
-        <div class="in">Cacao</div>
-        <div class="ia">Single-origin Peru · Ceremonial</div>
-        <div class="ib">Theobromine for gentle 6-hour energy. PQQ for mitochondrial support. Magnesium, flavanols, and the reason this tastes like something you'd choose.</div>
-        <div class="id-tag">Ceremonial · Organic</div>
+        <span class="ie"><img src="/images/responsive/ingredients/ashwagandha-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
+        <div class="in">Ashwagandha</div>
+        <div class="ia">Withania somnifera</div>
+        <div class="ipills">
+          <span class="ip-benefit">Calm</span>
+          <span class="id-tag">Root extract</span>
+        </div>
       </div>
       <div class="ic reveal d4">
+        <span class="ie"><img src="/images/responsive/ingredients/bacopa-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
+        <div class="in">Bacopa Monnieri</div>
+        <div class="ia">Bacopa monnieri</div>
+        <div class="ipills">
+          <span class="ip-benefit">Focus</span>
+          <span class="id-tag">Bacosides</span>
+        </div>
+      </div>
+      <div class="ic reveal">
+        <span class="ie"><img src="/images/responsive/ingredients/turmeric-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
+        <div class="in">Bioavailable Curcumin</div>
+        <div class="ia">Curcuma longa</div>
+        <div class="ipills">
+          <span class="ip-benefit">Bioavailable</span>
+          <span class="id-tag">Curcuminoids</span>
+        </div>
+      </div>
+      <div class="ic reveal d1">
+        <span class="ie"><img src="/images/responsive/ingredients/cacao-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
+        <div class="in">Cacao</div>
+        <div class="ia">Theobroma cacao</div>
+        <div class="ipills">
+          <span class="ip-benefit">Peruvian</span>
+          <span class="id-tag">Theobromine</span>
+        </div>
+      </div>
+      <div class="ic reveal d2">
         <span class="ie"><img src="/images/responsive/ingredients/maca-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
         <div class="in">Maca</div>
-        <div class="ia">Single-origin Peru · Gelatinized</div>
-        <div class="ib">Grown in Peru, our yellow maca is gelatinized to remove starch and make it easier on digestion. Delivers natural energy.</div>
-        <div class="id-tag">Gelatinized · Yellow</div>
+        <div class="ia">Lepidium meyenii</div>
+        <div class="ipills">
+          <span class="ip-benefit">Energy</span>
+          <span class="id-tag">Gelatinized</span>
+        </div>
       </div>
     </div>
 
     <div class="inote reveal">
       <div class="ico"><img src="/images/icons/mushroom.svg" alt="" aria-hidden="true" /></div>
-      <div class="itxt"><strong>The mycelium problem:</strong> Most products use mycelium on grain, not actual mushrooms. Beta-glucans live in the fruiting body. A product can legally say "mushroom extract" using mycelium with under 5% beta-glucan content. Mujo Ritual uses fruiting body at 8:1, standardized for beta-glucans. If the label doesn't say "fruiting body", it probably isn't.</div>
+      <div class="itxt"><strong>The mycelium problem:</strong> Most products use mycelium on grain, not actual mushrooms. Beta-(1,3)(1,6)-glucans live in the fruiting body. A product can legally say "mushroom extract" using mycelium with under 5% beta-(1,3)(1,6)-glucan content. Mujo Ritual uses fruiting body at 8:1, standardized for beta-(1,3)(1,6)-glucans. If the label doesn't say "fruiting body", it probably isn't.</div>
     </div>
   </div>
 </section>
@@ -2803,10 +2794,10 @@ body.locked { overflow: hidden; }
       </div>
     </div>
     <div>
-      <div class="fpull reveal d1" style="margin-top: 44px;">"I built Mujo Cacao because I wanted <em>a ritual that brought me nervous system regulation</em> and <em>joy.</em>"</div>
-      <p class="fbody reveal d2">When I became a mom, I began to shift from treating my body like a machine that needed to be hacked towards emotional repair, nervous system support, and just simple joy. Coffee was contributing to my near burnout and constant anxiety, so I had to quit.</p>
-      <p class="fbody reveal d2">To fill the void coffee left, I started mixing the most remarkable plants and mushrooms into a coffee-like drink. Real fruiting body extracts. Clinically studied adaptogens. I <em>obsessed</em> over the research.</p>
-      <p class="fbody reveal d3">I drank it every day. I felt sharper. Mentally clearer. Not tired. And my sleep was never better. I even <em>looked</em> younger. While my nervous system was shifting to a regulated mode, a Ritual for <strong>neurowellness</strong> was born. <em>And it was born to be shared.</em></p>
+      <div class="fpull reveal d1" style="margin-top: 44px;">"I built Mujo because I wanted <em>a morning ritual I actually looked forward to,</em> and could <em>feel good about.</em>"</div>
+      <p class="fbody reveal d2">When I became a mom, I stopped treating my body like a machine to hack. Coffee had stopped working for me, so I went looking for something gentler to start the day with.</p>
+      <p class="fbody reveal d2">To fill the space coffee left, I started mixing the plants and mushrooms I loved into a warm, coffee-like drink. Real fruiting-body extracts. Ingredients I'd researched obsessively.</p>
+      <p class="fbody reveal d3">I drank it every morning and never looked back. It became the ten minutes that were actually mine. So I made it to share. <em>This is that ritual.</em></p>
       <div class="fsig reveal d3">Kinga<div class="fsigs">Founder, Mujo</div></div>
     </div>
   </div>
@@ -2821,15 +2812,15 @@ body.locked { overflow: hidden; }
     <div class="obj-grid">
       <div class="objcard reveal">
         <div class="objq">Do I need to quit coffee to drink Mujo?</div>
-        <div class="obja">No, but you might naturally want to drink less coffee. <strong>We recommend reducing caffeine gradually over 1–2 weeks</strong> while introducing Mujo Ritual. Caffeine withdrawal is a real thing. A tough morning in those first days is your adenosine receptors coming back online. Most people find the clarity around day 6–14 was worth the caffeine detox.</div>
+        <div class="obja">No. Many people just drink less coffee over time. <strong>We suggest easing off caffeine over a week or two</strong> as you bring Mujo in. The first few mornings off coffee can be an adjustment, and that's completely normal.</div>
       </div>
       <div class="objcard reveal d1">
-        <div class="objq">How do I verify the dosing independently?</div>
-        <div class="obja">We invite you to. <strong>Google "KSM-66 ashwagandha 300mg clinical trial", you'll find the Chandrasekhar 2012 RCT. Google "Bioavailable Curcumin bioavailability", you'll find 285x.</strong> Every ingredient is on the label with its exact dose and form. We built this to make verification easy, not prevent it.</div>
+        <div class="objq">What's actually in it?</div>
+        <div class="obja">Everything, on the label, by its plain name and form. <strong>No "proprietary blend," nothing hidden.</strong> A few real ingredients, openly used, so you always know exactly what's in your cup.</div>
       </div>
       <div class="objcard reveal d2">
-        <div class="objq">How quickly will I notice a difference?</div>
-        <div class="obja">Adaptogens work over weeks. <strong>Sleep quality usually shifts within 7–10 days.</strong> Reduced afternoon crash in weeks 2–3. Cognitive clarity and anxiety baseline in weeks 3–6, although every body is different because it's started from a different baseline.</div>
+        <div class="objq">Is it meant to be a daily ritual?</div>
+        <div class="obja">Yes. <strong>Adaptogens are gentle and work best as a daily habit,</strong> not a one-off jolt. Our honest advice: make it your morning cup and enjoy it. The taste alone is reason enough to keep it.</div>
       </div>
       <div class="objcard reveal d3">
         <div class="objq">What does it taste like?</div>
@@ -2845,7 +2836,7 @@ body.locked { overflow: hidden; }
 <section class="pric" id="pricing">
   <div class="container">
     <h2 class="reveal d1" style="margin-top: 28px; max-width: 440px;">Your morning ritual, <span class="serif-accent">finally on your side.</span></h2>
-    <div class="panchor reveal d2"><strong>In perspective:</strong> A daily flat white is $5–7 and keeps your cortisol elevated. Mujo Ritual on subscription is $2.21 per serving. One swap that stops costing you how you feel.</div>
+    <div class="panchor reveal d2"><strong>In perspective:</strong> A daily flat white is $5–7. Mujo Ritual on subscription is $2.21 per serving. One easy swap.</div>
     <div class="priced">
       <div>
         <div class="pcard feat reveal">
@@ -2873,13 +2864,13 @@ body.locked { overflow: hidden; }
         </div>
       </div>
       <div>
-        <div class="prrh reveal">One ritual. <em>Everything shifts.</em></div>
-        <div class="prrb reveal d1">The 3pm crash. The sleep that doesn't recover you. The wired-exhausted baseline you've normalized. These are physiological signals, and they're addressable when you stop fighting your nervous system.</div>
+        <div class="prrh reveal">One ritual. <em>Every morning.</em></div>
+        <div class="prrb reveal d1">The morning drink you actually look forward to. A few real ingredients, openly used, and nothing to spike or crash from.</div>
         <div class="prcl reveal d1">
-          <div class="prcli"><span class="prclck">✓</span>Three fruiting body dual extracts, 8:1 concentration</div>
-          <div class="prcli"><span class="prclck">✓</span>Clinically studied KSM-66® Ashwagandha and Rhodiola Rosea</div>
-          <div class="prcli"><span class="prclck">✓</span>Curcumin, with 285x bioavailability</div>
-          <div class="prcli"><span class="prclck">✓</span>Zero caffeine · zero dependency</div>
+          <div class="prcli"><span class="prclck">✓</span>Three fruiting-body dual extracts, 8:1 concentration</div>
+          <div class="prcli"><span class="prclck">✓</span>Rhodiola, an adaptogen for everyday stress</div>
+          <div class="prcli"><span class="prclck">✓</span>A bioavailable form of curcumin</div>
+          <div class="prcli"><span class="prclck">✓</span>Under 5mg of caffeine</div>
           <div class="prcli"><span class="prclck">✓</span>30-day money-back guarantee</div>
         </div>
         <div class="ponet reveal d2">
@@ -2900,7 +2891,7 @@ body.locked { overflow: hidden; }
 <section class="fcta">
   <div class="container">
     <h2 class="fctah reveal d1" style="margin-top: 28px;">Less noise. <em>More honest ingredients.</em></h2>
-    <p class="fctas reveal d2">30 days. If your 3pm doesn't feel different, we'll refund you.</p>
+    <p class="fctas reveal d2">30 days. If you don't love it, we'll refund you. No forms, no questions.</p>
     <div class="cta-stack reveal d3" style="justify-content: center;">
       <a href="#pricing" class="btn btn-primary">
         Start Your Ritual, 15% Off Today
@@ -2928,7 +2919,7 @@ body.locked { overflow: hidden; }
     <a href="/contact" class="flink">Contact</a>
     <a href="/privacy" class="flink">Privacy</a>
   </div>
-  <div class="fcopy">© 2026 Mujo World. *These statements have not been evaluated by the FDA. This product is not intended to diagnose, treat, cure, or prevent any disease. Individual results may vary.</div>
+  <div class="fcopy">© 2026 Mujo World.</div>
 </footer>
 
 <!-- ═══ STICKY BAR ═══ -->
@@ -2947,228 +2938,6 @@ body.locked { overflow: hidden; }
   </div>
 </div>
 
-<!-- ═══ FLOATING QUIZ PILL ═══ -->
-<button class="quiz-pill" id="quizPill" onclick="openQuizSheet()">
-  Get your free Reset Plan
-</button>
-
-<!-- ═══ QUIZ SHEET ═══ -->
-<div class="qs-overlay" id="qsOverlay" onclick="handleOverlayClick(event)">
-  <div class="qs-sheet">
-    <div class="qs-handle"></div>
-    <div class="qs-prog-wrap">
-      <div class="qs-prog-label" id="qsProgLabel">Step 1 of 6</div>
-    </div>
-    <div class="qs-prog-bar"><div class="qs-prog-fill" id="qsProgFill"></div></div>
-
-    <!-- Q1, symptom -->
-    <div class="qs-step on" id="qStep1">
-      <div class="qs-q">Which of these sounds most like your energy right now?</div>
-      <div class="qs-hint">Be honest, this is the first clue to your pattern.</div>
-      <div class="qs-tiles">
-        <div class="qs-tile" onclick="qNext(1,'crash')">
-          <div class="qt-em">📉</div>
-          <div><div class="qt-l">I hit a wall at 2–3pm and can't think past it</div><div class="qt-s">Reliable. Predictable. Frustrating.</div></div>
-        </div>
-        <div class="qs-tile" onclick="qNext(1,'wired')">
-          <div class="qt-em">⚡</div>
-          <div><div class="qt-l">Wired and exhausted at the same time</div><div class="qt-s">Can't focus. Can't switch off.</div></div>
-        </div>
-        <div class="qs-tile" onclick="qNext(1,'fog')">
-          <div class="qt-em">🌫️</div>
-          <div><div class="qt-l">Functional but foggy, like 70% showed up</div><div class="qt-s">Words take longer. Recall is slower.</div></div>
-        </div>
-        <div class="qs-tile" onclick="qNext(1,'anxious')">
-          <div class="qt-em">😤</div>
-          <div><div class="qt-l">Anxious underneath everything</div><div class="qt-s">Even when things are going well.</div></div>
-        </div>
-      </div>
-      <div class="qs-nav"><span></span><div class="qs-ct">1 of 6</div></div>
-    </div>
-
-    <!-- Q2 -->
-    <div class="qs-step" id="qStep2">
-      <div class="qs-q">How long have you been relying on caffeine to manage this?</div>
-      <div class="qs-hint">This tells us how deep the pattern runs.</div>
-      <div class="qs-tiles">
-        <div class="qs-tile" onclick="qNext(2,'new')">
-          <div class="qt-em">📅</div>
-          <div><div class="qt-l">Less than a year, it's gotten worse lately</div></div>
-        </div>
-        <div class="qs-tile" onclick="qNext(2,'mid')">
-          <div class="qt-em">🗓️</div>
-          <div><div class="qt-l">1–3 years, it's become my normal</div></div>
-        </div>
-        <div class="qs-tile" onclick="qNext(2,'long')">
-          <div class="qt-em">⏳</div>
-          <div><div class="qt-l">3+ years. I can't remember without it</div></div>
-        </div>
-        <div class="qs-tile" onclick="qNext(2,'free')">
-          <div class="qt-em">🌱</div>
-          <div><div class="qt-l">I've already quit, looking for what fills the gap</div></div>
-        </div>
-      </div>
-      <div class="qs-nav"><button class="qs-back" onclick="qBack(2)">← Back</button><div class="qs-ct">2 of 6</div></div>
-    </div>
-
-    <!-- Q3 -->
-    <div class="qs-step" id="qStep3">
-      <div class="qs-q">What does your morning look like before 9am?</div>
-      <div class="qs-hint">No judgement, this shapes which steps matter most.</div>
-      <div class="qs-tiles">
-        <div class="qs-tile" onclick="qNext(3,'performer')">
-          <div class="qt-em">📊</div>
-          <div><div class="qt-l">Coffee first, then I check my metrics</div><div class="qt-s">HRV, sleep score, readiness</div></div>
-        </div>
-        <div class="qs-tile" onclick="qNext(3,'burnout')">
-          <div class="qt-em">💻</div>
-          <div><div class="qt-l">Coffee and straight into work</div><div class="qt-s">No warm-up. Just output.</div></div>
-        </div>
-        <div class="qs-tile" onclick="qNext(3,'mama')">
-          <div class="qt-em">👶</div>
-          <div><div class="qt-l">The morning belongs to everyone else first</div><div class="qt-s">Kids, logistics, then maybe me</div></div>
-        </div>
-        <div class="qs-tile" onclick="qNext(3,'calm')">
-          <div class="qt-em">🧘</div>
-          <div><div class="qt-l">I try to start slow, it just rarely works</div><div class="qt-s">The day hijacks the intention</div></div>
-        </div>
-      </div>
-      <div class="qs-nav"><button class="qs-back" onclick="qBack(3)">← Back</button><div class="qs-ct">3 of 6</div></div>
-    </div>
-
-    <!-- Q4 -->
-    <div class="qs-step" id="qStep4">
-      <div class="qs-q">If you could change one thing about how you feel by 10am, what would it be?</div>
-      <div class="qs-hint">This becomes the goal of your personalized plan.</div>
-      <div class="qs-tiles">
-        <div class="qs-tile" onclick="qNext(4,'focus')">
-          <div class="qt-em">🎯</div>
-          <div><div class="qt-l">Calm, clear focus that doesn't need a spike</div></div>
-        </div>
-        <div class="qs-tile" onclick="qNext(4,'calm')">
-          <div class="qt-em">😌</div>
-          <div><div class="qt-l">No anxiety underneath the productivity</div></div>
-        </div>
-        <div class="qs-tile" onclick="qNext(4,'energy')">
-          <div class="qt-em">⚡</div>
-          <div><div class="qt-l">Enough in the tank to still be present at 7pm</div></div>
-        </div>
-        <div class="qs-tile" onclick="qNext(4,'sleep')">
-          <div class="qt-em">🌙</div>
-          <div><div class="qt-l">Sleep that actually means something</div></div>
-        </div>
-      </div>
-      <div class="qs-nav"><button class="qs-back" onclick="qBack(4)">← Back</button><div class="qs-ct">4 of 6</div></div>
-    </div>
-
-    <!-- Q5: sleep quality -->
-    <div class="qs-step" id="qStep5">
-      <div class="qs-q">How is your sleep, honestly?</div>
-      <div class="qs-hint">This is the first place adaptogens usually move the needle.</div>
-      <div class="qs-tiles">
-        <div class="qs-tile" onclick="qNext(5,'broken')">
-          <div class="qt-em">🥱</div>
-          <div><div class="qt-l">I wake up feeling like I didn't sleep</div><div class="qt-s">7+ hours and still depleted</div></div>
-        </div>
-        <div class="qs-tile" onclick="qNext(5,'fragmented')">
-          <div class="qt-em">😴</div>
-          <div><div class="qt-l">I fall asleep fine, but wake up at 3am</div><div class="qt-s">Cortisol hijacks the second half of the night</div></div>
-        </div>
-        <div class="qs-tile" onclick="qNext(5,'sleep_anx')">
-          <div class="qt-em">🧠</div>
-          <div><div class="qt-l">My mind won't switch off when I get into bed</div><div class="qt-s">Wired tired, even at midnight</div></div>
-        </div>
-        <div class="qs-tile" onclick="qNext(5,'okay')">
-          <div class="qt-em">🌟</div>
-          <div><div class="qt-l">Sleep is alright, energy is the real issue</div></div>
-        </div>
-      </div>
-      <div class="qs-nav"><button class="qs-back" onclick="qBack(5)">← Back</button><div class="qs-ct">5 of 6</div></div>
-    </div>
-
-    <!-- Q6: how much coffee -->
-    <div class="qs-step" id="qStep6">
-      <div class="qs-q">How many caffeinated drinks does a typical day include?</div>
-      <div class="qs-hint">No judgement. This sets the right pace for the transition.</div>
-      <div class="qs-tiles">
-        <div class="qs-tile" onclick="qNext(6,'light')">
-          <div class="qt-em">☕</div>
-          <div><div class="qt-l">One in the morning</div><div class="qt-s">Just the ritual, never more</div></div>
-        </div>
-        <div class="qs-tile" onclick="qNext(6,'mid')">
-          <div class="qt-em">☕☕</div>
-          <div><div class="qt-l">Two or three across the day</div><div class="qt-s">Morning + a 3pm pickup</div></div>
-        </div>
-        <div class="qs-tile" onclick="qNext(6,'heavy')">
-          <div class="qt-em">☕☕☕</div>
-          <div><div class="qt-l">Four or more, and I'm still tired</div><div class="qt-s">Cortisol's already running the show</div></div>
-        </div>
-        <div class="qs-tile" onclick="qNext(6,'free')">
-          <div class="qt-em">🌱</div>
-          <div><div class="qt-l">Caffeine-free already</div><div class="qt-s">Looking for what fills the gap</div></div>
-        </div>
-      </div>
-      <div class="qs-nav"><button class="qs-back" onclick="qBack(6)">← Back</button><div class="qs-ct">6 of 6</div></div>
-    </div>
-
-    <!-- Email gate -->
-    <div class="qs-step" id="qStep7">
-      <div class="qs-q">We've built your plan.</div>
-      <div class="qs-hint">Based on your answers, here's what we're sending you:</div>
-      <div class="qs-offer">
-        <div class="qs-offer-title">📋 Your 5-Step Nervous System Reset Plan</div>
-        <div class="qs-offer-items">
-          <div class="qs-offer-item"><span class="qs-offer-ck">✓</span>The root cause driving your specific pattern</div>
-          <div class="qs-offer-item"><span class="qs-offer-ck">✓</span>Your personalized morning sequence with timing</div>
-          <div class="qs-offer-item"><span class="qs-offer-ck">✓</span>The 2–3 ingredients most critical for you</div>
-          <div class="qs-offer-item"><span class="qs-offer-ck">✓</span>One thing to stop doing immediately</div>
-          <div class="qs-offer-item"><span class="qs-offer-ck">✓</span>15% off your first Mujo Ritual order</div>
-        </div>
-      </div>
-      <input type="email" class="qs-email-in" id="qsEmail" placeholder="your@email.com">
-      <button class="qs-submit" onclick="showResult()">
-        Send me my plan
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-      <div class="qs-privacy">🔒 No spam. Unsubscribe any time.</div>
-      <div class="qs-nav"><button class="qs-back" onclick="qBack(7)">← Back</button><div class="qs-ct">Almost there</div></div>
-    </div>
-
-    <!-- Result -->
-    <div class="qs-result" id="qsResult">
-      <span class="res-check">✅</span>
-      <div style="text-align: center;"><span class="res-tag">✓ Plan sent to your inbox</span></div>
-      <div class="res-h" id="resH"></div>
-      <div class="res-body" id="resBody"></div>
-      <div class="res-pdf">
-        <div class="res-pdf-icon">📋</div>
-        <div class="res-pdf-text">
-          <strong id="resPdfTitle">Your 5-Step Reset Plan</strong>
-          Check your inbox, it's on its way. Usually arrives within 2 minutes.
-        </div>
-      </div>
-      <div class="res-code">Your discount: <strong>RITUAL15</strong>, 15% off at checkout</div>
-      <a href="#pricing" class="res-cta" onclick="closeQsOverlay()">
-        Claim my discount, try Mujo Ritual
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ GEO BANNER ═══ -->
-<div class="geo-banner" id="geoBanner">
-  <button class="geo-close" onclick="closeGeo()">✕</button>
-  <div class="geo-pre">Quick question</div>
-  <div class="geo-q">Where are you shipping to?</div>
-  <div class="geo-opts">
-    <div class="geo-opt" onclick="showGeoFact(event, 'us')">🇺🇸 US</div>
-    <div class="geo-opt" onclick="showGeoFact(event, 'uk')">🇬🇧 UK</div>
-    <div class="geo-opt" onclick="showGeoFact(event, 'eu')">🇪🇺 Europe</div>
-    <div class="geo-opt" onclick="showGeoFact(event, 'other')">🌍 Other</div>
-  </div>
-  <div class="geo-fact" id="geoFact"></div>
-</div>
 
 <!-- ═══ EXIT POPUP, discount capture ═══ -->
 <div class="eov" id="exitOverlay">
@@ -3176,7 +2945,7 @@ body.locked { overflow: hidden; }
     <button class="ecl" onclick="closeExit()" aria-label="Close">✕</button>
     <span class="eemoji">🎁</span>
     <div class="eh">Wait. <em>15% off</em> on us.</div>
-    <div class="es">Drop your email and we'll send you a one-time discount code, plus founder notes from Kinga, member-only essays on the physiology of modern stress, and early access to drops.</div>
+    <div class="es">Drop your email and we'll send you a one-time discount code, plus founder notes from Kinga and early access to drops.</div>
     <div class="eform">
       <input type="email" class="einput" id="exitEmail" placeholder="your@email.com">
       <button class="ebtn" onclick="submitExitDiscount()">Send my code →</button>
@@ -3208,149 +2977,6 @@ window.addEventListener('scroll', () => {
 function dismissSticky() { sbDismissed = true; sbar.classList.remove('show'); }
 function hideStickyTemp() { sbHidden = true; sbar.classList.remove('show'); setTimeout(() => { sbHidden = false; }, 3000); }
 
-// Quiz pill
-const qpill = document.getElementById('quizPill');
-let pillShown = false;
-window.addEventListener('scroll', () => {
-  if (!pillShown && window.scrollY > 400) { qpill.classList.add('show'); pillShown = true; }
-});
-
-
-// Mid-page email gate function removed (section deleted).
-
-// Quiz sheet
-const overlay = document.getElementById('qsOverlay');
-let qAnswers = {}, qCurrent = 1;
-
-function openQuizSheet() {
-  overlay.classList.add('on');
-  document.body.style.overflow = 'hidden';
-  closeExit();
-}
-function closeQsOverlay() {
-  overlay.classList.remove('on');
-  document.body.style.overflow = '';
-}
-function handleOverlayClick(e) {
-  if (e.target === overlay) closeQsOverlay();
-}
-function setProgress(step, total) {
-  const pct = Math.round((step / total) * 100);
-  document.getElementById('qsProgFill').style.width = pct + '%';
-  document.getElementById('qsProgLabel').textContent = step < total ? `Step ${step} of ${total}` : 'Almost done';
-}
-function showQStep(n) {
-  document.querySelectorAll('.qs-step').forEach(s => s.classList.remove('on'));
-  const el = document.getElementById('qStep' + n);
-  if (el) { el.classList.add('on'); qCurrent = n; setProgress(n, 6); }
-}
-function qNext(step, val) {
-  qAnswers['q' + step] = val;
-  if (step === 6) showQStep(7);
-  else showQStep(step + 1);
-}
-function qBack(step) { showQStep(step - 1); }
-
-function showResult() {
-  const email = document.getElementById('qsEmail').value.trim();
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    document.getElementById('qsEmail').style.borderColor = 'var(--orange)';
-    document.getElementById('qsEmail').focus();
-    return;
-  }
-
-  // Determine persona from Q3 (morning pattern). Drives the result copy.
-  const persona = qAnswers.q3 || 'burnout';
-
-  // POST to the hardened /api/klaviyo/subscribe route — handles list assignment,
-  // profile property write, and the 409-merge dance. Properties land on the
-  // master list keyed by `quiz_completed: true` for segment filtering.
-  fetch('/api/klaviyo/subscribe', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      email: email,
-      list: 'ritual_quiz',
-      source: 'Ritual landing page quiz',
-      properties: {
-        source_page: 'ritual_landing_quiz',
-        quiz_completed_at: new Date().toISOString(),
-        quiz_profile: persona,
-        quiz_q1_energy_pattern: qAnswers.q1 || null,
-        quiz_q2_caffeine_history: qAnswers.q2 || null,
-        quiz_q3_morning_pattern: qAnswers.q3 || null,
-        quiz_q4_goal: qAnswers.q4 || null,
-        quiz_q5_sleep: qAnswers.q5 || null,
-        quiz_q6_caffeine_load: qAnswers.q6 || null,
-        discount_code_issued: 'RITUAL15',
-        page_url: window.location.href
-      }
-    })
-  }).catch(err => console.warn('Klaviyo subscribe error:', err));
-
-  // Render the result panel with persona-specific copy
-  const results = {
-    performer: {
-      h: 'Your pattern is <em>The Optimized but Overcaffeinated.</em>',
-      body: `You've done the hard work, tracking, training, dialing in the inputs. But caffeine is quietly capping your ceiling. It's keeping your cortisol elevated when it should be recovering, disrupting the deep sleep your metrics are measuring, and creating the 3pm wall your zone 2 sessions can't fix. <strong>Your plan targets the HPA axis recalibration your nervous system is ready for.</strong>`,
-      pdf: 'Your 5-Step Reset Plan, Performer Edition'
-    },
-    burnout: {
-      h: 'Your pattern is <em>The High-Function Depleted.</em>',
-      body: `You've built the discipline. You show up. But underneath the productivity is a nervous system running on stress hormones instead of real energy. Caffeine is masking the depletion rather than addressing it, and every crash is a signal your HPA axis is trying to send you. <strong>Your plan focuses on rebuilding the energy system, not just managing the symptoms.</strong>`,
-      pdf: 'Your 5-Step Reset Plan, Performance Edition'
-    },
-    mama: {
-      h: 'Your pattern is <em>The Constant Giver.</em>',
-      body: `You give everything to everyone, and your nervous system is running the bill. The caffeine isn't giving you energy, it's preventing the exhaustion from fully landing while quietly keeping your cortisol elevated. The anxiety hum, the sleep that doesn't recover you, the 3pm wall, these are connected. <strong>Your plan is built around your actual morning, not someone else's protocol.</strong>`,
-      pdf: 'Your 5-Step Reset Plan, Mamas Edition'
-    },
-    calm: {
-      h: 'Your pattern is <em>The Wired-Anxious Achiever.</em>',
-      body: `The anxiety sitting underneath everything isn't a character trait, it's a sympathetic nervous system that's been stuck in high gear. Caffeine is keeping it there. Every cup activates the same stress response your body is trying to downregulate. <strong>Your plan targets the specific adaptogens that calibrate cortisol without sedating you.</strong>`,
-      pdf: 'Your 5-Step Reset Plan, Calm Edition'
-    }
-  };
-
-  const r = results[persona] || results.burnout;
-  document.getElementById('resH').innerHTML = r.h;
-  document.getElementById('resBody').innerHTML = r.body;
-  document.getElementById('resPdfTitle').textContent = r.pdf;
-
-  document.querySelectorAll('.qs-step').forEach(s => s.classList.remove('on'));
-  document.getElementById('qsProgFill').style.width = '100%';
-  document.getElementById('qsProgLabel').textContent = 'Plan ready ✓';
-  const res = document.getElementById('qsResult');
-  res.classList.add('on');
-  res.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-// Geo banner
-const geoFacts = {
-  us: '<strong>Free shipping, 2–4 day delivery.</strong> US orders ship from our fulfilment partner. Free on all orders over $100.',
-  uk: '<strong>Ships to the UK tracked.</strong> Most orders arrive in 5–7 days. Orders under £135 are duty-free.',
-  eu: '<strong>Ships to the EU tracked.</strong> Most orders arrive in 5-7 days. Take the quiz and we\'ll confirm your exact shipping cost before you commit.',
-  other: '<strong>We ship internationally.</strong> Take the quiz and we\'ll confirm your exact shipping cost before you commit.'
-};
-function showGeoFact(e, region) {
-  const f = document.getElementById('geoFact');
-  f.innerHTML = geoFacts[region];
-  f.classList.add('show');
-  document.querySelectorAll('.geo-opt').forEach(o => o.classList.remove('sel'));
-  e.target.classList.add('sel');
-  sessionStorage.setItem('mujo_region', region);
-}
-function closeGeo() { document.getElementById('geoBanner').classList.remove('show'); }
-if (!sessionStorage.getItem('mujo_geo_seen')) {
-  window.addEventListener('scroll', function geoCheck() {
-    const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-    if (pct > 0.35) {
-      document.getElementById('geoBanner').classList.add('show');
-      sessionStorage.setItem('mujo_geo_seen', '1');
-      window.removeEventListener('scroll', geoCheck);
-    }
-  });
-}
 
 function submitExitDiscount() {
   const email = document.getElementById('exitEmail').value.trim();
