@@ -60,22 +60,6 @@ const PUBLISHED: Record<string, Post> = {
       headline:
         "A practical guide to beta-glucans, fruiting body vs. mycelium, and how to read a mushroom supplement label.",
     },
-  "what-you-actually-got-from-your-mama-besides-life-and-good-looks": {
-    file: "mujo_journal_what-you-actually-got-from-your-mama-besides-life-and-good-looks.html",
-    title: "What You Inherited from Your Mom: Your Gut, Your Mood, Your Focus",
-    description:
-      "The microbiome you got from your mom shapes your mood, focus, and stress response. Here is how to nourish your gut-brain connection today.",
-    headline:
-      "The microbiome you inherit from your mother shapes your mood, focus, and resilience, and you can reshape it every day.",
-  },
-  "powdered-mushrooms-vs-extracts-and-the-ritual-of-potency": {
-    file: "mujo_journal_powdered-mushrooms-vs-extracts-and-the-ritual-of-potency.html",
-    title: "Powdered Mushrooms vs Extracts: The Ritual of Potency",
-    description:
-      "Whole mushroom powder vs dual-extracted mushrooms. Why chitin, dosage, and bioavailability decide whether your mushroom coffee is flavor or function.",
-    headline:
-      "Whole mushroom powders lock their most potent compounds behind chitin, while dual extraction delivers a dose your body can actually use.",
-  },
   "the-problem-with-resolutions-and-what-to-do-instead": {
     file: "mujo_journal_the-problem-with-resolutions-and-what-to-do-instead.html",
     title: "The Problem with Resolutions (and What to Do Instead)",
@@ -83,14 +67,6 @@ const PUBLISHED: Record<string, Post> = {
       "Why your New Year's list keeps breaking by January 15th, and what actually drives lasting change: clarity, alignment, and small daily action.",
     headline:
       "Resolutions don't work the way we do them. Clarity, not hype, is what creates lasting change.",
-  },
-  "what-your-body-actually-needs": {
-    file: "mujo_journal_what-your-body-actually-needs.html",
-    title: "You Don't Need a Cold Plunge. Here's What Your Body Actually Needs.",
-    description:
-      "The wellness industry sells complexity. Your body needs five fundamentals: nervous system, metabolism, hormones, attention, and mitochondria. Here's the 80/20.",
-    headline:
-      "Real health is built on a handful of fundamentals, not a $25 billion biohacking shelf.",
   },
   "what-bringing-mujo-to-market-taught-me": {
     file: "mujo_journal_what-bringing-mujo-to-market-taught-me.html",
