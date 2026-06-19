@@ -239,6 +239,20 @@ em.accent,
   color: var(--orange);
 }
 
+/* Headline accents — revive the Mujo signature inside headings.
+   The legacy .serif-acc / .serif-accent punchline spans were drained to plain
+   Hanken italic in v1.3; this pours Instrument Serif italic + orange back in,
+   scoped to H1/H2/H3 so body copy and tile labels stay clean. Per-page dark-hero
+   cream/light overrides carry higher specificity and still win their color. */
+h1 .serif-acc,  h2 .serif-acc,  h3 .serif-acc,
+h1 .serif-accent, h2 .serif-accent, h3 .serif-accent {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--orange);
+  letter-spacing: 0;
+}
+
 /* Eyebrow pattern — DM Mono 11px uppercase with 0.2em tracking */
 .eyebrow {
   display: inline-block;
