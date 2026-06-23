@@ -97,9 +97,9 @@ h1, h2, h3 {
   line-height: 1.1;
 }
 h1 em, h2 em, h3 em {
-  font-family: inherit;
+  font-family: var(--f-serif);
   font-style: italic;
-  color: inherit;
+  color: var(--orange);
   font-weight: 400;
 }
 
@@ -938,14 +938,77 @@ h1 em, h2 em, h3 em {
 @media (max-width: 600px) {
   .in-not { padding: 80px 0 90px; }
   .in-not-header { padding: 0 20px; margin-bottom: 36px; }
-  .in-not-table { padding-left: 14px; padding-right: 14px; gap: 12px; }
-  .in-not-col { min-width: 340px; }
-  .in-not-item { padding: 14px 16px; font-size: 13.5px; gap: 10px; }
-  /* mobile-only fade hint that more content peeks past the right edge */
-  .in-not-scroll {
-    -webkit-mask-image: linear-gradient(90deg, #000 92%, transparent 100%);
-            mask-image: linear-gradient(90deg, #000 92%, transparent 100%);
+  /* Both columns share the row on mobile so the "What's not" side is visible
+     without scrolling — no min-width, let long labels wrap, drop the scroll fade. */
+  .in-not-scroll { overflow-x: visible; -webkit-mask-image: none; mask-image: none; }
+  .in-not-table { padding: 4px 16px 18px; gap: 10px; max-width: 100%; }
+  .in-not-col { min-width: 0; }
+  .in-not-item {
+    padding: 12px;
+    font-size: 12.5px;
+    gap: 8px;
+    white-space: normal;
+    line-height: 1.3;
   }
+  .in-not-item::before { font-size: 14px; }
+  /* keep the hidden-side veil readable inside the now-narrow column */
+  .in-not-veil { padding: 16px 12px; }
+  .in-not-veil-kicker { font-size: 10px; letter-spacing: 0.12em; margin-bottom: 8px; }
+  .in-not-veil h3 { font-size: 20px; margin-bottom: 8px; }
+  .in-not-veil p { font-size: 12px; }
+}
+/* ── "What's in" locked until launch: blur the list + show a reveal-soon veil.
+   TO REVEAL: delete the word `locked` from <div class="in-not-col col-in locked">
+   in the markup below. That alone un-blurs the list and hides this veil. ── */
+.col-in.locked { position: relative; }
+.col-in.locked .in-not-col-head,
+.col-in.locked .in-not-list {
+  filter: blur(7px);
+  opacity: 0.6;
+  pointer-events: none;
+  user-select: none;
+}
+.in-not-veil { display: none; }
+.col-in.locked .in-not-veil {
+  display: flex;
+  position: absolute;
+  inset: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+  border-radius: var(--r-structural);
+  background: linear-gradient(180deg, rgba(243,242,233,0.45), rgba(243,242,233,0.80));
+}
+.in-not-veil-kicker {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 10px;
+}
+.in-not-veil h3 {
+  font-family: var(--f-display);
+  font-weight: 500;
+  font-size: clamp(24px, 3vw, 32px);
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 0 0 12px;
+}
+.in-not-veil h3 em {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--orange);
+}
+.in-not-veil p {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 280px;
+  margin: 0;
 }
 /* Flavor-reveal teaser banner */
 .flavor-reveal {
@@ -1766,7 +1829,6 @@ body.locked { overflow: hidden; }
       <div class="cp-chip"><span class="cp-chip-name">Soy</span><span class="cp-chip-num">1.0</span></div>
       <div class="cp-chip"><span class="cp-chip-name">Pea</span><span class="cp-chip-num">0.82–0.93</span></div>
     </div>
-    <p class="cp-cap">A perfect 1.0, the same score as egg and whey, and higher than pea, the protein most bars actually use. Almost no plant protein gets here.</p>
 
     <div class="cp-beat">02 · Every essential amino acid, above what you need</div>
     <div class="cp-bars">
@@ -1788,7 +1850,6 @@ body.locked { overflow: hidden; }
       <div class="cp-diff-item"><h4>Grown on water</h4><p>About 10× less land than soy. No arable soil, no pesticides.</p></div>
       <div class="cp-diff-item"><h4>Tastes like food</h4><p>Real flavor, not the chalk and aftertaste of most plant proteins.</p></div>
     </div>
-    <p class="cp-close">The story isn't one number. It's the rare combination: egg-level completeness, strong where plants are usually weak, no major allergens, grown on water. Nobody else is putting this in a bar you'll actually crave.</p>
   </div>
 </section>
 
@@ -1808,13 +1869,11 @@ body.locked { overflow: hidden; }
           <div class="macro-num">15<span style="font-size:0.5em;">g</span></div>
           <div class="macro-unit">protein</div>
           <div class="macro-label">Plant-based</div>
-          <div class="macro-flavor-note">Lemna + a dash of pea + nut butters</div>
         </div>
         <div class="macro-card">
           <div class="macro-num">7<span style="font-size:0.5em;">g</span></div>
           <div class="macro-unit">fiber</div>
           <div class="macro-label">Real, food-based</div>
-          <div class="macro-flavor-note">Tapioca, lemna, nut butters, dates</div>
         </div>
         <div class="macro-card">
           <div class="macro-num">&lt;250</div>
@@ -1837,22 +1896,34 @@ body.locked { overflow: hidden; }
 <section class="in-not">
   <div class="in-not-inner">
     <div class="in-not-header">
-      <h2>What's in. <em>What's not.</em></h2>
-      <p>What's missing from this bar is as deliberate as what's in it. Real food on the left, a hard no on the right, in every Lemna Bar, ever.</p>
+      <h2>What's not in it. <em>Ever.</em></h2>
+      <p>What's missing from this bar is as deliberate as what's in it. The full ingredient list lands at launch. The hard no's? Those we'll never keep secret.</p>
     </div>
 
     <div class="in-not-scroll">
       <div class="in-not-table">
-        <div class="in-not-col col-in">
+        <div class="in-not-col col-in locked">
+          <div class="in-not-veil">
+            <div class="in-not-veil-kicker">The full list</div>
+            <h3>Revealing our ingredients <em>soon.</em></h3>
+            <p>Join the founding list to see it first.</p>
+          </div>
           <div class="in-not-col-head">What's in</div>
+          <!-- LAUNCH REVEAL: these rows are numbered placeholders on purpose, so the
+               real ingredient names are NOT in the page source until launch. The real
+               "What's in" list is intentionally NOT written here (a comment ships to the
+               browser too). Source of truth for the real 7 names: the Lemna PDP
+               (mujo_lemna_bar_shop_pdp.html "Every ingredient" grid) + this file's git
+               history. TO REVEAL: paste the real names back into the 7 rows below, and
+               delete the word `locked` from the col-in div above. -->
           <div class="in-not-list">
-            <div class="in-not-item">Lemna leaf</div>
-            <div class="in-not-item">Nut butters</div>
-            <div class="in-not-item">Dates</div>
-            <div class="in-not-item">Tapioca fiber</div>
-            <div class="in-not-item">Cocoa</div>
-            <div class="in-not-item">Sea salt</div>
-            <div class="in-not-item">Vegetable glycerin</div>
+            <div class="in-not-item">Ingredient 01</div>
+            <div class="in-not-item">Ingredient 02</div>
+            <div class="in-not-item">Ingredient 03</div>
+            <div class="in-not-item">Ingredient 04</div>
+            <div class="in-not-item">Ingredient 05</div>
+            <div class="in-not-item">Ingredient 06</div>
+            <div class="in-not-item">Ingredient 07</div>
           </div>
         </div>
         <div class="in-not-col col-not">
