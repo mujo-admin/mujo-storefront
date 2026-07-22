@@ -111,6 +111,10 @@ export async function handleCheckoutCompleted(event: Stripe.Event) {
       ...(variantGid ? { variantId: variantGid } : {}),
       title: li.description ?? 'Item',
       quantity: li.quantity ?? 1,
+      // All Mujo products are physical goods. orderCreate defaults line items to
+      // requiresShipping:false, which hides Shopify's shipping-label flow and blocks
+      // fulfilling with our negotiated rates — so force it true here.
+      requiresShipping: true,
       priceSet: {
         shopMoney: {
           amount: ((li.amount_subtotal ?? 0) / 100).toFixed(2),

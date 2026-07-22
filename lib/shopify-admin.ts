@@ -282,6 +282,11 @@ export type CreateOrderInput = {
     title?: string;
     quantity: number;
     priceSet?: { shopMoney: { amount: string; currencyCode: string } };
+    // orderCreate does NOT inherit requiresShipping from the variant — it defaults
+    // each line to false, which makes the mirrored order non-shippable (no Shopify
+    // shipping-label flow, so a merchant's negotiated rates can't be applied). Pass
+    // true for physical goods so the order is fulfillable with a label.
+    requiresShipping?: boolean;
   }>;
   shippingAddress?: {
     firstName?: string;
