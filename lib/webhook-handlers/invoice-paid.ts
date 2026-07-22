@@ -181,6 +181,9 @@ export async function handleInvoicePaid(event: Stripe.Event) {
       ...(variantGid ? { variantId: variantGid } : {}),
       title: li.description ?? 'Subscription item',
       quantity: li.quantity ?? 1,
+      // Physical goods — force requiresShipping so the mirrored order is fulfillable
+      // with a Shopify shipping label (orderCreate defaults it to false).
+      requiresShipping: true,
       priceSet: {
         shopMoney: {
           amount: (li.amount / 100).toFixed(2),
@@ -216,15 +219,47 @@ export async function handleInvoicePaid(event: Stripe.Event) {
         ? { variantId: FROTHER_GIFT_VARIANT_GID }
         : { title: 'Rechargeable Milk Frother — welcome gift' }),
       quantity: 1,
+      requiresShipping: true,
       priceSet: { shopMoney: { amount: '0.00', currencyCode } },
     });
     frotherGifted = true;
+  }
+
+  // Subscription invoices don't carry a shipping address the way a Checkout Session
+  // does, so the mirror order used to land with no address — un-shippable. Pull the
+  // shipping details off the Stripe Customer (Checkout writes them there for
+  // subscriptions) and map to Shopify's shape. Falls back to undefined (prior
+  // behavior) if the customer has no shipping on file.
+  let shippingAddress: CreateOrderInput['shippingAddress'];
+  try {
+    const customer = await stripe.customers.retrieve(stripeCustomerId);
+    const ship =
+      customer && !customer.deleted
+        ? customer.shipping ?? (customer.address ? { name: customer.name, phone: customer.phone, address: customer.address } : null)
+        : null;
+    if (ship?.address) {
+      const nameParts = (ship.name ?? '').split(' ');
+      shippingAddress = {
+        firstName: nameParts[0] || undefined,
+        lastName: nameParts.slice(1).join(' ') || undefined,
+        address1: ship.address.line1 ?? undefined,
+        address2: ship.address.line2 ?? undefined,
+        city: ship.address.city ?? undefined,
+        province: ship.address.state ?? undefined,
+        country: ship.address.country ?? undefined,
+        zip: ship.address.postal_code ?? undefined,
+        phone: ship.phone ?? undefined,
+      };
+    }
+  } catch (err) {
+    console.error('[invoice.paid] could not resolve shipping address', { customer: stripeCustomerId, err });
   }
 
   const shopifyOrder = await createOrder({
     email,
     customerId: shopifyCustomerGid,
     currency: currencyCode,
+    shippingAddress,
     tags: frotherGifted ? [...tagsFor(type), 'free-frother-gift'] : tagsFor(type),
     note:
       `Stripe invoice: ${invoice.id} | subscription: ${stripeSubscriptionId} | charge: ${chargeId}` +

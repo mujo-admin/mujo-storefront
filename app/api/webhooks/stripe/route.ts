@@ -41,6 +41,22 @@ export async function POST(req: NextRequest) {
     return new Response(`webhook signature verification failed: ${msg}`, { status: 400 });
   }
 
+  // Mode guard: a live-keyed server must only act on live events, and a
+  // test/sandbox-keyed server only on test events. Stripe's signature check
+  // already segregates by mode, but this is explicit defense-in-depth so a
+  // sandbox event can never create a real Shopify order (and vice versa).
+  // Acknowledge with 200 so Stripe doesn't retry a deliberately-ignored event.
+  const serverIsLive = process.env.STRIPE_SECRET_KEY?.startsWith('sk_live') ?? false;
+  if (event.livemode !== serverIsLive) {
+    console.warn('[webhook] mode mismatch, ignoring event', {
+      id: event.id,
+      type: event.type,
+      eventLivemode: event.livemode,
+      serverIsLive,
+    });
+    return new Response('mode mismatch, ignored', { status: 200 });
+  }
+
   // Idempotency check
   const inserted = await db
     .insert(webhookEvents)
