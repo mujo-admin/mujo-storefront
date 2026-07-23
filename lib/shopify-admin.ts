@@ -319,7 +319,17 @@ export type ShopifyOrder = {
   legacyResourceId: string;
 };
 
-export async function createOrder(input: CreateOrderInput): Promise<ShopifyOrder> {
+export async function createOrder(
+  input: CreateOrderInput,
+  // sendReceipt fires Shopify's native Order Confirmation email (the one the old
+  // Liquid theme sent automatically pre-headless). Default true so every mirrored
+  // order emails the buyer their order number instantly on creation — Stripe can't
+  // do this (the order number is minted here by Shopify, after the charge). Shopify
+  // then also owns the downstream shipping/tracking emails via fulfillment.
+  options: { sendReceipt?: boolean; sendFulfillmentReceipt?: boolean } = {
+    sendReceipt: true,
+  },
+): Promise<ShopifyOrder> {
   const data = await adminFetch<{
     orderCreate: {
       order: ShopifyOrder | null;
@@ -327,14 +337,14 @@ export async function createOrder(input: CreateOrderInput): Promise<ShopifyOrder
     };
   }>({
     query: /* GraphQL */ `
-      mutation CreateOrder($order: OrderCreateOrderInput!) {
-        orderCreate(order: $order) {
+      mutation CreateOrder($order: OrderCreateOrderInput!, $options: OrderCreateOptionsInput) {
+        orderCreate(order: $order, options: $options) {
           order { id name legacyResourceId }
           userErrors { field message }
         }
       }
     `,
-    variables: { order: input },
+    variables: { order: input, options },
   });
 
   if (data.orderCreate.userErrors.length || !data.orderCreate.order) {
