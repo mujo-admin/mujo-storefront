@@ -47,7 +47,7 @@ export default function RitualPdpPage() {
               url: "/products/mujo-ritual",
               name: "The Mujo Ritual",
               description:
-                "A warm, caffeine-light mushroom cacao with lion's mane, cordyceps, chaga, rhodiola, ashwagandha, and a bioavailable form of curcumin.",
+                "A warm, caffeine-light mushroom coffee alternative with lion's mane, cordyceps, chaga, golden oyster, panax ginseng and L-theanine.",
               image:
                 "https://mujoworld.com/images/logo/mujo-logo-orange.png",
               lowPrice: "27",

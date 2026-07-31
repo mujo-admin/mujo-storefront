@@ -9,13 +9,13 @@ import {
 export const metadata: Metadata = {
   title: "Mujo · Modern performance without the crash",
   description:
-    "Mushroom cacao adaptogen ritual + clean-label fuel. For people who read the label.",
+    "A functional mushroom coffee alternative. Caffeine-light, fruiting body only, for people who read the label.",
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     title: "Mujo · Modern performance without the crash",
     description:
-      "Mushroom cacao adaptogen ritual + clean-label fuel. For people who read the label.",
+      "A functional mushroom coffee alternative. Caffeine-light, fruiting body only, for people who read the label.",
   },
 };
 

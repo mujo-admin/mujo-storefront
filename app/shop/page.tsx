@@ -4,7 +4,7 @@ import { collectionPageSchema, jsonLdScript } from "lib/schema";
 
 export const metadata: Metadata = {
   title: "Shop · Mujo",
-  description: "The Mujo catalog. Mushroom cacao, Lemna bars, accessories.",
+  description: "The Mujo catalog. Mushroom coffee alternative, Lemna leaf protein, accessories.",
   alternates: { canonical: "/shop" },
 };
 

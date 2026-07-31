@@ -4,7 +4,7 @@ import { ImportedPage } from "components/imported-page";
 export const metadata: Metadata = {
   title: "Ingredients · Mujo · What's inside, and why",
   description:
-    "The Mujo ingredient dossier. Lion's mane, cordyceps, chaga, rhodiola, ashwagandha, and a bioavailable curcumin, each named openly on the label.",
+    "The Mujo ingredient dossier. Lion's mane, cordyceps, chaga, golden oyster, panax ginseng, L-theanine and turmeric extract. Every ingredient named openly, never hidden in a blend.",
   alternates: { canonical: "/ingredients" },
 };
 
