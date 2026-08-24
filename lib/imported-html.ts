@@ -52,6 +52,26 @@ function strip(source: string, re: RegExp): string {
   return source.replace(re, "");
 }
 
+/**
+ * Strip real <script> blocks while leaving HTML comments intact.
+ *
+ * Comments are matched as atomic units in the same alternation, so a "<script"
+ * written *inside* a comment can never start a script match. Without that, an
+ * explanatory comment that merely mentions `<script>` swallows everything up to
+ * the next real `</script>` — which is exactly what silently deleted the Loox
+ * review feed and the whole FAQ section from the Ritual PDP (~10k chars) between
+ * the W3 cutover and 2026-08-24.
+ *
+ * Comments must survive this pass regardless: applySplices() locates the regions
+ * it replaces by sentinel comment (MUJO_RITUAL_BUYBOX_START, …).
+ */
+function stripScripts(html: string): string {
+  return html.replace(
+    /<!--[\s\S]*?-->|<script\b[\s\S]*?<\/script>/g,
+    (match) => (match.startsWith("<!--") ? match : ""),
+  );
+}
+
 /** Strip patterns specific to the imported HTMLs. */
 function dedupeChrome(html: string): string {
   return [
@@ -65,12 +85,14 @@ function dedupeChrome(html: string): string {
     [/<div\s+class="announcement"[\s\S]*?<\/div>/, ""],
     [/<nav\s+class="nav"[\s\S]*?<\/nav>/, ""],
     [/<div\s+class="breadcrumb"[\s\S]*?<\/div>/, ""],
-    [/<script[\s\S]*?<\/script>/g, ""],
     // Note: the static `.quiz-pill` button + `.qs-overlay` modal in the
     // source HTMLs stay opacity:0/pointer-events:none by default (they only
     // animated in via the stripped <script>). They're invisible dead
     // markup. The React <QuizPill /> + <QuizSheet /> render on top.
-  ].reduce<string>((acc, [re, sub]) => acc.replace(re as RegExp, sub as string), html);
+  ].reduce<string>(
+    (acc, [re, sub]) => acc.replace(re as RegExp, sub as string),
+    html,
+  );
 }
 
 /** Drop the global :root {} block from inline <style>; tokens are global now. */
@@ -207,7 +229,9 @@ export async function loadImportedHtml(
   // radius); the cart drawer is independently hardened against stray .price.
   const scopedStyles = filename.startsWith("merch_") ? scopeCss(styles) : styles;
   const body = extractBody(rest);
-  const deduped = dedupeChrome(body);
+  // Script stripping stays *after* chrome dedupe, exactly where it ran before,
+  // so the chrome regexes see byte-identical input to what they always have.
+  const deduped = stripScripts(dedupeChrome(body));
   const spliced = options.splices ? applySplices(deduped, options.splices) : deduped;
   const tagged = tagInteractionHooks(spliced);
   return { styles: scopedStyles, body: tagged };
