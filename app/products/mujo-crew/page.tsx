@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ImportedPage } from "components/imported-page";
+import { ProductAnalytics } from "components/integrations/product-analytics";
 import {
   productSchema,
   breadcrumbSchema,
@@ -21,6 +22,7 @@ export const metadata: Metadata = {
 export default function CrewPdpPage() {
   return (
     <>
+      <ProductAnalytics itemId="mujo-crew" itemName="Mujo Crew Neck Sweatshirt" price={40} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

@@ -8,6 +8,7 @@ import { loadStripe, type Stripe as StripeJs } from "@stripe/stripe-js";
 import { useEffect, useMemo, useState } from "react";
 import { useCart } from "components/cart/cart-context";
 
+import { track, itemFromCartLine, itemsValue } from "lib/analytics";
 const PUBLISHABLE_KEY =
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? "";
 
@@ -77,11 +78,25 @@ export function EmbeddedCheckoutMount() {
       .then(async (r) => {
         const body = await r.json();
         if (!r.ok) throw new Error(body?.message || body?.error || `${r.status}`);
-        return body as { clientSecret: string; sessionId: string };
+        return body as {
+          clientSecret: string;
+          sessionId: string;
+          eventId?: string;
+        };
       })
       .then((data) => {
         if (cancelled) return;
         setClientSecret(data.clientSecret);
+
+        // begin_checkout. /api/checkout-session already sent InitiateCheckout
+        // to Meta's CAPI with this same eventId, so the pixel call below pairs
+        // with it and Meta counts one event. Not server-mirrored from here.
+        const items = cart.items.map(itemFromCartLine);
+        track(
+          "begin_checkout",
+          { items, value: itemsValue(items), currency: "USD" },
+          { eventId: data.eventId },
+        );
       })
       .catch((err) => {
         if (cancelled) return;

@@ -2,6 +2,8 @@ import { CartProvider } from "components/cart/cart-context";
 import { SiteHeader } from "components/layout/site-header";
 import { Footer } from "components/layout/footer";
 import { AnalyticsScripts } from "components/integrations/analytics-scripts";
+import { RouteAnalytics } from "components/integrations/route-analytics";
+import { CookieConsent } from "components/integrations/cookie-consent";
 import { ReactNode } from "react";
 import { Toaster } from "sonner";
 import "./globals.css";
@@ -62,6 +64,8 @@ export default async function RootLayout({
           <Toaster closeButton />
         </CartProvider>
         <AnalyticsScripts />
+        <RouteAnalytics />
+        <CookieConsent />
       </body>
     </html>
   );
