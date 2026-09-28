@@ -11,6 +11,12 @@ import { useEffect, useState } from "react";
  *
  * Consent Mode v2 defaults are set before GTM loads (see AnalyticsScripts).
  * This component only records a decision and pushes the update.
+ *
+ * Button labels deliberately avoid "Accept"/"Subscribe"-shaped words: Meta's
+ * automatic event detection was reading these clicks as `SubscribedButtonClick`
+ * and mixing cookie choices in with real email signups. The durable fix is to
+ * turn that guessing off in Events Manager ("Track Events Automatically
+ * Without Code") — the labels are belt and braces.
  */
 
 const STORAGE_KEY = "mujo_consent";
@@ -103,7 +109,7 @@ export function CookieConsent() {
             cursor: "pointer",
           }}
         >
-          Decline
+          No thanks
         </button>
         <button
           type="button"
@@ -118,7 +124,7 @@ export function CookieConsent() {
             cursor: "pointer",
           }}
         >
-          Accept
+          Allow cookies
         </button>
       </div>
     </div>
