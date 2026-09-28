@@ -13,6 +13,7 @@ import {
   type MerchSize,
 } from "lib/cart/merch-config";
 
+import { track } from "lib/analytics";
 type ImportedPageRuntimeProps = {
   children: ReactNode;
 };
@@ -523,6 +524,11 @@ export function ImportedPageRuntime({ children }: ImportedPageRuntimeProps) {
         cfg.success +
         "</p>";
       form.outerHTML = successHtml;
+
+      // sign_up — the list-growth signal. Server-mirrored to Meta as `Lead`
+      // with the hashed email, which is what lets ad delivery optimise for
+      // subscribers rather than clicks. See docs/measurement-plan.md.
+      track("sign_up", { method: cfg.source ?? formType }, { email });
 
       fetch("/api/klaviyo/subscribe", {
         method: "POST",

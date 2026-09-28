@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ImportedPage } from "components/imported-page";
+import { ProductAnalytics } from "components/integrations/product-analytics";
 import type { Splice } from "lib/imported-html";
 import { RitualPdpClient } from "components/product/ritual-pdp-client";
 import {
@@ -39,6 +40,7 @@ export const metadata: Metadata = {
 export default function RitualPdpPage() {
   return (
     <>
+      <ProductAnalytics itemId="mujo-ritual" itemName="The Mujo Ritual" price={65} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
