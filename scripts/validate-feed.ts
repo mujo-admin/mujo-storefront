@@ -53,11 +53,22 @@ async function main() {
     const page = await fetch(item.link, { redirect: "follow" });
     const html = page.ok ? await page.text() : "";
 
-    // "65.00 USD" -> the page will render "$65" or "$65.00".
+    // "65.00 USD" -> the page may show "$65" / "$65.00" as text, OR carry the
+    // figure in JSON-LD. Mujo's PDP buy boxes render client-side, so visible
+    // price text is absent from server HTML — the structured data is what
+    // Meta and Google actually read, and it's what must agree with the feed.
     const amount = item.price.split(" ")[0] ?? "";
     const whole = amount.replace(/\.00$/, "");
-    const priceOnPage =
-      html.includes(`$${amount}`) || html.includes(`$${whole}`);
+    const inText = html.includes(`$${amount}`) || html.includes(`$${whole}`);
+    const inJsonLd = (html.match(
+      /<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g,
+    ) ?? []).some(
+      (block) =>
+        block.includes(`"${whole}"`) ||
+        block.includes(`"${amount}"`) ||
+        block.includes(`:${whole},`),
+    );
+    const priceOnPage = inText || inJsonLd;
 
     const linkOk = page.ok;
     const ok = linkOk && priceOnPage;
@@ -66,7 +77,7 @@ async function main() {
     console.log(
       `${ok ? "ok  " : "FAIL"}  ${item.id.padEnd(22)} ${String(page.status).padEnd(4)} ${item.price.padEnd(11)} ${
         linkOk ? "" : "link dead"
-      }${!linkOk || priceOnPage ? "" : "price not found on page"}`,
+      }${!linkOk || priceOnPage ? "" : "price absent from page text AND structured data"}`,
     );
   }
 
