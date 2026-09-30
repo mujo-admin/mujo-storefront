@@ -104,10 +104,8 @@ export function Footer() {
             title="Shop"
             links={[
               { href: "/products/mujo-ritual", label: "Mujo Ritual" },
-              // Points to the /lemna landing — the pre-order PDP (/products/lemna)
-              // is hidden until launch (see next.config.ts redirects). Restore to
-              // /products/lemna when pre-orders open.
-              { href: "/lemna", label: "Lemna Bar" },
+              // Lemna bar pages are hidden (2026-09-30); the powder took their slot.
+              { href: "/products/protein-powder", label: "Protein Powder" },
               { href: "/shop", label: "Subscribe & save" },
               { href: "/rebel-club", label: "Rebel Club" },
             ]}

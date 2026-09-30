@@ -674,14 +674,26 @@ body.locked { overflow: hidden; }
 }
 @media (min-width: 768px) { .wwm-sub { font-size: 22px; } }
 
+/* One horizontally scrolling row (Kinga 2026-09-30): Ritual, Protein Powder,
+   Merch fill the view; the Lemna bars tile sits last, just off-screen. */
 .wwm-tiles {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
+  grid-auto-flow: column;
+  grid-auto-columns: 82%;
+  gap: 16px;
   align-items: stretch; /* equal-height across the row */
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 2px;
+  padding: 4px 2px 18px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--sand-deep) transparent;
 }
-@media (min-width: 720px) { .wwm-tiles { grid-template-columns: 1fr 1fr; gap: 20px; } }
-@media (min-width: 1100px) { .wwm-tiles { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+.wwm-tiles > .tile { scroll-snap-align: start; }
+.wwm-tiles::-webkit-scrollbar { height: 4px; }
+.wwm-tiles::-webkit-scrollbar-thumb { background: var(--sand-deep); border-radius: 4px; }
+@media (min-width: 720px) { .wwm-tiles { grid-auto-columns: calc((100% - 20px) / 2); gap: 20px; } }
+@media (min-width: 1100px) { .wwm-tiles { grid-auto-columns: calc((100% - 48px) / 3); gap: 24px; } }
 
 .tile {
   display: flex;
@@ -2018,18 +2030,18 @@ footer {
         </div>
       </a>
 
-      <!-- Tile 2: The Lemna Protein Bar -->
-      <a href="/lemna" class="tile reveal d1">
-        <div class="tile-hero" role="img" aria-label="Mujo Lemna peanut butter protein bar shown in its wrapper alongside the unwrapped bar." style="background-image: url('/images/responsive/products/lemna/lemna-bar-peanut-butter-1x1-800.webp'); background-size: cover; background-position: center;">
+      <!-- Tile 2: Protein Powder (pre-order) -->
+      <a href="/products/protein-powder" class="tile reveal d1">
+        <div class="tile-hero" role="img" aria-label="Mujo Protein Powder pouch on an oak table in morning light" style="background-image: url('/images/responsive/products/protein-powder/powder-pouch-hero-2026-09-800.webp'); background-size: cover; background-position: center;">
         </div>
         <div class="tile-body">
-          <div class="tile-eyebrow">Plant-Based Protein Bar · Coming Soon</div>
-          <div class="tile-name">The Lemna Protein Bar</div>
+          <div class="tile-eyebrow">Plant Protein · Pre-order</div>
+          <div class="tile-name">Protein Powder</div>
           <div class="tile-meta">
-            <span class="tile-price">$32</span>
-            <span class="tile-price-meta">8-bar box · Founding pricing</span>
+            <span class="tile-price">$45</span>
+            <span class="tile-price-meta">15 servings · ships by Oct 30</span>
           </div>
-          <span class="tile-cta">Preview the Lemna Bar <span class="arrow">→</span></span>
+          <span class="tile-cta">Pre-order the Protein Powder <span class="arrow">→</span></span>
         </div>
       </a>
 
@@ -2045,6 +2057,21 @@ footer {
             <span class="tile-price-meta">Limited drops</span>
           </div>
           <span class="tile-cta">Shop merch <span class="arrow">→</span></span>
+        </div>
+      </a>
+
+      <!-- Tile 4: Lemna Protein Bars, last in the scroll row so they sit quietly
+           off-screen (Kinga 2026-09-30). Bar pages are hidden, so no product link. -->
+      <a href="/rebel-club" class="tile tile-quiet reveal d3">
+        <div class="tile-hero" role="img" aria-label="Mujo Lemna peanut butter protein bar shown in its wrapper alongside the unwrapped bar." style="background-image: url('/images/responsive/products/lemna/lemna-bar-peanut-butter-1x1-800.webp'); background-size: cover; background-position: center;">
+        </div>
+        <div class="tile-body">
+          <div class="tile-eyebrow">Plant Protein Bars · In the works</div>
+          <div class="tile-name">Lemna Protein Bars</div>
+          <div class="tile-meta">
+            <span class="tile-price-meta">Coming later. Rebel Club members hear first.</span>
+          </div>
+          <span class="tile-cta">Join the Rebel Club <span class="arrow">→</span></span>
         </div>
       </a>
     </div>

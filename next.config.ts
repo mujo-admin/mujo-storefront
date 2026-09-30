@@ -61,7 +61,7 @@ const config: NextConfig = {
       // launch-day flip without browsers hard-caching it.
       {
         source: "/pages/protein-bars-early-access",
-        destination: "/lemna",
+        destination: "/protein-powder",
         permanent: false,
       },
       {
@@ -146,7 +146,18 @@ const config: NextConfig = {
         destination: "/ambassador",
         permanent: true,
       },
-      // ── Lemna pre-order pages HIDDEN until pre-orders launch (2026-05-25) ──
+      // ── Lemna BAR pages HIDDEN (Kinga 2026-09-30) ──
+      // The bars moved later; the Protein Powder launched first. All three bar
+      // routes forward to the powder landing. Sources stay in the repo
+      // (content/imported-html/mujo_lemna_*.html, app/lemna/*, app/products/lemna)
+      // so the bars can come back: delete these three redirects and restore the
+      // homepage/shop/footer links. permanent:false (307) so nothing caches it.
+      {
+        source: "/lemna",
+        destination: "/protein-powder",
+        permanent: false,
+      },
+      // ── (history) Lemna pre-order pages hidden until pre-orders launch (2026-05-25) ──
       // The pre-order PDP (/products/lemna) and its shop spoke (/lemna/shop) are
       // parked until Kinga opens pre-orders. The /lemna landing stays live.
       // Source is preserved + editable at:
@@ -157,12 +168,12 @@ const config: NextConfig = {
       // caches the hide.
       {
         source: "/products/lemna",
-        destination: "/lemna",
+        destination: "/protein-powder",
         permanent: false,
       },
       {
         source: "/lemna/shop",
-        destination: "/lemna",
+        destination: "/protein-powder",
         permanent: false,
       },
       // Old Shopify blog → headless journal. Migrated posts keep their exact
