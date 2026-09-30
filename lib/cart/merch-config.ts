@@ -121,7 +121,7 @@ const MERCH_IMAGES: Record<MerchHandleSlug, { url: string; alt: string }> = {
   },
   'mujo-hat': {
     url: '/images/products/merch/mujo-hat-hero-editorial-1x1.webp',
-    alt: 'Mujo baseball hat with embroidered mark',
+    alt: 'Mujo baseball cap with embroidered mark',
   },
   'mujo-tee': {
     url: '/images/products/merch/mujo-tee-hero-editorial-1x1.webp',
@@ -129,15 +129,15 @@ const MERCH_IMAGES: Record<MerchHandleSlug, { url: string; alt: string }> = {
   },
   'mujo-crew': {
     url: '/images/products/merch/mujo-crew-hero-editorial-1x1.webp',
-    alt: 'Mujo crew neck sweatshirt',
+    alt: 'Mujo crewneck sweatshirt',
   },
 };
 
 const MERCH_TITLES: Record<MerchHandleSlug, string> = {
   'mujo-frother': 'Electric Frother',
-  'mujo-hat': 'Baseball Hat',
-  'mujo-tee': 'Mujo Tee',
-  'mujo-crew': 'Crew Neck',
+  'mujo-hat': 'Baseball Cap',
+  'mujo-tee': 'Organic Tee',
+  'mujo-crew': 'Crewneck',
 };
 
 const MERCH_PRICES_CENTS: Record<MerchHandleSlug, number> = {

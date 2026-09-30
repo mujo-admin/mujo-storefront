@@ -8,30 +8,30 @@ import {
 } from "lib/schema";
 
 export const metadata: Metadata = {
-  title: "Mujo Baseball Hat · Wear the rebellion quietly",
+  title: "Baseball Cap · Embroidered Mujo Mark",
   description:
-    "The Mujo Baseball Hat. Embroidered Mujo mark, low-profile, adjustable. Wear the rebellion quietly. For people who switched and don't need to explain it. $25.",
+    "A low-profile, unstructured cap with an embroidered Mujo mark and an adjustable strap. One size fits most. White or Stone.",
   alternates: { canonical: "/products/mujo-hat" },
   openGraph: {
     type: "website",
-    title: "Mujo Baseball Hat",
-    description: "Wear the rebellion quietly.",
+    title: "Baseball Cap",
+    description: "A low-profile, unstructured cap with an embroidered Mujo mark and an adjustable strap. One size fits most. White or Stone.",
   },
 };
 
 export default function HatPdpPage() {
   return (
     <>
-      <ProductAnalytics itemId="mujo-hat" itemName="Mujo Baseball Hat" price={25} />
+      <ProductAnalytics itemId="mujo-hat" itemName="Baseball Cap" price={25} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: jsonLdScript(
             productSchema({
               url: "/products/mujo-hat",
-              name: "Mujo Baseball Hat",
+              name: "Baseball Cap",
               description:
-                "Embroidered Mujo mark, low-profile, adjustable strap. Unisex, one size. Made on demand.",
+                "A low-profile cap with the Mujo mark embroidered on the front. A soft, unstructured six-panel crown, an adjustable strap at the back, one size that fits most. The logo is stitched, not printed, so it won't peel or crack. Made to order in White or Stone.",
               image: "https://mujoworld.com/images/logo/mujo-logo-orange.png",
               lowPrice: "25",
               highPrice: "25",
@@ -47,7 +47,7 @@ export default function HatPdpPage() {
           __html: jsonLdScript(
             breadcrumbSchema([
               { name: "Shop", url: "/shop" },
-              { name: "Mujo Baseball Hat", url: "/products/mujo-hat" },
+              { name: "Baseball Cap", url: "/products/mujo-hat" },
             ]),
           ),
         }}

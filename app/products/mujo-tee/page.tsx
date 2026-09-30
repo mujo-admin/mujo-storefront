@@ -8,30 +8,30 @@ import {
 } from "lib/schema";
 
 export const metadata: Metadata = {
-  title: "Mujo Organic T-Shirt · Clean outside. Clean inside.",
+  title: "Organic Tee · GOTS-Certified Organic Cotton",
   description:
-    "Mujo Organic Tee. GOTS-certified, unisex, no shortcuts. Desert Dust and White. Same standard as what you put in your body. $30.",
+    "A soft, lightweight tee in 100% GOTS-certified organic cotton. Regular unisex fit, a small Mujo mark and a tear-away label. White or Desert Dust.",
   alternates: { canonical: "/products/mujo-tee" },
   openGraph: {
     type: "website",
-    title: "Mujo Organic T-Shirt",
-    description: "Clean outside. Clean inside. GOTS-certified organic cotton.",
+    title: "Organic Tee",
+    description: "A soft, lightweight tee in 100% GOTS-certified organic cotton. Regular unisex fit, a small Mujo mark and a tear-away label. White or Desert Dust.",
   },
 };
 
 export default function TeePdpPage() {
   return (
     <>
-      <ProductAnalytics itemId="mujo-tee" itemName="Mujo Organic T-Shirt" price={30} />
+      <ProductAnalytics itemId="mujo-tee" itemName="Organic Tee" price={30} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: jsonLdScript(
             productSchema({
               url: "/products/mujo-tee",
-              name: "Mujo Organic T-Shirt",
+              name: "Organic Tee",
               description:
-                "GOTS + OCS certified 100% organic cotton tee. Ring-spun combed, lightweight, regular unisex fit. Desert Dust or White.",
+                "A clean, everyday tee in 100% organic cotton, GOTS and OCS certified. Ring-spun and combed for a soft feel, lightweight, with a regular unisex fit and a small Mujo mark. The label tears away, so nothing scratches. Made to order in White or Desert Dust, sizes S to XL.",
               image: "https://mujoworld.com/images/logo/mujo-logo-orange.png",
               lowPrice: "30",
               highPrice: "30",
@@ -47,7 +47,7 @@ export default function TeePdpPage() {
           __html: jsonLdScript(
             breadcrumbSchema([
               { name: "Shop", url: "/shop" },
-              { name: "Mujo Organic T-Shirt", url: "/products/mujo-tee" },
+              { name: "Organic Tee", url: "/products/mujo-tee" },
             ]),
           ),
         }}

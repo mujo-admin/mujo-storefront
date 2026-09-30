@@ -15,7 +15,7 @@ export default async function OpengraphImage(
   props?: Props,
 ): Promise<ImageResponse> {
   const { title, subtitle } = {
-    title: process.env.SITE_NAME ?? "Mujo",
+    title: "Mujo",
     subtitle: "Modern performance without the crash.",
     ...props,
   };

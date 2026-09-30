@@ -8,30 +8,30 @@ import {
 } from "lib/schema";
 
 export const metadata: Metadata = {
-  title: "Mujo Crew Neck Sweatshirt · The uniform of slow mornings",
+  title: "Crewneck Sweatshirt · Cotton-Rich Fleece",
   description:
-    "The Mujo Crew Neck Sweatshirt — soft, unisex, intentionally designed. Bone and Sandstone. For people who wear their values as comfortably as their clothes. $40.",
+    "A medium-heavyweight crewneck in cotton-rich fleece with a 100% cotton face. Ribbed cuffs, regular unisex fit. Bone or Sandstone, XS to XL.",
   alternates: { canonical: "/products/mujo-crew" },
   openGraph: {
     type: "website",
-    title: "Mujo Crew Neck Sweatshirt",
-    description: "The uniform for the slow mornings that belong to you.",
+    title: "Crewneck",
+    description: "A medium-heavyweight crewneck in cotton-rich fleece with a 100% cotton face. Ribbed cuffs, regular unisex fit. Bone or Sandstone, XS to XL.",
   },
 };
 
 export default function CrewPdpPage() {
   return (
     <>
-      <ProductAnalytics itemId="mujo-crew" itemName="Mujo Crew Neck Sweatshirt" price={40} />
+      <ProductAnalytics itemId="mujo-crew" itemName="Crewneck" price={40} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: jsonLdScript(
             productSchema({
               url: "/products/mujo-crew",
-              name: "Mujo Crew Neck Sweatshirt",
+              name: "Crewneck",
               description:
-                "Unisex crew neck sweatshirt. 80% cotton / 20% polyester fleece, 100% cotton face. Medium-heavy weight. Bone or Sandstone.",
+                "A medium-heavyweight crewneck in soft, cotton-rich fleece: 80% cotton and 20% polyester, with a 100% cotton face. Smooth outside, cozy inside, with ribbed cuffs and hem and a regular unisex fit. The label tears away. Made to order in Bone or Sandstone, sizes XS to XL.",
               image: "https://mujoworld.com/images/logo/mujo-logo-orange.png",
               lowPrice: "40",
               highPrice: "40",
@@ -47,7 +47,7 @@ export default function CrewPdpPage() {
           __html: jsonLdScript(
             breadcrumbSchema([
               { name: "Shop", url: "/shop" },
-              { name: "Mujo Crew Neck Sweatshirt", url: "/products/mujo-crew" },
+              { name: "Crewneck", url: "/products/mujo-crew" },
             ]),
           ),
         }}
