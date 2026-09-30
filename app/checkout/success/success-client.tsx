@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { useCart } from "components/cart/cart-context";
-import { trackPixelEvent } from "lib/meta-pixel";
+import { track } from "lib/analytics";
 import { clearLocalStorage, makeEmptyCart } from "lib/cart/store";
 
 type Props = {
@@ -35,11 +35,17 @@ export function CheckoutSuccessClient({
     if (fired.current) return;
     fired.current = true;
 
-    // Pixel event (Meta) — dedup with CAPI via eventId.
-    trackPixelEvent(
-      "Purchase",
-      { currency, value: amount / 100 },
-      eventId ?? sessionId,
+    // purchase — the Stripe webhook already sent Purchase to Meta's CAPI with
+    // this eventId, so this pairs with it (Meta counts one) and additionally
+    // reports the sale to GA4, which previously saw no revenue at all.
+    track(
+      "purchase",
+      {
+        transaction_id: sessionId,
+        value: amount / 100,
+        currency: currency.toUpperCase(),
+      },
+      { eventId: eventId ?? sessionId },
     );
 
     // Klaviyo client event — fire-and-forget. The webhook also fires

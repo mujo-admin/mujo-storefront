@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ImportedPage } from "components/imported-page";
+import { ProductAnalytics } from "components/integrations/product-analytics";
 import {
   productSchema,
   breadcrumbSchema,
@@ -21,6 +22,7 @@ export const metadata: Metadata = {
 export default function TeePdpPage() {
   return (
     <>
+      <ProductAnalytics itemId="mujo-tee" itemName="Mujo Organic T-Shirt" price={30} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

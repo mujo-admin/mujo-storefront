@@ -84,10 +84,34 @@ const config: NextConfig = {
         destination: "/shop",
         permanent: true,
       },
-      // Shopify product handle alias.
+      // Shopify product handle aliases. The Meta/Instagram catalog is synced
+      // from Shopify, which publishes Shopify handles — not our headless
+      // routes. Without these, a product tag on Instagram lands on a 404.
+      // Audited 2026-09-27: 4 of 5 were dead. Keep in sync with the Shopify
+      // product handles, not with our own route names.
       {
         source: "/products/the-ritual",
         destination: "/products/mujo-ritual",
+        permanent: true,
+      },
+      {
+        source: "/products/electric-frother",
+        destination: "/products/mujo-frother",
+        permanent: true,
+      },
+      {
+        source: "/products/crew-neck-sweatshirt",
+        destination: "/products/mujo-crew",
+        permanent: true,
+      },
+      {
+        source: "/products/mujo-t-shirt",
+        destination: "/products/mujo-tee",
+        permanent: true,
+      },
+      {
+        source: "/products/mujo-baseball-hat",
+        destination: "/products/mujo-hat",
         permanent: true,
       },
       // Old Liquid policies → /legal/* canon.

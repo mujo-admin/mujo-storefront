@@ -11,6 +11,7 @@ import {
   type ReactNode,
 } from 'react';
 import { usePathname } from 'next/navigation';
+import { track, itemFromCartLine, itemsValue } from 'lib/analytics';
 import {
   addItem as addItemPure,
   loadFromLocalStorage,
@@ -156,6 +157,14 @@ export function CartProvider({
   const addItem = useCallback((item: CartLineItem) => {
     setCart((prev) => addItemPure(prev, item));
     if (typeof window !== 'undefined') {
+      // Every add-to-cart in the app funnels through here, so this is the one
+      // place the event needs to fire. See docs/measurement-plan.md.
+      const analyticsItem = itemFromCartLine(item);
+      track('add_to_cart', {
+        items: [analyticsItem],
+        value: itemsValue([analyticsItem]),
+        currency: 'USD',
+      });
       window.dispatchEvent(new CustomEvent('mujo:cart:open'));
     }
   }, []);

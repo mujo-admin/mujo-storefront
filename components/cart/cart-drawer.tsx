@@ -9,6 +9,7 @@ import {
 } from "lib/cart/pricing";
 import { FREE_SHIPPING_THRESHOLD_CENTS } from "lib/stripe-constants";
 
+import { track, itemFromCartLine, itemsValue } from "lib/analytics";
 type CartDrawerProps = {
   open: boolean;
   onClose: () => void;
@@ -44,6 +45,13 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
     if (open) window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open, onClose]);
+
+  // view_cart — GA4 only (no Meta equivalent worth sending).
+  useEffect(() => {
+    if (!open || cart.items.length === 0) return;
+    const items = cart.items.map(itemFromCartLine);
+    track("view_cart", { items, value: itemsValue(items), currency: "USD" });
+  }, [open, cart.items]);
 
   const subtotal = subtotalCents(cart);
   // Shipping is applied by Stripe at checkout — don't add a phantom flat fee
