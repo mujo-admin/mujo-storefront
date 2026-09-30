@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ImportedPage } from "components/imported-page";
 
 export const metadata: Metadata = {
-  title: "Journal · Mujo",
+  title: "Journal",
   description:
     "Field notes on rituals, recovery, motherhood, and modern performance.",
   alternates: { canonical: "/journal" },

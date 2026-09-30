@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ImportedPage } from "components/imported-page";
 
 export const metadata: Metadata = {
-  title: "Subscription Terms · Mujo",
+  title: "Subscription Terms",
   description:
     "4, 6, 8, or 12-week billing cycles, minimum commitment, and how to manage or cancel anytime.",
   alternates: { canonical: "/legal/subscription-terms" },

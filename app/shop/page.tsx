@@ -3,7 +3,7 @@ import { ImportedPage } from "components/imported-page";
 import { collectionPageSchema, jsonLdScript } from "lib/schema";
 
 export const metadata: Metadata = {
-  title: "Shop · Mujo",
+  title: "Shop",
   description: "The Mujo catalog. Mushroom coffee alternative, Lemna leaf protein, accessories.",
   alternates: { canonical: "/shop" },
 };

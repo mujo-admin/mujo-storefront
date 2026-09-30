@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ImportedPage } from "components/imported-page";
 
 export const metadata: Metadata = {
-  title: "About · Mujo",
+  title: "About",
   description:
     "Mujo was built by Kinga. The story behind stubborn standards, family origins, and modern performance without the crash.",
   alternates: { canonical: "/about" },

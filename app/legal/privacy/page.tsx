@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ImportedPage } from "components/imported-page";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy · Mujo",
+  title: "Privacy Policy",
   description: "How we collect, use, and protect your personal data.",
   alternates: { canonical: "/legal/privacy" },
 };

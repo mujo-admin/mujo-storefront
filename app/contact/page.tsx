@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ImportedPage } from "components/imported-page";
 
 export const metadata: Metadata = {
-  title: "Contact · Mujo",
+  title: "Contact",
   description:
     "Send us a note. Real humans reply within a working day. hello@mujoworld.com.",
   alternates: { canonical: "/contact" },
