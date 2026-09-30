@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MUJO Protein Powder · Vanilla · Pre-order · Mujo</title>
+<meta name="description" content="Mujo Protein Powder, Vanilla Bean. The first protein powder made with Lemna leaf: 22g of complete plant protein, 0g sugar, real Madagascar vanilla. Pre-order now, ships by October 30.">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=hanken-grotesk@400,500,600,700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--f-body); background: var(--cream); color: var(--ink); -webkit-font-smoothing: antialiased; line-height: 1.55; overflow-x: hidden; }
+.eyebrow { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange-deep); display: inline-block; font-weight: 500; }
+.eyebrow.center { text-align: center; display: block; }
+h1 em, h2 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); font-weight: 400; }
+h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 500; letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); }
+.container { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
+@media (min-width: 768px) { .container { padding: 0 32px; } }
+body.locked { overflow: hidden; }
+
+/* Reveal-on-scroll (progressive; content forced visible if JS off via <noscript>) */
+
+:root {
+  --orange: #B8481A; --orange-deep: #9E3C14; /* accent = terracotta (Kinga 2026-09-29); on dark use --accent-on-dark */ --accent-on-dark: #E05B24; --orange-soft: #F6EEE4;
+  --cream: #F3F2E9; --sand: #EEE9E0; --sand-deep: #D4C4A8;
+  /* Palette 2026-09-29: dark teal retired for brown #2A1810; neutral beiges for callouts; packaging carries the colour */
+  --brown: #2A1810; --brown-mid: #3B2A22; --brown-light: #A68B77;
+  --brown-tint: rgba(42, 24, 16, 0.06); --beige: #EFE6DA; --orange-text: #B34619;
+  --ink: #1A1A1A; --ink-soft: #4A4845; --mute: #5C5854;
+  --line: rgba(26, 26, 26, 0.09); --line-soft: rgba(26, 26, 26, 0.06);
+  --f-display: 'Hanken Grotesk', -apple-system, sans-serif;
+  --f-body: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
+  --f-serif: 'Instrument Serif', 'Times New Roman', serif;
+  --f-mono: 'DM Mono', monospace;
+  --r-structural: 14px; --r-pill: 100px; --r-tag: 6px; --gutter: 20px;
+  --nav-h: 64px;
+  --s1: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --s2: 0 12px 40px rgba(0, 0, 0, 0.09);
+}
+
+/* ===== CHROME: announce / nav / mobile menu / cart ===== */
+
+/* ===== BREADCRUMB + PRE-ORDER BANNER ===== */
+.breadcrumb { padding: 14px 0 4px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute); }
+.breadcrumb a { color: var(--mute); text-decoration: none; transition: color 0.2s; }
+.breadcrumb a:hover { color: var(--ink); }
+.breadcrumb .sep { margin: 0 8px; opacity: 0.4; }
+.breadcrumb .current { color: var(--ink); }
+.preorder-banner { background: var(--beige); padding: 14px 18px; text-align: center; font-size: 13px; color: var(--ink); border-radius: 12px; margin: 12px 20px 0; line-height: 1.5; border: 1px solid rgba(242,104,47,0.18); }
+.preorder-banner strong { font-weight: 500; color: var(--orange-deep); }
+@media (min-width: 768px) { .preorder-banner { font-size: 14px; padding: 16px 24px; margin: 12px 32px 0; } }
+
+/* ===== PRODUCT HERO ===== */
+.pdp-hero { padding: 20px 0 56px; }
+@media (min-width: 1024px) { .pdp-hero { padding: 28px 0 80px; } }
+.pdp-hero-grid { display: grid; gap: 28px; grid-template-columns: 1fr; }
+@media (min-width: 1024px) { .pdp-hero-grid { grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: start; } }
+.pdp-gallery { display: flex; flex-direction: column; gap: 10px; }
+.pdp-gallery-main { aspect-ratio: 1 / 1; border-radius: 16px; display: flex; align-items: flex-end; justify-content: flex-start; padding: 20px; position: relative; overflow: hidden; transition: background 0.5s ease; }
+.pdp-gallery-main .placeholder-label { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(90,70,45,0.55); }
+.pdp-gallery-badge { position: absolute; top: 16px; left: 16px; background: rgba(255,255,255,0.95); color: var(--orange-deep); padding: 6px 12px; border-radius: var(--r-pill); font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500; }
+.pdp-gallery-thumbs { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 8px; }
+.pdp-thumb { aspect-ratio: 1 / 1; border-radius: 10px; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; display: flex; align-items: flex-end; padding: 8px; font-family: var(--f-mono); font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; }
+.pdp-thumb:hover { border-color: rgba(26,26,26,0.2); }
+.pdp-thumb.active { border-color: var(--orange); }
+
+.pdp-info-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange-deep); margin-bottom: 12px; font-weight: 500; }
+.pdp-info-eyebrow .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--orange); display: inline-block; }
+.pdp-title { font-size: clamp(32px, 6vw, 48px); margin-bottom: 10px; line-height: 1.02; letter-spacing: -0.025em; }
+.pdp-deck { font-size: 18px; color: var(--ink-soft); line-height: 1.5; margin-bottom: 18px; max-width: 480px; }
+.pdp-deck strong { color: var(--ink); font-weight: 500; }
+@media (min-width: 768px) { .pdp-deck { font-size: 19px; } }
+.pdp-rating { display: flex; align-items: center; gap: 8px; margin-bottom: 24px; }
+.pdp-rating-text { font-family: var(--f-body); font-size: 13px; color: var(--ink-soft); }
+
+/* Quick feature highlights (Ritual quick-feats) */
+
+/* Single-size static line */
+.size-line { font-family: var(--f-body); font-size: 13px; color: var(--ink-soft); background: var(--brown-tint); padding: 10px 14px; border-radius: var(--r-tag); margin-bottom: 18px; display: inline-flex; align-items: center; gap: 8px; }
+.size-line strong { color: var(--ink); font-weight: 500; }
+
+/* Subscribe vs one-time (Ritual pur-opt) */
+.purchase-block { margin-bottom: 20px; }
+.purchase-label { font-family: var(--f-body); font-size: 14px; color: var(--ink); margin-bottom: 10px; font-weight: 500; }
+.purchase-options { display: flex; flex-direction: column; gap: 10px; }
+.pur-opt { display: flex; align-items: flex-start; padding: 18px 20px; border: 2px solid var(--line); border-radius: var(--r-structural); background: #fff; cursor: pointer; transition: all 0.2s; position: relative; }
+.pur-opt:hover { border-color: var(--brown-light); }
+.pur-opt.active { border-color: var(--brown); background: var(--orange-soft); }
+.pur-opt-radio { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--line); flex-shrink: 0; margin-right: 16px; margin-top: 2px; position: relative; transition: all 0.2s; }
+.pur-opt.active .pur-opt-radio { border-color: var(--brown); }
+.pur-opt.active .pur-opt-radio::after { content: ''; position: absolute; top: 3px; left: 3px; width: 10px; height: 10px; border-radius: 50%; background: var(--brown); }
+.pur-opt-info { flex: 1; min-width: 0; }
+.pur-opt-name { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 3px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.pur-opt-save { background: #FBE3D6; color: var(--orange-text); padding: 2px 8px; border-radius: var(--r-tag); font-family: var(--f-body); font-size: 11px; font-weight: 500; }
+.pur-opt-desc { font-size: 12px; color: var(--mute); line-height: 1.4; }
+.pur-opt-cadence { display: none; margin-top: 12px; align-items: center; gap: 10px; }
+.pur-opt.active .pur-opt-cadence { display: flex; }
+.pur-opt-cadence label { font-family: var(--f-body); font-size: 13px; color: var(--ink-soft); font-weight: 500; }
+.pur-opt-cadence select { font-family: var(--f-body); font-size: 13px; font-weight: 500; color: var(--ink); background: #fff; border: 1.5px solid var(--line); border-radius: var(--r-tag); padding: 7px 12px; cursor: pointer; outline: none; }
+.pur-opt-cadence select:focus { border-color: var(--orange); }
+.pur-opt-price { text-align: right; flex-shrink: 0; margin-left: 12px; }
+.pur-opt-price-now { font-family: var(--f-display); font-size: 22px; font-weight: 500; color: var(--ink); letter-spacing: -0.02em; line-height: 1; }
+.pur-opt-price-was { font-size: 12px; color: var(--mute); text-decoration: line-through; margin-top: 2px; }
+.pur-opt-daily { font-family: var(--f-body); font-size: 12px; color: var(--ink-soft); margin-top: 3px; }
+
+.sub-benefits { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.sub-benefits li { display: flex; align-items: flex-start; gap: 9px; font-size: 12.5px; color: var(--ink-soft); line-height: 1.4; }
+.sub-benefits li::before { content: ''; flex-shrink: 0; width: 15px; height: 15px; margin-top: 1px; border-radius: 50%; background: var(--brown-tint); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23D85A22' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='3 8.5 6.5 12 13 5'/%3E%3C/svg%3E"); background-position: center; background-size: 10px 10px; background-repeat: no-repeat; }
+.sub-benefits.hide { display: none; }
+
+/* ATC */
+.atc-block { margin-bottom: 20px; margin-top: 20px; }
+.atc-btn { width: 100%; background: var(--brown); color: var(--cream); border: none; min-height: 58px; padding: 0 24px; border-radius: var(--r-pill); font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px; font-family: var(--f-body); letter-spacing: 0.01em; }
+.atc-btn:hover { background: var(--brown-mid); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(42, 24, 16, 0.22); }
+.atc-btn-price { font-weight: 700; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: var(--r-tag); font-size: 13px; font-family: var(--f-body); }
+.atc-shipline { text-align: center; font-family: var(--f-body); font-size: 13px; font-weight: 500; color: var(--ink); margin-top: 12px; }
+.atc-trust { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; padding: 14px 4px 0; font-size: 12px; color: var(--mute); }
+.atc-trust-item { display: flex; align-items: center; gap: 6px; font-family: var(--f-body); }
+.atc-trust-item::before { content: ''; width: 14px; height: 14px; flex-shrink: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%232A1810' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='3 8.5 6.5 12 13 5'/%3E%3C/svg%3E"); background-position: center; background-size: contain; background-repeat: no-repeat; }
+
+/* Guarantee + Prop 65 + accordions */
+.pdp-guarantee { display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: var(--brown-tint); border-left: 3px solid var(--brown); border-radius: var(--r-structural); font-size: 13px; color: var(--ink-soft); line-height: 1.5; margin-bottom: 20px; }
+.pdp-guarantee-icon { width: 32px; height: 32px; background: var(--brown); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--orange); }
+.pdp-guarantee-icon svg { width: 16px; height: 16px; }
+.pdp-guarantee strong { color: var(--ink); font-weight: 500; }
+.pdp-p65 { font-size: 11.5px; line-height: 1.5; color: var(--ink-soft); background: #fff; border: 1px solid var(--sand-deep); border-radius: 8px; padding: 10px 12px; margin-bottom: 24px; font-family: var(--f-body); }
+.pdp-p65 strong { color: var(--ink); font-weight: 600; }
+.pdp-p65 a { color: var(--orange-deep); text-decoration: underline; }
+/* Nutrition Facts as a real text table (2026-09-29) */
+.nf { width: 100%; border-collapse: collapse; font-size: 14px; color: var(--ink); border: 1px solid var(--ink); }
+.nf caption { caption-side: top; text-align: left; font-size: 13px; color: var(--ink-soft); padding-bottom: 8px; }
+.nf th, .nf td { text-align: left; font-weight: 400; padding: 5px 10px; border-top: 1px solid var(--line-soft); }
+.nf td:last-child { text-align: right; white-space: nowrap; }
+.nf strong { font-weight: 600; }
+.nf .sub th { padding-left: 24px; }
+.nf .sub2 th { padding-left: 40px; }
+.nf .nf-cal th, .nf .nf-cal td { font-family: var(--f-display); font-size: 22px; font-weight: 600; border-top: 0; }
+.nf .nf-head td { font-size: 12px; font-weight: 600; }
+.nf .nf-rule th, .nf .nf-rule td { border-bottom: 6px solid var(--ink); }
+.nf-foot { font-size: 12px; margin-top: 10px; }
+.pdp-acc { border-top: 1px solid var(--line-soft); }
+.pdp-acc summary { padding: 16px 0; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px; font-family: var(--f-display); font-size: 15px; font-weight: 500; color: var(--ink); list-style: none; letter-spacing: -0.005em; }
+.pdp-acc summary::-webkit-details-marker { display: none; }
+.pdp-acc summary::after { content: '+'; font-family: var(--f-mono); font-size: 18px; color: var(--orange-deep); font-weight: 400; transition: transform 0.2s; }
+.pdp-acc[open] summary::after { transform: rotate(45deg); }
+.pdp-acc-body { padding: 0 0 18px; font-size: 14px; line-height: 1.65; color: var(--ink-soft); }
+.pdp-acc-body p { margin-bottom: 0.8em; }
+.pdp-acc-body p:last-child { margin-bottom: 0; }
+.pdp-acc-body ul { margin: 0.4em 0 0.8em 1.2em; padding: 0; }
+.pdp-acc-body li { margin-bottom: 0.3em; }
+.pdp-acc-body li::marker { color: var(--orange); }
+.pdp-acc-body strong { color: var(--ink); font-weight: 500; }
+
+/* ===== STICKY MOBILE ATC ===== */
+.sticky-atc { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid var(--line); padding: 12px 20px; display: flex; gap: 12px; align-items: center; z-index: 140; box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08); transform: translateY(100%); transition: transform 0.3s ease; }
+.sticky-atc.show { transform: translateY(0); }
+.sticky-atc-info { flex: 1; min-width: 0; }
+.sticky-atc-name { font-size: 13px; font-weight: 500; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sticky-atc-price { font-family: var(--f-mono); font-size: 12px; color: var(--brown); letter-spacing: 0.02em; }
+.sticky-atc-btn { background: var(--brown); color: var(--cream); border: none; padding: 12px 22px; border-radius: var(--r-pill); font-size: 14px; font-weight: 500; cursor: pointer; white-space: nowrap; }
+.sticky-atc-btn:hover { background: var(--brown-mid); }
+@media (min-width: 901px) { .sticky-atc { display: none !important; } }
+
+/* ===== STAT STRIP ===== */
+
+/* ===== KINGA VIDEO (9:16) ===== */
+
+/* ===== BENEFITS TRIO ===== */
+
+/* ===== EAA CHART ===== */
+/* Data table */
+
+/* ===== UGC REEL MARQUEE ===== */
+@keyframes reelScroll { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+
+/* ===== TIMELINE (daily ritual) ===== */
+
+/* ===== INGREDIENTS (dossier) ===== */
+
+/* ===== SCIENCE - form matters more (Lemna) ===== */
+
+/* ===== COMPARE ===== */
+
+/* ===== REVIEWS ===== */
+.reviews-section { padding: 56px 0; background: #fff; }
+@media (min-width: 768px) { .reviews-section { padding: 88px 0; } }
+
+/* ===== FAQ ===== */
+.faq-section { padding: 72px 0; background: var(--sand); }
+@media (min-width: 768px) { .faq-section { padding: 100px 0; } }
+.faq-section .container { max-width: 820px; }
+.faq-section h2 { font-size: clamp(28px, 5vw, 40px); margin-bottom: 8px; text-align: center; }
+.faq-list { max-width: 720px; margin: 0 auto; }
+.faq-item { border-bottom: 1px solid var(--line); }
+.faq-item:first-child { border-top: 1px solid var(--line); }
+.faq-item summary { padding: 20px 0; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px; font-family: var(--f-display); font-size: 16px; font-weight: 500; color: var(--ink); list-style: none; letter-spacing: -0.01em; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after { content: '+'; font-family: var(--f-mono); font-size: 18px; color: var(--orange-deep); flex-shrink: 0; transition: transform 0.2s; font-weight: 400; }
+.faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-item .faq-body { padding: 0 0 20px; font-size: 14px; line-height: 1.7; color: var(--ink-soft); max-width: 640px; }
+.faq-item .faq-body strong { color: var(--ink); font-weight: 500; }
+
+/* ===== FINAL CTA ===== */
+.finalcta { padding: 72px 0; background: var(--brown); color: #fff; position: relative; overflow: hidden; }
+@media (min-width: 768px) { .finalcta { padding: 100px 0; } }
+.finalcta::before { content: ''; position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(242, 104, 47, 0.15) 0%, transparent 70%); pointer-events: none; }
+.finalcta .container { position: relative; z-index: 1; text-align: center; max-width: 640px; }
+.finalcta .eyebrow { color: var(--brown-light); margin-bottom: 14px; }
+.finalcta h2 { color: #fff; font-size: clamp(30px, 5.5vw, 46px); margin-bottom: 16px; line-height: 1.05; }
+.finalcta h2 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
+.finalcta p { font-size: 15px; color: rgba(255,255,255,0.72); line-height: 1.65; margin-bottom: 28px; }
+@media (min-width: 768px) { .finalcta p { font-size: 16px; } }
+.finalcta-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--cream); color: var(--brown); text-decoration: none; padding: 16px 34px; border-radius: var(--r-pill); font-family: var(--f-body); font-size: 16px; font-weight: 500; transition: all 0.2s; }
+.finalcta-btn:hover { background: #fff; transform: translateY(-1px); }
+.finalcta-btn svg { width: 16px; height: 16px; }
+
+/* ===== CERTIFICATION BADGE STRIP ===== */
+
+/* ===== SMOOTHIE RECIPES ===== */
+
+/* ---- Grown, not corrected ---- */
+
+/* ---- Certificate of transparency ---- */
+
+/* On-dark accents: terracotta needs the lighter tone on brown to pass contrast (2026-09-29) */
+.pur-opt-save { color: #A63F15 !important; }
+
+/* Powder page palette (Kinga 2026-09-29/30): brown #2A1810 + terracotta #B8481A.
+   Scoped to the imported page so the site chrome keeps its own tokens until the site-wide sweep. */
+.mujo-imported {
+  --orange: #B8481A; --orange-deep: #9E3C14; --orange-soft: #F6EEE4; --orange-text: #B34619; --accent-on-dark: #E05B24;
+  --brown: #2A1810; --brown-mid: #3B2A22; --brown-light: #A68B77; --brown-tint: rgba(42, 24, 16, 0.06); --beige: #EFE6DA;
+  --line-soft: rgba(26, 26, 26, 0.06); --r-structural: 14px; --r-pill: 100px; --r-tag: 6px; --gutter: 20px;
+}
+</style>
+<noscript><style></style></noscript>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+<!-- Pre-order banner -->
+<div class="preorder-banner">
+  <strong>Pre-order open.</strong> The first batch ships by October 30.
+</div>
+
+<!-- Breadcrumb -->
+<div class="container">
+  <div class="breadcrumb">
+    <a href="/">Home</a><span class="sep">/</span><a href="/shop">Shop</a><span class="sep">/</span><span class="current">Protein Powder</span>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE STYLES — minimal / negative-space layer (2026-08-26 respec)
+     ============================================================ -->
+<style>
+  /* Generous vertical rhythm. Sections breathe. */
+  .sec { padding: 120px 0; }
+  .sec-tight { padding: 88px 0; }
+  .sec-head { max-width: 660px; margin: 0 auto 56px; text-align: center; }
+  .sec-head h2 { margin: 14px 0 16px; letter-spacing: -0.02em; }
+  .sec-head p { color: var(--ink-soft); font-size: 16px; line-height: 1.7; }
+
+  /* Icon marquee */
+  .mq { background: var(--brown); padding: 22px 0; overflow: hidden; }
+  .mq-track { display: flex; gap: 56px; width: max-content; animation: mqscroll 38s linear infinite; }
+  .mq-item { display: flex; align-items: center; gap: 10px; color: var(--brown-light);
+             font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; white-space: nowrap; }
+  .mq-item svg { width: 17px; height: 17px; stroke: var(--orange); flex-shrink: 0; }
+  @keyframes mqscroll { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .mq-track { animation: none; } }
+
+  /* Ingredient carousel, 3 at a time */
+  .ing-rail { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(300px, 1fr);
+              gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory;
+              padding: 4px 0 22px; scrollbar-width: none; }
+  .ing-rail::-webkit-scrollbar { display: none; }
+  .ing-rail > * { scroll-snap-align: start; }
+  @media (min-width: 900px) { .ing-rail { grid-auto-columns: minmax(0, calc(33.333% - 15px)); } }
+  .ingx { background: #fff; border: 1px solid var(--line-soft); border-radius: var(--r-structural);
+          padding: 30px 28px 32px; display: flex; flex-direction: column; }
+  .ingx-tag { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.18em;
+              text-transform: uppercase; color: var(--orange-deep); margin-bottom: 14px; }
+  .ingx-name { font-family: var(--f-display); font-size: 23px; font-weight: 500;
+               color: var(--ink); letter-spacing: -0.02em; margin-bottom: 16px; }
+  .ingx ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 11px; }
+  .ingx li { font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); padding-left: 18px; position: relative; }
+  .ingx li::before { content: ""; position: absolute; left: 0; top: 9px; width: 6px; height: 6px;
+                     border-radius: 50%; background: var(--orange); opacity: .55; }
+  .rail-hint { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.12em;
+               text-transform: uppercase; color: var(--mute); text-align: center; }
+
+  /* Meet lemna */
+  .lem-grid { display: grid; gap: 56px; align-items: center; }
+  @media (min-width: 900px) { .lem-grid { grid-template-columns: 1fr 1fr; gap: 72px; } }
+  .lem-visual { aspect-ratio: 4/5; width: 100%; border-radius: var(--r-structural);
+                background: linear-gradient(150deg, #DCE5D6 0%, #A9BFA3 100%);
+                display: flex; align-items: center; justify-content: center; }
+  .lem-text h2 { letter-spacing: -0.025em; margin: 14px 0 20px; }
+  .lem-text p { color: var(--ink-soft); font-size: 16.5px; line-height: 1.75; }
+
+  /* Stat bubbles */
+  .bubbles { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 64px; }
+  .bub { background: var(--cream); border: 1px solid var(--line-soft); border-radius: var(--r-pill);
+         padding: 18px 34px; text-align: center; min-width: 150px; }
+  .bub-num { font-family: var(--f-display); font-size: 27px; font-weight: 500;
+             color: var(--orange); letter-spacing: -0.03em; line-height: 1; }
+  .bub-lab { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.13em;
+             text-transform: uppercase; color: var(--mute); margin-top: 8px; }
+
+  /* Family story */
+  .fam { background: var(--cream); }
+  .fam-wrap { max-width: 720px; margin: 0 auto; }
+  .fam-lead { font-size: 19px; line-height: 1.75; color: var(--ink); margin-bottom: 22px; }
+  .fam-wrap p { color: var(--ink-soft); font-size: 16px; line-height: 1.75; margin-bottom: 18px; }
+
+  /* Bundle */
+  .vp { max-width: 760px; margin: 0 auto; background: #fff; border: 1px solid var(--line-soft);
+        border-radius: var(--r-structural); box-shadow: var(--s1); padding: 34px; text-align: center; }
+
+  /* Ingredient card imagery */
+  .ingx-img { aspect-ratio: 4/3; width: 100%; border-radius: var(--r-tag); margin-bottom: 22px;
+              display: flex; align-items: center; justify-content: center; }
+
+  /* Founder video */
+  .fv { position: relative; aspect-ratio: 16/10; width: 100%; border-radius: var(--r-structural);
+        overflow: hidden; cursor: pointer; margin-top: 44px;
+        background: linear-gradient(145deg, #E3DACB 0%, #BFB09A 100%); }
+  .fv-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+             width: 68px; height: 68px; border-radius: 50%; background: rgba(255,255,255,.94);
+             display: flex; align-items: center; justify-content: center; box-shadow: var(--s2);
+             transition: transform .25s ease; }
+  .fv:hover .fv-play { transform: translate(-50%, -50%) scale(1.07); }
+  .fv-play svg { width: 24px; height: 24px; fill: var(--ink); margin-left: 3px; }
+  .fv-meta { position: absolute; left: 18px; bottom: 16px; display: flex; gap: 10px; align-items: center; }
+  .fv-tag { font-family: var(--f-mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+            color: #fff; background: rgba(26,26,26,.62); padding: 5px 11px; border-radius: var(--r-pill); }
+
+  /* Full-bleed image band */
+  .band { width: 100%; aspect-ratio: 21/9; min-height: 260px;
+          background: linear-gradient(120deg, #EDE6DA 0%, #CBBDA6 55%, #B7C3B0 100%);
+          display: flex; align-items: center; justify-content: center; }
+  @media (max-width: 700px) { .band { aspect-ratio: 4/3; } }
+
+  /* Early-taster quotes */
+  .quotes { display: grid; gap: 20px; grid-template-columns: 1fr; max-width: 1040px; margin: 0 auto; }
+  @media (min-width: 860px) { .quotes { grid-template-columns: repeat(3, 1fr); } }
+  .quote { background: #fff; border: 1px solid var(--line-soft); border-radius: var(--r-structural);
+           padding: 30px 28px; display: flex; flex-direction: column; }
+  .quote-mark { font-family: var(--f-serif); font-size: 44px; line-height: .8; color: var(--orange);
+                opacity: .5; margin-bottom: 14px; }
+  .quote-body { font-size: 16.5px; line-height: 1.65; color: var(--ink); flex: 1; }
+  .quote-by { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .13em; text-transform: uppercase;
+              color: var(--mute); margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line-soft); }
+  .quote-disc { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .06em; color: var(--mute);
+                text-align: center; margin-top: 30px; }
+</style>
+
+<!-- ============================================================
+     1 — PRODUCT HERO + BUY BOX
+     ============================================================ -->
+<section class="pdp-hero" id="top">
+  <div class="container">
+    <div class="pdp-hero-grid">
+
+      <!-- Gallery (Nutrition Facts lives in the accordion below, not here) -->
+      <div class="pdp-gallery">
+        <div class="pdp-gallery-main" id="galleryMain">
+          <img class="gallery-main-img" src="/images/responsive/products/protein-powder/powder-pouch-hero-2026-09-1200.webp" alt="Protein Powder pouch on an oak table in morning light" width="1600" height="1600" fetchpriority="high" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <span class="pdp-gallery-badge">Pre-order</span>
+        </div>
+        <div class="pdp-gallery-thumbs gallery-thumbs">
+          <button type="button" class="pdp-thumb gallery-thumb active" data-full="/images/responsive/products/protein-powder/powder-pouch-hero-2026-09-1200.webp" aria-label="Protein Powder pouch on an oak table in morning light" style="background:url('/images/responsive/products/protein-powder/powder-pouch-hero-2026-09-800.webp') center/cover no-repeat;"></button>
+          <button type="button" class="pdp-thumb gallery-thumb" data-full="/images/responsive/products/protein-powder/powder-pouch-front-2026-09-1200.webp" aria-label="Protein Powder pouch, front view, on travertine" style="background:url('/images/responsive/products/protein-powder/powder-pouch-front-2026-09-800.webp') center/cover no-repeat;"></button>
+          <button type="button" class="pdp-thumb gallery-thumb" data-full="/images/responsive/products/protein-powder/powder-shake-2026-09-1200.webp" aria-label="A creamy vanilla protein shake beside the pouch" style="background:url('/images/responsive/products/protein-powder/powder-shake-2026-09-800.webp') center/cover no-repeat;"></button>
+          <button type="button" class="pdp-thumb gallery-thumb" data-full="/images/responsive/products/protein-powder/powder-lemna-still-life-2026-09-1200.webp" aria-label="The pouch, a shake and a dish of Lemna leaf floating on water" style="background:url('/images/responsive/products/protein-powder/powder-lemna-still-life-2026-09-800.webp') center/cover no-repeat;"></button>
+          <button type="button" class="pdp-thumb gallery-thumb" data-full="/images/responsive/products/protein-powder/powder-iced-ritual-2026-09-1200.webp" aria-label="Protein shake poured over an iced Ritual, both pouches behind" style="background:url('/images/responsive/products/protein-powder/powder-iced-ritual-2026-09-1200.webp') center/cover no-repeat;"></button>
+        </div>
+      </div>
+
+      <!-- Conversion panel -->
+      <div class="pdp-info">
+        <div class="pdp-info-eyebrow"><span class="dot"></span>Vanilla Bean &middot; Pre-order</div>
+        <h1 class="pdp-title">Mujo Protein Powder</h1>
+        <p class="pdp-deck">The first protein powder made with Lemna leaf, a tiny water plant with complete protein. <strong>22g of plant protein</strong> and all nine essential amino acids per serving, 0g sugar. Real Madagascar vanilla, blended thick and creamy like a milkshake.</p>
+
+        <div class="pdp-rating">
+          <div class="pdp-rating-text">Reviews open once the first batch ships.</div>
+        </div>
+
+        <div class="pdp-guarantee">
+          <span class="pdp-guarantee-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+          </span>
+          <div><strong>30-day money-back guarantee.</strong> If you don't love your first pouch, email us within 30 days and we'll refund or replace it.</div>
+        </div>
+
+<!-- MUJO_PROTEIN_BUYBOX_START -->
+        <div data-mujo-mount="powder-buybox">
+          <!-- Live buy box rendered by <ProteinPowderPdpClient/> (React portal), modeled on components/product/ritual-pdp-client.tsx. This static markup is the design/fallback and gets spliced out. -->
+
+          <!-- Single size, static line (no size selector) -->
+          <div class="size-line"><strong>450g pouch</strong> &middot; 15 servings</div>
+
+          <!-- Subscribe vs one-time (SUBSCRIBE DEFAULT) -->
+          <div class="purchase-block">
+            <div class="purchase-label">Choose your plan</div>
+            <div class="purchase-options">
+              <div class="pur-opt active" data-mode="sub" onclick="selectPlan(this)">
+                <div class="pur-opt-radio"></div>
+                <div class="pur-opt-info">
+                  <div class="pur-opt-name">Subscribe &amp; save <span class="pur-opt-save">Save 15%</span></div>
+                  <div class="pur-opt-cadence">
+                    <label for="cadenceSelect">Ships every</label>
+                    <select id="cadenceSelect" aria-label="Delivery frequency" onclick="event.stopPropagation()">
+                      <option value="2">2 weeks</option>
+                      <option value="4" selected>4 weeks</option>
+                      <option value="6">6 weeks</option>
+                      <option value="8">8 weeks</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="pur-opt-price">
+                  <div class="pur-opt-price-now">$38.25</div>
+                  <div class="pur-opt-price-was">$45.00</div>
+                  <div class="pur-opt-daily">$2.55/serving &middot; 11.6&cent;/g protein</div>
+                </div>
+              </div>
+              <div class="pur-opt" data-mode="once" onclick="selectPlan(this)">
+                <div class="pur-opt-radio"></div>
+                <div class="pur-opt-info">
+                  <div class="pur-opt-name">One-time purchase</div>
+                  <div class="pur-opt-desc">No commitment</div>
+                </div>
+                <div class="pur-opt-price">
+                  <div class="pur-opt-price-now">$45.00</div>
+                  <div class="pur-opt-daily">$3.00/serving &middot; 13.6&cent;/g protein</div>
+                </div>
+              </div>
+            </div>
+            <ul class="sub-benefits" id="subBenefits">
+              <li>Save 15% on every order</li>
+              <li>Free shipping, no minimum</li>
+              <li>First to try new flavors</li>
+              <li>Skip, change or cancel after 2 deliveries</li>
+            </ul>
+          </div>
+
+          <!-- Pre-order -->
+          <div class="atc-block" id="atc">
+            <button class="atc-btn" onclick="handleATC()">
+              Pre-order now
+              <span class="atc-btn-price" id="atcPrice">$38.25</span>
+            </button>
+            <div class="atc-shipline">Ships by October 30</div>
+          </div>
+        </div>
+        <!-- MUJO_PROTEIN_BUYBOX_END -->
+
+        <!-- Persistent trust row. Lives OUTSIDE the mount so it survives the React splice. -->
+        <div class="atc-trust" style="padding-top:10px;">
+          <div class="atc-trust-item">Third-party tested every batch</div>
+          <div class="atc-trust-item">Woman-owned</div>
+        </div>
+
+        <!-- Prop 65 point-of-sale warning (California, required before purchase) -->
+        <div class="pdp-p65" role="note">
+          <strong>&#9888; WARNING:</strong> Consuming this product can expose you to chemicals including lead, which is known to the State of California to cause birth defects or other reproductive harm. For more information go to <a href="https://www.P65Warnings.ca.gov" target="_blank" rel="noopener">www.P65Warnings.ca.gov</a>.
+        </div>
+
+        <!-- ============================================================
+             ACCORDIONS
+             NOTE: panel is "Nutrition Facts", never "Supplement Facts".
+             Mujo is a conventional food (project_fda_food_classification, LOCKED).
+             Every value below is copied from the printed pouch (vanilla v4, Sep 2026).
+             ============================================================ -->
+        <details class="pdp-acc">
+          <summary>Nutrition Facts</summary>
+          <div class="pdp-acc-body">
+            <table class="nf">
+              <caption>15 servings per pouch &middot; Serving size 2 scoops (30g)</caption>
+              <tbody>
+                <tr class="nf-cal"><th>Calories</th><td>120</td><td></td></tr>
+                <tr class="nf-head"><th></th><td></td><td>% Daily Value*</td></tr>
+                <tr><th><strong>Total Fat</strong> 2.5g</th><td></td><td>3%</td></tr>
+                <tr class="sub"><th>Saturated Fat 1.5g</th><td></td><td>8%</td></tr>
+                <tr class="sub"><th><em>Trans</em> Fat 0g</th><td></td><td></td></tr>
+                <tr><th><strong>Cholesterol</strong> 0mg</th><td></td><td>0%</td></tr>
+                <tr><th><strong>Sodium</strong> 250mg</th><td></td><td>11%</td></tr>
+                <tr><th><strong>Total Carbohydrate</strong> 3g</th><td></td><td>1%</td></tr>
+                <tr class="sub"><th>Dietary Fiber 2g</th><td></td><td>7%</td></tr>
+                <tr class="sub"><th>Total Sugars 0g</th><td></td><td></td></tr>
+                <tr class="sub2"><th>Includes 0g Added Sugars</th><td></td><td>0%</td></tr>
+                <tr class="nf-rule"><th><strong>Protein</strong> 22g</th><td></td><td></td></tr>
+                <tr><th>Vitamin D 0mcg</th><td></td><td>0%</td></tr>
+                <tr><th>Calcium 80mg</th><td></td><td>6%</td></tr>
+                <tr><th>Iron 2mg</th><td></td><td>11%</td></tr>
+                <tr><th>Potassium 35mg</th><td></td><td>1%</td></tr>
+              </tbody>
+            </table>
+            <p class="nf-foot">* The % Daily Value (DV) tells you how much a nutrient in a serving of food contributes to a daily diet. 2,000 calories a day is used for general nutrition advice.</p>
+            <p>Typical amino acid profile per serving: 9.8g essential amino acids, 4.3g BCAAs, 1,940mg leucine.</p>
+          </div>
+        </details>
+
+        <details class="pdp-acc">
+          <summary>Ingredients</summary>
+          <div class="pdp-acc-body">
+            <p>Lemna leaf protein, yellow pea protein, MCT oil powder (coconut MCT, acacia fiber), sea salt, sunflower lecithin, Madagascar vanilla bean, xanthan gum, natural vanillin, monk fruit extract (luo han guo).</p>
+            <p>All ingredients are non-GMO. Vegan, and free from gluten, dairy and soy. No stevia, no sugar alcohols.</p>
+            <p>The MCT oil powder is made from coconut. Made in a facility that also processes peanuts and tree nuts.</p>
+          </div>
+        </details>
+
+        <details class="pdp-acc">
+          <summary>How to use</summary>
+          <div class="pdp-acc-body">
+            <p>Blend two scoops with 10 fl oz (300ml) of cold water or your favorite milk. A blender is what makes it thick and creamy.</p>
+            <p>Add fruit, nut butter, oats or greens if you like.</p>
+          </div>
+        </details>
+
+        <details class="pdp-acc">
+          <summary>Shipping and subscription</summary>
+          <div class="pdp-acc-body">
+            <p>Ships from our US warehouse. This is a pre-order: the first batch ships by October 30, and we'll email you tracking as soon as yours is on its way.</p>
+            <p>Subscribers save 15%, always ship free, and choose delivery every 2, 4, 6 or 8 weeks. Your subscription starts when your first pouch ships. After two deliveries you can skip, pause or cancel from your account.</p>
+          </div>
+        </details>
+
+        <details class="pdp-acc">
+          <summary>30-day money-back guarantee</summary>
+          <div class="pdp-acc-body">
+            <p>If you don't love your first pouch, email <a href="mailto:hello@mujoworld.com">hello@mujoworld.com</a> within 30 days and we'll refund or replace it.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     2 — ICON MARQUEE
+     ICONS: placeholder line icons. Commission a matching set per Icon Guide.
+     ============================================================ -->
+<section class="mq" aria-label="Product credentials">
+  <div class="mq-track">
+    <!-- Track duplicated once for a seamless -50% loop. Keep both copies identical. -->
+    <div class="mq-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4.5-8.5 9.5-9C17 3.7 20 3 20 3s.7 3-.5 6.5C18 15 14.5 19 11 20z"/><path d="M8 17c2-4 5-6 8-7"/></svg>Vegan</div>
+    <div class="mq-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16"/><path d="M6 8h12"/><path d="M8 16h8"/></svg>Gluten-Free</div>
+    <div class="mq-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M6 21c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>Woman Owned</div>
+    <div class="mq-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>Third-Party Tested</div>
+    <div class="mq-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg>Non-GMO</div>
+    <div class="mq-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M6 20V9l6-5 6 5v11"/></svg>American Grown Protein</div>
+
+    <div class="mq-item" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4.5-8.5 9.5-9C17 3.7 20 3 20 3s.7 3-.5 6.5C18 15 14.5 19 11 20z"/><path d="M8 17c2-4 5-6 8-7"/></svg>Vegan</div>
+    <div class="mq-item" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16"/><path d="M6 8h12"/><path d="M8 16h8"/></svg>Gluten-Free</div>
+    <div class="mq-item" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M6 21c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>Woman Owned</div>
+    <div class="mq-item" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>Third-Party Tested</div>
+    <div class="mq-item" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg>Non-GMO</div>
+    <div class="mq-item" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M6 20V9l6-5 6 5v11"/></svg>American Grown Protein</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     3 — INGREDIENTS THAT RAISE THE BAR (3 at a time)
+     ============================================================ -->
+<section class="sec">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow center">Ingredients</span>
+      <h2>Ingredients that <em>raise the bar.</em></h2>
+      <p>Every ingredient is on the pack, in order, and each one has a job.</p>
+    </div>
+
+    <div class="ing-rail">
+      <div class="ingx">
+                <div class="ingx-img" role="img" aria-label="Lemna leaf floating in a clear glass dish of water" style="background:url('/images/responsive/products/protein-powder/ingredient-lemna-leaf-2026-09-800.webp') center/cover no-repeat;"></div>
+        <div class="ingx-tag">Protein</div>
+        <div class="ingx-name">Lemna leaf</div>
+        <ul>
+          <li>Complete protein with all nine essential amino acids</li>
+          <li>Grown on water, doubles about every 48 hours</li>
+          <li>Non-GMO</li>
+        </ul>
+      </div>
+      <div class="ingx">
+                <div class="ingx-img" role="img" aria-label="Dried yellow split peas in a ceramic bowl" style="background:url('/images/responsive/products/protein-powder/ingredient-yellow-pea-2026-09-800.webp') center/cover no-repeat;"></div>
+        <div class="ingx-tag">Protein</div>
+        <div class="ingx-name">Yellow pea</div>
+        <ul>
+          <li>Grown in the American Midwest</li>
+          <li>Non-GMO</li>
+        </ul>
+      </div>
+      <div class="ingx">
+                <div class="ingx-img" role="img" aria-label="Madagascar vanilla pods, sea salt and monk fruit on linen" style="background:url('/images/responsive/products/protein-powder/ingredient-vanilla-2026-09-800.webp') center/cover no-repeat;"></div>
+        <div class="ingx-tag">Flavor</div>
+        <div class="ingx-name">Vanilla, sea salt, monk fruit</div>
+        <ul>
+          <li>Real Madagascar vanilla bean</li>
+          <li>Natural vanillin, made from non-GMO rice bran</li>
+          <li>Sweetened with monk fruit. No stevia, no sugar alcohols</li>
+        </ul>
+      </div>
+      <div class="ingx">
+                <div class="ingx-img" role="img" aria-label="A creamy vanilla shake poured from a blender jug" style="background:url('/images/responsive/products/protein-powder/powder-pour-2026-09-800.webp') center/cover no-repeat;"></div>
+        <div class="ingx-tag">Texture</div>
+        <div class="ingx-name">What makes it creamy</div>
+        <ul>
+          <li>MCT oil powder, from coconut, for a creamy body</li>
+          <li>Sunflower lecithin helps it blend</li>
+          <li>Xanthan gum thickens it</li>
+        </ul>
+      </div>
+    </div>
+    <p class="rail-hint">Scroll for more &rarr;</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     4 — MEET LEMNA LEAF
+     ============================================================ -->
+<section class="sec" style="background:var(--sand);">
+  <div class="container">
+    <div class="lem-grid">
+            <div class="lem-visual" role="img" aria-label="Lemna leaf floating on clear water" style="background:url('/images/responsive/products/protein-powder/ingredient-lemna-leaf-2026-09-800.webp') center/cover no-repeat;"></div>
+      <div class="lem-text">
+        <span class="eyebrow">Meet Lemna leaf</span>
+        <h2>A tiny plant, grown on water.</h2>
+        <p>Lemna leaf is one of the smallest flowering plants on Earth. It floats on the surface of water, doubles about every 48 hours, and carries complete protein. Paired with yellow pea, each serving has <strong>9.8g of essential amino acids and 4.3g of BCAAs.</strong></p>
+      </div>
+    </div>
+
+    <div class="bubbles">
+      <div class="bub"><div class="bub-num">22g</div><div class="bub-lab">Protein</div></div>
+      <div class="bub"><div class="bub-num">0g</div><div class="bub-lab">Sugar</div></div>
+      <div class="bub"><div class="bub-num">120</div><div class="bub-lab">Calories</div></div>
+      <div class="bub"><div class="bub-num">2g</div><div class="bub-lab">Fiber</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     5 — FROM THE FOUNDER (one short quote + video)
+     ============================================================ -->
+<section class="sec fam">
+  <div class="container">
+    <div class="fam-wrap">
+      <span class="eyebrow">From the founder</span>
+      <p class="fam-lead" style="margin-top:14px;">&ldquo;I made this for my sisters. One is celiac and the other has a long list of food intolerances, so most protein powders were off the table for them. I wanted one they could both enjoy.&rdquo; <span style="white-space:nowrap;">Kinga, founder</span></p>
+
+      <!-- VIDEO: founder to camera, warm natural light, 16:10. Hand off to Mux / Vimeo / YouTube in production. -->
+      <div class="fv" onclick="alert('Video: hand off to your video host (Mux / Vimeo / YouTube embed) in production.')">
+        <span class="placeholder-label">Video &middot; founder</span>
+        <span class="fv-play">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </span>
+        <div class="fv-meta">
+          <span class="fv-tag">Kinga &middot; founder</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FULL-BLEED IMAGE BAND — brand world, no copy
+     ============================================================ -->
+<div class="band" role="img" aria-label="The pouch and a shake on a sunlit oak kitchen counter" style="background:url('/images/responsive/products/protein-powder/powder-morning-band-2026-09-1920.webp') center/cover no-repeat;"></div>
+
+<!-- ============================================================
+     6 — REVIEWS (beta testers until batch one ships)
+     ============================================================ -->
+<section class="sec-tight reviews-section">
+  <div class="container">
+    <div class="sec-head">
+      <h2>Reviews</h2>
+      <p>The first batch ships October 30. Here's what our beta testers said.</p>
+    </div>
+
+    <div class="quotes">
+      <div class="quote">
+        <div class="quote-mark">&ldquo;</div>
+        <div class="quote-body">Tastes like cookies and cream.</div>
+        <div class="quote-by">Beta tester</div>
+      </div>
+      <div class="quote">
+        <div class="quote-mark">&ldquo;</div>
+        <div class="quote-body">Most protein powders are way too sweet. This is the perfect sweetness, vanilla level.</div>
+        <div class="quote-by">Beta tester</div>
+      </div>
+      <div class="quote">
+        <div class="quote-mark">&ldquo;</div>
+        <div class="quote-body">I've heard how amazing lemna is, so I'm pleased there's finally a protein powder made from it.</div>
+        <div class="quote-by">Beta tester</div>
+      </div>
+    </div>
+
+    <!-- FTC Endorsement Guides: beta testers received product at no cost, so the
+         material connection is disclosed. Do not remove this line. -->
+    <p class="quote-disc">Beta testers received product free of charge. Verified reviews open once the first batch ships.</p>
+
+    <!-- Loox reviews mount: deferred until the powder has a numeric product ID -->
+  </div>
+</section>
+
+<!-- ============================================================
+     7 — VALUE PACK WITH MUJO RITUAL
+     WIRING: the CTA needs a bundle checkout in the storefront
+     (a bundle Stripe price, or adding both line items).
+     ============================================================ -->
+<section class="sec-tight" style="background:var(--sand);">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow center">Bundle</span>
+      <h2>Pair it with the Ritual.</h2>
+      <p>Have them together or on their own. Save $15 when you buy both.</p>
+    </div>
+    <div class="vp">
+      <div class="vp-photo" role="img" aria-label="The Ritual and Protein Powder pouches with an iced Ritual topped with protein" style="width:100%;max-width:420px;aspect-ratio:1/1;margin:0 auto 22px;border-radius:12px;background:url('/images/responsive/products/protein-powder/powder-iced-ritual-2026-09-1200.webp') center/cover no-repeat;"></div>
+      <div style="font-family:var(--f-display);font-weight:500;font-size:19px;color:var(--ink);">The Complete Ritual</div>
+      <div style="font-family:var(--f-mono);font-size:11.5px;color:var(--ink-soft);margin:8px 0 16px;letter-spacing:.06em;">MUJO RITUAL + PROTEIN POWDER</div>
+      <div style="display:flex;gap:10px;align-items:baseline;justify-content:center;">
+        <span style="font-size:27px;font-weight:500;color:var(--ink);">$95</span>
+        <span style="font-size:15px;color:var(--mute);text-decoration:line-through;">$110</span>
+        <span style="font-family:var(--f-mono);font-size:11px;color:var(--orange-deep);letter-spacing:0.04em;">SAVE $15</span>
+      </div>
+      <button class="atc-btn" data-mujo-action="checkout" data-bundle="ritual-powder" style="margin-top:18px;max-width:320px;">Add the bundle</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     8 — FAQ
+     ============================================================ -->
+<section class="faq-section">
+  <div class="container">
+    <h2>FAQ</h2>
+
+<div class="faq-list">
+      <details class="faq-item">
+        <summary>When does it ship?</summary>
+        <div class="faq-body">It's a pre-order. The first batch ships by October 30. If you subscribe, your subscription starts when your first pouch ships and then renews at the cadence you pick.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Do I need a blender?</summary>
+        <div class="faq-body">Yes. A blender is what makes it thick and creamy. Blend two scoops with 10 oz (300ml) of cold water or milk, then add whatever you like.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Is it a complete protein?</summary>
+        <div class="faq-body">Yes. It has all nine essential amino acids, and every one is above the FAO/WHO reference. Each 22g serving has <strong>9.8g of essential amino acids, 4.3g of BCAAs and 1,940mg of leucine.</strong></div>
+      </details>
+
+      <details class="faq-item">
+        <summary>How long does a pouch last?</summary>
+        <div class="faq-body">Each pouch has 15 servings. If you have one a day, choose delivery every 2 weeks. On subscription it works out at $2.55 a serving, about 11.6&cent; per gram of protein.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>What are the allergens?</summary>
+        <div class="faq-body">It's vegan and free from gluten, dairy and soy. The MCT oil powder is made from coconut, and it's made in a facility that also processes peanuts and tree nuts. If you have an allergy, email us before you order and we'll help.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Can I bake with it?</summary>
+        <div class="faq-body">Yes. Stir it into oats, pancake batter or anything you'd add a powder to. For a drink, it's made for cold liquid in a blender.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>How do I store it?</summary>
+        <div class="faq-body">Keep the pouch sealed in a cool, dry cupboard. No fridge needed. The best-before date is printed on the back.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>What's the subscription commitment?</summary>
+        <div class="faq-body">Two deliveries minimum. After that you can skip, pause, change how often it arrives, or cancel from your account. Subscribers save 15% and always ship free.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Is it tested for heavy metals?</summary>
+        <div class="faq-body">Yes. Every batch is third-party tested for heavy metals and microbes. The pouch carries a California Prop 65 warning.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Is there a chocolate flavor?</summary>
+        <div class="faq-body">Chocolate is next. Vanilla comes first.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FINAL CTA
+     ============================================================ -->
+<section class="finalcta">
+  <div class="container">
+    <span class="eyebrow">Pre-order</span>
+    <h2>Be one of the first to try it.</h2>
+    <p>$45 one-time, or $38.25 when you subscribe, with free shipping. Ships by October 30.</p>
+    <a href="#top" class="finalcta-btn">
+      Pre-order now
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+    </a>
+  </div>
+</section>
+
+
+
+
+<!-- ============================================================
+     STICKY MOBILE ATC
+     ============================================================ -->
+<!-- MUJO_PROTEIN_STICKY_ATC_START -->
+<div class="sticky-atc" id="stickyAtc" data-mujo-mount="powder-sticky-atc">
+  <div class="sticky-atc-info">
+    <div class="sticky-atc-name">MUJO Protein Powder &middot; Vanilla</div>
+    <div class="sticky-atc-price" id="stickyPrice">Subscribe &middot; $38.25 &middot; ships free</div>
+  </div>
+  <button class="sticky-atc-btn" onclick="handleATC()">Pre-order</button>
+</div>
+<!-- MUJO_PROTEIN_STICKY_ATC_END -->
+
+<script>
+// ===== Chrome: menu + cart =====
+const PRICES = { 'powder-vanilla': 45, 'ritual-25': 55.25, 'ritual-10': 27 };
+const NAMES = { 'powder-vanilla': 'MUJO Protein Powder · Vanilla', 'ritual-25': 'Mujo Ritual · 25 servings', 'ritual-10': 'Mujo Ritual · 10 servings' };
+let cart = {};
+function openMenu() { document.getElementById('mobileMenu').classList.add('open'); document.getElementById('overlay').classList.add('open'); document.body.classList.add('locked'); }
+function closeMenu() { document.getElementById('mobileMenu').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); if (!document.getElementById('cartDrawer').classList.contains('open')) document.body.classList.remove('locked'); }
+function openCart() { document.getElementById('cartDrawer').classList.add('open'); document.getElementById('overlay').classList.add('open'); document.body.classList.add('locked'); }
+function closeCart() { document.getElementById('cartDrawer').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); if (!document.getElementById('mobileMenu').classList.contains('open')) document.body.classList.remove('locked'); }
+function closeAll() { closeMenu(); closeCart(); }
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAll(); });
+window.addEventListener('scroll', () => { const nav = document.getElementById('nav'); if (window.scrollY > 8) nav.classList.add('scrolled'); else nav.classList.remove('scrolled'); });
+function updateQtyCart(id, delta) { cart[id] = Math.max(0, (cart[id] || 0) + delta); if (cart[id] === 0) delete cart[id]; renderCart(); }
+function removeItem(id) { delete cart[id]; renderCart(); }
+function getSubtotal() { return Object.entries(cart).reduce((s, [id, q]) => s + (PRICES[id] || 0) * q, 0); }
+function getCount() { return Object.values(cart).reduce((s, q) => s + q, 0); }
+function fmt(n) { return '$' + (Math.round(n * 100) / 100).toFixed(n % 1 === 0 ? 0 : 2); }
+function renderCart() {
+  const subtotal = getSubtotal(); const count = getCount();
+  const remaining = Math.max(0, 100 - subtotal); const pct = Math.min(100, (subtotal / 100) * 100);
+  document.getElementById('cartHeadCount').textContent = count + (count === 1 ? ' item' : ' items');
+  const badge = document.getElementById('cartCount');
+  if (count === 0) badge.classList.add('hidden'); else { badge.classList.remove('hidden'); badge.textContent = count; }
+  const fill = document.getElementById('progressFill'); const msg = document.getElementById('progressMsg');
+  fill.style.width = pct + '%';
+  if (count === 0) { fill.classList.remove('full'); msg.innerHTML = 'Free shipping at <strong>$100</strong>.'; }
+  else if (remaining <= 0) { fill.classList.add('full'); msg.innerHTML = '<strong>Free shipping</strong> unlocked. Nice work.'; }
+  else { fill.classList.remove('full'); msg.innerHTML = '<span class="accent">' + fmt(remaining) + '</span> away from <strong>free shipping</strong>.'; }
+  const body = document.getElementById('cartBody'); body.innerHTML = '';
+  if (count === 0) { body.innerHTML = '<div class="cart-empty"><div class="cart-empty-illo">Empty</div><h3>Nothing in here yet.</h3><p>Pre-order the powder above, or start with the Mujo Ritual.</p><a href="/shop">Browse the shop &rarr;</a></div>'; }
+  else { Object.entries(cart).forEach(([id, qty]) => { const row = document.createElement('div'); row.className = 'cart-item'; row.innerHTML = '<div class="cart-item-img">Pouch</div><div class="cart-item-info"><div class="cart-item-name">' + NAMES[id] + '</div><div class="cart-item-variant">' + (bstate.mode === 'sub' && id === 'powder-vanilla' ? 'Subscribe · every ' + bstate.cadence + ' weeks' : 'One-time') + '</div><div class="cart-item-controls"><button class="qty-btn" onclick="updateQtyCart(\'' + id + '\',-1)">&minus;</button><span class="qty-val">' + qty + '</span><button class="qty-btn" onclick="updateQtyCart(\'' + id + '\',1)">+</button></div></div><div class="cart-item-meta"><div class="cart-item-price">' + fmt(PRICES[id]*qty) + '</div><button class="cart-item-remove" onclick="removeItem(\'' + id + '\')">Remove</button></div>'; body.appendChild(row); }); }
+  document.getElementById('subtotalDisplay').textContent = count === 0 ? '$0' : fmt(subtotal);
+  document.getElementById('shippingDisplay').textContent = (remaining <= 0 && count > 0) ? 'Free' : 'Calculated at checkout';
+  document.getElementById('totalDisplay').textContent = count === 0 ? '$0' : fmt(subtotal);
+}
+function checkout() { alert('Checkout: hand off to Stripe checkout in production.'); }
+
+// ===== Gallery =====
+function setMain(thumb) {
+  document.querySelectorAll('.pdp-thumb').forEach(t => t.classList.remove('active'));
+  thumb.classList.add('active');
+  document.querySelector('.gallery-main-img').src = thumb.dataset.full;
+}
+
+// ===== Buy box (static fallback; React portal replaces in production) =====
+let bstate = { mode: 'sub', cadence: '4' };
+const BUYBOX = { sub: 38.25, once: 45.00 };
+function fmtPrice(n) { return '$' + n.toFixed(2); }
+function selectPlan(el) {
+  document.querySelectorAll('.pur-opt').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  bstate.mode = el.dataset.mode;
+  document.getElementById('subBenefits').classList.toggle('hide', bstate.mode !== 'sub');
+  updateBuyPrice();
+}
+const cadSel = document.getElementById('cadenceSelect');
+if (cadSel) { cadSel.addEventListener('change', () => { bstate.cadence = cadSel.value; }); }
+function updateBuyPrice() {
+  const p = BUYBOX[bstate.mode];
+  document.getElementById('atcPrice').textContent = fmtPrice(p);
+  document.getElementById('stickyPrice').textContent = (bstate.mode === 'sub' ? 'Subscribe · ' + fmtPrice(p) + ' · ships free' : 'One-time · ' + fmtPrice(p));
+}
+function handleATC() {
+  cart['powder-vanilla'] = (cart['powder-vanilla'] || 0) + 1;
+  renderCart();
+  openCart();
+}
+
+// ===== Sticky mobile ATC: show after hero scrolls past =====
+const hero = document.getElementById('top');
+const sticky = document.getElementById('stickyAtc');
+if (hero && sticky && 'IntersectionObserver' in window) {
+  new IntersectionObserver((entries) => {
+    entries.forEach(e => { sticky.classList.toggle('show', !e.isIntersecting && e.boundingClientRect.top < 0); });
+  }, { threshold: 0 }).observe(hero);
+}
+
+// ===== Reveal on scroll =====
+if ('IntersectionObserver' in window) {
+  const ro = new IntersectionObserver((entries, obs) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+} else {
+  document.querySelectorAll('.reveal').forEach(el => el.classList.add('on'));
+}
+
+renderCart();
+updateBuyPrice();
+</script>
+
+</body>
+</html>

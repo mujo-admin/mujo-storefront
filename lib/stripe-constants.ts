@@ -49,6 +49,53 @@ export const RITUAL_PRICE_IDS = {
     process.env.NEXT_PUBLIC_RITUAL_PRICE_25_SUBSCRIPTION_12W ?? "", // every 12 weeks
 } as const;
 
+// Protein Powder (Vanilla Bean, 450g / 15 servings). $45 one-time; subscriptions
+// $38.25 (retail × 0.85, baked into the Price like the Ritual) every 2/4/6/8 weeks.
+// Created Stripe-only by scripts/create-protein-prices.mjs.
+export const PROTEIN_PRICE_IDS = {
+  onetime: process.env.NEXT_PUBLIC_PROTEIN_PRICE_ONETIME ?? "",
+  "sub-2wk": process.env.NEXT_PUBLIC_PROTEIN_PRICE_SUB_2W ?? "",
+  "sub-4wk": process.env.NEXT_PUBLIC_PROTEIN_PRICE_SUB_4W ?? "",
+  "sub-6wk": process.env.NEXT_PUBLIC_PROTEIN_PRICE_SUB_6W ?? "",
+  "sub-8wk": process.env.NEXT_PUBLIC_PROTEIN_PRICE_SUB_8W ?? "",
+} as const;
+export type ProteinCadence = "2wk" | "4wk" | "6wk" | "8wk";
+
+// Pre-order (Kinga 2026-09-30): one-time buyers pay at checkout; subscribers
+// save their card and are FIRST charged when the first batch ships. The
+// subscription is created with trial_end at this moment, so the first real
+// invoice lands on ship day. Stripe needs trial_end ≥ 48h in the future, so the
+// pre-order window closes automatically 2 days before (checkout falls back to
+// charging immediately once the date is too close or has passed).
+export const PROTEIN_PREORDER_CHARGE_AT = 1793372400; // 2026-10-30 15:00 UTC
+export const PROTEIN_PREORDER_SHIP_LABEL = "October 30";
+
+/** True if this Price ID is any Protein Powder subscription Price. */
+export function isProteinSubscriptionPrice(id: string): boolean {
+  if (!id) return false;
+  return (
+    [
+      PROTEIN_PRICE_IDS["sub-2wk"],
+      PROTEIN_PRICE_IDS["sub-4wk"],
+      PROTEIN_PRICE_IDS["sub-6wk"],
+      PROTEIN_PRICE_IDS["sub-8wk"],
+    ] as string[]
+  ).includes(id);
+}
+
+/** True if this Price ID is any Ritual subscription Price (gates the frother gift). */
+export function isRitualSubscriptionPrice(id: string): boolean {
+  if (!id) return false;
+  return (
+    [
+      RITUAL_PRICE_IDS["25-subscription"],
+      RITUAL_PRICE_IDS["25-subscription-6wk"],
+      RITUAL_PRICE_IDS["25-subscription-8wk"],
+      RITUAL_PRICE_IDS["25-subscription-12wk"],
+    ] as string[]
+  ).includes(id);
+}
+
 export type RitualSize = "10" | "25";
 export type RitualPlan = "onetime" | "subscription";
 /** Subscription cadence. Picked in the PDP subscribe box; changeable in account. */

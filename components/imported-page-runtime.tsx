@@ -149,6 +149,11 @@ const SIGNUP_FORMS: Record<
     source: "Lemna waitlist",
     success: "You're on the founding-member list. Watch your inbox.",
   },
+  "protein-waitlist": {
+    list: "rebel_club",
+    source: "Protein powder page",
+    success: "You're in. Your 10% code is on its way to your inbox.",
+  },
 };
 
 /**
