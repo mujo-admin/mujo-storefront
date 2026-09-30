@@ -1397,22 +1397,10 @@ body.locked { overflow: hidden; }
   <div class="container">
     <div class="filter-inner">
       <span class="filter-label">Select product:</span>
-      <label for="product-ritual" class="filter-pill">Ritual Cacao</label>
+      <label for="product-ritual" class="filter-pill">The Ritual</label>
       <label for="product-lemna" class="filter-pill">Lemna Protein Bars</label>
     </div>
-    <div class="filter-inner filter-inner-benefits">
-      <span class="filter-label">Filter by benefit:</span>
-      <label for="benefit-all" class="filter-pill benefit-pill">All</label>
-      <label for="benefit-brain" class="filter-pill benefit-pill">Brain health</label>
-      <label for="benefit-focus" class="filter-pill benefit-pill">Focus</label>
-      <label for="benefit-energy" class="filter-pill benefit-pill">Energy</label>
-      <label for="benefit-stress" class="filter-pill benefit-pill">Stress</label>
-      <label for="benefit-resilience" class="filter-pill benefit-pill">Resilience</label>
-      <label for="benefit-calm" class="filter-pill benefit-pill">Calm</label>
-      <label for="benefit-gut" class="filter-pill benefit-pill">Gut support</label>
-      <label for="benefit-immune" class="filter-pill benefit-pill">Immune</label>
-      <label for="benefit-metabolism" class="filter-pill benefit-pill">Metabolism</label>
-    </div>
+    <!-- Benefit filter removed 2026-09-30: "Brain health / Gut support / Immune / Metabolism" are claims a conventional food can't make. -->
   </div>
 </div>
 
@@ -1456,23 +1444,6 @@ body.locked { overflow: hidden; }
 
     <div class="ing-grid">
 
-      <!-- ═══════ HERO INGREDIENT: Turmeric Extract ═══════ -->
-      <div class="ing-card reveal" data-benefits="brain focus stress resilience">
-        <div class="ing-img" style="background-image: url('/images/responsive/ingredients/turmeric-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
-        <div class="ing-content">
-          <div class="ing-top">
-            <div class="ing-name">Turmeric Extract</div>
-            <div class="ing-badge">Unique to Mujo</div>
-          </div>
-          <div class="ing-latin">Curcuma longa · Solid-lipid particle (SLCP)</div>
-          <div class="ing-pills">
-            <span class="ing-pill">Bioavailable</span>
-            <span class="ing-pill">Curcuminoids</span>
-          </div>
-          <div class="ing-desc">Standard curcumin is poorly absorbed. The bioavailable form we use is chosen for how much better the body takes it up, and it adds a warm, golden note to the cup. Few brands in the mushroom-cacao category use it, because it costs roughly 10x more than standard curcumin.</div>
-        </div>
-      </div>
-
       <!-- Lion's Mane -->
       <div class="ing-card reveal d1" data-benefits="brain focus">
         <div class="ing-img" style="background-image: url('/images/responsive/ingredients/lions-mane-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
@@ -1481,7 +1452,7 @@ body.locked { overflow: hidden; }
             <div class="ing-name">Lion's Mane</div>
             <div class="ing-badge sage">FB 8:1</div>
           </div>
-          <div class="ing-latin">Hericium erinaceus · Fruiting body only</div>
+          <div class="ing-latin">Hericium erinaceus · Fruiting body</div>
           <div class="ing-pills">
             <span class="ing-pill">Focus</span>
             <span class="ing-pill">Fruiting body</span>
@@ -1497,14 +1468,14 @@ body.locked { overflow: hidden; }
         <div class="ing-content">
           <div class="ing-top">
             <div class="ing-name">L-theanine</div>
-            <div class="ing-badge sage">200mg</div>
+            <div class="ing-badge sage">150mg</div>
           </div>
           <div class="ing-latin">The amino acid found in green tea</div>
           <div class="ing-pills">
             <span class="ing-pill">Calm focus</span>
-            <span class="ing-pill">200mg</span>
+            <span class="ing-pill">150mg</span>
           </div>
-          <div class="ing-desc">The amino acid green tea drinkers have quietly relied on for centuries. <strong>200mg per serving, named openly, never hidden in a blend.</strong> It sits alongside the cacao's small amount of caffeine, which is how the cup stays calm.</div>
+          <div class="ing-desc">The amino acid green tea drinkers have quietly relied on for centuries. <strong>150mg per serving, named openly, never hidden in a blend.</strong> It sits alongside the cacao's small amount of caffeine, which is how the cup stays calm.</div>
         </div>
       </div>
 
@@ -1578,23 +1549,6 @@ body.locked { overflow: hidden; }
         </div>
       </div>
 
-      <!-- Bacopa Monnieri -->
-      <div class="ing-card reveal d1" data-benefits="brain focus calm">
-        <div class="ing-img" style="background-image: url('/images/responsive/ingredients/bacopa-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
-        <div class="ing-content">
-          <div class="ing-top">
-            <div class="ing-name">Bacopa Monnieri</div>
-            <div class="ing-badge sage">55% bacosides</div>
-          </div>
-          <div class="ing-latin">Bacopa monnieri · Leaf extract</div>
-          <div class="ing-pills">
-            <span class="ing-pill">Focus</span>
-            <span class="ing-pill">Bacosides</span>
-          </div>
-          <div class="ing-desc">Standardised to 55% bacosides. A traditional Ayurvedic botanical the tradition called "Brahmi," used for centuries. <strong>It works slowly and gently</strong>, which is why it pairs naturally with lion's mane.</div>
-        </div>
-      </div>
-
       <!-- Cacao -->
       <div class="ing-card reveal d2" data-benefits="energy calm brain">
         <div class="ing-img" style="background-image: url('/images/responsive/ingredients/cacao-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
@@ -1626,7 +1580,7 @@ body.locked { overflow: hidden; }
             <span class="ing-pill">Natural sweetness</span>
             <span class="ing-pill">Fiber</span>
           </div>
-          <div class="ing-desc">Mediterranean carob adds <strong>natural sweetness without added sugar or sweeteners</strong>, soluble fiber for gut support, and depth to the cacao's richness. Caffeine-free by nature (carob is often used as a cacao alternative for those sensitive to stimulants). Mujo uses both together because the flavor profiles complement rather than compete.</div>
+          <div class="ing-desc">Mediterranean carob adds <strong>a natural, roasted sweetness</strong> and depth to the cacao's richness. It has no caffeine of its own, which is why carob has long been used as a gentler stand-in for cacao and coffee. Mujo uses both together because the flavor profiles complement rather than compete.</div>
         </div>
       </div>
 
@@ -1643,24 +1597,7 @@ body.locked { overflow: hidden; }
             <span class="ing-pill">Coconut-derived</span>
             <span class="ing-pill">Creaminess</span>
           </div>
-          <div class="ing-desc">C8 and C10 medium-chain triglycerides from coconut. The creaminess you taste in Mujo comes partly from the MCT powder. Unlike liquid MCT, the powder form won't break the emulsion or cause GI discomfort at sensible doses.</div>
-        </div>
-      </div>
-
-      <!-- Tapioca Fiber -->
-      <div class="ing-card reveal d2" data-benefits="gut metabolism">
-        <div class="ing-img" style="background-image: url('/images/responsive/ingredients/tapioca-fiber-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
-        <div class="ing-content">
-          <div class="ing-top">
-            <div class="ing-name">FiberSmart™ Tapioca Fiber</div>
-            <div class="ing-badge sage">Premium prebiotic</div>
-          </div>
-          <div class="ing-latin">Soluble prebiotic fiber from tapioca</div>
-          <div class="ing-pills">
-            <span class="ing-pill">Prebiotic fiber</span>
-            <span class="ing-pill">Texture</span>
-          </div>
-          <div class="ing-desc"><strong>A premium tapioca fiber</strong>, a soluble prebiotic fiber that gives the Ritual its smooth, clump-free texture. Gentler than chicory root or inulin for most people. We use the branded form because quality and consistency matter at the batch level.</div>
+          <div class="ing-desc">C8 and C10 medium-chain triglycerides from coconut. The creaminess you taste in Mujo comes partly from the MCT powder. Carried on acacia fiber, the powder form won't break the emulsion the way liquid MCT can, or cause GI discomfort at sensible doses.</div>
         </div>
       </div>
 
@@ -1669,15 +1606,15 @@ body.locked { overflow: hidden; }
         <div class="ing-img" style="background-image: url('/images/responsive/ingredients/maca-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
         <div class="ing-content">
           <div class="ing-top">
-            <div class="ing-name">Gelatinized Maca</div>
+            <div class="ing-name">Gelatinized Black Maca</div>
             <div class="ing-badge sage">Peruvian root</div>
           </div>
-          <div class="ing-latin">Lepidium meyenii · Root · Gelatinized</div>
+          <div class="ing-latin">Lepidium meyenii · Black root · Gelatinized</div>
           <div class="ing-pills">
             <span class="ing-pill">Energy</span>
             <span class="ing-pill">Gelatinized</span>
           </div>
-          <div class="ing-desc">Peruvian maca root, <strong>gelatinized for easier digestion</strong>, then milled to a fine powder. Traditionally used by Andean populations at high altitude. A gentle, malty note in the cup.</div>
+          <div class="ing-desc">Peruvian black maca root, <strong>gelatinized for easier digestion</strong>, then milled to a fine powder. Traditionally used by Andean populations at high altitude. A gentle, malty note in the cup.</div>
         </div>
       </div>
 
@@ -1698,20 +1635,36 @@ body.locked { overflow: hidden; }
         </div>
       </div>
 
-      <!-- Allspice -->
+      <!-- Ginger -->
       <div class="ing-card reveal d2" data-benefits="gut immune">
         <div class="ing-img" style="background-image: url('/images/responsive/ingredients/ginger-allspice-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
         <div class="ing-content">
           <div class="ing-top">
-            <div class="ing-name">Allspice &amp; Ginger</div>
+            <div class="ing-name">Ginger</div>
             <div class="ing-badge sage">Whole spice</div>
           </div>
-          <div class="ing-latin">Pimenta dioica · Zingiber officinale</div>
+          <div class="ing-latin">Zingiber officinale · Root</div>
           <div class="ing-pills">
             <span class="ing-pill">Warming spice</span>
             <span class="ing-pill">Depth</span>
           </div>
-          <div class="ing-desc">Whole allspice and fresh-dried ginger round out the Ritual's flavor profile. Allspice brings notes of clove, cinnamon, and nutmeg. Ginger brings gentle warmth and traditional digestive support. <strong>Every spice is whole-ingredient, never "natural flavors."</strong></div>
+          <div class="ing-desc">Dried ginger rounds out the Ritual's flavor with a gentle warmth under the cacao and cinnamon. <strong>Every spice is whole-ingredient, never "natural flavors."</strong></div>
+        </div>
+      </div>
+
+      <!-- Monk Fruit -->
+      <div class="ing-card reveal d2" data-benefits="">
+        <div class="ing-img" style="background-image: url('/images/responsive/ingredients/monk-fruit-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
+        <div class="ing-content">
+          <div class="ing-top">
+            <div class="ing-name">Monk Fruit</div>
+            <div class="ing-badge sage">Sweetener</div>
+          </div>
+          <div class="ing-latin">Siraitia grosvenorii · Luo han guo</div>
+          <div class="ing-pills">
+            <span class="ing-pill">No sugar alcohols</span>
+          </div>
+          <div class="ing-desc">A small green melon from southern China, dried and extracted. <strong>A little goes a long way</strong>, just enough to round the cacao into a smooth mocha, with no sugar alcohols and nothing artificial.</div>
         </div>
       </div>
 
@@ -1763,14 +1716,14 @@ body.locked { overflow: hidden; }
 
     <div class="principles">
       <div class="principle reveal">
-        <div class="principle-num">01 / Fruiting body only</div>
+        <div class="principle-num">01 / Never mycelium on grain</div>
         <div class="principle-h">The correct part of the mushroom.</div>
-        <div class="principle-b">A mushroom has two parts: the <strong>mycelium</strong>, the underground root network, and the <strong>fruiting body</strong>, the cap that pushes above ground. The bioactive compounds people have eaten mushrooms for thousands of years to access, the beta-glucans, the triterpenes, the cordycepin, sit in the fruiting body. Most mushroom coffees use mycelium grown on sterilized oats or sorghum, then mill the whole substrate, oats included. The result is mostly starch with trace actives. <strong>Mujo uses fruiting body extracts only</strong>, dual-extracted at 8:1 concentration, with beta-glucans verified each batch.</div>
+        <div class="principle-b">A mushroom has two parts: the <strong>mycelium</strong>, the underground root network, and the <strong>fruiting body</strong>, the cap that pushes above ground. The bioactive compounds people have eaten mushrooms for thousands of years to access, the beta-glucans, the triterpenes, the cordycepin, sit in the fruiting body. Most mushroom coffees use mycelium grown on sterilized oats or sorghum, then mill the whole substrate, oats included. The result is mostly starch with trace actives. <strong>Mujo uses whole-mushroom extracts, never mycelium on grain</strong>: lion's mane, cordyceps and chaga dual-extracted at 8:1, golden oyster at 1:1, with beta-glucans verified each batch.</div>
       </div>
       <div class="principle reveal d1">
         <div class="principle-num">02 / The right form, the real thing</div>
-        <div class="principle-h">Not kitchen-quality curcuma.</div>
-        <div class="principle-b">When we built this blend, we reached for the best form of each ingredient, so the active compounds are actually there and your body can take them up. A bioavailable form of curcumin, premium-standardised panax ginseng, fruiting-body mushrooms, every choice is about quality and form, not a number on a label. <strong>The cheap version of the same plant rarely makes the same cup.</strong> And we'll always be straight about what's in here and why we chose it.</div>
+        <div class="principle-h">Not the cheap version.</div>
+        <div class="principle-b">When we built this blend, we reached for the best form of each ingredient, so the active compounds are actually there and your body can take them up. Premium-standardised panax ginseng, L-theanine from green tea, whole-mushroom extracts, every choice is about quality and form, not a number on a label. <strong>The cheap version of the same plant rarely makes the same cup.</strong> And we'll always be straight about what's in here and why we chose it.</div>
       </div>
       <div class="principle reveal d2">
         <div class="principle-num">03 / Sustainability matters</div>

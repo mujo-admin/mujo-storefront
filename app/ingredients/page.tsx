@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { ImportedPage } from "components/imported-page";
 
 export const metadata: Metadata = {
-  title: "Ingredients · Mujo · What's inside, and why",
+  title: "Ingredients · What's Inside the Ritual",
   description:
-    "The Mujo ingredient dossier. Lion's mane, cordyceps, chaga, golden oyster, panax ginseng, L-theanine and turmeric extract. Every ingredient named openly, never hidden in a blend.",
+    "Every ingredient in the Ritual, named openly: organic lion's mane, chaga, cordyceps and golden oyster, L-theanine, panax ginseng, cacao and carob.",
   alternates: { canonical: "/ingredients" },
 };
 

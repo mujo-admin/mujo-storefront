@@ -152,20 +152,8 @@ function BuyBox({
       <div className="size-block">
         <div className="size-label">Size</div>
         <div className="size-options">
-          <div
-            className={`size-opt${size === "10" ? " active" : ""}`}
-            onClick={() => setSize("10")}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) =>
-              (e.key === "Enter" || e.key === " ") && setSize("10")
-            }
-          >
-            <div className="size-opt-top">
-              <div className="size-opt-count">10 servings</div>
-            </div>
-            <div className="size-opt-price">$27.00</div>
-          </div>
+          {/* 10-serving pouch retired with the 2026 recipe; its price-map
+              entry stays so carts saved before the change still resolve. */}
           <div
             className={`size-opt${size === "25" ? " active" : ""}`}
             onClick={() => setSize("25")}
@@ -361,7 +349,7 @@ function StickyAtc({ size, plan, onAddToCart, pending, shown }: Shared) {
   return (
     <div className={`sticky-atc${shown ? " show" : ""}`} id="stickyATC">
       <div className="sticky-atc-info">
-        <div className="sticky-atc-name">Mujo Ritual · {size} servings</div>
+        <div className="sticky-atc-name">The Ritual · {size} servings</div>
         <div className="sticky-atc-price" id="stickyATCPrice">
           {formatStickyLine(size, plan)}
         </div>
