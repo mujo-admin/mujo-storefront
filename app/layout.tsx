@@ -11,12 +11,12 @@ import { hanken } from "./fonts";
 import { getSession } from "lib/session";
 import { baseUrl } from "lib/utils";
 
-const { SITE_NAME } = process.env;
+const SITE_NAME = "Mujo";
 
 export const metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: SITE_NAME!,
+    default: SITE_NAME,
     template: `%s | ${SITE_NAME}`,
   },
   robots: {
