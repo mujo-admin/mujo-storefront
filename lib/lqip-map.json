@@ -299,6 +299,18 @@
     "height": 1744,
     "color": "#a89888"
   },
+  "lifestyle/ritual-protein-cold-foam-hero-2026-10-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/APPlxNvEp9W9pfzixP/px9nGqrqpj7OkjgDLsprIq5HBpYjQtpjo3sq01+erzeCw0uYA1Ytrz62RxauQy62R1si5coiyu9rtudjsAOGNaMiegcKskcWoidHBrXKJr7bY6bTU5QDvtJTElHO9nX2ylHbXwqdyh62sy9ygvtAA8Jpzw5Bqvotr//na572Rl5qgkazEeZWvAPu8kapzTZxnQdCXZpFdLndjV4OVo3aHlAD90aPzvYrco3J7NQg9BQBiOhukdk+cbEMA8MSe3Kp/3qh3bTQQKgAAbEYmp3hOlWZBAO7Eoe7ClPfElOOobsKJUKt3SKd4TphrRQKLlnyqQr59AAAAAElFTkSuQmCC",
+    "width": 1792,
+    "height": 2240,
+    "color": "#98b8c8"
+  },
+  "lifestyle/ritual-protein-flatlay-duo-2026-10-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/AObMrcqykc2ykb2jgJ6FYpN5W4duUH5lRwD85Mfp0rPbxKfGsZKxtKyTkoiPiXyBdWEA6NW7897H//HawbKbn7nXwuLys9Xka36BAOe7m++yj//97KeVfn+Uvc7r+7va7EdRUgDqy6z0vp/+7th7bFqOp83F5PeMqsQ0OzgA5syt9LKS8L6fa1A6h53Fm7nQYX6ZLS8vAMSmh7OJaHFZOVg/IX5wW0VAMyoqISIYAADoyqNVNh2UeFLIq4nNspF2XTt0Wjo5JAgAmnhRVDoamX9heVg2IwAAKhUAb1U1jmg0AEszEVM7HHBXO8mui2JJJzonBGBFIYpuSpQ4gJfOVS72AAAAAElFTkSuQmCC",
+    "width": 1792,
+    "height": 2240,
+    "color": "#c8b898"
+  },
   "lifestyle/ritual-rebel-club-journal-editorial-4x3.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/APTct+7VsOfKpP/syPTexNvEqLujiGVMK1VAHkg0FgD33rnr0K3JqoHszqrfpYPz3Mm9qJJ2XzhiSShPOhwAjXBK2b6atJdup4li3aB77NG5lYRqblYyXkclTDYYAN3Eo9vAoOPHo93An96jhefIq4VrTIllQW1VNkMxFgDly67Supvfyqr/7M7Vr5HkxafLr5COcU4jBABNOiEA+Nq8//vi/enKc2JH//TZoohp7dWzp45sIg8AHgMAAO3RtMqqjVM7HCwWAGNKKpuAYtG2lsSqibWdfpiBYpu+eN4uHc/aAAAAAElFTkSuQmCC",
     "width": 2336,
@@ -664,6 +676,102 @@
     "width": 2048,
     "height": 2048,
     "color": "#c8b8a8"
+  },
+  "products/protein-powder/ingredient-lemna-leaf-2026-09.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/AP/y2P/53v/z2PPZvsyymaGFbndYPF07FVQ0D108GwD/+t//+dr/787nyq21mYCbf2ZyVjo7HwAlAgAjAAAA//PY/+fK+Ny90cCFt61Xq6NBqJtHsJ1kaU0tQCYLAP/nzfjYucath8G9VLOuSa6tRbarX6ufS6CGX25SNwD01rnOrY3IrYby4rvPv3i3r1aro0vFtoTy1a/y1bIA9Na7//HYt5Fo07CJ8NSpvqR2wKd679S0+Ni57s+wAKmCZdW0lf/nzYhfOLSPa//fwP/kxPjYufjYufvbvb/Ph4mtIj9yAAAAAElFTkSuQmCC",
+    "width": 2336,
+    "height": 1744,
+    "color": "#e8c8b8"
+  },
+  "products/protein-powder/ingredient-vanilla-2026-09.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/AP/ovNu0itSqfX9ZNF07GlQ1FVc9IWlPNFxCJVtAJgD/367/67ftwI+ugFjNr5LWwarax7DWw63k0bzdxq8A8caZ0ad+yaR8/+zE/+zOsp+E9eDI//bWuZ5+hHJXAP/wvb2Ta494YyEPAMSqj8irj1I8JE80FisJAB4AAADEmG3ov5j/7NPKsplGMyMsHg6wl3ytln1sVTxgSzYAsoVcnXROQSkPf2JIp4120rabVkIwq5N++9/E/eXLANWoeZRnP4VXLWY9F0UkAFs/I4hsU6+Udr2iiLKbglV4cJPQ6g7MAAAAAElFTkSuQmCC",
+    "width": 2336,
+    "height": 1744,
+    "color": "#a89888"
+  },
+  "products/protein-powder/ingredient-yellow-pea-2026-09.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/AP/66s62n5d6YEIoDkAoEUcuF6OJc7KXfbOcgaeReQDx386CZkyUcE2sg16ac1CUa0OSbUqHZkWGZkqEaE4AYEYrhmVH/+Cv//TE1pxV/9h4voE56L2Kj25Mck8vAJR0VdGphe3AlP/Tp//LktiaUax3PI9pO8SXbYFcOQC0knKyi2jLn3Xst4T+z5yLaENaPR4lDwArFQA8JQ0AvZd32rKM88OW7rl91aBoqn1SLBMAHwAAJg4AKBMAANWwkJZ3XpR2WaqDXqp/VsWXasKPX5RwSV08HkAoEdk9Zuc9UkNvAAAAAElFTkSuQmCC",
+    "width": 2336,
+    "height": 1744,
+    "color": "#785838"
+  },
+  "products/protein-powder/powder-iced-ritual-2026-09.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+ANrAm/PZsujOsLykhbCWfMegf8KNapBhPZ98W4tlRQCTgFzVxavbzre9rZbHspjkxaSrgVaff13ApYi/p4gAjJCJb4meeJalaoiXjJCJvKSFx6mHza2Mz6+RwKWHAJCLkkNagI2suoCfrZublbyhgtemht+siNvCpbufggB9eIVGWn2Oqrd+laD/99W7kmnNk23en3zexa2zmX8AbWd5R1d5cYeVT19x47aKZjkPtohj1pVvzq+Uo4VoAJeUp0xacjtLXDxEUJxmNDEAALl/VMeAWKlnRoFUMACDbFpdPiNrQyGCWTRAEQAHAACvf0+nckSOYjttRBsAa1A4gV09r4FTuoNURyIEKAAAXTQNb0EVhVQmi1spAH5YOmpJLKJ1StifaNKZYKt3RIdWKGA3EF81DmY8EkYWlJzIzGhFAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#b8a888"
+  },
+  "products/protein-powder/powder-kitchen-island-2026-09.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/AP/9zcOsi8SulXBUN2BFJU0yFDghADMfAD4nADUhAAD/7sC7s6KMqbR/mKWDn613m61HLhJaQCFbQR81HwAA/e3OcWttDipOjq3Bl7nIlbTEV0YyfGJEZEooVzwXAIhsTQkCI0FYd3eRqZi0wo6tvoZ/caqHV6OCWjogAAC7nHcZFzU3SmZcdo1shptofZOnm4ykhFmRbUNGJAAA4MGdGRc1EihIXHSFOVBlMkddi31qfVsyh180e1xAANi2lOXFpKiRdWhJKkgkADYPADwXAEwkAFMoAEEYADPRVJU0lrY6AAAAAElFTkSuQmCC",
+    "width": 2336,
+    "height": 1744,
+    "color": "#98b8c8"
+  },
+  "products/protein-powder/powder-landing-hero-2026-09.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/APjp0f/23eHPt7uokbWeibSehbCZgaqUeQD/7tLl5t7K09CnqqepqaSto5atln6mkHMA//vkqsPSpcvgn8nfmsPYl6yxq5R8pIpxANS9n3OGq5a21avR5qHF3V9ug72liJZ6YgCgg2V5krukyOC11umpzeAZLU2ehm6qjnEAdVMycoq1nsDYjbLLiKvFmp+l5cWb07aSAMWbb1BmmI2xyXSVsmWBpoyRlrmXanZTLwDEmnGalI+Lko59i5J0i5t3dXi4lGhhPBMAVz8opoRmvIdar3xRlmM8todboH5VhlcsACQAADcWAINVLKdxP611PbuBSq9zNJdeJTKti8udN6DMAAAAAElFTkSuQmCC",
+    "width": 1792,
+    "height": 2240,
+    "color": "#b8a898"
+  },
+  "products/protein-powder/powder-lemna-still-life-2026-09.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AP/73+vXvdS8o8evlKSNd5yJcIp6Y4BxXXlmTWxZPwDRupDu2r3v2r6Goa13m61nip9miptehZduZVZqVz8AvaR6/ejH18ClFTpgaYimmL3PiK3Cd5ateXVtZlI8AM61k//u0qOUiwAtXxk9bZm4y4ywwpa3yGVtbVZDLwCCZEP85Mvl0cBWZ5AUNmCMsMKBo7J6l6ldYFxyVzMAc1Y0//jXf2AzKztdFDRdgJ+vVXKHSmJ2T0tFVTcQAK2JYf/413haLxAnUAAVOmB+jiU7VSM5UDk0K0QdAAC9lWr/8dBvUCNlVFpIQzkmHA4hFQAZAAAtFAAgAAAAm35fp4ZjYkMbQB4APx4ASywCRkEANTcAnY9PZToGAO3TuaGCZk4rAEwlADgTAGE5CnZPF2tMFK2EToNWIcf0hJziL+OqAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#98b8c8"
+  },
+  "products/protein-powder/powder-morning-band-2026-09.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAECAIAAAA4WjmaAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAh0lEQVR4nAF8AIP/APHftfHo0sfX19rs8eju6uHIq82yldzFrJ+JcUkmAADCpn2VjpFvi6++5PLK5On/+dnfxKS1nYVKNBspAAAAXT8fW09dcYysn8PVl6mz/+jCx6J2hmhIrpB1+uDLANWpfKaLg5CSlJCRhYN2Zs2neql+TrmGV6FyQqdyQDL8SbPYzKskAAAAAElFTkSuQmCC",
+    "width": 2688,
+    "height": 1152,
+    "color": "#c8a898"
+  },
+  "products/protein-powder/powder-pouch-front-2026-09.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AODLqpR6VtrCnrSdgI92W5+FaurSsaiPc3piR3VdQgCPd0zi0rKgucSbsb2JnayCmqp4kaNxiZZ9ZEl1XUIA3cin28SnaYWjYoShi7TKhK3GfKG5YImgemJHdV1CAP/s0PvnyXqOskFiiIuqw5vA1H2ftl1+j3plSHJcQQCNc1P/+uGSocQ1UHqdwdeTtsptkKdTc4VqUzuFbEwALQgA28m2tsviRmCFkLPHd5iwT2yER2NzVEAsx6qBADINAIhvXU9jjTBLc4usvmiEnUBbcydAUx8AANKwgQBBGQBtTzhoeJhAXHZgfpAnQFoaNk4kQFQqAwBNLwcAm2s9rIpneWBIVT0pVT0nUDgjSzUiWkMvNBoAHAAAAJ+AaGhHKW1EIFsxAEYbAFQoAEEYADYKAIFYKlMzDrjkho5v8ldZAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#b8a888"
+  },
+  "products/protein-powder/powder-pouch-hero-2026-09.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AP/01//12Pbgv8yzlKaJbaeOcqKHb52AY5d1UIVgNwD/9dz//eaUrbWUrLKJnqeNpK6OqraOnJ2Ob058WTAA/enL//3mc5KlaYegkLLAkrbEmrrLlq2zj3JShWZFAP/0193Rvic7WjRJc5u7y528y52+zqC/z5+IbaqLaQDu17Z1ZWIwQV8lOmOJp76jxdKYt8iv0d6qn47Ms5QA89y9eW12EydIMEVog56ym7rIlbXCmrrNl5CGcE8oAMCkhGZVWwAVOjhHZWyEnHeRpoejt3ORrGBUR0ojAABiPhYrFhgAAi4dLlB2j51nf5RUbIVOZIRsW01MIwAAgVIjTS0bAAAaN0FNOkBCR0U/T0o/aF1MnXxVp3dHAHBEGWw+EVotAHFBEYtYJYBQH5RhMJNgK31MHHJDEyLilQeV5O+BAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#a8c8d8"
+  },
+  "products/protein-powder/powder-pour-2026-09.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/APXgwuLNsmxUNZZ+ZdC+pP/65NDAqc64oKOOdWRTPgCDak2QemBdRip3YEuynIaxm3/Fr5i9o4qjgmJxTy4AVDwjfl9BlG1Kg147xa2T38mtzrigtpuBm31dlG1HACwbAHJUM5BqQ551Sf/73KuRbYZnQ3pdQZN3WrOafwB+alaijn2DcFtLMxn74sSNckycdkyRYzhxSSJpRSQAnYdyd2RRHwAATjMY8dW0im1Jm3ZRoHFGk2I4jFwxAEkwGIFhPo5nRI5nRL6UZZdzUnFPMVc3F0MmCD0eAPciYeNR3QprAAAAAElFTkSuQmCC",
+    "width": 2336,
+    "height": 1744,
+    "color": "#886848"
+  },
+  "products/protein-powder/powder-shake-2026-09.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AJqQZox8TF1KJWBJLYx9ac3FuNvSyP/88vDv59bFtgCfkWfGt5Z4ZEJpXUaWuMWOrr2UtciPtMaNssLIuqkAp5Nz//ztg21QcWZUSGOGqMfXpMjbqs/glLXImoyBAFg/HpV5XEgsDm1hUDhMeLbW5rXX5rbZ62qHnVdNSwBMMAvq1bvTuJnCvK1le5642einyNeYucxdc4lgVloAPCYJ59W3m3pNmI52NEZtocPUfJitbIihKUBaTjgyAE02HefQsJh4TJiJcUteeXeXp0dfeElgdw4nQDojGwDfu5b/68uXdUeWc0x+XDxrTjNVQzBdU0VGOTAuEAAAyq+U1rycfFw2g2JCfVQwm2tDj2lGIQAAIwAAXDUTAGBEKqmLc7mRabR/TqBxRnlOKlUsCkYeAEskAGY/GALvk0L1LodnAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#a8c8d8"
+  },
+  "products/protein-powder/protein-flatlay-ingredients-2026-10-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+ANrIjbSoXNO9mKWPcrSbferOqt61g92mX6l9PaWHYgBscABVXQDKt4D327fSuZinjnLatIWwdSBwPQCsg1IAsqVllIQ419C21ezz1ev0yt/puNTe0sq2rYph9NSsAP/72vDWssvKwoyiyuD//9L5/8Xn+XV4bSgUAJiAYgDItJ374sDx8OdmeKfR8//S9v+43e9XWFM7JgwaAAAA0ruhY0o0vsLIgpi/zPH/r9Dnj6/FPT8/Ry4Tf2RJAKmDXKOMbsTH0VVsm7vc73WRrV94lSwtMjskBrSWeAAVAABtUzbh2tFEUmRdc3ZMXGNMXGMsKyWDZ0qlhGAATzUXMgAAfF88k3dVPygJNiAANB4ALhQAhGRG7da5AOPEo3BSMTwlCeHCocutiqaLbJyCY5d6W49xTnRUMHj1ohRerXUdAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#d8c8a8"
+  },
+  "products/protein-powder/protein-standup-ingredients-2026-10-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/AP/64+/YvMatkf/s0cSojK6WeK2RdamOcQD/8tb67da2sqm8v7yvuLWZp6eslHami3AA7de70c7CgaK9m8DRlLvPlLvP28GjsZd3AOzStXVreGF+qJCvy6fM3qXJ3dbOvdCylADy17RUUHdjf6l6mburzNuYuc27ua7Nr48AwZRoS0FjXXKbZH+fiKe4fJeslpCFu51/ANire1hIaEFUgmB2jGh9j09heU5BOZh5XQCWfzuhind5b3FgTz9BMCMuGQBpPRYqAAAAqIxb1bma2KRyqmwrWzYVbUQlWi4CLAEAAMuecYRkSF49IKZ2TK15S5ZlPJFfMYtbL5qchKgYqV4kAAAAAElFTkSuQmCC",
+    "width": 1792,
+    "height": 2240,
+    "color": "#b89888"
+  },
+  "products/protein-powder/recipe-cacao-pb-shake-2026-09.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/AODRu//z4o93W6eRdp+Kb5B7XX5pSnNePADYyrT//uyUfV+nkXafim+bhGqUfmOUfV0A18mw//nnm4BklHFQhmNGo4pujndfpo50AIVsTOTTurubeoNPJkkbAFg2FXFWOZR6XABvVTmsln2zlXeETx41BQBHIQBbNxNtSSMA0r6nnoVsWD4klV8wNgkAaEAYeE8nXzsWAJiAZkYnBaF4TqRuQTcEAIxhNLaGUbuMVgB5Ui+7k2nKn3aWaUBJIACfckhTLQ+UZDYApYBjsYlhzp92n3JIdlUxo3xSJQAAIwAAAGRJNGxONY9lP59xQax6R6l3RKFwP4hdMntvaJrxpvH3AAAAAElFTkSuQmCC",
+    "width": 1792,
+    "height": 2240,
+    "color": "#a89878"
+  },
+  "products/protein-powder/recipe-ingredients-2026-09.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/AODKouHJpv/73MS+tL27s7SyrauooaiRe6iRe5uDcQDWwqPq07Ty59Sbu9q+3/O53vCovcqljXfJtp6qlIAAwqKE89q54dzSeJS+wuX4wuX4coWZm4Zyu6SLqpSAAL2gh4NjR5mQiImmy7bX7anI3l9yjot1ZK+SeJuGcgDVpGWtdzallo6Cm72fu9KNp8hOXYGYcldtUjwVAAAAw5VshFUtimpMcFlIjnVgjn9zZlZUe1A4wZ+Fu5NsAP3SqsqZba17UFg0FZhpRLaAVkolEJBgOJhoPVsyDkQmeotLBQ1CAAAAAElFTkSuQmCC",
+    "width": 2336,
+    "height": 1744,
+    "color": "#988878"
   },
   "products/ritual/ritual-cacao-texture-editorial-1x1.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AP/rqv/Tlei2gr2Tab6WcoZqTbmOdrBxVbaNc7ShiAD/7rL/7a7/7rL/y439zJi1iV3Io4DVoYSJX0GigWkA/+yw/+2y//W52J9lbUEjcj4awIJLu4RVhVYyqFw7AP/usv/tsvLGkiwGAD4QAEkiApJXLVYyE8KTYOGGUQD/6ar/05aFYD1XHQFRGwIjAADGh08aAAAzGgCHZksA/9OWrW0+hFMscSkMVRkAKgUALw8AOxoALhYATDUXAP/QlsuPWoZGHkgUADMGAC8GAD0RAEklBTggBVQ5GwC8kmjGj19kIABdKQuAQx1oNhJZNRZDKhNfRStXQCEAk3VWeVk7VTEXr31SvYRT3a11hWZDaE40emFDYUYpAJN2WY5wUpZzU7CIYM6fcNqncO20eMuaZdyqdqBzSPtlhKvwwHyYAAAAAElFTkSuQmCC",
