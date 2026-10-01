@@ -409,7 +409,7 @@ export function RitualPdpClient() {
     const base =
       size === "10"
         ? "ritual-pouch-10-serving-hero-monumental-editorial-1x1"
-        : "ritual-pouch-hero-monumental-editorial-1x1";
+        : "ritual-pouch-hero-monumental-editorial-2026-09-1x1";
     const full = `/images/responsive/products/ritual/${base}-1200.webp`;
     const mainImg =
       document.querySelector<HTMLImageElement>(".gallery-main-img");
