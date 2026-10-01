@@ -20,7 +20,7 @@ const lqipMap = lqipMapRaw as Record<string, LqipEntry>;
 export interface MujoImageProps {
   /**
    * Path relative to `public/images/`, with extension.
-   *   e.g. `"products/ritual/ritual-pouch-hero-monumental-editorial-1x1.webp"`
+   *   e.g. `"products/ritual/ritual-pouch-hero-monumental-editorial-2026-09-1x1.webp"`
    *
    * Must have a matching LQIP entry (from `lib/lqip-map.json`) and matching
    * variant files (from `pnpm images:variants`). Both regenerate via

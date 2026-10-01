@@ -11,6 +11,12 @@
     "height": 2048,
     "color": "#e8d8b8"
   },
+  "ingredients/black-maca-macro-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABMElEQVR4nGO4emT5taNQdOvoSji6dnT51SPLGV7dOPj8yu4nFzbdO73+9vFVVw4tvbJv0e3jqyAqGP7/eQdCv578//KwtzCiPjXQRE1y74r+F1d2PDy3geH/nxe3j67vKU04sG7G3NaieC83eT6GTfPa/r+//u/tFZD0pb3LZjeV+NgYCDEwMDMwmKkKFoaa75xTcW7bZIb/v18vn9BkrqOiIyfkYijbVxz49+m+l5e35Ec6HFjWAJK+dGR9lJuxjSqvrRrPhPLQN1fW/f96I97b/NTGfob/v178//n805Oz+1f0bpxaurg769Sapum1cdnBFst7Mxhe3dr39fnZv+9u/P/y8P+3x3/f3fj25NS1I6su7F1wae9cBkiA3Du9/vW1nV+enPjz9ur/T7fhCAB9vsmFwjhF0QAAAABJRU5ErkJggg==",
+    "width": 2048,
+    "height": 2048,
+    "color": "#d8c8a8"
+  },
   "ingredients/cacao-macro-editorial-1x1.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AP/+7+7bwsuuhItbIqF0O8SdacSdafbjyNzAm8+zhwD//O7w38TQsIaQXCOgbzLDmGDEn2746c3cwJvSto8A//vq9eLK0rOKkV0hoG8yvpJdcUEYsnE4zqRw0rOKAP/76vXmzdW0i5BcIKFxNjsOACwAALV9Sql1Rda3jQDbuY7YtIfKnmq2gESlcTg4DwByPCNwNBdgMgavgEkA1Kp31q120qNq16dr2qtydkMofkgsbTkQTyEAwYxMAP3er+m9jNuygb+LYYdQLFAgCi0HACcAAFUpAGg4BwDz0JzHmW1qOyFaLRdMIQVbMBOIXTfElF/dsHLYqmsA8MqYvZNmflEpo3RH3LB437J42Ktv3Ktv2Kpr0p9jAKx4Qa96Qal2PKpzOaZtMKJqLJ5mKJliI5ZeI5JZHoM9m+CFIOEhAAAAAElFTkSuQmCC",
     "width": 2048,
@@ -47,6 +53,24 @@
     "height": 2048,
     "color": "#e8d8b8"
   },
+  "ingredients/ginger-macro-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AM+8or2mjbGYf62UfLCYfrCYfrCYfq2UfK2UfK2UewD/+uX/9d/76NHq1rvUvqLHrpK7ooizmoCwmH6tlHsA//jh//jh++LBzaV5/N666smcjGEylG5E1LqgwquPAP/44f/v0MibaMibaKp+ToFWKVUpAHNPJtzGquvStAD/8NSpfEazimDtzqJ6UA0uAAArAABiPxlMIQBzRRgA//fepn5Qlmo5kmcGXDMAVTMIi2EorH44XTIAOBMAAP/w1v/z29C1lYJdMWxMIXJLG4lZD3lLAD4aAHpdPwDUvqLu2r366M7+7dLm0LLPs5Gwh02nfkTCo3vv278At5+DwquP1b6j6ta49uPI+ujO++XJ9uPF6ta28+DDALWdgbWdgbmghsSrktW+o+TNse/bv/XixPPgw+/bvyvhuDcVauI0AAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#f8e8d8"
+  },
+  "ingredients/golden-oyster-macro-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+APPkzebXwNXGsNC+qM27p827p827p8q4o8SzncW0nwD77tb98dj/9N356cfjypTNpUrNr2HNu6TKuKPItqEA//Lb//Lb9deIsm4AqWwAbioA3q8AwqJl1MOqzbulAP/23v3eguOnFb+HAJ5WAMOMALR6AKFuAN3Fl+PPuAD/9+D40XDmrwCycACxfQCcagB9RACfcgDr1K325MoA//PY78JStnQAml0AbiYARxIATCIARhoAaDsA+eXIAP/32//72ui3O5BOAGcrADwAADQAAEUUAItpOc22mAD/8dj/787526uZZQJPHwA0AgApAAAwCwBTNgx3YD8A5NG39OTF+ubH7tWri2Y3UDAAPRwAQCIAQCcAZEsoANfCqtjHquLKq+3WtO7WsufMpqiKYnFWLW5WLX9oRAdOp46jnwZkAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#e8d8c8"
+  },
+  "ingredients/l-theanine-macro-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+ANzIr9PAqc23oce0nceym8ayl8SxlsStlMKqk8KqkwD+6s314sbt2b3l0bTdyKzUvqLNt53JspnFr5XDrJQA/urN/+zP/OnL28uof3k+n4pfz7WVxKqJzbKSyqqHAPzpy+vas9TEm4+QWGdbD491UKmTetC7prGKZ14oAAD658qDh09fZShOVwivlGiyn4r//PDj1canlIN1VjoA+ubJqaR2GiwADh0Ai4NNxLOg9ObXyLmoo415nox4ANTEmxopAAAPAAABAAASALCbY8ivjbumjKCLcnhgRADlz7GlmnBRUilDRh5zbEK+oXy9n3CHZTlPNxBWPhgAzLmf2MKn4smp6tGx8Ni48Ni47NKv58uqzbCLsJd1AMeym8eym823ndnAo+LJq+rRserRsevSsuzUs+nNq22PuWHBxrMXAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#c8b8a8"
+  },
   "ingredients/lemna-macro-editorial-1x1.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AP/41/7syuvYt8y2m7aihqmYfKeUeKSRdaCPc5uKbgD/+Nf/787/9NH/6sTy2rbeyKfQupu5o4SnlHikkXUA2MGV3MKUp5tKt6ZcvKxn1L2U4c2n79ez38ijxa2NAHBwAHVyAFNcADA1ACgpAExVAL6xeOjVr//pv/vjugBqbAAkHwA/PQA/RQAiHgAiHgCDeCbLupSbglr33bUAWl8AIx0AIRsAOD8AIBcAODgAoZVA5s2glnlO172ZAIR1NF9aADU3ADUuAF5bAI1+MtjHj8KfaFg5C3hOGQCZilJJQwA8OAA8OABvYwCUfje+nmmeflBpShwAAAAA3syv1cCfrJh2m4ZeoYlkr5d0waiEo4piIQAAJhQAAMW6o9HApd/MrenUsuXMrOfOru7Xs/3mwPvhu+bLp0xVmuq5+M5fAAAAAElFTkSuQmCC",
     "width": 2048,
@@ -71,6 +95,18 @@
     "height": 2048,
     "color": "#e8d8b8"
   },
+  "ingredients/monk-fruit-macro-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+ALunjLunjLunjL2kjL6qj8CpkL6qj76qj7mkiraihgDw3MLn0LLcxKnTvKDQuZ7Ho4GnelGjh2u/qI+7p4wA//zm//fg//bf//HU+N26ypNfeUUTJQAAw6iJ3MOlAP/75f/54v/34O7VtufAl5RbJS8LAB4AALmadfnivgD/8te+lnLEj16NWCORVxtJIQAmAAAoAQBuTy+IaUYA/+7Uk2Azm1sjzJBLtXk4fVg1ZEYnUTYaXTMMdEYaAPLXtuzQsLuVb6RxQUsiAEgrD3xePd7BnbuUa1s5FAD/8dbAk2qnekvix6a6oIKnj3HavJrSsYiMa0eqkHAA5M2y8du+89zB5Mip/+vN/+3R+eHA79Wy8du9/ujIAMiym867oNnDp+TMre7VtvXfv/jiwvzlx/7oyPzlxy4UulqzAQYxAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#b8a898"
+  },
+  "ingredients/panax-ginseng-macro-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AL+qlc27oOfUtvnnx//x0P/21P/31v/22f/22f/22QDfy6r03b/+68v/9tT/9tT/9tT/9tn/+tz/+97/+twA+d+/58umlmgu/+7I//fW//fW//bZ+d+/Z0YlfVUoAPbdur2jfV0yALJ/O//yxv/21Nixf5ZrNHBHFZBiKwCqlXqBaEgrAAAyAACxeC/qvoWvhFVUIwByRhDoxZUAu6eFlIBhbVEvJQAAl2YifTkAp2sl3biJ8tiy//PUAO7Vr7mggZR+YGJGIjIAAKhuKoNLBM6STP/ov//x0AD23LX43bm+p4SSelxRMw9bJwC0fj63gD7xx4z/47wA8tiy9ty19ty11LuXtZt4knBLdkURl2AbzZla68SRAPDSr/TatPbctfriu/riu/LbtNq9mZt6UsmfbeC2hNh2wQYCKmrrAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#f8e8c8"
+  },
   "ingredients/rhodiola-macro-editorial-1x1.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AH9pSIhwU41zVJiCYJZ8WqqTcpVyS7+db//apP/4yACWe12af2CgiGmqk3Kbe1Gtk2q0lnG0lna9nHT606AAqYtrrpNwr41ptJZu3Ko0n4MzoZZawqt1pJRf3LeHAK6TcLOberOUcMKnfculOlxSAEVAAEA3AE0/AJZ1LwCtk3C4oH/ruFbdqkqHdjlsYyU0KwAsGACTbRKKVwAAtJt+qIZYw4sA1ZYATDYAEwEAGgAAjWUH7K83VSUAAJ6BXrKZeYZoJFc8ACYTACIDAJ52JJFcAGs6ACAAAACgiGmoknWbi3ByaUxLNxOMYhaASgAvAABVLABVNg8AoYtsoYtutJ+Gq5NzhWY/mHlPZkoom3hP0Kh3/+CuAKaSc7unjLikiJ+CX5R2U62TcMWmgNi1h+fCj//ntvOQiX5NOyBkAAAAAElFTkSuQmCC",
     "width": 2048,
@@ -82,6 +118,12 @@
     "width": 2048,
     "height": 2048,
     "color": "#988868"
+  },
+  "ingredients/ritual-flatlay-ingredients-editorial-2026-09-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+APbSo9y2hMqleOrAkeyaUcF+Q9eygpJxSXRNJbKOXwD/98fMo3JqRB62jV/EbiVJAwCyiFpWOBozAABQKwMA/9ymlmg2UCwA2sKm/+fL9t7A79i6m3RJNAQANR0AAOa2X9WaOMWXYP7Gof/XuP/12tG6nYtmQEYiCY1oRgD2uD+pawCKXBT/x6D/0LH/89q0n4OddERTMxarh18A7r1pbTsAUysA88yq/9S09N7DnIVqrX5DtodQ9s2dAOnHl9SufK6HWemieP/ixNiriY1rTaiAT5toLMyfaACkkmKxoILdvpvuwJTcspGfelxtUC+ed0rHlmCpdz0Ag3dDyLadhW5QvJhuaE0yHgAAbEskckIVi1koxJZlAM6sgOC8j6aCWNGtgGJIKG1QL2FHIYxoQJh1SqF8TyN+n3ELcwxkAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#d8b898"
   },
   "ingredients/ritual-hero-apothecary-vessel-editorial-4x5.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAKCAIAAAD3rtNaAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA50lEQVR4nAHcACP/AGNQOWpYQnBeSHpnUYp1X6uXgtzNugBsWUVwXkh8aVKfi3a7pJColH23pZAAcF5Id2RPoYx2vp+Gz5Fv18Sy4Mu5AGxZRYlzXcW2otjArcaOburWx/jp3QBQQSmJc13LuqPp1sLDi2z56df/+e4Am4l0uZt6k3VRr5iBxJJ19sqz+drFAPrs4IhlOoFCBLKOcuLSwP/26fvt3gCWhXEXAABdKgDRspfn1cbz5NX/9+wAx7anl4d5oot31Masjnhpg2ZN4c26AIFuV4NxW5SCbc++r+fVyPPi1fvt3q9ef5nMgHOjAAAAAElFTkSuQmCC",
@@ -101,6 +143,12 @@
     "height": 2048,
     "color": "#e8d8c8"
   },
+  "ingredients/sea-salt-macro-editorial-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AGZVPWhWPm5cQnBdRXBdRXdiSYRvVpJ/ZI13X3llTACEb1ahiXK+qo7QvKPQvKPLtJnGrZa0n4aSf2SDbVUAzbaa0bmbwquMppF1j3darZh7xbCXw7CX0Lylw7CYAOXNtLqiisu0m//25P/46puFbJF5XO7YvtrGqtbAqABxW0NpUz2ahGrUv6j+7tr56NSYgGb+6M324cv66NIAZlA2blc+e2NG0LymzLST6NS58dy7/+7V+ubK/+3UAAAAACIAADsjAlI5HG1OKebLqv/t0frjy/TjyfLgyAAoEgAmDwAwGQBsUzjSuZzz3sTIsZXo1Ln048nw3cQAppF3tqCG2MKm79e+9uHH8tzE7tfA8NzA8tzE79nDAN/IrObQtunUu+nUu+7YvvDcwPbhx+rXveHNstvHrbwOv6B25Q0GAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#d8c8b8"
+  },
   "ingredients/tapioca-fiber-macro-editorial-1x1.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AMi0l8i1l8q1mM66ns66ntC9odK+o9K+o9LBqNTCqQDKs5fPuJ3PuJ3TvqLXxKfdyq3l07bu277z4cf66c0A4cut28Ch79m769Ky+ebF+ufI/u7Q/u7QxJ11/ujMAPffvlxBKWBEKdK+o//23/bgwPDau7KUdM2pgf3r0ACwlGwhAgA4GgBCMCL879j979bIspa1nYXv2sT/7tMAak4qKRMAJQgAcUUlg3Fd//DU/evU5tK4//zu//PcAHNYNEguDx0AADYWAIJTMKqUgv/13vjp0vzs2P7s1ACVe1hwVDBBKAYdAABNKgtgPR6ymn7/7ND969D7688AwqmIpo9uhWpIWz8eSS4PtpRy79m7/+zQ++vM++vPAPbfue3VsN7GotW+meXMrPnmxfnmyPzoy/vrz/vrzx7oxn7zV8s4AAAAAElFTkSuQmCC",
     "width": 2048,
@@ -113,11 +161,53 @@
     "height": 2048,
     "color": "#c8b898"
   },
+  "lifestyle/ambassador-flatlay-editorial-2026-09-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/AMCjhOfLq+7VtunNq//0zv/wzfrgvMOohgD2z63/4sT/+uDQsYrbt4h6WTOycTLcsYMA/+7M/82p//rlm35bto1fOBcAVhYAjF0uAP/vzv/KpfLIrYxpRah8ULaUaVEyD141CgD/+dX8z6aSbUZmRRtcKwCieE+SaTwjAAAA/+uf3qMktYpQoX1ZjmpBSy8JYDsQknJNAP/RfZ1jAE0lAEMhBjwfA8OgeoZdKm1HHgD11K2hgEZmRx2AXzuHZkj/6sXbtouLYi4AfXJGdm5P1MCrhWpMJRMAz7WRg1IlnnZIAMiuip+FYIdsSm1UN5B2VmJJLPPUsLmXcp59fv+a58e/AAAAAElFTkSuQmCC",
+    "width": 1792,
+    "height": 2240,
+    "color": "#d8c8a8"
+  },
+  "lifestyle/ambassador-flatlay-editorial-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/AP7v4Ord0d/OtufSud3GqtG8ncetjbqjfwD249Xy59zj1L3/79fp0bTk0bbjzrPbx6oA/NrK6uHah3Bc897EyKZ/mIJe8NvA7Nu+APbHseHIuKKIdKKIcurWu8KngnxZL9vHqgDgvqfLs5zx4c2QdV4qAADey6/iyKrVuZoA2MCjoX9g486zn4ZxLAAAbFEyn240fk0PAOnWvsStkqCGWv/75uTStqB8T5xxQdS7mwDz481fSS1SQCKZdU6ijnXQkFGEPADSv6AA7t/F8ePJ8+LJeU4iORkA5MWjo3A6xLCTAO3dxe3dxPHhy/Tkzsu5n+3dxPPjze3dxONRoUdE/OjWAAAAAElFTkSuQmCC",
+    "width": 1600,
+    "height": 2000,
+    "color": "#d8c8b8"
+  },
+  "lifestyle/ambassador-hero-pour-editorial-2026-09-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/AP/847aYeXhcSEoxHWlROyskHy4aEF07KQDq4Luyl3iNbVZoRyt1UjMyJhwNAABXOx8AmYpfmYdmh2tVYkgxX0YuUEEwMyYab1A5ALKfeLSbd41vWGZKMtGvlMuzmr6mjmNBIwC+pYfIqoilhm1uTjPXhV/Xt5y1m4BNLhIAnHxbnHxbo4NrdlY72KOA0qiKsJt+gFw6AH9jTK2OcrSRcKeEZOymgcWaea+DY7uVbgCxl3/VuZq5l3SKbU781bTJp4mnh227mnsA/+/X/uTFsJFte1w+5MWm79W399e5r4ZlANS5nN7CpNi7m8alhcSiga6RcqqJa6FzT5ace8rmbc0LAAAAAElFTkSuQmCC",
+    "width": 1792,
+    "height": 2240,
+    "color": "#987868"
+  },
+  "lifestyle/ambassador-hero-pour-editorial-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/ANnCo5JpPMyebtSkb3BFH2A3EEwnAnFBFwDr1rmSXy5+TCCMXTNdMwxXNBRpRSpWKRMA7dq9o3A8pHRFnW5EZD0WIRkQLh0OWSwQAPLcv6dyP5VhMJ9ySlg0EU88JAQDAFw8HQD24MCvekebaTufckeNZkFxVj4HBQBDKRIA8t29nWw7hloujmI6pnhTx5ZwlHBMcUATAPDYu6yEXaZ4TbJ+UMSZctengKd6U5RsQQD/+9//9M3u062VbUHOqn/y0ajWroPKo3kA/+3L/+m9+desimU7vpdu5cCS882cvZZtAOPLsOjNqfvdt/zWqerDlKiFX1U5HjsfBctXdpTEOhljAAAAAElFTkSuQmCC",
+    "width": 1600,
+    "height": 2000,
+    "color": "#080808"
+  },
+  "lifestyle/ambassador-lifestyle-tennis-editorial-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/ABgXBRsaCSMdCq+dh4BeSB0aAg8MAAIDAAANDgQICAMVFg+BXEBtPyUWGRIWFxAXGhQAGxoUGxoULiwluaaVsZODp6SjLzIrLDAgAB4aFSUfFoZ9df/88v/18Ore1ZGNiRccGAAmGhEqHRWOdWb76N705NvYwbSQbFstIhgAGRIJHBUOckYt/+7m8OLevK+pXS8YLCAXAMtsLcptMcB6Uv/67+zi4K6dlVkqEBkHAADCYyfLaSzEjW798ujm3Ne0j4DWcC/SbisAzW810nU6toBo6M++6NXL4r2l0nI10G4wAMJpNrZqPMiQbNKvnN7EsOTFtL1ZH75cHyZgaGrWhGyMAAAAAElFTkSuQmCC",
+    "width": 1600,
+    "height": 2000,
+    "color": "#282828"
+  },
+  "lifestyle/ambassador-welcome-bag-editorial-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/APDbwv/y3P/64//v1P/VovG5fYtWJX1RLAD458v/79f569Dbyqzax6X0yI/QpHBzRx4A//Ha//Pc0sCmm3xTxLKO3b6Ux5FcwI9hAO7In9+qfamEXl85EHVKIbZ8R+SveuzFlAC4lnONRwidd060cEavhl3qwpDuuYj7160Ajmc8jksTgVQosXlKx6N6y599zJRwwpt/AJZ3Vl44D35PIaNsNfnAd4RWLmI7HnhRLgBcNw6JZDypiGKYbDpqPA0zEQAyEAAiAAAAaUchZVM7p41t3cSfpIVfXTsWZkQfTC8RAHA7ITYaAGNBF7abdraXc4JaL4BbNYReNzIJfCeguR9BAAAAAElFTkSuQmCC",
+    "width": 1600,
+    "height": 2000,
+    "color": "#e8d8c8"
+  },
   "lifestyle/ritual-frother-action-editorial-4x5.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/AIFZKpZpMO3Ss6xsSiYAAKhxR7KLYZZqOACMZjqOYC+5oIvalW0lAABzQyCSbUilg10AfV44XTsWRyAAaEIjOxQAbz8b3rqS7MyfAJt7W1cqAHlLI4VaNYZXL6p5Tf/6zP/wxACTbkpfNAqNXTNgNw+OYjjssnf/67b/2qkAXC0AaTsQmHRNWDMYoHBJ0Jljw4ND25tTAHVDFZZiMP7Wo39cNJZqOKl1PLB3O8+FMQCRXy+iajb2zZZ5UyOOXCV2RxiTWiOtbCIAkV8vnWcxo3U/YTsPXTIAQhcATCYAWC4AAIpbK41dLYtYIm47AHI8AHc/AH1OHH5WJ3+fYHpp6j5UAAAAAElFTkSuQmCC",
     "width": 1856,
     "height": 2304,
     "color": "#986838"
+  },
+  "lifestyle/ritual-hands-glass-overhead-2026-10-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AP/cp9eneZZsSH5YN4BYNrmcf//n0f/13/7w2u7izwD/7bfotoOEWDI/Iw17VTOYeFf0nHb/583/++f77dcA/96l26hyNhkAWjYagFYvfVcx/b6e/9O5//Td+/TgAMWVZbCBUrSEWI5iO4dcNXRMJuS3mfjCo//75/fs2ADjsXzao3HjrXbQmGiIVy2IWTa+jGz2uZv4x6vgqo4AzZttuope57B/oWk726dww5Npo31doYBlgW1ZZkw5AJZsSNOcaPe9lIRXMdKbZZ9yUXlKK0gmBEknAk4pCACgdkumeEzkqXlXMRYdAABcNxtkORc6HABEJAJOKg4A6LR8mmtC67KBQSEEKAEAXDgZf0smQB8AVDASYDoZAP/MlNaebKNxSiQAAEUiAE4pCI1eO41cOFIvD2c/Gucmlbs9B55XAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#c8c8b8"
   },
   "lifestyle/ritual-hands-mug-editorial-1x1.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AP/46Pzx3//+7vzm0t6neVdMQJ9oRoxdRI55aZ2KeAD78N7+8uD/+ObImXnTmW1PRDisdlGdZkaYeGLf1MMA//jo/fDc//voi1k9sHNJgVQtqGA5qmxKrYls7+DLAPDex/fo0tjFsnJHKtGWao9aN59bObJ5U76NbfbcxADQrpC6m4GmdVbXp4bLlmpcNhe0flmZYjGncUHcp24Ajlo8SycSXDMYnWZGvH9To3lZ3LKW0Z9xg1QttoFLACwZByMNAC4TADgYBH9JM+ylf/e5lL+ARbJ5Qb6ESwAgFAcOAAAbAgArEABuQCjkq4PXkVbIiEa/hUmhcT8AFQoADgAAYzcHZjwUVTIMeE0jhlMmfk8jgVcphFsvABIFAB8OAJRYG104D0UmB1IvEUwtDkUmCjghBTMbAG7mic8IwmjFAAAAAElFTkSuQmCC",
@@ -161,6 +251,12 @@
     "height": 2048,
     "color": "#988868"
   },
+  "lifestyle/ritual-latte-glass-hero-2026-10-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/AP/21//74KiPc5+Ib7Sbg7qmjqKOco9+YwD/7sj/9teojnCdhW3/7NTx2b/YwarNt58A4c2g7ti0pItuloBm8bKM6qOA5M621rqhAOvSqvLXtp2DZZaAZvCzkuyoheTOttS/pwCkhmj02bufhWuSemLqxqb0rIbewqfMtJsA6M2y4Miw/+nE+day/8mi6pdy1qyMvZBxAJl5XdiyisKPXpNfNNSedfK5kcCPbqR3WADPo3vboXBmLAA4BgC2glXvtoDEi1ukcUUA/+7E8r6SQxkAJQAAZT4jkmM9YjscnmtBAOe8lf/itf/Sm+Gmb4tcMWQ9GndQLXNKKi6IlQsKU0FIAAAAAElFTkSuQmCC",
+    "width": 1792,
+    "height": 2240,
+    "color": "#988868"
+  },
   "lifestyle/ritual-marcus-kitchen-editorial-4x3.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/ADcjA1Q8HFxCIG1UMXpeO4ZpRpByUJt/W6qRbZSJhAAvGQBSPCKbgmLZv6HSuZqnjG2YeValiGPAp4x9c3EAKQAAKQAAoG9G8LWL0rmabU4qYD8YcE0lp4xvOjItAOevdNWdYPXBkP/Urceqi6GAWJVtPbJ5OL6ceY53ZgDjyJ/kxZn/27X/0qq5j2nmzqhgSiXBn3eylXZ5UCwA6s+o4sij7M+o5sajvJ152r+ZgmtLrJh+5tK12L+fAOjLpeTJo+jLpeTGoNvAmezPqP/41t3Ls9jIsubSuQs/dkYg/Lt4AAAAAElFTkSuQmCC",
     "width": 2336,
@@ -173,11 +269,23 @@
     "height": 1744,
     "color": "#b89878"
   },
+  "lifestyle/ritual-padel-conscious-performer-editorial-2026-09-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/AP/75sq+svLm1fHkzoN8dLmvnGVjWVxWRgC9rpR5cWWEfXKXjH1GRD+EfXJSVVJfXFAA0MW8tqea28ay5c68y7upmouAdnuAZGhvANbIvdq6o/jFp//y2v/t1LCaiXF3hXeCmgC0r7TPqJbmnHz/7tL/8ditkndhYWMqLTIAWmV9l4WF4aKC/+HH//fenoFrVktCLCorAGJpfJaLiNSIaffVuf/ewoRsXce7v56QhQDs0bT21bDKkHDvvJ/6x6h+Y06Gc2mejIUA/92837mUcVpFdF1Ie2NLk3daoHxaTTQfAP/nwPnOoa2IZlhALFU6IFI2GTsjBxgAAPGAi1/32/iUAAAAAElFTkSuQmCC",
+    "width": 1792,
+    "height": 2240,
+    "color": "#d8c8b8"
+  },
   "lifestyle/ritual-padel-conscious-performer-editorial-4x5.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAKCAIAAAD3rtNaAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA50lEQVR4nAHcACP/ADw/K2pmRJuJXGlcLz87HjQzGCQoEQBNTzh/elusnHXNsoOllGallGZ2bUkAUE8vd3A/fnU+f3VDjX5coJBpiX1dAJCOeeXcxfrpy+zgyJuMcLGvnI2fnwBdcnPRrZL92r7/+uO0m3ahm4aYn5UAp6mb3bKU/dO3//vmu595wZ9xwpxrANGocuy7k/3Wtv/r1Lufef/fusifagDcrXTmpHf4za3ox6qmkXG7t65uaFgAzp9mwJhlS0EuGhcHEA4AFxsWGSQjAKqEUKJ5R8COUIloPDcxHQEIAAgBAFdxbVmo/xDFAAAAAElFTkSuQmCC",
     "width": 1744,
     "height": 2336,
     "color": "#d8c8b8"
+  },
+  "lifestyle/ritual-pouch-mug-hero-editorial-2026-09-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/AP/94NK8nayUdpiAZJN8Xo52WYx1V4dxUQD05MTk0rLt2Liljm2Vf2KQeFyMdVeJclYA5NS10rydvqqUuaeMuaeMmoVpi3VXh3FTAO3YvNK8ncKCYMCokbqkjpV/YolyVoJtUQDax6fOt5rRgFa6l32snoeOdlmCak97ZEgAuZ+AwqeC5rKUuItxo410h3FTZUgvgGZLAK2BUqBwP92QaKx+X45iQ7ydenhdP0osDQDQq4fFmGnbn3eNZkdeORuack9jRiYxFAAAjGA0cEono4VmmmY2g1EjhlYpRRwAKAAAAGZLNEYpD0IjAEooCGE4D4laKKJqNJ9pMpiwdb3yH+rBAAAAAElFTkSuQmCC",
+    "width": 1792,
+    "height": 2240,
+    "color": "#a89878"
   },
   "lifestyle/ritual-pouch-mug-hero-editorial-4x5.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAKCAIAAAD3rtNaAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA50lEQVR4nAHcACP/AO/i0NfFstbFsNPEr8u6o8e0m8KtlQD/8N/l0rveyrjRwLDTxLLOvKrLt6YA//Hg5ryi9OrZzryq1sGv08CtzbqnAP/56NyQavvt29S7odfFtdHAsM68qgD/6M7rp4D76dPVvaO+n4ivlYC5oY0A+tq68qmC/eXOwZ+BSyoLhGBCcUEXAPjexOWvj+TEqsypkcCjhp91RNGibQDWtJTvxpuPaExtRimzjmxqRBvBiVEAwK2f4Miwu6OJsZN5Nw4AKAAAMQgAALSiks7Dts28rU40IT0XAFswCTMMAFEyhgrWQ2VmAAAAAElFTkSuQmCC",
@@ -203,11 +311,53 @@
     "height": 1744,
     "color": "#282818"
   },
+  "nutrition-facts-ritual.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAKCAYAAACXDi8zAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/AFsqF0dmNR9KXzEbR4VZRztyRDBBf1I+OQBdJQ9QYiMLYIdQOVB9RCtTmmNNUaByXkAAcjwkTHE4IFWgcl49//z2EuLHviN3QihUAIhjUy2LZlYvx6qcI+DKwh2geWotbUIvNgB5W0sWPBQAJmxJORrDsqoHw7KqB45yZBYARA8AQjIAAEWCX08lxLGqDdvRzQVtRzQqAKKBchhWJxEtjGVTHtbDugrq2dAHqot/GAB/Uj49PAkATn9SPkFxRTNBuJWEM5BnVTYAb0EqOnhGMkHcuqousYJwOVYgB0p2Ri46AF85Jx02BwAoMQAAKi8AACZlPi8fjWpbGduhUzZMyseUAAAAAElFTkSuQmCC",
+    "width": 578,
+    "height": 980,
+    "color": "#f8f8f8"
+  },
+  "products/lemna/lemna-bar-hero-landing-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AM28pt3Jt9G5nNO3m9a5ndq7ntm5l9m5l9a2kuXNrQD/++vt3Mv+7tvo0r3gxaXlxaXlxaXkw6PXtJCmflEA/PHj9+vc/u7Y//DQ+tSn+9en/Nio/Nio7siWp3lGAPDRrvHcxOrCj96nZtejYuKsbNinZuSvbOq0bqp6RgCvdj3CekflrX3yvI32wpX0soq5mnaIUhd+ShCPYSsA+r95tmI147mS6r+Z6tGv25ttzZ5rxI5LwodF6bZ0AMCMTMZ+Tr2NWbKFT4JUGoJIAIlNA5lbDNGLQv/WlACVXiyKTh/vvoPqtniwfECPXSJyRQd1QgG0eTL/0Y4AMAAAMwAAsn1C9MKA6bx+7L6B7r2B7rp8hFszvpFmAPnFfv/Kg//Uj//UkfrLjvrKi/3MjP/PkP3Miv/amxXswPiq2nttAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#e8b888"
+  },
+  "products/lemna/lemna-bar-peanut-butter-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABPUlEQVR4nGM4NCNr35SMw9My9k3JWNkQuntS6uFpGfc31V9ZUryvP57hyMycLd0Jp+cXHJqRBZZOOjwt49baqhuryg5MTGQ4NCN/96TUgx1RJ2bnHJtffnpp7eU19R/OLr2zsRGk+9CM/OY4s1wNhpfrOz9umfBxy4Qfh+b8/3jhya6+o9PTQNJV4XrltsLTM722LWzds7x3eXvO9/sHH2zrOj4rCyS9oSu+yFfFSYnBWoLBR4Mh1JB1QaX3+cVFh6dlMOyfnrulO8GQn8GGl8FRlMFXkcGAgWFKpu35xUV7JyQz7J6Subk7sTxYXYuBwVwchHy1GHb2JpyenwuV3j0pdWdvwpLagOX1wcvrg3dPSr20vOL0/NwdPXEMOyembelO2Nkbu6Q2YEqu45LagN2Tks4uLj42K2NLZzQAoFuZwGtG0C8AAAAASUVORK5CYII=",
+    "width": 2048,
+    "height": 2048,
+    "color": "#c8a878"
+  },
+  "products/lemna/lemna-founder-making-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/AMusi1w+IicQAPPLp7iLZZ98WOXNsv7ixQD/7dSRaUjhu5z/4b7/27h8Wz54Wj64oYYAvKeTm3JTaUAi//bWiVk6jV9AWDcdqodrAE85JmpKLqZyPciRaL2EXZNhNrR/XPTBogAvFwCBWC9DIABGHQB9USdrQyHJk2+HVDQAIQAAXEAnXDUaRiYKh1wqPxwAalUulHpLAD4nEy4QAFo4GbmIW39YNTYYAHJlNKKUXACwoIxdPiXquY35x5i5jGkeAACNaUerhlsA7NvEsJuFfVc33q1+7ryNbEMkUTMZdlAtAMeynPfn0amRd3JNLMqVZuWsebuKXYxlQMH4bNok6Y8AAAAAAElFTkSuQmCC",
+    "width": 1744,
+    "height": 2180,
+    "color": "#886848"
+  },
+  "products/lemna/lemna-ingredients-flatlay-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+ALigitG5o+bQvPTfzv/w4v/u4fbi0vjl1ObUwPjn2AC1m4J1WjyghWylf3DRuab65tb/+O3/9un959PevZ0AroBQo3pNcUwwPxEALgAASBYB0LSYyK2JvadvzbOAANuvhJppNrmWdV0oCTQAABcAAIpfPbiidol/OqCcVwBoORI1DgBSLgeufFNMIQBcLgOEUCGJXCiUdzmxoWwAXC4PYzEGfFEloGgvvolWm21EVSUFQhEAWSoAhWM+AHpbPJRvScCdeLmPYnI+AzcMAEQQADoVAF01D3JHHgB9VC+CSBjOoHiaeF9RMh1/VjF6USdMIQBfJABXIwAAp4ZkvJhmx6FvZ0gtPyIGWTcYyaN6qnpQbzwMXjMOAL6cea+MY7uYa8+rg9SwiNWvhti1k/bexfvm0f7q16FyjD7+EFP9AAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#d8b898"
+  },
+  "products/merch/mujo-crew-back-bone-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAhElEQVR4nGN4cPcyHsQAZzXVlRbmphXmpjXVlaJInz25Pz4m2NfLSUlGRElGxNfLKT4m+OzJ/VDpprpSiBAc+Xo5QcxggGgtzE1Dloagsyf3M6xePhcuDbEbzl29fC7IcEzdEC5I94O7lyGuRbO4MDcN4bGzJ/evXj4XjiDORvE31mABANR0sbXiOwIQAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#e8e8e8"
+  },
   "products/merch/mujo-crew-back-editorial-1x1.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAw0lEQVR4nGNgIAbw83JPqUg6sbzj+OK26TWpAny8CDkJUaHfF1f/f3Pg/5fj/z+f/P/+0P8ra2QkRKHSC1qyQELvD/3/eASEwOxVPUUgOVEh/v8v9r45Oh8sdxyMjnw7teT/831SYsIMIc5m/98ferh7GrL03Z1T/r8/FOVtzSAkxPf/zQEQHyoNMhzEfXNAQlQIZP6dbdP2zmmEWgyW3jun8fm+2VCnMTMz66rJZoW7F8Z7F8Z7Z4W7G6srMDMzEw4QAEexg2r9dfbgAAAAAElFTkSuQmCC",
     "width": 2048,
     "height": 2048,
     "color": "#080808"
+  },
+  "products/merch/mujo-crew-back-sandstone-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAxUlEQVR4nGP49+s9HsQAoT6+vl+XHhhmpxpmp1qX7v/uxR2E9NM754wlGVQYGDQYGdSZGFQZGPTFGR5cPwWVLkv0VGVgUIchVTAqinIEST+7f1WDk8FenV2dgUEDjNQZGKwVQSY9vXOOYfOSyaoMDN7G4iBpRrD5YK4qA8Oq2R0Mrx5fB/ENwdIw8z0MRFUZwLr//XrvbSye7G2AbHeyt4GTJg/Uab+/vb16cveSKQ3zeyrn91QumdJw6di239/eIvyNK1gAciWX5imyyzgAAAAASUVORK5CYII=",
+    "width": 2048,
+    "height": 2048,
+    "color": "#e8e8e8"
   },
   "products/merch/mujo-crew-bone-back-editorial-1x1.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAuElEQVR4nGNgIAbw8/N3tjVu2bJ+y6a13V2tAgICCDlJScmn92/8//3l//d3IPT7y/NHd+Tk5KDSUyb1guRQ0exZU0By4uLiPz6/vXX1HEj07zcQ+v3l3o1LP76+k5GRYQjw8/n/+8uZY4eQpU8dPfD/95fQkGAGERGRvz8+QfgQOaj0z8+SkpIg808cObB2zXJki9esXnbh1DGo05iZmfX1tVMS4zLTUzPTU1MS4wyN9JiZmQkHCADOpo5yejA/6wAAAABJRU5ErkJggg==",
@@ -227,17 +377,89 @@
     "height": 2048,
     "color": "#b8a898"
   },
+  "products/merch/mujo-crew-bone-male-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AObRuqWSeYVwUoVwUE87KR4NAK6ej7WnlbCgka2ejQD99+yqmYGKclaHcVSKX0InAACdjYGxo5Syo5a2qJwA/fjpr56GjnlfiHJWm3NXJgAAsaOUq56PsKGXtKmcAP/36bKjjpF+ZZSAZqiNdzEMAJSCcaSZjaidkLCjmAD/+ey1p5ObiXLk3tXl3tXRyL3Gva+yo5aMgXOgmY4A//vytKeTraCL6OPd4NLF3dPF1MvCsaOTfW9dgXdsAP/78rOmkrasmeLc0NvQxuDUysi+sZqMdox8amVZTADy7OGxo5O0qZnUyLzh2tHl3tWpmYSYh3KajXpURzgA3dPFp5mJtq+i49zU5N7V4NjQmopvmIt7f3FfTEI0ANfLwJuQgId8cOfi3N3a0LuwoJuMebisnTYuHk9IOwECuE1Z4prsAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#c8b8a8"
+  },
   "products/merch/mujo-crew-card-editorial-1x1.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAw0lEQVR4nGNgIAbw83JPLE88urD50PzGieWJAny8CDlxYcHvp5f/f7kPhJ7t+f9sz/fTy6XEhKHSsxsz/z/ZDZL7cub/h1MQRcs780FyYkL8/x/sfHFgDkj0wymQipf73h9d/P/RTklRIYZAR5P/L/dd3zTx/6uDUATjhrlZMQgL8f1/tgfEf7kPIgeVfrZHXFgQZP6V9f3bplVBnQa2eNu0qvvbpkOdxszMrKculxHmnhvrmR3pkRHmbqguz8zMTDhAALqEgMO/HUaJAAAAAElFTkSuQmCC",
     "width": 2048,
     "height": 2048,
     "color": "#080808"
   },
+  "products/merch/mujo-crew-front-bone-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAm0lEQVR4nGN49ewOHsQAoe7cONfVXldXVVhXVdjVXnfnxjmE9J0b52LC/WPC/b3cHeAIogIk3dVeZ2tt7OXuoKkkoakkAZHuaq8DScO1xoT7Q6Th3Ds3zjFs27QiJtw/IzkaTsIZ2zatAOn2cneAS0BcAOGCdL96dicm3L+uqtDL3QHuurqqwozkaBSPbdu0Ao6O7N+K4m9cwQIAVWWx8M4fexwAAAAASUVORK5CYII=",
+    "width": 2048,
+    "height": 2048,
+    "color": "#e8e8e8"
+  },
+  "products/merch/mujo-crew-front-sandstone-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAt0lEQVR4nGP49+sDHsQAoT68utecGxHlpB7lpF6bFvDh1T2E9ONbZ02lGTQYGdQYoEhflOHB9ZNQ6fIETxUGkLQOPwhB1JXGuoGkXz66rsnNYK3MiCxtpcCgxcbw/P5Fhm0rpmgwMngbi2swMmgyg+Tg3PUL+hjePL0F58MRhPvs7iWQ3Z6GYmk+JhAJiNOSvYzcdIWhTvv9/e3F49uXT2laPKFm8YSa5VOaLh7f/vv7W4S/cQULACl0mRKXKglmAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#e8e8e8"
+  },
   "products/merch/mujo-crew-hero-editorial-1x1.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+APTo2OjayeDQvs6+rFRJP3BiU8i0nsStmLunjLaiiAD47d3o2sng0L5pXFFNNCZ1SSuOfW7GsZu7p422oogA/fHj6NrJ2ci2Jh4XgFU/hlI2UEU8yLSevquTt6OJAP7y5ujaycq6pg4BAEwwHWM4HSsgFMWvmcCrlbejjAD/9eTo2snOvqwQAAAYAACNXjqbcUqefFq+qpKzn4QA//Xp5tnIz7qlKxoORywWm2xHpnxXlGtGr5d/sZuCAP/77Ojayc2zm6B3UaZ8W7aRbZpyTIpiP6SIb66agQD//fDo2snSuJ+ddU+tgVy1iWKUaUaZcE2cfmOrlHwA+u/f6NrJzrOVgVo7mGtJpHhTg109iV8+lnhdqJJ4AOrbyubZyNG6oJlwTXFNLpJnQqF3VYNcOnJVO6KMcra0qeFSZ4CIAAAAAElFTkSuQmCC",
     "width": 2048,
     "height": 2048,
     "color": "#d8c8b8"
+  },
+  "products/merch/mujo-crew-lifestyle-belt-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/AOXHq8qoh6SIbjEhF1M4JK2RdaqIZaR+XQD/++TRs5RQQDNiQjOWZUhsWketiWqphWYA+uTH48qrGQ4HfU44fU0zTz4ymXZWn39fANS0lNK7oREAAE4uGZRtU3ZnXHhVOXJNLwDLqoutkHcYDAOgj4H17eH17eHXybqKbFAAxqiItJuCoZKH9efe/u/m9u7j7+bYnYVvAL6hhuLKsv/77/3u4f7v5uTZyfXn26qUgQCyhWDgvqPVu5/Vvan28OTYzL3o4NKWd1sAbkAdqHxdyJd8omdF7ODR6uLT49fHf1o7AF0yEGA0D//37N7Pvt3OvdfItb6qlVktDZ5njji414HTAAAAAElFTkSuQmCC",
+    "width": 1744,
+    "height": 2180,
+    "color": "#d8d8c8"
+  },
+  "products/merch/mujo-crew-lifestyle-belt2-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/AOjRsqqLZYVaMc25rM27oEU+AnhuLdvUpwDo0bKqi2d6WTifiX2Wd1p7Zzy8r33//MYA6NGyr5FwLxsARykTQCYVjHNUzsCnzb6IAOXOrq+UcRgAAEk6LM7Aserg1/jo1OLVvwDgy6usj21aTUG0pJz37un069/p3c327+QA38mp8eXY5NzR9urf+fHm6+DT7ubY8ujXANvEpe3Wx9XGuvjx6P306fDk1Pft4vLo1wDlzrK2n4Df0MH78en99+3u5t7x59fczLkA07mZp5F259nK+e3e/PDk28e00si46+DTAMOqiaOQd9/QvefVwvXm1cW5p7atn7Oom7/NqaDKmt2xAAAAAElFTkSuQmCC",
+    "width": 1744,
+    "height": 2180,
+    "color": "#d8d8c8"
+  },
+  "products/merch/mujo-crew-sandstone-male-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABOElEQVR4nGP48/r6n9fXf7+5evvMNnNt+ZndVc9v7H9wcfu9C9uuHlnB8P/r/f+f7v77fPfx6a0VzrK64gwX9i4+uW36tWOrrh9eyvD/+yMQ+nT/z5NzxY7KIcYi2xY0LevLPr5xAkz651MQ+fF2uZ+hPANDTYpLT1nQ6qlFJ7ZMZfj/8zlI+tPtfdMLZ+e7Vwaol/spB5kIlsTZrJhSxACS+/n0+bn184s9Flf4Lq0Oqgs1cFdlcNLhLEtwADvt59MbexeubopYWhu+tC443ETATZXBVpUhzFGO4f+3J/9/Pr26c3ZtpFFvsuWcEh8zcYYgfV4TSYZAGwmG/18e/f/5/NKWGSlOcitqA2fkeqgwMNgqMBhLMQTbyYKlvzy6tGXGisaY5Q3hsRbC6uwMoaYCTjo8UW4qAATSqBXM7JkvAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#d8d8c8"
+  },
+  "products/merch/mujo-frother-1-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/AP/z2//64OvRs86ylamRc5+Jbph/aI54YwDXwKrKtJq6oo3VvKGMZ02ad1yeh3CWgm0AtIJiuZyHrZeB3rmYn4JplGhFn4dtnolzALJvRrqTeK+bhtC0l7KXfotcOayLZrKTcQDFmnu5jW+rlH/NtJvWx7Khinaykmu2lHEArW1EsoVojmxQrZBxmoNrn4dwsJJvro5mAGpHJmJBJFw+HXdWMzQUAJZwTHxTK3dTKQAoAABhQCGEYTm2km2YeVZ4WDSbckaJYjgAlXVTlXVRTCwKclEwh2lKVTscPR0AUi8KALSMY6eBV5NtQpNtQnlWL2A/Glo7E1IzDtSkc3U4x7mhAAAAAElFTkSuQmCC",
+    "width": 1744,
+    "height": 2180,
+    "color": "#c8b8a8"
+  },
+  "products/merch/mujo-frother-2-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/AGBLKWZRLWZRLWlNLGhOLGVMKmM9I//66QBkUDBkUDBdRSN+Wj2ni2yEaUlsRCfv4tAAYEssXkknNR4AjWpLvZt+inBMd0ku08KpAHJfRZ6LcXdgR25LLaOMc2ZMLIBfQ8OtkQDItqC7p5CslX2fhGnLvarf0bifiW9VOBMAsp+In4lvybab0ruiMRwDaVU3WUcqOCUKAKqWedC+p9vKsJNuSycAACMBAODOtu3cxwCDblB4Y0ZdSSpSPBtzXDnYxKnq2L7n2MIAOCUKNCEAKBUAJREAZFAwzLac5dK97dzJAGhXPGRQNmxbQH9sU6KRec67pdXErunaxfYLbgPtJKIJAAAAAElFTkSuQmCC",
+    "width": 1744,
+    "height": 2180,
+    "color": "#c8b8a8"
+  },
+  "products/merch/mujo-frother-guide-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABAUlEQVR4nGP4//X5j7d33z049+zG8Wc3jt8+vfPSofVn965i+P/9+f+vz/9+evT7/f2vL29B5K4c2QCW+Pnq/98P//9++PH27scnl17cPnXvwm6GX6+u/f/66P/vl///vf3/5dG3l9dBcjePMvx+dunjgxPPLu66dmj56e1ztyzpObJ+xundixnuHlt94+iqy/uWtJanFmdEJATa9tRlF8S6MhxeO2nn8t6t89saC8L0lYRsdGVkGBhcDaUYlvQUTa5LayuKaCuKmFyXAkZps1vyGRb3lk6uS4FIdJZGthVFNOQEN2UHM0yvz+ivTqpK8S5LcC+KcckNdyiMciqMcgIAKp6c7YLZdpwAAAAASUVORK5CYII=",
+    "width": 1744,
+    "height": 2180,
+    "color": "#d8c8b8"
+  },
+  "products/merch/mujo-frother-hero-disassembled-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/AL2jfcSthcu0kLWcd5+GYZd9W491VIdwUADawJ/Qt5PVvZvFrIvLtJCslXGhimeXf18A2MOh2MOh3cSj1L2b69i24Mqnt559qpJwANS9m9vCodfAnN3Ipvflwvvqxu3auM20kQBkUjTMtpTawJ6qm3/UwqX558b+7Mjz37sAIhEAYlAywq6M5te95NvC3cuq//HN7te2ABgAADQkCXZlR86+pv/23uvauf/61u/buAAgCQA1JAJuWTfRv6bz5Me9o324nneTd1EARTEVgmhEiHFOHhQA0r+jj3ZRoYdeqIpkAEAsEGdNLJx9UqqLX6iIXZx9Upl5T4lpQa00jrJW4GAwAAAAAElFTkSuQmCC",
+    "width": 1856,
+    "height": 2304,
+    "color": "#c8b898"
+  },
+  "products/merch/mujo-frother-lifestyle-male-fix-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/ANvFsqeSdxQAAEIoGZR8Xph9Yb6jiP/58QDezreOcFRUKQ6MVjqIbU+bfl/EqIv/+/MAvqKCmXVTb0w0lW1QiWhHnH5fx6qN//z2ALqZeu7Xwf/57caxnIZjR62EacuskP/89ACwkHLbupv/8+TVwrF8VTeabE3Iqo7/+/MArYdo0quN686149G8ek4vuI9uzKuO9+7fAFQwGX1NM5lwUYBVPIdSNJdyVtmcd+bKrwBqRS1lOx6ecVPozbumbUymeljSlGfx0bkAiGhKtJJv5b+e9da4vZZyy6R/3a+I++LJAGJCJmlKLpFtS7SObcWfefDPr/bYufTey6ZfjTZuyQCwAAAAAElFTkSuQmCC",
+    "width": 1856,
+    "height": 2304,
+    "color": "#f8f8f8"
+  },
+  "products/merch/mujo-frother-male-2026-06-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/AOPYyNC/rNzNud3QvS0kGgcDALumjtHCrwD37uDUxbDj1MDq2siqcU0+HgWfhWa0moAA//nt2Mi05tfE9OjbnmlLYkIminBQpY11AP/47dvLufPm1Pbm1sWqlqeLb7ebf7CUdwD/+/Ddzbr66dny3s3n0b3dx7TSvaaykXEA//zx7t/O3r2kw6WM48y2z7mftJp6pZBxAP/88fDi06B5WNTAqNS4m8uyl6SMb7uniwD/++7Pvafv4s3awqvGp4jHrpO7po7ErpIA//Hg5tC59+jT28erlGxLWzcdsJt85MqvAPDbx+XOsubNrta9pm1JKIpsSLyefNC0ltSiprS9oGXpAAAAAElFTkSuQmCC",
+    "width": 1744,
+    "height": 2180,
+    "color": "#c8b8a8"
   },
   "products/merch/mujo-frother-pdp-editorial-4x5.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAKCAIAAAD3rtNaAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA50lEQVR4nAHcACP/ALyifMqxisCngaaJZZV5Vo10T4ZuTQDRuZjQuZTMtJC+qom1m3eih2OYfl0A28Kh1r2b2cCfzb6r69a0wKeEqpNvANe+nNa9m9e+nNTHsvvmxPTeu9a9mwCDb0/WvZvawZ7cz7r/7sv96MX448EAJhcAgGxL0bmUz8Kt/+7L//HN/+3IABcAADorEYp1UdTHsv/93P/41f/10QAgCAA/Kw2FaUXLu6fly6LKsIjCp30AUDkbnH1YwaN6uKaJm4Jdr5Rpqo1oAEArD3ZaNKWCVqeFWJ9+UJV0S4dnP7/+f1YERk61AAAAAElFTkSuQmCC",
@@ -251,11 +473,35 @@
     "height": 2048,
     "color": "#080808"
   },
+  "products/merch/mujo-hat-back-stone-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA00lEQVR4nGP4/+cjHsQAZ/379eHdizuvH1//9fU1uvS7p7cuHtp0Zs+6U3tWn9i24v7VEwjpX19fn9q99tzejZcObTm1Z/Wp3Wv3LJ/17sUdqPTjW6ePbF588dCmq0d3nNmz7sjmxTuXT79wZCdI+ve3N+cObj2yefHiKZ2xob65SZHblk/dtnjKluWzv316CZI+vm/L0c2LzY20GBgY2FgYCpMj5vfUrlww7evHFyDDf3978/ju5XvXTu5ev7i7rvDCkZ3nju///e0NiscI+BurNABpivn1HGraTwAAAABJRU5ErkJggg==",
+    "width": 2048,
+    "height": 2048,
+    "color": "#e8e8e8"
+  },
+  "products/merch/mujo-hat-back-white-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAxUlEQVR4nIXPzwoBURQG8Jt4MBteR7yBshNlYWVhZ2FlYyOSGP+iBo1hLm7MDK4y6XSPYYimJCHq23z9Tqc+ojPlR8hrMVfUNOgXXptzRGHbiCgArOfRg4WAs3O8XE+IAlHsdlt9rj7YNCgAOI5zu95sGwEszjczOnaZafJEkQFAkqRwJBSLRXVjyTnvtOtU7btcKxcP+30w4PcQ4vOSVDLeaTXyuexU6bnPmSYP+3W2UFvNaiadGA26lVKBafL7sD+7P/kONWL60eD/dWUAAAAASUVORK5CYII=",
+    "width": 2048,
+    "height": 2048,
+    "color": "#e8e8e8"
+  },
   "products/merch/mujo-hat-card-editorial-1x1.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAyElEQVR4nGNgxAsY4CweHh5NdTVrM0MxESF06aKs1H9v7/3//PT/u/u/Xt7uaapCSGuoqv7/8PD/99f/f78FkR8efXt0ydRAByqdkRj9/8Oj/w9O/j+14v+J1f9vHPj26Gp+aixUur2uHCT9/QVE9793dz7dP99WVQCV9nByAEl/fgZCHx7+fnH9/e1TPq72UOkAT/f/7+7///z086Mrnx5d+fn0xvvbp/w9HKHSXFxcHk4OctKSENfKSUs62lhwcXGh+BtrsAAADQBuNcpM8G4AAAAASUVORK5CYII=",
     "width": 2048,
     "height": 2048,
     "color": "#080808"
+  },
+  "products/merch/mujo-hat-front-stone-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA4ElEQVR4nGP48+MdHsQAZ318+/jBrfOXzx589/IeuvSWNfMrs+LLM2PTo7zjApwnd9QgpO9eO12YHNZWlj21raqtLLswKdjLWu/ovs1Q6S1r5hcmh8U76DoLMdgLMvjoSvk7mvS3VIKkf3x5NaWjrjApuKkko7+hpK0sOz3K29FEPS3K98eXVyDp5urCgqTgiqzYiqzYgqTgSG9bSy05P3fbdy/vgQxfPLs3M9q3MCk4LtA1zNM6xNXCUksuKykCaveLJ7d6mqssTXU4mBgYGBi0VOXLC9KePLiO4m+swQIArIHCZBxWxcgAAAAASUVORK5CYII=",
+    "width": 2048,
+    "height": 2048,
+    "color": "#e8e8e8"
+  },
+  "products/merch/mujo-hat-front-white-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA4UlEQVR4nGM4fngnHsSAzDl17AAY7UGXPn/u2IsXT16/fvngwd0bN66dPHYQIX3q2IHHTx58+/75x48f375/fvHiydlzpw/t3QGVPnPyyIsXL3bNn9IV7doT671hSvvZc6f37tkOkj5yYNvhQ3tfvHjy8eP7n7++ffv++cGDu4cOHVi+fNGRA9tA0lMmdD1+8uD165evX798/OTB1auX9+/fW5ibvnvbWpDh61cvffzkwYsXT06dPnH06GGIdEdbPdTufbs2TJ/ca2ttysHEwMDAYKSn2dFWv3vbWnR/YwYLACsw3c/y9G21AAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#e8e8e8"
   },
   "products/merch/mujo-hat-hero-editorial-1x1.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+APnlxfbjxO7XtuzSsubOreLJqeDJqN7GpdvCo9a+nQD76s376cjx377t17Xo0LXXuZzfxqngyajfxqnbwqUA/+3S/e3O8+HA8+HH6cuyyKqP0bib486t4Mms28WmAPvqzf7uzvThxZiHdYldPoxaPHJeS+XOsuLKrt3FpwD/8dT+79PbyawfEQ21dFCnYz4QAADOuJzgya7bxaYA//nh/e3OwK2TEwYAVjYjeUcmHxYOfWpa4Mmu2cSlAP/86P7v05aFcA0AAB8QAp1yUbyhhH5mUrmkitnEpQD/997/99zCrZQoHhc8KR+/oITAoYWuj3HBqI3ZwKIA6NG0//fc8d7DwqiOtpuBv6OFu52BqYxtxa2Q1r2fAMewj/7v0+7ZwM22m7aehLebf66Qdp+AZbuihNG4mz7KyQJELDbIAAAAAElFTkSuQmCC",
@@ -263,11 +509,47 @@
     "height": 2048,
     "color": "#d8c8a8"
   },
+  "products/merch/mujo-hat-left-stone-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAnElEQVR4nGP48+MdHsRAgvTF0/un9db1tZYf2bMJXXrhhGZ/Z9OEELekUPeEELf929YgpK+eP6zKx2CnrxLsbhHt5xDt55ATGwiVrsyOD3a3MFQR97DS9bDSDXY1D3a3SI/2g0oHudn62hnZGasyMjCIMjPoK0u5Wxn0NZdDpb9/fnnx9KHnj2/8+fHu45tHb1/c/f75Jekew5QGAMs04ZfMVWfGAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#e8e8e8"
+  },
+  "products/merch/mujo-hat-left-white-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAnklEQVR4nGPYvW0tHsRAgvTJEweeP3tw/96tC+ePo0t31pfdu3fnx8+vEHTyxAGE9KF9O6L9PY6fOPrs2ZM3b16+efPy3r07UOlr1y7cu3dn+fKl586fOXf+zL17d+7du7PvwC6odGZG8vXrV+fNn8PAwCAixFdZWTFv/py21nqo9Jb1y2dO7Zk5tWf3trUrFs9eOHfKlvXLSfcYpjQAclbTlW1jHwIAAAAASUVORK5CYII=",
+    "width": 2048,
+    "height": 2048,
+    "color": "#e8e8e8"
+  },
+  "products/merch/mujo-hat-lifestyle-belt-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/AMOabcCbbdG0ktfApNvGr9W9otW+pNK6oADFnW3FnnPYvp3/+vT79/Pj3NPWwKrWwKYAzKV4yqN59OLO/+/n9+Pa4tvVz72u28StANetftCujZF5aePNvunh3JWOiKWXh9nErAC+hU+RaT58XEm0dlKyd1IzIBQYFA/IsZ0AoGYrZEIjTTYotnJQo2lDEgQABwQCgG5fAHFIIMCghKSQeXFVP39PLB8SCBAIBTouJQCQZEXqwaXVtpdURjhUMRekkIXUzcm+tK0AkGxK6LSQ1qB2eFU7inRlzsK47+nm18vDAMKskNWjfsKJWqR1T72sndjMwubb1tLEuVrbi4eS7kf0AAAAAElFTkSuQmCC",
+    "width": 1744,
+    "height": 2180,
+    "color": "#c8a898"
+  },
+  "products/merch/mujo-hat-right-stone-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAnElEQVR4nGP48+MdHsRAlPSRPZv6Wsun9dZdPL0fXXr/tjUJIW5Joe4JIW7+zqaLJrWiSOfEBkb7OUT7OQS7W9jpqyhzMFw9fxghnR7tF+xuEexq7mGl62Gla6giHuxuUZkdD5Xuay53tzLQV5YSZWZgZGCwM1b1tTMKcrNFOO3755dvX9z9+ObRnx/vnj++cfH0oe+fXxLtMVzSAF644ZS1j1LQAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#e8e8e8"
+  },
+  "products/merch/mujo-hat-right-white-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAn0lEQVR4nGPYvW0tHsRAlPSF88fv37v1/NmDkycOoEufPHHgx8+vEHTv3p3uhgoU6Xv37rx58/LNm5fPnj05fuKon6PVoX07ENL7Duy6d+/OvXt3zp0/c+78meXLl967d+fatQtQ6bbW+nnz51RWVogI8TEwMMybP+f69auZGckIp21Zv3zh3CkrFs/evW3tzKk9M6f2bFm/nGiP4ZIGAKaO03FHzVgDAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#e8e8e8"
+  },
   "products/merch/mujo-hat-side-editorial-1x1.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAiElEQVR4nGNgxAsYSJB2d7Jdt3jGzjWLYsIC0aXjfF3/f332/89bCEqIDEJIG+hpvD27+/+bu/+/vfz/8/X/n6+fXTkBlT67b9P/by9/Pb36/+MDEPr28v+3lxcPbIVKL5na+//rs8/3Lk5sr9++av7jS8cfXzqaHBOKMFxKUpyFhYUyj2FKAwAvjUudMC+fiwAAAABJRU5ErkJggg==",
     "width": 2048,
     "height": 2048,
     "color": "#080808"
+  },
+  "products/merch/mujo-hat-stone-male-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABIklEQVR4nGP4//fjjzf3D6yfe2jL3H3rZ21a0LlqauXC/sK5PZnT21MZINKHtsx9eGrTlv7SCVUJy6aUzO/Nnd2VPrUlGSp9fOfitRMrMmzlI5215/bkzO/Nn9WeBpX+9vruwbXTl5YEBygwmPIyTCiJXNhfOLsre2pLKsP/3x9Ahm+YvXdSUZmzijoDQ29t8sJJJXN7chDSB9bPmFASGajOw8DA4GomP6srd3Z3zpSWDKj0qql1cgwMgQoMRrIM2vI8rpbKjQXhCOlT2+cn+FnVJXjqyXGkhdhNrkv1ttOsKwxj+P/tza93j/Yu7mzKDatM8u4uiTq0asrE2uQAe01XMyWQ9OdXd/cu655YmzytIWPt5JrlEyui3Q2sdcTMNUQAyQqiqsgp6p0AAAAASUVORK5CYII=",
+    "width": 2048,
+    "height": 2048,
+    "color": "#c8b8a8"
   },
   "products/merch/mujo-hat-white-back-editorial-1x1.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAs0lEQVR4nIXPoQqDUBgFYGcRrDeY7lNYBbnNZPINTBrME4SFTZvV5iuZ3F7Ci+Bv+fH3zsG4KIyxnXTgK+cYp58x9mbbthAiCALG2CeHYTgMA70DAFmWHew4zjiO67oqpYhoWRYAcF1XcxzHiKiU2p4bESHiPM9FUWjO8xwRu64ry7JpGiklANR1rdnzvGmaoigyTdOyrLZtH/fe9/1jGuc8TdOqul0v5yRJ9vHHsT+/v/IL7k5XwSbkGlcAAAAASUVORK5CYII=",
@@ -287,11 +569,23 @@
     "height": 2048,
     "color": "#d8c8b8"
   },
+  "products/merch/mujo-hat-white-male-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+ANHKudHKucvAr8i8p8W6qLmsmrKjjamXgKKSe6KSewDQyLvTyr3RyrnfzsLOs6ezrKeso5avoYupmoWmloIA1cu+08q908q9uaeYv7Sqs6yngHVot6qXr6OQqp6JAN7YytPKvdDIu5R0WFUjAEcfAC8AALuxn7Kpl6+jkAD8+O/e2MrSzb7HrpZWJAAwAABFLxq9taS0rJmyp5UA/vzx+/bq2dPFzcW5UygPAAAAKhAAqZyItq+fsqmZAPz78P788enl19TOwJ2EZ2g6EYNtUH9oTJ6PerKqmgDj28v+/fXs6NzWy7yHaVCEa06gjHeSfWR0XUKjloIA1cu66uLR7Ojc1cu6mYNrqpeBrZuGlX9oaVE3e2lQANDEtdrPvNrSwtfJuK2dh6qUgpB6Yol2Wl5FKmRNNoMUuRPV+Xo0AAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#d8d8c8"
+  },
   "products/merch/mujo-hat-white-side-editorial-1x1.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAgElEQVR4nGNgxAsYSJB2dXVdunTp+rXrw8PD0aVjAnx+/vz5Dwaio6MR0kZGRk+unPv27dvv37//gMGtW7eg0ocPH/7169enT5++g8GvX79+//597NgxqPTcuXN//vz59OnTvr6+9evX37hx4/r160lJSQjDZWRkWFlZKfMYpjQAXYpNnzt3jLYAAAAASUVORK5CYII=",
     "width": 2048,
     "height": 2048,
     "color": "#080808"
+  },
+  "products/merch/mujo-tee-back-desert-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAnElEQVR4nGP4+uE5HsQAoe7fOpefEgxBZdmR1y8dQ0g/vnfR3lRRS57TVEvUVEtUS57TzVrt8b2LUOmMWG9lCQYteU6ICi15Tg1Z1vyUYKj0/Vvn/JyNNGRZISq05DlDvSzu3zqHsHtie7myBIOGLCsEzZrcjOK0ie3lkuwMyhJQNKGzEp/0rAmNKNKzJjeb6UrA0aLZXSjSuIIFAMRTr/yRV+BzAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#e8e8e8"
   },
   "products/merch/mujo-tee-back-editorial-1x1.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAhElEQVR4nGPoqUvFgxiwim5Z2oWQ3rK0Ky3cMS3cESIEYUNUgKQnt+V52qrBVaSFO8YHWp/avRAqvX5e++S2vPhAa4iKtHDHU7sXrp/XjmK3p61afKA1BG1a0oPuNCVxBk9bNQgiIL1iZhOK9KYlPZPb8ia35W1a0rNpSQ/EXTj9DQ8WAP/ehxkwhQUzAAAAAElFTkSuQmCC",
@@ -299,17 +593,53 @@
     "height": 2048,
     "color": "#d8c8b8"
   },
+  "products/merch/mujo-tee-back-white-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAlElEQVR4nGOQEOXBgxgglLKiZENd5cT+non9PQ11lcqKkghpZUXJbds2vX79etPaNUf27Xv9+vW2bZsgKkDSTQ11p06deg0Gv3//fv369e3btyf29yB0T+zvuX37NkTF69evFy+ej9AtIcrj7uZ46tSp2zAQHxeF4jSINBy4uznik0bX7ehgtXjxfDjy83NHkcYVLAAk8G4JENwUVQAAAABJRU5ErkJggg==",
+    "width": 2048,
+    "height": 2048,
+    "color": "#e8e8e8"
+  },
+  "products/merch/mujo-tee-belt-male-tennis-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/ABgXBRsaCSAeCq+di4BeSB0aAg8MAAIDAAANDgQICAMVFg+BXEBtPyUWGRIVGBAXGhQAGxoUGxoULiwluaaVsZODpqOfLzIrLDAgAB4aFSUfFoZ9df/89P/18Ore1ZGNiRccGAAmGhEqHRWOdWb76N705NvYwbSQbFstIhgAGRIJHBUOckYt/+7m8OLevK+pXS8YLCAXAMtsLcptMcB6Uv/67+zi4K6dlVkqEBkHAADCYyfLaSzEjW798ujm3Ne0j4DVcC7SbisAznA21Xg7toBo6M++6NXL4r2l0nI10G4wAMJpNrZqPMiQbNKvnN7EsOTFtL1ZH75cHyaOaHBe3JBSAAAAAElFTkSuQmCC",
+    "width": 1792,
+    "height": 2240,
+    "color": "#282828"
+  },
   "products/merch/mujo-tee-card-editorial-1x1.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAf0lEQVR4nGPYs2YSHsQAZ9XmhcLRHmTpr09PQETjAq3gjK9PT0ClD22ZqS7DBJeDSH96fBIq/ebWoWM75scFWh3bMX/5rCYI482tQwi7vz49ATEAgrA4TV2GCY4gFqNIywsxwKXRdX96fPLQlpnHdsw/tGXmwilVEHeh6MYaLADWCKjdswBVAgAAAABJRU5ErkJggg==",
     "width": 2048,
     "height": 2048,
     "color": "#d8c8b8"
   },
+  "products/merch/mujo-tee-desert-male-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABPElEQVR4nGP48f7e1sXdheFm83sKhBkY1s5pOr195qktU/ataN++qIHh/4+Xu1ZMrE113Leo04SBIdzd6P75zTeOrz65fdbBdRMZ/v9+s3vtlOY8n9tHVukzMDRkh726c/TBxV2Xj6w6sX0+SPfBTTO7y8JePjibYCsbYSN/ZP3MF7eO3Tix6cTuRSDpQ5vmdVeE//9y//+7G9f2L51aHbtiWv2d87uPb0eS/vX62ven5xe0Z8W5qXWXRN86u/3ItgUI6WPLe+6dWh9iIeEgxeCmKXT19FaQ9O+vL49uWzyhNn7f7Pq7J9fFOCl6qnGaSnNcPL5178ZZDJ/fPty3aW5PVfz++U0HlncWhVtYizKUJvidO7xh0/IJDG+f3di7fnZrUdi3h+funlw3sSJek4HhxoV9Jw+sWb94AgByOLeJGCXw4AAAAABJRU5ErkJggg==",
+    "width": 2048,
+    "height": 2048,
+    "color": "#c8b8a8"
+  },
+  "products/merch/mujo-tee-front-desert-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAmElEQVR4nGP4+uE5HsQAoa5fOpYR6x3iY50Q5pIR63390jGE9ON7F810JTRkWZUlGDRkWTVkWc10JR7fuwiVTghzkWRngMtB1GXEekOl7986526jqSzBYKYrYaAuoizB4G6jef/WOYTd/R3lEAOUJRgk2RkmtpejOG1iO0gajrBIi7Pilp41udlMVwKC9NQEZk1uRpHGFSwAF8+sL4qBn9AAAAAASUVORK5CYII=",
+    "width": 2048,
+    "height": 2048,
+    "color": "#e8e8e8"
+  },
+  "products/merch/mujo-tee-front-white-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAApElEQVR4nGOQEOXBgxgglLKiZG5uRnpqSnpqSm5uhrKiJEJaWVFy8eL5t2/f3rJp85FDh2/fvr148XyICpB0emrKqVOnbsPA69evT5061dRQh9Dd1FB36tQpexN9exP9U6dOTZ4yAaFbQpTH3c3xFBjcvn371KlT7m6OKE5zd3PcvXs3RAVOaThAl3Z0sJo8ZcLkKRMWL54/ecoERwcrFGlcwQIAoE9ixHdAruAAAAAASUVORK5CYII=",
+    "width": 2048,
+    "height": 2048,
+    "color": "#e8e8e8"
+  },
   "products/merch/mujo-tee-hero-editorial-1x1.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AObYyu7j1uzez+TUwXdoWkg8L8iznc25n8iyl8WtlQDz7uT37ubx5Nmom44dBACDTi1QRjjWwanSvabKtJ0A+/Pv+fLs8+reU0U9WTUjh04zGg8A18Ww1sGszrqkAPz39Pvz7e3l2hMBACUNAGk4FxoPANfFstfFsM+9pgD/+/b89fHu5N4AAAAaAACvhWTAqY6ymoDRwKrPvacA/vv5+/bx9/DrlYRyootzyrSdyrSdooptuaaQzbqmAP75+Pv28fny7MCqlM23pNC+qbujjZmCZa2Yfc26pQD89/T69e/28u6ojXTCr5jNuqKhhmp2WzyAUTHItqIAyrunootx283CoHRWvquRyrSdn4Rpd11CfEMjx7SjAKN/X6ODZregi5RoTsKtlsWvmp2DaHpTNZRqUce2pozXvaPvlGCNAAAAAElFTkSuQmCC",
     "width": 2048,
     "height": 2048,
     "color": "#d8c8b8"
+  },
+  "products/merch/mujo-tee-lifestyle-belt-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/AN2+n9S4m9Czld3KudXCsrGUe45wVJ1+YQDw0bLw0bLew6r04t3awrq5qZuMcFadgGMA2r2f3cKlmoNyhlY8onNWlYV3iG5SnYBlAOTIqsuwmDEiGteUcrl2TSgZEINkSZJzVwDYuJqEcGAaEw6sclF2SS0FAACAVDWRYz4A+Orgy8G/WE5KoXJTbU01R0A9flk/rHRHAP/9++Tb1si9u+Lb2N3Uzt3V1djKxbiQaQD+9PPn3Nvg2Nji29vh2tbm3d3k1s/BnYAA8+nk6OHd5t3d3cG4487J4tjP5NjRx6eNAO6/n9XCtOzh3Obc1+fd2ODUyufd2NK7p9LsnACqboqTAAAAAElFTkSuQmCC",
+    "width": 1744,
+    "height": 2180,
+    "color": "#c8b8b8"
   },
   "products/merch/mujo-tee-white-back-editorial-1x1.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAZklEQVR4nH2Q0QnAMAhEM40/+XYHM0SWcIpbpBnt1khphaSBNIeg+E4RUz8qRSKJj0hOTLK+yiJZJOpwPNjdzUp03b3WalYALNPDEaY53XsHYFZGtKstpwFQ1WCqusdDG3xa/veWG4+8z2sUmhfdAAAAAElFTkSuQmCC",
@@ -329,17 +659,35 @@
     "height": 2048,
     "color": "#b8a898"
   },
+  "products/merch/mujo-tee-white-male-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+ALqqkbejjLekirWiiC4jE3hoUbKcfqiUdp6HaJV/XQD05s3Cr5m9rJSvmYFLHQAbAACznYKtmXqeh2iXgF4Ay7qi28qvy7qiwKuVRxsAOyQLs52Crpl+nYlqkHlaAL+vmr2vmMKvmcKznIBlT1E9LKeYg6qYfZeEZot3WAC6q5i9r5i9r5jo39r8+//i4OSjnJSUhGqVgmeKd1kAyLunu6+buquV3tfO8+zsp6CboZuUhndfjHlfgnFUAOjbxMW5oriplMq6rOvr7XVoW1k5IlhHM4R2WH1tTgDFuaTIuaO4qZTBq5zi4OR4a2A0EgBWRzWFdl93aE4AwLOer6OOsqONvKeb2trcf3FlKQAAhntlgHZgdGdPAK2hjKmbiZ+IcqOOgOPg5GlZSikNAJKFcX1yXG5hSlz4pnRVI7uNAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#c8b8a8"
+  },
   "products/ritual/ritual-cacao-texture-editorial-1x1.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AP/rqv/Tlei2gr2Tab6WcoZqTbmOdrBxVbaNc7ShiAD/7rL/7a7/7rL/y439zJi1iV3Io4DVoYSJX0GigWkA/+yw/+2y//W52J9lbUEjcj4awIJLu4RVhVYyqFw7AP/usv/tsvLGkiwGAD4QAEkiApJXLVYyE8KTYOGGUQD/6ar/05aFYD1XHQFRGwIjAADGh08aAAAzGgCHZksA/9OWrW0+hFMscSkMVRkAKgUALw8AOxoALhYATDUXAP/QlsuPWoZGHkgUADMGAC8GAD0RAEklBTggBVQ5GwC8kmjGj19kIABdKQuAQx1oNhJZNRZDKhNfRStXQCEAk3VWeVk7VTEXr31SvYRT3a11hWZDaE40emFDYUYpAJN2WY5wUpZzU7CIYM6fcNqncO20eMuaZdyqdqBzSPtlhKvwwHyYAAAAAElFTkSuQmCC",
     "width": 2048,
     "height": 2048,
     "color": "#180808"
   },
+  "products/ritual/ritual-cacao-texture-editorial-2026-09-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+APvdvd3EpMatkMStkMm0md/NtPXfxPHcwuzZwNbKsgDkyajrzq343LvVvZvcyK3/9tv/8db/+uL77tbYwKcA/+/P7c2q0rSU5cWi3MOh/9Wv/8Cb/+7S9enR08GnAP/uzf/ux9ixjMCceLuff//Orf+nfP/03Pbmy9PHrgCdeVVuTzMhAAAwCwCjd1Hz0rD/r4b/6tL43cLZy7MA58WhQB0ANQ8AWSgId0Ygo4xw/+K/972b9ufO2sOoAPbSqyMAAE0hAD4TAG1AHlZCLP+of//Qs/C8m8SNawD/4r6edlFnNxNgNRNEKAdWQSj6tpH/0a7cup+SeV0A16+Kil08upRvdls9X0csdl9GrZV5knlaVj4lVUAkAOrLqKF5WFYtEcSeeaaLbaCGbNCykNq7mcWnhKuQbwYRuuY+tQNdAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#c8b8a8"
+  },
   "products/ritual/ritual-card-cream-mug-editorial-4x3.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA4klEQVR4nGP4/+nKpnkNU+pjo5yUYlyUE7w0skKNU/y0PU2EzZQYGP68PL1hVt3/j4/+f3z0+dmVFD/twmiLrFDjUAd5azVGhg+3di+eWHBpbt3/l9fvXzqY5m9QGG0NkTZXYmDYt7h547TSl/uXvD+/8+yRjck+emn+BnEeGj4WEnpSDAz/v1z3N+KdkOjy/Oj6+a25EysjZjYlL+hKn9uSsqgrg+HTlfUGwgzqDAx1CR7tReGNmd7VyW4VCS4QxHBqQ9/hFR2d6c6umlwre3PObZ16adfMS7tmHl7RsbQnFwDtPWVNPs0ErQAAAABJRU5ErkJggg==",
     "width": 2336,
     "height": 1744,
     "color": "#a89878"
+  },
+  "products/ritual/ritual-hero-pour-hot-with-pouch-editorial-2026-09-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/AOPYvf/55+nZwpuDbJB6YmtTPEYzHJ5zVQCtoHj77tby48uZgmmKc1tfTDR4WkFsOh4A8uTB3Mi03Miz1sCpnopzUz8ojWZMi2JJAMKvl9umiNi7p9zItYl2YEQyHNnCq+XNsgCFbFPdj2/iuqDVxLFzXUdMNyFJNBsmBgAAkXdZ/cqt2q2Uzrmho4NivpFllW9KNR0AAPDNp/62lNiliLeUeLSJX4JJEj8XAJluRQD/37b+x6PKpIqCXUGYa0NVIAAqAAC7j14Azraa27aSxZtyWDAOdUwqXDIKVjEOZUIiAJqCbX9oUohwWMqlf8meea1/V6d2R8COV9BHfUmJiPsbAAAAAElFTkSuQmCC",
+    "width": 1792,
+    "height": 2240,
+    "color": "#c8b8a8"
   },
   "products/ritual/ritual-hero-pour-hot-with-pouch-editorial-4x5.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAKCAIAAAD3rtNaAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA50lEQVR4nAHcACP/AP/95/bgyGlNKnNXNXZZN5N5W8KulwD/++f759BtUC92WTeEZkOskXKdckwA9ujQ2sWqlnlZlHpcim5Ojl49WzQWAN/JrLiNa8i4nMKpi5l9X3JFJLufhQC/l3G0aD3dxavUtZOvmHn/78rt2L4AsY1ozYRc58qt1bmaoopt3cCX5M21AJt9WtB8T+PAn7iTb7qYdfzdwN7MtgCYdU/Ni2S0jGl2TycvAAAvCADwvYcA/9an8sSMil0wTywALwEAJgAAQSIAAIlpR3hSLIBZLZlrO7B+RsSQVdWhY/SpccaZVv4IAAAAAElFTkSuQmCC",
@@ -353,11 +701,35 @@
     "height": 2336,
     "color": "#a89888"
   },
+  "products/ritual/ritual-latte-handoff-editorial-2026-09-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AFFGJWVWOJR+Y6GMcaKOdZ+LdJWEcKqZg/fo1N/QvACQf2OcjHG0m4DOpYXLtJazoYSJeGOfjnn/+efVxrMAmHlWknlfoYFkwn5Zy7efqZF2fmlWlYRw//jknYFiAHNNImtIIXdZOsuLZsqylJR5W2lLMIltVe7cxzgLAABqQRFzSB57Vi7RfU+yhmOWaUSJWyyNXjKdb0KsgVcArHlFsXtGy5Rc0p1smXBLqoBVqnVEqnVKp3NIjF89AN2veNuqcrqDVLaFXMKgfmtJKVIgDkQSAEESAEUcAADdwaJWLhBMGgAzAAAiAABaNRaPXTJ5RSGzgE67h1YAg2BAeVAoYTYPNQ4ANREATiYARh0AUCcBaD0Uc0QbACgAAEAaAFUpAGQ1A18vAF4wAFElAE4lAGE3DYNVJvkbfABBSUj0AAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#a89888"
+  },
+  "products/ritual/ritual-milk-pour-gallery-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+ANC6l//z4//x1N22hL6lhrejhuPJo86ugsSmdsSmdgDMtZT/89//9t3dtoTCqoitjFp9XTqPbkObczuBYzIAyLKQ/vHc//rj3baHxayOrZBpdVczXEAjTjcYOSULAL6mhP3t1//z39StfcWsjaiLZl1DJmBGKm5WPH1mRwCxm3fz4Mf/8t7JpXe9o3/EqoTEsJbo1bnt3MDs17kAoY1owqyP7de9xaeGpoFb27iT7tW06dW7//Le//niAJR/WbGUcreMYp1mPKprOJ9nNqt1SOvPre3Usv/33gDuvoDxvoPnrXCOOAMvBwATAAAdBAC5iU7PnGDao2IA/sqN+ceI9sKAv24kNQ0AEQAAFgAAZUIfgVUniV0vAOSyctmrceSyddqgWo1aJ04uDEAlBlIwC187EmhAF6DjqxN7GFtoAAAAAElFTkSuQmCC",
+    "width": 1856,
+    "height": 1856,
+    "color": "#e8d8c8"
+  },
+  "products/ritual/ritual-milk-pour-morning-light-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/AOniyv/44f/mxP/fs9+vd6N6SmZGJFU2EwD169L/+t//7sn/6cjjtoGsf05pRiNVNhEA1cKei2M1rH9F2LaH4bF2rXxMaUYjVjcSAODWsuO2gf/ouf/js9yqcqt5SGlGI1U2EwDm3cLktoL/7b7/4LLmtneqd0hpRSJTMhAA/+3H5LaC/+Cx+9Kd4K1zsIZZcU0qTC4LAP/tx+K0fu+9iK96TLaEWZtpP5VtPYJYLADbwJungFbfomY2DwARAABBHQH6xoH/1H0AnntX/tGU/+WpiVcoIwkAIgoAf1Ijp3dBAGJBIItjNcqXXPjDevG8csuZV6t9RJFnOGEThheCb9glAAAAAElFTkSuQmCC",
+    "width": 1843,
+    "height": 2304,
+    "color": "#785838"
+  },
   "products/ritual/ritual-mug-steam-cream-editorial-4x5.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/AP/xy//74vHdxP/75f/11//v0Zp3RbKSZAD/9tb/8dXl0K3y2rnjw5rJp32TazanhFgArolcp4RWqoVXu5hpy6Nzo4FXkW1CgmAzAKqHXqeEW6F+UZ94Rr6MUIRdLnZSJG1JGwCNYzKKYjOlgFeykG/Rp3mvimBxTR9mQhYAfFcqelUpiWg+Ui8AdEcRjWI0ck4iXzwRAHBKIW1LJH5bL04nAG1CCpRoMo1lNnxQIgCac0atglSOaz9SKgBsPwiUZTSteDyqcjUAq4RXtI1feVMqNQ8AOxcAPBsAflAdkV4fAJRwSn5YLlcxAzUOADAAAC8AADIAAC0AACN9aB21AbRpAAAAAElFTkSuQmCC",
     "width": 1856,
     "height": 2304,
     "color": "#886848"
+  },
+  "products/ritual/ritual-open-bag-powder-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AN/Sw5qFaop2VolxU413WI11V5+HbZ+HbZp+YWg2DAD38OrHvLLIuqvLvLHNwLTAsaekjnaEaEx+RiebZkMA+fLsuJJ+wZ6K0cjA0MW7y7+xm4Vta0QoVxsAo4RnAP/48pZbO7V9X8/CttLEucq8rZOBaYdrVJBiRaCIcQD/9++PVTitclPVy8LVy8LNwbWSgGmvopHKvavNwbUA//v1kmVMpWRC0MCy08i+xbutjXlmn5F/ppB2tKeXAP/275p5ZqNjRdLKvtrOxL2voZOBbaKRfZmKeZSEdgDRvaV9QyWjZkfHrZvAnIOtlICZgm6einWfjnyKf20AvqSIgFA4mF9Ey7OnvaSWpop2JwAAm3tcYDsfvqSIAK+QcUYlAEEiAE8zFDUQAFY0DwAAACwAADMJAN/DohWVpIqu6uMxAAAAAElFTkSuQmCC",
+    "width": 1744,
+    "height": 1744,
+    "color": "#d8d8c8"
   },
   "products/ritual/ritual-pouch-10-serving-hero-monumental-editorial-1x1.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABQUlEQVR4nAE2Acn+AP/86P/45f/v2PLiyuPMssq0j6eMaXlfPVM7FjEXAADy4sr/9eH/8N3/8tv/7dXu273SvJu0mnePdFFtUS4Aootq4suv9+bN9+3j7uDV693R5dfI2L+ftp15mXxYAE41FZuCXtbAoOPCrerRxP307N3QwuTQsc62lLmeegAqDwBTOxabgl7JlHXctqD58+nLvbLr2LvjzK3RtpQAIgAALxcAW0Eg27qm37ej6dvOu62f6NG06NG03semABgAACgNAEAoBq1zUuXCsMirm6GMfNe9nN/IpN7HpgBBKwRdQyB1WjXjxLHx1cW9m4qIbl1yVzV9ZUGAZ0YArZJurpBstJdzyK+Py7SWyK+TwaeIxqqGwKaBu514AEEoAEsyDFk+GFk+GF9DHmNGI19DHmJGIF1BG11BG8XMrvRX21iyAAAAAElFTkSuQmCC",
@@ -370,6 +742,18 @@
     "width": 2048,
     "height": 2048,
     "color": "#d8b898"
+  },
+  "products/ritual/ritual-pouch-hero-monumental-editorial-2026-09-1x1.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABL0lEQVR4nGP4//na7+cnty9q9TSX0ZVl0JJmUOZnUOBkkGNmkGBgYPj/+dr/12dfXN1xds/8vtLosgSnnHBbK01+eUaQCrD0uzNfnhx5d/vI/+/3vzy/8OHx6RgvfRTp/x+vVJsI7e3O+v/r4d4lHZFuuir8DDIgw9+dgUi320idXtT8//v9FbOalkwsinXXlGeES787s7c+5sTs2qt7F7SWx57dM//k5qmFcQ4M904u//H4wN9XJ/bWRWxpTt63rDvJ1+T83vm3ji67sGs2Q2GkxaGVLbcOzp/hp35905QMC0kdFoZdi5tXTSzoKgpluLZj8vEVDdd2TP56fcux9f3zOnI8zCWMpBmctLlSvbQY+op8WjKcs/01k9wVYxzlImylUr20Yp3l/cxEHDUZAXUPm17cR+AUAAAAAElFTkSuQmCC",
+    "width": 2048,
+    "height": 2048,
+    "color": "#e8d8b8"
+  },
+  "products/ritual/ritual-recipe-hot-latte-editorial-2026-09-4x5.webp": {
+    "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/AP/75OnVuebQtrSgibKbgqaPd5R8YIRrUgDe0bTp1bno0rW+qpLIs5zFrZnHsJu+qJUA2saq8d7D6dK2wKmS1qCC2cWv1ca0wKuXAOzVt+jStdnCprWeht2CWda8p8u5p6CIbgC+n3/RtZa1noalj3bqonzLp5DDrJWUfWUAz62K38Ch5Many66P6aN/w5R5r5Z+l3hXAOPQu/vcu6NyQXJHGt6IYbeIapRdPItZNwCylX6ZakFXJAAwAQDbsYithmSEYz5lQB4AtpiBmWtDOA4AJgAAaj8ab0UeZjwVj1wvAGA/H8addc2VYql2RIBTKXVKJXJIJHFHH2wKiNNh0nJWAAAAAElFTkSuQmCC",
+    "width": 1792,
+    "height": 2240,
+    "color": "#c8b8a8"
   },
   "products/ritual/ritual-recipe-hot-latte-editorial-4x5.webp": {
     "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAIAAAAGpYjXAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBUlEQVR4nAH6AAX/AD8uFU04Hl9JL3NdRXZhSJWDb9HEssi5qAA9KxRJNRpXQSdtVz92YUiWg2vIl37MvasAOyoQRDAXV0Qod2FGZlM7lH9qyYxx0MKxADkmED0pEU04HmlTOWNQN4p1Ydmqj8evmgB2YERjTTNtVz+Ve2FtVj2Cb1zRmn2+noQA/OLD//nf+9y5/9ew+8+foXxXv5uDsY1wANCuja+HYMufcY9fNl8sAJtnM699TIxiNgBcNg2fbzvco2l3PxBBEAC0gET/0ovXnF0AuYpV/9KU/+WjiFwwJQAAORIAUiwBk2U1AJRpPJhtQNKfaf3Fg+WxcptvPYdcMnlSJnrVbaBITPfIAAAAAElFTkSuQmCC",

@@ -29,7 +29,7 @@ type PriceIdResolution = Pick<
 // Cart line-item thumbnails. Point at real square masters in public/images —
 // the old /products/*.png paths didn't exist and rendered a broken-image box.
 const RITUAL_IMAGE_25 = {
-  url: "/images/products/ritual/ritual-pouch-hero-monumental-editorial-1x1.webp",
+  url: "/images/products/ritual/ritual-pouch-hero-monumental-editorial-2026-09-1x1.webp",
   alt: "The Mujo Ritual pouch",
 };
 const RITUAL_IMAGE_10 = {
