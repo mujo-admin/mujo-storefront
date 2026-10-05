@@ -52,7 +52,7 @@ export default function ProteinPdpPage() {
               description:
                 "A plant-based protein powder made with Lemna leaf and yellow pea protein. 22g of protein and all nine essential amino acids per serving, 0g sugar, 120 calories, real Madagascar vanilla bean and monk fruit. Vegan, and free from gluten, dairy and soy. 450g pouch, 15 servings. Pre-order: ships by November 15, 2026.",
               image:
-                "https://mujoworld.com/images/responsive/products/protein-powder/powder-pouch-hero-2026-09-1200.webp",
+                "https://mujoworld.com/images/responsive/products/protein-powder/powder-pouch-front-2026-09-1200.webp",
               lowPrice: "44.99",
               highPrice: "44.99",
               inStock: false,
