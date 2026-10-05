@@ -225,7 +225,12 @@ export async function POST(req: NextRequest) {
     const hasMerch = parsed.items.some(
       (i) => resolveMerchPriceId(i.stripePriceId) !== null,
     );
-    params.shipping_options = buildShippingOptions(subtotalCents, hasMerch);
+    // No Express on a pre-order: paying $15 for speed on something that ships
+    // on the ship date would mislead. Same switch as merch.
+    const hasPreorder = parsed.items.some((i) =>
+      (Object.values(PROTEIN_PRICE_IDS) as string[]).includes(i.stripePriceId),
+    );
+    params.shipping_options = buildShippingOptions(subtotalCents, hasMerch || hasPreorder);
     // allow_promotion_codes lets customers type a code at checkout — this is the
     // path the first-buyer WELCOME10 code (coupon MUJO_FIRST_10, 10% off once,
     // first_time_transaction only) rides on, plus any partner / press codes.
