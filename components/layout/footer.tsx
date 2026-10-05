@@ -43,8 +43,9 @@ export function Footer() {
               style={{
                 display: "flex",
                 flexWrap: "wrap",
-                gap: 6,
+                gap: 14,
                 maxWidth: 320,
+                marginBottom: 10,
               }}
             >
               <input
