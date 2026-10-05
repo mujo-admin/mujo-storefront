@@ -127,7 +127,7 @@ body.locked { overflow: hidden; }
 .pdp-guarantee-icon { width: 32px; height: 32px; background: var(--brown); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--orange); }
 .pdp-guarantee-icon svg { width: 16px; height: 16px; }
 .pdp-guarantee strong { color: var(--ink); font-weight: 500; }
-.pdp-p65 { font-size: 11.5px; line-height: 1.5; color: var(--ink-soft); background: #fff; border: 1px solid var(--sand-deep); border-radius: 8px; padding: 10px 12px; margin-bottom: 24px; font-family: var(--f-body); }
+.pdp-p65 { font-size: 11.5px; line-height: 1.5; color: var(--ink-soft); background: #fff; border: 1px solid var(--sand-deep); border-radius: 8px; padding: 10px 12px; margin: 18px 0 24px; font-family: var(--f-body); }
 .pdp-p65 strong { color: var(--ink); font-weight: 600; }
 .pdp-p65 a { color: var(--orange-deep); text-decoration: underline; }
 /* Nutrition Facts as a real text table (2026-09-29) */
@@ -290,7 +290,9 @@ body.locked { overflow: hidden; }
   .ing-rail > * { scroll-snap-align: start; }
   @media (min-width: 900px) { .ing-rail { grid-auto-columns: minmax(0, calc(33.333% - 15px)); } }
   .ingx { background: #fff; border: 1px solid var(--line-soft); border-radius: var(--r-structural);
-          padding: 30px 28px 32px; display: flex; flex-direction: column; }
+          padding: 0 0 32px; display: flex; flex-direction: column; overflow: hidden; }
+  /* Image runs edge to edge at the top of the card, like the homepage ingredient cards. */
+  .ingx > *:not(.ingx-img) { margin-left: 26px; margin-right: 26px; }
   .ingx-tag { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.18em;
               text-transform: uppercase; color: var(--orange-deep); margin-bottom: 14px; }
   .ingx-name { font-family: var(--f-display); font-size: 23px; font-weight: 500;
@@ -331,7 +333,7 @@ body.locked { overflow: hidden; }
         border-radius: var(--r-structural); box-shadow: var(--s1); padding: 34px; text-align: center; }
 
   /* Ingredient card imagery */
-  .ingx-img { aspect-ratio: 4/3; width: 100%; border-radius: var(--r-tag); margin-bottom: 22px;
+  .ingx-img { aspect-ratio: 4/3; width: 100%; border-radius: 0; margin-bottom: 22px;
               display: flex; align-items: center; justify-content: center; }
 
   /* Founder video */
@@ -423,11 +425,10 @@ body.locked { overflow: hidden; }
                 <div class="pur-opt-radio"></div>
                 <div class="pur-opt-info">
                   <div class="pur-opt-name">One-time purchase</div>
-                  <div class="pur-opt-desc">Pay today, ships by November 15</div>
+                  <div class="pur-opt-desc">$3.00 a serving &middot; 13.6&cent;/g protein</div>
                 </div>
                 <div class="pur-opt-price">
                   <div class="pur-opt-price-now">$44.99</div>
-                  <div class="pur-opt-daily">$3.00/serving &middot; 13.6&cent;/g protein</div>
                 </div>
               </div>
             </div>
