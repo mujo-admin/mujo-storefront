@@ -12,7 +12,7 @@ type PageProps = {
 };
 
 const PAGES: Record<string, { file: string; title: string }> = {
-  "2": { file: "mujo_journal_page-2.html", title: "Journal (Page 2) · Mujo" },
+  "2": { file: "mujo_journal_page-2.html", title: "Journal, Page 2" },
 };
 
 export function generateStaticParams() {
@@ -25,7 +25,7 @@ export async function generateMetadata({
   const { n } = await params;
   const page = PAGES[n];
   return {
-    title: page?.title ?? "Journal · Mujo",
+    title: page?.title ?? "Journal",
     description:
       "Field notes on rituals, recovery, motherhood, and modern performance.",
     alternates: { canonical: `/journal/page/${n}` },
