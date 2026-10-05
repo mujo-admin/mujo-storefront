@@ -25,7 +25,7 @@ const PROTEIN_SPLICES: Splice[] = [
 ];
 
 const DESCRIPTION =
-  "The first protein powder made with Lemna leaf. 22g of complete plant protein, all nine essential amino acids, 0g sugar and real Madagascar vanilla. Pre-order now, ships by October 30.";
+  "The first protein powder made with Lemna leaf. 22g of complete plant protein, 0g sugar and real Madagascar vanilla. Pre-order now, ships by October 30.";
 
 export const metadata: Metadata = {
   title: "Plant-Based Protein Powder, Vanilla Bean",
