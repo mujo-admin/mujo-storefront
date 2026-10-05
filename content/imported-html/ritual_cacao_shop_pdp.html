@@ -2904,7 +2904,8 @@ body.locked { overflow: hidden; }
   .sci .sci-intro { font-family: var(--f-body); font-size: 18px; line-height: 1.55; color: var(--ink-soft); max-width: 640px; margin: 0 0 48px; }
   .sci .sci-rows { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
   .sci .sci-row { border-top: 1px solid var(--line); padding-top: 22px; }
-  .sci .sci-icon { display: block; width: 40px; height: 40px; margin-bottom: 16px; }
+  .sci .sci-icon { display: block; width: 48px; height: 48px; margin-bottom: 16px; }
+  @media (max-width: 700px) { .sci .sci-icon { width: 60px; height: 60px; margin-bottom: 18px; } }
   .sci .sci-num { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.2em; color: var(--brown-mute); margin-bottom: 14px; }
   .sci .sci-label { font-family: var(--f-display); font-weight: 500; font-size: 21px; line-height: 1.2; color: var(--sage); margin: 0 0 10px; }
   .sci .sci-why { font-family: var(--f-body); font-size: 16px; line-height: 1.55; color: var(--ink-soft); margin: 0 0 12px; }
