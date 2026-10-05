@@ -761,6 +761,8 @@ body.locked { overflow: hidden; }
   min-height: calc(24px * 1.2 * 1);
 }
 @media (min-width: 768px) { .tile-name { font-size: 26px; } }
+/* Phones: a touch smaller so "Lemna Protein Powder" stays on one line. */
+@media (max-width: 480px) { .tile-name { font-size: clamp(18px, 5.5vw, 22px); letter-spacing: -0.015em; } }
 
 .tile-tagline {
   font-family: var(--f-serif);
@@ -1990,8 +1992,8 @@ footer {
         <div class="tile-hero" style="background-image: url('/images/responsive/products/ritual/ritual-pouch-hero-monumental-editorial-2026-09-1x1-800.webp'); background-size: cover; background-position: center;">
         </div>
         <div class="tile-body">
-          <div class="tile-eyebrow">Coffee Alternative · Mushroom cacao</div>
-          <div class="tile-name">The Ritual Cacao</div>
+          <div class="tile-eyebrow">Mushroom Coffee Alternative</div>
+          <div class="tile-name">The Ritual</div>
           <div class="tile-meta">
             <span class="tile-price">$59.99</span>
             <span class="tile-price-meta">25 servings · $2.40/cup</span>
@@ -2005,8 +2007,8 @@ footer {
         <div class="tile-hero" role="img" aria-label="Mujo Protein Powder pouch on an oak table in morning light" style="background-image: url('/images/responsive/products/protein-powder/powder-pouch-hero-2026-09-800.webp'); background-size: cover; background-position: center;">
         </div>
         <div class="tile-body">
-          <div class="tile-eyebrow">Plant Protein · Pre-order</div>
-          <div class="tile-name">Protein Powder</div>
+          <div class="tile-eyebrow">Plant Protein</div>
+          <div class="tile-name">Lemna Protein Powder</div>
           <div class="tile-meta">
             <span class="tile-price">$44.99</span>
             <span class="tile-price-meta">15 servings · ships by Nov 15</span>
@@ -2036,7 +2038,7 @@ footer {
         <div class="tile-hero" role="img" aria-label="Lemna leaf floating on water in a glass dish." style="background-image: url('/images/responsive/ingredients/lemna-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;">
         </div>
         <div class="tile-body">
-          <div class="tile-eyebrow">Plant Protein Bars · In the works</div>
+          <div class="tile-eyebrow">Protein Bars · In the works</div>
           <div class="tile-name">Lemna Protein Bars</div>
           <div class="tile-meta">
             <span class="tile-price-meta">Coming later. Rebel Club members hear first.</span>
