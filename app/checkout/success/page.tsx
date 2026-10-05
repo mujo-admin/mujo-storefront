@@ -192,7 +192,7 @@ export default async function CheckoutSuccessPage(props: {
           align-items: center;
           justify-content: center;
           margin: 0 auto 24px;
-          font-family: var(--f-display);
+          font-family: var(--f-display); --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark);
         }
         .success-glyph.processing { background: var(--orange); }
         .success-glyph.error { background: #b91c1c; }
@@ -229,7 +229,7 @@ export default async function CheckoutSuccessPage(props: {
           margin-top: 18px;
         }
         .success-btn {
-          background: var(--orange);
+          background: var(--brown);
           color: #fff;
           text-decoration: none;
           padding: 13px 28px;
@@ -238,7 +238,7 @@ export default async function CheckoutSuccessPage(props: {
           font-weight: 500;
           transition: background 0.2s;
         }
-        .success-btn:hover { background: var(--orange-deep); }
+        .success-btn:hover { background: var(--brown-mid); }
         .success-link {
           font-family: var(--f-mono);
           font-size: 12px;
@@ -246,7 +246,7 @@ export default async function CheckoutSuccessPage(props: {
           letter-spacing: 0.04em;
           text-decoration: none;
         }
-        .success-link:hover { color: var(--orange-deep); }
+        .success-link:hover { color: var(--accent-text); }
         .success-fineprint {
           margin-top: 28px;
           padding-top: 18px;

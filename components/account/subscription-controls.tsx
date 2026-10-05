@@ -714,7 +714,7 @@ export function SubscriptionControls({
           font-size: 11px;
           letter-spacing: 0.2em;
           text-transform: uppercase;
-          color: var(--orange-deep);
+          color: var(--accent-text);
           font-weight: 500;
           display: inline-block;
           margin-bottom: 8px;
@@ -741,7 +741,7 @@ export function SubscriptionControls({
         .sub-actions-section-head h3 em {
           font-family: var(--f-serif);
           font-style: italic;
-          color: var(--orange);
+          color: var(--accent-text);
           font-weight: 400;
         }
         .sub-actions-section-head p {
@@ -797,7 +797,7 @@ export function SubscriptionControls({
           align-items: center;
           justify-content: center;
           flex-shrink: 0;
-          color: var(--orange-deep);
+          color: var(--accent-text);
         }
         .sub-action-icon svg { width: 18px; height: 18px; }
         .sub-action-text {
@@ -840,7 +840,7 @@ export function SubscriptionControls({
         .sub-danger-head h3 em {
           font-family: var(--f-serif);
           font-style: italic;
-          color: var(--orange);
+          color: var(--accent-text);
           font-weight: 400;
         }
         .sub-danger p {
@@ -879,12 +879,12 @@ export function SubscriptionControls({
         .sub-danger-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .sub-danger-btn svg { width: 14px; height: 14px; }
         .sub-danger-btn.primary {
-          background: var(--orange);
+          background: var(--brown);
           color: #fff;
           border-color: var(--orange);
         }
         .sub-danger-btn.primary:hover:not(:disabled) {
-          background: var(--orange-deep);
+          background: var(--brown-mid);
           border-color: var(--orange-deep);
           color: #fff;
         }
@@ -939,7 +939,7 @@ export function SubscriptionControls({
         .modal-title em {
           font-family: var(--f-serif);
           font-style: italic;
-          color: var(--orange);
+          color: var(--accent-text);
           font-weight: 400;
         }
         .modal-body-text {
@@ -975,7 +975,7 @@ export function SubscriptionControls({
         .modal-option:hover { border-color: var(--orange); }
         .modal-option.selected {
           border-color: var(--orange);
-          background: rgba(242, 104, 47, 0.06);
+          background: rgba(184, 72, 26, 0.06);
         }
         .modal-option strong {
           display: block;
@@ -1040,8 +1040,8 @@ export function SubscriptionControls({
           transition: all 0.2s;
         }
         .modal-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .modal-btn-primary { background: var(--orange); color: #fff; }
-        .modal-btn-primary:hover:not(:disabled) { background: var(--orange-deep); }
+        .modal-btn-primary { background: var(--brown); color: #fff; }
+        .modal-btn-primary:hover:not(:disabled) { background: var(--brown-mid); }
         .modal-btn-secondary {
           background: transparent;
           color: var(--ink-soft);

@@ -176,12 +176,12 @@ export async function POST(req: NextRequest) {
     // its order-summary panel in this same color, so the summary reads cream, not
     // white. A true white rounded summary card needs the deferred Custom-UI
     // (Elements) rebuild: plans/2026-06-10-checkout-elements-custom-ui-rebuild.md.
-    // Orange matches --orange (Pay button + accents); border-style rounded matches
+    // Brown matches --brown (the Pay button, same as every primary button on the site); border-style rounded matches
     // our 10-14px brand radius; font_family 'inter' is the closest clean grotesque
     // sans in Stripe's supported list to Mujo's body font (Hanken Grotesk).
     branding_settings: {
       background_color: '#F3F2E9',
-      button_color: '#F2682F',
+      button_color: '#2A1810',
       border_style: 'rounded',
       font_family: 'inter',
     },

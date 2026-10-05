@@ -328,7 +328,7 @@ export function AddressForm({
           font-family: inherit;
           font-size: 14px;
           font-weight: 500;
-          background: var(--orange);
+          background: var(--brown);
           color: #fff;
           border: none;
           padding: 12px 22px;
@@ -336,7 +336,7 @@ export function AddressForm({
           cursor: pointer;
           transition: background 0.15s;
         }
-        .addr-btn:hover:not(:disabled) { background: var(--orange-deep); }
+        .addr-btn:hover:not(:disabled) { background: var(--brown-mid); }
         .addr-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .addr-feedback {
           font-family: var(--f-mono);

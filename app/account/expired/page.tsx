@@ -70,7 +70,7 @@ export default async function AccountExpiredPage({ searchParams }: Props) {
           href="/account"
           style={{
             display: 'inline-block',
-            backgroundColor: '#f2682f',
+            backgroundColor: '#B8481A',
             color: '#ffffff',
             padding: '12px 24px',
             borderRadius: 999,

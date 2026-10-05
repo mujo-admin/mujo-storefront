@@ -130,7 +130,7 @@ export default async function MigrationCompletePage({
           font-size: 11px;
           letter-spacing: 0.2em;
           text-transform: uppercase;
-          color: var(--orange-deep);
+          color: var(--accent-text);
           font-weight: 500;
           margin-bottom: 12px;
         }
@@ -146,7 +146,7 @@ export default async function MigrationCompletePage({
         .mig-title em {
           font-family: var(--f-serif);
           font-style: italic;
-          color: var(--orange);
+          color: var(--accent-text);
           font-weight: 400;
         }
         .mig-lede {
@@ -178,7 +178,7 @@ export default async function MigrationCompletePage({
         }
         .mig-cta {
           display: inline-block;
-          background: var(--orange);
+          background: var(--brown);
           color: #fff;
           text-decoration: none;
           padding: 14px 28px;
@@ -189,7 +189,7 @@ export default async function MigrationCompletePage({
           transition: background 0.15s;
           margin-bottom: 22px;
         }
-        .mig-cta:hover { background: var(--orange-deep); }
+        .mig-cta:hover { background: var(--brown-mid); }
         .mig-fineprint {
           font-size: 12px;
           color: var(--mute);
@@ -202,7 +202,7 @@ export default async function MigrationCompletePage({
           text-decoration: underline;
           text-underline-offset: 2px;
         }
-        .mig-fineprint a:hover { color: var(--orange-deep); }
+        .mig-fineprint a:hover { color: var(--accent-text); }
         @media (max-width: 600px) {
           .mig-shell { padding: 32px 14px; }
           .mig-card { padding: 32px 24px 24px; }

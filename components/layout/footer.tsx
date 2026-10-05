@@ -13,7 +13,7 @@ export function Footer() {
       className="mujo-foot"
       style={{
         background: "var(--sage)",
-        color: "rgba(255,255,255,0.5)",
+        color: "rgba(255,255,255,0.62)",
         padding: "56px 0 28px",
       }}
     >
@@ -71,8 +71,8 @@ export function Footer() {
                   padding: "10px 18px",
                   borderRadius: 999,
                   border: 0,
-                  background: "var(--orange)",
-                  color: "#fff",
+                  background: "var(--cream)",
+                  color: "var(--brown)",
                   fontFamily: "var(--f-display)",
                   fontSize: 13,
                   fontWeight: 500,
@@ -91,7 +91,7 @@ export function Footer() {
                 display: "inline-block",
                 marginTop: 14,
                 fontSize: 12,
-                color: "rgba(255,255,255,0.5)",
+                color: "rgba(255,255,255,0.62)",
                 textDecoration: "none",
                 borderBottom: "1px solid rgba(255,255,255,0.2)",
                 paddingBottom: 1,
@@ -151,13 +151,13 @@ export function Footer() {
           >
             <Link
               href="/legal/privacy"
-              style={{ color: "rgba(255,255,255,0.5)", textDecoration: "none" }}
+              style={{ color: "rgba(255,255,255,0.62)", textDecoration: "none" }}
             >
               Privacy Policy
             </Link>
             <Link
               href="/legal/terms"
-              style={{ color: "rgba(255,255,255,0.5)", textDecoration: "none" }}
+              style={{ color: "rgba(255,255,255,0.62)", textDecoration: "none" }}
             >
               Terms &amp; Conditions
             </Link>
@@ -167,7 +167,7 @@ export function Footer() {
               fontFamily: "var(--f-mono)",
               fontSize: 11,
               letterSpacing: "0.08em",
-              color: "rgba(255,255,255,0.3)",
+              color: "rgba(255,255,255,0.62)",
             }}
           >
             © {new Date().getFullYear()} Mujo
@@ -247,7 +247,7 @@ export function Footer() {
           font-size: 10px;
           letter-spacing: 0.16em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.45);
+          color: rgba(255,255,255,0.62);
           width: 100%;
           margin-bottom: 2px;
         }
@@ -268,7 +268,7 @@ export function Footer() {
         .mujo-foot .foot-tribe-chip:hover {
           border-color: var(--orange);
           color: #fff;
-          background: rgba(242,104,47,0.12);
+          background: rgba(184, 72, 26,0.12);
         }
 
         /* Mobile/tablet: brand block centered, chips center too */
@@ -302,7 +302,7 @@ function FooterColumn({
           fontSize: 11,
           letterSpacing: "0.14em",
           textTransform: "uppercase",
-          color: "var(--orange)",
+          color: "var(--accent-text)",
           marginBottom: 16,
         }}
       >
@@ -316,7 +316,7 @@ function FooterColumn({
             className="foot-link"
             style={{
               fontSize: 14,
-              color: "rgba(255,255,255,0.55)",
+              color: "rgba(255,255,255,0.62)",
               textDecoration: "none",
               transition: "color 0.2s",
             }}

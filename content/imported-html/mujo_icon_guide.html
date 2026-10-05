@@ -10,16 +10,16 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --orange: #F2682F;
-  --orange-deep: #D85A22;
-  --orange-soft: #FDEFE6;
+  --orange: #B8481A;
+  --orange-deep: #9E3C14;
+  --orange-soft: #F3EAE0;
   --cream: #F3F2E9;
   --sand: #EEE9E0;
   --sand-deep: #D4C4A8;
-  --sage: #2F3D33;
-  --sage-mid: #3D4D40;
-  --sage-light: #8FA396;
-  --sage-tint: rgba(47, 61, 51, 0.08);
+  --sage: #2A1810;
+  --sage-mid: #3B2A22;
+  --sage-light: #9D7F69;
+  --sage-tint: rgba(42, 24, 16, 0.08);
   --ink: #1A1A1A;
   --ink-soft: #4A4845;
   --mute: #5C5854;
@@ -58,13 +58,12 @@ body {
   position: sticky;
   top: 0;
   height: 100vh;
-  overflow-y: auto;
-}
+  overflow-y: auto; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); }
 .sidebar-logo {
   font-family: var(--f-display);
   font-size: 26px;
   font-weight: 700;
-  color: var(--orange);
+  color: var(--accent-text);
   letter-spacing: -0.04em;
   margin-bottom: 4px;
 }
@@ -117,7 +116,7 @@ body {
   font-size: 11px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--orange-deep);
+  color: var(--accent-text);
   font-weight: 500;
   margin-bottom: 16px;
   display: inline-flex;
@@ -142,7 +141,7 @@ h1.title {
 h1.title em {
   font-family: var(--f-serif);
   font-style: italic;
-  color: var(--orange);
+  color: var(--accent-text);
   font-weight: 400;
 }
 .lede {
@@ -169,7 +168,7 @@ section.chunk h2 {
 section.chunk h2 em {
   font-family: var(--f-serif);
   font-style: italic;
-  color: var(--orange);
+  color: var(--accent-text);
   font-weight: 400;
 }
 section.chunk h3 {
@@ -293,8 +292,7 @@ section.chunk p strong { color: var(--ink); font-weight: 500; }
   line-height: 1.55;
   overflow-x: auto;
   white-space: pre;
-  position: relative;
-}
+  position: relative; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); }
 .icon-svg-code .copy-hint {
   position: absolute;
   top: 10px;
@@ -436,8 +434,7 @@ section.chunk p strong { color: var(--ink); font-weight: 500; }
   border-radius: var(--r-structural);
   margin: 28px 0;
   position: relative;
-  overflow: hidden;
-}
+  overflow: hidden; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); }
 .callout::before {
   content: '';
   position: absolute;
@@ -446,14 +443,14 @@ section.chunk p strong { color: var(--ink); font-weight: 500; }
   width: 300px;
   height: 300px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(242,104,47,0.15) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(184, 72, 26,0.15) 0%, transparent 70%);
   pointer-events: none;
 }
 .callout-lbl {
   font-family: var(--f-mono);
   font-size: 10px;
   letter-spacing: 0.16em;
-  color: var(--orange);
+  color: var(--accent-text);
   font-weight: 500;
   text-transform: uppercase;
   margin-bottom: 10px;
@@ -469,7 +466,7 @@ section.chunk p strong { color: var(--ink); font-weight: 500; }
 .callout-body em {
   font-family: var(--f-serif);
   font-style: italic;
-  color: var(--orange);
+  color: var(--accent-text);
 }
 
 code {
@@ -493,10 +490,10 @@ code {
 </style>
 <style id="mujo-canonical-nav">
 :root {
-  --orange: #F2682F; --orange-deep: #D85A22; --orange-soft: #FDEFE6;
+  --orange: #B8481A; --orange-deep: #9E3C14; --orange-soft: #F3EAE0;
   --cream: #F3F2E9; --sand: #EEE9E0; --sand-deep: #D4C4A8;
-  --sage: #2F3D33; --sage-mid: #3D4D40; --sage-light: #8FA396;
-  --sage-tint: rgba(47, 61, 51, 0.08);
+  --sage: #2A1810; --sage-mid: #3B2A22; --sage-light: #9D7F69;
+  --sage-tint: rgba(42, 24, 16, 0.08);
   --ink: #1A1A1A; --ink-soft: #4A4845; --mute: #5C5854;
   --line: rgba(26, 26, 26, 0.09); --line-soft: rgba(26, 26, 26, 0.06);
   --f-display: 'Hanken Grotesk', -apple-system, sans-serif;
@@ -505,8 +502,8 @@ code {
   --f-mono: 'DM Mono', monospace;
   --nav-h: 64px;
 }
-.announce { background: var(--sage); color: #fff; text-align: center; padding: 9px 16px; font-size: 12px; letter-spacing: 0.01em; position: relative; z-index: 200; line-height: 1.4; }
-.announce strong { color: var(--orange); font-weight: 500; }
+.announce { background: var(--sage); color: #fff; text-align: center; padding: 9px 16px; font-size: 12px; letter-spacing: 0.01em; position: relative; z-index: 200; line-height: 1.4; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); }
+.announce strong { color: var(--accent-text); font-weight: 500; }
 .announce .sep { opacity: 0.4; margin: 0 8px; }
 @media (max-width: 640px) { .announce-secondary { display: none; } }
 @media (min-width: 768px) { .announce { padding: 10px 24px; font-size: 13px; } .announce .sep { margin: 0 10px; } }
@@ -541,12 +538,12 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .mm-close svg { width: 20px; height: 20px; }
 .mm-links { display: flex; flex-direction: column; padding: 4px 0; flex: 1; }
 .mm-link { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; font-family: var(--f-display); font-size: 18px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-soft); transition: background 0.15s, color 0.15s; }
-.mm-link:hover { color: var(--orange-deep); background: rgba(242,104,47,0.04); }
+.mm-link:hover { color: var(--accent-text); background: rgba(184, 72, 26,0.04); }
 .mm-link svg { width: 16px; height: 16px; opacity: 0.4; }
-.mm-foot { padding: 24px; background: var(--sage); color: #fff; }
-.mm-foot-eyebrow { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); margin-bottom: 10px; }
+.mm-foot { padding: 24px; background: var(--sage); color: #fff; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); }
+.mm-foot-eyebrow { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-text); margin-bottom: 10px; }
 .mm-foot p { font-size: 14px; line-height: 1.55; color: rgba(255,255,255,0.7); margin-bottom: 16px; }
-.mm-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--orange); color: #fff; text-decoration: none; padding: 12px 20px; border-radius: var(--r-pill); font-size: 14px; font-weight: 500; }
+.mm-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--brown); color: #fff; text-decoration: none; padding: 12px 20px; border-radius: var(--r-pill); font-size: 14px; font-weight: 500; }
 .cart-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(440px, 100vw); background: var(--cream); z-index: 999; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; box-shadow: -20px 0 60px rgba(0,0,0,0.1); }
 .cart-drawer.open { transform: translateX(0); }
 .cart-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); }
@@ -558,10 +555,10 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .cart-progress { background: var(--sand); padding: 14px 20px 16px; border-bottom: 1px solid var(--line-soft); }
 .cart-progress-msg { font-size: 13px; color: var(--ink-soft); margin-bottom: 8px; line-height: 1.4; }
 .cart-progress-msg strong { color: var(--ink); font-weight: 500; }
-.cart-progress-msg .accent { color: var(--orange-deep); font-weight: 500; }
+.cart-progress-msg .accent { color: var(--accent-text); font-weight: 500; }
 .cart-progress-track { height: 6px; background: rgba(26,26,26,0.08); border-radius: 3px; overflow: hidden; }
 .cart-progress-fill { height: 100%; background: var(--orange); border-radius: 3px; width: 0%; transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
-.cart-progress-fill.full { background: var(--sage); }
+.cart-progress-fill.full { background: var(--sage); --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); }
 .cart-body { flex: 1; overflow-y: auto; padding: 8px 20px; }
 .cart-item { display: grid; grid-template-columns: 72px 1fr auto; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--line-soft); }
 .cart-item-img { width: 72px; height: 72px; background: var(--sand); border-radius: var(--r-structural); display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; }
@@ -578,14 +575,14 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .cart-empty-illo { font-size: 52px; opacity: 0.5; }
 .cart-empty h3 { font-size: 22px; font-weight: 500; }
 .cart-empty p { font-size: 14px; color: var(--mute); max-width: 260px; line-height: 1.5; }
-.cart-empty a { margin-top: 6px; background: var(--orange); color: #fff; text-decoration: none; padding: 12px 22px; border-radius: var(--r-pill); font-size: 14px; font-weight: 500; }
+.cart-empty a { margin-top: 6px; background: var(--brown); color: #fff; text-decoration: none; padding: 12px 22px; border-radius: var(--r-pill); font-size: 14px; font-weight: 500; }
 .cart-foot { border-top: 1px solid var(--line-soft); padding: 16px 20px 20px; }
 .cart-row { display: flex; justify-content: space-between; align-items: baseline; padding: 4px 0; font-size: 14px; color: var(--ink-soft); }
 .cart-row.total { padding-top: 10px; font-size: 18px; font-weight: 500; color: var(--ink); font-family: var(--f-display); }
 .cart-row .price { font-family: var(--f-mono); }
 .cart-shipping-note { font-size: 11px; color: var(--mute); font-family: var(--f-mono); letter-spacing: 0.04em; margin: 8px 0 14px; line-height: 1.4; }
-.cart-checkout { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: var(--orange); color: #fff; text-decoration: none; border: none; cursor: pointer; padding: 16px 24px; border-radius: var(--r-pill); font-size: 15px; font-weight: 500; transition: background 0.2s; }
-.cart-checkout:hover { background: var(--orange-deep); }
+.cart-checkout { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: var(--brown); color: #fff; text-decoration: none; border: none; cursor: pointer; padding: 16px 24px; border-radius: var(--r-pill); font-size: 15px; font-weight: 500; transition: background 0.2s; }
+.cart-checkout:hover { background: var(--brown-mid); }
 .cart-secure { text-align: center; font-size: 11px; color: var(--mute); font-family: var(--f-mono); letter-spacing: 0.08em; margin-top: 10px; text-transform: uppercase; }
 body.locked { overflow: hidden; }
 </style>
@@ -679,7 +676,7 @@ body.locked { overflow: hidden; }
       <p>Every primary icon is a <strong>real ingredient from the Mujo formula</strong>, not a generic symbol. "Calm focus" is Lion's Mane, not a brain. "Lower cortisol" is an L-theanine root, not a stress meter. This makes the visual system inseparable from the product. The icons teach the ingredient story even when the copy doesn't. It's also a competitive moat: no other brand's benefit icons look like this.</p>
 
       <h4>2 / Single weight, single colour</h4>
-      <p>All botanical icons are drawn at <strong>1.1–1.2px stroke weight in sage (#2F3D33) on light backgrounds</strong>, or cream (#F3F2E9) on sage backgrounds. Never orange. Never filled. Never gradient. This restraint is what gives the system its editorial quality. The eye reads them as illustrations, not UI.</p>
+      <p>All botanical icons are drawn at <strong>1.1–1.2px stroke weight in sage (#2A1810) on light backgrounds</strong>, or cream (#F3F2E9) on sage backgrounds. Never orange. Never filled. Never gradient. This restraint is what gives the system its editorial quality. The eye reads them as illustrations, not UI.</p>
 
       <h4>3 / Slight organic imperfection</h4>
       <p>The icons use <strong>rounded line caps</strong> and slight variance in stroke: a curve that isn't perfectly regular, a leaf that's a touch asymmetric. This is the difference between "designed by a human who cared" and "generated by an icon library." Reinforce this if you commission more.</p>
@@ -704,7 +701,7 @@ body.locked { overflow: hidden; }
 
         <div class="rule do">
           <div class="rule-label">Do</div>
-          <div class="rule-text"><strong>Keep botanicals sage-only.</strong> #2F3D33 stroke on cream/sand backgrounds. Cream stroke (#F3F2E9) if the icon sits on a sage background.</div>
+          <div class="rule-text"><strong>Keep botanicals sage-only.</strong> #2A1810 stroke on cream/sand backgrounds. Cream stroke (#F3F2E9) if the icon sits on a sage background.</div>
         </div>
         <div class="rule dont">
           <div class="rule-label">Don't</div>
@@ -757,14 +754,14 @@ body.locked { overflow: hidden; }
       <div class="icon-dossier">
         <div class="icon-preview">
           <svg width="96" height="96" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M14 20 Q16 13 24 13 Q32 13 34 20 L34 24 Q32 22 29 24 Q27 22 24 24 Q21 22 19 24 Q16 22 14 24 Z" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
-            <path d="M16 24 Q16 30 14 34" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M19 24 Q19 30 17 35" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M22 24 Q22 31 20 36" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M24 24 Q24 32 23 37" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M26 24 Q26 31 28 36" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M29 24 Q29 30 31 35" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M32 24 Q32 30 34 34" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M14 20 Q16 13 24 13 Q32 13 34 20 L34 24 Q32 22 29 24 Q27 22 24 24 Q21 22 19 24 Q16 22 14 24 Z" stroke="#2A1810" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
+            <path d="M16 24 Q16 30 14 34" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M19 24 Q19 30 17 35" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M22 24 Q22 31 20 36" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M24 24 Q24 32 23 37" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M26 24 Q26 31 28 36" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M29 24 Q29 30 31 35" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M32 24 Q32 30 34 34" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
           </svg>
         </div>
         <div class="icon-body">
@@ -775,14 +772,14 @@ body.locked { overflow: hidden; }
           <div class="icon-latin">Hericium erinaceus · fruiting body</div>
           <div class="icon-use"><strong>Maps to:</strong> Calm focus, cognition, memory, neural plasticity. Use anywhere the story involves Nerve Growth Factor, focus, mental clarity, the brain. Pairs with attribution <code>Lion's Mane fruiting body · 8:1</code>.</div>
           <div class="icon-svg-code"><span class="copy-hint">Copy</span>&lt;svg width="48" height="48" viewBox="0 0 48 48" fill="none"&gt;
-  &lt;path d="M14 20 Q16 13 24 13 Q32 13 34 20 L34 24 Q32 22 29 24 Q27 22 24 24 Q21 22 19 24 Q16 22 14 24 Z" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linejoin="round"/&gt;
-  &lt;path d="M16 24 Q16 30 14 34" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/&gt;
-  &lt;path d="M19 24 Q19 30 17 35" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/&gt;
-  &lt;path d="M22 24 Q22 31 20 36" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/&gt;
-  &lt;path d="M24 24 Q24 32 23 37" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/&gt;
-  &lt;path d="M26 24 Q26 31 28 36" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/&gt;
-  &lt;path d="M29 24 Q29 30 31 35" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/&gt;
-  &lt;path d="M32 24 Q32 30 34 34" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/&gt;
+  &lt;path d="M14 20 Q16 13 24 13 Q32 13 34 20 L34 24 Q32 22 29 24 Q27 22 24 24 Q21 22 19 24 Q16 22 14 24 Z" stroke="#2A1810" stroke-width="1.2" fill="none" stroke-linejoin="round"/&gt;
+  &lt;path d="M16 24 Q16 30 14 34" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/&gt;
+  &lt;path d="M19 24 Q19 30 17 35" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/&gt;
+  &lt;path d="M22 24 Q22 31 20 36" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/&gt;
+  &lt;path d="M24 24 Q24 32 23 37" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/&gt;
+  &lt;path d="M26 24 Q26 31 28 36" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/&gt;
+  &lt;path d="M29 24 Q29 30 31 35" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/&gt;
+  &lt;path d="M32 24 Q32 30 34 34" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/&gt;
 &lt;/svg&gt;</div>
         </div>
       </div>
@@ -793,14 +790,14 @@ body.locked { overflow: hidden; }
       <div class="icon-dossier">
         <div class="icon-preview">
           <svg width="96" height="96" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20 38 Q19 28 21 20 Q22 16 24 14" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-            <path d="M24 38 Q24 26 25 18 Q26 14 27 12" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-            <path d="M28 38 Q29 28 29 22 Q29 18 30 16" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-            <ellipse cx="24" cy="13.5" rx="1.3" ry="2.5" fill="#2F3D33"/>
-            <ellipse cx="27" cy="11.5" rx="1.3" ry="2.8" fill="#2F3D33"/>
-            <ellipse cx="30" cy="15" rx="1.2" ry="2.2" fill="#2F3D33"/>
-            <ellipse cx="21" cy="19" rx="1.1" ry="2" fill="#2F3D33"/>
-            <path d="M14 38 L34 38" stroke="#2F3D33" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
+            <path d="M20 38 Q19 28 21 20 Q22 16 24 14" stroke="#2A1810" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            <path d="M24 38 Q24 26 25 18 Q26 14 27 12" stroke="#2A1810" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            <path d="M28 38 Q29 28 29 22 Q29 18 30 16" stroke="#2A1810" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            <ellipse cx="24" cy="13.5" rx="1.3" ry="2.5" fill="#2A1810"/>
+            <ellipse cx="27" cy="11.5" rx="1.3" ry="2.8" fill="#2A1810"/>
+            <ellipse cx="30" cy="15" rx="1.2" ry="2.2" fill="#2A1810"/>
+            <ellipse cx="21" cy="19" rx="1.1" ry="2" fill="#2A1810"/>
+            <path d="M14 38 L34 38" stroke="#2A1810" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
           </svg>
         </div>
         <div class="icon-body">
@@ -811,14 +808,14 @@ body.locked { overflow: hidden; }
           <div class="icon-latin">Cordyceps militaris · fruiting body</div>
           <div class="icon-use"><strong>Maps to:</strong> Sustained energy, mitochondrial ATP, endurance, VO₂ max. The filled club-shaped tips distinguish militaris from the cheaper mycelium species. Pairs with <code>Cordyceps militaris · fruiting body</code>.</div>
           <div class="icon-svg-code"><span class="copy-hint">Copy</span>&lt;svg width="48" height="48" viewBox="0 0 48 48" fill="none"&gt;
-  &lt;path d="M20 38 Q19 28 21 20 Q22 16 24 14" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linecap="round"/&gt;
-  &lt;path d="M24 38 Q24 26 25 18 Q26 14 27 12" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linecap="round"/&gt;
-  &lt;path d="M28 38 Q29 28 29 22 Q29 18 30 16" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linecap="round"/&gt;
-  &lt;ellipse cx="24" cy="13.5" rx="1.3" ry="2.5" fill="#2F3D33"/&gt;
-  &lt;ellipse cx="27" cy="11.5" rx="1.3" ry="2.8" fill="#2F3D33"/&gt;
-  &lt;ellipse cx="30" cy="15" rx="1.2" ry="2.2" fill="#2F3D33"/&gt;
-  &lt;ellipse cx="21" cy="19" rx="1.1" ry="2" fill="#2F3D33"/&gt;
-  &lt;path d="M14 38 L34 38" stroke="#2F3D33" stroke-width="1" stroke-linecap="round" opacity="0.4"/&gt;
+  &lt;path d="M20 38 Q19 28 21 20 Q22 16 24 14" stroke="#2A1810" stroke-width="1.2" fill="none" stroke-linecap="round"/&gt;
+  &lt;path d="M24 38 Q24 26 25 18 Q26 14 27 12" stroke="#2A1810" stroke-width="1.2" fill="none" stroke-linecap="round"/&gt;
+  &lt;path d="M28 38 Q29 28 29 22 Q29 18 30 16" stroke="#2A1810" stroke-width="1.2" fill="none" stroke-linecap="round"/&gt;
+  &lt;ellipse cx="24" cy="13.5" rx="1.3" ry="2.5" fill="#2A1810"/&gt;
+  &lt;ellipse cx="27" cy="11.5" rx="1.3" ry="2.8" fill="#2A1810"/&gt;
+  &lt;ellipse cx="30" cy="15" rx="1.2" ry="2.2" fill="#2A1810"/&gt;
+  &lt;ellipse cx="21" cy="19" rx="1.1" ry="2" fill="#2A1810"/&gt;
+  &lt;path d="M14 38 L34 38" stroke="#2A1810" stroke-width="1" stroke-linecap="round" opacity="0.4"/&gt;
 &lt;/svg&gt;</div>
         </div>
       </div>
@@ -829,13 +826,13 @@ body.locked { overflow: hidden; }
       <div class="icon-dossier">
         <div class="icon-preview">
           <svg width="96" height="96" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M24 11 L24 26" stroke="#2F3D33" stroke-width="1.2" stroke-linecap="round"/>
-            <path d="M24 15 Q20 13 17 16 Q19 19 24 17" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linejoin="round"/>
-            <path d="M24 15 Q28 13 31 16 Q29 19 24 17" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linejoin="round"/>
-            <path d="M24 20 Q21 19 19 22 Q21 24 24 22" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linejoin="round"/>
-            <path d="M24 20 Q27 19 29 22 Q27 24 24 22" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linejoin="round"/>
-            <path d="M24 26 Q19 28 18 32 Q20 37 24 38 Q28 37 30 32 Q29 28 24 26 Z" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
-            <path d="M22 36 L21 40 M24 38 L24 41 M26 36 L27 40" stroke="#2F3D33" stroke-width="1" stroke-linecap="round" opacity="0.55"/>
+            <path d="M24 11 L24 26" stroke="#2A1810" stroke-width="1.2" stroke-linecap="round"/>
+            <path d="M24 15 Q20 13 17 16 Q19 19 24 17" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linejoin="round"/>
+            <path d="M24 15 Q28 13 31 16 Q29 19 24 17" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linejoin="round"/>
+            <path d="M24 20 Q21 19 19 22 Q21 24 24 22" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linejoin="round"/>
+            <path d="M24 20 Q27 19 29 22 Q27 24 24 22" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linejoin="round"/>
+            <path d="M24 26 Q19 28 18 32 Q20 37 24 38 Q28 37 30 32 Q29 28 24 26 Z" stroke="#2A1810" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
+            <path d="M22 36 L21 40 M24 38 L24 41 M26 36 L27 40" stroke="#2A1810" stroke-width="1" stroke-linecap="round" opacity="0.55"/>
           </svg>
         </div>
         <div class="icon-body">
@@ -846,13 +843,13 @@ body.locked { overflow: hidden; }
           <div class="icon-latin">Withania somnifera · root</div>
           <div class="icon-use"><strong>Maps to:</strong> Lower cortisol, stress resilience, sleep, recovery. The stem-leaf-root structure signals "whole plant, not just leaf extract." Pairs with <code>L-theanine · 200mg</code>.</div>
           <div class="icon-svg-code"><span class="copy-hint">Copy</span>&lt;svg width="48" height="48" viewBox="0 0 48 48" fill="none"&gt;
-  &lt;path d="M24 11 L24 26" stroke="#2F3D33" stroke-width="1.2" stroke-linecap="round"/&gt;
-  &lt;path d="M24 15 Q20 13 17 16 Q19 19 24 17" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linejoin="round"/&gt;
-  &lt;path d="M24 15 Q28 13 31 16 Q29 19 24 17" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linejoin="round"/&gt;
-  &lt;path d="M24 20 Q21 19 19 22 Q21 24 24 22" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linejoin="round"/&gt;
-  &lt;path d="M24 20 Q27 19 29 22 Q27 24 24 22" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linejoin="round"/&gt;
-  &lt;path d="M24 26 Q19 28 18 32 Q20 37 24 38 Q28 37 30 32 Q29 28 24 26 Z" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linejoin="round"/&gt;
-  &lt;path d="M22 36 L21 40 M24 38 L24 41 M26 36 L27 40" stroke="#2F3D33" stroke-width="1" stroke-linecap="round" opacity="0.55"/&gt;
+  &lt;path d="M24 11 L24 26" stroke="#2A1810" stroke-width="1.2" stroke-linecap="round"/&gt;
+  &lt;path d="M24 15 Q20 13 17 16 Q19 19 24 17" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linejoin="round"/&gt;
+  &lt;path d="M24 15 Q28 13 31 16 Q29 19 24 17" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linejoin="round"/&gt;
+  &lt;path d="M24 20 Q21 19 19 22 Q21 24 24 22" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linejoin="round"/&gt;
+  &lt;path d="M24 20 Q27 19 29 22 Q27 24 24 22" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linejoin="round"/&gt;
+  &lt;path d="M24 26 Q19 28 18 32 Q20 37 24 38 Q28 37 30 32 Q29 28 24 26 Z" stroke="#2A1810" stroke-width="1.2" fill="none" stroke-linejoin="round"/&gt;
+  &lt;path d="M22 36 L21 40 M24 38 L24 41 M26 36 L27 40" stroke="#2A1810" stroke-width="1" stroke-linecap="round" opacity="0.55"/&gt;
 &lt;/svg&gt;</div>
         </div>
       </div>
@@ -863,17 +860,17 @@ body.locked { overflow: hidden; }
       <div class="icon-dossier">
         <div class="icon-preview">
           <svg width="96" height="96" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="24" cy="15" r="1.6" fill="#2F3D33"/>
-            <circle cx="20" cy="16" r="1.2" fill="#2F3D33"/>
-            <circle cx="28" cy="16" r="1.2" fill="#2F3D33"/>
-            <circle cx="22" cy="19" r="1.1" fill="#2F3D33"/>
-            <circle cx="26" cy="19" r="1.1" fill="#2F3D33"/>
-            <circle cx="18" cy="18" r="0.9" fill="#2F3D33"/>
-            <circle cx="30" cy="18" r="0.9" fill="#2F3D33"/>
-            <path d="M24 22 L24 37" stroke="#2F3D33" stroke-width="1.2" stroke-linecap="round"/>
-            <path d="M24 26 Q19 25 17 28 Q20 30 24 28" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linejoin="round"/>
-            <path d="M24 30 Q29 29 31 32 Q28 34 24 32" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linejoin="round"/>
-            <path d="M24 34 Q20 33 18 36" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <circle cx="24" cy="15" r="1.6" fill="#2A1810"/>
+            <circle cx="20" cy="16" r="1.2" fill="#2A1810"/>
+            <circle cx="28" cy="16" r="1.2" fill="#2A1810"/>
+            <circle cx="22" cy="19" r="1.1" fill="#2A1810"/>
+            <circle cx="26" cy="19" r="1.1" fill="#2A1810"/>
+            <circle cx="18" cy="18" r="0.9" fill="#2A1810"/>
+            <circle cx="30" cy="18" r="0.9" fill="#2A1810"/>
+            <path d="M24 22 L24 37" stroke="#2A1810" stroke-width="1.2" stroke-linecap="round"/>
+            <path d="M24 26 Q19 25 17 28 Q20 30 24 28" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linejoin="round"/>
+            <path d="M24 30 Q29 29 31 32 Q28 34 24 32" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linejoin="round"/>
+            <path d="M24 34 Q20 33 18 36" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
           </svg>
         </div>
         <div class="icon-body">
@@ -884,17 +881,17 @@ body.locked { overflow: hidden; }
           <div class="icon-latin">Panax ginseng · flower + leaves</div>
           <div class="icon-use"><strong>Maps to:</strong> Deeper sleep, stress recovery, HPA axis, mental performance under fatigue. The succulent-flower cluster is visually distinct from the L-theanine stem shape. Pairs with <code>Panax Ginseng · Himalayan, cultivated, 5% / 1.5%</code>.</div>
           <div class="icon-svg-code"><span class="copy-hint">Copy</span>&lt;svg width="48" height="48" viewBox="0 0 48 48" fill="none"&gt;
-  &lt;circle cx="24" cy="15" r="1.6" fill="#2F3D33"/&gt;
-  &lt;circle cx="20" cy="16" r="1.2" fill="#2F3D33"/&gt;
-  &lt;circle cx="28" cy="16" r="1.2" fill="#2F3D33"/&gt;
-  &lt;circle cx="22" cy="19" r="1.1" fill="#2F3D33"/&gt;
-  &lt;circle cx="26" cy="19" r="1.1" fill="#2F3D33"/&gt;
-  &lt;circle cx="18" cy="18" r="0.9" fill="#2F3D33"/&gt;
-  &lt;circle cx="30" cy="18" r="0.9" fill="#2F3D33"/&gt;
-  &lt;path d="M24 22 L24 37" stroke="#2F3D33" stroke-width="1.2" stroke-linecap="round"/&gt;
-  &lt;path d="M24 26 Q19 25 17 28 Q20 30 24 28" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linejoin="round"/&gt;
-  &lt;path d="M24 30 Q29 29 31 32 Q28 34 24 32" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linejoin="round"/&gt;
-  &lt;path d="M24 34 Q20 33 18 36" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/&gt;
+  &lt;circle cx="24" cy="15" r="1.6" fill="#2A1810"/&gt;
+  &lt;circle cx="20" cy="16" r="1.2" fill="#2A1810"/&gt;
+  &lt;circle cx="28" cy="16" r="1.2" fill="#2A1810"/&gt;
+  &lt;circle cx="22" cy="19" r="1.1" fill="#2A1810"/&gt;
+  &lt;circle cx="26" cy="19" r="1.1" fill="#2A1810"/&gt;
+  &lt;circle cx="18" cy="18" r="0.9" fill="#2A1810"/&gt;
+  &lt;circle cx="30" cy="18" r="0.9" fill="#2A1810"/&gt;
+  &lt;path d="M24 22 L24 37" stroke="#2A1810" stroke-width="1.2" stroke-linecap="round"/&gt;
+  &lt;path d="M24 26 Q19 25 17 28 Q20 30 24 28" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linejoin="round"/&gt;
+  &lt;path d="M24 30 Q29 29 31 32 Q28 34 24 32" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linejoin="round"/&gt;
+  &lt;path d="M24 34 Q20 33 18 36" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/&gt;
 &lt;/svg&gt;</div>
         </div>
       </div>
@@ -905,11 +902,11 @@ body.locked { overflow: hidden; }
       <div class="icon-dossier">
         <div class="icon-preview">
           <svg width="96" height="96" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 22 L36 22" stroke="#2F3D33" stroke-width="1.3" stroke-linecap="round"/>
-            <path d="M16 20 L16 24 M22 20 L22 24 M30 20 L30 24" stroke="#2F3D33" stroke-width="0.8" opacity="0.5" stroke-linecap="round"/>
-            <path d="M18 22 Q16 24 15 27 Q14 30 16 32 Q19 33 22 32 Q25 34 28 33 Q31 32 32 29 Q33 25 31 23 Q28 22 26 23 Q23 22 18 22 Z" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
-            <path d="M19 26 Q21 28 24 27" stroke="#2F3D33" stroke-width="0.9" fill="none" opacity="0.55" stroke-linecap="round"/>
-            <path d="M22 30 Q25 31 28 29" stroke="#2F3D33" stroke-width="0.9" fill="none" opacity="0.55" stroke-linecap="round"/>
+            <path d="M12 22 L36 22" stroke="#2A1810" stroke-width="1.3" stroke-linecap="round"/>
+            <path d="M16 20 L16 24 M22 20 L22 24 M30 20 L30 24" stroke="#2A1810" stroke-width="0.8" opacity="0.5" stroke-linecap="round"/>
+            <path d="M18 22 Q16 24 15 27 Q14 30 16 32 Q19 33 22 32 Q25 34 28 33 Q31 32 32 29 Q33 25 31 23 Q28 22 26 23 Q23 22 18 22 Z" stroke="#2A1810" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
+            <path d="M19 26 Q21 28 24 27" stroke="#2A1810" stroke-width="0.9" fill="none" opacity="0.55" stroke-linecap="round"/>
+            <path d="M22 30 Q25 31 28 29" stroke="#2A1810" stroke-width="0.9" fill="none" opacity="0.55" stroke-linecap="round"/>
           </svg>
         </div>
         <div class="icon-body">
@@ -920,11 +917,11 @@ body.locked { overflow: hidden; }
           <div class="icon-latin">Inonotus obliquus · on birch</div>
           <div class="icon-use"><strong>Maps to:</strong> Daily defense, immunity, antioxidants, wild-harvested. The birch branch with the irregular conk growth reinforces "sourced from the wild, can't be farmed." Pairs with <code>Chaga · wild-harvested</code>.</div>
           <div class="icon-svg-code"><span class="copy-hint">Copy</span>&lt;svg width="48" height="48" viewBox="0 0 48 48" fill="none"&gt;
-  &lt;path d="M12 22 L36 22" stroke="#2F3D33" stroke-width="1.3" stroke-linecap="round"/&gt;
-  &lt;path d="M16 20 L16 24 M22 20 L22 24 M30 20 L30 24" stroke="#2F3D33" stroke-width="0.8" opacity="0.5" stroke-linecap="round"/&gt;
-  &lt;path d="M18 22 Q16 24 15 27 Q14 30 16 32 Q19 33 22 32 Q25 34 28 33 Q31 32 32 29 Q33 25 31 23 Q28 22 26 23 Q23 22 18 22 Z" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linejoin="round"/&gt;
-  &lt;path d="M19 26 Q21 28 24 27" stroke="#2F3D33" stroke-width="0.9" fill="none" opacity="0.55" stroke-linecap="round"/&gt;
-  &lt;path d="M22 30 Q25 31 28 29" stroke="#2F3D33" stroke-width="0.9" fill="none" opacity="0.55" stroke-linecap="round"/&gt;
+  &lt;path d="M12 22 L36 22" stroke="#2A1810" stroke-width="1.3" stroke-linecap="round"/&gt;
+  &lt;path d="M16 20 L16 24 M22 20 L22 24 M30 20 L30 24" stroke="#2A1810" stroke-width="0.8" opacity="0.5" stroke-linecap="round"/&gt;
+  &lt;path d="M18 22 Q16 24 15 27 Q14 30 16 32 Q19 33 22 32 Q25 34 28 33 Q31 32 32 29 Q33 25 31 23 Q28 22 26 23 Q23 22 18 22 Z" stroke="#2A1810" stroke-width="1.2" fill="none" stroke-linejoin="round"/&gt;
+  &lt;path d="M19 26 Q21 28 24 27" stroke="#2A1810" stroke-width="0.9" fill="none" opacity="0.55" stroke-linecap="round"/&gt;
+  &lt;path d="M22 30 Q25 31 28 29" stroke="#2A1810" stroke-width="0.9" fill="none" opacity="0.55" stroke-linecap="round"/&gt;
 &lt;/svg&gt;</div>
         </div>
       </div>
@@ -935,12 +932,12 @@ body.locked { overflow: hidden; }
       <div class="icon-dossier">
         <div class="icon-preview">
           <svg width="96" height="96" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M24 8 L24 12" stroke="#2F3D33" stroke-width="1.2" stroke-linecap="round"/>
-            <path d="M24 12 Q17 13 14 20 Q12 28 15 36 Q19 40 24 40 Q29 40 33 36 Q36 28 34 20 Q31 13 24 12 Z" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
-            <path d="M18 14 Q17 26 18 38" stroke="#2F3D33" stroke-width="0.9" fill="none" opacity="0.55"/>
-            <path d="M24 12 L24 40" stroke="#2F3D33" stroke-width="0.9" fill="none" opacity="0.55"/>
-            <path d="M30 14 Q31 26 30 38" stroke="#2F3D33" stroke-width="0.9" fill="none" opacity="0.55"/>
-            <path d="M24 10 Q21 8 19 9 Q21 11 24 11" stroke="#2F3D33" stroke-width="1" fill="none" stroke-linejoin="round"/>
+            <path d="M24 8 L24 12" stroke="#2A1810" stroke-width="1.2" stroke-linecap="round"/>
+            <path d="M24 12 Q17 13 14 20 Q12 28 15 36 Q19 40 24 40 Q29 40 33 36 Q36 28 34 20 Q31 13 24 12 Z" stroke="#2A1810" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
+            <path d="M18 14 Q17 26 18 38" stroke="#2A1810" stroke-width="0.9" fill="none" opacity="0.55"/>
+            <path d="M24 12 L24 40" stroke="#2A1810" stroke-width="0.9" fill="none" opacity="0.55"/>
+            <path d="M30 14 Q31 26 30 38" stroke="#2A1810" stroke-width="0.9" fill="none" opacity="0.55"/>
+            <path d="M24 10 Q21 8 19 9 Q21 11 24 11" stroke="#2A1810" stroke-width="1" fill="none" stroke-linejoin="round"/>
           </svg>
         </div>
         <div class="icon-body">
@@ -951,12 +948,12 @@ body.locked { overflow: hidden; }
           <div class="icon-latin">Theobroma cacao · pod with stem</div>
           <div class="icon-use"><strong>Maps to:</strong> Steady mood, theobromine energy, PEA, flavanols. The ridged pod is instantly readable as cacao even in small sizes. Pairs with <code>Ceremonial cacao · single-origin Peru</code>.</div>
           <div class="icon-svg-code"><span class="copy-hint">Copy</span>&lt;svg width="48" height="48" viewBox="0 0 48 48" fill="none"&gt;
-  &lt;path d="M24 8 L24 12" stroke="#2F3D33" stroke-width="1.2" stroke-linecap="round"/&gt;
-  &lt;path d="M24 12 Q17 13 14 20 Q12 28 15 36 Q19 40 24 40 Q29 40 33 36 Q36 28 34 20 Q31 13 24 12 Z" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linejoin="round"/&gt;
-  &lt;path d="M18 14 Q17 26 18 38" stroke="#2F3D33" stroke-width="0.9" fill="none" opacity="0.55"/&gt;
-  &lt;path d="M24 12 L24 40" stroke="#2F3D33" stroke-width="0.9" fill="none" opacity="0.55"/&gt;
-  &lt;path d="M30 14 Q31 26 30 38" stroke="#2F3D33" stroke-width="0.9" fill="none" opacity="0.55"/&gt;
-  &lt;path d="M24 10 Q21 8 19 9 Q21 11 24 11" stroke="#2F3D33" stroke-width="1" fill="none" stroke-linejoin="round"/&gt;
+  &lt;path d="M24 8 L24 12" stroke="#2A1810" stroke-width="1.2" stroke-linecap="round"/&gt;
+  &lt;path d="M24 12 Q17 13 14 20 Q12 28 15 36 Q19 40 24 40 Q29 40 33 36 Q36 28 34 20 Q31 13 24 12 Z" stroke="#2A1810" stroke-width="1.2" fill="none" stroke-linejoin="round"/&gt;
+  &lt;path d="M18 14 Q17 26 18 38" stroke="#2A1810" stroke-width="0.9" fill="none" opacity="0.55"/&gt;
+  &lt;path d="M24 12 L24 40" stroke="#2A1810" stroke-width="0.9" fill="none" opacity="0.55"/&gt;
+  &lt;path d="M30 14 Q31 26 30 38" stroke="#2A1810" stroke-width="0.9" fill="none" opacity="0.55"/&gt;
+  &lt;path d="M24 10 Q21 8 19 9 Q21 11 24 11" stroke="#2A1810" stroke-width="1" fill="none" stroke-linejoin="round"/&gt;
 &lt;/svg&gt;</div>
         </div>
       </div>
@@ -981,7 +978,7 @@ body.locked { overflow: hidden; }
         <!-- Star -->
         <div class="marker-card" id="stars">
           <div class="marker-demo">
-            <span style="color: var(--orange); font-size: 18px; letter-spacing: 2px;">★★★★★</span>
+            <span style="color: var(--accent-text); font-size: 18px; letter-spacing: 2px;">★★★★★</span>
             <span style="font-size: 13px; color: var(--ink-soft); margin-left: 12px;"><strong style="color: var(--ink); font-weight: 500;">4.9</strong> · 340 reviews</span>
           </div>
           <div class="marker-label">Unicode U+2605</div>
@@ -992,7 +989,7 @@ body.locked { overflow: hidden; }
         <!-- Dot separator -->
         <div class="marker-card" id="dots">
           <div class="marker-demo">
-            <span style="font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange-deep); font-weight: 500;">NEUROWELLNESS · CONSCIOUS PERFORMANCE</span>
+            <span style="font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-text); font-weight: 500;">NEUROWELLNESS · CONSCIOUS PERFORMANCE</span>
           </div>
           <div class="marker-label">Unicode U+00B7</div>
           <div class="marker-h">Middle dot ·</div>
@@ -1003,13 +1000,13 @@ body.locked { overflow: hidden; }
         <div class="marker-card">
           <div class="marker-demo">
             <div style="display: flex; gap: 14px; flex-wrap: wrap; font-family: var(--f-body); font-size: 12px; font-family: var(--f-mono); letter-spacing: 0.04em; color: var(--mute);">
-              <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--sage);"></span>Zero caffeine</span>
-              <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--sage);"></span>Clinically dosed</span>
+              <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--sage);--accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark);"></span>Zero caffeine</span>
+              <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--sage);--accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark);"></span>Clinically dosed</span>
             </div>
           </div>
           <div class="marker-label">CSS · 6px circle</div>
           <div class="marker-h">Trust dot (sage)</div>
-          <div class="marker-b"><strong>For hero trust rows and feature lists.</strong> 6px circle, sage (#2F3D33), with DM Mono label text. Never orange. Never larger than 8px.</div>
+          <div class="marker-b"><strong>For hero trust rows and feature lists.</strong> 6px circle, sage (#2A1810), with DM Mono label text. Never orange. Never larger than 8px.</div>
         </div>
       </div>
     </section>
@@ -1021,7 +1018,7 @@ body.locked { overflow: hidden; }
 
       <h4>Structure</h4>
       <ol style="margin: 8px 0 20px 20px; padding: 0; font-size: 14px; color: var(--ink-soft); line-height: 1.75;">
-        <li>Eyebrow: DM Mono, 11px, 0.2em letter-spacing, orange-deep (#D85A22), uppercase, with 22px horizontal rule accent before text</li>
+        <li>Eyebrow: DM Mono, 11px, 0.2em letter-spacing, orange-deep (#9E3C14), uppercase, with 22px horizontal rule accent before text</li>
         <li>H2: Hanken Grotesk 500, v2 scale clamp(26px, 2.8vw, 36px), with Instrument Serif italic orange accent flowing inline (no <code>&lt;br&gt;</code>)</li>
         <li>Lede: Hanken Grotesk 400, 16px, line-height 1.65, max-width 680px, center-aligned</li>
         <li>Card grid: 3 columns desktop, 2 columns tablet, 1 column mobile, 16px gap</li>
@@ -1032,7 +1029,7 @@ body.locked { overflow: hidden; }
       <p>Cream background (<code>#F3F2E9</code>) on a sand section background (<code>#EEE9E0</code>), border-radius 18px, padding 36px 32px 32px. Hover: lift 3px, shift background to white, border-color to sage-light.</p>
 
       <h4>Botanical icon spec</h4>
-      <p>48px × 48px, SVG viewBox <code>0 0 48 48</code>, sage stroke (<code>#2F3D33</code>) at weight 1.1–1.2px, rounded line caps. 22px margin-bottom before the h3.</p>
+      <p>48px × 48px, SVG viewBox <code>0 0 48 48</code>, sage stroke (<code>#2A1810</code>) at weight 1.1–1.2px, rounded line caps. 22px margin-bottom before the h3.</p>
 
       <h4>Attribution line</h4>
       <p>The DM Mono line at the bottom that names the ingredient is <strong>mandatory</strong>. It's the pattern that ties the benefit to the formula. Border-top above it (1px sage-light with opacity), 14px padding-top.</p>
@@ -1046,10 +1043,10 @@ body.locked { overflow: hidden; }
       <div class="size-row">
         <div class="size-preview">
           <svg width="20" height="20" viewBox="0 0 48 48" fill="none">
-            <path d="M14 20 Q16 13 24 13 Q32 13 34 20 L34 24 Q32 22 29 24 Q27 22 24 24 Q21 22 19 24 Q16 22 14 24 Z" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
-            <path d="M19 24 Q19 30 17 35" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M24 24 Q24 32 23 37" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M29 24 Q29 30 31 35" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M14 20 Q16 13 24 13 Q32 13 34 20 L34 24 Q32 22 29 24 Q27 22 24 24 Q21 22 19 24 Q16 22 14 24 Z" stroke="#2A1810" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
+            <path d="M19 24 Q19 30 17 35" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M24 24 Q24 32 23 37" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M29 24 Q29 30 31 35" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
           </svg>
         </div>
         <div class="size-info">
@@ -1064,14 +1061,14 @@ body.locked { overflow: hidden; }
       <div class="size-row">
         <div class="size-preview">
           <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
-            <path d="M14 20 Q16 13 24 13 Q32 13 34 20 L34 24 Q32 22 29 24 Q27 22 24 24 Q21 22 19 24 Q16 22 14 24 Z" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
-            <path d="M16 24 Q16 30 14 34" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M19 24 Q19 30 17 35" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M22 24 Q22 31 20 36" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M24 24 Q24 32 23 37" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M26 24 Q26 31 28 36" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M29 24 Q29 30 31 35" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M32 24 Q32 30 34 34" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M14 20 Q16 13 24 13 Q32 13 34 20 L34 24 Q32 22 29 24 Q27 22 24 24 Q21 22 19 24 Q16 22 14 24 Z" stroke="#2A1810" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
+            <path d="M16 24 Q16 30 14 34" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M19 24 Q19 30 17 35" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M22 24 Q22 31 20 36" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M24 24 Q24 32 23 37" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M26 24 Q26 31 28 36" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M29 24 Q29 30 31 35" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M32 24 Q32 30 34 34" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
           </svg>
         </div>
         <div class="size-info">
@@ -1086,14 +1083,14 @@ body.locked { overflow: hidden; }
       <div class="size-row">
         <div class="size-preview">
           <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-            <path d="M14 20 Q16 13 24 13 Q32 13 34 20 L34 24 Q32 22 29 24 Q27 22 24 24 Q21 22 19 24 Q16 22 14 24 Z" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
-            <path d="M16 24 Q16 30 14 34" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M19 24 Q19 30 17 35" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M22 24 Q22 31 20 36" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M24 24 Q24 32 23 37" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M26 24 Q26 31 28 36" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M29 24 Q29 30 31 35" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M32 24 Q32 30 34 34" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M14 20 Q16 13 24 13 Q32 13 34 20 L34 24 Q32 22 29 24 Q27 22 24 24 Q21 22 19 24 Q16 22 14 24 Z" stroke="#2A1810" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
+            <path d="M16 24 Q16 30 14 34" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M19 24 Q19 30 17 35" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M22 24 Q22 31 20 36" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M24 24 Q24 32 23 37" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M26 24 Q26 31 28 36" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M29 24 Q29 30 31 35" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M32 24 Q32 30 34 34" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
           </svg>
         </div>
         <div class="size-info">
@@ -1108,14 +1105,14 @@ body.locked { overflow: hidden; }
       <div class="size-row">
         <div class="size-preview">
           <svg width="72" height="72" viewBox="0 0 48 48" fill="none">
-            <path d="M14 20 Q16 13 24 13 Q32 13 34 20 L34 24 Q32 22 29 24 Q27 22 24 24 Q21 22 19 24 Q16 22 14 24 Z" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
-            <path d="M16 24 Q16 30 14 34" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M19 24 Q19 30 17 35" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M22 24 Q22 31 20 36" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M24 24 Q24 32 23 37" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M26 24 Q26 31 28 36" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M29 24 Q29 30 31 35" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M32 24 Q32 30 34 34" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M14 20 Q16 13 24 13 Q32 13 34 20 L34 24 Q32 22 29 24 Q27 22 24 24 Q21 22 19 24 Q16 22 14 24 Z" stroke="#2A1810" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
+            <path d="M16 24 Q16 30 14 34" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M19 24 Q19 30 17 35" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M22 24 Q22 31 20 36" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M24 24 Q24 32 23 37" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M26 24 Q26 31 28 36" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M29 24 Q29 30 31 35" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M32 24 Q32 30 34 34" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
           </svg>
         </div>
         <div class="size-info">
@@ -1130,14 +1127,14 @@ body.locked { overflow: hidden; }
       <div class="size-row">
         <div class="size-preview" style="padding: 8px;">
           <svg width="120" height="120" viewBox="0 0 48 48" fill="none">
-            <path d="M14 20 Q16 13 24 13 Q32 13 34 20 L34 24 Q32 22 29 24 Q27 22 24 24 Q21 22 19 24 Q16 22 14 24 Z" stroke="#2F3D33" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
-            <path d="M16 24 Q16 30 14 34" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M19 24 Q19 30 17 35" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M22 24 Q22 31 20 36" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M24 24 Q24 32 23 37" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M26 24 Q26 31 28 36" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M29 24 Q29 30 31 35" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-            <path d="M32 24 Q32 30 34 34" stroke="#2F3D33" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M14 20 Q16 13 24 13 Q32 13 34 20 L34 24 Q32 22 29 24 Q27 22 24 24 Q21 22 19 24 Q16 22 14 24 Z" stroke="#2A1810" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
+            <path d="M16 24 Q16 30 14 34" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M19 24 Q19 30 17 35" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M22 24 Q22 31 20 36" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M24 24 Q24 32 23 37" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M26 24 Q26 31 28 36" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M29 24 Q29 30 31 35" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <path d="M32 24 Q32 30 34 34" stroke="#2A1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
           </svg>
         </div>
         <div class="size-info">
@@ -1208,7 +1205,7 @@ body.locked { overflow: hidden; }
         <div class="callout-body">
           <strong>Looking for:</strong> A freelance illustrator to produce a 10-12 icon botanical set in a <em>hand-drawn apothecary style</em> for a wellness brand. References: Aesop packaging, Moon Juice botanical illustrations, SUPA, Diptyque candle labels.
           <br><br>
-          <strong>Specs:</strong> Single-weight line illustrations, 1.1–1.2px stroke, sage #2F3D33. Delivered as optimized SVG with 48×48 viewBox, plus 120px raster versions for packaging. Subtle organic imperfection welcomed; no perfectly geometric forms. Rounded line caps throughout.
+          <strong>Specs:</strong> Single-weight line illustrations, 1.1–1.2px stroke, sage #2A1810. Delivered as optimized SVG with 48×48 viewBox, plus 120px raster versions for packaging. Subtle organic imperfection welcomed; no perfectly geometric forms. Rounded line caps throughout.
           <br><br>
           <strong>Scope:</strong> Lion's Mane (fruiting body), Cordyceps militaris, L-theanine (root), Panax Ginseng (flower + leaves), Chaga (on birch), Cacao (pod), plus [future ingredients: Bacopa, Maca, MCT source (coconut), Lemna leaf, and 2-3 reserves].
           <br><br>

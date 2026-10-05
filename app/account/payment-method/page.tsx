@@ -132,7 +132,7 @@ export default async function PaymentMethodPage({
           text-decoration: none;
           margin-bottom: 18px;
         }
-        .pm-back-link:hover { color: var(--orange-deep); }
+        .pm-back-link:hover { color: var(--accent-text); }
 
         .pm-banner {
           background: rgba(124, 167, 124, 0.12);
@@ -188,7 +188,7 @@ export default async function PaymentMethodPage({
         }
         .pm-empty-cta {
           display: inline-block;
-          background: var(--orange);
+          background: var(--brown);
           color: #fff;
           text-decoration: none;
           padding: 12px 22px;
@@ -196,7 +196,7 @@ export default async function PaymentMethodPage({
           font-size: 14px;
           font-weight: 500;
         }
-        .pm-empty-cta:hover { background: var(--orange-deep); }
+        .pm-empty-cta:hover { background: var(--brown-mid); }
       `}</style>
     </AccountChrome>
   );

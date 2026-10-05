@@ -54,7 +54,7 @@ export function LogoutButton({
             transition: color 0.2s;
             cursor: pointer;
           }
-          .acc-signout-link:hover { color: var(--orange-deep); }
+          .acc-signout-link:hover { color: var(--accent-text); }
           .acc-signout-link[aria-disabled="true"] { opacity: 0.6; cursor: not-allowed; }
         `}</style>
       </a>
@@ -84,7 +84,7 @@ export function LogoutButton({
         }
         .logout-btn:hover:not(:disabled) {
           border-color: var(--orange);
-          color: var(--orange-deep);
+          color: var(--accent-text);
         }
         .logout-btn:disabled { opacity: 0.6; cursor: not-allowed; }
       `}</style>

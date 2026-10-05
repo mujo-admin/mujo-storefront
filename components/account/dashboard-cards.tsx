@@ -108,7 +108,7 @@ export function DashboardCards({
           font-size: 11px;
           letter-spacing: 0.2em;
           text-transform: uppercase;
-          color: var(--orange-deep);
+          color: var(--accent-text);
           font-weight: 500;
         }
         .dash-card-head a {
@@ -116,11 +116,11 @@ export function DashboardCards({
           font-size: 11px;
           letter-spacing: 0.14em;
           text-transform: uppercase;
-          color: var(--orange-deep);
+          color: var(--accent-text);
           text-decoration: none;
           transition: color 0.2s;
         }
-        .dash-card-head a:hover { color: var(--orange); }
+        .dash-card-head a:hover { color: var(--accent-text); }
 
         /* Active subscription card */
         .sub-summary {
@@ -158,7 +158,7 @@ export function DashboardCards({
           font-family: var(--f-mono);
           font-size: 11px;
           letter-spacing: 0.1em;
-          color: var(--orange-deep);
+          color: var(--accent-text);
           text-transform: uppercase;
           font-weight: 500;
         }
@@ -189,7 +189,7 @@ export function DashboardCards({
         }
         .sub-cta {
           display: inline-block;
-          background: var(--orange);
+          background: var(--brown);
           color: #fff;
           text-decoration: none;
           padding: 10px 22px;
@@ -197,7 +197,7 @@ export function DashboardCards({
           font-size: 14px;
           font-weight: 500;
         }
-        .sub-cta:hover { background: var(--orange-deep); }
+        .sub-cta:hover { background: var(--brown-mid); }
 
         /* Recent orders rows */
         .order-row {
@@ -247,17 +247,17 @@ export function DashboardCards({
           font-size: 11px;
           letter-spacing: 0.14em;
           text-transform: uppercase;
-          color: var(--orange-deep);
+          color: var(--accent-text);
           text-decoration: none;
         }
-        .orders-cta:hover { color: var(--orange); }
+        .orders-cta:hover { color: var(--accent-text); }
 
         /* Subscriber savings — sage gradient card */
         .dash-savings {
           background: linear-gradient(135deg, var(--sage) 0%, var(--sage-mid) 100%);
           color: #fff;
           border-radius: 14px;
-          padding: 24px;
+          padding: 24px; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark);
         }
         @media (min-width: 768px) {
           .dash-savings { padding: 28px; }
@@ -267,7 +267,7 @@ export function DashboardCards({
           font-size: 11px;
           letter-spacing: 0.2em;
           text-transform: uppercase;
-          color: var(--orange);
+          color: var(--accent-text);
           font-weight: 500;
           display: inline-block;
           margin-bottom: 12px;
@@ -284,7 +284,7 @@ export function DashboardCards({
         .dash-savings h3 em {
           font-family: var(--f-serif);
           font-style: italic;
-          color: var(--orange);
+          color: var(--accent-text);
           font-weight: 400;
         }
         .dash-savings p {
@@ -302,7 +302,7 @@ export function DashboardCards({
           padding-top: 14px;
           border-top: 1px solid rgba(255, 255, 255, 0.12);
         }
-        .dash-savings-stat strong { color: var(--orange); font-weight: 500; }
+        .dash-savings-stat strong { color: var(--accent-text); font-weight: 500; }
 
         /* Quick actions */
         .quick-actions {
@@ -335,7 +335,7 @@ export function DashboardCards({
           align-items: center;
           justify-content: center;
           flex-shrink: 0;
-          color: var(--orange-deep);
+          color: var(--accent-text);
         }
         .qa-link-icon svg { width: 18px; height: 18px; }
         .qa-link-text {

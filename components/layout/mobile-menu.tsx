@@ -149,19 +149,19 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
           border-bottom: 1px solid var(--line);
           transition: background 0.15s, color 0.15s;
         }
-        .mm-link:hover { color: var(--orange-deep); background: rgba(242, 104, 47, 0.04); }
+        .mm-link:hover { color: var(--accent-text); background: rgba(184, 72, 26, 0.04); }
         .mm-link svg { width: 16px; height: 16px; opacity: 0.4; }
         .mm-foot {
           padding: 24px;
           background: var(--sage);
-          color: #fff;
+          color: #fff; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark);
         }
         .mm-foot-eyebrow {
           font-family: var(--f-mono);
           font-size: 10px;
           letter-spacing: 0.2em;
           text-transform: uppercase;
-          color: var(--orange);
+          color: var(--accent-text);
           margin-bottom: 10px;
         }
         .mm-foot p {
@@ -174,7 +174,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
           display: inline-flex;
           align-items: center;
           gap: 6px;
-          background: var(--orange);
+          background: var(--brown);
           color: #fff;
           text-decoration: none;
           padding: 12px 20px;
@@ -184,7 +184,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
           font-family: var(--f-body);
           transition: background 0.2s;
         }
-        .mm-cta:hover { background: var(--orange-deep); }
+        .mm-cta:hover { background: var(--brown-mid); }
         @media (max-width: 600px) {
           .mm-head { padding: 12px 18px; }
           .mm-head img { height: 22px; }

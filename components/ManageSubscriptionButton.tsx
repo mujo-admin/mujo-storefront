@@ -266,7 +266,7 @@ export function ManageSubscriptionButton({
             .mujo-manage-title em {
               font-family: 'Instrument Serif', Georgia, serif;
               font-style: italic;
-              color: var(--orange-deep);
+              color: var(--accent-text);
               font-weight: 400;
             }
             .mujo-manage-lede {
@@ -299,7 +299,7 @@ export function ManageSubscriptionButton({
             .mujo-manage-input:focus {
               outline: none;
               border-color: var(--orange);
-              box-shadow: 0 0 0 3px rgba(242, 104, 47, 0.15);
+              box-shadow: 0 0 0 3px rgba(184, 72, 26, 0.15);
             }
             .mujo-manage-input:disabled {
               opacity: 0.6;
@@ -313,7 +313,7 @@ export function ManageSubscriptionButton({
             }
             .mujo-manage-primary {
               width: 100%;
-              background: var(--orange);
+              background: var(--brown);
               color: #fff;
               border: none;
               cursor: pointer;
@@ -326,7 +326,7 @@ export function ManageSubscriptionButton({
               transition: background 0.15s, opacity 0.15s;
             }
             .mujo-manage-primary:hover:not(:disabled) {
-              background: var(--orange-deep);
+              background: var(--brown-mid);
             }
             .mujo-manage-primary:disabled {
               opacity: 0.6;
@@ -352,13 +352,13 @@ export function ManageSubscriptionButton({
               border: none;
               padding: 0;
               font: inherit;
-              color: var(--orange-deep);
+              color: var(--accent-text);
               text-decoration: underline;
               text-underline-offset: 2px;
               cursor: pointer;
             }
             .mujo-manage-inline-btn:hover {
-              color: var(--orange);
+              color: var(--accent-text);
             }
             .mujo-manage-pill {
               background: transparent;

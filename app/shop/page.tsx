@@ -4,7 +4,8 @@ import { collectionPageSchema, jsonLdScript } from "lib/schema";
 
 export const metadata: Metadata = {
   title: "Shop",
-  description: "The Mujo catalog. Mushroom coffee alternative, Lemna leaf protein, accessories.",
+  description:
+    "Shop Mujo: The Ritual mushroom coffee alternative, plant-based Protein Powder made with Lemna leaf, the electric frother and organic cotton merch.",
   alternates: { canonical: "/shop" },
 };
 
@@ -18,7 +19,8 @@ export default function ShopPage() {
             collectionPageSchema({
               url: "/shop",
               name: "Shop Mujo",
-              description: "Mujo catalog overview.",
+              description:
+                "Shop Mujo: The Ritual mushroom coffee alternative, plant-based Protein Powder made with Lemna leaf, the electric frother and organic cotton merch.",
             }),
           ),
         }}

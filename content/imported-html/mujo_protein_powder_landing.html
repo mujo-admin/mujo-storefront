@@ -139,6 +139,7 @@ h1 em, h2 em, h3 em { font-family: var(--f-serif); font-style: italic; color: va
 .eaa-fill { position: absolute; top: 0; bottom: 0; left: 0; background: var(--orange); border-radius: 6px; display: flex; align-items: center; justify-content: flex-end; padding-right: 9px; z-index: 1; }
 .eaa-fill.met { background: var(--brown-light); }
 .eaa-val { font-family: var(--f-mono); font-size: 10.5px; font-weight: 500; color: #fff; white-space: nowrap; }
+.eaa-fill.met .eaa-val { color: var(--brown); }
 .eaa-foot { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.03em; color: var(--mute); line-height: 1.6; margin-top: 10px; }
 @media (max-width: 620px) {
   .eaa-row { grid-template-columns: 96px 1fr; gap: 10px; }
@@ -228,10 +229,10 @@ h1 em, h2 em, h3 em { font-family: var(--f-serif); font-style: italic; color: va
 .price-card { background: var(--brown-mid); border-radius: 20px; padding: 30px 28px; text-align: left; position: relative; }
 .price-card.featured { border: 1.5px solid var(--orange); }
 .price-badge { position: absolute; top: -12px; left: 24px; background: var(--orange); color: var(--brown); font-family: var(--f-mono); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 12px; border-radius: var(--r-pill); font-weight: 500; }
-.price-num { font-family: var(--f-display); font-size: 42px; font-weight: 700; color: var(--orange); letter-spacing: -0.04em; line-height: 1; margin-bottom: 6px; }
+.price-num { font-family: var(--f-display); font-size: 42px; font-weight: 700; color: var(--accent-on-dark); letter-spacing: -0.04em; line-height: 1; margin-bottom: 6px; }
 .price-num .was { font-size: 18px; color: rgba(255,255,255,0.4); text-decoration: line-through; font-weight: 500; margin-left: 8px; }
 .price-plan { font-family: var(--f-display); font-size: 16px; font-weight: 500; color: #fff; margin-bottom: 4px; }
-.price-detail { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--brown-light); line-height: 1.7; }
+.price-detail { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: #C9B5A5; line-height: 1.7; }
 .price-guarantee { max-width: 640px; margin: 30px auto 30px; background: var(--brown-mid); border-left: 4px solid var(--orange); border-radius: 8px; padding: 22px 26px; text-align: left; font-size: 14.5px; line-height: 1.65; color: rgba(255,255,255,0.85); }
 .price-guarantee strong { color: #fff; font-weight: 500; }
 .pricing-cta { text-align: center; }
@@ -268,7 +269,7 @@ h1 em, h2 em, h3 em { font-family: var(--f-serif); font-style: italic; color: va
 /* ---- second capture ---- */
 
 /* On-dark accents: terracotta needs the lighter tone on brown to pass contrast (2026-09-29) */
-.pricing-head .eyebrow, .pricing .eyebrow, .price-guarantee strong { color: var(--accent-on-dark) !important; }
+.pricing-head .eyebrow, .pricing .eyebrow { color: var(--accent-on-dark) !important; }
 
 /* Powder page palette (Kinga 2026-09-29/30): brown #2A1810 + terracotta #B8481A.
    Scoped to the imported page so the site chrome keeps its own tokens until the site-wide sweep. */

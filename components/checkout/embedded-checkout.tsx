@@ -227,7 +227,7 @@ function CheckoutShell({ children }: { children: React.ReactNode }) {
           text-decoration: none;
           letter-spacing: 0.04em;
         }
-        .checkout-back:hover { color: var(--orange-deep); }
+        .checkout-back:hover { color: var(--accent-text); }
         .checkout-frame {
           background: var(--cream);
           border-radius: 14px;
@@ -255,7 +255,7 @@ function CheckoutShell({ children }: { children: React.ReactNode }) {
         }
         .checkout-shop-link {
           display: inline-block;
-          background: var(--orange);
+          background: var(--brown);
           color: #fff;
           text-decoration: none;
           padding: 12px 22px;
@@ -263,9 +263,9 @@ function CheckoutShell({ children }: { children: React.ReactNode }) {
           font-size: 14px;
           font-weight: 500;
         }
-        .checkout-shop-link:hover { background: var(--orange-deep); }
+        .checkout-shop-link:hover { background: var(--brown-mid); }
         .checkout-retry-btn {
-          background: var(--orange);
+          background: var(--brown);
           color: #fff;
           border: none;
           cursor: pointer;
@@ -275,7 +275,7 @@ function CheckoutShell({ children }: { children: React.ReactNode }) {
           font-size: 14px;
           font-weight: 500;
         }
-        .checkout-retry-btn:hover { background: var(--orange-deep); }
+        .checkout-retry-btn:hover { background: var(--brown-mid); }
         .checkout-trust {
           list-style: none;
           padding: 0;

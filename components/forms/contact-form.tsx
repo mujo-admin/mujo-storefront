@@ -94,7 +94,7 @@ export function ContactForm() {
         <p
           role="alert"
           style={{
-            color: "var(--orange-deep)",
+            color: "var(--accent-text)",
             fontSize: 14,
             marginTop: 12,
           }}

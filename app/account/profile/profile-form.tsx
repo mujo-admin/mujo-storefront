@@ -338,7 +338,7 @@ export function ProfileForm({
           font-family: inherit;
           font-size: 14px;
           font-weight: 500;
-          background: var(--orange);
+          background: var(--brown);
           color: #fff;
           border: none;
           padding: 12px 22px;
@@ -346,7 +346,7 @@ export function ProfileForm({
           cursor: pointer;
           transition: background 0.15s;
         }
-        .profile-btn:hover:not(:disabled) { background: var(--orange-deep); }
+        .profile-btn:hover:not(:disabled) { background: var(--brown-mid); }
         .profile-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .profile-feedback {
           font-family: var(--f-mono);

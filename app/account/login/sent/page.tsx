@@ -85,7 +85,7 @@ export default async function LoginSentPage(props: {
           align-items: center;
           justify-content: center;
           margin: 0 auto 20px;
-          font-family: var(--f-display);
+          font-family: var(--f-display); --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark);
         }
         .login-title {
           font-family: var(--f-display);
@@ -98,7 +98,7 @@ export default async function LoginSentPage(props: {
         .login-title em {
           font-family: 'Instrument Serif', Georgia, serif;
           font-style: italic;
-          color: var(--orange-deep);
+          color: var(--accent-text);
           font-weight: 400;
         }
         .login-lede {
@@ -122,7 +122,7 @@ export default async function LoginSentPage(props: {
           letter-spacing: 0.04em;
           text-decoration: none;
         }
-        .login-back:hover { color: var(--orange-deep); }
+        .login-back:hover { color: var(--accent-text); }
         @media (max-width: 600px) {
           .login-shell { padding: 32px 14px; }
           .login-card { padding: 28px 22px; }

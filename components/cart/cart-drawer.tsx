@@ -317,7 +317,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
           line-height: 1.4;
         }
         .cart-progress-msg strong { color: var(--ink); font-weight: 500; }
-        .cart-progress-msg .accent { color: var(--orange-deep); font-weight: 500; }
+        .cart-progress-msg .accent { color: var(--accent-text); font-weight: 500; }
         .cart-progress-track {
           height: 6px;
           background: rgba(26, 26, 26, 0.08);
@@ -369,7 +369,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
           line-height: 1.3;
           text-decoration: none;
         }
-        .cart-item-name:hover { color: var(--orange-deep); }
+        .cart-item-name:hover { color: var(--accent-text); }
         .cart-item-variant {
           font-size: 12px;
           color: var(--mute);
@@ -395,7 +395,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
           align-items: center;
           justify-content: center;
         }
-        .qty-btn:hover { color: var(--orange-deep); }
+        .qty-btn:hover { color: var(--accent-text); }
         .qty-val {
           font-family: var(--f-mono);
           font-size: 12px;
@@ -427,7 +427,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
           letter-spacing: 0.1em;
           padding: 4px 0;
         }
-        .cart-item-remove:hover { color: var(--orange-deep); }
+        .cart-item-remove:hover { color: var(--accent-text); }
         .cart-empty {
           text-align: center;
           padding: 56px 24px;
@@ -446,7 +446,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
         }
         .cart-empty a {
           margin-top: 6px;
-          background: var(--orange);
+          background: var(--brown);
           color: #fff;
           text-decoration: none;
           padding: 12px 22px;
@@ -454,7 +454,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
           font-size: 14px;
           font-weight: 500;
         }
-        .cart-empty a:hover { background: var(--orange-deep); }
+        .cart-empty a:hover { background: var(--brown-mid); }
         .cart-foot {
           border-top: 1px solid var(--line);
           padding: 16px 20px 20px;
@@ -513,7 +513,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
           justify-content: center;
           gap: 8px;
           width: 100%;
-          background: var(--orange);
+          background: var(--brown);
           color: #fff;
           text-decoration: none;
           border: none;
@@ -525,7 +525,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
           font-weight: 500;
           transition: background 0.2s;
         }
-        .cart-checkout:hover { background: var(--orange-deep); color: #fff; }
+        .cart-checkout:hover { background: var(--brown-mid); color: #fff; }
         .cart-secure {
           text-align: center;
           font-size: 11px;
