@@ -313,8 +313,8 @@ export function ManageSubscriptionButton({
             }
             .mujo-manage-primary {
               width: 100%;
-              background: var(--brown);
-              color: #fff;
+              background: var(--btn-bg);
+              color: var(--btn-fg);
               border: none;
               cursor: pointer;
               padding: 14px 24px;
@@ -326,7 +326,7 @@ export function ManageSubscriptionButton({
               transition: background 0.15s, opacity 0.15s;
             }
             .mujo-manage-primary:hover:not(:disabled) {
-              background: var(--brown-mid);
+              background: var(--btn-bg-hover);
             }
             .mujo-manage-primary:disabled {
               opacity: 0.6;

@@ -105,8 +105,8 @@ export default async function LoginErrorPage(props: {
         }
         .login-cta {
           display: inline-block;
-          background: var(--brown);
-          color: #fff;
+          background: var(--btn-bg);
+          color: var(--btn-fg);
           text-decoration: none;
           padding: 13px 26px;
           border-radius: 100px;
@@ -114,7 +114,7 @@ export default async function LoginErrorPage(props: {
           font-weight: 500;
           transition: background 0.15s;
         }
-        .login-cta:hover { background: var(--brown-mid); }
+        .login-cta:hover { background: var(--btn-bg-hover); }
         @media (max-width: 600px) {
           .login-shell { padding: 32px 14px; }
           .login-card { padding: 28px 22px; }

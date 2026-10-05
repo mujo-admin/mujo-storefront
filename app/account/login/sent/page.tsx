@@ -85,7 +85,7 @@ export default async function LoginSentPage(props: {
           align-items: center;
           justify-content: center;
           margin: 0 auto 20px;
-          font-family: var(--f-display); --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark);
+          font-family: var(--f-display); --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg);
         }
         .login-title {
           font-family: var(--f-display);

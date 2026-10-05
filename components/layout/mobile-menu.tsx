@@ -154,7 +154,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
         .mm-foot {
           padding: 24px;
           background: var(--sage);
-          color: #fff; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark);
+          color: #fff; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg);
         }
         .mm-foot-eyebrow {
           font-family: var(--f-mono);
@@ -174,8 +174,8 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
           display: inline-flex;
           align-items: center;
           gap: 6px;
-          background: var(--brown);
-          color: #fff;
+          background: var(--btn-bg);
+          color: var(--btn-fg);
           text-decoration: none;
           padding: 12px 20px;
           border-radius: 100px;
@@ -184,7 +184,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
           font-family: var(--f-body);
           transition: background 0.2s;
         }
-        .mm-cta:hover { background: var(--brown-mid); }
+        .mm-cta:hover { background: var(--btn-bg-hover); }
         @media (max-width: 600px) {
           .mm-head { padding: 12px 18px; }
           .mm-head img { height: 22px; }

@@ -323,7 +323,7 @@ const ambStyles = `
     align-self: flex-start;
     margin-top: 2px;
     display: inline-flex; align-items: center; gap: 6px;
-    background: var(--brown); color: #fff;
+    background: var(--btn-bg); color: var(--btn-fg);
     font-family: var(--f-body); font-size: 15px; font-weight: 500;
     border: none; cursor: pointer;
     padding: 14px 28px; border-radius: 100px;

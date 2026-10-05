@@ -134,7 +134,7 @@ export async function POST(
         {
           error: "not_available_for_this_subscription",
           message: preorderTrialing
-            ? "Your pre-order ships on October 30. You can change or pause deliveries after your first pouch ships, or email hello@mujoworld.com and we'll help."
+            ? "Your pre-order ships on November 15. You can change or pause deliveries after your first pouch ships, or email hello@mujoworld.com and we'll help."
             : "This change isn't available for this subscription yet. Email hello@mujoworld.com and we'll sort it for you.",
         },
         { status: 409 },

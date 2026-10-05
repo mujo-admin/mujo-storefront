@@ -117,9 +117,9 @@ export function CookieConsent() {
           style={{
             padding: "8px 14px",
             borderRadius: "999px",
-            border: "1px solid var(--cream, #f3f2e9)",
-            background: "var(--cream, #f3f2e9)",
-            color: "var(--brown, #2A1810)",
+            border: "1px solid var(--btn-on-dark-bg, #F2682F)",
+            background: "var(--btn-on-dark-bg, #F2682F)",
+            color: "var(--btn-on-dark-fg, #2A1810)",
             font: "inherit",
             cursor: "pointer",
           }}

@@ -63,7 +63,6 @@ function BuyBox({ onAddToCart, pending }: Shared) {
           aria-busy={pending}
         >
           {pending ? "Adding…" : "Pre-order now"}
-          <span className="atc-btn-price">{PRICE.now}</span>
         </button>
         <div className="atc-shipline">Ships by {PROTEIN_PREORDER_SHIP_LABEL}</div>
       </div>

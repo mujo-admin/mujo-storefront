@@ -91,7 +91,7 @@ export default async function CheckoutSuccessPage(props: {
             {chargeOnShip ? (
               <p className="success-lede">
                 Nothing is charged today. Your card is saved and first charged on
-                October 30, when your first pouch ships.
+                November 15, when your first pouch ships.
               </p>
             ) : (
             <div className="success-amount">
@@ -118,7 +118,7 @@ export default async function CheckoutSuccessPage(props: {
             ) : null}
             <p className="success-fineprint">
               {hasPreorderItem
-                ? "Your Protein Powder ships from our US warehouse by October 30; anything else in your order ships within 1–2 business days. You'll receive a tracking email when it leaves the warehouse."
+                ? "Your Protein Powder ships from our US warehouse by November 15; anything else in your order ships within 1–2 business days. You'll receive a tracking email when it leaves the warehouse."
                 : "Your ritual ships from our US warehouse within 1–2 business days. You'll receive a tracking email when it leaves the warehouse."}
             </p>
           </>
@@ -192,7 +192,7 @@ export default async function CheckoutSuccessPage(props: {
           align-items: center;
           justify-content: center;
           margin: 0 auto 24px;
-          font-family: var(--f-display); --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark);
+          font-family: var(--f-display); --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg);
         }
         .success-glyph.processing { background: var(--orange); }
         .success-glyph.error { background: #b91c1c; }
@@ -229,8 +229,8 @@ export default async function CheckoutSuccessPage(props: {
           margin-top: 18px;
         }
         .success-btn {
-          background: var(--brown);
-          color: #fff;
+          background: var(--btn-bg);
+          color: var(--btn-fg);
           text-decoration: none;
           padding: 13px 28px;
           border-radius: 100px;
@@ -238,7 +238,7 @@ export default async function CheckoutSuccessPage(props: {
           font-weight: 500;
           transition: background 0.2s;
         }
-        .success-btn:hover { background: var(--brown-mid); }
+        .success-btn:hover { background: var(--btn-bg-hover); }
         .success-link {
           font-family: var(--f-mono);
           font-size: 12px;

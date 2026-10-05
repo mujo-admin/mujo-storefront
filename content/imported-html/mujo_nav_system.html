@@ -78,7 +78,7 @@ h1, h2, h3 { font-family: var(--f-display); font-weight: 500; letter-spacing: -0
   letter-spacing: 0.01em;
   position: relative;
   z-index: 200;
-  line-height: 1.4; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); }
+  line-height: 1.4; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 .announce strong { color: var(--accent-text); font-weight: 500; }
 .announce .sep { opacity: 0.4; margin: 0 8px; }
 @media (max-width: 640px) { .announce-secondary { display: none; } }
@@ -288,7 +288,7 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .mm-foot {
   padding: 24px;
   background: var(--sage);
-  color: #fff; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); }
+  color: #fff; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 .mm-foot-eyebrow {
   font-family: var(--f-mono);
   font-size: 10px;
@@ -307,8 +307,8 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: var(--brown);
-  color: #fff;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
   text-decoration: none;
   padding: 12px 20px;
   border-radius: var(--r-pill);
@@ -316,7 +316,7 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
   font-weight: 500;
   font-family: var(--f-body);
 }
-.mm-cta:hover { background: var(--brown-mid); }
+.mm-cta:hover { background: var(--btn-bg-hover); }
 
 /* ============================================================
    CART DRAWER · slide from right
@@ -396,7 +396,7 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
   width: 0%;
   transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.cart-progress-fill.full { background: var(--sage); --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); }
+.cart-progress-fill.full { background: var(--sage); --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 
 .cart-body {
   flex: 1;
@@ -508,15 +508,15 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 }
 .cart-empty a {
   margin-top: 6px;
-  background: var(--brown);
-  color: #fff;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
   text-decoration: none;
   padding: 12px 22px;
   border-radius: var(--r-pill);
   font-size: 14px;
   font-weight: 500;
 }
-.cart-empty a:hover { background: var(--brown-mid); }
+.cart-empty a:hover { background: var(--btn-bg-hover); }
 
 .cart-upsell {
   margin: 12px 0 8px;
@@ -567,7 +567,7 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
   font-size: 12px;
   font-weight: 500;
   font-family: var(--f-body);
-  cursor: pointer; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); }
+  cursor: pointer; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 .cart-upsell-add:hover { background: var(--sage-mid); }
 
 .cart-foot {
@@ -605,8 +605,8 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
   justify-content: center;
   gap: 8px;
   width: 100%;
-  background: var(--brown);
-  color: #fff;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
   text-decoration: none;
   border: none;
   cursor: pointer;
@@ -617,7 +617,7 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
   font-weight: 500;
   transition: background 0.2s;
 }
-.cart-checkout:hover { background: var(--brown-mid); }
+.cart-checkout:hover { background: var(--btn-bg-hover); }
 .cart-secure {
   text-align: center;
   font-size: 11px;
@@ -690,7 +690,7 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
   font-weight: 500;
   font-family: var(--f-body);
   cursor: pointer;
-  width: 100%; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); }
+  width: 100%; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 @media (min-width: 480px) { .demo-card button { width: auto; } }
 .demo-card button:hover { background: var(--sage-mid); }
 
@@ -716,7 +716,7 @@ footer.mujo-foot {
   background: var(--sage);
   color: rgba(255,255,255,0.5);
   padding: 56px 0 28px;
-  margin-top: 56px; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); }
+  margin-top: 56px; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 .foot-grid {
   display: grid;
   gap: 32px;

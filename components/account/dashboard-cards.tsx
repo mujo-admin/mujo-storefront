@@ -189,15 +189,15 @@ export function DashboardCards({
         }
         .sub-cta {
           display: inline-block;
-          background: var(--brown);
-          color: #fff;
+          background: var(--btn-bg);
+          color: var(--btn-fg);
           text-decoration: none;
           padding: 10px 22px;
           border-radius: 100px;
           font-size: 14px;
           font-weight: 500;
         }
-        .sub-cta:hover { background: var(--brown-mid); }
+        .sub-cta:hover { background: var(--btn-bg-hover); }
 
         /* Recent orders rows */
         .order-row {
@@ -257,7 +257,7 @@ export function DashboardCards({
           background: linear-gradient(135deg, var(--sage) 0%, var(--sage-mid) 100%);
           color: #fff;
           border-radius: 14px;
-          padding: 24px; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark);
+          padding: 24px; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg);
         }
         @media (min-width: 768px) {
           .dash-savings { padding: 28px; }

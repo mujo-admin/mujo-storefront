@@ -879,14 +879,14 @@ export function SubscriptionControls({
         .sub-danger-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .sub-danger-btn svg { width: 14px; height: 14px; }
         .sub-danger-btn.primary {
-          background: var(--brown);
-          color: #fff;
-          border-color: var(--orange);
+          background: var(--btn-bg);
+          color: var(--btn-fg);
+          border-color: transparent;
         }
         .sub-danger-btn.primary:hover:not(:disabled) {
-          background: var(--brown-mid);
-          border-color: var(--orange-deep);
-          color: #fff;
+          background: var(--btn-bg-hover);
+          border-color: transparent;
+          color: var(--btn-fg);
         }
 
         /* Modal */
@@ -1040,8 +1040,8 @@ export function SubscriptionControls({
           transition: all 0.2s;
         }
         .modal-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .modal-btn-primary { background: var(--brown); color: #fff; }
-        .modal-btn-primary:hover:not(:disabled) { background: var(--brown-mid); }
+        .modal-btn-primary { background: var(--btn-bg); color: var(--btn-fg); }
+        .modal-btn-primary:hover:not(:disabled) { background: var(--btn-bg-hover); }
         .modal-btn-secondary {
           background: transparent;
           color: var(--ink-soft);

@@ -159,9 +159,9 @@ h3 { font-size: clamp(20px, 3vw, 24px); letter-spacing: -0.015em; line-height: 1
   white-space: nowrap;
   -webkit-tap-highlight-color: transparent;
 }
-.btn-primary { background: var(--brown); color: #fff; border-color: var(--orange); }
-.btn-primary:hover { background: var(--brown-mid); border-color: var(--orange-deep); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(184, 72, 26, 0.28); }
-.btn-secondary { background: var(--sage); color: #fff; border-color: var(--sage); --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); }
+.btn-primary { background: var(--btn-bg); color: var(--btn-fg); border-color: transparent; }
+.btn-primary:hover { background: var(--btn-bg-hover); border-color: transparent; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(184, 72, 26, 0.28); }
+.btn-secondary { background: var(--sage); color: #fff; border-color: var(--sage); --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 .btn-secondary:hover { background: var(--sage-mid); border-color: var(--sage-mid); transform: translateY(-1px); }
 .btn-ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
 .btn-ghost:hover { background: var(--sage); color: var(--cream); border-color: var(--sage); }
@@ -229,7 +229,7 @@ h3 { font-size: clamp(20px, 3vw, 24px); letter-spacing: -0.015em; line-height: 1
   letter-spacing: 0.01em;
   line-height: 1.4;
   position: relative;
-  z-index: 200; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); }
+  z-index: 200; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 .announce strong { color: var(--accent-text); font-weight: 500; }
 .announce .sep { opacity: 0.4; margin: 0 8px; }
 @media (max-width: 640px) { .announce-secondary { display: none; } }
@@ -360,7 +360,7 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.05); }
 .mm-foot {
   padding: 24px;
   background: var(--sage);
-  color: #fff; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); }
+  color: #fff; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 .mm-foot-eyebrow {
   font-family: var(--f-mono);
   font-size: 10px;
@@ -372,7 +372,7 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.05); }
 .mm-foot p { font-size: 14px; line-height: 1.55; color: rgba(255, 255, 255, 0.75); margin-bottom: 16px; }
 .mm-cta {
   display: inline-flex; align-items: center; gap: 6px;
-  background: var(--brown); color: #fff;
+  background: var(--btn-bg); color: var(--btn-fg);
   text-decoration: none;
   padding: 12px 20px;
   border-radius: var(--r-pill);
@@ -507,55 +507,30 @@ body.locked { overflow: hidden; }
    fill the hero; the text block drives the height and is bottom-aligned. Desktop
    (>=1024px) keeps the two-column split, text left, completely untouched. ── */
 @media (max-width: 1023px) {
-  .hero-grid { position: relative; display: block; }
+  /* Phone + tablet hero (Kinga 2026-10-05): photo on top, uncluttered, then the
+     headline and both buttons on cream so they sit in the first screen. The
+     longer intro line drops below the buttons. Replaces the earlier
+     text-over-photo treatment. */
+  .hero-grid { display: flex; flex-direction: column; }
   .hero-img-wrap {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    height: 100%;
+    order: -1;
+    width: 100%;
+    height: clamp(240px, 40svh, 360px);
     aspect-ratio: auto;
     padding: 0;
-  }
-  .hero-img-wrap::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg,
-      rgba(18,26,20,0.05) 0%,
-      rgba(18,26,20,0.30) 38%,
-      rgba(18,26,20,0.60) 70%,
-      rgba(18,26,20,0.88) 100%);
+    background-position: center 46%;
   }
   .hero-text {
-    position: relative;
-    z-index: 2;
-    min-height: clamp(520px, 84vh, 740px);
-    min-height: clamp(520px, 84dvh, 740px);
-    justify-content: center;
+    max-width: none;
+    padding: 22px var(--gutter) 34px;
     text-align: center;
     align-items: center;
-    padding: 24px var(--gutter);
-    color: #fff;
-    text-shadow: 0 1px 14px rgba(0, 0, 0, 0.30);
   }
-  .hero-text .eyebrow { color: rgba(255,255,255,0.82); }
-  .hero h1 { color: #fff; margin-bottom: 14px; }
-  /* Force the italic accent clause white too, so it stands out over the dark
-     hero photo on mobile (desktop keeps its on-light accent color). */
-  .hero h1 .serif-acc { color: #fff; }
-  .hero-sub { color: rgba(255,255,255,0.92); margin-bottom: 22px; max-width: 32ch; }
-  .hero .ctas { justify-content: center; flex-wrap: wrap; }
-  .hero-trust {
-    justify-content: center;
-    flex-wrap: nowrap;
-    white-space: nowrap;
-    gap: 14px;
-    font-size: 12px;
-    color: rgba(255,255,255,0.92);
-  }
-  .hero-trust .ht-item svg { color: #fff; }
-  .hero-trust .ht-star { color: var(--accent-text); }
-  .hero-trust strong { color: #fff; }
+  .hero-text .eyebrow { display: none; }
+  .hero h1 { order: 1; margin-bottom: 16px; }
+  .hero .ctas { order: 2; width: 100%; max-width: 420px; justify-content: center; }
+  .hero-trust { order: 3; justify-content: center; flex-wrap: nowrap; white-space: nowrap; gap: 14px; font-size: 12px; margin-top: 16px; }
+  .hero-sub { order: 4; margin: 22px 0 0; max-width: 34ch; }
 }
 
 /* "Modern performance" / modern-performance section — image + text, after the UGC strip.
@@ -599,7 +574,7 @@ body.locked { overflow: hidden; }
 .trust-marquee {
   background: var(--sage);
   padding: 40px 0;
-  overflow: hidden; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); }
+  overflow: hidden; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 .trust-marquee-viewport {
   display: flex;
   width: 100%;
@@ -750,7 +725,7 @@ body.locked { overflow: hidden; }
   letter-spacing: 0.14em;
   text-transform: uppercase;
   font-weight: 500;
-  z-index: 2; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); }
+  z-index: 2; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 
 /* Tile body uses flex column with deliberate growth zones so meta + CTA align across tiles */
 .tile-body {
@@ -879,9 +854,9 @@ body.locked { overflow: hidden; }
   min-height: 48px;
   padding: 0 20px;
   border-radius: var(--r-pill);
-  background: var(--brown);
-  color: #fff;
-  border: 1.5px solid var(--orange);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  border: 1.5px solid transparent;
   font-family: var(--f-body);
   font-size: 14.5px;
   font-weight: 500;
@@ -889,7 +864,7 @@ body.locked { overflow: hidden; }
   flex-shrink: 0;
   transition: background 0.2s, border-color 0.2s;
 }
-.tile:hover .tile-cta { background: var(--brown-mid); border-color: var(--orange-deep); }
+.tile:hover .tile-cta { background: var(--btn-bg-hover); border-color: transparent; }
 .tile:hover .tile-cta .arrow { transform: translateX(3px); }
 
 /* Tile-quiet variant (Tools & Merch). Quieter background, same structure */
@@ -1065,7 +1040,7 @@ body.locked { overflow: hidden; }
   background: linear-gradient(135deg, var(--sand-deep) 0%, var(--sage-light) 100%);
 }
 .ugc-tile.t2 { background: linear-gradient(135deg, #6B4F3A 0%, #4A3526 100%); }
-.ugc-tile.t3 { background: linear-gradient(135deg, #5C432F 0%, #2A1810 100%); --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); }
+.ugc-tile.t3 { background: linear-gradient(135deg, #5C432F 0%, #2A1810 100%); --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 .ugc-tile.t4 { background: linear-gradient(135deg, #F0E5D5 0%, #C8B89C 100%); }
 .ugc-tile.t5 { background: linear-gradient(135deg, #C9A57B 0%, #8B6F4E 100%); }
 .ugc-tile.t6 { background: linear-gradient(135deg, #E8DCC0 0%, #B8A581 100%); }
@@ -1154,7 +1129,7 @@ body.locked { overflow: hidden; }
   overflow: hidden;
 }
 .review.r2 .review-photo { background: linear-gradient(135deg, #6B4F3A 0%, #4A3526 100%); }
-.review.r3 .review-photo { background: linear-gradient(135deg, #5C432F 0%, #2A1810 100%); --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); }
+.review.r3 .review-photo { background: linear-gradient(135deg, #5C432F 0%, #2A1810 100%); --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 
 .review-tag {
   position: absolute;
@@ -1335,7 +1310,7 @@ body.locked { overflow: hidden; }
   background: var(--sage);
   color: #fff;
   position: relative;
-  overflow: hidden; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); }
+  overflow: hidden; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 .rebel::before {
   content: '';
   position: absolute;
@@ -1467,7 +1442,7 @@ footer {
   background: var(--sage);
   color: rgba(255, 255, 255, 0.5);
   padding: 56px 0 32px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06); --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); }
+  border-top: 1px solid rgba(255, 255, 255, 0.06); --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 @media (min-width: 768px) { footer { padding: 72px 0 40px; } }
 
 .footer-grid {
@@ -1590,7 +1565,7 @@ footer {
   max-height: 90vh;
   overflow-y: auto;
   transform: translateY(100%);
-  transition: transform 0.4s cubic-bezier(0.34, 1.06, 0.64, 1); --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); }
+  transition: transform 0.4s cubic-bezier(0.34, 1.06, 0.64, 1); --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 .qs-overlay.on .qs-sheet { transform: translateY(0); }
 @media (min-width: 768px) {
   .qs-sheet { max-width: 540px; left: 50%; transform: translate(-50%, 100%); border-radius: var(--r-structural); bottom: 24px; padding: 10px 32px 36px; }
@@ -1736,8 +1711,8 @@ footer {
   width: 100%;
   padding: 15px;
   border-radius: var(--r-pill);
-  background: var(--brown);
-  color: #fff;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
   border: none;
   font-size: 15px;
   font-weight: 500;
@@ -1749,7 +1724,7 @@ footer {
   gap: 8px;
   font-family: var(--f-body);
 }
-.qs-submit:hover { background: var(--brown-mid); transform: translateY(-1px); }
+.qs-submit:hover { background: var(--btn-bg-hover); transform: translateY(-1px); }
 
 .qs-privacy {
   font-size: 11px;
@@ -1854,8 +1829,8 @@ footer {
   width: 100%;
   padding: 15px;
   border-radius: var(--r-pill);
-  background: var(--brown);
-  color: #fff;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
   border: none;
   font-size: 15px;
   font-weight: 500;
@@ -1868,7 +1843,7 @@ footer {
   transition: background 0.2s;
   font-family: var(--f-body);
 }
-.res-cta:hover { background: var(--brown-mid); }
+.res-cta:hover { background: var(--btn-bg-hover); }
 </style>
 
 <!-- JSON-LD: Organization -->
@@ -1949,13 +1924,13 @@ footer {
 <section class="hero">
   <div class="hero-grid">
     <div class="hero-text">
-      <div class="eyebrow reveal">Caffeine-light · Mushroom cacao</div>
+      <div class="eyebrow reveal">Mushroom coffee alternative · Plant protein</div>
       <h1 class="reveal d1">Morning rituals that <span class="serif-acc">actually fill your cup.</span></h1>
-      <p class="hero-sub reveal d2">A warm mushroom-and-adaptogen cacao that tastes so good you won't want to skip it. Under 5mg of caffeine, so there's nothing to spike or crash.</p>
+      <p class="hero-sub reveal d2">A warm mushroom cacao with under 5mg of caffeine, and a creamy plant protein powder made with Lemna leaf. Real ingredients, made to taste good.</p>
       <div class="ctas reveal d4">
         <a href="/products/mujo-ritual" class="btn btn-primary">Shop the Ritual <span class="arrow">→</span></a>
+        <a href="/products/protein-powder" class="btn btn-ghost">Pre-order the Protein Powder</a>
       </div>
-      <!-- Lemna Protein Bars CTA removed from the hero 2026-05-25. Restore when pre-sale opens. -->
       <div class="hero-trust reveal d4">
         <span class="ht-item">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -1980,7 +1955,7 @@ footer {
     <div class="trust-track">
       <div class="trust-badge"><img src="/images/icons/mushroom.svg" alt="" loading="lazy" /><span>Never mycelium on grain</span></div>
       <div class="trust-badge"><img src="/images/icons/science-backed.svg" alt="" loading="lazy" /><span>A few real ingredients</span></div>
-      <div class="trust-badge"><img src="/images/icons/potent-mushrooms.svg" alt="" loading="lazy" /><span>Four mushroom extracts</span></div>
+      <div class="trust-badge"><img src="/images/icons/potent-mushrooms-cream.svg" alt="" loading="lazy" /><span>Four mushroom extracts</span></div>
       <div class="trust-badge"><img src="/images/icons/caffeine-free.svg" alt="" loading="lazy" /><span>Under 5mg caffeine</span></div>
       <div class="trust-badge"><img src="/images/icons/better-for-you.svg" alt="" loading="lazy" /><span>Sweetened with monk fruit</span></div>
       <div class="trust-badge"><img src="/images/icons/delicious.svg" alt="" loading="lazy" /><span>Tastes like a treat</span></div>
@@ -1990,7 +1965,7 @@ footer {
     <div class="trust-track trust-track-dup" aria-hidden="true">
       <div class="trust-badge"><img src="/images/icons/mushroom.svg" alt="" loading="lazy" /><span>Never mycelium on grain</span></div>
       <div class="trust-badge"><img src="/images/icons/science-backed.svg" alt="" loading="lazy" /><span>A few real ingredients</span></div>
-      <div class="trust-badge"><img src="/images/icons/potent-mushrooms.svg" alt="" loading="lazy" /><span>Four mushroom extracts</span></div>
+      <div class="trust-badge"><img src="/images/icons/potent-mushrooms-cream.svg" alt="" loading="lazy" /><span>Four mushroom extracts</span></div>
       <div class="trust-badge"><img src="/images/icons/caffeine-free.svg" alt="" loading="lazy" /><span>Under 5mg caffeine</span></div>
       <div class="trust-badge"><img src="/images/icons/better-for-you.svg" alt="" loading="lazy" /><span>Sweetened with monk fruit</span></div>
       <div class="trust-badge"><img src="/images/icons/delicious.svg" alt="" loading="lazy" /><span>Tastes like a treat</span></div>
@@ -2032,7 +2007,7 @@ footer {
           <div class="tile-name">Protein Powder</div>
           <div class="tile-meta">
             <span class="tile-price">$44.99</span>
-            <span class="tile-price-meta">15 servings · ships by Oct 30</span>
+            <span class="tile-price-meta">15 servings · ships by Nov 15</span>
           </div>
           <span class="tile-cta">Pre-order the Protein Powder <span class="arrow">→</span></span>
         </div>
@@ -2106,7 +2081,7 @@ footer {
         <div class="ing-body">
           <div class="ing-name">Carob</div>
           <div class="ing-latin">Ceratonia siliqua</div>
-          <div class="ing-dose">Roasted</div>
+          <div class="ing-dose">Naturally sweet</div>
         </div>
       </div>
 
@@ -2212,7 +2187,7 @@ footer {
         <img class="sci-icon" src="/images/icons/delicious-orange.svg" alt="" loading="lazy" width="40" height="40">
         <div class="sci-num">03 · The taste</div>
         <h3 class="sci-label">A smooth mocha, not a mushroom</h3>
-        <p class="sci-why">Roasted cacao and carob do the work, with a hint of Ceylon cinnamon and a little monk fruit. It tastes like a mocha with an undertone of cacao, so it's a cup you look forward to, not one you get through.</p>
+        <p class="sci-why">Peruvian cacao and carob do the work, with a hint of Ceylon cinnamon and a little monk fruit. It tastes like a mocha with an undertone of cacao, so it's a cup you look forward to, not one you get through.</p>
       </div>
     </div>
   </div>

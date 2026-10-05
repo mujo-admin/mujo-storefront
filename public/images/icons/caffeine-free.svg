@@ -14,7 +14,7 @@
 
       .st1 {
         fill: none;
-        stroke: #323d34;
+        stroke: #2a1810;
         stroke-width: 4px;
       }
     </style>

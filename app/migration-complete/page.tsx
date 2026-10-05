@@ -178,8 +178,8 @@ export default async function MigrationCompletePage({
         }
         .mig-cta {
           display: inline-block;
-          background: var(--brown);
-          color: #fff;
+          background: var(--btn-bg);
+          color: var(--btn-fg);
           text-decoration: none;
           padding: 14px 28px;
           border-radius: 100px;
@@ -189,7 +189,7 @@ export default async function MigrationCompletePage({
           transition: background 0.15s;
           margin-bottom: 22px;
         }
-        .mig-cta:hover { background: var(--brown-mid); }
+        .mig-cta:hover { background: var(--btn-bg-hover); }
         .mig-fineprint {
           font-size: 12px;
           color: var(--mute);

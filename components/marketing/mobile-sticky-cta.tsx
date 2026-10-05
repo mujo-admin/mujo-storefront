@@ -57,8 +57,8 @@ export function MobileStickyCTA({
           justify-content: center;
           min-height: 52px;
           padding: 14px 24px;
-          background: var(--brown);
-          color: var(--cream);
+          background: var(--btn-bg);
+          color: var(--btn-fg);
           font-family: var(--f-display);
           font-size: 16px;
           font-weight: 500;
@@ -78,7 +78,7 @@ export function MobileStickyCTA({
           opacity: 1;
           pointer-events: auto;
         }
-        .msc:hover { background: var(--brown-mid); }
+        .msc:hover { background: var(--btn-bg-hover); }
         @media (min-width: 768px) {
           .msc { display: none; }
         }

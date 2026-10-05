@@ -255,18 +255,18 @@ function CheckoutShell({ children }: { children: React.ReactNode }) {
         }
         .checkout-shop-link {
           display: inline-block;
-          background: var(--brown);
-          color: #fff;
+          background: var(--btn-bg);
+          color: var(--btn-fg);
           text-decoration: none;
           padding: 12px 22px;
           border-radius: 100px;
           font-size: 14px;
           font-weight: 500;
         }
-        .checkout-shop-link:hover { background: var(--brown-mid); }
+        .checkout-shop-link:hover { background: var(--btn-bg-hover); }
         .checkout-retry-btn {
-          background: var(--brown);
-          color: #fff;
+          background: var(--btn-bg);
+          color: var(--btn-fg);
           border: none;
           cursor: pointer;
           padding: 12px 22px;
@@ -275,7 +275,7 @@ function CheckoutShell({ children }: { children: React.ReactNode }) {
           font-size: 14px;
           font-weight: 500;
         }
-        .checkout-retry-btn:hover { background: var(--brown-mid); }
+        .checkout-retry-btn:hover { background: var(--btn-bg-hover); }
         .checkout-trust {
           list-style: none;
           padding: 0;

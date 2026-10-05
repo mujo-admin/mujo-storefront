@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MUJO Protein Powder · Vanilla · Pre-order · Mujo</title>
-<meta name="description" content="Mujo Protein Powder, Vanilla Bean. The first protein powder made with Lemna leaf: 22g of complete plant protein, 0g sugar, real Madagascar vanilla. Pre-order now, ships by October 30.">
+<meta name="description" content="Mujo Protein Powder, Vanilla Bean. The first protein powder made with Lemna leaf: 22g of complete plant protein, 0g sugar, real Madagascar vanilla. Pre-order now, ships by November 15.">
 <link rel="preconnect" href="https://api.fontshare.com">
 <link href="https://api.fontshare.com/v2/css?f[]=hanken-grotesk@400,500,600,700&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -114,8 +114,8 @@ body.locked { overflow: hidden; }
 
 /* ATC */
 .atc-block { margin-bottom: 20px; margin-top: 20px; }
-.atc-btn { width: 100%; background: var(--brown); color: var(--cream); border: none; min-height: 58px; padding: 0 24px; border-radius: var(--r-pill); font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px; font-family: var(--f-body); letter-spacing: 0.01em; }
-.atc-btn:hover { background: var(--brown-mid); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(42, 24, 16, 0.22); }
+.atc-btn { width: 100%; background: var(--btn-bg); color: var(--btn-fg); border: none; min-height: 58px; padding: 0 24px; border-radius: var(--r-pill); font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px; font-family: var(--f-body); letter-spacing: 0.01em; }
+.atc-btn:hover { background: var(--btn-bg-hover); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(42, 24, 16, 0.22); }
 .atc-btn-price { font-weight: 700; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: var(--r-tag); font-size: 13px; font-family: var(--f-body); }
 .atc-shipline { text-align: center; font-family: var(--f-body); font-size: 13px; font-weight: 500; color: var(--ink); margin-top: 12px; }
 .atc-trust { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; padding: 14px 4px 0; font-size: 12px; color: var(--mute); }
@@ -161,8 +161,8 @@ body.locked { overflow: hidden; }
 .sticky-atc-info { flex: 1; min-width: 0; }
 .sticky-atc-name { font-size: 13px; font-weight: 500; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .sticky-atc-price { font-family: var(--f-mono); font-size: 12px; color: var(--brown); letter-spacing: 0.02em; }
-.sticky-atc-btn { background: var(--brown); color: var(--cream); border: none; padding: 12px 22px; border-radius: var(--r-pill); font-size: 14px; font-weight: 500; cursor: pointer; white-space: nowrap; }
-.sticky-atc-btn:hover { background: var(--brown-mid); }
+.sticky-atc-btn { background: var(--btn-bg); color: var(--btn-fg); border: none; padding: 12px 22px; border-radius: var(--r-pill); font-size: 14px; font-weight: 500; cursor: pointer; white-space: nowrap; }
+.sticky-atc-btn:hover { background: var(--btn-bg-hover); }
 @media (min-width: 901px) { .sticky-atc { display: none !important; } }
 
 /* ===== STAT STRIP ===== */
@@ -214,8 +214,8 @@ body.locked { overflow: hidden; }
 .finalcta h2 em { font-family: var(--f-serif); font-style: italic; color: var(--orange); }
 .finalcta p { font-size: 15px; color: rgba(255,255,255,0.72); line-height: 1.65; margin-bottom: 28px; }
 @media (min-width: 768px) { .finalcta p { font-size: 16px; } }
-.finalcta-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--cream); color: var(--brown); text-decoration: none; padding: 16px 34px; border-radius: var(--r-pill); font-family: var(--f-body); font-size: 16px; font-weight: 500; transition: all 0.2s; }
-.finalcta-btn:hover { background: #fff; transform: translateY(-1px); }
+.finalcta-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--btn-on-dark-bg); color: var(--btn-on-dark-fg); text-decoration: none; padding: 16px 34px; border-radius: var(--r-pill); font-family: var(--f-body); font-size: 16px; font-weight: 500; transition: all 0.2s; }
+.finalcta-btn:hover { background: var(--btn-on-dark-hover); transform: translateY(-1px); }
 .finalcta-btn svg { width: 16px; height: 16px; }
 
 /* ===== CERTIFICATION BADGE STRIP ===== */
@@ -252,7 +252,7 @@ body.locked { overflow: hidden; }
 
 <!-- Pre-order banner -->
 <div class="preorder-banner">
-  <strong>Pre-order open.</strong> The first batch ships by October 30.
+  <strong>Pre-order open.</strong> The first batch ships by November 15.
 </div>
 
 <!-- Breadcrumb -->
@@ -423,7 +423,7 @@ body.locked { overflow: hidden; }
                 <div class="pur-opt-radio"></div>
                 <div class="pur-opt-info">
                   <div class="pur-opt-name">One-time purchase</div>
-                  <div class="pur-opt-desc">Pay today, ships by October 30</div>
+                  <div class="pur-opt-desc">Pay today, ships by November 15</div>
                 </div>
                 <div class="pur-opt-price">
                   <div class="pur-opt-price-now">$44.99</div>
@@ -437,9 +437,8 @@ body.locked { overflow: hidden; }
           <div class="atc-block" id="atc">
             <button class="atc-btn" onclick="handleATC()">
               Pre-order now
-              <span class="atc-btn-price" id="atcPrice">$44.99</span>
             </button>
-            <div class="atc-shipline">Ships by October 30</div>
+            <div class="atc-shipline">Ships by November 15</div>
           </div>
         </div>
         <!-- MUJO_PROTEIN_BUYBOX_END -->
@@ -510,7 +509,7 @@ body.locked { overflow: hidden; }
         <details class="pdp-acc">
           <summary>Shipping</summary>
           <div class="pdp-acc-body">
-            <p>Ships from our US warehouse. This is a pre-order: the first batch ships by October 30, and we'll email you tracking as soon as yours is on its way.</p>
+            <p>Ships from our US warehouse. This is a pre-order: the first batch ships by November 15, and we'll email you tracking as soon as yours is on its way.</p>
             <p>Orders over $100 ship free. Subscriptions open once the first batch has shipped.</p>
           </div>
         </details>
@@ -631,13 +630,15 @@ body.locked { overflow: hidden; }
 <!-- ============================================================
      5 — FROM THE FOUNDER (one short quote + video)
      ============================================================ -->
+<!-- Founder section hidden 2026-10-05 (Kinga) until the new founder video is shot.
+     Restore it here; on the landing page the video belongs above the Lemna section.
 <section class="sec fam">
   <div class="container">
     <div class="fam-wrap">
       <span class="eyebrow">From the founder</span>
       <p class="fam-lead" style="margin-top:14px;">&ldquo;I made this for my sisters. One is celiac and the other has a long list of food intolerances, so most protein powders were off the table for them. I wanted one they could both enjoy.&rdquo; <span style="white-space:nowrap;">Kinga, founder</span></p>
 
-      <!-- VIDEO: founder to camera, warm natural light, 16:10. Hand off to Mux / Vimeo / YouTube in production. -->
+      
       <div class="fv" onclick="alert('Video: hand off to your video host (Mux / Vimeo / YouTube embed) in production.')">
         <span class="placeholder-label">Video &middot; founder</span>
         <span class="fv-play">
@@ -650,6 +651,7 @@ body.locked { overflow: hidden; }
     </div>
   </div>
 </section>
+-->
 
 <!-- ============================================================
      FULL-BLEED IMAGE BAND — brand world, no copy
@@ -663,7 +665,7 @@ body.locked { overflow: hidden; }
   <div class="container">
     <div class="sec-head">
       <h2>Reviews</h2>
-      <p>The first batch ships October 30. Here's what our beta testers said.</p>
+      <p>The first batch ships November 15. Here's what our beta testers said.</p>
     </div>
 
     <div class="quotes">
@@ -723,7 +725,7 @@ body.locked { overflow: hidden; }
 <div class="faq-list">
       <details class="faq-item">
         <summary>When does it ship?</summary>
-        <div class="faq-body">It's a pre-order. You pay today and the first batch ships by October 30. We'll email you tracking as soon as yours is on its way.</div>
+        <div class="faq-body">It's a pre-order. You pay today and the first batch ships by November 15. We'll email you tracking as soon as yours is on its way.</div>
       </details>
 
       <details class="faq-item">
@@ -781,7 +783,7 @@ body.locked { overflow: hidden; }
   <div class="container">
     <span class="eyebrow">Pre-order</span>
     <h2>Be one of the first to try it.</h2>
-    <p>$44.99 for a 450g pouch. Ships by October 30.</p>
+    <p>$44.99 for a 450g pouch. Ships by November 15.</p>
     <a href="#top" class="finalcta-btn">
       Pre-order now
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
@@ -799,7 +801,7 @@ body.locked { overflow: hidden; }
 <div class="sticky-atc" id="stickyAtc" data-mujo-mount="powder-sticky-atc">
   <div class="sticky-atc-info">
     <div class="sticky-atc-name">MUJO Protein Powder &middot; Vanilla</div>
-    <div class="sticky-atc-price" id="stickyPrice">Pre-order &middot; $44.99 &middot; ships by October 30</div>
+    <div class="sticky-atc-price" id="stickyPrice">Pre-order &middot; $44.99 &middot; ships by November 15</div>
   </div>
   <button class="sticky-atc-btn" onclick="handleATC()">Pre-order</button>
 </div>

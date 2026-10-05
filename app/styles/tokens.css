@@ -47,6 +47,17 @@
   --brown-tint:    rgba(42, 24, 16, 0.06);
   --beige:         #EFE6DA;
 
+  /* Primary buttons (Kinga 2026-10-05): brown with cream text and no border on
+     light backgrounds; bright Mujo orange with brown text on dark ones. Button
+     rules read these three; anything with a dark background re-points them
+     (same place it re-points the accent text tokens). */
+  --btn-bg:            var(--brown);
+  --btn-bg-hover:      var(--brown-mid);
+  --btn-fg:            var(--cream);
+  --btn-on-dark-bg:    #F2682F;
+  --btn-on-dark-hover: #F47C4A;
+  --btn-on-dark-fg:    #2A1810;
+
   /* Neutrals */
   --cream:         #F3F2E9;
   --sand:          #EEE9E0;
@@ -288,8 +299,8 @@ h1 .serif-accent, h2 .serif-accent, h3 .serif-accent {
   justify-content: center;
   min-height: 44px;
   padding: 18px 32px;
-  background: var(--brown);
-  color: var(--cream);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
   font-family: var(--f-display);
   font-size: 16px;
   font-weight: 500;
@@ -300,7 +311,7 @@ h1 .serif-accent, h2 .serif-accent, h3 .serif-accent {
   cursor: pointer;
   transition: background 0.15s ease;
 }
-.cta-primary:hover { background: var(--brown-mid); color: var(--cream); }
+.cta-primary:hover { background: var(--btn-bg-hover); color: var(--btn-fg); }
 .cta-primary:focus-visible { outline: 2px solid var(--sage); outline-offset: 3px; }
 
 /* Benefit pill */
@@ -456,4 +467,7 @@ h1 .serif-accent, h2 .serif-accent, h3 .serif-accent {
 .mujo-foot {
   --accent-text: var(--accent-on-dark);
   --accent-display: var(--accent-on-dark);
+  --btn-bg: var(--btn-on-dark-bg);
+  --btn-bg-hover: var(--btn-on-dark-hover);
+  --btn-fg: var(--btn-on-dark-fg);
 }

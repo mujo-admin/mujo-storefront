@@ -446,15 +446,15 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
         }
         .cart-empty a {
           margin-top: 6px;
-          background: var(--brown);
-          color: #fff;
+          background: var(--btn-bg);
+          color: var(--btn-fg);
           text-decoration: none;
           padding: 12px 22px;
           border-radius: 100px;
           font-size: 14px;
           font-weight: 500;
         }
-        .cart-empty a:hover { background: var(--brown-mid); }
+        .cart-empty a:hover { background: var(--btn-bg-hover); }
         .cart-foot {
           border-top: 1px solid var(--line);
           padding: 16px 20px 20px;
@@ -513,8 +513,8 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
           justify-content: center;
           gap: 8px;
           width: 100%;
-          background: var(--brown);
-          color: #fff;
+          background: var(--btn-bg);
+          color: var(--btn-fg);
           text-decoration: none;
           border: none;
           cursor: pointer;
@@ -525,7 +525,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
           font-weight: 500;
           transition: background 0.2s;
         }
-        .cart-checkout:hover { background: var(--brown-mid); color: #fff; }
+        .cart-checkout:hover { background: var(--btn-bg-hover); color: var(--btn-fg); }
         .cart-secure {
           text-align: center;
           font-size: 11px;

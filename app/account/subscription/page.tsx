@@ -447,7 +447,7 @@ function SubStyle() {
         display: flex;
         align-items: flex-start;
         gap: 16px;
-        margin-bottom: 24px; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark);
+        margin-bottom: 24px; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg);
         }
       .sub-promise-icon {
         flex-shrink: 0;
@@ -669,15 +669,15 @@ function SubStyle() {
       }
       .sub-empty-cta {
         display: inline-block;
-        background: var(--brown);
-        color: #fff;
+        background: var(--btn-bg);
+        color: var(--btn-fg);
         text-decoration: none;
         padding: 12px 22px;
         border-radius: 100px;
         font-size: 14px;
         font-weight: 500;
       }
-      .sub-empty-cta:hover { background: var(--brown-mid); }
+      .sub-empty-cta:hover { background: var(--btn-bg-hover); }
     `}</style>
   );
 }
