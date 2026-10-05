@@ -415,55 +415,29 @@ body.locked { overflow: hidden; }
           <!-- Single size, static line (no size selector) -->
           <div class="size-line"><strong>450g pouch</strong> &middot; 15 servings</div>
 
-          <!-- Subscribe vs one-time (SUBSCRIBE DEFAULT) -->
+          <!-- One-time pre-order only until the powder ships (2026-10-05) -->
           <div class="purchase-block">
-            <div class="purchase-label">Choose your plan</div>
+            <div class="purchase-label">Pre-order</div>
             <div class="purchase-options">
-              <div class="pur-opt active" data-mode="sub" onclick="selectPlan(this)">
-                <div class="pur-opt-radio"></div>
-                <div class="pur-opt-info">
-                  <div class="pur-opt-name">Subscribe &amp; save <span class="pur-opt-save">Save 15%</span></div>
-                  <div class="pur-opt-cadence">
-                    <label for="cadenceSelect">Ships every</label>
-                    <select id="cadenceSelect" aria-label="Delivery frequency" onclick="event.stopPropagation()">
-                      <option value="2">2 weeks</option>
-                      <option value="4" selected>4 weeks</option>
-                      <option value="6">6 weeks</option>
-                      <option value="8">8 weeks</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="pur-opt-price">
-                  <div class="pur-opt-price-now">$38.25</div>
-                  <div class="pur-opt-price-was">$45.00</div>
-                  <div class="pur-opt-daily">$2.55/serving &middot; 11.6&cent;/g protein</div>
-                </div>
-              </div>
-              <div class="pur-opt" data-mode="once" onclick="selectPlan(this)">
+              <div class="pur-opt active" data-mode="once">
                 <div class="pur-opt-radio"></div>
                 <div class="pur-opt-info">
                   <div class="pur-opt-name">One-time purchase</div>
-                  <div class="pur-opt-desc">No commitment</div>
+                  <div class="pur-opt-desc">Pay today, ships by October 30</div>
                 </div>
                 <div class="pur-opt-price">
-                  <div class="pur-opt-price-now">$45.00</div>
+                  <div class="pur-opt-price-now">$44.99</div>
                   <div class="pur-opt-daily">$3.00/serving &middot; 13.6&cent;/g protein</div>
                 </div>
               </div>
             </div>
-            <ul class="sub-benefits" id="subBenefits">
-              <li>Save 15% on every order</li>
-              <li>Free shipping, no minimum</li>
-              <li>First to try new flavors</li>
-              <li>Skip, change or cancel after 2 deliveries</li>
-            </ul>
           </div>
 
           <!-- Pre-order -->
           <div class="atc-block" id="atc">
             <button class="atc-btn" onclick="handleATC()">
               Pre-order now
-              <span class="atc-btn-price" id="atcPrice">$38.25</span>
+              <span class="atc-btn-price" id="atcPrice">$44.99</span>
             </button>
             <div class="atc-shipline">Ships by October 30</div>
           </div>
@@ -534,10 +508,10 @@ body.locked { overflow: hidden; }
         </details>
 
         <details class="pdp-acc">
-          <summary>Shipping and subscription</summary>
+          <summary>Shipping</summary>
           <div class="pdp-acc-body">
             <p>Ships from our US warehouse. This is a pre-order: the first batch ships by October 30, and we'll email you tracking as soon as yours is on its way.</p>
-            <p>Subscribers save 15%, always ship free, and choose delivery every 2, 4, 6 or 8 weeks. Your subscription starts when your first pouch ships. After two deliveries you can skip, pause or cancel from your account.</p>
+            <p>Orders over $100 ship free. Subscriptions open once the first batch has shipped.</p>
           </div>
         </details>
 
@@ -726,20 +700,15 @@ body.locked { overflow: hidden; }
 <section class="sec-tight" style="background:var(--sand);">
   <div class="container">
     <div class="sec-head">
-      <span class="eyebrow center">Bundle</span>
+      <span class="eyebrow center">Goes well with</span>
       <h2>Pair it with the Ritual.</h2>
-      <p>Have them together or on their own. Save $15 when you buy both.</p>
+      <p>Have them together or on their own. Order both and shipping is free.</p>
     </div>
     <div class="vp">
       <div class="vp-photo" role="img" aria-label="The Ritual and Protein Powder pouches lying side by side with an iced Ritual topped with protein cold foam" style="width:100%;max-width:420px;aspect-ratio:4/5;margin:0 auto 22px;border-radius:12px;background:url('/images/responsive/lifestyle/ritual-protein-flatlay-duo-2026-10-4x5-800.webp') center/cover no-repeat;"></div>
       <div style="font-family:var(--f-display);font-weight:500;font-size:19px;color:var(--ink);">The Complete Ritual</div>
       <div style="font-family:var(--f-mono);font-size:11.5px;color:var(--ink-soft);margin:8px 0 16px;letter-spacing:.06em;">MUJO RITUAL + PROTEIN POWDER</div>
-      <div style="display:flex;gap:10px;align-items:baseline;justify-content:center;">
-        <span style="font-size:27px;font-weight:500;color:var(--ink);">$95</span>
-        <span style="font-size:15px;color:var(--mute);text-decoration:line-through;">$110</span>
-        <span style="font-family:var(--f-mono);font-size:11px;color:var(--orange-deep);letter-spacing:0.04em;">SAVE $15</span>
-      </div>
-      <button class="atc-btn" data-mujo-action="checkout" data-bundle="ritual-powder" style="margin-top:18px;max-width:320px;">Add the bundle</button>
+      <a class="atc-btn" href="/products/mujo-ritual" style="margin-top:18px;max-width:320px;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;">Shop the Ritual</a>
     </div>
   </div>
 </section>
@@ -754,7 +723,7 @@ body.locked { overflow: hidden; }
 <div class="faq-list">
       <details class="faq-item">
         <summary>When does it ship?</summary>
-        <div class="faq-body">It's a pre-order. The first batch ships by October 30. If you subscribe, your subscription starts when your first pouch ships and then renews at the cadence you pick.</div>
+        <div class="faq-body">It's a pre-order. You pay today and the first batch ships by October 30. We'll email you tracking as soon as yours is on its way.</div>
       </details>
 
       <details class="faq-item">
@@ -769,7 +738,7 @@ body.locked { overflow: hidden; }
 
       <details class="faq-item">
         <summary>How long does a pouch last?</summary>
-        <div class="faq-body">Each pouch has 15 servings. If you have one a day, choose delivery every 2 weeks. On subscription it works out at $2.55 a serving, about 11.6&cent; per gram of protein.</div>
+        <div class="faq-body">Each pouch has 15 servings, so about two weeks if you have one a day. It works out at $3.00 a serving, about 13.6&cent; per gram of protein.</div>
       </details>
 
       <details class="faq-item">
@@ -788,8 +757,8 @@ body.locked { overflow: hidden; }
       </details>
 
       <details class="faq-item">
-        <summary>What's the subscription commitment?</summary>
-        <div class="faq-body">Two deliveries minimum. After that you can skip, pause, change how often it arrives, or cancel from your account. Subscribers save 15% and always ship free.</div>
+        <summary>Can I subscribe?</summary>
+        <div class="faq-body">Not yet. This is a one-time pre-order. Subscriptions open once the first batch has shipped, and we'll email you when they do.</div>
       </details>
 
       <details class="faq-item">
@@ -812,7 +781,7 @@ body.locked { overflow: hidden; }
   <div class="container">
     <span class="eyebrow">Pre-order</span>
     <h2>Be one of the first to try it.</h2>
-    <p>$45 one-time, or $38.25 when you subscribe, with free shipping. Ships by October 30.</p>
+    <p>$44.99 for a 450g pouch. Ships by October 30.</p>
     <a href="#top" class="finalcta-btn">
       Pre-order now
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
@@ -830,7 +799,7 @@ body.locked { overflow: hidden; }
 <div class="sticky-atc" id="stickyAtc" data-mujo-mount="powder-sticky-atc">
   <div class="sticky-atc-info">
     <div class="sticky-atc-name">MUJO Protein Powder &middot; Vanilla</div>
-    <div class="sticky-atc-price" id="stickyPrice">Subscribe &middot; $38.25 &middot; ships free</div>
+    <div class="sticky-atc-price" id="stickyPrice">Pre-order &middot; $44.99 &middot; ships by October 30</div>
   </div>
   <button class="sticky-atc-btn" onclick="handleATC()">Pre-order</button>
 </div>

@@ -5,9 +5,12 @@
 // against the sandbox or the live account. Idempotent: reuses an existing
 // Product (metadata.mujo_product=protein-powder) and any matching active Price.
 //
-//   $45.00 one-time                 → NEXT_PUBLIC_PROTEIN_PRICE_ONETIME
-//   $38.25 every 2/4/6/8 weeks      → NEXT_PUBLIC_PROTEIN_PRICE_SUB_{2,4,6,8}W
-//   (subscriber 15% is baked into the Price, same model as the Ritual)
+//   $44.99 one-time                 → NEXT_PUBLIC_PROTEIN_PRICE_ONETIME
+//
+// Pre-order is ONE-TIME ONLY until the powder ships (Kinga 2026-10-05). Pass
+// --with-subscriptions later to also create $38.24 every 2/4/6/8 weeks
+// (subscriber 15% baked into the Price, same model as the Ritual)
+//                                   → NEXT_PUBLIC_PROTEIN_PRICE_SUB_{2,4,6,8}W
 //
 // Tax: copies the Ritual Product's tax_code (powdered drink mix) and the Ritual
 // Price's tax_behavior so the powder taxes the same way. Confirm with the CPA.
@@ -30,9 +33,9 @@ const ENV_PATH = envArg ? envArg.split("=")[1] : ".env.local";
 const variantArg = process.argv.find((a) => a.startsWith("--variant-gid="));
 const VARIANT_GID = variantArg ? variantArg.split("=")[1] : "";
 
-const ONETIME_CENTS = 4500;
-const SUB_CENTS = 3825;
-const CADENCES = [2, 4, 6, 8];
+const ONETIME_CENTS = 4499;
+const SUB_CENTS = 3824;
+const CADENCES = process.argv.includes("--with-subscriptions") ? [2, 4, 6, 8] : [];
 
 function loadEnv(path) {
   if (!fs.existsSync(path)) {

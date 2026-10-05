@@ -32,6 +32,7 @@ export const HANDLE_TO_ROUTE: Record<string, string> = {
   "crew-neck-sweatshirt": "/products/mujo-crew",
   "mujo-t-shirt": "/products/mujo-tee",
   "mujo-baseball-hat": "/products/mujo-hat",
+  "protein-powder": "/products/protein-powder",
 };
 
 /** Google/Meta product category, per handle. Improves ad matching. */
@@ -41,6 +42,7 @@ const PRODUCT_CATEGORY: Record<string, string> = {
   "crew-neck-sweatshirt": "Apparel & Accessories > Clothing",
   "mujo-t-shirt": "Apparel & Accessories > Clothing",
   "mujo-baseball-hat": "Apparel & Accessories > Clothing Accessories",
+  "protein-powder": "Health & Beauty > Health Care > Fitness & Nutrition > Protein Supplements",
 };
 
 export type FeedItem = {

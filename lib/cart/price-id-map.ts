@@ -1,5 +1,6 @@
 import {
   RITUAL_PRICE_IDS,
+  RITUAL_LEGACY_SUB_PRICE_IDS,
   PROTEIN_PRICE_IDS,
   type RitualCadence,
   type ProteinCadence,
@@ -61,7 +62,7 @@ const RITUAL_LINES: Record<RitualKey, PriceIdResolution> = {
     productTitle: "The Ritual",
     variantTitle: "25 servings · One-time",
     image: RITUAL_IMAGE_25,
-    unitAmountCents: 6500,
+    unitAmountCents: 5999,
     currency: "usd",
     isSubscription: false,
   },
@@ -70,7 +71,7 @@ const RITUAL_LINES: Record<RitualKey, PriceIdResolution> = {
     productTitle: "The Ritual",
     variantTitle: "25 servings · Subscribe · every 4 weeks",
     image: RITUAL_IMAGE_25,
-    unitAmountCents: 5525,
+    unitAmountCents: 5099,
     currency: "usd",
     isSubscription: true,
   },
@@ -79,7 +80,7 @@ const RITUAL_LINES: Record<RitualKey, PriceIdResolution> = {
     productTitle: "The Ritual",
     variantTitle: "25 servings · Subscribe · every 6 weeks",
     image: RITUAL_IMAGE_25,
-    unitAmountCents: 5525,
+    unitAmountCents: 5099,
     currency: "usd",
     isSubscription: true,
   },
@@ -88,7 +89,7 @@ const RITUAL_LINES: Record<RitualKey, PriceIdResolution> = {
     productTitle: "The Ritual",
     variantTitle: "25 servings · Subscribe · every 8 weeks",
     image: RITUAL_IMAGE_25,
-    unitAmountCents: 5525,
+    unitAmountCents: 5099,
     currency: "usd",
     isSubscription: true,
   },
@@ -97,7 +98,7 @@ const RITUAL_LINES: Record<RitualKey, PriceIdResolution> = {
     productTitle: "The Ritual",
     variantTitle: "25 servings · Subscribe · every 12 weeks",
     image: RITUAL_IMAGE_25,
-    unitAmountCents: 5525,
+    unitAmountCents: 5099,
     currency: "usd",
     isSubscription: true,
   },
@@ -114,7 +115,7 @@ function proteinSubLine(weeks: number): PriceIdResolution {
     productTitle: "Protein Powder",
     variantTitle: `Vanilla Bean · Pre-order · every ${weeks} weeks`,
     image: PROTEIN_IMAGE,
-    unitAmountCents: 3825,
+    unitAmountCents: 3824,
     currency: "usd",
     isSubscription: true,
   };
@@ -125,7 +126,7 @@ const PROTEIN_LINES: Record<ProteinKey, PriceIdResolution> = {
     productTitle: "Protein Powder",
     variantTitle: "Vanilla Bean · Pre-order · One-time",
     image: PROTEIN_IMAGE,
-    unitAmountCents: 4500,
+    unitAmountCents: 4499,
     currency: "usd",
     isSubscription: false,
   },
@@ -144,6 +145,15 @@ export function resolvePriceId(
     if (RITUAL_PRICE_IDS[key] === stripePriceId) {
       return RITUAL_LINES[key];
     }
+  }
+  // Existing subscribers still on a pre-2026-10 Price. Amount shown to them
+  // comes from Stripe, not from here.
+  if (RITUAL_LEGACY_SUB_PRICE_IDS.includes(stripePriceId)) {
+    return {
+      ...RITUAL_LINES["25-subscription"],
+      variantTitle: "25 servings · Subscribe",
+      unitAmountCents: 5525,
+    };
   }
   for (const key of Object.keys(PROTEIN_PRICE_IDS) as ProteinKey[]) {
     if (PROTEIN_PRICE_IDS[key] && PROTEIN_PRICE_IDS[key] === stripePriceId) {

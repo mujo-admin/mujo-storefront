@@ -33,7 +33,7 @@ export const SUPPRESS_EXPRESS_FOR_MERCH = true;
 // The 25-serving subscription has THREE cadences (Subscription v2): the primary
 // 4-week Price (`25-subscription`), the 6-week Price (`25-subscription-6wk`), and
 // the 8-week Price (`25-subscription-8wk`). All list at the ALREADY-DISCOUNTED
-// $55.25 — the flat 15% subscriber discount is baked into the Price, not a
+// $50.99 — the flat 15% subscriber discount is baked into the Price, not a
 // checkout coupon (see scripts/mirror-shopify-to-stripe.ts). This keeps Stripe
 // Checkout's single discount slot free for a promotion code. Subscriptions start
 // on the primary 4-week Price; the customer switches cadence from their account.
@@ -49,9 +49,22 @@ export const RITUAL_PRICE_IDS = {
     process.env.NEXT_PUBLIC_RITUAL_PRICE_25_SUBSCRIPTION_12W ?? "", // every 12 weeks
 } as const;
 
-// Protein Powder (Vanilla Bean, 450g / 15 servings). $45 one-time; subscriptions
-// $38.25 (retail × 0.85, baked into the Price like the Ritual) every 2/4/6/8 weeks.
-// Created Stripe-only by scripts/create-protein-prices.mjs.
+// Ritual subscription Prices that are no longer sold but that existing
+// subscribers still renew on (the $55.25 Prices from before the 2026-10 price
+// change to $59.99 / $50.99). Comma-separated Price IDs. Keeps those
+// subscribers' account pages and actions treating them as Ritual subscribers.
+// Empty once everyone has been moved to the current Prices.
+export const RITUAL_LEGACY_SUB_PRICE_IDS: string[] = (
+  process.env.NEXT_PUBLIC_RITUAL_LEGACY_SUB_PRICE_IDS ?? ""
+)
+  .split(",")
+  .map((id) => id.trim())
+  .filter(Boolean);
+
+// Protein Powder (Vanilla Bean, 450g / 15 servings). $44.99 one-time pre-order.
+// No subscription is sold until the powder ships (Kinga 2026-10-05); the sub-*
+// keys stay so the dormant subscription path keeps compiling, and are simply
+// unset in every environment. Created Stripe-only by scripts/create-protein-prices.mjs.
 export const PROTEIN_PRICE_IDS = {
   onetime: process.env.NEXT_PUBLIC_PROTEIN_PRICE_ONETIME ?? "",
   "sub-2wk": process.env.NEXT_PUBLIC_PROTEIN_PRICE_SUB_2W ?? "",
@@ -92,6 +105,7 @@ export function isRitualSubscriptionPrice(id: string): boolean {
       RITUAL_PRICE_IDS["25-subscription-6wk"],
       RITUAL_PRICE_IDS["25-subscription-8wk"],
       RITUAL_PRICE_IDS["25-subscription-12wk"],
+      ...RITUAL_LEGACY_SUB_PRICE_IDS,
     ] as string[]
   ).includes(id);
 }

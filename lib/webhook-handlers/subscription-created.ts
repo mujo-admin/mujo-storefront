@@ -21,7 +21,11 @@
 
 import type Stripe from "stripe";
 import { stripe } from "lib/stripe";
-import { RITUAL_PRICE_IDS, SUBSCRIPTION_COUPON_ID } from "lib/stripe-constants";
+import {
+  RITUAL_PRICE_IDS,
+  RITUAL_LEGACY_SUB_PRICE_IDS,
+  SUBSCRIPTION_COUPON_ID,
+} from "lib/stripe-constants";
 import { extractInvoicePaymentIntentId } from "./_helpers";
 
 // Only rapid double-submits are duplicates. A customer who deliberately starts
@@ -159,6 +163,7 @@ async function attachMigrationCoupon(sub: Stripe.Subscription): Promise<void> {
     RITUAL_PRICE_IDS["25-subscription-6wk"],
     RITUAL_PRICE_IDS["25-subscription-8wk"],
     RITUAL_PRICE_IDS["25-subscription-12wk"],
+    ...RITUAL_LEGACY_SUB_PRICE_IDS,
   ].filter(Boolean);
   if (priceId && discountedSubPriceIds.includes(priceId)) {
     console.log(

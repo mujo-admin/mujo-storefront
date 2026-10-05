@@ -2,38 +2,17 @@
 
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import {
-  type ProteinCadence,
-  PROTEIN_PREORDER_SHIP_LABEL,
-} from "lib/stripe-constants";
+import { PROTEIN_PREORDER_SHIP_LABEL } from "lib/stripe-constants";
 import { useCart } from "components/cart/cart-context";
 import { resolveProteinSelection } from "lib/cart/price-id-map";
 
-// Protein Powder buy box (pre-order). Mirrors ritual-pdp-client.tsx, but single
-// size and cadence 2/4/6/8 weeks. The markup and class names match the static
-// design buy box in content/imported-html/mujo_protein_powder_pdp.html, whose
-// CSS styles it. Subscribers save their card now and are first charged on ship
-// day (trial_end is set server-side in /api/checkout-session).
-type Plan = "onetime" | "subscription";
-
-const PRICES: Record<Plan, { now: string; was?: string; daily: string }> = {
-  subscription: { now: "$38.25", was: "$45.00", daily: "$2.55/serving · 11.6¢/g protein" },
-  onetime: { now: "$45.00", daily: "$3.00/serving · 13.6¢/g protein" },
-};
-
-const SUB_BENEFITS = [
-  "Save 15% on every order",
-  "Free shipping, no minimum",
-  `Card saved today, first charged when it ships on ${PROTEIN_PREORDER_SHIP_LABEL}`,
-  "Skip, change or cancel after 2 deliveries",
-];
-
-const CADENCES: { value: ProteinCadence; label: string }[] = [
-  { value: "2wk", label: "2 weeks" },
-  { value: "4wk", label: "4 weeks" },
-  { value: "6wk", label: "6 weeks" },
-  { value: "8wk", label: "8 weeks" },
-];
+// Protein Powder buy box (pre-order). One-time purchase only until the powder
+// is shipping (Kinga 2026-10-05); subscriptions get added then, copying the
+// Ritual buy box. The server-side subscription Prices and pre-order trial logic
+// stay in place but nothing here can select them. The markup and class names
+// match the static design buy box in
+// content/imported-html/mujo_protein_powder_pdp.html, whose CSS styles it.
+const PRICE = { now: "$44.99", daily: "$3.00/serving · 13.6¢/g protein" };
 
 function useMountTarget(mountId: string): HTMLElement | null {
   const [el, setEl] = useState<HTMLElement | null>(null);
@@ -44,24 +23,12 @@ function useMountTarget(mountId: string): HTMLElement | null {
 }
 
 type Shared = {
-  plan: Plan;
-  cadence: ProteinCadence;
-  setPlan: (p: Plan) => void;
-  setCadence: (c: ProteinCadence) => void;
   onAddToCart: () => void;
   pending: boolean;
   shown: boolean;
 };
 
-function activate(e: React.KeyboardEvent, fn: () => void) {
-  if (e.key === "Enter" || e.key === " ") {
-    e.preventDefault();
-    fn();
-  }
-}
-
-function BuyBox({ plan, cadence, setPlan, setCadence, onAddToCart, pending }: Shared) {
-  const isSub = plan === "subscription";
+function BuyBox({ onAddToCart, pending }: Shared) {
   return (
     <>
       <div className="size-line">
@@ -69,67 +36,22 @@ function BuyBox({ plan, cadence, setPlan, setCadence, onAddToCart, pending }: Sh
       </div>
 
       <div className="purchase-block">
-        <div className="purchase-label">Choose your plan</div>
+        <div className="purchase-label">Pre-order</div>
         <div className="purchase-options">
-          <div
-            className={`pur-opt${isSub ? " active" : ""}`}
-            role="button"
-            tabIndex={0}
-            onClick={() => setPlan("subscription")}
-            onKeyDown={(e) => activate(e, () => setPlan("subscription"))}
-          >
-            <div className="pur-opt-radio" />
-            <div className="pur-opt-info">
-              <div className="pur-opt-name">
-                Subscribe &amp; save <span className="pur-opt-save">Save 15%</span>
-              </div>
-              <div className="pur-opt-cadence">
-                <label htmlFor="proteinCadence">Ships every</label>
-                <select
-                  id="proteinCadence"
-                  aria-label="Delivery frequency"
-                  value={cadence}
-                  onClick={(e) => e.stopPropagation()}
-                  onChange={(e) => setCadence(e.target.value as ProteinCadence)}
-                >
-                  {CADENCES.map((c) => (
-                    <option key={c.value} value={c.value}>
-                      {c.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-            <div className="pur-opt-price">
-              <div className="pur-opt-price-now">{PRICES.subscription.now}</div>
-              <div className="pur-opt-price-was">{PRICES.subscription.was}</div>
-              <div className="pur-opt-daily">{PRICES.subscription.daily}</div>
-            </div>
-          </div>
-
-          <div
-            className={`pur-opt${!isSub ? " active" : ""}`}
-            role="button"
-            tabIndex={0}
-            onClick={() => setPlan("onetime")}
-            onKeyDown={(e) => activate(e, () => setPlan("onetime"))}
-          >
+          <div className="pur-opt active">
             <div className="pur-opt-radio" />
             <div className="pur-opt-info">
               <div className="pur-opt-name">One-time purchase</div>
-              <div className="pur-opt-desc">No commitment</div>
+              <div className="pur-opt-desc">
+                Pay today, ships by {PROTEIN_PREORDER_SHIP_LABEL}
+              </div>
             </div>
             <div className="pur-opt-price">
-              <div className="pur-opt-price-now">{PRICES.onetime.now}</div>
-              <div className="pur-opt-daily">{PRICES.onetime.daily}</div>
+              <div className="pur-opt-price-now">{PRICE.now}</div>
+              <div className="pur-opt-daily">{PRICE.daily}</div>
             </div>
           </div>
         </div>
-        <ul className={`sub-benefits${isSub ? "" : " hide"}`}>
-          {SUB_BENEFITS.map((b) => (
-            <li key={b}>{b}</li>
-          ))}
-        </ul>
       </div>
 
       <div className="atc-block" id="atc">
@@ -141,7 +63,7 @@ function BuyBox({ plan, cadence, setPlan, setCadence, onAddToCart, pending }: Sh
           aria-busy={pending}
         >
           {pending ? "Adding…" : "Pre-order now"}
-          <span className="atc-btn-price">{PRICES[plan].now}</span>
+          <span className="atc-btn-price">{PRICE.now}</span>
         </button>
         <div className="atc-shipline">Ships by {PROTEIN_PREORDER_SHIP_LABEL}</div>
       </div>
@@ -149,16 +71,14 @@ function BuyBox({ plan, cadence, setPlan, setCadence, onAddToCart, pending }: Sh
   );
 }
 
-function StickyAtc({ plan, onAddToCart, pending, shown }: Shared) {
-  const line =
-    plan === "subscription"
-      ? `Subscribe · ${PRICES.subscription.now} · ships free`
-      : `One-time · ${PRICES.onetime.now}`;
+function StickyAtc({ onAddToCart, pending, shown }: Shared) {
   return (
     <div className={`sticky-atc${shown ? " show" : ""}`}>
       <div className="sticky-atc-info">
         <div className="sticky-atc-name">Protein Powder · Vanilla Bean</div>
-        <div className="sticky-atc-price">{line}</div>
+        <div className="sticky-atc-price">
+          Pre-order · {PRICE.now} · ships by {PROTEIN_PREORDER_SHIP_LABEL}
+        </div>
       </div>
       <button
         type="button"
@@ -180,8 +100,6 @@ function StickyAtc({ plan, onAddToCart, pending, shown }: Shared) {
  * cart drawer).
  */
 export function ProteinPdpClient() {
-  const [plan, setPlan] = useState<Plan>("subscription");
-  const [cadence, setCadence] = useState<ProteinCadence>("4wk");
   const [pending, setPending] = useState(false);
   const [shown, setShown] = useState(false);
   const { addItem } = useCart();
@@ -198,10 +116,10 @@ export function ProteinPdpClient() {
 
   function onAddToCart() {
     if (pending) return;
-    const resolved = resolveProteinSelection(plan, cadence);
+    const resolved = resolveProteinSelection("onetime");
     if (!resolved) {
       console.error(
-        `[protein-pdp] Missing Stripe Price ID for ${plan}/${cadence}. Check NEXT_PUBLIC_PROTEIN_PRICE_* env vars.`,
+        "[protein-pdp] Missing Stripe Price ID. Check NEXT_PUBLIC_PROTEIN_PRICE_ONETIME.",
       );
       return;
     }
@@ -213,7 +131,7 @@ export function ProteinPdpClient() {
     }
   }
 
-  const shared: Shared = { plan, cadence, setPlan, setCadence, onAddToCart, pending, shown };
+  const shared: Shared = { onAddToCart, pending, shown };
   return (
     <>
       {buyBoxTarget && createPortal(<BuyBox {...shared} />, buyBoxTarget)}

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mujo Ritual. The Mushroom Cacao Ritual</title>
-<meta name="description" content="A warm mushroom-and-adaptogen cacao that replaces your coffee. Calm, steady, under 5mg of caffeine. From $2.21 per serving on subscription.">
+<meta name="description" content="A warm mushroom-and-adaptogen cacao that replaces your coffee. Calm, steady, under 5mg of caffeine. From $2.04 per serving on subscription.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!--
@@ -708,6 +708,18 @@ summary.info-row-q::marker { content: ""; }
   transition: transform 0.2s;
 }
 details.info-row[open] .info-row-toggle { transform: rotate(45deg); color: var(--orange); }
+/* Nutrition Facts as text (same table as the Protein Powder PDP) */
+.nf { width: 100%; max-width: 420px; border-collapse: collapse; font-size: 14px; color: var(--ink); border: 1px solid var(--ink); }
+.nf caption { caption-side: top; text-align: left; font-size: 13px; color: var(--ink-soft); padding-bottom: 8px; }
+.nf th, .nf td { text-align: left; font-weight: 400; padding: 5px 10px; border-top: 1px solid var(--line-soft); }
+.nf td:last-child { text-align: right; white-space: nowrap; }
+.nf strong { font-weight: 600; }
+.nf .sub th { padding-left: 24px; }
+.nf .sub2 th { padding-left: 40px; }
+.nf .nf-cal th, .nf .nf-cal td { font-family: var(--f-display); font-size: 22px; font-weight: 600; border-top: 0; }
+.nf .nf-head td { font-size: 12px; font-weight: 600; }
+.nf .nf-rule th, .nf .nf-rule td { border-bottom: 6px solid var(--ink); }
+.nf-foot { font-size: 12px; margin-top: 10px; }
 .info-row-a {
   font-size: 14px;
   line-height: 1.7;
@@ -2390,7 +2402,7 @@ body.locked { overflow: hidden; }
               <div class="size-opt-badge">Best value</div>
             </div>
             <div class="size-opt-sub">Monthly supply</div>
-            <div class="size-opt-price">$65.00 · $2.60/serving</div>
+            <div class="size-opt-price">$59.99 · $2.40/serving</div>
           </div>
         </div>
       </div>
@@ -2406,9 +2418,9 @@ body.locked { overflow: hidden; }
               <div class="pur-opt-desc">Ships every 4 weeks · min. commitment of 2 delivery cycles</div>
             </div>
             <div class="pur-opt-price">
-              <div class="pur-opt-price-now">$55.25</div>
-              <div class="pur-opt-price-was">$65.00</div>
-              <div class="pur-opt-daily">$2.21/serving</div>
+              <div class="pur-opt-price-now">$50.99</div>
+              <div class="pur-opt-price-was">$59.99</div>
+              <div class="pur-opt-daily">$2.04/serving</div>
             </div>
           </div>
           <div class="pur-opt" onclick="selectPlan(this, 'once')">
@@ -2418,8 +2430,8 @@ body.locked { overflow: hidden; }
               <div class="pur-opt-desc">No commitment · Single order only</div>
             </div>
             <div class="pur-opt-price">
-              <div class="pur-opt-price-now">$65.00</div>
-              <div class="pur-opt-daily">$2.60/serving</div>
+              <div class="pur-opt-price-now">$59.99</div>
+              <div class="pur-opt-daily">$2.40/serving</div>
             </div>
           </div>
         </div>
@@ -2429,7 +2441,7 @@ body.locked { overflow: hidden; }
       <div class="atc-block" id="atc">
         <button class="atc-btn" onclick="handleATC()">
           Add to cart
-          <span class="atc-btn-price">$55.25</span>
+          <span class="atc-btn-price">$50.99</span>
         </button>
         <div class="atc-trust">
           <div class="atc-trust-item">Free shipping over $100</div>
@@ -2479,9 +2491,29 @@ body.locked { overflow: hidden; }
             <div class="info-row-toggle">+</div>
           </summary>
           <div class="info-row-a">
-            <a href="/images/nutrition-facts-ritual.webp" target="_blank" rel="noopener" aria-label="Open full-size Nutrition Facts panel">
-              <img src="/images/nutrition-facts-ritual.webp" alt="The Ritual Nutrition Facts: 25 servings per container, serving size 1 tbsp (6g). 25 calories, 1g total fat (0.5g saturated fat, 0g trans fat), 0mg cholesterol, 40mg sodium, 3g total carbohydrate (1g dietary fiber, less than 1g total sugars, 0g added sugars), 1g protein. Vitamin D 0mcg, calcium 10mg, iron 0.4mg, potassium 80mg." loading="lazy" width="578" height="980" style="display:block; width:100%; max-width:320px; height:auto; margin:4px 0 2px; border:1px solid var(--line-soft); border-radius:8px;">
-            </a>
+            <!-- Every value below is copied from the printed pouch (25 servings, Oct 2026). -->
+            <table class="nf">
+              <caption>25 servings per container &middot; Serving size 1 tbsp (6g)</caption>
+              <tbody>
+                <tr class="nf-cal"><th>Calories</th><td>25</td><td></td></tr>
+                <tr class="nf-head"><th></th><td></td><td>% Daily Value*</td></tr>
+                <tr><th><strong>Total Fat</strong> 1g</th><td></td><td>1%</td></tr>
+                <tr class="sub"><th>Saturated Fat 0.5g</th><td></td><td>4%</td></tr>
+                <tr class="sub"><th><em>Trans</em> Fat 0g</th><td></td><td></td></tr>
+                <tr><th><strong>Cholesterol</strong> 0mg</th><td></td><td>0%</td></tr>
+                <tr><th><strong>Sodium</strong> 40mg</th><td></td><td>2%</td></tr>
+                <tr><th><strong>Total Carbohydrate</strong> 3g</th><td></td><td>1%</td></tr>
+                <tr class="sub"><th>Dietary Fiber 1g</th><td></td><td>4%</td></tr>
+                <tr class="sub"><th>Total Sugars &lt;1g</th><td></td><td></td></tr>
+                <tr class="sub2"><th>Includes 0g Added Sugars</th><td></td><td>0%</td></tr>
+                <tr class="nf-rule"><th><strong>Protein</strong> 1g</th><td></td><td></td></tr>
+                <tr><th>Vitamin D 0mcg</th><td></td><td>0%</td></tr>
+                <tr><th>Calcium 10mg</th><td></td><td>1%</td></tr>
+                <tr><th>Iron 0.4mg</th><td></td><td>2%</td></tr>
+                <tr><th>Potassium 80mg</th><td></td><td>2%</td></tr>
+              </tbody>
+            </table>
+            <p class="nf-foot">* The % Daily Value (DV) tells you how much a nutrient in a serving of food contributes to a daily diet. 2,000 calories a day is used for general nutrition advice.</p>
           </div>
         </details>
         <details class="info-row">
@@ -3141,7 +3173,7 @@ body.locked { overflow: hidden; }
       </details>
       <details class="faq-item">
         <summary class="faq-q">Why is this more expensive than buying the ingredients separately? <div class="faq-toggle">+</div></summary>
-        <div class="faq-a">Fair question. You could buy lion's mane, cordyceps, panax ginseng, L-theanine, cacao and the rest separately and make your own, it would cost more and take time measuring and mixing every morning. The Ritual is $55.25 on subscription ($2.21 per serving). But the real answer is the recipe: we've done the work of choosing the right forms, sourcing them well, and balancing the flavor so it's something you actually want to drink. <strong>The formula is the product. The ingredients are the raw material.</strong></div>
+        <div class="faq-a">Fair question. You could buy lion's mane, cordyceps, panax ginseng, L-theanine, cacao and the rest separately and make your own, it would cost more and take time measuring and mixing every morning. The Ritual is $50.99 on subscription ($2.04 per serving). But the real answer is the recipe: we've done the work of choosing the right forms, sourcing them well, and balancing the flavor so it's something you actually want to drink. <strong>The formula is the product. The ingredients are the raw material.</strong></div>
       </details>
       <details class="faq-item">
         <summary class="faq-q">How does subscription work? <div class="faq-toggle">+</div></summary>
@@ -3214,7 +3246,7 @@ body.locked { overflow: hidden; }
 <div class="sticky-atc" id="stickyATC">
   <div class="sticky-atc-info">
     <div class="sticky-atc-name">Mujo Ritual · 25 servings</div>
-    <div class="sticky-atc-price" id="stickyATCPrice">$55.25 · Subscribe & save</div>
+    <div class="sticky-atc-price" id="stickyATCPrice">$50.99 · Subscribe & save</div>
   </div>
   <button class="sticky-atc-btn" onclick="handleATC()">Add to cart</button>
 </div>
@@ -3251,7 +3283,7 @@ function selectPlan(el, plan) {
   document.querySelectorAll('.pur-opt').forEach(o => o.classList.remove('active'));
   el.classList.add('active');
   // Update ATC price display
-  const price = plan === 'sub' ? '$55.25' : '$65.00';
+  const price = plan === 'sub' ? '$50.99' : '$59.99';
   document.querySelector('.atc-btn-price').textContent = price;
   document.getElementById('stickyATCPrice').textContent = price + (plan === 'sub' ? ' · Subscribe & save' : ' · One-time');
 }

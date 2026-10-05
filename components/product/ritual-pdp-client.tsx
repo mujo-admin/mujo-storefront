@@ -26,8 +26,8 @@ const PRICES: Record<RitualSize, Partial<Record<RitualPlan, PriceCell>>> = {
     onetime: { now: "$27.00", daily: "$2.70/serving" },
   },
   "25": {
-    onetime: { now: "$65.00", daily: "$2.60/serving" },
-    subscription: { now: "$55.25", was: "$65.00", daily: "$2.21/serving" },
+    onetime: { now: "$59.99", daily: "$2.40/serving" },
+    subscription: { now: "$50.99", was: "$59.99", daily: "$2.04/serving" },
   },
 };
 
@@ -167,7 +167,7 @@ function BuyBox({
               <div className="size-opt-count">25 servings</div>
               <div className="size-opt-badge">Best value</div>
             </div>
-            <div className="size-opt-price">$65.00 · $2.60/serving</div>
+            <div className="size-opt-price">$59.99 · $2.40/serving</div>
           </div>
         </div>
       </div>
