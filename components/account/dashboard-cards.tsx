@@ -375,7 +375,7 @@ function ActiveSubscriptionCard({
         </div>
         <p className="sub-empty">
           No active subscription. Subscribe and save on every Ritual delivery
-          — pause or cancel anytime.
+          — pause or cancel after your first 2 deliveries.
         </p>
         <Link href="/products/mujo-ritual" className="sub-cta">
           Start a subscription
@@ -488,8 +488,8 @@ function SubscriberSavingsCard({
           )}
         </h3>
         <p>
-          Every box ships at {offRetailLabel} and free shipping is automatic
-          over $100. Pause or skip anytime.
+          Every box ships at {offRetailLabel} and free shipping is automatic.
+          Pause or skip after your first 2 deliveries.
         </p>
         <div className="dash-savings-stat">
           <strong>0 deliveries</strong> yet · waiting for your first box

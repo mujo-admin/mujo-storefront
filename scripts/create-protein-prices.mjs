@@ -59,11 +59,11 @@ function writeEnvVar(path, key, value) {
 
 const env = loadEnv(ENV_PATH);
 const key = env.STRIPE_SECRET_KEY || "";
-if (!key.startsWith("sk_")) {
+if (!/^(sk|rk)_(test|live)_/.test(key)) {
   console.error(`No usable STRIPE_SECRET_KEY in ${ENV_PATH}.`);
   process.exit(1);
 }
-const MODE = key.startsWith("sk_live_") ? "LIVE" : "TEST";
+const MODE = /^(sk|rk)_live_/.test(key) ? "LIVE" : "TEST";
 const stripe = new Stripe(key, { apiVersion: "2026-04-22.dahlia" });
 console.log(`\n=== Protein Powder prices — ${MODE}${APPLY ? " (APPLY)" : " (dry run)"} | ${ENV_PATH} ===`);
 
