@@ -28,6 +28,9 @@ const PUBLIC_ROUTES: { path: string; changeFrequency?: "daily" | "weekly" | "mon
   { path: "/journal", changeFrequency: "weekly", priority: 0.6 },
   { path: "/journal/page/2", changeFrequency: "weekly", priority: 0.4 },
   // Journal posts (migrated from the Shopify blog + science reads + podcast).
+  // Protein series, parts 1 and 2 (3 and 4 to follow).
+  { path: "/journal/what-is-lemna-protein", changeFrequency: "monthly", priority: 0.5 },
+  { path: "/journal/what-is-a-complete-protein", changeFrequency: "monthly", priority: 0.5 },
   { path: "/journal/the-story-of-coffee-from-divine-elixir-to-a-daily-brew-that-could-be-making-you-tired", changeFrequency: "monthly", priority: 0.5 },
   { path: "/journal/what-you-need-to-know-about-functional-mushroom-active-compounds-and-beta-glucans", changeFrequency: "monthly", priority: 0.5 },
   { path: "/journal/the-problem-with-resolutions-and-what-to-do-instead", changeFrequency: "monthly", priority: 0.5 },

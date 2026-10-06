@@ -23,6 +23,21 @@ type Post = {
 };
 
 const PUBLISHED: Record<string, Post> = {
+  // Protein series (conscious performance nutrition), parts 1 and 2 (3 and 4 to follow).
+  "what-is-lemna-protein": {
+    file: "mujo_journal_what-is-lemna-protein.html",
+    title: "Lemna Protein, Also Known as Duckweed, Explained",
+    description:
+      "The most abundant protein on Earth is in every green leaf, and almost none of it reaches your plate. Here's why, and how a tiny plant called Lemna changes that.",
+    headline: "The most common protein on Earth is one you've never bought",
+  },
+  "what-is-a-complete-protein": {
+    file: "mujo_journal_what-is-a-complete-protein.html",
+    title: "What Is a Complete Protein? A Simple Explanation",
+    description:
+      "What 'complete protein' means, why collagen scores zero for protein quality, and the one line on a nutrition label that tells you how good the protein is.",
+    headline: "A tub can say 10g of protein and score zero. Here's how.",
+  },
   "introducing-mujo-the-coffee-alternative-thats-changing-the-game": {
     file: "mujo_journal_introducing-mujo-the-coffee-alternative-thats-changing-the-game.html",
     title: "Introducing Mujo: The Coffee Alternative for the Modern Human",
