@@ -200,26 +200,31 @@ export async function handlePaymentIntentSucceeded(event: Stripe.Event) {
   const currency = (pi.currency ?? 'usd').toUpperCase();
   const value = pi.amount / 100;
 
-  void trackOrderPlaced({
-    email: buyerEmail,
-    orderId: shopifyOrder.name,
-    value,
-    currency,
-    items: analyticsItems,
-    attribution: klaviyoAttributionProps(attribution),
-  }).catch((err) =>
-    console.error('[pi.succeeded] Klaviyo Order Placed failed', err),
-  );
-
-  if (eventId) {
-    void sendCapiEvent({
-      eventName: 'Purchase',
-      eventId,
-      eventSourceUrl: `${SITE_ORIGIN}/checkout`,
-      userData: capiUserData(buyerEmail, attribution),
-      customData: metaCustomData(analyticsItems, value, currency),
+  // Awaited, not fire-and-forget: on serverless the function can be frozen the
+  // moment the handler returns, which silently dropped about half of these
+  // (September: 2 "Order Placed" events for 4 orders). Failures are caught and
+  // logged, so analytics can never fail the order.
+  await Promise.allSettled([
+    trackOrderPlaced({
+      email: buyerEmail,
+      orderId: shopifyOrder.name,
+      value,
+      currency,
+      items: analyticsItems,
+      attribution: klaviyoAttributionProps(attribution),
     }).catch((err) =>
-      console.error('[pi.succeeded] Meta CAPI Purchase failed', err),
-    );
-  }
+      console.error('[pi.succeeded] Klaviyo Order Placed failed', err),
+    ),
+    eventId
+      ? sendCapiEvent({
+          eventName: 'Purchase',
+          eventId,
+          eventSourceUrl: `${SITE_ORIGIN}/checkout`,
+          userData: capiUserData(buyerEmail, attribution),
+          customData: metaCustomData(analyticsItems, value, currency),
+        }).catch((err) =>
+          console.error('[pi.succeeded] Meta CAPI Purchase failed', err),
+        )
+      : Promise.resolve(),
+  ]);
 }

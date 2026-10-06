@@ -349,17 +349,10 @@ export async function handleInvoicePaid(event: Stripe.Event) {
     const currency = (invoice.currency ?? 'usd').toUpperCase();
     const value = (invoice.amount_paid ?? 0) / 100;
 
-    void trackOrderPlaced({
-      email,
-      orderId: shopifyOrder.name,
-      value,
-      currency,
-      items: analyticsItems,
-      attribution: klaviyoAttributionProps(attribution),
-    }).catch((err) =>
-      console.error('[invoice.paid] Klaviyo Order Placed failed', err),
-    );
-
+    // Awaited, not fire-and-forget: on serverless the function can be frozen the
+    // moment the handler returns, which silently dropped about half of these
+    // (September: 2 "Order Placed" events for 4 orders). Failures are caught and
+    // logged, so analytics can never fail the order.
     const eventId =
       typeof sub.metadata?.mujo_event_id === 'string'
         ? sub.metadata.mujo_event_id
@@ -367,16 +360,34 @@ export async function handleInvoicePaid(event: Stripe.Event) {
     // Pre-orders already reported the conversion at signup (Pixel on
     // /checkout/success); the ship-day charge is weeks later, outside Meta's
     // dedup window, so re-sending Purchase would double count.
-    if (eventId && !isPreorder) {
-      void sendCapiEvent({
-        eventName: 'Purchase',
-        eventId,
-        eventSourceUrl: `${SITE_ORIGIN}/checkout`,
-        userData: capiUserData(email, attribution),
-        customData: metaCustomData(analyticsItems, value, currency),
+    const sendPurchase = Boolean(eventId) && !isPreorder;
+    await Promise.allSettled([
+      trackOrderPlaced({
+        email,
+        orderId: shopifyOrder.name,
+        value,
+        currency,
+        items: analyticsItems,
+        attribution: klaviyoAttributionProps(attribution),
       }).catch((err) =>
-        console.error('[invoice.paid] Meta CAPI Purchase failed', err),
-      );
-    }
+        console.error('[invoice.paid] Klaviyo Order Placed failed', err),
+      ),
+      sendPurchase && eventId
+        ? sendCapiEvent({
+            eventName: 'Purchase',
+            eventId,
+            eventSourceUrl: `${SITE_ORIGIN}/checkout`,
+            userData: capiUserData(email, attribution),
+            customData: metaCustomData(analyticsItems, value, currency),
+          }).catch((err) =>
+            console.error('[invoice.paid] Meta CAPI Purchase failed', err),
+          )
+        : Promise.resolve(),
+    ]);
+    console.log('[invoice.paid] analytics sent', {
+      invoice: invoice.id,
+      klaviyo: true,
+      metaPurchase: sendPurchase,
+    });
   }
 }
