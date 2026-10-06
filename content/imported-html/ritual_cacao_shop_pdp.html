@@ -1097,24 +1097,39 @@ details.info-row[open] .info-row-toggle { transform: rotate(45deg); color: var(-
 
 .ing-compact-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
   max-width: 1180px;
   margin: 0 auto;
 }
-@media (min-width: 640px) { .ing-compact-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
-@media (min-width: 1100px) { .ing-compact-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+/* Phones and tablets: one sideways rail, same as the protein powder page. */
+@media (max-width: 1000px) {
+  .ing-compact-grid {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: min(300px, 84%);
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 4px 0 22px;
+    scrollbar-width: none;
+  }
+  .ing-compact-grid::-webkit-scrollbar { display: none; }
+  .ing-compact-grid > * { scroll-snap-align: start; }
+  /* Cards further along the rail must not wait for the scroll-reveal. */
+  .ing-compact-grid > .reveal { opacity: 1; transform: none; }
+}
 
 .ing-compact {
   background: #fff;
   border: 1px solid var(--line-soft);
   border-radius: var(--r-structural);
-  padding: 18px 18px 20px;
+  padding: 0 0 26px;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
-@media (min-width: 768px) { .ing-compact { padding: 28px; gap: 20px; } }
 .ing-compact:hover {
   transform: translateY(-2px);
   box-shadow: var(--s1);
@@ -1128,23 +1143,22 @@ details.info-row[open] .info-row-toggle { transform: rotate(45deg); color: var(-
 
 .ing-compact-img {
   width: 100%;
-  height: 150px;
+  aspect-ratio: 4/3;
   background: var(--sand);
-  border-radius: var(--r-structural);
-  margin-bottom: 14px;
+  border-radius: 0;
+  margin-bottom: 20px;
   background-size: cover;
   background-position: center;
 }
-@media (min-width: 768px) { .ing-compact-img { height: 170px; } }
 .ing-compact-emoji { line-height: 1; }
 
-.ing-compact-body { flex: 1; min-width: 0; }
+.ing-compact-body { flex: 1; min-width: 0; margin: 0 24px; }
 .ing-compact-top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
 .ing-compact-name {
   font-family: var(--f-display);
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 500;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
   line-height: 1.2;
 }
 .ing-compact-badge {
@@ -1214,13 +1228,8 @@ details.info-row[open] .info-row-toggle { transform: rotate(45deg); color: var(-
 }
 .ing-compact-footer-text strong { color: var(--ink); font-weight: 500; }
 
-@media (max-width: 1000px) {
-  .ing-compact-grid { grid-template-columns: repeat(2, 1fr); }
-}
 @media (max-width: 620px) {
   .dossier { padding: 80px 0; }
-  .ing-compact-grid { grid-template-columns: 1fr; }
-  .ing-compact-img { width: 64px; height: 64px; }
   .ing-compact-emoji { font-size: 26px; }
 }
 
