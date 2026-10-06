@@ -4,7 +4,8 @@
  * Application code calls `track()`. Nothing else pushes to `dataLayer` and
  * nothing else calls `fbq` directly. One call fans out to:
  *
- *   1. `dataLayer`  → Google Tag Manager → GA4 (and any future tag)
+ *   1. `dataLayer`  → Google Tag Manager (available to any future tag), and
+ *      `gtag('event')` → GA4 directly
  *   2. Meta Pixel   → browser-side event
  *   3. `/api/meta/convert` → Meta Conversions API (server mirror)
  *   4. klaviyo.js   → Klaviyo (product views, carts and checkouts only)
@@ -93,6 +94,7 @@ export type MujoEventName = keyof typeof EVENTS;
 declare global {
   interface Window {
     dataLayer?: Record<string, unknown>[];
+    gtag?: (...args: unknown[]) => void;
   }
 }
 
@@ -177,6 +179,8 @@ export function track(
     ...params,
   });
 
+  sendToGa4(name, eventId, params);
+
   // 4. Klaviyo. Independent of Meta, so it runs before the Meta early-return.
   if (config.klaviyo) sendToKlaviyo(name, params, options, eventId);
 
@@ -205,6 +209,28 @@ export function track(
   }).catch(() => {
     // Tracking must never break the page. The browser pixel already fired.
   });
+}
+
+/**
+ * GA4, directly. A plain `dataLayer.push({ event })` reaches GA4 only if the
+ * GTM container has a tag that forwards it, and ours holds just the Google tag
+ * (checked 2026-10-06: GA4 had been receiving page views and nothing else).
+ * `gtag('event', …, { send_to })` goes straight to the property, so reporting
+ * a sale never depends on container setup. Do NOT also add GA4 event tags for
+ * these events in GTM, or each would be counted twice.
+ *
+ * `page_view` is skipped: GA4's own enhanced measurement already sends one on
+ * every load and every in-site navigation.
+ */
+function sendToGa4(
+  name: MujoEventName,
+  eventId: string,
+  params: TrackParams,
+): void {
+  const ga4Id = process.env.NEXT_PUBLIC_GA4_ID;
+  if (!ga4Id || name === "page_view") return;
+  if (typeof window.gtag !== "function") return;
+  window.gtag("event", name, { ...params, event_id: eventId, send_to: ga4Id });
 }
 
 function sendToKlaviyo(

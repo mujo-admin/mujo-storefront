@@ -60,6 +60,21 @@ each event twice from two different origins. The browser pixel still fires for
 both — Meta deduplicates browser+server by `event_id` — but the *client* must
 not also POST to `/api/meta/convert`.
 
+## How events reach GA4
+
+`track()` calls `gtag('event', name, { …, send_to: <GA4 id> })`, which goes
+straight to the GA4 property. It also pushes the same event to `dataLayer` so a
+future tag in GTM (Google Ads, for example) can use it.
+
+The GTM container holds one tag: the Google tag for `G-7BFMH4PZRD`. **Do not
+add GA4 event tags in GTM for the events in the table above**; the code already
+sends them and each would be counted twice. Until 2026-10-06 only the
+`dataLayer` push existed, the container forwarded nothing, and GA4 received page
+views only: there is no ecommerce history in GA4 before that date.
+
+`page_view` is not sent by `track()` to GA4. Enhanced measurement sends it on
+every load and in-site navigation.
+
 ## Event ID and deduplication
 
 Every Meta-bound event carries an `event_id`. The browser pixel and the server
