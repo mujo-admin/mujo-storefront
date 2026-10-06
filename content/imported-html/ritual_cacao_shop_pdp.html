@@ -1096,28 +1096,25 @@ details.info-row[open] .info-row-toggle { transform: rotate(45deg); color: var(-
 }
 
 .ing-compact-grid {
+  /* One sideways rail at every width, same as the homepage and protein powder page. */
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  grid-auto-flow: column;
+  grid-auto-columns: min(300px, 84%);
+  gap: 16px;
   max-width: 1180px;
   margin: 0 auto;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 4px 0 22px;
+  scrollbar-width: none;
 }
-/* Phones and tablets: one sideways rail, same as the protein powder page. */
-@media (max-width: 1000px) {
-  .ing-compact-grid {
-    grid-template-columns: none;
-    grid-auto-flow: column;
-    grid-auto-columns: min(300px, 84%);
-    gap: 16px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    padding: 4px 0 22px;
-    scrollbar-width: none;
-  }
-  .ing-compact-grid::-webkit-scrollbar { display: none; }
-  .ing-compact-grid > * { scroll-snap-align: start; }
-  /* Cards further along the rail must not wait for the scroll-reveal. */
-  .ing-compact-grid > .reveal { opacity: 1; transform: none; }
+.ing-compact-grid::-webkit-scrollbar { display: none; }
+.ing-compact-grid > * { scroll-snap-align: start; }
+/* Cards further along the rail must not wait for the scroll-reveal. */
+.ing-compact-grid > .reveal { opacity: 1; transform: none; }
+/* Desktop: three cards and the edge of a fourth, so it reads as scrollable. */
+@media (min-width: 1001px) {
+  .ing-compact-grid { gap: 24px; grid-auto-columns: calc((100% - 3 * 24px) / 3.25); }
 }
 
 .ing-compact {
