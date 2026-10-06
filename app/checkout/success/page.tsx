@@ -4,6 +4,7 @@ import { eq } from "drizzle-orm";
 import { carts, db } from "db";
 import { stripe } from "lib/stripe";
 import { getSession } from "lib/session";
+import { OrderNumber } from "./order-number";
 import { CheckoutSuccessClient } from "./success-client";
 
 export const metadata: Metadata = {
@@ -72,6 +73,12 @@ export default async function CheckoutSuccessPage(props: {
   const currency = (session?.currency ?? 'usd').toUpperCase();
   const email = session?.customer_details?.email ?? null;
   const mode = session?.mode ?? 'payment';
+  // Subscription orders are mirrored from the first invoice, so the order
+  // number is looked up by invoice id; one-time orders by session id.
+  const invoiceId =
+    typeof session?.invoice === 'string'
+      ? session.invoice
+      : session?.invoice?.id ?? null;
   // Protein Powder pre-order (see /api/checkout-session metadata).
   const hasPreorderItem = session?.metadata?.preorder_item === 'protein-powder';
   const chargeOnShip = session?.metadata?.preorder_charge === 'on-ship';
@@ -85,6 +92,9 @@ export default async function CheckoutSuccessPage(props: {
               ✓
             </div>
             <h1>{hasPreorderItem ? 'Pre-order confirmed' : 'Order received'}</h1>
+            {session && !chargeOnShip ? (
+              <OrderNumber sessionId={session.id} invoiceId={invoiceId} />
+            ) : null}
             <p className="success-lede">
               Thanks{email ? `, we'll send the receipt to ${email}` : ", we'll send the receipt to your email"}.
             </p>
@@ -99,9 +109,6 @@ export default async function CheckoutSuccessPage(props: {
                 style: "currency",
                 currency,
               }).format(amount / 100)}
-              {mode === 'subscription' ? (
-                <span className="success-amount-suffix"> / month</span>
-              ) : null}
             </div>
             )}
             <div className="success-actions">
@@ -215,11 +222,12 @@ export default async function CheckoutSuccessPage(props: {
           margin: 16px 0 24px;
           letter-spacing: 0.02em;
         }
-        .success-amount-suffix {
-          font-size: 14px;
-          color: var(--mute);
-          letter-spacing: 0;
-          margin-left: 4px;
+        .success-order {
+          font-family: var(--f-mono);
+          font-size: 13px;
+          letter-spacing: 0.04em;
+          color: var(--ink-soft);
+          margin: 0 0 12px;
         }
         .success-actions {
           display: flex;

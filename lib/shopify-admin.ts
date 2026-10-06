@@ -14,7 +14,7 @@
 // works either way without changes — Kinga reports back what Shopify gave us
 // and the right env vars get populated in .env.local.
 
-const ADMIN_API_VERSION = process.env.SHOPIFY_ADMIN_API_VERSION ?? '2025-01';
+const ADMIN_API_VERSION = process.env.SHOPIFY_ADMIN_API_VERSION ?? '2026-04';
 
 function getAdminHost(): string {
   const domain = process.env.SHOPIFY_STORE_DOMAIN;
@@ -268,6 +268,12 @@ export async function findOrCreateCustomer(input: {
 
 // --- Orders -----------------------------------------------------------------
 
+type MoneyBag = { shopMoney: { amount: string; currencyCode: string } };
+
+// rate is a decimal fraction (1.5% = 0.015). priceSet is the tax amount Stripe
+// actually charged — Shopify records it as given, it does not recalculate.
+export type ShopifyTaxLineInput = { title: string; rate: number; priceSet?: MoneyBag };
+
 // orderCreate input shape — we're only using the fields we need.
 // Full shape: https://shopify.dev/api/admin-graphql/latest/mutations/orderCreate
 export type CreateOrderInput = {
@@ -281,7 +287,9 @@ export type CreateOrderInput = {
     variantId?: string; // Shopify GID, e.g., "gid://shopify/ProductVariant/456"
     title?: string;
     quantity: number;
-    priceSet?: { shopMoney: { amount: string; currencyCode: string } };
+    // PER-UNIT price — Shopify multiplies by quantity.
+    priceSet?: MoneyBag;
+    taxLines?: ShopifyTaxLineInput[];
     // orderCreate does NOT inherit requiresShipping from the variant — it defaults
     // each line to false, which makes the mirrored order non-shippable (no Shopify
     // shipping-label flow, so a merchant's negotiated rates can't be applied). Pass
@@ -305,11 +313,27 @@ export type CreateOrderInput = {
     type: string;
     value: string;
   }>;
+  shippingLines?: Array<{
+    title: string;
+    code?: string;
+    priceSet: MoneyBag;
+    taxLines?: ShopifyTaxLineInput[];
+  }>;
+  // Fixed dollar amount, labelled with the code the customer typed. Stripe has
+  // already done the percentage maths; sending its dollar figure keeps Shopify
+  // from re-rounding to a different cent.
+  discountCode?: { itemFixedDiscountCode: { code: string; amountSet: MoneyBag } };
+  // Shopify test order — kept out of Shopify reports. Set for sandbox payments.
+  test?: boolean;
+  processedAt?: string;
   transactions?: Array<{
     kind: 'SALE' | 'AUTHORIZATION' | 'CAPTURE';
     status: 'SUCCESS' | 'PENDING' | 'FAILURE' | 'ERROR';
     gateway?: string;
-    amountSet: { shopMoney: { amount: string; currencyCode: string } };
+    authorizationCode?: string;
+    processedAt?: string;
+    test?: boolean;
+    amountSet: MoneyBag;
   }>;
 };
 
@@ -351,6 +375,110 @@ export async function createOrder(
     throw new ShopifyAdminError('orderCreate failed', data.orderCreate.userErrors);
   }
   return data.orderCreate.order;
+}
+
+// --- Refunds ----------------------------------------------------------------
+
+export type ShopifyOrderForRefund = {
+  id: string;
+  name: string;
+  cancelledAt: string | null;
+  totalRefundedSet: { shopMoney: { amount: string } };
+  transactions: Array<{
+    id: string;
+    kind: string;
+    status: string;
+    gateway: string | null;
+    amountSet: { shopMoney: { amount: string } };
+  }>;
+};
+
+export async function getOrderForRefund(orderGid: string): Promise<ShopifyOrderForRefund | null> {
+  const data = await adminFetch<{ order: ShopifyOrderForRefund | null }>({
+    query: /* GraphQL */ `
+      query OrderForRefund($id: ID!) {
+        order(id: $id) {
+          id
+          name
+          cancelledAt
+          totalRefundedSet { shopMoney { amount } }
+          transactions(first: 20) { id kind status gateway amountSet { shopMoney { amount } } }
+        }
+      }
+    `,
+    variables: { id: orderGid },
+  });
+  return data.order;
+}
+
+// Amount-only refund: no refundLineItems (so nothing is restocked) and
+// notify:false (so the customer gets no Shopify refund email — the money moved
+// in Stripe, which sends its own notice).
+export async function createRefund(input: {
+  orderGid: string;
+  parentTransactionGid: string;
+  amount: string;
+  currency: string;
+  gateway: string;
+  note?: string;
+  /** Shopify requires an idempotency key on refundCreate; same key = same refund. */
+  idempotencyKey: string;
+}): Promise<{ id: string }> {
+  const data = await adminFetch<{
+    refundCreate: {
+      refund: { id: string } | null;
+      userErrors: Array<{ field: string[] | null; message: string }>;
+    };
+  }>({
+    query: /* GraphQL */ `
+      mutation RefundCreate($input: RefundInput!, $key: String!) {
+        refundCreate(input: $input) @idempotent(key: $key) {
+          refund { id }
+          userErrors { field message }
+        }
+      }
+    `,
+    variables: {
+      key: input.idempotencyKey,
+      input: {
+        orderId: input.orderGid,
+        currency: input.currency,
+        note: input.note,
+        notify: false,
+        transactions: [
+          {
+            orderId: input.orderGid,
+            parentId: input.parentTransactionGid,
+            amount: input.amount,
+            gateway: input.gateway,
+            kind: 'REFUND',
+          },
+        ],
+      },
+    },
+  });
+  if (data.refundCreate.userErrors.length || !data.refundCreate.refund) {
+    throw new ShopifyAdminError('refundCreate failed', data.refundCreate.userErrors);
+  }
+  return data.refundCreate.refund;
+}
+
+export async function addOrderTags(orderGid: string, tags: string[]): Promise<void> {
+  const data = await adminFetch<{
+    tagsAdd: { userErrors: Array<{ field: string[] | null; message: string }> };
+  }>({
+    query: /* GraphQL */ `
+      mutation TagsAdd($id: ID!, $tags: [String!]!) {
+        tagsAdd(id: $id, tags: $tags) {
+          userErrors { field message }
+        }
+      }
+    `,
+    variables: { id: orderGid, tags },
+  });
+  if (data.tagsAdd.userErrors.length) {
+    throw new ShopifyAdminError('tagsAdd failed', data.tagsAdd.userErrors);
+  }
 }
 
 // --- Products + Variants (read for mirror script) --------------------------

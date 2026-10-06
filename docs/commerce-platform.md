@@ -189,6 +189,10 @@ Customer ─┬─▶ "Manage my subscription" button
 
 ---
 
+## Shopify orders are complete copies (2026-10)
+
+A mirrored Shopify order now carries everything Stripe charged: the payment itself, shipping, sales tax, any promo code, and per-unit prices. Shopify shows **Paid** with nothing outstanding and its total equals the Stripe charge. Refunds issued in Stripe are mirrored as Shopify refunds (no restock, no customer email). Orders created before this shipped were not backfilled. Field-by-field detail, the two order tags (`needs-reconciliation`, `stripe-refunded`) and the proof scripts are in [webhooks.md](webhooks.md).
+
 ## What can go wrong + how we recover
 
 | Failure | Detection | Recovery |

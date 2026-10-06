@@ -10,10 +10,10 @@ import type Stripe from 'stripe';
 import { eq } from 'drizzle-orm';
 import { db, orderMirror } from 'db';
 import { stripe } from 'lib/stripe';
-import { createOrder } from 'lib/shopify-admin';
 import { trackOrderPlaced } from 'lib/klaviyo';
 import { sendCapiEvent } from 'lib/meta-capi';
-import { upsertCustomerForStripe } from './_helpers';
+import { createMirroredOrder, upsertCustomerForStripe } from './_helpers';
+import { factsFromCheckoutSession } from './_order-facts';
 
 export async function handleCheckoutCompleted(event: Stripe.Event) {
   if (event.type !== 'checkout.session.completed') return;
@@ -91,78 +91,53 @@ export async function handleCheckoutCompleted(event: Stripe.Event) {
     return;
   }
 
-  // Pull line items (not always inflated on the session payload)
-  const lineItems = await stripe.checkout.sessions.listLineItems(session.id, {
-    expand: ['data.price.product'],
-  });
-
-  // The mirror script writes the Shopify ProductVariant GID onto every
-  // Stripe Price as metadata.shopify_variant_id. Pass it through to Shopify's
-  // orderCreate so the line item is linked to the correct variant (color/size
-  // for merch, size/plan for Ritual). When metadata is absent we fall back to
-  // title-only — orderCreate still succeeds, but variant inventory + fulfillment
-  // won't be linked.
-  const shopifyOrderLineItems = lineItems.data.map((li) => {
-    const variantGid =
-      typeof li.price === 'object' && li.price
-        ? li.price.metadata?.shopify_variant_id
-        : undefined;
-    return {
-      ...(variantGid ? { variantId: variantGid } : {}),
-      title: li.description ?? 'Item',
-      quantity: li.quantity ?? 1,
-      // All Mujo products are physical goods. orderCreate defaults line items to
-      // requiresShipping:false, which hides Shopify's shipping-label flow and blocks
-      // fulfilling with our negotiated rates — so force it true here.
-      requiresShipping: true,
-      priceSet: {
-        shopMoney: {
-          amount: ((li.amount_subtotal ?? 0) / 100).toFixed(2),
-          currencyCode: (li.currency ?? session.currency ?? 'usd').toUpperCase(),
-        },
-      },
-    };
-  });
+  // Everything Stripe charged — items, shipping, tax, discount — as facts the
+  // shared builder turns into a complete Shopify order. Line items carry the
+  // Shopify ProductVariant GID from Price metadata.shopify_variant_id (written
+  // by the mirror script) so the order is linked for inventory + fulfilment.
+  const { facts, lineItems } = await factsFromCheckoutSession(session, chargeId);
 
   // Dahlia: shipping_details moved to collected_information.shipping_details
   const shipping = session.collected_information?.shipping_details;
   const shippingAddr = shipping?.address;
   const shippingNameParts = shipping?.name?.split(' ') ?? [];
 
-  const shopifyOrder = await createOrder({
-    email,
-    customerId: shopifyCustomerGid,
-    currency: (session.currency ?? 'usd').toUpperCase(),
-    tags: ['stripe-checkout', 'one-time'],
-    note: `Stripe session: ${session.id} | charge: ${chargeId}`,
-    financialStatus: 'PAID',
-    lineItems: shopifyOrderLineItems,
-    shippingAddress: shippingAddr
-      ? {
-          firstName: shippingNameParts[0],
-          lastName: shippingNameParts.slice(1).join(' ') || undefined,
-          address1: shippingAddr.line1 ?? undefined,
-          address2: shippingAddr.line2 ?? undefined,
-          city: shippingAddr.city ?? undefined,
-          province: shippingAddr.state ?? undefined,
-          country: shippingAddr.country ?? undefined,
-          zip: shippingAddr.postal_code ?? undefined,
-        }
-      : undefined,
-    metafields: [
-      {
-        namespace: 'mujo_commerce',
-        key: 'stripe_charge_id',
-        type: 'single_line_text_field',
-        value: chargeId,
-      },
-      {
-        namespace: 'mujo_commerce',
-        key: 'stripe_checkout_session_id',
-        type: 'single_line_text_field',
-        value: session.id,
-      },
-    ],
+  const shopifyOrder = await createMirroredOrder({
+    context: '[checkout.completed]',
+    facts,
+    base: {
+      email,
+      customerId: shopifyCustomerGid,
+      currency: (session.currency ?? 'usd').toUpperCase(),
+      tags: ['stripe-checkout', 'one-time'],
+      note: `Stripe session: ${session.id} | charge: ${chargeId}`,
+      shippingAddress: shippingAddr
+        ? {
+            firstName: shippingNameParts[0],
+            lastName: shippingNameParts.slice(1).join(' ') || undefined,
+            address1: shippingAddr.line1 ?? undefined,
+            address2: shippingAddr.line2 ?? undefined,
+            city: shippingAddr.city ?? undefined,
+            province: shippingAddr.state ?? undefined,
+            country: shippingAddr.country ?? undefined,
+            zip: shippingAddr.postal_code ?? undefined,
+          }
+        : undefined,
+      metafields: [
+        {
+          namespace: 'mujo_commerce',
+          key: 'stripe_charge_id',
+          type: 'single_line_text_field',
+          value: chargeId,
+        },
+        {
+          namespace: 'mujo_commerce',
+          key: 'stripe_checkout_session_id',
+          type: 'single_line_text_field',
+          value: session.id,
+        },
+      ],
+    },
   });
 
   await db.insert(orderMirror).values({
@@ -189,7 +164,7 @@ export async function handleCheckoutCompleted(event: Stripe.Event) {
     orderId: shopifyOrder.name,
     value: (session.amount_total ?? 0) / 100,
     currency: (session.currency ?? 'usd').toUpperCase(),
-    items: lineItems.data.map((li) => {
+    items: lineItems.map((li) => {
       const priceId =
         typeof li.price === 'object' && li.price ? li.price.id : '';
       return {
@@ -211,8 +186,8 @@ export async function handleCheckoutCompleted(event: Stripe.Event) {
       customData: {
         currency: (session.currency ?? 'usd').toUpperCase(),
         value: (session.amount_total ?? 0) / 100,
-        num_items: lineItems.data.length,
-        content_ids: lineItems.data.map((li) =>
+        num_items: lineItems.length,
+        content_ids: lineItems.map((li) =>
           typeof li.price === 'object' && li.price ? li.price.id : '',
         ),
       },
