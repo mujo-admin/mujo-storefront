@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 export default function TeePdpPage() {
   return (
     <>
-      <ProductAnalytics itemId="mujo-tee" itemName="Organic Tee" price={30} />
+      <ProductAnalytics slug="mujo-tee" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

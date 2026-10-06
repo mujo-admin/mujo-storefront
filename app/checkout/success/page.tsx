@@ -4,6 +4,8 @@ import { eq } from "drizzle-orm";
 import { carts, db } from "db";
 import { stripe } from "lib/stripe";
 import { getSession } from "lib/session";
+import type { AnalyticsItem } from "lib/analytics";
+import { itemsFromPriceIds } from "lib/analytics-server";
 import { OrderNumber } from "./order-number";
 import { CheckoutSuccessClient } from "./success-client";
 
@@ -54,6 +56,26 @@ export default async function CheckoutSuccessPage(props: {
       });
     } catch (err) {
       console.error('[checkout/success] retrieve session failed', sessionId, err);
+    }
+  }
+
+  // What was bought, in the shared analytics shape, so the browser's `purchase`
+  // event names the products (GA4 previously got revenue with no items).
+  let purchasedItems: AnalyticsItem[] = [];
+  if (session) {
+    try {
+      const lines = await stripe.checkout.sessions.listLineItems(session.id, {
+        limit: 100,
+      });
+      purchasedItems = itemsFromPriceIds(
+        lines.data.map((li) => ({
+          priceId: li.price?.id ?? "",
+          quantity: li.quantity ?? 1,
+          amountCents: li.amount_subtotal,
+        })),
+      );
+    } catch (err) {
+      console.error("[checkout/success] line items failed", session.id, err);
     }
   }
 
@@ -166,6 +188,9 @@ export default async function CheckoutSuccessPage(props: {
           amount={amount}
           currency={currency}
           email={email}
+          items={purchasedItems}
+          tax={(session.total_details?.amount_tax ?? 0) / 100}
+          shipping={(session.total_details?.amount_shipping ?? 0) / 100}
         />
       ) : null}
 

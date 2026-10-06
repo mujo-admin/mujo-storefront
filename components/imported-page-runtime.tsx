@@ -13,7 +13,43 @@ import {
   type MerchSize,
 } from "lib/cart/merch-config";
 
-import { track } from "lib/analytics";
+import { track, identify, type AnalyticsItem } from "lib/analytics";
+import { PRODUCTS, defaultPrice } from "lib/product-identity";
+
+/** Product tiles in a grid (shop page cards, homepage tiles). Deliberately
+ *  narrow: nav, footer and button links to a product are not a product list. */
+const PRODUCT_TILE_SELECTOR =
+  'a.product-card[href^="/products/"], a.tile[href^="/products/"]';
+
+/** The products shown as tiles on the current page, in order, de-duplicated. */
+function productTilesOnPage(): Array<{
+  el: HTMLAnchorElement;
+  item: AnalyticsItem;
+}> {
+  const seen = new Set<string>();
+  const out: Array<{ el: HTMLAnchorElement; item: AnalyticsItem }> = [];
+  document
+    .querySelectorAll<HTMLAnchorElement>(PRODUCT_TILE_SELECTOR)
+    .forEach((el) => {
+      const slug = new URL(el.href, window.location.origin).pathname
+        .split("/")
+        .filter(Boolean)[1];
+      const product = slug ? PRODUCTS[slug] : undefined;
+      if (!slug || !product || seen.has(product.id)) return;
+      seen.add(product.id);
+      out.push({
+        el,
+        item: {
+          item_id: product.id,
+          item_name: product.name,
+          price: defaultPrice(slug),
+          quantity: 1,
+          index: out.length,
+        },
+      });
+    });
+  return out;
+}
 type ImportedPageRuntimeProps = {
   children: ReactNode;
 };
@@ -404,6 +440,19 @@ export function ImportedPageRuntime({ children }: ImportedPageRuntimeProps) {
         return;
       }
 
+      // select_item: a click on a product tile in a grid. Does not return, so
+      // the link still navigates as normal.
+      const tile = target.closest<HTMLAnchorElement>(PRODUCT_TILE_SELECTOR);
+      if (tile) {
+        const hit = productTilesOnPage().find((t) => t.el === tile);
+        if (hit) {
+          track("select_item", {
+            item_list_name: window.location.pathname,
+            items: [hit.item],
+          });
+        }
+      }
+
       const trigger = target.closest<HTMLElement>("[data-mujo-action]");
       if (!trigger) return;
       const action = trigger.dataset.mujoAction;
@@ -534,6 +583,9 @@ export function ImportedPageRuntime({ children }: ImportedPageRuntimeProps) {
       // with the hashed email, which is what lets ad delivery optimise for
       // subscribers rather than clicks. See docs/measurement-plan.md.
       track("sign_up", { method: cfg.source ?? formType }, { email });
+      // Tie this browser to the new subscriber, so Klaviyo records what they
+      // view and add to cart from here on.
+      identify(email);
 
       fetch("/api/klaviyo/subscribe", {
         method: "POST",
@@ -557,6 +609,16 @@ export function ImportedPageRuntime({ children }: ImportedPageRuntimeProps) {
       document.removeEventListener("submit", handleForms);
     };
   }, [addItem]);
+
+  // view_item_list: once per page that shows two or more product tiles.
+  useEffect(() => {
+    const tiles = productTilesOnPage();
+    if (tiles.length < 2) return;
+    track("view_item_list", {
+      item_list_name: pathname,
+      items: tiles.map((t) => t.item),
+    });
+  }, [pathname]);
 
   // UGC reel marquee: make it manually scrollable while keeping auto-advance.
   useEffect(() => initReelsMarquee(), []);

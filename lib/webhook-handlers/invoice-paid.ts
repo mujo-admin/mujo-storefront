@@ -18,6 +18,14 @@ import {
 import { trackOrderPlaced } from 'lib/klaviyo';
 import { sendCapiEvent } from 'lib/meta-capi';
 import {
+  attributionFromMetadata,
+  capiUserData,
+  itemsFromPriceIds,
+  klaviyoAttributionProps,
+  metaCustomData,
+  SITE_ORIGIN,
+} from 'lib/analytics-server';
+import {
   createMirroredOrder,
   echoSubscriptionStatusToShopify,
   extractInvoicePaymentIntentId,
@@ -327,22 +335,27 @@ export async function handleInvoicePaid(event: Stripe.Event) {
   // subscription_data.metadata at session-create time); Pixel on /checkout/success
   // fires with the same id for dedup.
   if (type === 'subscription_initial') {
+    // Items use catalog IDs; the free first-order frother is dropped (a gift
+    // is not a purchased product). The shopper's ad click was saved on the
+    // subscription's metadata at checkout.
+    const analyticsItems = itemsFromPriceIds(
+      invoice.lines.data.map((li) => ({
+        priceId: priceIdOf(li) ?? '',
+        quantity: li.quantity ?? 1,
+        amountCents: li.amount,
+      })),
+    );
+    const attribution = attributionFromMetadata(sub.metadata);
+    const currency = (invoice.currency ?? 'usd').toUpperCase();
+    const value = (invoice.amount_paid ?? 0) / 100;
+
     void trackOrderPlaced({
       email,
       orderId: shopifyOrder.name,
-      value: (invoice.amount_paid ?? 0) / 100,
-      currency: (invoice.currency ?? 'usd').toUpperCase(),
-      items: invoice.lines.data.map((li) => {
-        const priceId =
-          typeof li.pricing?.price_details?.price === 'string'
-            ? li.pricing.price_details.price
-            : '';
-        return {
-          name: li.description ?? priceId,
-          quantity: li.quantity ?? 1,
-          priceId,
-        };
-      }),
+      value,
+      currency,
+      items: analyticsItems,
+      attribution: klaviyoAttributionProps(attribution),
     }).catch((err) =>
       console.error('[invoice.paid] Klaviyo Order Placed failed', err),
     );
@@ -358,17 +371,9 @@ export async function handleInvoicePaid(event: Stripe.Event) {
       void sendCapiEvent({
         eventName: 'Purchase',
         eventId,
-        userData: { email },
-        customData: {
-          currency: (invoice.currency ?? 'usd').toUpperCase(),
-          value: (invoice.amount_paid ?? 0) / 100,
-          num_items: invoice.lines.data.length,
-          content_ids: invoice.lines.data.map((li) =>
-            typeof li.pricing?.price_details?.price === 'string'
-              ? li.pricing.price_details.price
-              : '',
-          ),
-        },
+        eventSourceUrl: `${SITE_ORIGIN}/checkout`,
+        userData: capiUserData(email, attribution),
+        customData: metaCustomData(analyticsItems, value, currency),
       }).catch((err) =>
         console.error('[invoice.paid] Meta CAPI Purchase failed', err),
       );

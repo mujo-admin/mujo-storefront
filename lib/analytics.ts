@@ -7,6 +7,7 @@
  *   1. `dataLayer`  → Google Tag Manager → GA4 (and any future tag)
  *   2. Meta Pixel   → browser-side event
  *   3. `/api/meta/convert` → Meta Conversions API (server mirror)
+ *   4. klaviyo.js   → Klaviyo (product views, carts and checkouts only)
  *
  * (2) and (3) share an `event_id` so Meta counts one event, not two.
  *
@@ -14,16 +15,38 @@
  */
 
 import { trackPixelEvent, generateEventId } from "lib/meta-pixel";
+import {
+  catalogIdForSlug,
+  identifyPrice,
+  type PurchaseType,
+} from "lib/product-identity";
+import {
+  cartPurchaseType,
+  klaviyoAddedToCartProps,
+  klaviyoCartProps,
+  klaviyoIdentify,
+  klaviyoTrack,
+  klaviyoViewedItem,
+  klaviyoViewedProductProps,
+} from "lib/klaviyo-onsite";
+
+export { cartPurchaseType };
 
 /** GA4 ecommerce item. The only item shape in the codebase. */
 export type AnalyticsItem = {
-  /** Stripe Price ID (price_…) — the cart's primary key. */
+  /** Catalog ID = Shopify handle. Matches the product feed `g:id`. */
   item_id: string;
   item_name: string;
   item_variant?: string;
+  /** "subscription" | "onetime". */
+  purchase_type?: PurchaseType;
+  /** Stripe Price ID. Secondary; never use as the product key. */
+  price_id?: string;
   /** Major units (dollars), not cents. */
   price: number;
   quantity: number;
+  /** Position in a list (`view_item_list`, `select_item`). */
+  index?: number;
 };
 
 export type TrackParams = {
@@ -37,23 +60,32 @@ export type TrackParams = {
 /**
  * Per-event routing.
  *
- * `meta`   — Meta event name, or null when the event is GA4-only.
+ * `meta`    — Meta event name, or null when the event is not sent to Meta.
+ * `klaviyo` — Klaviyo metric name, or null. Names match Klaviyo's own
+ *             templates exactly, so its stock flows can be pointed at them.
  * `mirror` — whether the *browser* should also POST to /api/meta/convert.
  *            false for events a server already sends to CAPI; mirroring those
  *            from here would send the same action twice from two origins.
  */
 const EVENTS = {
-  page_view: { meta: "PageView", mirror: false },
-  view_item: { meta: "ViewContent", mirror: true },
-  view_item_list: { meta: null, mirror: false },
-  add_to_cart: { meta: "AddToCart", mirror: true },
-  view_cart: { meta: null, mirror: false },
-  // /api/checkout already sends InitiateCheckout server-side.
-  begin_checkout: { meta: "InitiateCheckout", mirror: false },
-  // The Stripe webhook already sends Purchase server-side.
-  purchase: { meta: "Purchase", mirror: false },
-  sign_up: { meta: "Lead", mirror: true },
-  generate_lead: { meta: "Lead", mirror: true },
+  page_view: { meta: "PageView", mirror: false, klaviyo: null },
+  view_item: { meta: "ViewContent", mirror: true, klaviyo: "Viewed Product" },
+  view_item_list: { meta: null, mirror: false, klaviyo: null },
+  select_item: { meta: null, mirror: false, klaviyo: null },
+  add_to_cart: { meta: "AddToCart", mirror: true, klaviyo: "Added to Cart" },
+  remove_from_cart: { meta: null, mirror: false, klaviyo: null },
+  view_cart: { meta: null, mirror: false, klaviyo: null },
+  // /api/checkout-session already sends InitiateCheckout server-side.
+  begin_checkout: {
+    meta: "InitiateCheckout",
+    mirror: false,
+    klaviyo: "Started Checkout",
+  },
+  // The Stripe webhook already sends Purchase to Meta and "Order Placed" to
+  // Klaviyo server-side.
+  purchase: { meta: "Purchase", mirror: false, klaviyo: null },
+  sign_up: { meta: "Lead", mirror: true, klaviyo: null },
+  generate_lead: { meta: "Lead", mirror: true, klaviyo: null },
 } as const;
 
 export type MujoEventName = keyof typeof EVENTS;
@@ -63,6 +95,19 @@ declare global {
     dataLayer?: Record<string, unknown>[];
   }
 }
+
+/** Keys cleared on each push unless the event sets them. */
+const DATALAYER_RESET: Record<string, undefined> = {
+  items: undefined,
+  value: undefined,
+  currency: undefined,
+  transaction_id: undefined,
+  purchase_type: undefined,
+  item_list_name: undefined,
+  method: undefined,
+  tax: undefined,
+  shipping: undefined,
+};
 
 function pushToDataLayer(payload: Record<string, unknown>): void {
   if (typeof window === "undefined") return;
@@ -97,6 +142,13 @@ export type TrackOptions = {
   eventId?: string;
   /** Hashed server-side for Meta match quality. Never reaches dataLayer. */
   email?: string;
+  /**
+   * The whole cart after this action. Klaviyo's "Added to Cart" and "Started
+   * Checkout" carry it so an email can show everything, not just one line.
+   */
+  cart?: AnalyticsItem[];
+  /** Link that rebuilds the cart (see lib/cart/restore.ts). Klaviyo only. */
+  checkoutUrl?: string;
 };
 
 /**
@@ -115,8 +167,18 @@ export function track(
   const config = EVENTS[name];
   const eventId = options.eventId ?? generateEventId();
 
-  // 1. GTM / GA4. `email` is deliberately excluded.
-  pushToDataLayer({ event: name, event_id: eventId, ...params });
+  // 1. GTM / GA4. `email` is deliberately excluded. dataLayer values persist
+  // between pushes, so the ecommerce keys are reset on every event: without
+  // this, a page_view after a product view would still carry that product.
+  pushToDataLayer({
+    ...DATALAYER_RESET,
+    event: name,
+    event_id: eventId,
+    ...params,
+  });
+
+  // 4. Klaviyo. Independent of Meta, so it runs before the Meta early-return.
+  if (config.klaviyo) sendToKlaviyo(name, params, options, eventId);
 
   if (!config.meta) return;
   const metaParams = toMetaParams(params);
@@ -145,6 +207,54 @@ export function track(
   });
 }
 
+function sendToKlaviyo(
+  name: MujoEventName,
+  params: TrackParams,
+  options: TrackOptions,
+  eventId: string,
+): void {
+  const items = params.items ?? [];
+  const first = items[0];
+  if (!first) return;
+  const origin = window.location.origin;
+
+  if (name === "view_item") {
+    klaviyoTrack("Viewed Product", klaviyoViewedProductProps(first, origin));
+    klaviyoViewedItem(first, origin);
+    return;
+  }
+  const cart = options.cart?.length ? options.cart : items;
+  const checkoutUrl = options.checkoutUrl ?? `${origin}/shop`;
+  if (name === "add_to_cart") {
+    klaviyoTrack(
+      "Added to Cart",
+      klaviyoAddedToCartProps(first, cart, origin, checkoutUrl),
+    );
+    return;
+  }
+  if (name === "begin_checkout") {
+    klaviyoTrack(
+      "Started Checkout",
+      klaviyoCartProps(cart, origin, {
+        CheckoutURL: checkoutUrl,
+        $event_id: eventId,
+      }),
+    );
+  }
+}
+
+/**
+ * Tell Klaviyo who this browser belongs to. Call after any moment the visitor
+ * gives an email: a sign-up, a login, a purchase. Never reaches GA4 or Meta.
+ */
+export function identify(
+  email: string | null | undefined,
+  properties: Record<string, string> = {},
+): void {
+  if (!email) return;
+  klaviyoIdentify(email, properties);
+}
+
 function readCookie(name: string): string | undefined {
   if (typeof document === "undefined") return undefined;
   const hit = document.cookie
@@ -156,15 +266,26 @@ function readCookie(name: string): string | undefined {
 /** Build the canonical item shape from a cart line. */
 export function itemFromCartLine(line: {
   stripePriceId: string;
+  productHandle?: string;
   productTitle: string;
   variantTitle: string;
   unitAmountCents: number;
+  isSubscription?: boolean;
   quantity: number;
 }): AnalyticsItem {
+  const identity = identifyPrice(line.stripePriceId);
   return {
-    item_id: line.stripePriceId,
-    item_name: line.productTitle,
+    item_id:
+      identity?.id ??
+      (line.productHandle ? catalogIdForSlug(line.productHandle) : null) ??
+      line.productHandle ??
+      line.stripePriceId,
+    item_name: identity?.name ?? line.productTitle,
     item_variant: line.variantTitle,
+    purchase_type:
+      identity?.purchaseType ??
+      (line.isSubscription ? "subscription" : "onetime"),
+    price_id: line.stripePriceId,
     price: line.unitAmountCents / 100,
     quantity: line.quantity,
   };

@@ -6,7 +6,7 @@ import {
   type ProteinCadence,
 } from "lib/stripe-constants";
 import type { CartLineItem } from "./types";
-import { resolveMerchPriceId } from "./merch-config";
+import { defaultMerchLine, resolveMerchPriceId } from "./merch-config";
 
 /**
  * Resolves a Stripe Price ID to enough product metadata to render a cart line.
@@ -135,6 +135,17 @@ const PROTEIN_LINES: Record<ProteinKey, PriceIdResolution> = {
   "sub-6wk": proteinSubLine(6),
   "sub-8wk": proteinSubLine(8),
 };
+
+/**
+ * The cart line a product page shows by default (one-time, main size), by
+ * route slug. Analytics reads the default price and image from here, so a
+ * price change in this file is the only edit tracking ever needs.
+ */
+export function defaultLineForSlug(slug: string): PriceIdResolution | null {
+  if (slug === "mujo-ritual") return RITUAL_LINES["25-onetime"];
+  if (slug === "protein-powder") return PROTEIN_LINES.onetime;
+  return defaultMerchLine(slug);
+}
 
 /** Resolve any Mujo Stripe Price ID to a cart-line shape. Null if unknown. */
 export function resolvePriceId(

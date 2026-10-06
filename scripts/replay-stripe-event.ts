@@ -12,6 +12,8 @@
 //
 // Refuses to run against a live key. Klaviyo + Meta are switched off unless
 // --with-analytics is passed, so test orders never reach real reporting.
+// --print-analytics shows exactly what WOULD be sent to Klaviyo and Meta
+// without sending it: the way to check a tracking change against real orders.
 //
 // NOTE: the handlers write to whatever database .env.local points at, and
 // create real (test-flagged) orders in the Shopify store. Use a dedicated test
@@ -25,7 +27,23 @@ async function main() {
   if (!process.env.STRIPE_SECRET_KEY?.startsWith('sk_test')) {
     throw new Error('Refusing to run: STRIPE_SECRET_KEY is not a sandbox (sk_test) key.');
   }
-  if (!args.includes('--with-analytics')) {
+  if (args.includes('--print-analytics')) {
+    // Keep the senders switched on, but catch their requests before they leave.
+    process.env.KLAVIYO_PRIVATE_API_KEY ||= 'print-only';
+    process.env.META_CONVERSIONS_API_TOKEN ||= 'print-only';
+    process.env.NEXT_PUBLIC_META_PIXEL_ID ||= 'print-only';
+    const realFetch = globalThis.fetch;
+    globalThis.fetch = (async (input: RequestInfo | URL, init?: RequestInit) => {
+      const url = typeof input === 'string' ? input : input instanceof URL ? input.href : input.url;
+      if (/a\.klaviyo\.com|graph\.facebook\.com/.test(url)) {
+        const dest = url.includes('klaviyo') ? 'KLAVIYO' : 'META';
+        console.log(`\n[${dest}, not sent]`);
+        console.log(JSON.stringify(JSON.parse(String(init?.body ?? '{}')), null, 2));
+        return new Response('{}', { status: 200 });
+      }
+      return realFetch(input, init);
+    }) as typeof fetch;
+  } else if (!args.includes('--with-analytics')) {
     delete process.env.KLAVIYO_PRIVATE_API_KEY;
     delete process.env.KLAVIYO_PRIVATE_KEY;
     delete process.env.META_CONVERSIONS_API_TOKEN;
@@ -38,6 +56,7 @@ async function main() {
     'lib/webhook-handlers/payment-intent-succeeded'
   );
   const { handleChargeRefunded } = await import('lib/webhook-handlers/charge-refunded');
+  const { handleCheckoutExpired } = await import('lib/webhook-handlers/checkout-expired');
 
   const flag = (name: string) => {
     const i = args.indexOf(name);
@@ -73,9 +92,14 @@ async function main() {
     case 'charge.refunded':
       await handleChargeRefunded(event);
       break;
+    case 'checkout.session.expired':
+      await handleCheckoutExpired(event);
+      break;
     default:
       throw new Error(`No replay handler wired for ${event.type}`);
   }
+  // Analytics calls are fire-and-forget in the handlers; give them a moment.
+  await new Promise((r) => setTimeout(r, 1500));
   console.log('✓ handler finished');
 }
 

@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 export default function HatPdpPage() {
   return (
     <>
-      <ProductAnalytics itemId="mujo-hat" itemName="Baseball Cap" price={25} />
+      <ProductAnalytics slug="mujo-hat" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

@@ -2,7 +2,12 @@
 
 import { useEffect, useRef } from "react";
 import { useCart } from "components/cart/cart-context";
-import { track } from "lib/analytics";
+import {
+  track,
+  identify,
+  cartPurchaseType,
+  type AnalyticsItem,
+} from "lib/analytics";
 import { clearLocalStorage, makeEmptyCart } from "lib/cart/store";
 
 type Props = {
@@ -11,6 +16,10 @@ type Props = {
   amount: number;
   currency: string;
   email: string | null;
+  items: AnalyticsItem[];
+  /** Dollars. */
+  tax: number;
+  shipping: number;
 };
 
 /**
@@ -27,6 +36,9 @@ export function CheckoutSuccessClient({
   amount,
   currency,
   email,
+  items,
+  tax,
+  shipping,
 }: Props) {
   const { setCart } = useCart();
   const fired = useRef(false);
@@ -44,9 +56,17 @@ export function CheckoutSuccessClient({
         transaction_id: sessionId,
         value: amount / 100,
         currency: currency.toUpperCase(),
+        tax,
+        shipping,
+        items,
+        purchase_type: cartPurchaseType(items),
       },
       { eventId: eventId ?? sessionId },
     );
+
+    // A buyer is the best-known visitor there is: tie this browser to their
+    // Klaviyo profile so later visits are recognised.
+    identify(email);
 
     // Klaviyo client event — fire-and-forget. The webhook also fires
     // "Order Placed"; this is the *Viewed Confirmation* signal.
@@ -71,7 +91,17 @@ export function CheckoutSuccessClient({
     // Empty the local cart — the order is placed.
     setCart(makeEmptyCart());
     clearLocalStorage();
-  }, [eventId, sessionId, amount, currency, email, setCart]);
+  }, [
+    eventId,
+    sessionId,
+    amount,
+    currency,
+    email,
+    items,
+    tax,
+    shipping,
+    setCart,
+  ]);
 
   return null;
 }

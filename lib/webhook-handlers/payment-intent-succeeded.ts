@@ -11,6 +11,14 @@ import { db, orderMirror } from 'db';
 import { stripe } from 'lib/stripe';
 import { trackOrderPlaced } from 'lib/klaviyo';
 import { sendCapiEvent } from 'lib/meta-capi';
+import {
+  attributionFromMetadata,
+  capiUserData,
+  itemsFromPriceIds,
+  klaviyoAttributionProps,
+  metaCustomData,
+  SITE_ORIGIN,
+} from 'lib/analytics-server';
 import { createMirroredOrder, upsertCustomerForStripe } from './_helpers';
 import { factsFromGiftPaymentIntent } from './_order-facts';
 
@@ -185,16 +193,20 @@ export async function handlePaymentIntentSucceeded(event: Stripe.Event) {
   // For gifts, analytics fire under BUYER email (they're the one converting),
   // not the recipient — recipient gets Shopify shipping notifications.
   const eventId = pi.metadata?.mujo_event_id;
+  const analyticsItems = itemsFromPriceIds(
+    lineItems.map((li) => ({ priceId: li.price, quantity: li.quantity })),
+  );
+  const attribution = attributionFromMetadata(pi.metadata);
+  const currency = (pi.currency ?? 'usd').toUpperCase();
+  const value = pi.amount / 100;
+
   void trackOrderPlaced({
     email: buyerEmail,
     orderId: shopifyOrder.name,
-    value: pi.amount / 100,
-    currency: (pi.currency ?? 'usd').toUpperCase(),
-    items: lineItems.map((li) => ({
-      name: li.price,
-      quantity: li.quantity,
-      priceId: li.price,
-    })),
+    value,
+    currency,
+    items: analyticsItems,
+    attribution: klaviyoAttributionProps(attribution),
   }).catch((err) =>
     console.error('[pi.succeeded] Klaviyo Order Placed failed', err),
   );
@@ -203,13 +215,9 @@ export async function handlePaymentIntentSucceeded(event: Stripe.Event) {
     void sendCapiEvent({
       eventName: 'Purchase',
       eventId,
-      userData: { email: buyerEmail },
-      customData: {
-        currency: (pi.currency ?? 'usd').toUpperCase(),
-        value: pi.amount / 100,
-        num_items: lineItems.length,
-        content_ids: lineItems.map((li) => li.price),
-      },
+      eventSourceUrl: `${SITE_ORIGIN}/checkout`,
+      userData: capiUserData(buyerEmail, attribution),
+      customData: metaCustomData(analyticsItems, value, currency),
     }).catch((err) =>
       console.error('[pi.succeeded] Meta CAPI Purchase failed', err),
     );

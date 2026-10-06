@@ -7,6 +7,7 @@
     "prettier": "prettier --write --ignore-unknown .",
     "prettier:check": "prettier --check --ignore-unknown .",
     "test": "pnpm prettier:check",
+    "test:identity": "tsx scripts/smoke-product-identity.ts",
     "images:variants": "tsx scripts/generate-image-variants.ts",
     "images:lqip": "tsx scripts/generate-lqip.ts",
     "images:all": "pnpm images:variants && pnpm images:lqip"

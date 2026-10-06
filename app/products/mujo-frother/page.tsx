@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 export default function FrotherPdpPage() {
   return (
     <>
-      <ProductAnalytics itemId="mujo-frother" itemName="Electric Frother" price={20} />
+      <ProductAnalytics slug="mujo-frother" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

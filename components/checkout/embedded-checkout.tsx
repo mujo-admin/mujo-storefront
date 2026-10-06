@@ -5,10 +5,22 @@ import {
   EmbeddedCheckout,
 } from "@stripe/react-stripe-js";
 import { loadStripe, type Stripe as StripeJs } from "@stripe/stripe-js";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useCart } from "components/cart/cart-context";
 
-import { track, itemFromCartLine, itemsValue } from "lib/analytics";
+import {
+  track,
+  cartPurchaseType,
+  itemFromCartLine,
+  itemsValue,
+} from "lib/analytics";
+import { buildRestoreUrl } from "lib/cart/restore";
+import { trackingDeclined } from "lib/klaviyo-onsite";
+
+// Stripe sessions expire an hour after they are created (see
+// /api/checkout-session). A tab left open longer would show a dead form, so
+// the session is replaced shortly before that.
+const SESSION_REFRESH_AFTER_MS = 55 * 60 * 1000;
 const PUBLISHABLE_KEY =
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? "";
 
@@ -40,6 +52,12 @@ export function EmbeddedCheckoutMount() {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [creating, setCreating] = useState(false);
+  // Bumped by "Try again" so the session effect runs once more.
+  const [attempt, setAttempt] = useState(0);
+  // When the current session was created, and which cart has already been
+  // reported as a checkout start (a replaced session is not a second start).
+  const mintedAt = useRef<number | null>(null);
+  const reportedKey = useRef<string | null>(null);
 
   // Keyed off the line-item snapshot so cart edits before checkout fire a fresh
   // session. (After /checkout mounts, cart edits typically don't happen — but
@@ -73,6 +91,7 @@ export function EmbeddedCheckoutMount() {
           isSubscription: i.isSubscription,
         })),
         origin: window.location.origin,
+        trackingDeclined: trackingDeclined(),
       }),
     })
       .then(async (r) => {
@@ -87,15 +106,28 @@ export function EmbeddedCheckoutMount() {
       .then((data) => {
         if (cancelled) return;
         setClientSecret(data.clientSecret);
+        mintedAt.current = Date.now();
 
-        // begin_checkout. /api/checkout-session already sent InitiateCheckout
-        // to Meta's CAPI with this same eventId, so the pixel call below pairs
-        // with it and Meta counts one event. Not server-mirrored from here.
+        // begin_checkout, once per cart. /api/checkout-session already sent
+        // InitiateCheckout to Meta's CAPI with this same eventId, so the pixel
+        // call below pairs with it and Meta counts one event. Klaviyo gets
+        // "Started Checkout" with the whole cart and a link that rebuilds it.
+        if (reportedKey.current === itemsKey) return;
+        reportedKey.current = itemsKey;
         const items = cart.items.map(itemFromCartLine);
         track(
           "begin_checkout",
-          { items, value: itemsValue(items), currency: "USD" },
-          { eventId: data.eventId },
+          {
+            items,
+            value: itemsValue(items),
+            currency: "USD",
+            purchase_type: cartPurchaseType(items),
+          },
+          {
+            eventId: data.eventId,
+            cart: items,
+            checkoutUrl: buildRestoreUrl(cart.items, window.location.origin),
+          },
         );
       })
       .catch((err) => {
@@ -108,14 +140,51 @@ export function EmbeddedCheckoutMount() {
         );
       })
       .finally(() => {
-        if (!cancelled) setCreating(false);
+        // Not guarded by `cancelled`: storing the session re-runs this effect,
+        // and the flag must clear or no later session could ever be created.
+        setCreating(false);
       });
 
     return () => {
       cancelled = true;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hydrated, itemsKey]);
+  }, [hydrated, itemsKey, clientSecret, attempt]);
+
+  // The cart changed after a session was created: drop the old session so the
+  // effect above creates one that matches what is in the cart now.
+  const sessionKey = useRef<string | null>(null);
+  useEffect(() => {
+    if (!clientSecret) return;
+    if (sessionKey.current === null) {
+      sessionKey.current = itemsKey;
+      return;
+    }
+    if (sessionKey.current !== itemsKey) {
+      sessionKey.current = null;
+      setClientSecret(null);
+    }
+  }, [itemsKey, clientSecret]);
+
+  // Replace a session that is about to expire: when the shopper comes back to
+  // the tab, and on a slow timer in case the tab stayed in view.
+  useEffect(() => {
+    if (!clientSecret) return;
+    const refreshIfStale = () => {
+      if (document.visibilityState !== "visible") return;
+      const age = Date.now() - (mintedAt.current ?? Date.now());
+      if (age > SESSION_REFRESH_AFTER_MS) {
+        sessionKey.current = null;
+        setClientSecret(null);
+      }
+    };
+    document.addEventListener("visibilitychange", refreshIfStale);
+    const timer = window.setInterval(refreshIfStale, 60 * 1000);
+    return () => {
+      document.removeEventListener("visibilitychange", refreshIfStale);
+      window.clearInterval(timer);
+    };
+  }, [clientSecret]);
 
   if (!hydrated) {
     return <CheckoutShell><div className="checkout-loading">Loading your cart…</div></CheckoutShell>;
@@ -146,6 +215,7 @@ export function EmbeddedCheckoutMount() {
             onClick={() => {
               setError(null);
               setClientSecret(null);
+              setAttempt((n) => n + 1);
             }}
             className="checkout-retry-btn"
           >
@@ -167,6 +237,7 @@ export function EmbeddedCheckoutMount() {
   return (
     <CheckoutShell>
       <EmbeddedCheckoutProvider
+        key={clientSecret}
         stripe={getStripePromise()}
         options={{ clientSecret }}
       >

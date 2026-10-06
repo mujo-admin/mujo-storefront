@@ -2,39 +2,48 @@
 
 import { useEffect, useRef } from "react";
 import { track } from "lib/analytics";
+import { PRODUCTS, defaultPrice } from "lib/product-identity";
 
 type Props = {
-  /** Stripe Price ID of the default variant — the cart's primary key. */
-  itemId: string;
-  itemName: string;
-  /** Major units (dollars). The price shown by default on the page. */
-  price: number;
+  /** Route slug (`mujo-ritual`). ID, name and price resolve from it. */
+  slug: string;
 };
 
 /**
  * <ProductAnalytics /> — fires `view_item` once per PDP view.
  *
  * PDPs are largely imported HTML, so there's no React component owning the
- * product to hang this off. Each PDP route renders this with the same facts it
- * already passes to `productSchema()` for JSON-LD, keeping one set of numbers.
+ * product to hang this off. Each PDP route renders this with its slug only:
+ * the product ID, name and price come from `lib/product-identity.ts`, which
+ * reads the same price map the cart does. No numbers are typed into pages.
  *
- * `view_item` is server-mirrored to Meta (see docs/measurement-plan.md) — it's
- * the signal that makes product retargeting and catalogue ads possible, and
- * right now Mujo sends none.
+ * `view_item` is server-mirrored to Meta and sent to Klaviyo as "Viewed
+ * Product" (see docs/measurement-plan.md). It is the signal behind product
+ * retargeting, catalogue ads and the browse abandonment email.
  */
-export function ProductAnalytics({ itemId, itemName, price }: Props) {
+export function ProductAnalytics({ slug }: Props) {
   const fired = useRef(false);
 
   useEffect(() => {
     if (fired.current) return;
+    const product = PRODUCTS[slug];
+    if (!product) return;
     fired.current = true;
 
+    const price = defaultPrice(slug);
     track("view_item", {
-      items: [{ item_id: itemId, item_name: itemName, price, quantity: 1 }],
+      items: [
+        {
+          item_id: product.id,
+          item_name: product.name,
+          price,
+          quantity: 1,
+        },
+      ],
       value: price,
       currency: "USD",
     });
-  }, [itemId, itemName, price]);
+  }, [slug]);
 
   return null;
 }

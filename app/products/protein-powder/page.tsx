@@ -41,7 +41,7 @@ export const metadata: Metadata = {
 export default function ProteinPdpPage() {
   return (
     <>
-      <ProductAnalytics itemId="protein-powder" itemName="Mujo Protein Powder" price={45} />
+      <ProductAnalytics slug="protein-powder" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

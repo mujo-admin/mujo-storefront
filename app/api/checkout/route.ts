@@ -11,7 +11,7 @@ import {
   SUPPORTED_COUNTRIES,
 } from 'lib/stripe-constants';
 import { resolveMerchPriceId } from 'lib/cart/merch-config';
-import { trackStartedCheckout } from 'lib/klaviyo';
+import { itemsFromPriceIds, itemsValue, metaCustomData } from 'lib/analytics-server';
 import { sendCapiEvent } from 'lib/meta-capi';
 import { randomUUID } from 'node:crypto';
 
@@ -191,21 +191,14 @@ export async function POST(req: NextRequest) {
     const eventId = randomUUID();
     const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim();
     const userAgent = req.headers.get('user-agent') ?? undefined;
-    const cartValue = parsed.line_items.reduce((s, li) => s + li.quantity, 0);
-
-    if (parsed.customer_email) {
-      void trackStartedCheckout({
-        email: parsed.customer_email,
-        value: cartValue,
-        currency: 'USD',
-        items: parsed.line_items.map((li) => ({
-          name: li.stripe_price_id,
-          quantity: li.quantity,
-          priceId: li.stripe_price_id,
-          isSubscription: li.is_subscription === true,
-        })),
-      }).catch((err) => console.error('[checkout] Klaviyo track failed', err));
-    }
+    // Klaviyo "Started Checkout" is sent by the browser only (one origin per
+    // metric, see docs/measurement-plan.md).
+    const analyticsItems = itemsFromPriceIds(
+      parsed.line_items.map((li) => ({
+        priceId: li.stripe_price_id,
+        quantity: li.quantity,
+      })),
+    );
 
     void sendCapiEvent({
       eventName: 'InitiateCheckout',
@@ -216,11 +209,7 @@ export async function POST(req: NextRequest) {
         clientIpAddress: ip,
         clientUserAgent: userAgent,
       },
-      customData: {
-        currency: 'USD',
-        num_items: parsed.line_items.length,
-        content_ids: parsed.line_items.map((li) => li.stripe_price_id),
-      },
+      customData: metaCustomData(analyticsItems, itemsValue(analyticsItems)),
     }).catch((err) => console.error('[checkout] Meta CAPI failed', err));
 
     return Response.json({
