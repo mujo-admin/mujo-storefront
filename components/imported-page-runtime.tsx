@@ -109,7 +109,7 @@ function flashOptionGroups() {
   const groups = document.querySelectorAll<HTMLElement>(".option-group");
   groups.forEach((g) => {
     g.style.transition = "outline 0.32s ease-out";
-    g.style.outline = "2px solid var(--orange, #f2682f)";
+    g.style.outline = "2px solid var(--orange, #B8481A)";
     g.style.outlineOffset = "8px";
   });
   window.setTimeout(() => {
@@ -148,6 +148,11 @@ const SIGNUP_FORMS: Record<
     list: "lemna_waitlist",
     source: "Lemna waitlist",
     success: "You're on the founding-member list. Watch your inbox.",
+  },
+  "protein-waitlist": {
+    list: "rebel_club",
+    source: "Protein powder page",
+    success: "You're in. Your 10% code is on its way to your inbox.",
   },
 };
 

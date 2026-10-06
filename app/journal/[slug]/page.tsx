@@ -94,7 +94,7 @@ export async function generateMetadata({
   const post = PUBLISHED[slug];
   if (!post) notFound();
   return {
-    title: `${post.title} · Mujo Journal`,
+    title: post.title,
     description: post.description,
     alternates: { canonical: `/journal/${slug}` },
   };

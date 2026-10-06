@@ -1,4 +1,10 @@
-import { RITUAL_PRICE_IDS, type RitualCadence } from "lib/stripe-constants";
+import {
+  RITUAL_PRICE_IDS,
+  RITUAL_LEGACY_SUB_PRICE_IDS,
+  PROTEIN_PRICE_IDS,
+  type RitualCadence,
+  type ProteinCadence,
+} from "lib/stripe-constants";
 import type { CartLineItem } from "./types";
 import { resolveMerchPriceId } from "./merch-config";
 
@@ -29,7 +35,7 @@ type PriceIdResolution = Pick<
 // Cart line-item thumbnails. Point at real square masters in public/images —
 // the old /products/*.png paths didn't exist and rendered a broken-image box.
 const RITUAL_IMAGE_25 = {
-  url: "/images/products/ritual/ritual-pouch-hero-monumental-editorial-1x1.webp",
+  url: "/images/products/ritual/ritual-pouch-hero-monumental-editorial-2026-09-1x1.webp",
   alt: "The Mujo Ritual pouch",
 };
 const RITUAL_IMAGE_10 = {
@@ -56,7 +62,7 @@ const RITUAL_LINES: Record<RitualKey, PriceIdResolution> = {
     productTitle: "The Ritual",
     variantTitle: "25 servings · One-time",
     image: RITUAL_IMAGE_25,
-    unitAmountCents: 6500,
+    unitAmountCents: 6000,
     currency: "usd",
     isSubscription: false,
   },
@@ -65,7 +71,7 @@ const RITUAL_LINES: Record<RitualKey, PriceIdResolution> = {
     productTitle: "The Ritual",
     variantTitle: "25 servings · Subscribe · every 4 weeks",
     image: RITUAL_IMAGE_25,
-    unitAmountCents: 5525,
+    unitAmountCents: 5000,
     currency: "usd",
     isSubscription: true,
   },
@@ -74,7 +80,7 @@ const RITUAL_LINES: Record<RitualKey, PriceIdResolution> = {
     productTitle: "The Ritual",
     variantTitle: "25 servings · Subscribe · every 6 weeks",
     image: RITUAL_IMAGE_25,
-    unitAmountCents: 5525,
+    unitAmountCents: 5000,
     currency: "usd",
     isSubscription: true,
   },
@@ -83,7 +89,7 @@ const RITUAL_LINES: Record<RitualKey, PriceIdResolution> = {
     productTitle: "The Ritual",
     variantTitle: "25 servings · Subscribe · every 8 weeks",
     image: RITUAL_IMAGE_25,
-    unitAmountCents: 5525,
+    unitAmountCents: 5000,
     currency: "usd",
     isSubscription: true,
   },
@@ -92,10 +98,42 @@ const RITUAL_LINES: Record<RitualKey, PriceIdResolution> = {
     productTitle: "The Ritual",
     variantTitle: "25 servings · Subscribe · every 12 weeks",
     image: RITUAL_IMAGE_25,
-    unitAmountCents: 5525,
+    unitAmountCents: 5000,
     currency: "usd",
     isSubscription: true,
   },
+};
+
+const PROTEIN_IMAGE = {
+  url: "/images/responsive/products/protein-powder/powder-pouch-front-2026-09-400.webp",
+  alt: "Mujo Protein Powder pouch, Vanilla Bean",
+};
+type ProteinKey = keyof typeof PROTEIN_PRICE_IDS;
+function proteinSubLine(weeks: number): PriceIdResolution {
+  return {
+    productHandle: "protein-powder",
+    productTitle: "Protein Powder",
+    variantTitle: `Vanilla Bean · Pre-order · every ${weeks} weeks`,
+    image: PROTEIN_IMAGE,
+    unitAmountCents: 3825,
+    currency: "usd",
+    isSubscription: true,
+  };
+}
+const PROTEIN_LINES: Record<ProteinKey, PriceIdResolution> = {
+  onetime: {
+    productHandle: "protein-powder",
+    productTitle: "Protein Powder",
+    variantTitle: "Vanilla Bean · Pre-order · One-time",
+    image: PROTEIN_IMAGE,
+    unitAmountCents: 4500,
+    currency: "usd",
+    isSubscription: false,
+  },
+  "sub-2wk": proteinSubLine(2),
+  "sub-4wk": proteinSubLine(4),
+  "sub-6wk": proteinSubLine(6),
+  "sub-8wk": proteinSubLine(8),
 };
 
 /** Resolve any Mujo Stripe Price ID to a cart-line shape. Null if unknown. */
@@ -106,6 +144,20 @@ export function resolvePriceId(
   for (const key of Object.keys(RITUAL_PRICE_IDS) as RitualKey[]) {
     if (RITUAL_PRICE_IDS[key] === stripePriceId) {
       return RITUAL_LINES[key];
+    }
+  }
+  // Existing subscribers still on a pre-2026-10 Price. Amount shown to them
+  // comes from Stripe, not from here.
+  if (RITUAL_LEGACY_SUB_PRICE_IDS.includes(stripePriceId)) {
+    return {
+      ...RITUAL_LINES["25-subscription"],
+      variantTitle: "25 servings · Subscribe",
+      unitAmountCents: 5525,
+    };
+  }
+  for (const key of Object.keys(PROTEIN_PRICE_IDS) as ProteinKey[]) {
+    if (PROTEIN_PRICE_IDS[key] && PROTEIN_PRICE_IDS[key] === stripePriceId) {
+      return PROTEIN_LINES[key];
     }
   }
   const merch = resolveMerchPriceId(stripePriceId);
@@ -151,4 +203,15 @@ export function resolveRitualSelection(
   const stripePriceId = RITUAL_PRICE_IDS[key];
   if (!stripePriceId) return null;
   return { stripePriceId, line: RITUAL_LINES[key] };
+}
+
+/** Protein Powder: (plan, cadence) → Stripe Price ID + cart-line metadata. */
+export function resolveProteinSelection(
+  plan: "onetime" | "subscription",
+  cadence: ProteinCadence = "4wk",
+): { stripePriceId: string; line: PriceIdResolution } | null {
+  const key: ProteinKey = plan === "onetime" ? "onetime" : (`sub-${cadence}` as ProteinKey);
+  const stripePriceId = PROTEIN_PRICE_IDS[key];
+  if (!stripePriceId) return null;
+  return { stripePriceId, line: PROTEIN_LINES[key] };
 }

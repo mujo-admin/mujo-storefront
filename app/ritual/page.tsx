@@ -3,15 +3,14 @@ import { ImportedPage } from "components/imported-page";
 import { webPageSchema, mujoBrand, jsonLdScript } from "lib/schema";
 
 export const metadata: Metadata = {
-  title: "Mujo Ritual · The morning ritual for people who read the label",
+  title: "A Coffee Alternative Without the Jitters",
   description:
-    "A warm, caffeine-light mushroom cacao with lion's mane, cordyceps, chaga, rhodiola, ashwagandha, and a bioavailable curcumin. Steady energy, no crash.",
+    "Meet the Ritual: a mushroom cacao that tastes like a smooth mocha, with under 5mg of caffeine. The morning that doesn't start with a jolt.",
   alternates: { canonical: "/ritual" },
   openGraph: {
     type: "website",
-    title: "Mujo Ritual · The morning ritual",
-    description:
-      "Caffeine-light mushroom cacao for steady energy. No crash. Read the label.",
+    title: "The Ritual",
+    description: "Meet the Ritual: a mushroom cacao that tastes like a smooth mocha, with under 5mg of caffeine. The morning that doesn't start with a jolt.",
   },
 };
 
@@ -26,7 +25,7 @@ export default function RitualLandingPage() {
               url: "/ritual",
               name: "Mujo Ritual landing",
               description:
-                "Caffeine-light mushroom cacao for steady energy. No crash.",
+                "Caffeine-light mushroom coffee alternative for steady energy. No crash.",
             }),
           ),
         }}

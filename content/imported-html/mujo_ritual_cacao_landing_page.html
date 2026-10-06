@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mujo Ritual. The morning ritual for people who read the label</title>
-<meta name="description" content="A warm mushroom-and-adaptogen cacao made to replace your coffee. Rhodiola for everyday stress, cordyceps for steady energy, under 5mg of caffeine.">
+<meta name="description" content="A warm mushroom-and-adaptogen cacao made to replace your coffee. Panax Ginseng for everyday stress, cordyceps for steady energy, under 5mg of caffeine.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!--
@@ -15,16 +15,16 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --orange: #F2682F;
-  --orange-deep: #D85A22;
-  --orange-soft: #FDEFE6;
+  --orange: #B8481A;
+  --orange-deep: #9E3C14;
+  --orange-soft: #F3EAE0;
   --cream: #F3F2E9;
   --sand: #EEE9E0;
   --sand-deep: #D4C4A8;
-  --sage: #2F3D33;
-  --sage-mid: #3D4D40;
-  --sage-light: #8FA396;
-  --sage-tint: rgba(47, 61, 51, 0.08);
+  --sage: #2A1810;
+  --sage-mid: #3B2A22;
+  --sage-light: #9D7F69;
+  --sage-tint: rgba(42, 24, 16, 0.08);
   --ink: #1A1A1A;
   --ink-soft: #4A4845;
   --mute: #5C5854;
@@ -51,8 +51,8 @@ body {
 
 @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 @keyframes pulse {
-  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(242,104,47,0.35); }
-  60% { transform: scale(1.04); box-shadow: 0 0 0 14px rgba(242,104,47,0); }
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(184, 72, 26,0.35); }
+  60% { transform: scale(1.04); box-shadow: 0 0 0 14px rgba(184, 72, 26,0); }
 }
 @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
 @keyframes drawLine { from { stroke-dashoffset: 1000; } to { stroke-dashoffset: 0; } }
@@ -69,7 +69,7 @@ body {
   font-size: 11px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--orange-deep);
+  color: var(--accent-text);
   display: inline-block;
   font-weight: 500;
 }
@@ -123,10 +123,10 @@ section { padding: 88px 0; position: relative; }
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   white-space: nowrap;
 }
-.btn-primary { background: var(--orange); color: #fff; border-color: var(--orange); }
-.btn-primary:hover { background: var(--orange-deep); border-color: var(--orange-deep); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(242, 104, 47, 0.3); }
+.btn-primary { background: var(--btn-bg); color: var(--btn-fg); border-color: transparent; }
+.btn-primary:hover { background: var(--btn-bg-hover); border-color: transparent; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(184, 72, 26, 0.3); }
 .btn-ghost { background: transparent; color: var(--ink); border-color: rgba(26,26,26,0.2); }
-.btn-ghost:hover { border-color: var(--orange); color: var(--orange); }
+.btn-ghost:hover { border-color: var(--orange); color: var(--accent-text); }
 .btn-arrow { transition: transform 0.25s; }
 .btn:hover .btn-arrow { transform: translateX(4px); }
 .cta-stack { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
@@ -144,9 +144,8 @@ section { padding: 88px 0; position: relative; }
   padding: 10px 24px;
   font-size: 13px;
   position: relative;
-  z-index: 200;
-}
-.announce strong { color: var(--orange); font-weight: 500; }
+  z-index: 200; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
+.announce strong { color: var(--accent-text); font-weight: 500; }
 .announce .sep { opacity: 0.4; margin: 0 10px; }
 
 /* ═══ NAV (minimal on ad landing) ═══ */
@@ -169,7 +168,7 @@ nav {
   font-size: 22px;
   font-weight: 600;
   letter-spacing: -0.04em;
-  color: var(--orange);
+  color: var(--accent-text);
   text-decoration: none;
 }
 .nav-right { display: flex; align-items: center; gap: 18px; }
@@ -179,8 +178,8 @@ nav {
   text-decoration: none;
 }
 .nav-cta {
-  background: var(--orange);
-  color: #fff;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
   padding: 9px 20px;
   border-radius: var(--r-pill);
   font-size: 13px;
@@ -190,7 +189,7 @@ nav {
   cursor: pointer;
   transition: all 0.2s;
 }
-.nav-cta:hover { background: var(--orange-deep); }
+.nav-cta:hover { background: var(--btn-bg-hover); }
 @media (max-width: 700px) { .nav-link { display: none; } }
 
 /* ═══════════════════════════════════════════
@@ -235,7 +234,7 @@ nav {
 }
 .citation-mark {
   flex-shrink: 0;
-  color: var(--orange);
+  color: var(--accent-text);
   font-size: 14px;
   margin-top: 2px;
 }
@@ -259,7 +258,7 @@ nav {
   gap: 12px;
   margin-bottom: 28px;
 }
-.hero-stars { color: var(--orange); letter-spacing: 2px; font-size: 14px; }
+.hero-stars { color: var(--accent-text); letter-spacing: 2px; font-size: 14px; }
 .hero-rating-text { font-size: 13px; color: var(--mute); }
 .hero-rating-text strong { color: var(--ink); font-weight: 500; }
 
@@ -284,8 +283,7 @@ nav {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: var(--sage);
-}
+  background: var(--sage); --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 
 /* Scroll cue */
 .scroll-cue {
@@ -304,7 +302,7 @@ nav {
 }
 .scroll-arr {
   font-size: 14px;
-  color: var(--orange);
+  color: var(--accent-text);
   animation: bounce 1.8s ease-in-out infinite;
 }
 
@@ -345,7 +343,7 @@ nav {
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(242, 104, 47, 0.12) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(184, 72, 26, 0.12) 0%, transparent 70%);
 }
 .ph-label {
   font-family: var(--f-mono);
@@ -384,7 +382,7 @@ nav {
   font-family: var(--f-display);
   font-size: 20px;
   font-weight: 500;
-  color: var(--orange);
+  color: var(--accent-text);
   line-height: 1;
   letter-spacing: -0.02em;
 }
@@ -414,15 +412,14 @@ nav {
   color: #fff;
   padding: 120px 0;
   position: relative;
-  overflow: hidden;
-}
+  overflow: hidden; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 .problem::before {
   content: '';
   position: absolute;
   inset: 0;
   background-image:
     radial-gradient(circle at 20% 30%, rgba(143, 163, 150, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(242, 104, 47, 0.06) 0%, transparent 50%);
+    radial-gradient(circle at 80% 70%, rgba(184, 72, 26, 0.06) 0%, transparent 50%);
   pointer-events: none;
 }
 .problem .container { position: relative; z-index: 1; }
@@ -431,7 +428,7 @@ nav {
   margin-bottom: 48px;
 }
 .problem h2 { color: #fff; margin-top: 20px; }
-.problem h2 .serif-accent { color: var(--orange); }
+.problem h2 .serif-accent { color: var(--accent-text); }
 
 .problem-grid {
   display: grid;
@@ -501,7 +498,7 @@ nav {
   font-family: var(--f-display);
   font-size: 42px;
   font-weight: 500;
-  color: var(--orange);
+  color: var(--accent-text);
   line-height: 1;
   letter-spacing: -0.03em;
 }
@@ -542,7 +539,7 @@ nav {
   font-size: 11px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--orange);
+  color: var(--accent-text);
   margin-bottom: 14px;
   display: flex;
   align-items: center;
@@ -597,8 +594,7 @@ nav {
   border-radius: var(--r-structural);
   box-shadow: var(--s3);
   position: relative;
-  overflow: hidden;
-}
+  overflow: hidden; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 .video-ph video {
   display: block;
   width: 100%;
@@ -614,7 +610,7 @@ nav {
   align-items: center;
   justify-content: center;
   transition: all 0.25s;
-  box-shadow: 0 4px 24px rgba(242, 104, 47, 0.5);
+  box-shadow: 0 4px 24px rgba(184, 72, 26, 0.5);
 }
 .video-ph:hover .play-btn { transform: scale(1.1); }
 .video-ph-txt { text-align: center; }
@@ -765,7 +761,7 @@ nav {
   padding: 24px;
 }
 .pstars {
-  color: var(--orange);
+  color: var(--accent-text);
   font-size: 13px;
   letter-spacing: 2px;
   margin-bottom: 10px;
@@ -830,7 +826,7 @@ nav {
   font-family: var(--f-display);
   font-size: 32px;
   font-weight: 500;
-  color: var(--orange);
+  color: var(--accent-text);
   line-height: 1;
   letter-spacing: -0.02em;
 }
@@ -858,8 +854,7 @@ nav {
    ═══════════════════════════════════════════ */
 .quiz-cta {
   background: var(--sage);
-  padding: 80px 0;
-}
+  padding: 80px 0; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 .qcs-inner {
   max-width: 700px;
   margin: 0 auto;
@@ -1045,7 +1040,7 @@ nav {
   font-weight: 500;
   letter-spacing: 0.04em;
 }
-.id-tag::before { content: '✓'; color: var(--orange); }
+.id-tag::before { content: '✓'; color: var(--accent-text); }
 .id-tag.unique {
   background: var(--orange);
   color: #fff;
@@ -1073,9 +1068,8 @@ nav {
   border-radius: var(--r-structural);
   display: flex;
   align-items: flex-start;
-  gap: 13px;
-}
-.ico { font-size: 18px; flex-shrink: 0; color: var(--orange); }
+  gap: 13px; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
+.ico { font-size: 18px; flex-shrink: 0; color: var(--accent-text); }
 .ico img { width: 20px; height: 20px; display: block; }
 .itxt {
   font-size: 13px;
@@ -1151,13 +1145,13 @@ nav {
   flex-shrink: 0;
 }
 .compare-cell.us {
-  background: rgba(242, 104, 47, 0.06);
+  background: rgba(184, 72, 26, 0.06);
   color: var(--ink);
   font-weight: 500;
 }
 .compare-cell.us::before {
   content: '✓';
-  color: var(--orange);
+  color: var(--accent-text);
   font-weight: 700;
   margin-right: 10px;
   flex-shrink: 0;
@@ -1309,7 +1303,7 @@ nav {
   font-family: var(--f-display);
   letter-spacing: -0.01em;
 }
-.objqi { font-size: 17px; flex-shrink: 0; color: var(--orange); }
+.objqi { font-size: 17px; flex-shrink: 0; color: var(--accent-text); }
 .obja {
   font-size: 14px;
   line-height: 1.75;
@@ -1328,15 +1322,14 @@ nav {
 .pric {
   background: var(--sage);
   color: #fff;
-  padding: 112px 0;
-}
+  padding: 112px 0; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 .pric .eyebrow { color: var(--sage-light); }
 .pric h2 { color: #fff; }
-.pric h2 .serif-accent { color: var(--orange); }
+.pric h2 .serif-accent { color: var(--accent-text); }
 
 .panchor {
-  background: rgba(242, 104, 47, 0.12);
-  border: 1px solid rgba(242, 104, 47, 0.25);
+  background: rgba(184, 72, 26, 0.12);
+  border: 1px solid rgba(184, 72, 26, 0.25);
   border-radius: var(--r-structural);
   padding: 14px 20px;
   margin-bottom: 34px;
@@ -1362,7 +1355,7 @@ nav {
 }
 .pcard.feat {
   border-color: var(--orange);
-  background: rgba(242, 104, 47, 0.09);
+  background: rgba(184, 72, 26, 0.09);
 }
 .pbpill {
   position: absolute;
@@ -1380,7 +1373,7 @@ nav {
 }
 .ptype {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.68);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   font-family: var(--f-mono);
@@ -1400,13 +1393,13 @@ nav {
 }
 .pwas {
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.62);
   text-decoration: line-through;
   margin-top: 3px;
 }
 .pper {
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.68);
   margin-top: 3px;
 }
 .pdiv {
@@ -1437,7 +1430,7 @@ nav {
   background: rgba(255, 255, 255, 0.04);
   border-radius: var(--r-structural);
 }
-.gicon { font-size: 19px; flex-shrink: 0; color: var(--orange); }
+.gicon { font-size: 19px; flex-shrink: 0; color: var(--accent-text); }
 .gicon svg { width: 20px; height: 20px; display: block; }
 .gtxt {
   font-size: 13px;
@@ -1471,10 +1464,10 @@ nav {
 }
 .btwh:hover { background: var(--cream); transform: translateY(-1px); }
 .btwh.primary {
-  background: var(--orange);
-  color: #fff;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
 }
-.btwh.primary:hover { background: var(--orange-deep); box-shadow: 0 8px 24px rgba(242,104,47,0.3); }
+.btwh.primary:hover { background: var(--btn-bg-hover); box-shadow: 0 8px 24px rgba(184, 72, 26,0.3); }
 
 .prrh {
   font-family: var(--f-display);
@@ -1545,11 +1538,11 @@ nav {
   width: 600px;
   height: 600px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(242, 104, 47, 0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(184, 72, 26, 0.08) 0%, transparent 70%);
   pointer-events: none;
 }
 .fcta .container { position: relative; z-index: 1; }
-.fcta .eyebrow.center { color: var(--orange-deep); }
+.fcta .eyebrow.center { color: var(--accent-text); }
 .fctah {
   font-family: var(--f-display);
   font-size: clamp(26px, 2.8vw, 36px);
@@ -1575,14 +1568,14 @@ nav {
   line-height: 1.6;
 }
 .fcta .btn-primary {
-  background: var(--orange);
-  color: #fff;
-  border-color: var(--orange);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  border-color: transparent;
 }
 .fcta .btn-primary:hover {
-  background: var(--orange-deep);
-  border-color: var(--orange-deep);
-  box-shadow: 0 8px 24px rgba(242, 104, 47, 0.3);
+  background: var(--btn-bg-hover);
+  border-color: transparent;
+  box-shadow: 0 8px 24px rgba(184, 72, 26, 0.3);
 }
 .ftrust {
   margin-top: 24px;
@@ -1609,14 +1602,13 @@ footer {
   background: var(--sage);
   color: rgba(255, 255, 255, 0.5);
   padding: 40px 0;
-  text-align: left;
-}
+  text-align: left; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 .flogo {
   font-family: var(--f-display);
   font-size: 24px;
   font-weight: 600;
   letter-spacing: -0.04em;
-  color: var(--orange);
+  color: var(--accent-text);
   margin-bottom: 12px;
   text-decoration: none;
   display: inline-block;
@@ -1661,14 +1653,13 @@ footer {
   gap: 16px;
   transform: translateY(100%);
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  border-top: 2px solid var(--orange);
-}
+  border-top: 2px solid var(--orange); --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 .sbar.show { transform: translateY(0); }
 .sb-l { display: flex; align-items: center; gap: 12px; }
 .sb-emoji { font-size: 22px; }
 .sb-name { font-size: 14px; font-weight: 500; color: #fff; }
 .sb-sub { font-size: 12px; color: rgba(255, 255, 255, 0.42); margin-top: 1px; }
-.sb-stars { color: var(--orange); font-size: 11px; letter-spacing: 1px; }
+.sb-stars { color: var(--accent-text); font-size: 11px; letter-spacing: 1px; }
 .sb-r { display: flex; align-items: center; gap: 14px; }
 .sb-price {
   font-family: var(--f-display);
@@ -1685,8 +1676,8 @@ footer {
   font-weight: 400;
 }
 .sb-btn {
-  background: var(--orange);
-  color: #fff;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
   padding: 10px 22px;
   border-radius: var(--r-pill);
   font-size: 13px;
@@ -1697,7 +1688,7 @@ footer {
   white-space: nowrap;
   transition: all 0.2s;
 }
-.sb-btn:hover { background: var(--orange-deep); }
+.sb-btn:hover { background: var(--btn-bg-hover); }
 .sb-x {
   background: none;
   border: none;
@@ -1729,7 +1720,7 @@ footer {
   font-weight: 500;
   cursor: pointer;
   border: none;
-  box-shadow: 0 4px 20px rgba(242, 104, 47, 0.45);
+  box-shadow: 0 4px 20px rgba(184, 72, 26, 0.45);
   animation: pulse 3s ease-in-out 4s infinite;
   opacity: 0;
   pointer-events: none;
@@ -1764,8 +1755,7 @@ footer {
   max-height: 90vh;
   overflow-y: auto;
   transform: translateY(100%);
-  transition: transform 0.4s cubic-bezier(0.34, 1.06, 0.64, 1);
-}
+  transition: transform 0.4s cubic-bezier(0.34, 1.06, 0.64, 1); --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 .qs-overlay.on .qs-sheet { transform: translateY(0); }
 .qs-handle {
   width: 36px;
@@ -1841,7 +1831,7 @@ footer {
 }
 .qs-tile.sel {
   border-color: var(--orange);
-  background: rgba(242, 104, 47, 0.14);
+  background: rgba(184, 72, 26, 0.14);
 }
 .qt-em {
   font-size: 20px;
@@ -1863,8 +1853,8 @@ footer {
 }
 
 .qs-offer {
-  background: rgba(242, 104, 47, 0.1);
-  border: 1px solid rgba(242, 104, 47, 0.25);
+  background: rgba(184, 72, 26, 0.1);
+  border: 1px solid rgba(184, 72, 26, 0.25);
   border-radius: var(--r-structural);
   padding: 16px 18px;
   margin-bottom: 18px;
@@ -1915,8 +1905,8 @@ footer {
   width: 100%;
   padding: 15px;
   border-radius: var(--r-pill);
-  background: var(--orange);
-  color: #fff;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
   border: none;
   font-size: 15px;
   font-weight: 500;
@@ -1928,7 +1918,7 @@ footer {
   gap: 8px;
   font-family: var(--f-body);
 }
-.qs-submit:hover { background: var(--orange-deep); transform: translateY(-1px); }
+.qs-submit:hover { background: var(--btn-bg-hover); transform: translateY(-1px); }
 .qs-privacy {
   font-size: 11px;
   color: rgba(255, 255, 255, 0.2);
@@ -2011,8 +2001,8 @@ footer {
 }
 .res-body strong { color: #fff; font-weight: 500; }
 .res-pdf {
-  background: rgba(242, 104, 47, 0.12);
-  border: 1px solid rgba(242, 104, 47, 0.28);
+  background: rgba(184, 72, 26, 0.12);
+  border: 1px solid rgba(184, 72, 26, 0.28);
   border-radius: var(--r-structural);
   padding: 14px 16px;
   margin-bottom: 16px;
@@ -2023,7 +2013,7 @@ footer {
 .res-pdf-icon {
   font-size: 28px;
   flex-shrink: 0;
-  color: var(--orange);
+  color: var(--accent-text);
 }
 .res-pdf-text {
   font-size: 13px;
@@ -2043,7 +2033,7 @@ footer {
   color: rgba(255, 255, 255, 0.55);
 }
 .res-code strong {
-  color: var(--orange);
+  color: var(--accent-text);
   font-size: 16px;
   font-family: var(--f-mono);
   letter-spacing: 0.08em;
@@ -2052,8 +2042,8 @@ footer {
   width: 100%;
   padding: 15px;
   border-radius: var(--r-pill);
-  background: var(--orange);
-  color: #fff;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
   border: none;
   font-size: 15px;
   font-weight: 500;
@@ -2065,7 +2055,7 @@ footer {
   text-decoration: none;
   transition: all 0.2s;
 }
-.res-cta:hover { background: var(--orange-deep); }
+.res-cta:hover { background: var(--btn-bg-hover); }
 
 @media (max-width: 560px) {
   .qs-tiles { grid-template-columns: 1fr; }
@@ -2086,8 +2076,7 @@ footer {
   opacity: 0;
   pointer-events: none;
   transform: translateY(14px);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 .geo-banner.show { opacity: 1; pointer-events: all; transform: translateY(0); }
 .geo-close {
   position: absolute;
@@ -2133,7 +2122,7 @@ footer {
   transition: all 0.18s;
 }
 .geo-opt:hover, .geo-opt.sel {
-  background: rgba(242, 104, 47, 0.2);
+  background: rgba(184, 72, 26, 0.2);
   border-color: var(--orange);
   color: #fff;
 }
@@ -2194,7 +2183,7 @@ footer {
   line-height: 1;
 }
 .ecl:hover { color: var(--ink); }
-.eemoji { font-size: 36px; margin-bottom: 12px; display: block; color: var(--orange); }
+.eemoji { font-size: 36px; margin-bottom: 12px; display: block; color: var(--accent-text); }
 .eh {
   font-family: var(--f-display);
   font-size: 22px;
@@ -2213,7 +2202,7 @@ footer {
 .es strong { color: var(--ink); font-weight: 500; }
 .eform {
   display: flex;
-  gap: 9px;
+  gap: 14px;
 }
 .einput {
   flex: 1;
@@ -2229,8 +2218,8 @@ footer {
 }
 .einput:focus { border-color: var(--orange); }
 .ebtn {
-  background: var(--orange);
-  color: #fff;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
   border: none;
   padding: 13px 20px;
   border-radius: var(--r-pill);
@@ -2241,7 +2230,7 @@ footer {
   transition: background 0.2s;
   font-family: var(--f-body);
 }
-.ebtn:hover { background: var(--orange-deep); }
+.ebtn:hover { background: var(--btn-bg-hover); }
 .exit-success {
   background: rgba(143, 163, 150, 0.15);
   color: var(--sage);
@@ -2294,10 +2283,10 @@ footer {
 </style>
 <style id="mujo-canonical-nav">
 :root {
-  --orange: #F2682F; --orange-deep: #D85A22; --orange-soft: #FDEFE6;
+  --orange: #B8481A; --orange-deep: #9E3C14; --orange-soft: #F3EAE0;
   --cream: #F3F2E9; --sand: #EEE9E0; --sand-deep: #D4C4A8;
-  --sage: #2F3D33; --sage-mid: #3D4D40; --sage-light: #8FA396;
-  --sage-tint: rgba(47, 61, 51, 0.08);
+  --sage: #2A1810; --sage-mid: #3B2A22; --sage-light: #9D7F69;
+  --sage-tint: rgba(42, 24, 16, 0.08);
   --ink: #1A1A1A; --ink-soft: #4A4845; --mute: #5C5854;
   --line: rgba(26, 26, 26, 0.09); --line-soft: rgba(26, 26, 26, 0.06);
   --f-display: 'Hanken Grotesk', -apple-system, sans-serif;
@@ -2306,8 +2295,8 @@ footer {
   --f-mono: 'DM Mono', monospace;
   --nav-h: 64px;
 }
-.announce { background: var(--sage); color: #fff; text-align: center; padding: 9px 16px; font-size: 12px; letter-spacing: 0.01em; position: relative; z-index: 200; line-height: 1.4; }
-.announce strong { color: var(--orange); font-weight: 500; }
+.announce { background: var(--sage); color: #fff; text-align: center; padding: 9px 16px; font-size: 12px; letter-spacing: 0.01em; position: relative; z-index: 200; line-height: 1.4; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
+.announce strong { color: var(--accent-text); font-weight: 500; }
 .announce .sep { opacity: 0.4; margin: 0 8px; }
 @media (max-width: 640px) { .announce-secondary { display: none; } }
 @media (min-width: 768px) { .announce { padding: 10px 24px; font-size: 13px; } .announce .sep { margin: 0 10px; } }
@@ -2342,12 +2331,12 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .mm-close svg { width: 20px; height: 20px; }
 .mm-links { display: flex; flex-direction: column; padding: 4px 0; flex: 1; }
 .mm-link { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; font-family: var(--f-display); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-soft); transition: background 0.15s, color 0.15s; }
-.mm-link:hover { color: var(--orange-deep); background: rgba(242,104,47,0.04); }
+.mm-link:hover { color: var(--accent-text); background: rgba(184, 72, 26,0.04); }
 .mm-link svg { width: 16px; height: 16px; opacity: 0.4; }
-.mm-foot { padding: 24px; background: var(--sage); color: #fff; }
-.mm-foot-eyebrow { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); margin-bottom: 10px; }
+.mm-foot { padding: 24px; background: var(--sage); color: #fff; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
+.mm-foot-eyebrow { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-text); margin-bottom: 10px; }
 .mm-foot p { font-size: 14px; line-height: 1.55; color: rgba(255,255,255,0.7); margin-bottom: 16px; }
-.mm-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--orange); color: #fff; text-decoration: none; padding: 12px 20px; border-radius: var(--r-pill); font-size: 14px; font-weight: 500; }
+.mm-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--btn-bg); color: var(--btn-fg); text-decoration: none; padding: 12px 20px; border-radius: var(--r-pill); font-size: 14px; font-weight: 500; }
 .cart-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(440px, 100vw); background: var(--cream); z-index: 999; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; box-shadow: -20px 0 60px rgba(0,0,0,0.1); }
 .cart-drawer.open { transform: translateX(0); }
 .cart-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); }
@@ -2359,10 +2348,10 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .cart-progress { background: var(--sand); padding: 14px 20px 16px; border-bottom: 1px solid var(--line-soft); }
 .cart-progress-msg { font-size: 13px; color: var(--ink-soft); margin-bottom: 8px; line-height: 1.4; }
 .cart-progress-msg strong { color: var(--ink); font-weight: 500; }
-.cart-progress-msg .accent { color: var(--orange-deep); font-weight: 500; }
+.cart-progress-msg .accent { color: var(--accent-text); font-weight: 500; }
 .cart-progress-track { height: 6px; background: rgba(26,26,26,0.08); border-radius: 3px; overflow: hidden; }
 .cart-progress-fill { height: 100%; background: var(--orange); border-radius: 3px; width: 0%; transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
-.cart-progress-fill.full { background: var(--sage); }
+.cart-progress-fill.full { background: var(--sage); --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 .cart-body { flex: 1; overflow-y: auto; padding: 8px 20px; }
 .cart-item { display: grid; grid-template-columns: 72px 1fr auto; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--line-soft); }
 .cart-item-img { width: 72px; height: 72px; background: var(--sand); border-radius: var(--r-structural); display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; }
@@ -2379,14 +2368,14 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .cart-empty-illo { font-size: 52px; opacity: 0.5; }
 .cart-empty h3 { font-size: 22px; font-weight: 500; }
 .cart-empty p { font-size: 14px; color: var(--mute); max-width: 260px; line-height: 1.5; }
-.cart-empty a { margin-top: 6px; background: var(--orange); color: #fff; text-decoration: none; padding: 12px 22px; border-radius: var(--r-pill); font-size: 14px; font-weight: 500; }
+.cart-empty a { margin-top: 6px; background: var(--btn-bg); color: var(--btn-fg); text-decoration: none; padding: 12px 22px; border-radius: var(--r-pill); font-size: 14px; font-weight: 500; }
 .cart-foot { border-top: 1px solid var(--line-soft); padding: 16px 20px 20px; }
 .cart-row { display: flex; justify-content: space-between; align-items: baseline; padding: 4px 0; font-size: 14px; color: var(--ink-soft); }
 .cart-row.total { padding-top: 10px; font-size: 18px; font-weight: 500; color: var(--ink); font-family: var(--f-display); }
 .cart-row .price { font-family: var(--f-mono); }
 .cart-shipping-note { font-size: 11px; color: var(--mute); font-family: var(--f-mono); letter-spacing: 0.04em; margin: 8px 0 14px; line-height: 1.4; }
-.cart-checkout { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: var(--orange); color: #fff; text-decoration: none; border: none; cursor: pointer; padding: 16px 24px; border-radius: var(--r-pill); font-size: 15px; font-weight: 500; transition: background 0.2s; }
-.cart-checkout:hover { background: var(--orange-deep); }
+.cart-checkout { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: var(--btn-bg); color: var(--btn-fg); text-decoration: none; border: none; cursor: pointer; padding: 16px 24px; border-radius: var(--r-pill); font-size: 15px; font-weight: 500; transition: background 0.2s; }
+.cart-checkout:hover { background: var(--btn-bg-hover); }
 .cart-secure { text-align: center; font-size: 11px; color: var(--mute); font-family: var(--f-mono); letter-spacing: 0.08em; margin-top: 10px; text-transform: uppercase; }
 body.locked { overflow: hidden; }
 </style>
@@ -2447,7 +2436,7 @@ body.locked { overflow: hidden; }
     <div class="cart-row"><span>Subtotal</span><span class="price" id="subtotalDisplay">$0</span></div>
     <div class="cart-row"><span>Shipping</span><span class="price" id="shippingDisplay">Calculated at checkout</span></div>
     <div class="cart-row total"><span>Total</span><span class="price" id="totalDisplay">$0</span></div>
-    <div class="cart-shipping-note">Taxes calculated at checkout. Subscription orders renew at 15% off retail.</div>
+    <div class="cart-shipping-note">Taxes calculated at checkout. Subscription orders renew at the subscriber price.</div>
     <button class="cart-checkout" onclick="checkout()">Checkout <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></button>
     <div class="cart-secure">Secure · Stripe checkout</div>
   </div>
@@ -2464,7 +2453,7 @@ body.locked { overflow: hidden; }
     <div>
       <div class="hero-eyebrow eyebrow reveal">Caffeine-light · Mushroom cacao</div>
       <h1 class="reveal d1">
-        Doing more with less. <span class="serif-accent">Finally, a ritual that fills your morning cup.</span>
+        Morning rituals that <span class="serif-accent">actually fill your cup.</span>
       </h1>
       <p class="hero-sub reveal d2">A mushroom-and-adaptogen cacao that tastes so good you won't want to skip it.</p>
       <div class="hero-rating reveal d2">
@@ -2480,8 +2469,8 @@ body.locked { overflow: hidden; }
       </div>
       <div class="hero-trust reveal d4">
         <div class="trust-item"><span class="trust-dot"></span>Under 5mg caffeine</div>
-        <div class="trust-item"><span class="trust-dot"></span>Fruiting body only</div>
-        <div class="trust-item"><span class="trust-dot"></span>Doses on the label</div>
+        <div class="trust-item"><span class="trust-dot"></span>Never mycelium on grain</div>
+        <div class="trust-item"><span class="trust-dot"></span>A few real ingredients</div>
         <div class="trust-item"><span class="trust-dot"></span>30-day guarantee</div>
       </div>
       <div class="scroll-cue reveal d4">
@@ -2490,7 +2479,7 @@ body.locked { overflow: hidden; }
       </div>
     </div>
     <div class="hero-visual reveal d2">
-      <div class="hero-card" style="background-image: url('/images/responsive/products/ritual/ritual-hero-pour-hot-with-pouch-editorial-4x5-800.webp'); background-size: cover; background-position: center;">
+      <div class="hero-card" style="background-image: url('/images/responsive/products/ritual/ritual-hero-pour-hot-with-pouch-editorial-2026-09-4x5-800.webp'); background-size: cover; background-position: center;">
       </div>
       <div class="hero-fact tr">
         <div class="hero-fact-num">&lt;5mg</div>
@@ -2498,7 +2487,7 @@ body.locked { overflow: hidden; }
       </div>
       <div class="hero-fact bl">
         <div class="hero-fact-num">8:1</div>
-        <div class="hero-fact-lbl">Extract ratio<br>fruiting body</div>
+        <div class="hero-fact-lbl">Dual extract<br>three of four mushrooms</div>
       </div>
     </div>
   </div>
@@ -2524,7 +2513,7 @@ body.locked { overflow: hidden; }
         </div>
         <div class="pitem reveal d2">
           <div class="pn">03</div>
-          <div class="pt"><strong>Most functional products are underdosed, with mycelium on grain instead of real mushrooms.</strong> We went the other way: fruiting-body extracts, a few real ingredients, every amount on the label.</div>
+          <div class="pt"><strong>Most functional products are underdosed, with mycelium on grain instead of real mushrooms.</strong> We went the other way: whole-mushroom extracts, a few real ingredients, every one named on the label.</div>
         </div>
         <div class="pitem reveal d3">
           <div class="pn">04</div>
@@ -2548,6 +2537,8 @@ body.locked { overflow: hidden; }
 <!-- ═══════════════════════════════════════════
      FOUNDER VIDEO, 90 sec, earned moment
      ═══════════════════════════════════════════ -->
+<!-- Founder video removed 2026-10-05 (Kinga): it names ingredients from the old recipe.
+     A new one is being shot; restore this block with the new file when it lands.
 <div class="video">
   <div class="video-wrap">
     <div class="video-label reveal">From Kinga · Founder</div>
@@ -2560,6 +2551,7 @@ body.locked { overflow: hidden; }
     </div>
   </div>
 </div>
+-->
 
 <!-- ═══════════════════════════════════════════
      SOLUTION, the reveal
@@ -2584,15 +2576,15 @@ body.locked { overflow: hidden; }
         <div class="sp reveal">
           <div class="sp-i"><img src="/images/icons/science-backed.svg" alt="" aria-hidden="true" /></div>
           <div>
-            <div class="sp-t">Rhodiola, at a meaningful dose</div>
-            <div class="sp-b">An adaptogen that helps your body meet everyday stress. Openly dosed and named on the label, never hidden in a blend.</div>
+            <div class="sp-t">Panax Ginseng, a classic adaptogen</div>
+            <div class="sp-b">Panax ginseng is considered an adaptogen. It has been part of traditional East Asian practice for centuries, where people value it as an everyday tonic. Named openly, never hidden in a blend.</div>
           </div>
         </div>
         <div class="sp reveal d1">
           <div class="sp-i"><img src="/images/icons/mushroom.svg" alt="" aria-hidden="true" /></div>
           <div>
-            <div class="sp-t">Fruiting body extracts, never mycelium on grain</div>
-            <div class="sp-b">Beta-(1,3)(1,6)-glucans live in the fruiting body. Most brands use mycelium because it's cheaper. We use 8:1 fruiting body, dual extracted.</div>
+            <div class="sp-t">Whole-mushroom extracts, never mycelium on grain</div>
+            <div class="sp-b">Beta-(1,3)(1,6)-glucans live in the fruiting body. Most brands use mycelium because it's cheaper. We use whole-mushroom extracts, three of them dual-extracted at 8:1.</div>
           </div>
         </div>
         <div class="sp reveal d2">
@@ -2670,7 +2662,7 @@ body.locked { overflow: hidden; }
 
 
 <!-- ═══════════════════════════════════════════
-     INGREDIENTS, with Rhodiola Rosea elevated
+     INGREDIENTS, with Panax Ginseng elevated
      ═══════════════════════════════════════════ -->
 <section class="ings" id="ingredients">
   <div class="container">
@@ -2678,7 +2670,7 @@ body.locked { overflow: hidden; }
       <div>
         <h2 class="reveal d1" style="margin-top: 28px;">Every ingredient <span class="serif-accent">earned</span> its place.</h2>
       </div>
-      <p class="body-lg reveal d2">A few real ingredients, each named with its form and source. Our mushrooms are dual-extracted from the fruiting body, water and alcohol, to draw the full spectrum out from behind the cell walls, not just the one number that looks good on a label.</p>
+      <p class="body-lg reveal d2">A few real ingredients, each named with its form and source. Our mushrooms are whole-mushroom extracts, never mycelium on grain, dual-extracted with water and alcohol to draw the full spectrum out from behind the cell walls, not just the one number that looks good on a label.</p>
     </div>
 
     <div class="igrid">
@@ -2713,40 +2705,30 @@ body.locked { overflow: hidden; }
         </div>
       </div>
       <div class="ic reveal d2">
-        <span class="ie"><img src="/images/responsive/ingredients/rhodiola-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
-        <div class="in">Rhodiola Rosea</div>
-        <div class="ia">Rhodiola rosea</div>
+        <span class="ie"><img src="/images/responsive/ingredients/panax-ginseng-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
+        <div class="in">Panax Ginseng</div>
+        <div class="ia">Panax ginseng</div>
         <div class="ipills">
           <span class="ip-benefit">Adaptogen</span>
-          <span class="id-tag">Altai-grown</span>
-          <span class="id-tag">Rosavins</span>
+          <span class="id-tag">Ginsenosides</span>
         </div>
       </div>
       <div class="ic reveal d3">
-        <span class="ie"><img src="/images/responsive/ingredients/ashwagandha-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
-        <div class="in">Ashwagandha</div>
-        <div class="ia">Withania somnifera</div>
+        <span class="ie"><img src="/images/responsive/ingredients/l-theanine-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
+        <div class="in">L-theanine</div>
+        <div class="ia">Naturally found in green tea</div>
         <div class="ipills">
           <span class="ip-benefit">Calm</span>
-          <span class="id-tag">Root extract</span>
+          <span class="id-tag">Amino acid</span>
         </div>
       </div>
       <div class="ic reveal d4">
-        <span class="ie"><img src="/images/responsive/ingredients/bacopa-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
-        <div class="in">Bacopa Monnieri</div>
-        <div class="ia">Bacopa monnieri</div>
+        <span class="ie"><img src="/images/responsive/ingredients/carob-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
+        <div class="in">Carob</div>
+        <div class="ia">Ceratonia siliqua</div>
         <div class="ipills">
-          <span class="ip-benefit">Focus</span>
-          <span class="id-tag">Bacosides</span>
-        </div>
-      </div>
-      <div class="ic reveal">
-        <span class="ie"><img src="/images/responsive/ingredients/turmeric-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
-        <div class="in">Bioavailable Curcumin</div>
-        <div class="ia">Curcuma longa</div>
-        <div class="ipills">
-          <span class="ip-benefit">Bioavailable</span>
-          <span class="id-tag">Curcuminoids</span>
+          <span class="ip-benefit">No caffeine</span>
+          <span class="id-tag">Naturally sweet</span>
         </div>
       </div>
       <div class="ic reveal d1">
@@ -2759,8 +2741,8 @@ body.locked { overflow: hidden; }
         </div>
       </div>
       <div class="ic reveal d2">
-        <span class="ie"><img src="/images/responsive/ingredients/maca-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
-        <div class="in">Maca</div>
+        <span class="ie"><img src="/images/responsive/ingredients/black-maca-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
+        <div class="in">Black Maca</div>
         <div class="ia">Lepidium meyenii</div>
         <div class="ipills">
           <span class="ip-benefit">Energy</span>
@@ -2771,7 +2753,7 @@ body.locked { overflow: hidden; }
 
     <div class="inote reveal">
       <div class="ico"><img src="/images/icons/mushroom.svg" alt="" aria-hidden="true" /></div>
-      <div class="itxt"><strong>The mycelium problem:</strong> Most products use mycelium on grain, not actual mushrooms. Beta-(1,3)(1,6)-glucans live in the fruiting body. A product can legally say "mushroom extract" using mycelium with under 5% beta-(1,3)(1,6)-glucan content. Mujo Ritual uses fruiting body at 8:1, standardized for beta-(1,3)(1,6)-glucans. If the label doesn't say "fruiting body", it probably isn't.</div>
+      <div class="itxt"><strong>The mycelium problem:</strong> Most products use mycelium on grain, not actual mushrooms. Beta-(1,3)(1,6)-glucans live in the fruiting body. A product can legally say "mushroom extract" using mycelium with under 5% beta-(1,3)(1,6)-glucan content. The Ritual uses whole-mushroom extracts, three of them dual-extracted at 8:1, standardized for beta-(1,3)(1,6)-glucans. If a label doesn't say what part of the mushroom it uses, it's worth asking.</div>
     </div>
   </div>
 </section>
@@ -2794,7 +2776,7 @@ body.locked { overflow: hidden; }
     <div>
       <div class="fpull reveal d1" style="margin-top: 44px;">"I built Mujo because I wanted <em>a morning ritual I actually looked forward to,</em> and could <em>feel good about.</em>"</div>
       <p class="fbody reveal d2">When I became a mom, I stopped treating my body like a machine to hack. Coffee had stopped working for me, so I went looking for something gentler to start the day with.</p>
-      <p class="fbody reveal d2">To fill the space coffee left, I started mixing the plants and mushrooms I loved into a warm, coffee-like drink. Real fruiting-body extracts. Ingredients I'd researched obsessively.</p>
+      <p class="fbody reveal d2">To fill the space coffee left, I started mixing the plants and mushrooms I loved into a warm, coffee-like drink. Real mushroom extracts. Ingredients I'd researched obsessively.</p>
       <p class="fbody reveal d3">I drank it every morning and never looked back. It became the ten minutes that were actually mine. So I made it to share. <em>This is that ritual.</em></p>
       <div class="fsig reveal d3">Kinga<div class="fsigs">Founder, Mujo</div></div>
     </div>
@@ -2834,22 +2816,21 @@ body.locked { overflow: hidden; }
 <section class="pric" id="pricing">
   <div class="container">
     <h2 class="reveal d1" style="margin-top: 28px; max-width: 440px;">Your morning ritual, <span class="serif-accent">finally on your side.</span></h2>
-    <div class="panchor reveal d2"><strong>In perspective:</strong> A daily flat white is $5–7. Mujo Ritual on subscription is $2.21 per serving. One easy swap.</div>
+    <div class="panchor reveal d2"><strong>In perspective:</strong> A daily flat white is $5–7. Mujo Ritual on subscription is $2.00 per serving. One easy swap.</div>
     <div class="priced">
       <div>
         <div class="pcard feat reveal">
           <div class="pbpill">Most popular · Best value</div>
           <div class="ptype">Subscribe & Save</div>
-          <div class="pprice"><sup>$</sup>55<span style="font-size: 24px;">.25</span></div>
-          <div class="pwas">$65.00 one-time price</div>
-          <div class="pper">per month · 2-cycle min · $2.21/serving</div>
+          <div class="pprice"><sup>$</sup>50</div>
+          <div class="pwas">$60 one-time price</div>
+          <div class="pper">per month · 2-cycle min · $2.00/serving</div>
           <div class="pdiv"></div>
           <div class="pfeats">
             <div class="pfeat"><span class="pfck">✓</span>25-serving bag, monthly delivery</div>
-            <div class="pfeat"><span class="pfck">✓</span>15% off every order, forever</div>
+            <div class="pfeat"><span class="pfck">✓</span>$10 off every order</div>
             <div class="pfeat"><span class="pfck">✓</span>Free shipping on every order</div>
             <div class="pfeat"><span class="pfck">✓</span>Min commitment of 2 delivery cycles</div>
-            <div class="pfeat"><span class="pfck">✓</span>Priority access to Lemna Bar launch</div>
           </div>
           <a class="btwh primary" href="/products/mujo-ritual">Subscribe and save. Start today</a>
           <div class="gbox">
@@ -2865,20 +2846,41 @@ body.locked { overflow: hidden; }
         <div class="prrh reveal">One ritual. <em>Every morning.</em></div>
         <div class="prrb reveal d1">The morning drink you actually look forward to. A few real ingredients, openly used, and nothing to spike or crash from.</div>
         <div class="prcl reveal d1">
-          <div class="prcli"><span class="prclck">✓</span>Three fruiting-body dual extracts, 8:1 concentration</div>
-          <div class="prcli"><span class="prclck">✓</span>Rhodiola, an adaptogen for everyday stress</div>
-          <div class="prcli"><span class="prclck">✓</span>A bioavailable form of curcumin</div>
+          <div class="prcli"><span class="prclck">✓</span>Four organic mushroom extracts, three dual-extracted at 8:1</div>
+          <div class="prcli"><span class="prclck">✓</span>Panax Ginseng, a classic adaptogen</div>
+          <div class="prcli"><span class="prclck">✓</span>Tastes like a smooth mocha</div>
           <div class="prcli"><span class="prclck">✓</span>Under 5mg of caffeine</div>
           <div class="prcli"><span class="prclck">✓</span>30-day money-back guarantee</div>
         </div>
         <div class="ponet reveal d2">
           <div class="ptype">One-time purchase</div>
-          <div class="pprice" style="font-size: 34px;"><sup>$</sup>65</div>
+          <div class="pprice" style="font-size: 34px;"><sup>$</sup>59<span style="font-size: 18px;">.99</span></div>
           <div class="pper">25 servings · free shipping over $100</div>
           <div class="pdiv"></div>
           <a class="btwh" href="/products/mujo-ritual">Buy once. No commitment</a>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     GOES WELL WITH — mirrors the "Pair it with the Ritual" block on the
+     Protein Powder PDP (2026-10-05). Fully inline-styled so it needs no
+     page CSS.
+     ═══════════════════════════════════════════ -->
+<section style="background:var(--sand);padding:64px 0;">
+  <div class="container">
+    <div style="max-width:640px;margin:0 auto 28px;text-align:center;">
+      <span style="display:block;font-family:var(--f-mono);font-size:11px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--mute);margin-bottom:12px;">Goes well with</span>
+      <h2 style="margin:0 0 10px;color:var(--ink);">Pair it with the Protein Powder.</h2>
+      <p style="margin:0;color:var(--ink-soft);">Have them together or on their own. Order both and shipping is free.</p>
+    </div>
+    <div style="max-width:760px;margin:0 auto;background:#fff;border:1px solid rgba(26,26,26,0.06);border-radius:14px;padding:34px;text-align:center;">
+      <div role="img" aria-label="The Ritual and Protein Powder pouches lying side by side with an iced Ritual topped with protein cold foam" style="width:100%;max-width:420px;aspect-ratio:4/5;margin:0 auto 22px;border-radius:12px;background:url('/images/responsive/lifestyle/ritual-protein-flatlay-duo-2026-10-4x5-800.webp') center/cover no-repeat;"></div>
+      <div style="font-family:var(--f-display);font-weight:500;font-size:19px;color:var(--ink);">The Complete Ritual</div>
+      <div style="font-family:var(--f-mono);font-size:11.5px;color:var(--ink-soft);margin:8px 0 16px;letter-spacing:.06em;">MUJO RITUAL + PROTEIN POWDER</div>
+      <a href="/products/protein-powder" style="margin-top:18px;width:100%;max-width:320px;min-height:58px;padding:0 24px;display:inline-flex;align-items:center;justify-content:center;background:var(--brown);color:var(--cream);border-radius:100px;font-family:var(--f-display);font-size:15px;font-weight:600;text-decoration:none;">Pre-order the Protein Powder</a>
     </div>
   </div>
 </section>
@@ -2892,7 +2894,7 @@ body.locked { overflow: hidden; }
     <p class="fctas reveal d2">30 days. If you don't love it, we'll refund you. No forms, no questions.</p>
     <div class="cta-stack reveal d3" style="justify-content: center;">
       <a href="#pricing" class="btn btn-primary">
-        Start Your Ritual, 15% Off Today
+        Subscribe and Save $10
         <span class="btn-arrow">→</span>
       </a>
     </div>
@@ -2930,8 +2932,8 @@ body.locked { overflow: hidden; }
     </div>
   </div>
   <div class="sb-r">
-    <div class="sb-price"><s>$65</s>$55.25/mo</div>
-    <a href="#pricing" class="sb-btn" onclick="hideStickyTemp()">Try it, 15% off →</a>
+    <div class="sb-price"><s>$60</s>$50/mo</div>
+    <a href="#pricing" class="sb-btn" onclick="hideStickyTemp()">Try it, save $10 →</a>
     <button class="sb-x" onclick="dismissSticky()">×</button>
   </div>
 </div>

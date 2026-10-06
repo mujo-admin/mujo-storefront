@@ -23,7 +23,7 @@ import {
   syncSubscriptionToDb,
 } from "lib/webhook-handlers/_helpers";
 import { getSession, refreshSession } from "lib/session";
-import { RITUAL_PRICE_IDS } from "lib/stripe-constants";
+import { RITUAL_PRICE_IDS, isRitualSubscriptionPrice } from "lib/stripe-constants";
 
 export const dynamic = "force-dynamic";
 
@@ -119,6 +119,27 @@ export async function POST(
   const subRow = rows[0];
   if (!subRow) {
     return Response.json({ error: "no_active_subscription" }, { status: 404 });
+  }
+
+  // Protein Powder guard. change-frequency / swap map to RITUAL Prices only, so
+  // a non-Ritual subscription must never use them. And a pre-order still in its
+  // trial (first charge on ship day) must not be skipped, paused or sent now:
+  // send-now sets trial_end="now", which would bill before the powder exists.
+  if (subRow.stripePriceId && !isRitualSubscriptionPrice(subRow.stripePriceId)) {
+    const preorderTrialing =
+      subRow.status === "trialing" &&
+      (subRow.metadata as Record<string, unknown> | null)?.preorder === "protein-powder";
+    if (action === "change-frequency" || action === "swap" || (preorderTrialing && action !== "cancel")) {
+      return Response.json(
+        {
+          error: "not_available_for_this_subscription",
+          message: preorderTrialing
+            ? "Your pre-order ships on November 15. You can change or pause deliveries after your first pouch ships, or email hello@mujoworld.com and we'll help."
+            : "This change isn't available for this subscription yet. Email hello@mujoworld.com and we'll sort it for you.",
+        },
+        { status: 409 },
+      );
+    }
   }
 
   let body: Record<string, unknown> = {};

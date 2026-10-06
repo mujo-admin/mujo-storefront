@@ -56,7 +56,7 @@ export type CurrentCard = {
 const ELEMENT_APPEARANCE: StripeElementsOptions["appearance"] = {
   theme: "stripe",
   variables: {
-    colorPrimary: "#f2682f",
+    colorPrimary: "#B8481A",
     colorBackground: "#f3f2e9",
     colorText: "#0f0f0f",
     colorTextSecondary: "#666",
@@ -211,15 +211,15 @@ export function PaymentMethodForm({
           font-family: inherit;
           font-size: 14px;
           font-weight: 500;
-          background: var(--orange);
-          color: #fff;
+          background: var(--btn-bg);
+          color: var(--btn-fg);
           border: none;
           padding: 12px 22px;
           border-radius: 100px;
           cursor: pointer;
           transition: background 0.15s;
         }
-        .pm-btn:hover:not(:disabled) { background: var(--orange-deep); }
+        .pm-btn:hover:not(:disabled) { background: var(--btn-bg-hover); }
         .pm-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .pm-error {
           font-size: 13px;
@@ -396,8 +396,8 @@ function UpdateCardInner({ onCancel }: { onCancel: () => void }) {
           border-color: var(--ink);
           color: var(--ink);
         }
-        .pm-update-submit { background: var(--orange); color: #fff; }
-        .pm-update-submit:hover:not(:disabled) { background: var(--orange-deep); }
+        .pm-update-submit { background: var(--btn-bg); color: var(--btn-fg); }
+        .pm-update-submit:hover:not(:disabled) { background: var(--btn-bg-hover); }
         .pm-update-submit:disabled,
         .pm-update-cancel:disabled { opacity: 0.5; cursor: not-allowed; }
       `}</style>

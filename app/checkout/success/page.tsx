@@ -72,6 +72,9 @@ export default async function CheckoutSuccessPage(props: {
   const currency = (session?.currency ?? 'usd').toUpperCase();
   const email = session?.customer_details?.email ?? null;
   const mode = session?.mode ?? 'payment';
+  // Protein Powder pre-order (see /api/checkout-session metadata).
+  const hasPreorderItem = session?.metadata?.preorder_item === 'protein-powder';
+  const chargeOnShip = session?.metadata?.preorder_charge === 'on-ship';
 
   return (
     <div className="success-shell">
@@ -81,10 +84,16 @@ export default async function CheckoutSuccessPage(props: {
             <div className="success-glyph" aria-hidden>
               ✓
             </div>
-            <h1>Order received</h1>
+            <h1>{hasPreorderItem ? 'Pre-order confirmed' : 'Order received'}</h1>
             <p className="success-lede">
               Thanks{email ? `, we'll send the receipt to ${email}` : ", we'll send the receipt to your email"}.
             </p>
+            {chargeOnShip ? (
+              <p className="success-lede">
+                Nothing is charged today. Your card is saved and first charged on
+                November 15, when your first pouch ships.
+              </p>
+            ) : (
             <div className="success-amount">
               {new Intl.NumberFormat("en-US", {
                 style: "currency",
@@ -94,6 +103,7 @@ export default async function CheckoutSuccessPage(props: {
                 <span className="success-amount-suffix"> / month</span>
               ) : null}
             </div>
+            )}
             <div className="success-actions">
               <Link href="/shop" className="success-btn">
                 Keep shopping →
@@ -107,8 +117,9 @@ export default async function CheckoutSuccessPage(props: {
               </p>
             ) : null}
             <p className="success-fineprint">
-              Your ritual ships from our US warehouse within 1–2 business days.
-              You'll receive a tracking email when it leaves the warehouse.
+              {hasPreorderItem
+                ? "Your Protein Powder ships from our US warehouse by November 15; anything else in your order ships within 1–2 business days. You'll receive a tracking email when it leaves the warehouse."
+                : "Your ritual ships from our US warehouse within 1–2 business days. You'll receive a tracking email when it leaves the warehouse."}
             </p>
           </>
         ) : isProcessing ? (
@@ -181,7 +192,7 @@ export default async function CheckoutSuccessPage(props: {
           align-items: center;
           justify-content: center;
           margin: 0 auto 24px;
-          font-family: var(--f-display);
+          font-family: var(--f-display); --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg);
         }
         .success-glyph.processing { background: var(--orange); }
         .success-glyph.error { background: #b91c1c; }
@@ -218,8 +229,8 @@ export default async function CheckoutSuccessPage(props: {
           margin-top: 18px;
         }
         .success-btn {
-          background: var(--orange);
-          color: #fff;
+          background: var(--btn-bg);
+          color: var(--btn-fg);
           text-decoration: none;
           padding: 13px 28px;
           border-radius: 100px;
@@ -227,7 +238,7 @@ export default async function CheckoutSuccessPage(props: {
           font-weight: 500;
           transition: background 0.2s;
         }
-        .success-btn:hover { background: var(--orange-deep); }
+        .success-btn:hover { background: var(--btn-bg-hover); }
         .success-link {
           font-family: var(--f-mono);
           font-size: 12px;
@@ -235,7 +246,7 @@ export default async function CheckoutSuccessPage(props: {
           letter-spacing: 0.04em;
           text-decoration: none;
         }
-        .success-link:hover { color: var(--orange-deep); }
+        .success-link:hover { color: var(--accent-text); }
         .success-fineprint {
           margin-top: 28px;
           padding-top: 18px;

@@ -57,8 +57,8 @@ export function MobileStickyCTA({
           justify-content: center;
           min-height: 52px;
           padding: 14px 24px;
-          background: var(--orange);
-          color: var(--cream);
+          background: var(--btn-bg);
+          color: var(--btn-fg);
           font-family: var(--f-display);
           font-size: 16px;
           font-weight: 500;
@@ -66,7 +66,7 @@ export function MobileStickyCTA({
           text-decoration: none;
           border: 0;
           border-radius: var(--radius-cta);
-          box-shadow: 0 12px 32px rgba(242, 104, 47, 0.35);
+          box-shadow: 0 12px 32px rgba(184, 72, 26, 0.35);
           transform: translateY(calc(100% + 24px));
           opacity: 0;
           transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
@@ -78,7 +78,7 @@ export function MobileStickyCTA({
           opacity: 1;
           pointer-events: auto;
         }
-        .msc:hover { background: var(--orange-deep); }
+        .msc:hover { background: var(--btn-bg-hover); }
         @media (min-width: 768px) {
           .msc { display: none; }
         }

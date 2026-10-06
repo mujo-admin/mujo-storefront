@@ -133,7 +133,7 @@ export async function POST(req: NextRequest) {
     // rounded radius / Inter — closest clean sans to Hanken Grotesk).
     branding_settings: {
       background_color: '#F3F2E9',
-      button_color: '#F2682F',
+      button_color: '#2A1810',
       border_style: 'rounded',
       font_family: 'inter',
     },

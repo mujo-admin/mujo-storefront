@@ -9,8 +9,14 @@ export const SHIPPING_RATE_FLAT_ID = process.env.STRIPE_SHIPPING_FLAT_ID ?? "";
 // Express ($15) — optional paid speed upgrade. Empty until the rate is minted
 // + the env var is set; buildShippingOptions() only offers Express when present,
 // so checkout degrades gracefully (Free/Standard still work) before then.
-export const SHIPPING_RATE_EXPRESS_ID =
-  process.env.STRIPE_SHIPPING_EXPRESS_ID ?? "";
+//
+// Switched OFF 2026-10-06 (Kinga): one shipping type only, so checkout reads the
+// same for every product (pre-orders never had Express). Set to true to offer
+// it again; the rate and env var are left in place.
+export const EXPRESS_SHIPPING_ENABLED = false;
+export const SHIPPING_RATE_EXPRESS_ID = EXPRESS_SHIPPING_ENABLED
+  ? (process.env.STRIPE_SHIPPING_EXPRESS_ID ?? "")
+  : "";
 
 // Free shipping is earned at this merchandise subtotal (pre-discount) on
 // one-time carts, OR whenever the cart contains a subscription. $100.
@@ -33,7 +39,7 @@ export const SUPPRESS_EXPRESS_FOR_MERCH = true;
 // The 25-serving subscription has THREE cadences (Subscription v2): the primary
 // 4-week Price (`25-subscription`), the 6-week Price (`25-subscription-6wk`), and
 // the 8-week Price (`25-subscription-8wk`). All list at the ALREADY-DISCOUNTED
-// $55.25 — the flat 15% subscriber discount is baked into the Price, not a
+// $50 — the flat 15% subscriber discount is baked into the Price, not a
 // checkout coupon (see scripts/mirror-shopify-to-stripe.ts). This keeps Stripe
 // Checkout's single discount slot free for a promotion code. Subscriptions start
 // on the primary 4-week Price; the customer switches cadence from their account.
@@ -48,6 +54,67 @@ export const RITUAL_PRICE_IDS = {
   "25-subscription-12wk":
     process.env.NEXT_PUBLIC_RITUAL_PRICE_25_SUBSCRIPTION_12W ?? "", // every 12 weeks
 } as const;
+
+// Ritual subscription Prices that are no longer sold but that existing
+// subscribers still renew on (the $55.25 Prices from before the 2026-10 price
+// change to $60 / $50). Comma-separated Price IDs. Keeps those
+// subscribers' account pages and actions treating them as Ritual subscribers.
+// Empty once everyone has been moved to the current Prices.
+export const RITUAL_LEGACY_SUB_PRICE_IDS: string[] = (
+  process.env.NEXT_PUBLIC_RITUAL_LEGACY_SUB_PRICE_IDS ?? ""
+)
+  .split(",")
+  .map((id) => id.trim())
+  .filter(Boolean);
+
+// Protein Powder (Vanilla Bean, 450g / 15 servings). $45 one-time pre-order.
+// No subscription is sold until the powder ships (Kinga 2026-10-05); the sub-*
+// keys stay so the dormant subscription path keeps compiling, and are simply
+// unset in every environment. Created Stripe-only by scripts/create-protein-prices.mjs.
+export const PROTEIN_PRICE_IDS = {
+  onetime: process.env.NEXT_PUBLIC_PROTEIN_PRICE_ONETIME ?? "",
+  "sub-2wk": process.env.NEXT_PUBLIC_PROTEIN_PRICE_SUB_2W ?? "",
+  "sub-4wk": process.env.NEXT_PUBLIC_PROTEIN_PRICE_SUB_4W ?? "",
+  "sub-6wk": process.env.NEXT_PUBLIC_PROTEIN_PRICE_SUB_6W ?? "",
+  "sub-8wk": process.env.NEXT_PUBLIC_PROTEIN_PRICE_SUB_8W ?? "",
+} as const;
+export type ProteinCadence = "2wk" | "4wk" | "6wk" | "8wk";
+
+// Pre-order (Kinga 2026-09-30): one-time buyers pay at checkout; subscribers
+// save their card and are FIRST charged when the first batch ships. The
+// subscription is created with trial_end at this moment, so the first real
+// invoice lands on ship day. Stripe needs trial_end ≥ 48h in the future, so the
+// pre-order window closes automatically 2 days before (checkout falls back to
+// charging immediately once the date is too close or has passed).
+export const PROTEIN_PREORDER_CHARGE_AT = 1794754800; // 2026-11-15 15:00 UTC
+export const PROTEIN_PREORDER_SHIP_LABEL = "November 15";
+
+/** True if this Price ID is any Protein Powder subscription Price. */
+export function isProteinSubscriptionPrice(id: string): boolean {
+  if (!id) return false;
+  return (
+    [
+      PROTEIN_PRICE_IDS["sub-2wk"],
+      PROTEIN_PRICE_IDS["sub-4wk"],
+      PROTEIN_PRICE_IDS["sub-6wk"],
+      PROTEIN_PRICE_IDS["sub-8wk"],
+    ] as string[]
+  ).includes(id);
+}
+
+/** True if this Price ID is any Ritual subscription Price (gates the frother gift). */
+export function isRitualSubscriptionPrice(id: string): boolean {
+  if (!id) return false;
+  return (
+    [
+      RITUAL_PRICE_IDS["25-subscription"],
+      RITUAL_PRICE_IDS["25-subscription-6wk"],
+      RITUAL_PRICE_IDS["25-subscription-8wk"],
+      RITUAL_PRICE_IDS["25-subscription-12wk"],
+      ...RITUAL_LEGACY_SUB_PRICE_IDS,
+    ] as string[]
+  ).includes(id);
+}
 
 export type RitualSize = "10" | "25";
 export type RitualPlan = "onetime" | "subscription";

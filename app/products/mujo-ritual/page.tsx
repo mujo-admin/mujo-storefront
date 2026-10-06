@@ -25,35 +25,34 @@ const RITUAL_SPLICES: Splice[] = [
 ];
 
 export const metadata: Metadata = {
-  title: "The Mujo Ritual · Mushroom Cacao",
+  title: "The Ritual · Mushroom Coffee Alternative",
   description:
-    "A warm mushroom-and-adaptogen cacao that replaces your coffee. Under 5mg of caffeine. 25 servings. Subscribe and save 15%.",
+    "An organic mushroom coffee alternative that tastes like a smooth mocha, with a cacao undertone. Under 5mg of caffeine for calm energy, no crash.",
   alternates: { canonical: "/products/mujo-ritual" },
   openGraph: {
     type: "website",
-    title: "The Mujo Ritual",
-    description:
-      "A warm mushroom-and-adaptogen cacao that replaces your coffee.",
+    title: "The Ritual",
+    description: "An organic mushroom coffee alternative that tastes like a smooth mocha, with a cacao undertone. Under 5mg of caffeine for calm energy, no crash.",
   },
 };
 
 export default function RitualPdpPage() {
   return (
     <>
-      <ProductAnalytics itemId="mujo-ritual" itemName="The Mujo Ritual" price={65} />
+      <ProductAnalytics itemId="mujo-ritual" itemName="The Ritual" price={60} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: jsonLdScript(
             productSchema({
               url: "/products/mujo-ritual",
-              name: "The Mujo Ritual",
+              name: "The Ritual",
               description:
-                "A warm, caffeine-light mushroom cacao with lion's mane, cordyceps, chaga, rhodiola, ashwagandha, and a bioavailable form of curcumin.",
+                "The Ritual is a warm coffee alternative made with organic Peruvian cacao, carob and four organic mushroom extracts. It tastes like a smooth mocha: roasted and coffee-like, with an undertone of cacao and a hint of Ceylon cinnamon. With under 5mg of caffeine, roughly a twentieth of a coffee, it's made for calm energy with no crash. Inside: organic lion's mane, chaga, cordyceps and golden oyster (never mycelium on grain), plus L-theanine, panax ginseng, gelatinized black maca, MCT oil, ginger, monk fruit and a pinch of sea salt. Froth a tablespoon into hot water and top with milk. 25 servings.",
               image:
                 "https://mujoworld.com/images/logo/mujo-logo-orange.png",
-              lowPrice: "27",
-              highPrice: "65",
+              lowPrice: "60.00",
+              highPrice: "60.00",
               inStock: true,
             }),
           ),
@@ -65,7 +64,7 @@ export default function RitualPdpPage() {
           __html: jsonLdScript(
             breadcrumbSchema([
               { name: "Shop", url: "/shop" },
-              { name: "Mujo Ritual", url: "/products/mujo-ritual" },
+              { name: "The Ritual", url: "/products/mujo-ritual" },
             ]),
           ),
         }}

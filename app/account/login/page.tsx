@@ -71,7 +71,7 @@ export default async function LoginPage({
         .login-title em {
           font-family: 'Instrument Serif', Georgia, serif;
           font-style: italic;
-          color: var(--orange-deep);
+          color: var(--accent-text);
           font-weight: 400;
         }
         .login-lede {

@@ -13,6 +13,7 @@ import {
   FIRST_ORDER_FROTHER_GIFT_ENABLED,
   FROTHER_GIFT_PRICE_ID,
   FROTHER_GIFT_VARIANT_GID,
+  isRitualSubscriptionPrice,
 } from 'lib/stripe-constants';
 import { trackOrderPlaced } from 'lib/klaviyo';
 import { sendCapiEvent } from 'lib/meta-capi';
@@ -71,6 +72,11 @@ export async function handleInvoicePaid(event: Stripe.Event) {
   const sub = await stripe.subscriptions.retrieve(stripeSubscriptionId);
   const period = extractSubscriptionPeriod(sub);
   const stripePriceId = sub.items.data[0]?.price.id ?? '';
+  // Protein Powder pre-order: the subscription starts in a trial until ship day
+  // (see /api/checkout-session), so signup produces a $0 invoice with no charge
+  // (handled by the no-charge early return below) and the FIRST real charge
+  // arrives as billing_reason=subscription_cycle. Treated as the initial order.
+  const isPreorder = sub.metadata?.preorder === 'protein-powder';
 
   const existingSub = (
     await db
@@ -140,6 +146,15 @@ export async function handleInvoicePaid(event: Stripe.Event) {
   if (existingOrder.length > 0) {
     console.log('[invoice.paid] order already mirrored, skipping', { chargeId });
     return;
+  }
+
+  if (isPreorder && type === 'subscription_renewal') {
+    const priorOrders = await db
+      .select({ id: orderMirror.id })
+      .from(orderMirror)
+      .where(eq(orderMirror.stripeSubscriptionId, stripeSubscriptionId))
+      .limit(1);
+    if (priorOrders.length === 0) type = 'subscription_initial';
   }
 
   // Build line items from the invoice
@@ -212,7 +227,9 @@ export async function handleInvoicePaid(event: Stripe.Event) {
   if (
     type === 'subscription_initial' &&
     FIRST_ORDER_FROTHER_GIFT_ENABLED &&
-    !frotherInInvoice
+    !frotherInInvoice &&
+    // Ritual subscriptions only — never Protein Powder.
+    isRitualSubscriptionPrice(stripePriceId)
   ) {
     lineItems.push({
       ...(FROTHER_GIFT_VARIANT_GID
@@ -345,7 +362,10 @@ export async function handleInvoicePaid(event: Stripe.Event) {
       typeof sub.metadata?.mujo_event_id === 'string'
         ? sub.metadata.mujo_event_id
         : undefined;
-    if (eventId) {
+    // Pre-orders already reported the conversion at signup (Pixel on
+    // /checkout/success); the ship-day charge is weeks later, outside Meta's
+    // dedup window, so re-sending Purchase would double count.
+    if (eventId && !isPreorder) {
       void sendCapiEvent({
         eventName: 'Purchase',
         eventId,

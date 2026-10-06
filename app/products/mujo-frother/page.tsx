@@ -8,30 +8,30 @@ import {
 } from "lib/schema";
 
 export const metadata: Metadata = {
-  title: "Mujo Electric Frother · The proper finish",
+  title: "Electric Frother · Rechargeable Milk Frother",
   description:
-    "The 10-second step that elevates your Mujo ritual. Electric frother for perfectly blended mushroom cacao — silky, warm, yours every morning. $20.",
+    "A slim rechargeable frother that makes your Ritual silky in about ten seconds. Double-spring whisk and a cap that covers it. Rinse and go.",
   alternates: { canonical: "/products/mujo-frother" },
   openGraph: {
     type: "website",
-    title: "Mujo Electric Frother",
-    description: "The 10-second step that elevates your Mujo ritual.",
+    title: "Electric Frother",
+    description: "A slim rechargeable frother that makes your Ritual silky in about ten seconds. Double-spring whisk and a cap that covers it. Rinse and go.",
   },
 };
 
 export default function FrotherPdpPage() {
   return (
     <>
-      <ProductAnalytics itemId="mujo-frother" itemName="Mujo Electric Frother" price={20} />
+      <ProductAnalytics itemId="mujo-frother" itemName="Electric Frother" price={20} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: jsonLdScript(
             productSchema({
               url: "/products/mujo-frother",
-              name: "Mujo Electric Frother",
+              name: "Electric Frother",
               description:
-                "USB-C rechargeable electric milk frother. Stainless steel whisk, up to 50 uses per charge. Includes Mujo Travel Lid.",
+                "A slim, rechargeable wand frother that makes your Ritual silky in about ten seconds. The double-spring whisk blends cacao and mushrooms smoothly into warm milk, with no clumps. A cap slides over the whisk so it stays clean in a drawer or a bag. It spins at 9,000 to 12,000 RPM and lasts up to 50 uses per charge. Rinse it in warm water and it's ready for tomorrow. Works in any mug, hot or iced.",
               image: "https://mujoworld.com/images/logo/mujo-logo-orange.png",
               lowPrice: "20",
               highPrice: "20",
@@ -46,7 +46,7 @@ export default function FrotherPdpPage() {
           __html: jsonLdScript(
             breadcrumbSchema([
               { name: "Shop", url: "/shop" },
-              { name: "Mujo Electric Frother", url: "/products/mujo-frother" },
+              { name: "Electric Frother", url: "/products/mujo-frother" },
             ]),
           ),
         }}

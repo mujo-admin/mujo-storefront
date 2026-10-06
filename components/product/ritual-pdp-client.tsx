@@ -12,7 +12,7 @@ import { useCart } from "components/cart/cart-context";
 import { resolveRitualSelection } from "lib/cart/price-id-map";
 
 // Pricing table — drives all in-page prices off (size, plan).
-// Subscribe & save = 15% off the one-time price. The 10-serving bag is
+// Subscribe & save = $10 off the one-time price ($60 → $50). The 10-serving bag is
 // one-time only (smaller bag, higher unit cost — no sub option, no discount).
 // Quantity is chosen in the cart (+/-); delivery frequency is picked in the
 // subscribe box (4 / 6 / 8 / 12 weeks) and stays changeable from the account.
@@ -26,8 +26,8 @@ const PRICES: Record<RitualSize, Partial<Record<RitualPlan, PriceCell>>> = {
     onetime: { now: "$27.00", daily: "$2.70/serving" },
   },
   "25": {
-    onetime: { now: "$65.00", daily: "$2.60/serving" },
-    subscription: { now: "$55.25", was: "$65.00", daily: "$2.21/serving" },
+    onetime: { now: "$60", daily: "$2.40/serving" },
+    subscription: { now: "$50", was: "$60", daily: "$2.00/serving" },
   },
 };
 
@@ -36,7 +36,7 @@ const PRICES: Record<RitualSize, Partial<Record<RitualPlan, PriceCell>>> = {
 const SUB_BENEFITS = [
   "Free shipping",
   "Free frother on first order ($20 value)",
-  "Save 15% on every order",
+  "Save $10 on every order",
   "Minimum 2-cycle commitment",
   "Cancel or pause anytime after 2 cycles",
 ];
@@ -152,20 +152,8 @@ function BuyBox({
       <div className="size-block">
         <div className="size-label">Size</div>
         <div className="size-options">
-          <div
-            className={`size-opt${size === "10" ? " active" : ""}`}
-            onClick={() => setSize("10")}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) =>
-              (e.key === "Enter" || e.key === " ") && setSize("10")
-            }
-          >
-            <div className="size-opt-top">
-              <div className="size-opt-count">10 servings</div>
-            </div>
-            <div className="size-opt-price">$27.00</div>
-          </div>
+          {/* 10-serving pouch retired with the 2026 recipe; its price-map
+              entry stays so carts saved before the change still resolve. */}
           <div
             className={`size-opt${size === "25" ? " active" : ""}`}
             onClick={() => setSize("25")}
@@ -179,7 +167,7 @@ function BuyBox({
               <div className="size-opt-count">25 servings</div>
               <div className="size-opt-badge">Best value</div>
             </div>
-            <div className="size-opt-price">$65.00 · $2.60/serving</div>
+            <div className="size-opt-price">$60 · $2.40/serving</div>
           </div>
         </div>
       </div>
@@ -211,7 +199,7 @@ function BuyBox({
                 <div className="pur-opt-info" style={{ flex: 1 }}>
                   <div className="pur-opt-name">
                     Subscribe &amp; save{" "}
-                    <span className="pur-opt-save">Save 15%</span>
+                    <span className="pur-opt-save">Save $10</span>
                   </div>
                 </div>
                 <div className="pur-opt-price">
@@ -361,7 +349,7 @@ function StickyAtc({ size, plan, onAddToCart, pending, shown }: Shared) {
   return (
     <div className={`sticky-atc${shown ? " show" : ""}`} id="stickyATC">
       <div className="sticky-atc-info">
-        <div className="sticky-atc-name">Mujo Ritual · {size} servings</div>
+        <div className="sticky-atc-name">The Ritual · {size} servings</div>
         <div className="sticky-atc-price" id="stickyATCPrice">
           {formatStickyLine(size, plan)}
         </div>
@@ -421,7 +409,7 @@ export function RitualPdpClient() {
     const base =
       size === "10"
         ? "ritual-pouch-10-serving-hero-monumental-editorial-1x1"
-        : "ritual-pouch-hero-monumental-editorial-1x1";
+        : "ritual-pouch-hero-monumental-editorial-2026-09-1x1";
     const full = `/images/responsive/products/ritual/${base}-1200.webp`;
     const mainImg =
       document.querySelector<HTMLImageElement>(".gallery-main-img");

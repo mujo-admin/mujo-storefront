@@ -104,7 +104,7 @@ export function LoginForm({
         .login-input:focus {
           outline: none;
           border-color: var(--orange);
-          box-shadow: 0 0 0 3px rgba(242, 104, 47, 0.15);
+          box-shadow: 0 0 0 3px rgba(184, 72, 26, 0.15);
         }
         .login-input:disabled { opacity: 0.6; cursor: not-allowed; }
         .login-error {
@@ -115,8 +115,8 @@ export function LoginForm({
         }
         .login-submit {
           width: 100%;
-          background: var(--orange);
-          color: #fff;
+          background: var(--btn-bg);
+          color: var(--btn-fg);
           border: none;
           cursor: pointer;
           padding: 14px 24px;
@@ -127,7 +127,7 @@ export function LoginForm({
           margin-top: 18px;
           transition: background 0.15s, opacity 0.15s;
         }
-        .login-submit:hover:not(:disabled) { background: var(--orange-deep); }
+        .login-submit:hover:not(:disabled) { background: var(--btn-bg-hover); }
         .login-submit:disabled { opacity: 0.6; cursor: not-allowed; }
         .login-secure {
           text-align: center;

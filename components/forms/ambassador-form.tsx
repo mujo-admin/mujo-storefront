@@ -295,7 +295,7 @@ const ambStyles = `
     line-height: 1.3;
     color: rgba(255, 255, 255, 0.94);
   }
-  .amb-req { color: var(--orange); margin-left: 3px; }
+  .amb-req { color: var(--accent-text); margin-left: 3px; }
   .amb-optional { font-weight: 400; color: rgba(255, 255, 255, 0.55); }
   .amb-form input,
   .amb-form select,
@@ -317,13 +317,13 @@ const ambStyles = `
   .amb-form select:focus-visible,
   .amb-form textarea:focus-visible {
     border-color: var(--orange);
-    box-shadow: 0 0 0 3px rgba(242, 104, 47, 0.25);
+    box-shadow: 0 0 0 3px rgba(184, 72, 26, 0.25);
   }
   .amb-submit {
     align-self: flex-start;
     margin-top: 2px;
     display: inline-flex; align-items: center; gap: 6px;
-    background: var(--orange); color: #fff;
+    background: var(--btn-bg); color: var(--btn-fg);
     font-family: var(--f-body); font-size: 15px; font-weight: 500;
     border: none; cursor: pointer;
     padding: 14px 28px; border-radius: 100px;
@@ -332,7 +332,7 @@ const ambStyles = `
   .amb-submit:hover:not(:disabled) {
     background: var(--orange-deep, #d9531f);
     transform: translateY(-1px);
-    box-shadow: 0 8px 24px rgba(242, 104, 47, 0.3);
+    box-shadow: 0 8px 24px rgba(184, 72, 26, 0.3);
   }
   .amb-submit:disabled { opacity: 0.6; cursor: default; }
   .amb-error { color: #ffd9cc; font-size: 14px; margin-top: 2px; }

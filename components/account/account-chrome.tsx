@@ -170,7 +170,7 @@ export function AccountChrome({
           font-size: 11px;
           letter-spacing: 0.2em;
           text-transform: uppercase;
-          color: var(--orange-deep);
+          color: var(--accent-text);
           font-weight: 500;
           display: inline-block;
           margin-bottom: 12px;
@@ -187,7 +187,7 @@ export function AccountChrome({
         .acc-title em {
           font-family: var(--f-serif);
           font-style: italic;
-          color: var(--orange);
+          color: var(--accent-text);
           font-weight: 400;
         }
         .acc-lede {

@@ -328,15 +328,15 @@ export function AddressForm({
           font-family: inherit;
           font-size: 14px;
           font-weight: 500;
-          background: var(--orange);
-          color: #fff;
+          background: var(--btn-bg);
+          color: var(--btn-fg);
           border: none;
           padding: 12px 22px;
           border-radius: 100px;
           cursor: pointer;
           transition: background 0.15s;
         }
-        .addr-btn:hover:not(:disabled) { background: var(--orange-deep); }
+        .addr-btn:hover:not(:disabled) { background: var(--btn-bg-hover); }
         .addr-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .addr-feedback {
           font-family: var(--f-mono);

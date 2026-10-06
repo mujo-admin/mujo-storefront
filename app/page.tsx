@@ -7,15 +7,15 @@ import {
 } from "lib/schema";
 
 export const metadata: Metadata = {
-  title: "Mujo · Modern performance without the crash",
+  title: "Mujo · Mushroom Coffee Alternative & Lemna Protein Powder",
   description:
-    "Mushroom cacao adaptogen ritual + clean-label fuel. For people who read the label.",
+    "A mushroom coffee alternative and a plant-based protein powder made with Lemna leaf. Caffeine-light, real ingredients, for people who read the label.",
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
-    title: "Mujo · Modern performance without the crash",
+    title: "Mujo · Mushroom Coffee Alternative & Lemna Protein Powder",
     description:
-      "Mushroom cacao adaptogen ritual + clean-label fuel. For people who read the label.",
+      "A mushroom coffee alternative and a plant-based protein powder made with Lemna leaf. Caffeine-light, real ingredients, for people who read the label.",
   },
 };
 

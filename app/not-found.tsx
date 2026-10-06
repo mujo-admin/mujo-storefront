@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ImportedPage } from "components/imported-page";
 
 export const metadata: Metadata = {
-  title: "Page not found · Mujo",
+  title: "Page not found",
   description: "Link broken, mistyped, or moved. Try one of the suggestions.",
 };
 

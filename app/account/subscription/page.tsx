@@ -81,8 +81,9 @@ export default async function SubscriptionPage() {
           <div className="sub-empty-illo"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 9h12v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V9Z" /><path d="M16 10h2a2 2 0 0 1 0 4h-2" /><path d="M8.5 3c-.4.8.4 1.6 0 2.5M11.5 3c-.4.8.4 1.6 0 2.5" /></svg></div>
           <h3>No active subscription</h3>
           <p>
-            Subscribe & save 15% on every Ritual delivery. Pause or cancel
-            anytime &mdash; no commitment, no cancellation fees, no questions.
+            Subscribe and save $10 on every Ritual delivery. Free shipping
+            on every order. After your first 2 deliveries you can pause or
+            cancel here, with no cancellation fees.
           </p>
           <Link href="/products/mujo-ritual" className="sub-empty-cta">
             Start a subscription →
@@ -293,8 +294,8 @@ export default async function SubscriptionPage() {
           </div>
           <div className="sub-promise-text">
             <strong>The promise.</strong>
-            Skip, swap, pause, or cancel anytime. One click, no salt, no
-            five-step exit interview. We build subscriptions we&rsquo;d want
+            After your first 2 deliveries, skip, pause or cancel in one click.
+            No salt, no five-step exit interview. We build subscriptions we&rsquo;d want
             to be on ourselves.
           </div>
         </div>
@@ -446,18 +447,18 @@ function SubStyle() {
         display: flex;
         align-items: flex-start;
         gap: 16px;
-        margin-bottom: 24px;
-      }
+        margin-bottom: 24px; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg);
+        }
       .sub-promise-icon {
         flex-shrink: 0;
         width: 44px;
         height: 44px;
-        background: rgba(242, 104, 47, 0.18);
+        background: rgba(184, 72, 26, 0.18);
         border-radius: 50%;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        color: var(--orange);
+        color: var(--accent-text);
       }
       .sub-promise-icon svg { width: 22px; height: 22px; }
       .sub-promise-text {
@@ -539,15 +540,15 @@ function SubStyle() {
       @media (min-width: 640px) {
         .sub-status-pill { grid-column: auto; align-self: center; justify-self: end; }
       }
-      .sub-status-pill.active { background: rgba(47, 61, 51, 0.08); color: var(--sage); }
+      .sub-status-pill.active { background: rgba(42, 24, 16, 0.08); color: var(--sage); }
       .sub-status-pill.paused { background: rgba(242, 169, 47, 0.16); color: #8b5a07; }
       .sub-status-pill.canceling { background: rgba(220, 90, 70, 0.14); color: #9b3d2c; }
       .sub-status-pill.past_due { background: rgba(220, 90, 70, 0.18); color: #9b3d2c; }
 
       /* Next delivery callout */
       .next-delivery {
-        background: linear-gradient(135deg, rgba(242, 104, 47, 0.08) 0%, rgba(242, 104, 47, 0.03) 100%);
-        border: 1px solid rgba(242, 104, 47, 0.2);
+        background: linear-gradient(135deg, rgba(184, 72, 26, 0.08) 0%, rgba(184, 72, 26, 0.03) 100%);
+        border: 1px solid rgba(184, 72, 26, 0.2);
         border-radius: 12px;
         padding: 16px 20px;
         margin-bottom: 24px;
@@ -558,7 +559,7 @@ function SubStyle() {
         font-size: 11px;
         letter-spacing: 0.2em;
         text-transform: uppercase;
-        color: var(--orange-deep);
+        color: var(--accent-text);
         font-weight: 500;
       }
       .next-delivery-text strong {
@@ -619,7 +620,7 @@ function SubStyle() {
         opacity: 0.55;
       }
       .sub-field-discount {
-        color: var(--orange-deep);
+        color: var(--accent-text);
         font-weight: 500;
       }
       .sub-field-edit {
@@ -630,13 +631,13 @@ function SubStyle() {
         font-size: 11px;
         letter-spacing: 0.14em;
         text-transform: uppercase;
-        color: var(--orange-deep);
+        color: var(--accent-text);
         padding: 4px 8px;
         flex-shrink: 0;
         font-weight: 500;
         text-decoration: none;
       }
-      .sub-field-edit:hover { color: var(--orange); }
+      .sub-field-edit:hover { color: var(--accent-text); }
 
       /* Empty state */
       .sub-empty-card {
@@ -668,15 +669,15 @@ function SubStyle() {
       }
       .sub-empty-cta {
         display: inline-block;
-        background: var(--orange);
-        color: #fff;
+        background: var(--btn-bg);
+        color: var(--btn-fg);
         text-decoration: none;
         padding: 12px 22px;
         border-radius: 100px;
         font-size: 14px;
         font-weight: 500;
       }
-      .sub-empty-cta:hover { background: var(--orange-deep); }
+      .sub-empty-cta:hover { background: var(--btn-bg-hover); }
     `}</style>
   );
 }

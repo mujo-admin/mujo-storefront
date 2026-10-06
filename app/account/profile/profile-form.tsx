@@ -338,15 +338,15 @@ export function ProfileForm({
           font-family: inherit;
           font-size: 14px;
           font-weight: 500;
-          background: var(--orange);
-          color: #fff;
+          background: var(--btn-bg);
+          color: var(--btn-fg);
           border: none;
           padding: 12px 22px;
           border-radius: 100px;
           cursor: pointer;
           transition: background 0.15s;
         }
-        .profile-btn:hover:not(:disabled) { background: var(--orange-deep); }
+        .profile-btn:hover:not(:disabled) { background: var(--btn-bg-hover); }
         .profile-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .profile-feedback {
           font-family: var(--f-mono);

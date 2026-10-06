@@ -343,15 +343,15 @@ export default async function OrdersPage({
         }
         .empty-orders-cta {
           display: inline-block;
-          background: var(--orange);
-          color: #fff;
+          background: var(--btn-bg);
+          color: var(--btn-fg);
           text-decoration: none;
           padding: 12px 22px;
           border-radius: 100px;
           font-size: 14px;
           font-weight: 500;
         }
-        .empty-orders-cta:hover { background: var(--orange-deep); }
+        .empty-orders-cta:hover { background: var(--btn-bg-hover); }
 
         .orders-pagination {
           display: flex;
@@ -367,7 +367,7 @@ export default async function OrdersPage({
           color: var(--ink-soft);
           text-decoration: none;
         }
-        .page-link:hover { color: var(--orange-deep); }
+        .page-link:hover { color: var(--accent-text); }
         .page-link.disabled {
           opacity: 0.35;
           pointer-events: none;

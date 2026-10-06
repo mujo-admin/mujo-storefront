@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#F3F2E9">
 <title>Mujo · Conscious performance nutrition for people who read the label.</title>
-<meta name="description" content="A warm mushroom-and-adaptogen cacao made to replace your coffee. Rhodiola for everyday stress, cordyceps for steady energy, under 5mg of caffeine.">
+<meta name="description" content="A warm mushroom-and-adaptogen cacao made to replace your coffee. Panax Ginseng for everyday stress, cordyceps for steady energy, under 5mg of caffeine.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,16 +35,16 @@
 
 :root {
   /* Locked color tokens */
-  --orange: #F2682F;
-  --orange-deep: #D85A22;
-  --orange-soft: #FDEFE6;
+  --orange: #B8481A;
+  --orange-deep: #9E3C14;
+  --orange-soft: #F3EAE0;
   --cream: #F3F2E9;
   --sand: #EEE9E0;
   --sand-deep: #D4C4A8;
-  --sage: #2F3D33;
-  --sage-mid: #3D4D40;
-  --sage-light: #8FA396;
-  --sage-tint: rgba(47, 61, 51, 0.08);
+  --sage: #2A1810;
+  --sage-mid: #3B2A22;
+  --sage-light: #9D7F69;
+  --sage-tint: rgba(42, 24, 16, 0.08);
   --ink: #1A1A1A;
   --ink-soft: #4A4845;
   --mute: #5C5854;
@@ -88,8 +88,8 @@ body {
 
 /* ─── Animations ────────────────────────────────────── */
 @keyframes pulse {
-  0%, 100% { box-shadow: 0 4px 20px rgba(242, 104, 47, 0.45); }
-  50% { box-shadow: 0 4px 28px rgba(242, 104, 47, 0.7); }
+  0%, 100% { box-shadow: 0 4px 20px rgba(184, 72, 26, 0.45); }
+  50% { box-shadow: 0 4px 28px rgba(184, 72, 26, 0.7); }
 }
 @keyframes quizIn { from { opacity: 0; transform: translateX(16px); } to { opacity: 1; transform: translateX(0); } }
 @keyframes scaleIn { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
@@ -117,11 +117,11 @@ section { padding: var(--section-y) 0; position: relative; }
   font-size: 11px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--orange-deep);
+  color: var(--accent-text);
   font-weight: 500;
   display: inline-block;
 }
-.eyebrow.light { color: var(--orange); }
+.eyebrow.light { color: var(--accent-text); }
 
 h1, h2, h3 {
   font-family: var(--f-display);
@@ -159,9 +159,9 @@ h3 { font-size: clamp(20px, 3vw, 24px); letter-spacing: -0.015em; line-height: 1
   white-space: nowrap;
   -webkit-tap-highlight-color: transparent;
 }
-.btn-primary { background: var(--orange); color: #fff; border-color: var(--orange); }
-.btn-primary:hover { background: var(--orange-deep); border-color: var(--orange-deep); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(242, 104, 47, 0.28); }
-.btn-secondary { background: var(--sage); color: #fff; border-color: var(--sage); }
+.btn-primary { background: var(--btn-bg); color: var(--btn-fg); border-color: transparent; }
+.btn-primary:hover { background: var(--btn-bg-hover); border-color: transparent; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(184, 72, 26, 0.28); }
+.btn-secondary { background: var(--sage); color: #fff; border-color: var(--sage); --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 .btn-secondary:hover { background: var(--sage-mid); border-color: var(--sage-mid); transform: translateY(-1px); }
 .btn-ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
 .btn-ghost:hover { background: var(--sage); color: var(--cream); border-color: var(--sage); }
@@ -229,9 +229,8 @@ h3 { font-size: clamp(20px, 3vw, 24px); letter-spacing: -0.015em; line-height: 1
   letter-spacing: 0.01em;
   line-height: 1.4;
   position: relative;
-  z-index: 200;
-}
-.announce strong { color: var(--orange); font-weight: 500; }
+  z-index: 200; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
+.announce strong { color: var(--accent-text); font-weight: 500; }
 .announce .sep { opacity: 0.4; margin: 0 8px; }
 @media (max-width: 640px) { .announce-secondary { display: none; } }
 @media (min-width: 768px) { .announce { padding: 10px 24px; font-size: 13px; } }
@@ -274,7 +273,7 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.05); }
   font-size: 22px;
   font-weight: 700;
   letter-spacing: -0.04em;
-  color: var(--orange);
+  color: var(--accent-text);
 }
 @media (min-width: 1024px) { .nav-logo { justify-self: start; font-size: 24px; } }
 
@@ -356,25 +355,24 @@ nav.mujo-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.05); }
   border-bottom: 1px solid var(--line-soft);
   transition: background 0.15s, color 0.15s;
 }
-.mm-link:hover { color: var(--orange-deep); background: rgba(242, 104, 47, 0.04); }
+.mm-link:hover { color: var(--accent-text); background: rgba(184, 72, 26, 0.04); }
 .mm-link svg { width: 16px; height: 16px; opacity: 0.4; }
 .mm-foot {
   padding: 24px;
   background: var(--sage);
-  color: #fff;
-}
+  color: #fff; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 .mm-foot-eyebrow {
   font-family: var(--f-mono);
   font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--orange);
+  color: var(--accent-text);
   margin-bottom: 10px;
 }
 .mm-foot p { font-size: 14px; line-height: 1.55; color: rgba(255, 255, 255, 0.75); margin-bottom: 16px; }
 .mm-cta {
   display: inline-flex; align-items: center; gap: 6px;
-  background: var(--orange); color: #fff;
+  background: var(--btn-bg); color: var(--btn-fg);
   text-decoration: none;
   padding: 12px 20px;
   border-radius: var(--r-pill);
@@ -407,7 +405,7 @@ body.locked { overflow: hidden; }
   width: 100%;
   aspect-ratio: 4 / 5;
   background:
-    linear-gradient(180deg, rgba(47,61,51,0) 0%, rgba(47,61,51,0.55) 100%),
+    linear-gradient(180deg, rgba(42, 24, 16,0) 0%, rgba(42, 24, 16,0.55) 100%),
     linear-gradient(135deg, var(--sand-deep) 0%, var(--sage-light) 100%);
   display: flex;
   align-items: flex-end;
@@ -449,7 +447,7 @@ body.locked { overflow: hidden; }
   .hero-text { padding: 96px 56px 96px max(var(--gutter), calc((100vw - 1200px) / 2)); max-width: none; }
 }
 
-.hero-text .eyebrow { color: var(--orange-deep); margin-bottom: 16px; }
+.hero-text .eyebrow { color: var(--accent-text); margin-bottom: 16px; }
 .hero h1 { margin-bottom: 20px; }
 .hero-sub {
   font-family: var(--f-body);
@@ -488,8 +486,8 @@ body.locked { overflow: hidden; }
   color: var(--ink-soft);
 }
 .hero-trust .ht-item { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; }
-.hero-trust .ht-item svg { width: 16px; height: 16px; color: var(--orange-deep); flex-shrink: 0; }
-.hero-trust .ht-star { color: var(--orange); letter-spacing: 1px; }
+.hero-trust .ht-item svg { width: 16px; height: 16px; color: var(--accent-text); flex-shrink: 0; }
+.hero-trust .ht-star { color: var(--accent-text); letter-spacing: 1px; }
 .hero-trust strong { color: var(--ink); font-weight: 600; }
 
 .hero-audience {
@@ -509,55 +507,32 @@ body.locked { overflow: hidden; }
    fill the hero; the text block drives the height and is bottom-aligned. Desktop
    (>=1024px) keeps the two-column split, text left, completely untouched. ── */
 @media (max-width: 1023px) {
-  .hero-grid { position: relative; display: block; }
+  /* Phone + tablet hero (Kinga 2026-10-05): photo on top, uncluttered, then the
+     headline and both buttons on cream so they sit in the first screen. The
+     longer intro line drops below the buttons. Replaces the earlier
+     text-over-photo treatment. */
+  .hero-grid { display: flex; flex-direction: column; }
+  /* Both pouches and the whole glass show: the square photo is framed 5:4 here. */
   .hero-img-wrap {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    height: 100%;
+    order: -1;
+    width: 100%;
+    height: min(80vw, 46svh, 520px);
+    min-height: 220px;
     aspect-ratio: auto;
     padding: 0;
-  }
-  .hero-img-wrap::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg,
-      rgba(18,26,20,0.05) 0%,
-      rgba(18,26,20,0.30) 38%,
-      rgba(18,26,20,0.60) 70%,
-      rgba(18,26,20,0.88) 100%);
+    background-position: center 72% !important;
   }
   .hero-text {
-    position: relative;
-    z-index: 2;
-    min-height: clamp(520px, 84vh, 740px);
-    min-height: clamp(520px, 84dvh, 740px);
-    justify-content: center;
+    max-width: none;
+    padding: 18px var(--gutter) 34px;
     text-align: center;
     align-items: center;
-    padding: 24px var(--gutter);
-    color: #fff;
-    text-shadow: 0 1px 14px rgba(0, 0, 0, 0.30);
   }
-  .hero-text .eyebrow { color: rgba(255,255,255,0.82); }
-  .hero h1 { color: #fff; margin-bottom: 14px; }
-  /* Force the italic accent clause white too, so it stands out over the dark
-     hero photo on mobile (desktop keeps its on-light accent color). */
-  .hero h1 .serif-acc { color: #fff; }
-  .hero-sub { color: rgba(255,255,255,0.92); margin-bottom: 22px; max-width: 32ch; }
-  .hero .ctas { justify-content: center; flex-wrap: wrap; }
-  .hero-trust {
-    justify-content: center;
-    flex-wrap: nowrap;
-    white-space: nowrap;
-    gap: 14px;
-    font-size: 12px;
-    color: rgba(255,255,255,0.92);
-  }
-  .hero-trust .ht-item svg { color: #fff; }
-  .hero-trust .ht-star { color: var(--orange); }
-  .hero-trust strong { color: #fff; }
+  .hero-text .eyebrow { display: none; }
+  .hero h1 { order: 1; margin-bottom: 14px; }
+  .hero .ctas { order: 2; width: 100%; max-width: 420px; justify-content: center; }
+  .hero-trust { order: 3; justify-content: center; flex-wrap: nowrap; white-space: nowrap; gap: 14px; font-size: 12px; margin-top: 16px; }
+  .hero-sub { order: 4; margin: 22px 0 0; max-width: 34ch; }
 }
 
 /* "Modern performance" / modern-performance section — image + text, after the UGC strip.
@@ -601,8 +576,7 @@ body.locked { overflow: hidden; }
 .trust-marquee {
   background: var(--sage);
   padding: 40px 0;
-  overflow: hidden;
-}
+  overflow: hidden; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 .trust-marquee-viewport {
   display: flex;
   width: 100%;
@@ -669,19 +643,31 @@ body.locked { overflow: hidden; }
   font-style: italic;
   font-family: var(--f-serif);
   font-size: 20px;
-  color: var(--orange-deep);
+  color: var(--accent-text);
   letter-spacing: -0.005em;
 }
 @media (min-width: 768px) { .wwm-sub { font-size: 22px; } }
 
+/* One horizontally scrolling row (Kinga 2026-09-30): Ritual, Protein Powder,
+   Merch fill the view; the Lemna bars tile sits last, just off-screen. */
 .wwm-tiles {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
+  grid-auto-flow: column;
+  grid-auto-columns: 82%;
+  gap: 16px;
   align-items: stretch; /* equal-height across the row */
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 2px;
+  padding: 4px 2px 18px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--sand-deep) transparent;
 }
-@media (min-width: 720px) { .wwm-tiles { grid-template-columns: 1fr 1fr; gap: 20px; } }
-@media (min-width: 1100px) { .wwm-tiles { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+.wwm-tiles > .tile { scroll-snap-align: start; }
+.wwm-tiles::-webkit-scrollbar { height: 4px; }
+.wwm-tiles::-webkit-scrollbar-thumb { background: var(--sand-deep); border-radius: 4px; }
+@media (min-width: 720px) { .wwm-tiles { grid-auto-columns: calc((100% - 20px) / 2); gap: 20px; } }
+@media (min-width: 1100px) { .wwm-tiles { grid-auto-columns: calc((100% - 48px) / 3); gap: 24px; } }
 
 .tile {
   display: flex;
@@ -741,8 +727,7 @@ body.locked { overflow: hidden; }
   letter-spacing: 0.14em;
   text-transform: uppercase;
   font-weight: 500;
-  z-index: 2;
-}
+  z-index: 2; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 
 /* Tile body uses flex column with deliberate growth zones so meta + CTA align across tiles */
 .tile-body {
@@ -758,7 +743,7 @@ body.locked { overflow: hidden; }
   font-size: 10px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--orange-deep);
+  color: var(--accent-text);
   margin-bottom: 10px;
   font-weight: 500;
   min-height: 14px; /* lock baseline so name aligns across tiles */
@@ -776,13 +761,15 @@ body.locked { overflow: hidden; }
   min-height: calc(24px * 1.2 * 1);
 }
 @media (min-width: 768px) { .tile-name { font-size: 26px; } }
+/* Phones: a touch smaller so "Lemna Protein Powder" stays on one line. */
+@media (max-width: 480px) { .tile-name { font-size: clamp(18px, 5.5vw, 22px); letter-spacing: -0.015em; } }
 
 .tile-tagline {
   font-family: var(--f-serif);
   font-style: italic;
   font-size: 16px;
   line-height: 1.4;
-  color: var(--orange-deep);
+  color: var(--accent-text);
   margin-bottom: 18px;
   min-height: calc(16px * 1.4); /* lock single-line baseline */
 }
@@ -848,7 +835,7 @@ body.locked { overflow: hidden; }
   align-items: center;
   gap: 4px;
   background: var(--orange-soft);
-  color: var(--orange-deep);
+  color: var(--accent-text);
   padding: 4px 10px;
   border-radius: var(--r-tag);
   font-family: var(--f-mono);
@@ -871,9 +858,9 @@ body.locked { overflow: hidden; }
   min-height: 48px;
   padding: 0 20px;
   border-radius: var(--r-pill);
-  background: var(--orange);
-  color: #fff;
-  border: 1.5px solid var(--orange);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  border: 1.5px solid transparent;
   font-family: var(--f-body);
   font-size: 14.5px;
   font-weight: 500;
@@ -881,7 +868,7 @@ body.locked { overflow: hidden; }
   flex-shrink: 0;
   transition: background 0.2s, border-color 0.2s;
 }
-.tile:hover .tile-cta { background: var(--orange-deep); border-color: var(--orange-deep); }
+.tile:hover .tile-cta { background: var(--btn-bg-hover); border-color: transparent; }
 .tile:hover .tile-cta .arrow { transform: translateX(3px); }
 
 /* Tile-quiet variant (Tools & Merch). Quieter background, same structure */
@@ -912,7 +899,7 @@ body.locked { overflow: hidden; }
   transition: color 0.2s;
   display: inline-flex; align-items: center; gap: 4px;
 }
-.inside-link:hover { color: var(--orange-deep); }
+.inside-link:hover { color: var(--accent-text); }
 
 .ing-strip {
   display: flex;
@@ -1002,7 +989,7 @@ body.locked { overflow: hidden; }
   align-self: flex-start;
   margin-top: auto;
 }
-.ing-dose::before { content: '✓'; color: var(--orange-deep); }
+.ing-dose::before { content: '✓'; color: var(--accent-text); }
 
 /* ═══════════════════════════════════════════════════════════
    5. UGC STRIP. Full-bleed marquee of customer photos
@@ -1024,7 +1011,7 @@ body.locked { overflow: hidden; }
   font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--orange-deep);
+  color: var(--accent-text);
   font-weight: 500;
 }
 
@@ -1057,7 +1044,7 @@ body.locked { overflow: hidden; }
   background: linear-gradient(135deg, var(--sand-deep) 0%, var(--sage-light) 100%);
 }
 .ugc-tile.t2 { background: linear-gradient(135deg, #6B4F3A 0%, #4A3526 100%); }
-.ugc-tile.t3 { background: linear-gradient(135deg, #4A6249 0%, #2F3D33 100%); }
+.ugc-tile.t3 { background: linear-gradient(135deg, #5C432F 0%, #2A1810 100%); --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 .ugc-tile.t4 { background: linear-gradient(135deg, #F0E5D5 0%, #C8B89C 100%); }
 .ugc-tile.t5 { background: linear-gradient(135deg, #C9A57B 0%, #8B6F4E 100%); }
 .ugc-tile.t6 { background: linear-gradient(135deg, #E8DCC0 0%, #B8A581 100%); }
@@ -1106,11 +1093,11 @@ body.locked { overflow: hidden; }
   color: var(--mute);
 }
 .ugc-foot a {
-  color: var(--orange-deep);
+  color: var(--accent-text);
   text-decoration: none;
   font-weight: 500;
 }
-.ugc-foot a:hover { color: var(--orange); }
+.ugc-foot a:hover { color: var(--accent-text); }
 
 /* ═══════════════════════════════════════════════════════════
    6. REAL REVIEWS. Photo + text card layout
@@ -1146,7 +1133,7 @@ body.locked { overflow: hidden; }
   overflow: hidden;
 }
 .review.r2 .review-photo { background: linear-gradient(135deg, #6B4F3A 0%, #4A3526 100%); }
-.review.r3 .review-photo { background: linear-gradient(135deg, #4A6249 0%, #2F3D33 100%); }
+.review.r3 .review-photo { background: linear-gradient(135deg, #5C432F 0%, #2A1810 100%); --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 
 .review-tag {
   position: absolute;
@@ -1203,7 +1190,7 @@ body.locked { overflow: hidden; }
   flex: 1;
 }
 .review-stars {
-  color: var(--orange);
+  color: var(--accent-text);
   letter-spacing: 2px;
   font-size: 13px;
   margin-bottom: 12px;
@@ -1220,7 +1207,7 @@ body.locked { overflow: hidden; }
 .review-headline em {
   font-family: var(--f-serif);
   font-style: italic;
-  color: var(--orange);
+  color: var(--accent-text);
   font-weight: 400;
 }
 .review-quote {
@@ -1290,7 +1277,7 @@ body.locked { overflow: hidden; }
   font-style: italic;
   font-size: 23px;
   line-height: 1.4;
-  color: var(--orange);
+  color: var(--accent-text);
   margin-top: 28px;
   margin-bottom: 18px;
   max-width: 540px;
@@ -1318,7 +1305,7 @@ body.locked { overflow: hidden; }
   display: inline-flex; align-items: center; gap: 4px;
   transition: color 0.2s;
 }
-.founder-link:hover { color: var(--orange-deep); }
+.founder-link:hover { color: var(--accent-text); }
 
 /* ═══════════════════════════════════════════════════════════
    8. REBEL CLUB
@@ -1327,15 +1314,14 @@ body.locked { overflow: hidden; }
   background: var(--sage);
   color: #fff;
   position: relative;
-  overflow: hidden;
-}
+  overflow: hidden; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 .rebel::before {
   content: '';
   position: absolute;
   top: -120px; right: -120px;
   width: 360px; height: 360px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(242, 104, 47, 0.15) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(184, 72, 26, 0.15) 0%, transparent 70%);
   pointer-events: none;
 }
 .rebel .container { position: relative; z-index: 1; }
@@ -1349,7 +1335,7 @@ body.locked { overflow: hidden; }
   text-align: center;
 }
 
-.rebel-text .eyebrow.light { color: var(--orange); margin-bottom: 14px; display: inline-block; }
+.rebel-text .eyebrow.light { color: var(--accent-text); margin-bottom: 14px; display: inline-block; }
 .rebel h2 { color: #fff; margin-bottom: 16px; }
 
 .rebel-sub {
@@ -1366,9 +1352,9 @@ body.locked { overflow: hidden; }
 .rebel-form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 14px;
   max-width: 520px;
-  margin: 0 auto 14px;
+  margin: 0 auto 20px;
 }
 @media (min-width: 480px) {
   .rebel-form { flex-direction: row; flex-wrap: wrap; }
@@ -1460,8 +1446,7 @@ footer {
   background: var(--sage);
   color: rgba(255, 255, 255, 0.5);
   padding: 56px 0 32px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-}
+  border-top: 1px solid rgba(255, 255, 255, 0.06); --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 @media (min-width: 768px) { footer { padding: 72px 0 40px; } }
 
 .footer-grid {
@@ -1474,7 +1459,7 @@ footer {
 @media (min-width: 960px) { .footer-grid { grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; } }
 
 .footer-brand h3 {
-  color: var(--orange);
+  color: var(--accent-text);
   font-family: var(--f-display);
   font-size: 26px;
   font-weight: 700;
@@ -1492,7 +1477,7 @@ footer {
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--orange);
+  color: var(--accent-text);
   margin-bottom: 16px;
 }
 .footer-links { display: flex; flex-direction: column; gap: 10px; }
@@ -1549,7 +1534,7 @@ footer {
   font-weight: 500;
   cursor: pointer;
   border: none;
-  box-shadow: 0 4px 20px rgba(242, 104, 47, 0.45);
+  box-shadow: 0 4px 20px rgba(184, 72, 26, 0.45);
   animation: pulse 3s ease-in-out 4s infinite;
   opacity: 0;
   pointer-events: none;
@@ -1584,8 +1569,7 @@ footer {
   max-height: 90vh;
   overflow-y: auto;
   transform: translateY(100%);
-  transition: transform 0.4s cubic-bezier(0.34, 1.06, 0.64, 1);
-}
+  transition: transform 0.4s cubic-bezier(0.34, 1.06, 0.64, 1); --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
 .qs-overlay.on .qs-sheet { transform: translateY(0); }
 @media (min-width: 768px) {
   .qs-sheet { max-width: 540px; left: 50%; transform: translate(-50%, 100%); border-radius: var(--r-structural); bottom: 24px; padding: 10px 32px 36px; }
@@ -1679,8 +1663,8 @@ footer {
 }
 
 .qs-offer {
-  background: rgba(242, 104, 47, 0.1);
-  border: 1px solid rgba(242, 104, 47, 0.25);
+  background: rgba(184, 72, 26, 0.1);
+  border: 1px solid rgba(184, 72, 26, 0.25);
   border-radius: var(--r-structural);
   padding: 16px 18px;
   margin-bottom: 18px;
@@ -1731,8 +1715,8 @@ footer {
   width: 100%;
   padding: 15px;
   border-radius: var(--r-pill);
-  background: var(--orange);
-  color: #fff;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
   border: none;
   font-size: 15px;
   font-weight: 500;
@@ -1744,7 +1728,7 @@ footer {
   gap: 8px;
   font-family: var(--f-body);
 }
-.qs-submit:hover { background: var(--orange-deep); transform: translateY(-1px); }
+.qs-submit:hover { background: var(--btn-bg-hover); transform: translateY(-1px); }
 
 .qs-privacy {
   font-size: 11px;
@@ -1819,8 +1803,8 @@ footer {
 }
 .res-body strong { color: #fff; font-weight: 500; }
 .res-pdf {
-  background: rgba(242, 104, 47, 0.12);
-  border: 1px solid rgba(242, 104, 47, 0.28);
+  background: rgba(184, 72, 26, 0.12);
+  border: 1px solid rgba(184, 72, 26, 0.28);
   border-radius: var(--r-structural);
   padding: 14px 16px;
   margin-bottom: 16px;
@@ -1828,7 +1812,7 @@ footer {
   align-items: center;
   gap: 12px;
 }
-.res-pdf-icon { font-size: 26px; flex-shrink: 0; color: var(--orange); }
+.res-pdf-icon { font-size: 26px; flex-shrink: 0; color: var(--accent-text); }
 .res-pdf-text { font-size: 13px; color: rgba(255, 255, 255, 0.65); line-height: 1.5; font-family: var(--f-body); }
 .res-pdf-text strong { color: #fff; display: block; font-size: 14px; margin-bottom: 2px; }
 .res-code {
@@ -1839,7 +1823,7 @@ footer {
   font-family: var(--f-body);
 }
 .res-code strong {
-  color: var(--orange);
+  color: var(--accent-text);
   font-size: 16px;
   font-family: var(--f-mono);
   letter-spacing: 0.08em;
@@ -1849,8 +1833,8 @@ footer {
   width: 100%;
   padding: 15px;
   border-radius: var(--r-pill);
-  background: var(--orange);
-  color: #fff;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
   border: none;
   font-size: 15px;
   font-weight: 500;
@@ -1863,7 +1847,7 @@ footer {
   transition: background 0.2s;
   font-family: var(--f-body);
 }
-.res-cta:hover { background: var(--orange-deep); }
+.res-cta:hover { background: var(--btn-bg-hover); }
 </style>
 
 <!-- JSON-LD: Organization -->
@@ -1944,13 +1928,13 @@ footer {
 <section class="hero">
   <div class="hero-grid">
     <div class="hero-text">
-      <div class="eyebrow reveal">Caffeine-light · Mushroom cacao</div>
-      <h1 class="reveal d1">Doing more with less. <span class="serif-acc">Finally, a ritual that fills your morning cup.</span></h1>
-      <p class="hero-sub reveal d2">A warm mushroom-and-adaptogen cacao that tastes so good you won't want to skip it. Under 5mg of caffeine, so there's nothing to spike or crash.</p>
+      <div class="eyebrow reveal">Mushroom coffee alternative · Plant protein</div>
+      <h1 class="reveal d1">Morning rituals that <span class="serif-acc">actually fill your cup.</span></h1>
+      <p class="hero-sub reveal d2">A warm mushroom cacao with under 5mg of caffeine, and a creamy plant protein powder made with Lemna leaf. Real ingredients, made to taste good.</p>
       <div class="ctas reveal d4">
         <a href="/products/mujo-ritual" class="btn btn-primary">Shop the Ritual <span class="arrow">→</span></a>
+        <a href="/products/protein-powder" class="btn btn-ghost">Pre-order the Protein Powder</a>
       </div>
-      <!-- Lemna Protein Bars CTA removed from the hero 2026-05-25. Restore when pre-sale opens. -->
       <div class="hero-trust reveal d4">
         <span class="ht-item">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -1962,7 +1946,7 @@ footer {
         <span class="ht-item"><span class="ht-star">★</span> <strong>4.9</strong> · 100+ verified reviews</span>
       </div>
     </div>
-    <div class="hero-img-wrap reveal d2" style="background-image: url('/images/responsive/lifestyle/ritual-iced-pour-pouch-hero-editorial-4x5-1200.webp'); background-size: cover; background-position: center;">
+    <div class="hero-img-wrap reveal d2" role="img" aria-label="An iced Ritual topped with vanilla protein cold foam, with The Ritual and Protein Powder pouches standing behind it" style="background-image: url('/images/responsive/lifestyle/ritual-protein-duo-hero-2026-10-1x1-1200.webp'); background-size: cover; background-position: center;">
     </div>
   </div>
 </section>
@@ -1973,21 +1957,21 @@ footer {
 <section class="trust-marquee" aria-label="What's in every Mujo ritual">
   <div class="trust-marquee-viewport">
     <div class="trust-track">
-      <div class="trust-badge"><img src="/images/icons/mushroom.svg" alt="" loading="lazy" /><span>Fruiting body only</span></div>
-      <div class="trust-badge"><img src="/images/icons/science-backed.svg" alt="" loading="lazy" /><span>Doses on the label</span></div>
-      <div class="trust-badge"><img src="/images/icons/bioavailable.svg" alt="" loading="lazy" /><span>Bioavailable curcumin</span></div>
+      <div class="trust-badge"><img src="/images/icons/mushroom.svg" alt="" loading="lazy" /><span>Never mycelium on grain</span></div>
+      <div class="trust-badge"><img src="/images/icons/science-backed.svg" alt="" loading="lazy" /><span>A few real ingredients</span></div>
+      <div class="trust-badge"><img src="/images/icons/potent-mushrooms-cream.svg" alt="" loading="lazy" /><span>Four mushroom extracts</span></div>
       <div class="trust-badge"><img src="/images/icons/caffeine-free.svg" alt="" loading="lazy" /><span>Under 5mg caffeine</span></div>
-      <div class="trust-badge"><img src="/images/icons/no-added-sugar.svg" alt="" loading="lazy" /><span>No added sugar</span></div>
+      <div class="trust-badge"><img src="/images/icons/better-for-you.svg" alt="" loading="lazy" /><span>Sweetened with monk fruit</span></div>
       <div class="trust-badge"><img src="/images/icons/delicious.svg" alt="" loading="lazy" /><span>Tastes like a treat</span></div>
       <div class="trust-badge"><img src="/images/icons/vegan.svg" alt="" loading="lazy" /><span>Vegan</span></div>
       <div class="trust-badge"><img src="/images/icons/third-party-tested.svg" alt="" loading="lazy" /><span>Third-party tested</span></div>
     </div>
     <div class="trust-track trust-track-dup" aria-hidden="true">
-      <div class="trust-badge"><img src="/images/icons/mushroom.svg" alt="" loading="lazy" /><span>Fruiting body only</span></div>
-      <div class="trust-badge"><img src="/images/icons/science-backed.svg" alt="" loading="lazy" /><span>Doses on the label</span></div>
-      <div class="trust-badge"><img src="/images/icons/bioavailable.svg" alt="" loading="lazy" /><span>Bioavailable curcumin</span></div>
+      <div class="trust-badge"><img src="/images/icons/mushroom.svg" alt="" loading="lazy" /><span>Never mycelium on grain</span></div>
+      <div class="trust-badge"><img src="/images/icons/science-backed.svg" alt="" loading="lazy" /><span>A few real ingredients</span></div>
+      <div class="trust-badge"><img src="/images/icons/potent-mushrooms-cream.svg" alt="" loading="lazy" /><span>Four mushroom extracts</span></div>
       <div class="trust-badge"><img src="/images/icons/caffeine-free.svg" alt="" loading="lazy" /><span>Under 5mg caffeine</span></div>
-      <div class="trust-badge"><img src="/images/icons/no-added-sugar.svg" alt="" loading="lazy" /><span>No added sugar</span></div>
+      <div class="trust-badge"><img src="/images/icons/better-for-you.svg" alt="" loading="lazy" /><span>Sweetened with monk fruit</span></div>
       <div class="trust-badge"><img src="/images/icons/delicious.svg" alt="" loading="lazy" /><span>Tastes like a treat</span></div>
       <div class="trust-badge"><img src="/images/icons/vegan.svg" alt="" loading="lazy" /><span>Vegan</span></div>
       <div class="trust-badge"><img src="/images/icons/third-party-tested.svg" alt="" loading="lazy" /><span>Third-party tested</span></div>
@@ -2005,31 +1989,31 @@ footer {
     <div class="wwm-tiles">
       <!-- Tile 1: The Ritual Cacao -->
       <a href="/products/mujo-ritual" class="tile reveal">
-        <div class="tile-hero" style="background-image: url('/images/responsive/products/ritual/ritual-pouch-hero-monumental-editorial-1x1-800.webp'); background-size: cover; background-position: center;">
+        <div class="tile-hero" style="background-image: url('/images/responsive/products/ritual/ritual-pouch-hero-monumental-editorial-2026-09-1x1-800.webp'); background-size: cover; background-position: center;">
         </div>
         <div class="tile-body">
-          <div class="tile-eyebrow">Coffee Alternative · Mushroom cacao</div>
-          <div class="tile-name">The Ritual Cacao</div>
+          <div class="tile-eyebrow">Mushroom Coffee Alternative</div>
+          <div class="tile-name">The Ritual</div>
           <div class="tile-meta">
-            <span class="tile-price">$65</span>
-            <span class="tile-price-meta">25 servings · $2.60/cup</span>
+            <span class="tile-price">$60</span>
+            <span class="tile-price-meta">25 servings · $2.40/cup</span>
           </div>
-          <span class="tile-cta">Shop the Ritual Cacao <span class="arrow">→</span></span>
+          <span class="tile-cta">Shop now <span class="arrow">→</span></span>
         </div>
       </a>
 
-      <!-- Tile 2: The Lemna Protein Bar -->
-      <a href="/lemna" class="tile reveal d1">
-        <div class="tile-hero" role="img" aria-label="Mujo Lemna peanut butter protein bar shown in its wrapper alongside the unwrapped bar." style="background-image: url('/images/responsive/products/lemna/lemna-bar-peanut-butter-1x1-800.webp'); background-size: cover; background-position: center;">
+      <!-- Tile 2: Protein Powder (pre-order) -->
+      <a href="/products/protein-powder" class="tile reveal d1">
+        <div class="tile-hero" role="img" aria-label="Mujo Protein Powder pouch on an oak table in morning light" style="background-image: url('/images/responsive/products/protein-powder/powder-pouch-hero-2026-09-800.webp'); background-size: cover; background-position: center;">
         </div>
         <div class="tile-body">
-          <div class="tile-eyebrow">Plant-Based Protein Bar · Coming Soon</div>
-          <div class="tile-name">The Lemna Protein Bar</div>
+          <div class="tile-eyebrow">Plant Protein</div>
+          <div class="tile-name">Lemna Protein Powder</div>
           <div class="tile-meta">
-            <span class="tile-price">$32</span>
-            <span class="tile-price-meta">8-bar box · Founding pricing</span>
+            <span class="tile-price">$45</span>
+            <span class="tile-price-meta">15 servings · ships by Nov 15</span>
           </div>
-          <span class="tile-cta">Preview the Lemna Bar <span class="arrow">→</span></span>
+          <span class="tile-cta">Pre-order <span class="arrow">→</span></span>
         </div>
       </a>
 
@@ -2044,7 +2028,22 @@ footer {
             <span class="tile-price">From $20</span>
             <span class="tile-price-meta">Limited drops</span>
           </div>
-          <span class="tile-cta">Shop merch <span class="arrow">→</span></span>
+          <span class="tile-cta">Shop now <span class="arrow">→</span></span>
+        </div>
+      </a>
+
+      <!-- Tile 4: Lemna Protein Bars, last in the scroll row so they sit quietly
+           off-screen (Kinga 2026-09-30). Bar pages are hidden, so no product link. -->
+      <a href="/rebel-club" class="tile tile-quiet reveal d3">
+        <div class="tile-hero" role="img" aria-label="Lemna leaf floating on water in a glass dish." style="background-image: url('/images/responsive/ingredients/lemna-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;">
+        </div>
+        <div class="tile-body">
+          <div class="tile-eyebrow">Protein Bars · In the works</div>
+          <div class="tile-name">Lemna Protein Bars</div>
+          <div class="tile-meta">
+            <span class="tile-price-meta">Coming later. Rebel Club members hear first.</span>
+          </div>
+          <span class="tile-cta">Join the Rebel Club <span class="arrow">→</span></span>
         </div>
       </a>
     </div>
@@ -2073,20 +2072,20 @@ footer {
       </div>
 
       <div class="ing-card">
-        <div class="ing-img" style="background-image: url('/images/responsive/ingredients/ashwagandha-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
+        <div class="ing-img" style="background-image: url('/images/responsive/ingredients/l-theanine-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
         <div class="ing-body">
-          <div class="ing-name">Ashwagandha</div>
-          <div class="ing-latin">Withania somnifera</div>
-          <div class="ing-dose">Root extract</div>
+          <div class="ing-name">L-theanine</div>
+          <div class="ing-latin">Naturally found in green tea</div>
+          <div class="ing-dose">Amino acid</div>
         </div>
       </div>
 
       <div class="ing-card">
-        <div class="ing-img" style="background-image: url('/images/responsive/ingredients/turmeric-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
+        <div class="ing-img" style="background-image: url('/images/responsive/ingredients/carob-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
         <div class="ing-body">
-          <div class="ing-name">Curcumin</div>
-          <div class="ing-latin">Curcuma longa</div>
-          <div class="ing-dose">Bioavailable form</div>
+          <div class="ing-name">Carob</div>
+          <div class="ing-latin">Ceratonia siliqua</div>
+          <div class="ing-dose">Naturally sweet</div>
         </div>
       </div>
 
@@ -2100,11 +2099,11 @@ footer {
       </div>
 
       <div class="ing-card">
-        <div class="ing-img" style="background-image: url('/images/responsive/ingredients/rhodiola-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
+        <div class="ing-img" style="background-image: url('/images/responsive/ingredients/panax-ginseng-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
         <div class="ing-body">
-          <div class="ing-name">Rhodiola Rosea</div>
-          <div class="ing-latin">Altai · cultivated</div>
-          <div class="ing-dose">Rosavins · salidrosides</div>
+          <div class="ing-name">Panax Ginseng</div>
+          <div class="ing-latin">Panax ginseng · Root</div>
+          <div class="ing-dose">Ginsenosides</div>
         </div>
       </div>
 
@@ -2118,11 +2117,11 @@ footer {
       </div>
 
       <div class="ing-card">
-        <div class="ing-img" style="background-image: url('/images/responsive/ingredients/bacopa-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
+        <div class="ing-img" style="background-image: url('/images/responsive/ingredients/cinnamon-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
         <div class="ing-body">
-          <div class="ing-name">Bacopa Monnieri</div>
-          <div class="ing-latin">Bacopa monnieri</div>
-          <div class="ing-dose">55% bacosides</div>
+          <div class="ing-name">Ceylon Cinnamon</div>
+          <div class="ing-latin">Cinnamomum verum</div>
+          <div class="ing-dose">True cinnamon</div>
         </div>
       </div>
 
@@ -2136,9 +2135,9 @@ footer {
       </div>
 
       <div class="ing-card">
-        <div class="ing-img" style="background-image: url('/images/responsive/ingredients/maca-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
+        <div class="ing-img" style="background-image: url('/images/responsive/ingredients/black-maca-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
         <div class="ing-body">
-          <div class="ing-name">Gelatinized Maca</div>
+          <div class="ing-name">Gelatinized Black Maca</div>
           <div class="ing-latin">Lepidium meyenii</div>
           <div class="ing-dose">Gelatinized</div>
         </div>
@@ -2151,15 +2150,16 @@ footer {
 <style>
   .sci { background: var(--sand); padding: var(--section-y) 0; }
   .sci .sci-head { max-width: 620px; }
-  .sci .sci-eyebrow { display: inline-flex; align-items: center; gap: 12px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange-deep); margin-bottom: 18px; }
+  .sci .sci-eyebrow { display: inline-flex; align-items: center; gap: 12px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-text); margin-bottom: 18px; }
   .sci .sci-eyebrow::before { content: ""; width: 22px; height: 1px; background: var(--orange-deep); display: inline-block; }
   .sci h2 { font-family: var(--f-display); font-weight: 500; font-size: 38px; line-height: 1.08; color: var(--sage); margin: 0 0 16px; }
-  .sci h2 .serif-acc { font-family: var(--f-serif); font-style: italic; font-weight: 400; color: var(--orange); }
+  .sci h2 .serif-acc { font-family: var(--f-serif); font-style: italic; font-weight: 400; color: var(--accent-text); }
   .sci .sci-intro { font-family: var(--f-body); font-size: 18px; line-height: 1.55; color: var(--ink-soft); max-width: 640px; margin: 0 0 48px; }
   .sci .sci-rows { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
   .sci .sci-row { border-top: 1px solid var(--line); padding-top: 22px; }
-  .sci .sci-icon { display: block; width: 40px; height: 40px; margin-bottom: 16px; }
-  .sci .sci-num { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.2em; color: var(--sage-light); margin-bottom: 14px; }
+  .sci .sci-icon { display: block; width: 48px; height: 48px; margin-bottom: 16px; }
+  @media (max-width: 700px) { .sci .sci-icon { width: 60px; height: 60px; margin-bottom: 18px; } }
+  .sci .sci-num { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.2em; color: var(--brown-mute); margin-bottom: 14px; }
   .sci .sci-label { font-family: var(--f-display); font-weight: 500; font-size: 21px; line-height: 1.2; color: var(--sage); margin: 0 0 10px; }
   .sci .sci-why { font-family: var(--f-body); font-size: 16px; line-height: 1.55; color: var(--ink-soft); margin: 0 0 12px; }
   @media (max-width: 880px) {
@@ -2186,13 +2186,13 @@ footer {
         <img class="sci-icon" src="/images/icons/sustainably-sourced.svg" alt="" loading="lazy" width="40" height="40">
         <div class="sci-num">02 · The adaptogens</div>
         <h3 class="sci-label">Real forms, openly named</h3>
-        <p class="sci-why">Rhodiola Rosea, cultivated in the Altai region of Siberia, alongside the other adaptogens, each named openly on the label with its form and source. Never hidden in a blend.</p>
+        <p class="sci-why">Panax ginseng is considered an adaptogen. It has been part of traditional East Asian practice for centuries, where people value it as an everyday tonic. Every ingredient is named openly, never hidden in a blend.</p>
       </div>
       <div class="sci-row">
-        <img class="sci-icon" src="/images/icons/bioavailable-curcuma.svg" alt="" loading="lazy" width="40" height="40">
-        <div class="sci-num">03 · The curcumin</div>
-        <h3 class="sci-label">A bioavailable form</h3>
-        <p class="sci-why">Ordinary curcumin barely survives digestion. Ours is a bioavailable form, chosen for how well the body absorbs it. The same ingredient, in a better form.</p>
+        <img class="sci-icon" src="/images/icons/delicious-orange.svg" alt="" loading="lazy" width="40" height="40">
+        <div class="sci-num">03 · The taste</div>
+        <h3 class="sci-label">A smooth mocha, not a mushroom</h3>
+        <p class="sci-why">Peruvian cacao and carob do the work, with a hint of Ceylon cinnamon and a little monk fruit. It tastes like a mocha with an undertone of cacao, so it's a cup you look forward to, not one you get through.</p>
       </div>
     </div>
   </div>
@@ -2206,7 +2206,7 @@ footer {
 <section class="perform">
   <div class="container">
     <div class="perform-grid">
-      <div class="perform-image" style="background-image:url('/images/responsive/lifestyle/ritual-padel-conscious-performer-editorial-4x5-800.webp');"></div>
+      <div class="perform-image" style="background-image:url('/images/responsive/lifestyle/ritual-padel-conscious-performer-editorial-2026-09-4x5-800.webp');"></div>
       <div class="perform-text">
         <h2 class="reveal">For a calmer, more human morning.</h2>
         <p class="reveal d1">It was never about more discipline or more inputs. It's about a simpler ritual you actually enjoy, made for people who'd rather do more with less. Founders, parents, athletes, the ones who read the label and want a calm, warm cup instead of another stimulant.</p>

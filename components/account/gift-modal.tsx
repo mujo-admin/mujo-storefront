@@ -514,7 +514,7 @@ export function GiftModal({
         .gift-product-option:hover { border-color: var(--orange); }
         .gift-product-option.selected {
           border-color: var(--orange);
-          background: rgba(242, 104, 47, 0.06);
+          background: rgba(184, 72, 26, 0.06);
         }
         .gift-product-option input[type="radio"] {
           accent-color: var(--orange);
@@ -546,7 +546,7 @@ export function GiftModal({
           letter-spacing: 0.08em;
           text-transform: uppercase;
           padding: 3px 8px;
-          background: rgba(47, 61, 51, 0.08);
+          background: rgba(42, 24, 16, 0.08);
           color: var(--sage);
           border-radius: 100px;
           flex-shrink: 0;
