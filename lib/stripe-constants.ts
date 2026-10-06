@@ -9,8 +9,14 @@ export const SHIPPING_RATE_FLAT_ID = process.env.STRIPE_SHIPPING_FLAT_ID ?? "";
 // Express ($15) — optional paid speed upgrade. Empty until the rate is minted
 // + the env var is set; buildShippingOptions() only offers Express when present,
 // so checkout degrades gracefully (Free/Standard still work) before then.
-export const SHIPPING_RATE_EXPRESS_ID =
-  process.env.STRIPE_SHIPPING_EXPRESS_ID ?? "";
+//
+// Switched OFF 2026-10-06 (Kinga): one shipping type only, so checkout reads the
+// same for every product (pre-orders never had Express). Set to true to offer
+// it again; the rate and env var are left in place.
+export const EXPRESS_SHIPPING_ENABLED = false;
+export const SHIPPING_RATE_EXPRESS_ID = EXPRESS_SHIPPING_ENABLED
+  ? (process.env.STRIPE_SHIPPING_EXPRESS_ID ?? "")
+  : "";
 
 // Free shipping is earned at this merchandise subtotal (pre-discount) on
 // one-time carts, OR whenever the cart contains a subscription. $100.
