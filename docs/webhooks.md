@@ -18,7 +18,7 @@ Configured in Stripe Dashboard → Developers → Webhooks (Handoff #9):
 | `customer.subscription.updated` | Status transitions (active ↔ past_due ↔ paused ↔ canceled), plan changes, period rolls. Mirrors state to DB + Shopify metafields. | `lib/webhook-handlers/subscription-updated.ts` |
 | `customer.subscription.deleted` | Hard cancellation. Same handler as `.updated` (status forced to `canceled`). | `lib/webhook-handlers/subscription-updated.ts` |
 | `charge.failed` | Logs failures (no DB writes — status transition rides on `customer.subscription.updated`) | `lib/webhook-handlers/charge-failed.ts` |
-| `charge.refunded` | Logs refunds for reconciliation. No automatic Shopify edit. | `lib/webhook-handlers/charge-refunded.ts` |
+| `charge.refunded` | Mirrors the refund onto the Shopify order (amount only, no restock, no customer email) and tags it `stripe-refunded`. | `lib/webhook-handlers/charge-refunded.ts` |
 
 Anything else → logged at INFO level in Vercel logs and returned 200 (Stripe doesn't retry).
 
@@ -115,9 +115,52 @@ Future: emit Sentry/Slack alert from here for ops visibility.
 
 **Fires for:** Any refund initiated in Stripe Dashboard or via API.
 
-Logs the refund + cross-references to the Shopify order via `order_mirror`. Does NOT auto-edit the Shopify order — refunds should be paired with a manual Shopify-side refund / cancellation by Kinga to keep accounting clean.
+Looks up the Shopify order through `order_mirror`, then creates a Shopify refund for the amount Shopify does not have yet (`charge.amount_refunded` minus Shopify's refunded total), so repeat deliveries and several partial refunds are safe.
 
-Future: write a `refund_amount_cents` + `refunded_at` metafield onto the Shopify order so support can spot the linkage.
+- **Amount only.** No `refundLineItems`, so nothing is restocked. `notify: false`, so the customer gets no Shopify email.
+- **Tagged `stripe-refunded`.** A refunded order that has not shipped is NOT auto-cancelled; the tag makes it visible in the fulfilment list.
+- **Orders mirrored before 2026-10** have no payment recorded in Shopify to refund against. Those are logged (`pre-fix order`) and skipped.
+- `refundCreate` requires Shopify's `@idempotent(key:)` directive (Admin API 2026-04). Key = `{chargeId}-{amount_refunded}`.
+- A rejection from Shopify (`userErrors`) is logged and swallowed; the daily Stripe-vs-Shopify check in the AIOS workspace reports the gap. Network errors rethrow so Stripe retries.
+
+---
+
+## What a mirrored order contains (2026-10)
+
+Every order the three order handlers create goes through one path: the handler extracts **facts** from Stripe (`lib/webhook-handlers/_order-facts.ts`), and `lib/shopify-order-builder.ts` turns them into Shopify fields. `createMirroredOrder()` in `_helpers.ts` sends it.
+
+| Shopify field | Source |
+|---|---|
+| Line `priceSet` | Stripe line subtotal ÷ quantity (**per unit**; Shopify multiplies by quantity) |
+| Line `title` | Stripe description, with invoice wording stripped (`1 × The Ritual (at $50.00 / every 4 weeks)` → `The Ritual`) |
+| Line `taxLines` | Stripe Tax per line, zero-amount entries dropped. `rate` is a fraction (1.5% = `0.015`) |
+| `shippingLines` | `session.shipping_cost` (a $0 "Free shipping" line is still recorded). Subscriptions ship free, so none |
+| `discountCode` | `itemFixedDiscountCode`: Stripe's dollar discount, labelled with the promotion code |
+| `transactions` | One `SALE` / `SUCCESS`, gateway `Stripe`, amount = what Stripe charged, `authorizationCode` = charge id |
+| `test` | `true` when the server key is not live (sandbox orders stay out of Shopify reports) |
+
+Two safety nets, because a paid order must always reach Shopify to be fulfilled:
+
+1. **Total check.** If items − discount + shipping + tax does not equal Stripe's total, the order is still created, the payment still records Stripe's amount, and the order is tagged **`needs-reconciliation`** with both figures in the note.
+2. **Rejection fallback.** If Shopify rejects the complete order (`userErrors`), the handler immediately creates the minimal order (line items + PAID label) tagged **`needs-reconciliation`**, with the rejection reason in the note.
+
+`processedAt` is only sent when Stripe's timestamp is not in the future (Shopify rejects future dates; sandbox test clocks produce them).
+
+### Proving a change
+
+```bash
+pnpm tsx scripts/test-order-builder.ts                 # arithmetic, no network
+pnpm tsx scripts/sandbox-order-scenarios.ts prices     # sandbox price ids
+pnpm tsx scripts/sandbox-order-scenarios.ts sub <price> 2          # subscription (test clock)
+pnpm tsx scripts/sandbox-order-scenarios.ts session <price>:1      # hosted checkout URL to pay with 4242…
+pnpm tsx scripts/replay-stripe-event.ts --for <id> --type <event>  # run the real handler locally
+pnpm tsx scripts/compare-order.ts <ch_|cs_|in_ id>     # Stripe vs Shopify, MATCH or the differing rows
+pnpm tsx scripts/sandbox-order-scenarios.ts cleanup --apply        # cancel test orders, delete test rows
+```
+
+`.env.local` points at the **production database** and the real Shopify store. The scenario script uses one dedicated test email so clean-up can find everything and no real customer row is touched. Replay switches Klaviyo and Meta off unless `--with-analytics` is passed.
+
+The order number on `/checkout/success` comes from `GET /api/order-status?session_id=…[&invoice_id=…]`, which reads `order_mirror` (polled for ~30s).
 
 ---
 

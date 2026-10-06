@@ -9,10 +9,10 @@ import type Stripe from 'stripe';
 import { eq } from 'drizzle-orm';
 import { db, orderMirror } from 'db';
 import { stripe } from 'lib/stripe';
-import { createOrder } from 'lib/shopify-admin';
 import { trackOrderPlaced } from 'lib/klaviyo';
 import { sendCapiEvent } from 'lib/meta-capi';
-import { upsertCustomerForStripe } from './_helpers';
+import { createMirroredOrder, upsertCustomerForStripe } from './_helpers';
+import { factsFromGiftPaymentIntent } from './_order-facts';
 
 export async function handlePaymentIntentSucceeded(event: Stripe.Event) {
   if (event.type !== 'payment_intent.succeeded') return;
@@ -97,27 +97,19 @@ export async function handlePaymentIntentSucceeded(event: Stripe.Event) {
     lineItems = [];
   }
 
-  // Hydrate Shopify line items by fetching the Stripe Price + Product.
-  const shopifyOrderLineItems = await Promise.all(
+  // Hydrate each line from its Stripe Price + Product: name, unit amount and the
+  // Shopify variant GID (so the gift order is variant-linked and shippable).
+  const resolved = await Promise.all(
     lineItems.map(async (li) => {
       const price = await stripe.prices.retrieve(li.price, { expand: ['product'] });
       const productName =
         typeof price.product === 'object' && !('deleted' in price.product && price.product.deleted)
           ? price.product.name
           : 'Mujo product';
-      const lineAmount = (price.unit_amount ?? 0) * li.quantity;
-      return {
-        title: productName,
-        quantity: li.quantity,
-        priceSet: {
-          shopMoney: {
-            amount: (lineAmount / 100).toFixed(2),
-            currencyCode: (pi.currency ?? 'usd').toUpperCase(),
-          },
-        },
-      };
+      return { price, productName, quantity: li.quantity };
     }),
   );
+  const facts = factsFromGiftPaymentIntent(pi, chargeId, resolved);
 
   const shippingAddr = pi.shipping?.address;
   const giftMessage = pi.metadata?.gift_message?.trim();
@@ -134,40 +126,42 @@ export async function handlePaymentIntentSucceeded(event: Stripe.Event) {
         .join(' | ')
     : `Stripe PI: ${pi.id} | charge: ${chargeId}`;
 
-  const shopifyOrder = await createOrder({
-    email: orderEmail,
-    customerId: shopifyCustomerGid,
-    currency: (pi.currency ?? 'usd').toUpperCase(),
-    tags: orderTags,
-    note: orderNote,
-    financialStatus: 'PAID',
-    lineItems: shopifyOrderLineItems,
-    shippingAddress: shippingAddr
-      ? {
-          firstName: shippingName[0],
-          lastName: shippingName.slice(1).join(' ') || undefined,
-          address1: shippingAddr.line1 ?? undefined,
-          address2: shippingAddr.line2 ?? undefined,
-          city: shippingAddr.city ?? undefined,
-          province: shippingAddr.state ?? undefined,
-          country: shippingAddr.country ?? undefined,
-          zip: shippingAddr.postal_code ?? undefined,
-        }
-      : undefined,
-    metafields: [
-      {
-        namespace: 'mujo_commerce',
-        key: 'stripe_charge_id',
-        type: 'single_line_text_field',
-        value: chargeId,
-      },
-      {
-        namespace: 'mujo_commerce',
-        key: 'stripe_payment_intent_id',
-        type: 'single_line_text_field',
-        value: pi.id,
-      },
-    ],
+  const shopifyOrder = await createMirroredOrder({
+    context: '[pi.succeeded]',
+    facts,
+    base: {
+      email: orderEmail,
+      customerId: shopifyCustomerGid,
+      currency: (pi.currency ?? 'usd').toUpperCase(),
+      tags: orderTags,
+      note: orderNote,
+      shippingAddress: shippingAddr
+        ? {
+            firstName: shippingName[0],
+            lastName: shippingName.slice(1).join(' ') || undefined,
+            address1: shippingAddr.line1 ?? undefined,
+            address2: shippingAddr.line2 ?? undefined,
+            city: shippingAddr.city ?? undefined,
+            province: shippingAddr.state ?? undefined,
+            country: shippingAddr.country ?? undefined,
+            zip: shippingAddr.postal_code ?? undefined,
+          }
+        : undefined,
+      metafields: [
+        {
+          namespace: 'mujo_commerce',
+          key: 'stripe_charge_id',
+          type: 'single_line_text_field',
+          value: chargeId,
+        },
+        {
+          namespace: 'mujo_commerce',
+          key: 'stripe_payment_intent_id',
+          type: 'single_line_text_field',
+          value: pi.id,
+        },
+      ],
+    },
   });
 
   await db.insert(orderMirror).values({

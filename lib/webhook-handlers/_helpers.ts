@@ -4,7 +4,19 @@
 import { eq } from 'drizzle-orm';
 import type Stripe from 'stripe';
 import { customers, db, subscriptions } from 'db';
-import { findOrCreateCustomer } from 'lib/shopify-admin';
+import {
+  createOrder,
+  findOrCreateCustomer,
+  ShopifyAdminError,
+  type CreateOrderInput,
+  type ShopifyOrder,
+} from 'lib/shopify-admin';
+import {
+  buildLineItems,
+  buildOrderMoneyFields,
+  centsToAmount,
+  type OrderFacts,
+} from 'lib/shopify-order-builder';
 import {
   setStripeCustomerIdOnCustomer,
   setSubscriptionStatusOnCustomer,
@@ -78,6 +90,68 @@ export async function upsertCustomerForStripe(args: {
   }
 
   return { customerId: row.id, shopifyCustomerGid: shopifyCustomer.id };
+}
+
+/**
+ * Create the Shopify copy of a Stripe payment, complete: payment attached,
+ * shipping + tax lines, discount, per-unit prices.
+ *
+ * A paid order must ALWAYS reach Shopify — it is what gets fulfilled. So:
+ *   - if our own arithmetic does not add up to Stripe's total, the order is
+ *     still created (the payment records Stripe's true amount) and tagged
+ *     `needs-reconciliation`;
+ *   - if Shopify REJECTS the complete order (userErrors), we immediately create
+ *     the minimal order (line items + PAID label) and tag it the same way;
+ *   - network / 5xx errors rethrow, so Stripe retries the webhook.
+ */
+export async function createMirroredOrder(args: {
+  base: Omit<
+    CreateOrderInput,
+    | 'lineItems'
+    | 'financialStatus'
+    | 'shippingLines'
+    | 'discountCode'
+    | 'transactions'
+    | 'test'
+    | 'processedAt'
+  >;
+  facts: OrderFacts;
+  /** Log prefix, e.g. '[checkout.completed]'. */
+  context: string;
+}): Promise<ShopifyOrder> {
+  const { base, facts, context } = args;
+  const isLive = process.env.STRIPE_SECRET_KEY?.startsWith('sk_live') ?? false;
+  const { computedTotalCents, matches, ...moneyFields } = buildOrderMoneyFields(facts, { isLive });
+
+  let tags = base.tags ?? [];
+  let note = base.note ?? '';
+  if (!matches) {
+    console.error(`${context} order total check failed`, {
+      chargeId: facts.chargeId,
+      computedTotalCents,
+      stripeTotalCents: facts.totalCents,
+    });
+    tags = [...tags, 'needs-reconciliation'];
+    note += ` | total check: computed $${centsToAmount(computedTotalCents)} vs Stripe $${centsToAmount(facts.totalCents)}`;
+  }
+
+  try {
+    return await createOrder({ ...base, tags, note, financialStatus: 'PAID', ...moneyFields });
+  } catch (err) {
+    if (!(err instanceof ShopifyAdminError) || !err.userErrors?.length) throw err;
+    console.error(`${context} Shopify rejected the complete order, creating the minimal one`, {
+      chargeId: facts.chargeId,
+      userErrors: err.userErrors,
+    });
+    return createOrder({
+      ...base,
+      tags: Array.from(new Set([...tags, 'needs-reconciliation'])),
+      note: `${note} | full mirror rejected: ${err.userErrors[0]?.message ?? 'unknown'}`,
+      financialStatus: 'PAID',
+      lineItems: buildLineItems(facts, { withTax: false }),
+      ...(isLive ? {} : { test: true }),
+    });
+  }
 }
 
 export async function echoSubscriptionStatusToShopify(

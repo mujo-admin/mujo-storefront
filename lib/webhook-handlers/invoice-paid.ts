@@ -8,7 +8,7 @@ import type Stripe from 'stripe';
 import { eq } from 'drizzle-orm';
 import { db, orderMirror, subscriptions } from 'db';
 import { stripe } from 'lib/stripe';
-import { createOrder, type CreateOrderInput } from 'lib/shopify-admin';
+import type { CreateOrderInput } from 'lib/shopify-admin';
 import {
   FIRST_ORDER_FROTHER_GIFT_ENABLED,
   FROTHER_GIFT_PRICE_ID,
@@ -18,6 +18,7 @@ import {
 import { trackOrderPlaced } from 'lib/klaviyo';
 import { sendCapiEvent } from 'lib/meta-capi';
 import {
+  createMirroredOrder,
   echoSubscriptionStatusToShopify,
   extractInvoicePaymentIntentId,
   extractInvoiceSubscriptionId,
@@ -25,6 +26,7 @@ import {
   normalizeSubscriptionStatus,
   upsertCustomerForStripe,
 } from './_helpers';
+import { factsFromInvoice } from './_order-facts';
 
 type OrderType = 'subscription_initial' | 'subscription_renewal' | 'subscription_update';
 
@@ -189,24 +191,10 @@ export async function handleInvoicePaid(event: Stripe.Event) {
     }),
   );
 
-  const lineItems: CreateOrderInput['lineItems'] = invoice.lines.data.map((li) => {
-    const priceId = priceIdOf(li);
-    const variantGid = priceId ? variantGidByPriceId.get(priceId) : undefined;
-    return {
-      ...(variantGid ? { variantId: variantGid } : {}),
-      title: li.description ?? 'Subscription item',
-      quantity: li.quantity ?? 1,
-      // Physical goods — force requiresShipping so the mirrored order is fulfillable
-      // with a Shopify shipping label (orderCreate defaults it to false).
-      requiresShipping: true,
-      priceSet: {
-        shopMoney: {
-          amount: (li.amount / 100).toFixed(2),
-          currencyCode,
-        },
-      },
-    };
-  });
+  // Everything Stripe charged on this invoice — items, tax, discount — as facts
+  // the shared builder turns into a complete Shopify order (per-unit prices,
+  // clean titles, tax lines, the payment itself).
+  const facts = await factsFromInvoice(invoice, chargeId, variantGidByPriceId);
 
   // First-order subscriber gift: a free frother ships with the FIRST subscription
   // order only (subscription_initial); renewals (subscription_cycle) and plan
@@ -231,13 +219,12 @@ export async function handleInvoicePaid(event: Stripe.Event) {
     // Ritual subscriptions only — never Protein Powder.
     isRitualSubscriptionPrice(stripePriceId)
   ) {
-    lineItems.push({
-      ...(FROTHER_GIFT_VARIANT_GID
-        ? { variantId: FROTHER_GIFT_VARIANT_GID }
-        : { title: 'Rechargeable Milk Frother — welcome gift' }),
+    facts.lines.push({
+      ...(FROTHER_GIFT_VARIANT_GID ? { variantId: FROTHER_GIFT_VARIANT_GID } : {}),
+      title: 'Electric Frother',
       quantity: 1,
-      requiresShipping: true,
-      priceSet: { shopMoney: { amount: '0.00', currencyCode } },
+      subtotalCents: 0,
+      taxes: [],
     });
     frotherGifted = true;
   }
@@ -272,43 +259,45 @@ export async function handleInvoicePaid(event: Stripe.Event) {
     console.error('[invoice.paid] could not resolve shipping address', { customer: stripeCustomerId, err });
   }
 
-  const shopifyOrder = await createOrder({
-    email,
-    customerId: shopifyCustomerGid,
-    currency: currencyCode,
-    shippingAddress,
-    tags: frotherGifted ? [...tagsFor(type), 'free-frother-gift'] : tagsFor(type),
-    note:
-      `Stripe invoice: ${invoice.id} | subscription: ${stripeSubscriptionId} | charge: ${chargeId}` +
-      (frotherGifted ? ' | includes free welcome frother' : ''),
-    financialStatus: 'PAID',
-    lineItems,
-    metafields: [
-      {
-        namespace: 'mujo_commerce',
-        key: 'stripe_charge_id',
-        type: 'single_line_text_field',
-        value: chargeId,
-      },
-      {
-        namespace: 'mujo_commerce',
-        key: 'stripe_invoice_id',
-        type: 'single_line_text_field',
-        value: invoice.id ?? '',
-      },
-      {
-        namespace: 'mujo_commerce',
-        key: 'stripe_subscription_id',
-        type: 'single_line_text_field',
-        value: stripeSubscriptionId,
-      },
-      {
-        namespace: 'mujo_commerce',
-        key: 'billing_reason',
-        type: 'single_line_text_field',
-        value: reason ?? '',
-      },
-    ],
+  const shopifyOrder = await createMirroredOrder({
+    context: '[invoice.paid]',
+    facts,
+    base: {
+      email,
+      customerId: shopifyCustomerGid,
+      currency: currencyCode,
+      shippingAddress,
+      tags: frotherGifted ? [...tagsFor(type), 'free-frother-gift'] : tagsFor(type),
+      note:
+        `Stripe invoice: ${invoice.id} | subscription: ${stripeSubscriptionId} | charge: ${chargeId}` +
+        (frotherGifted ? ' | includes free welcome frother' : ''),
+      metafields: [
+        {
+          namespace: 'mujo_commerce',
+          key: 'stripe_charge_id',
+          type: 'single_line_text_field',
+          value: chargeId,
+        },
+        {
+          namespace: 'mujo_commerce',
+          key: 'stripe_invoice_id',
+          type: 'single_line_text_field',
+          value: invoice.id ?? '',
+        },
+        {
+          namespace: 'mujo_commerce',
+          key: 'stripe_subscription_id',
+          type: 'single_line_text_field',
+          value: stripeSubscriptionId,
+        },
+        {
+          namespace: 'mujo_commerce',
+          key: 'billing_reason',
+          type: 'single_line_text_field',
+          value: reason ?? '',
+        },
+      ],
+    },
   });
 
   await db.insert(orderMirror).values({
