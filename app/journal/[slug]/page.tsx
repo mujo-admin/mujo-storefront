@@ -23,6 +23,35 @@ type Post = {
 };
 
 const PUBLISHED: Record<string, Post> = {
+  // Protein series (conscious performance nutrition), parts 1 to 4.
+  "what-is-lemna-protein": {
+    file: "mujo_journal_what-is-lemna-protein.html",
+    title: "Lemna Protein, Also Known as Duckweed, Explained",
+    description:
+      "The most abundant protein on Earth is in every green leaf, and almost none of it reaches your plate. Here's why, and how a tiny plant called Lemna changes that.",
+    headline: "The most common protein on Earth is one you've never bought",
+  },
+  "what-is-a-complete-protein": {
+    file: "mujo_journal_what-is-a-complete-protein.html",
+    title: "What Is a Complete Protein? A Simple Explanation",
+    description:
+      "What 'complete protein' means, why collagen scores zero for protein quality, and the one line on a nutrition label that tells you how good the protein is.",
+    headline: "A tub can say 10g of protein and score zero. Here's how.",
+  },
+  "how-much-protein-do-you-need": {
+    file: "mujo_journal_how-much-protein-do-you-need.html",
+    title: "How Much Protein Do You Actually Need Per Day?",
+    description:
+      "71% of Americans are trying to eat protein and most can't say how much they need. Here's the real number, where it comes from, and when more makes sense.",
+    headline: "How much protein do you actually need?",
+  },
+  "how-to-read-a-protein-powder-label": {
+    file: "mujo_journal_how-to-read-a-protein-powder-label.html",
+    title: "How to Read a Protein Powder Label: 6 Things to Check",
+    description:
+      "The protein number on a tub isn't measured the way you think. Six things to check on any protein powder label, from gums to heavy metals, with our own included.",
+    headline: "How to read a protein powder label in two minutes",
+  },
   "introducing-mujo-the-coffee-alternative-thats-changing-the-game": {
     file: "mujo_journal_introducing-mujo-the-coffee-alternative-thats-changing-the-game.html",
     title: "Introducing Mujo: The Coffee Alternative for the Modern Human",
