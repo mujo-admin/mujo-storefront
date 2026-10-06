@@ -180,27 +180,37 @@ export async function handleCheckoutCompleted(event: Stripe.Event) {
   const currency = (session.currency ?? 'usd').toUpperCase();
   const value = (session.amount_total ?? 0) / 100;
 
-  void trackOrderPlaced({
-    email,
-    orderId: shopifyOrder.name,
-    value,
-    currency,
-    items: analyticsItems,
-    attribution: klaviyoAttributionProps(attribution),
-  }).catch((err) =>
-    console.error('[checkout.completed] Klaviyo Order Placed failed', err),
-  );
-
+  // Awaited, not fire-and-forget: on serverless the function can be frozen the
+  // moment the handler returns, which silently dropped about half of these
+  // (September: 2 "Order Placed" events for 4 orders). Failures are caught and
+  // logged, so analytics can never fail the order.
   const eventId = session.metadata?.mujo_event_id;
-  if (eventId) {
-    void sendCapiEvent({
-      eventName: 'Purchase',
-      eventId,
-      eventSourceUrl: `${SITE_ORIGIN}/checkout`,
-      userData: capiUserData(email, attribution),
-      customData: metaCustomData(analyticsItems, value, currency),
+  await Promise.allSettled([
+    trackOrderPlaced({
+      email,
+      orderId: shopifyOrder.name,
+      value,
+      currency,
+      items: analyticsItems,
+      attribution: klaviyoAttributionProps(attribution),
     }).catch((err) =>
-      console.error('[checkout.completed] Meta CAPI Purchase failed', err),
-    );
-  }
+      console.error('[checkout.completed] Klaviyo Order Placed failed', err),
+    ),
+    eventId
+      ? sendCapiEvent({
+          eventName: 'Purchase',
+          eventId,
+          eventSourceUrl: `${SITE_ORIGIN}/checkout`,
+          userData: capiUserData(email, attribution),
+          customData: metaCustomData(analyticsItems, value, currency),
+        }).catch((err) =>
+          console.error('[checkout.completed] Meta CAPI Purchase failed', err),
+        )
+      : Promise.resolve(),
+  ]);
+  console.log('[checkout.completed] analytics sent', {
+    sessionId: session.id,
+    klaviyo: true,
+    metaPurchase: Boolean(eventId),
+  });
 }

@@ -7,7 +7,7 @@
 // /api/checkout (mode='hosted', returns url) stays alive as the 30-day stale-tab
 // compat shim.
 
-import { NextRequest } from 'next/server';
+import { after, NextRequest } from 'next/server';
 import Stripe from 'stripe';
 import { z } from 'zod';
 import { stripe } from 'lib/stripe';
@@ -390,19 +390,24 @@ export async function POST(req: NextRequest) {
       })),
     );
 
-    void sendCapiEvent({
-      eventName: 'InitiateCheckout',
-      eventId,
-      eventSourceUrl: req.headers.get('referer') ?? undefined,
-      userData: {
-        email: customerEmail,
-        clientIpAddress: ip,
-        clientUserAgent: userAgent,
-        fbp: attribution.fbp,
-        fbc: attribution.fbc,
-      },
-      customData: metaCustomData(analyticsItems, itemsValue(analyticsItems)),
-    }).catch((err) => console.error('[checkout-session] Meta CAPI failed', err));
+    // after(): runs once the response is sent and keeps the function alive
+    // until it finishes. A bare fire-and-forget call can be cut off on serverless.
+    const referer = req.headers.get('referer') ?? undefined;
+    after(() =>
+      sendCapiEvent({
+        eventName: 'InitiateCheckout',
+        eventId,
+        eventSourceUrl: referer,
+        userData: {
+          email: customerEmail,
+          clientIpAddress: ip,
+          clientUserAgent: userAgent,
+          fbp: attribution.fbp,
+          fbc: attribution.fbc,
+        },
+        customData: metaCustomData(analyticsItems, itemsValue(analyticsItems)),
+      }).catch((err) => console.error('[checkout-session] Meta CAPI failed', err)),
+    );
 
     return Response.json({
       clientSecret: session.client_secret,
