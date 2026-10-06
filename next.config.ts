@@ -84,6 +84,31 @@ const config: NextConfig = {
         destination: "/shop",
         permanent: true,
       },
+      // Old Shopify addresses Google still holds (Search Console "Not found",
+      // audited 2026-10-06). Each lands on the closest live page.
+      { source: "/pages/about-us", destination: "/about", permanent: true },
+      { source: "/pages/contact", destination: "/contact", permanent: true },
+      { source: "/pages/avada-faqs", destination: "/contact#faq", permanent: true },
+      { source: "/collections/:path+", destination: "/shop", permanent: true },
+      { source: "/products/vitality-brew", destination: "/products/mujo-ritual", permanent: true },
+      { source: "/products/mujo-hoodie", destination: "/shop", permanent: true },
+      { source: "/blogs/news/tagged/:tag*", destination: "/journal", permanent: true },
+      // Journal posts unpublished in the 2026-06 compliance sweep. Send them to
+      // the journal index instead of a 404. permanent:false so a rewritten post
+      // can reclaim its address: delete its line here when it is republished.
+      { source: "/journal/caffeine-and-mental-health-what-s-the-buzz-really", destination: "/journal", permanent: false },
+      { source: "/journal/morning-cortisol-spike-and-coffee", destination: "/journal", permanent: false },
+      { source: "/journal/powdered-mushrooms-vs-extracts-and-the-ritual-of-potency", destination: "/journal", permanent: false },
+      { source: "/journal/the-biology-of-burnout-and-why-caffeine-makes-it-worse", destination: "/journal", permanent: false },
+      { source: "/journal/tired-but-wired", destination: "/journal", permanent: false },
+      { source: "/journal/unlocking-vitality-the-journey-from-stress-to-energy", destination: "/journal", permanent: false },
+      { source: "/journal/vagal-tone-and-composure", destination: "/journal", permanent: false },
+      { source: "/journal/what-we-inherit-from-our-fathers-nervous-systems-stress-and-the-rituals-that-can-heal-them", destination: "/journal", permanent: false },
+      { source: "/journal/what-you-actually-got-from-your-mama-besides-life-and-good-looks", destination: "/journal", permanent: false },
+      { source: "/journal/what-your-body-actually-needs", destination: "/journal", permanent: false },
+      { source: "/journal/why-you-crash-at-3pm", destination: "/journal", permanent: false },
+      { source: "/journal/your-brain-can-grow-new-connections-this-mushroom-helps-it-do-that", destination: "/journal", permanent: false },
+      { source: "/journal/your-gut-is-talking-to-your-brain-right-now", destination: "/journal", permanent: false },
       // Shopify product handle aliases. The Meta/Instagram catalog is synced
       // from Shopify, which publishes Shopify handles — not our headless
       // routes. Without these, a product tag on Instagram lands on a 404.
