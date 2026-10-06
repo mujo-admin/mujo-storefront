@@ -16,6 +16,7 @@ import { stripe } from 'lib/stripe';
 import { handleChargeFailed } from 'lib/webhook-handlers/charge-failed';
 import { handleChargeRefunded } from 'lib/webhook-handlers/charge-refunded';
 import { handleCheckoutCompleted } from 'lib/webhook-handlers/checkout-completed';
+import { handleCheckoutExpired } from 'lib/webhook-handlers/checkout-expired';
 import { handleInvoicePaid } from 'lib/webhook-handlers/invoice-paid';
 import { handlePaymentIntentSucceeded } from 'lib/webhook-handlers/payment-intent-succeeded';
 import { handleSubscriptionCreated } from 'lib/webhook-handlers/subscription-created';
@@ -73,6 +74,9 @@ export async function POST(req: NextRequest) {
     switch (event.type) {
       case 'checkout.session.completed':
         await handleCheckoutCompleted(event);
+        break;
+      case 'checkout.session.expired':
+        await handleCheckoutExpired(event);
         break;
       case 'payment_intent.succeeded':
         await handlePaymentIntentSucceeded(event);

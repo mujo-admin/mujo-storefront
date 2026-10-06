@@ -39,7 +39,7 @@ export const metadata: Metadata = {
 export default function RitualPdpPage() {
   return (
     <>
-      <ProductAnalytics itemId="mujo-ritual" itemName="The Ritual" price={60} />
+      <ProductAnalytics slug="mujo-ritual" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

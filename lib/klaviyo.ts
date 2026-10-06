@@ -11,6 +11,12 @@
  *   KLAVIYO_LEMNA_LIST_ID           (alias of master list — Lemna signups land here w/ `lemna_early_access: true`)
  */
 
+import type { AnalyticsItem } from "lib/analytics";
+import { klaviyoCartProps } from "lib/klaviyo-onsite";
+
+/** Links in server-sent events always point at the live site. */
+const SITE_ORIGIN = "https://mujoworld.com";
+
 const KLAVIYO_API_BASE = "https://a.klaviyo.com/api";
 const KLAVIYO_REVISION = "2024-10-15";
 
@@ -71,49 +77,63 @@ export async function trackEvent(payload: TrackEventPayload): Promise<void> {
   }
 }
 
-export async function trackStartedCheckout(args: {
-  email: string;
-  value: number;
-  currency: string;
-  items: Array<{
-    name: string;
-    quantity: number;
-    priceId: string;
-    isSubscription?: boolean;
-  }>;
-}): Promise<void> {
-  await trackEvent({
-    email: args.email,
-    metric: "Started Checkout",
-    value: args.value,
-    properties: {
-      Currency: args.currency,
-      Items: args.items,
-      $value: args.value,
-    },
-    uniqueId: `${args.email}-${Date.now()}`,
-  });
-}
-
+/**
+ * "Order Placed" — sent by the Stripe webhook for every first order (one-time
+ * purchases and the first charge of a subscription; renewals are not sent).
+ * `Items[]` uses the shared shape from lib/klaviyo-onsite.ts, so order emails
+ * read the same fields as cart and checkout emails.
+ */
 export async function trackOrderPlaced(args: {
   email: string;
   orderId: string;
   value: number;
   currency: string;
-  items: Array<{ name: string; quantity: number; priceId: string }>;
+  items: AnalyticsItem[];
+  /** Channel fields (UTMSource, …) from the shopper's saved ad click. */
+  attribution?: Record<string, string>;
 }): Promise<void> {
   await trackEvent({
     email: args.email,
     metric: "Order Placed",
     value: args.value,
     properties: {
+      ...klaviyoCartProps(args.items, SITE_ORIGIN),
+      ...(args.attribution ?? {}),
       OrderId: args.orderId,
       Currency: args.currency,
-      Items: args.items,
       $value: args.value,
       $event_id: args.orderId,
     },
     uniqueId: args.orderId,
+  });
+}
+
+/**
+ * "Checkout Abandoned" — sent when a Stripe checkout session expires unpaid
+ * and Stripe returns an email we are allowed to write to. One per person per
+ * day: the checkout page opens a new session whenever the cart changes, so a
+ * single visit can leave several expired sessions behind.
+ */
+export async function trackCheckoutAbandoned(args: {
+  email: string;
+  value: number;
+  items: AnalyticsItem[];
+  checkoutUrl: string;
+  sessionId: string;
+}): Promise<void> {
+  const day = new Date().toISOString().slice(0, 10);
+  await trackEvent({
+    email: args.email,
+    metric: "Checkout Abandoned",
+    value: args.value,
+    properties: {
+      ...klaviyoCartProps(args.items, SITE_ORIGIN),
+      CheckoutURL: args.checkoutUrl,
+      CheckoutSessionId: args.sessionId,
+      $value: args.value,
+      $event_id: `checkout-abandoned-${args.email.toLowerCase()}-${day}`,
+    },
+    uniqueId: `checkout-abandoned-${args.email.toLowerCase()}-${day}`,
   });
 }
 

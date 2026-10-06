@@ -47,7 +47,16 @@ async function main() {
     process.exit(1);
   }
 
+  // One row per product in lib/product-identity.ts. A different count means a
+  // product is missing from Shopify, unpublished, or not in the identity map.
+  const EXPECTED_ITEMS = 6;
   let failures = 0;
+  if (items.length !== EXPECTED_ITEMS) {
+    failures++;
+    console.error(
+      `FAIL  feed has ${items.length} items, expected ${EXPECTED_ITEMS}: ${items.map((i) => i.id).join(", ")}\n`,
+    );
+  }
 
   for (const item of items) {
     const page = await fetch(item.link, { redirect: "follow" });

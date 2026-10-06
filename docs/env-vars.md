@@ -114,6 +114,15 @@ Server-only events key. Scopes: Events Full Access, Profiles Full Access. Get fr
 `META_CONVERSIONS_API_TOKEN`
 Server-only token for Meta's Conversions API (server-side pixel events with deduplication). Get from Meta Events Manager → Settings → Conversions API → Generate access token.
 
+## Tracking v2 (added 2026-10-06)
+
+| Variable                       | Where                          | What it does                                                                                                                                                                                                                                                                                       |
+| ------------------------------ | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `STRIPE_PROMO_CONSENT_ENABLED` | Production, Preview (optional) | `true` shows Stripe's "email me news and offers" tickbox at checkout, which lets the abandoned-checkout email reach new shoppers. Only set it after the promotional-emails setting is accepted in that Stripe account (Settings → Checkout); Stripe rejects every checkout otherwise. Unset = off. |
+
+Planned, not used yet: `GA4_MEASUREMENT_PROTOCOL_SECRET` and `CRON_SECRET`, for a
+server-side GA4 purchase fallback (see `docs/measurement-plan.md`, Attribution).
+
 ## Loox (reviews widget)
 
 `NEXT_PUBLIC_LOOX_SHOP_DOMAIN`

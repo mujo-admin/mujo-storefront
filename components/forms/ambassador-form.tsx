@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { track, identify } from "lib/analytics";
 import { createPortal } from "react-dom";
 
 const PLATFORMS = [
@@ -79,6 +80,10 @@ function Form() {
         body: JSON.stringify(payload),
       });
       if (res.ok) {
+        const email = String(payload.email ?? "").trim();
+        // generate_lead: mirrored to Meta as Lead with the hashed email.
+        track("generate_lead", { method: "ambassador" }, { email });
+        identify(email);
         form.reset();
         setStatus("sent");
       } else {

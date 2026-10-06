@@ -11,7 +11,13 @@ import {
   type ReactNode,
 } from 'react';
 import { usePathname } from 'next/navigation';
-import { track, itemFromCartLine, itemsValue } from 'lib/analytics';
+import {
+  track,
+  cartPurchaseType,
+  itemFromCartLine,
+  itemsValue,
+} from 'lib/analytics';
+import { buildRestoreUrl } from 'lib/cart/restore';
 import {
   addItem as addItemPure,
   loadFromLocalStorage,
@@ -154,31 +160,82 @@ export function CartProvider({
     return () => clearTimeout(timer);
   }, [cart, hydrated, session, skipMerge]);
 
-  const addItem = useCallback((item: CartLineItem) => {
-    setCart((prev) => addItemPure(prev, item));
-    if (typeof window !== 'undefined') {
-      // Every add-to-cart in the app funnels through here, so this is the one
-      // place the event needs to fire. See docs/measurement-plan.md.
-      const analyticsItem = itemFromCartLine(item);
-      track('add_to_cart', {
-        items: [analyticsItem],
-        value: itemsValue([analyticsItem]),
+  // Latest cart, readable from the callbacks below without re-creating them.
+  const cartRef = useRef<Cart>(EMPTY_CART);
+  useEffect(() => {
+    cartRef.current = cart;
+  }, [cart]);
+
+  // Every cart change in the app funnels through the three callbacks below, so
+  // these are the only places the cart events fire. See docs/measurement-plan.md.
+  const reportAdd = useCallback((line: CartLineItem, next: Cart) => {
+    const added = itemFromCartLine(line);
+    const cartItems = next.items.map(itemFromCartLine);
+    track(
+      'add_to_cart',
+      {
+        items: [added],
+        value: itemsValue([added]),
         currency: 'USD',
-      });
-      window.dispatchEvent(new CustomEvent('mujo:cart:open'));
-    }
+        purchase_type: cartPurchaseType([added]),
+      },
+      {
+        cart: cartItems,
+        checkoutUrl: buildRestoreUrl(next.items, window.location.origin),
+      },
+    );
   }, []);
+
+  const reportRemove = useCallback((line: CartLineItem) => {
+    const removed = itemFromCartLine(line);
+    track('remove_from_cart', {
+      items: [removed],
+      value: itemsValue([removed]),
+      currency: 'USD',
+    });
+  }, []);
+
+  const addItem = useCallback(
+    (item: CartLineItem) => {
+      const next = addItemPure(cartRef.current, item);
+      cartRef.current = next;
+      setCart(next);
+      if (typeof window !== 'undefined') {
+        reportAdd(item, next);
+        window.dispatchEvent(new CustomEvent('mujo:cart:open'));
+      }
+    },
+    [reportAdd],
+  );
 
   const updateQuantity = useCallback(
     (stripePriceId: string, quantity: number) => {
-      setCart((prev) => updateQuantityPure(prev, stripePriceId, quantity));
+      const before = cartRef.current;
+      const line = before.items.find((i) => i.stripePriceId === stripePriceId);
+      const next = updateQuantityPure(before, stripePriceId, quantity);
+      cartRef.current = next;
+      setCart(next);
+      if (!line || typeof window === 'undefined') return;
+      const after =
+        next.items.find((i) => i.stripePriceId === stripePriceId)?.quantity ?? 0;
+      const delta = after - line.quantity;
+      if (delta > 0) reportAdd({ ...line, quantity: delta }, next);
+      else if (delta < 0) reportRemove({ ...line, quantity: -delta });
     },
-    [],
+    [reportAdd, reportRemove],
   );
 
-  const removeItem = useCallback((stripePriceId: string) => {
-    setCart((prev) => removeItemPure(prev, stripePriceId));
-  }, []);
+  const removeItem = useCallback(
+    (stripePriceId: string) => {
+      const before = cartRef.current;
+      const line = before.items.find((i) => i.stripePriceId === stripePriceId);
+      const next = removeItemPure(before, stripePriceId);
+      cartRef.current = next;
+      setCart(next);
+      if (line && typeof window !== 'undefined') reportRemove(line);
+    },
+    [reportRemove],
+  );
 
   // On logout the page navigates with a full reload — LogoutButton calls
   // clearLocalStorage() directly before navigation. No cleanup needed here.

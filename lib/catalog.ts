@@ -18,22 +18,18 @@
 
 import { getProducts } from "lib/shopify";
 import { baseUrl } from "lib/utils";
+import { HANDLE_TO_ROUTE } from "lib/product-identity";
 
 /**
- * Shopify handle → the route that renders it.
+ * Shopify handle → the route that renders it. Derived from the product
+ * identity module, so the feed, the redirects and every tracked event agree on
+ * one ID per product. Re-exported here for existing imports.
  *
  * Keep in sync with the redirects in `next.config.ts`. Anything absent is
  * omitted from the feed rather than guessed at: a missing product is a gap,
  * a wrong link is a dead end for a real shopper.
  */
-export const HANDLE_TO_ROUTE: Record<string, string> = {
-  "the-ritual": "/products/mujo-ritual",
-  "electric-frother": "/products/mujo-frother",
-  "crew-neck-sweatshirt": "/products/mujo-crew",
-  "mujo-t-shirt": "/products/mujo-tee",
-  "mujo-baseball-hat": "/products/mujo-hat",
-  "protein-powder": "/products/protein-powder",
-};
+export { HANDLE_TO_ROUTE };
 
 /** Google/Meta product category, per handle. Improves ad matching. */
 const PRODUCT_CATEGORY: Record<string, string> = {
@@ -113,6 +109,7 @@ export function renderFeedXml(items: FeedItem[]): string {
         : "";
       return `    <item>
       <g:id>${escapeXml(i.id)}</g:id>
+      <g:item_group_id>${escapeXml(i.id)}</g:item_group_id>
       <g:title>${escapeXml(i.title)}</g:title>
       <g:description>${escapeXml(i.description)}</g:description>
       <g:link>${escapeXml(i.link)}</g:link>

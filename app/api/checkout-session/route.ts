@@ -27,7 +27,13 @@ import {
   isRitualSubscriptionPrice,
 } from 'lib/stripe-constants';
 import { resolveMerchPriceId } from 'lib/cart/merch-config';
-import { trackStartedCheckout } from 'lib/klaviyo';
+import {
+  itemsFromPriceIds,
+  itemsValue,
+  metaCustomData,
+  readAttribution,
+} from 'lib/analytics-server';
+import { buildRestorePath } from 'lib/cart/restore';
 import { sendCapiEvent } from 'lib/meta-capi';
 import { getSession } from 'lib/session';
 import { randomUUID } from 'node:crypto';
@@ -50,9 +56,22 @@ const requestSchema = z.object({
   customerEmail: z.string().email().optional(),
   /** Origin URL for return_url construction (server can read host header but client knows the canonical origin). */
   origin: z.string().url(),
+  /** True when the shopper chose "No thanks" on the cookie bar. */
+  trackingDeclined: z.boolean().optional(),
 });
 
 type CheckoutSessionInput = z.infer<typeof requestSchema>;
+
+// Sessions expire after an hour: long enough for a real purchase, short enough
+// that an abandoned-checkout reminder (sent on expiry) is still timely. The
+// checkout page opens a fresh session if a tab is left open past this.
+const SESSION_TTL_SECONDS = 60 * 60;
+
+// Stripe's "email me news and offers" tickbox. Needs the matching setting
+// accepted in the Stripe account (Settings → Checkout), so it is switched on
+// per environment once that is done. Without consent, an expired session only
+// produces a reminder for existing customers.
+const PROMO_CONSENT_ENABLED = process.env.STRIPE_PROMO_CONSENT_ENABLED === 'true';
 
 // Any cart with ≥1 subscription line runs in subscription mode — Stripe bills
 // the one-time lines on the first invoice (20 recurring + 20 one-time max).
@@ -142,6 +161,18 @@ export async function POST(req: NextRequest) {
     hasProteinSub && PROTEIN_PREORDER_CHARGE_AT - nowSec > 49 * 3600;
 
   const eventId = randomUUID();
+
+  // How the shopper arrived (ad click ids, campaign, GA4 and Meta browser ids),
+  // read from this request's cookies and stored on the session. The webhook
+  // reads it back so a purchase reported by the server still carries the click.
+  const attribution = parsed.trackingDeclined ? {} : readAttribution(req);
+  // Link that rebuilds this cart, for the abandoned-checkout email.
+  const restorePath = buildRestorePath(parsed.items);
+  const trackingMetadata: Record<string, string> = {
+    ...attribution,
+    ...(restorePath ? { restore: restorePath.slice(0, 480) } : {}),
+  };
+
   const returnUrl = `${parsed.origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}&event_id=${eventId}`;
 
   // Phase 4 pre-fill: if the customer is signed in, hand Stripe the saved
@@ -194,7 +225,12 @@ export async function POST(req: NextRequest) {
         message: '30-day money-back guarantee. Cancel or change your subscription after two billing cycles.',
       },
     },
+    expires_at: nowSec + SESSION_TTL_SECONDS,
+    ...(PROMO_CONSENT_ENABLED
+      ? { consent_collection: { promotions: 'auto' as const } }
+      : {}),
     metadata: {
+      ...trackingMetadata,
       mujo_event_id: eventId,
       // Read by /checkout/success for pre-order copy (ships by the ship date,
       // and for subscriptions nothing is charged today).
@@ -239,9 +275,13 @@ export async function POST(req: NextRequest) {
     params.subscription_data = proteinPreorder
       ? {
           trial_end: PROTEIN_PREORDER_CHARGE_AT,
-          metadata: { mujo_event_id: eventId, preorder: 'protein-powder' },
+          metadata: {
+            ...attribution,
+            mujo_event_id: eventId,
+            preorder: 'protein-powder',
+          },
         }
-      : { metadata: { mujo_event_id: eventId } };
+      : { metadata: { ...attribution, mujo_event_id: eventId } };
     if (proteinPreorder) {
       params.custom_text = {
         ...params.custom_text,
@@ -341,21 +381,14 @@ export async function POST(req: NextRequest) {
     // Fire-and-forget analytics — never block Stripe response.
     const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim();
     const userAgent = req.headers.get('user-agent') ?? undefined;
-    const totalQuantity = parsed.items.reduce((s, li) => s + li.quantity, 0);
-
-    if (customerEmail) {
-      void trackStartedCheckout({
-        email: customerEmail,
-        value: totalQuantity,
-        currency: 'USD',
-        items: parsed.items.map((li) => ({
-          name: li.stripePriceId,
-          quantity: li.quantity,
-          priceId: li.stripePriceId,
-          isSubscription: li.isSubscription,
-        })),
-      }).catch((err) => console.error('[checkout-session] Klaviyo failed', err));
-    }
+    // Klaviyo "Started Checkout" is sent by the browser only (one origin per
+    // metric, see docs/measurement-plan.md).
+    const analyticsItems = itemsFromPriceIds(
+      parsed.items.map((li) => ({
+        priceId: li.stripePriceId,
+        quantity: li.quantity,
+      })),
+    );
 
     void sendCapiEvent({
       eventName: 'InitiateCheckout',
@@ -365,12 +398,10 @@ export async function POST(req: NextRequest) {
         email: customerEmail,
         clientIpAddress: ip,
         clientUserAgent: userAgent,
+        fbp: attribution.fbp,
+        fbc: attribution.fbc,
       },
-      customData: {
-        currency: 'USD',
-        num_items: parsed.items.length,
-        content_ids: parsed.items.map((li) => li.stripePriceId),
-      },
+      customData: metaCustomData(analyticsItems, itemsValue(analyticsItems)),
     }).catch((err) => console.error('[checkout-session] Meta CAPI failed', err));
 
     return Response.json({
@@ -378,6 +409,7 @@ export async function POST(req: NextRequest) {
       sessionId: session.id,
       eventId,
       mode,
+      expiresAt: session.expires_at,
     });
   } catch (err) {
     if (err instanceof Stripe.errors.StripeError) {

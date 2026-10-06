@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { track } from "lib/analytics";
+import { captureAttribution } from "lib/attribution";
 
 /**
  * <RouteAnalytics /> — fires `page_view` on first paint and on every
@@ -25,6 +26,9 @@ export function RouteAnalytics() {
     // React may run effects twice in dev; a route is only ever one page view.
     if (lastFired.current === url) return;
     lastFired.current = url;
+
+    // Save ad and campaign parameters before anything else reads the URL.
+    captureAttribution();
 
     track("page_view", {
       page_path: url,

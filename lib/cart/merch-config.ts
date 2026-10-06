@@ -201,6 +201,28 @@ export function resolveMerchPriceId(stripePriceId: string): PriceIdResolution | 
   return null;
 }
 
+/** Route slug for a merch Price key (`tee_desert_s` → `mujo-tee`). */
+export function merchSlugForPriceKey(key: MerchPriceKey): MerchHandleSlug {
+  const prefix = key.split("_")[0];
+  return `mujo-${prefix}` as MerchHandleSlug;
+}
+
+/** Product-level cart line for a merch slug, with no variant chosen. Used by
+ *  analytics for the price and image a product page shows by default. */
+export function defaultMerchLine(slug: string): PriceIdResolution | null {
+  if (!(slug in MERCH_VARIANT_MATRIX)) return null;
+  const s = slug as MerchHandleSlug;
+  return {
+    productHandle: s,
+    productTitle: MERCH_TITLES[s],
+    variantTitle: "One-time",
+    image: MERCH_IMAGES[s],
+    unitAmountCents: MERCH_PRICES_CENTS[s],
+    currency: "usd",
+    isSubscription: false,
+  };
+}
+
 /** Forward resolution from PDP selection state. Called by the merch cart
  *  handler in imported-page-runtime.tsx after reading .color-swatch.active
  *  and .size-pill.active from the DOM. */

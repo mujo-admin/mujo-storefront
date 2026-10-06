@@ -19,6 +19,7 @@ Configured in Stripe Dashboard → Developers → Webhooks (Handoff #9):
 | `customer.subscription.deleted` | Hard cancellation. Same handler as `.updated` (status forced to `canceled`). | `lib/webhook-handlers/subscription-updated.ts` |
 | `charge.failed` | Logs failures (no DB writes — status transition rides on `customer.subscription.updated`) | `lib/webhook-handlers/charge-failed.ts` |
 | `charge.refunded` | Mirrors the refund onto the Shopify order (amount only, no restock, no customer email) and tags it `stripe-refunded`. | `lib/webhook-handlers/charge-refunded.ts` |
+| `checkout.session.expired` | An unpaid checkout expired (1 hour after it opened). Sends Klaviyo "Checkout Abandoned" with the cart and a restore link when Stripe returns a usable email. No DB writes, no order. Must be enabled on the endpoint: `scripts/add-session-expired-event.ts`. | `lib/webhook-handlers/checkout-expired.ts` |
 
 Anything else → logged at INFO level in Vercel logs and returned 200 (Stripe doesn't retry).
 

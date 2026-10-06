@@ -4,6 +4,7 @@ import { Footer } from "components/layout/footer";
 import { AnalyticsScripts } from "components/integrations/analytics-scripts";
 import { RouteAnalytics } from "components/integrations/route-analytics";
 import { CookieConsent } from "components/integrations/cookie-consent";
+import { KlaviyoIdentify } from "components/integrations/klaviyo-identify";
 import { ReactNode } from "react";
 import { Toaster } from "sonner";
 import "./globals.css";
@@ -65,6 +66,7 @@ export default async function RootLayout({
         </CartProvider>
         <AnalyticsScripts />
         <RouteAnalytics />
+        <KlaviyoIdentify email={sessionSnapshot?.email ?? null} />
         <CookieConsent />
       </body>
     </html>

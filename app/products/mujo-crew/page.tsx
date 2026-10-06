@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 export default function CrewPdpPage() {
   return (
     <>
-      <ProductAnalytics itemId="mujo-crew" itemName="Crewneck" price={40} />
+      <ProductAnalytics slug="mujo-crew" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

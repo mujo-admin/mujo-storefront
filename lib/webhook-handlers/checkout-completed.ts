@@ -12,6 +12,14 @@ import { db, orderMirror } from 'db';
 import { stripe } from 'lib/stripe';
 import { trackOrderPlaced } from 'lib/klaviyo';
 import { sendCapiEvent } from 'lib/meta-capi';
+import {
+  attributionFromMetadata,
+  capiUserData,
+  itemsFromPriceIds,
+  klaviyoAttributionProps,
+  metaCustomData,
+  SITE_ORIGIN,
+} from 'lib/analytics-server';
 import { createMirroredOrder, upsertCustomerForStripe } from './_helpers';
 import { factsFromCheckoutSession } from './_order-facts';
 
@@ -158,21 +166,27 @@ export async function handleCheckoutCompleted(event: Stripe.Event) {
 
   // Server-fired analytics for the Embedded Checkout one-time path. Pixel
   // (client) fires the matching Purchase event with the same event_id from
-  // session.metadata.mujo_event_id; Meta CAPI dedups on event_id.
+  // session.metadata.mujo_event_id; Meta CAPI dedups on event_id. Items use
+  // catalog IDs, and the shopper's ad click (saved on the session at checkout)
+  // rides along so Meta can match the sale to the click.
+  const analyticsItems = itemsFromPriceIds(
+    lineItems.map((li) => ({
+      priceId: typeof li.price === 'object' && li.price ? li.price.id : '',
+      quantity: li.quantity ?? 1,
+      amountCents: li.amount_subtotal,
+    })),
+  );
+  const attribution = attributionFromMetadata(session.metadata);
+  const currency = (session.currency ?? 'usd').toUpperCase();
+  const value = (session.amount_total ?? 0) / 100;
+
   void trackOrderPlaced({
     email,
     orderId: shopifyOrder.name,
-    value: (session.amount_total ?? 0) / 100,
-    currency: (session.currency ?? 'usd').toUpperCase(),
-    items: lineItems.map((li) => {
-      const priceId =
-        typeof li.price === 'object' && li.price ? li.price.id : '';
-      return {
-        name: li.description ?? priceId,
-        quantity: li.quantity ?? 1,
-        priceId,
-      };
-    }),
+    value,
+    currency,
+    items: analyticsItems,
+    attribution: klaviyoAttributionProps(attribution),
   }).catch((err) =>
     console.error('[checkout.completed] Klaviyo Order Placed failed', err),
   );
@@ -182,15 +196,9 @@ export async function handleCheckoutCompleted(event: Stripe.Event) {
     void sendCapiEvent({
       eventName: 'Purchase',
       eventId,
-      userData: { email },
-      customData: {
-        currency: (session.currency ?? 'usd').toUpperCase(),
-        value: (session.amount_total ?? 0) / 100,
-        num_items: lineItems.length,
-        content_ids: lineItems.map((li) =>
-          typeof li.price === 'object' && li.price ? li.price.id : '',
-        ),
-      },
+      eventSourceUrl: `${SITE_ORIGIN}/checkout`,
+      userData: capiUserData(email, attribution),
+      customData: metaCustomData(analyticsItems, value, currency),
     }).catch((err) =>
       console.error('[checkout.completed] Meta CAPI Purchase failed', err),
     );
