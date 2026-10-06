@@ -230,8 +230,8 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
           </span>
         </div>
         <div className="cart-shipping-note">
-          Taxes calculated at checkout. Subscription orders renew at 15% off
-          retail.
+          Taxes calculated at checkout. Subscription orders renew at the subscriber
+          price.
         </div>
         <Link
           className="cart-checkout"

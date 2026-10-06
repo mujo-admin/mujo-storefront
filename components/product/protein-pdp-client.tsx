@@ -12,7 +12,7 @@ import { resolveProteinSelection } from "lib/cart/price-id-map";
 // stay in place but nothing here can select them. The markup and class names
 // match the static design buy box in
 // content/imported-html/mujo_protein_powder_pdp.html, whose CSS styles it.
-const PRICE = { now: "$44.99", daily: "$3.00 a serving · 13.6¢/g protein" };
+const PRICE = { now: "$45", daily: "$3.00 a serving · 13.6¢/g protein" };
 
 function useMountTarget(mountId: string): HTMLElement | null {
   const [el, setEl] = useState<HTMLElement | null>(null);

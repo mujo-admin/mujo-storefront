@@ -12,7 +12,7 @@ import { useCart } from "components/cart/cart-context";
 import { resolveRitualSelection } from "lib/cart/price-id-map";
 
 // Pricing table — drives all in-page prices off (size, plan).
-// Subscribe & save = 15% off the one-time price. The 10-serving bag is
+// Subscribe & save = $10 off the one-time price ($60 → $50). The 10-serving bag is
 // one-time only (smaller bag, higher unit cost — no sub option, no discount).
 // Quantity is chosen in the cart (+/-); delivery frequency is picked in the
 // subscribe box (4 / 6 / 8 / 12 weeks) and stays changeable from the account.
@@ -26,8 +26,8 @@ const PRICES: Record<RitualSize, Partial<Record<RitualPlan, PriceCell>>> = {
     onetime: { now: "$27.00", daily: "$2.70/serving" },
   },
   "25": {
-    onetime: { now: "$59.99", daily: "$2.40/serving" },
-    subscription: { now: "$50.99", was: "$59.99", daily: "$2.04/serving" },
+    onetime: { now: "$60", daily: "$2.40/serving" },
+    subscription: { now: "$50", was: "$60", daily: "$2.00/serving" },
   },
 };
 
@@ -36,7 +36,7 @@ const PRICES: Record<RitualSize, Partial<Record<RitualPlan, PriceCell>>> = {
 const SUB_BENEFITS = [
   "Free shipping",
   "Free frother on first order ($20 value)",
-  "Save 15% on every order",
+  "Save $10 on every order",
   "Minimum 2-cycle commitment",
   "Cancel or pause anytime after 2 cycles",
 ];
@@ -167,7 +167,7 @@ function BuyBox({
               <div className="size-opt-count">25 servings</div>
               <div className="size-opt-badge">Best value</div>
             </div>
-            <div className="size-opt-price">$59.99 · $2.40/serving</div>
+            <div className="size-opt-price">$60 · $2.40/serving</div>
           </div>
         </div>
       </div>
@@ -199,7 +199,7 @@ function BuyBox({
                 <div className="pur-opt-info" style={{ flex: 1 }}>
                   <div className="pur-opt-name">
                     Subscribe &amp; save{" "}
-                    <span className="pur-opt-save">Save 15%</span>
+                    <span className="pur-opt-save">Save $10</span>
                   </div>
                 </div>
                 <div className="pur-opt-price">

@@ -1,7 +1,7 @@
 // scripts/create-ritual-prices-2026-10.mjs
 //
-// 2026-10 Ritual price change: $65.00 → $59.99 one-time, $55.25 → $50.99
-// subscription (15% baked in) at every cadence. Stripe Prices can't be edited,
+// 2026-10 Ritual price change: $65.00 → $60.00 one-time, $55.25 → $50.00
+// subscription (discount baked in) at every cadence. Stripe Prices can't be edited,
 // so this creates NEW Prices next to the current ones, copying each current
 // Price's product, cadence, tax_behavior and metadata (incl. shopify_variant_id,
 // so mirrored orders stay variant-linked).
@@ -26,8 +26,8 @@ const APPLY = process.argv.includes("--apply");
 const envArg = process.argv.find((a) => a.startsWith("--env="));
 const ENV_PATH = envArg ? envArg.split("=")[1] : ".env.local";
 
-const ONETIME_CENTS = 5999;
-const SUB_CENTS = 5099;
+const ONETIME_CENTS = 6000;
+const SUB_CENTS = 5000;
 const OLD_ONETIME_CENTS = 6500;
 const OLD_SUB_CENTS = 5525;
 

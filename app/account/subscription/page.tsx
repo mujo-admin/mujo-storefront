@@ -81,7 +81,7 @@ export default async function SubscriptionPage() {
           <div className="sub-empty-illo"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 9h12v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V9Z" /><path d="M16 10h2a2 2 0 0 1 0 4h-2" /><path d="M8.5 3c-.4.8.4 1.6 0 2.5M11.5 3c-.4.8.4 1.6 0 2.5" /></svg></div>
           <h3>No active subscription</h3>
           <p>
-            Subscribe & save 15% on every Ritual delivery. Free shipping
+            Subscribe and save $10 on every Ritual delivery. Free shipping
             on every order. After your first 2 deliveries you can pause or
             cancel here, with no cancellation fees.
           </p>
