@@ -22,7 +22,7 @@ export const organizationSchema = {
   "@type": "Organization",
   name: "Mujo",
   url: SITE_URL,
-  logo: `${SITE_URL}/images/logo/mujo-logo-brown.png`,
+  logo: `${SITE_URL}/images/logo/mujo-logo-orange.png`,
   email: "hello@mujoworld.com",
   sameAs: [
     "https://instagram.com/mujoworld",
@@ -34,7 +34,7 @@ export const mujoBrand = {
   "@type": "Brand",
   name: "Mujo",
   url: SITE_URL,
-  logo: `${SITE_URL}/images/logo/mujo-logo-brown.png`,
+  logo: `${SITE_URL}/images/logo/mujo-logo-orange.png`,
 } as const;
 
 export function webPageSchema(args: {
@@ -49,7 +49,7 @@ export function webPageSchema(args: {
     name: args.name,
     description: args.description,
     isPartOf: { "@type": "WebSite", name: "Mujo", url: SITE_URL },
-    primaryImageOfPage: `${SITE_URL}/images/logo/mujo-logo-brown.png`,
+    primaryImageOfPage: `${SITE_URL}/images/logo/mujo-logo-orange.png`,
     publisher: organizationSchema,
   };
 }
@@ -129,7 +129,7 @@ export function articleSchema(args: {
     mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE_URL}${args.url}` },
     headline: args.headline,
     description: args.description,
-    image: `${SITE_URL}/images/logo/mujo-logo-brown.png`,
+    image: `${SITE_URL}/images/logo/mujo-logo-orange.png`,
     author: {
       "@type": "Person",
       name: args.authorName ?? "Kinga",

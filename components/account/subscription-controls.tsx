@@ -975,7 +975,7 @@ export function SubscriptionControls({
         .modal-option:hover { border-color: var(--orange); }
         .modal-option.selected {
           border-color: var(--orange);
-          background: rgba(192, 66, 17, 0.06);
+          background: rgba(184, 72, 26, 0.06);
         }
         .modal-option strong {
           display: block;

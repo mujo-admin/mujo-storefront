@@ -66,7 +66,7 @@ button {
   transition: background 0.2s ease, transform 0.2s ease;
 }
 .reviews-dots .reviews-dot.active {
-  background: var(--orange, #C04211);
+  background: var(--orange, #B8481A);
   transform: scale(1.25);
 }
 @media (max-width: 700px) {

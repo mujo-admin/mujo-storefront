@@ -9,7 +9,7 @@ export type Props = {
 
 const CREAM = "#F3F2E9";
 const INK = "#1A1A1A";
-const ORANGE = "#C04211"; // terracotta: the brand accent (bright orange is the Ritual product colour)
+const ORANGE = "#F2682F";
 
 export default async function OpengraphImage(
   props?: Props,

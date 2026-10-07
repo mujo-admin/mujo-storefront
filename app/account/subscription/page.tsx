@@ -453,7 +453,7 @@ function SubStyle() {
         flex-shrink: 0;
         width: 44px;
         height: 44px;
-        background: rgba(192, 66, 17, 0.18);
+        background: rgba(184, 72, 26, 0.18);
         border-radius: 50%;
         display: inline-flex;
         align-items: center;
@@ -547,8 +547,8 @@ function SubStyle() {
 
       /* Next delivery callout */
       .next-delivery {
-        background: linear-gradient(135deg, rgba(192, 66, 17, 0.08) 0%, rgba(192, 66, 17, 0.03) 100%);
-        border: 1px solid rgba(192, 66, 17, 0.2);
+        background: linear-gradient(135deg, rgba(184, 72, 26, 0.08) 0%, rgba(184, 72, 26, 0.03) 100%);
+        border: 1px solid rgba(184, 72, 26, 0.2);
         border-radius: 12px;
         padding: 16px 20px;
         margin-bottom: 24px;
