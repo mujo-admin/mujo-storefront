@@ -181,7 +181,7 @@ function tagInteractionHooks(html: string): string {
     // data-mujo-form="generic" (the original handler <script> was stripped, so
     // leaving the attribute would either throw or trigger a native page reload).
     .replace(/onsubmit="[^"]*"/g, 'data-mujo-form="generic"')
-    .replace(/Mujo_logo_orange\.png/g, "/images/logo/mujo-logo-orange.png")
+    .replace(/Mujo_logo_orange\.png/g, "/images/logo/mujo-logo-terracotta.png")
     // Old Shopify-Liquid collection URL used in merch breadcrumbs / nav links.
     // Breadcrumbs are stripped above, but rewrite defensively for any survivors.
     .replace(/\/collections\/mujo-performance/g, "/shop");

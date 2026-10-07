@@ -32,7 +32,7 @@ export default function TeePdpPage() {
               name: "Organic Tee",
               description:
                 "A clean, everyday tee in 100% organic cotton, GOTS and OCS certified. Ring-spun and combed for a soft feel, lightweight, with a regular unisex fit and a small Mujo mark. The label tears away, so nothing scratches. Made to order in White or Desert Dust, sizes S to XL.",
-              image: "https://mujoworld.com/images/logo/mujo-logo-orange.png",
+              image: "https://mujoworld.com/images/logo/mujo-logo-terracotta.png",
               lowPrice: "30",
               highPrice: "30",
               offerCount: 8,

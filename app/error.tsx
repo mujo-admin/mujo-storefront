@@ -44,7 +44,7 @@ export default function Error({
       }}
     >
       <img
-        src="/images/logo/mujo-logo-orange.png"
+        src="/images/logo/mujo-logo-terracotta.png"
         alt="Mujo"
         style={{ height: 28, width: "auto", marginBottom: 24, opacity: 0.85 }}
       />
