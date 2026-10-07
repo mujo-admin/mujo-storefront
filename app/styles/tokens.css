@@ -26,11 +26,11 @@
        --accent-text      accent-coloured text on cream / sand / white (4.5:1)
        --accent-on-dark   accent on brown; dark sections re-point
                           --accent-text / --accent-display to it */
-  --orange:          #B8481A;
+  --orange:          #C04211;
   --orange-deep:     #9E3C14;
   --orange-soft:     #F3EAE0;
-  --accent-text:     #B34619;
-  --accent-display:  #B8481A;
+  --accent-text:     #B73F10;
+  --accent-display:  #C04211;
   --accent-on-dark:  #E05B24;
   --accent-on-tint:  #A63F15;
 

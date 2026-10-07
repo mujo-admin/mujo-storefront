@@ -514,7 +514,7 @@ export function GiftModal({
         .gift-product-option:hover { border-color: var(--orange); }
         .gift-product-option.selected {
           border-color: var(--orange);
-          background: rgba(184, 72, 26, 0.06);
+          background: rgba(192, 66, 17, 0.06);
         }
         .gift-product-option input[type="radio"] {
           accent-color: var(--orange);

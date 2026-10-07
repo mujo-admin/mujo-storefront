@@ -145,7 +145,7 @@ function flashOptionGroups() {
   const groups = document.querySelectorAll<HTMLElement>(".option-group");
   groups.forEach((g) => {
     g.style.transition = "outline 0.32s ease-out";
-    g.style.outline = "2px solid var(--orange, #B8481A)";
+    g.style.outline = "2px solid var(--orange, #C04211)";
     g.style.outlineOffset = "8px";
   });
   window.setTimeout(() => {

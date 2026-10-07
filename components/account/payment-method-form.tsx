@@ -56,7 +56,7 @@ export type CurrentCard = {
 const ELEMENT_APPEARANCE: StripeElementsOptions["appearance"] = {
   theme: "stripe",
   variables: {
-    colorPrimary: "#B8481A",
+    colorPrimary: "#C04211",
     colorBackground: "#f3f2e9",
     colorText: "#0f0f0f",
     colorTextSecondary: "#666",
