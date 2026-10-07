@@ -22,7 +22,7 @@
   /* Accent system — clay court #AE4329 (Kinga 2026-10-07; was terracotta
      #B8481A). On brown, accent text is bright orange (--accent-on-dark). The token is still
      called --orange so the ~1,700 existing uses keep working. Bright Mujo
-     orange (#F2682F) lives on only in the logo and on packaging.
+     orange (#F2682F) is now only a small accent (--spark, accent text on brown) and the Ritual packaging colour.
        --orange           fills, rules, dots, large display accents
        --accent-text      accent-coloured text on cream / sand / white (4.5:1)
        --accent-on-dark   accent on brown; dark sections re-point

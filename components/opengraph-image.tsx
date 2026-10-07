@@ -9,7 +9,7 @@ export type Props = {
 
 const CREAM = "#F3F2E9";
 const INK = "#1A1A1A";
-const ORANGE = "#F2682F";
+const ORANGE = "#AE4329"; // clay court, the brand accent
 
 export default async function OpengraphImage(
   props?: Props,

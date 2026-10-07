@@ -26,7 +26,7 @@ export default function LemnaPdpPage() {
               name: "The Lemna Bar",
               description:
                 "Premium clean-label protein bar. 15g plant protein. 250 founding member spots.",
-              image: "https://mujoworld.com/images/logo/mujo-logo-orange.png",
+              image: "https://mujoworld.com/images/logo/mujo-logo-clay.png",
               lowPrice: "0",
               highPrice: "0",
               inStock: false,

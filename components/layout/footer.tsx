@@ -23,7 +23,7 @@ export function Footer() {
         <div className="foot-grid">
           <div className="foot-brand">
             <img
-              src="/images/logo/mujo-logo-orange.png"
+              src="/images/logo/mujo-logo-cream.png"
               alt="Mujo"
               style={{ height: 28, width: "auto", marginBottom: 14 }}
             />

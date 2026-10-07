@@ -55,7 +55,7 @@ export function Nav({ cartCount, onOpenMenu, onOpenCart }: NavProps) {
       </button>
 
       <Link href="/" className="nav-logo" aria-label="Mujo home">
-        <img src="/images/logo/mujo-logo-orange.png" alt="Mujo" />
+        <img src="/images/logo/mujo-logo-clay.png" alt="Mujo" />
       </Link>
 
       <div className="nav-center">
