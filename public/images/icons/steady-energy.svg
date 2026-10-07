@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <style>
+      .cls-1 { fill: #AE4329; }
+      .cls-2 { fill: none; stroke: #AE4329; stroke-width: 7; stroke-linecap: round; }
+    </style>
+  </defs>
+  <circle class="cls-1" cx="50" cy="50" r="17"/>
+  <path class="cls-2" d="M50,12v9M50,79v9M12,50h9M79,50h9M23.1,23.1l6.4,6.4M70.5,70.5l6.4,6.4M76.9,23.1l-6.4,6.4M29.5,70.5l-6.4,6.4"/>
+</svg>
