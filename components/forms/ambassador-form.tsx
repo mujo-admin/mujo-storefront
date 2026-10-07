@@ -322,7 +322,7 @@ const ambStyles = `
   .amb-form select:focus-visible,
   .amb-form textarea:focus-visible {
     border-color: var(--orange);
-    box-shadow: 0 0 0 3px rgba(184, 72, 26, 0.25);
+    box-shadow: 0 0 0 3px rgba(174, 67, 41, 0.25);
   }
   .amb-submit {
     align-self: flex-start;
@@ -337,7 +337,7 @@ const ambStyles = `
   .amb-submit:hover:not(:disabled) {
     background: var(--orange-deep, #d9531f);
     transform: translateY(-1px);
-    box-shadow: 0 8px 24px rgba(184, 72, 26, 0.3);
+    box-shadow: 0 8px 24px rgba(174, 67, 41, 0.3);
   }
   .amb-submit:disabled { opacity: 0.6; cursor: default; }
   .amb-error { color: #ffd9cc; font-size: 14px; margin-top: 2px; }

@@ -269,7 +269,7 @@ export function Footer() {
         .mujo-foot .foot-tribe-chip:hover {
           border-color: var(--orange);
           color: #fff;
-          background: rgba(184, 72, 26,0.12);
+          background: rgba(174, 67, 41,0.12);
         }
 
         /* Mobile/tablet: brand block centered, chips center too */

@@ -66,7 +66,7 @@ export function MobileStickyCTA({
           text-decoration: none;
           border: 0;
           border-radius: var(--radius-cta);
-          box-shadow: 0 12px 32px rgba(184, 72, 26, 0.35);
+          box-shadow: 0 12px 32px rgba(174, 67, 41, 0.35);
           transform: translateY(calc(100% + 24px));
           opacity: 0;
           transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
