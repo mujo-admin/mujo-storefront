@@ -51,9 +51,9 @@
      light backgrounds; bright Mujo orange with brown text on dark ones. Button
      rules read these three; anything with a dark background re-points them
      (same place it re-points the accent text tokens). */
-  --btn-bg:            var(--brown);
-  --btn-bg-hover:      var(--brown-mid);
-  --btn-fg:            var(--cream);
+  --btn-bg:            #F2682F; /* PREVIEW 2026-10-07: orange buttons everywhere (was var(--brown)) */
+  --btn-bg-hover:      #F47C4A; /* was var(--brown-mid) */
+  --btn-fg:            #2A1810; /* was var(--cream); cream on orange fails contrast */
   --btn-on-dark-bg:    #F2682F;
   --btn-on-dark-hover: #F47C4A;
   --btn-on-dark-fg:    #2A1810;

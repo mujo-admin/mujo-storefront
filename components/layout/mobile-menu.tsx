@@ -52,7 +52,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
     >
       <div className="mm-head">
         <Link href="/" aria-label="Mujo home" onClick={onClose}>
-          <img src="/images/logo/mujo-logo-terracotta.png" alt="Mujo" />
+          <img src="/images/logo/mujo-logo-brown.png" alt="Mujo" />
         </Link>
         <button
           type="button"

@@ -18,7 +18,7 @@ export default function Loading() {
       }}
     >
       <img
-        src="/images/logo/mujo-logo-terracotta.png"
+        src="/images/logo/mujo-logo-brown.png"
         alt="Mujo"
         style={{
           height: 32,
