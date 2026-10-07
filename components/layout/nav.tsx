@@ -55,7 +55,7 @@ export function Nav({ cartCount, onOpenMenu, onOpenCart }: NavProps) {
       </button>
 
       <Link href="/" className="nav-logo" aria-label="Mujo home">
-        <img src="/images/logo/mujo-logo-orange.png" alt="Mujo" />
+        <img src="/images/logo/mujo-logo-clay.png" alt="Mujo" />
       </Link>
 
       <div className="nav-center">
@@ -169,7 +169,7 @@ export function Nav({ cartCount, onOpenMenu, onOpenCart }: NavProps) {
           transition: color 0.2s;
           padding: 4px 0;
         }
-        .nav-link:hover { color: var(--sage); }
+        .nav-link:hover { color: var(--sage); box-shadow: 0 2px 0 var(--spark); }
         .nav-link:focus { outline: none; }
         .nav-link:focus-visible { outline: 2px solid var(--sage); outline-offset: 6px; border-radius: 2px; }
         .nav-right {
@@ -198,8 +198,8 @@ export function Nav({ cartCount, onOpenMenu, onOpenCart }: NavProps) {
         .cart-count {
           position: absolute;
           top: 4px; right: 4px;
-          background: var(--orange);
-          color: #fff;
+          background: var(--spark);
+          color: var(--brown);
           font-family: var(--f-mono);
           font-size: 9px;
           font-weight: 500;

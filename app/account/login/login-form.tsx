@@ -104,7 +104,7 @@ export function LoginForm({
         .login-input:focus {
           outline: none;
           border-color: var(--orange);
-          box-shadow: 0 0 0 3px rgba(184, 72, 26, 0.15);
+          box-shadow: 0 0 0 3px rgba(174, 67, 41, 0.15);
         }
         .login-input:disabled { opacity: 0.6; cursor: not-allowed; }
         .login-error {

@@ -299,7 +299,7 @@ export function ManageSubscriptionButton({
             .mujo-manage-input:focus {
               outline: none;
               border-color: var(--orange);
-              box-shadow: 0 0 0 3px rgba(184, 72, 26, 0.15);
+              box-shadow: 0 0 0 3px rgba(174, 67, 41, 0.15);
             }
             .mujo-manage-input:disabled {
               opacity: 0.6;

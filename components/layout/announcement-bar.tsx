@@ -78,6 +78,10 @@ export function AnnouncementBar({
         </>
       )}
       <style jsx>{`
+        :global(.announce strong) {
+          color: var(--spark);
+          font-weight: 600;
+        }
         @media (max-width: 640px) {
           :global(.announce-secondary) {
             display: none;

@@ -23,7 +23,7 @@ export function Footer() {
         <div className="foot-grid">
           <div className="foot-brand">
             <img
-              src="/images/logo/mujo-logo-orange.png"
+              src="/images/logo/mujo-logo-cream.png"
               alt="Mujo"
               style={{ height: 28, width: "auto", marginBottom: 14 }}
             />
@@ -232,7 +232,7 @@ export function Footer() {
             gap: 32px;
           }
         }
-        .mujo-foot .foot-link:hover { color: var(--sage-light) !important; }
+        .mujo-foot .foot-link:hover { color: var(--spark) !important; }
 
         /* Sub-tribe chip selector inside the brand block */
         .mujo-foot .foot-tribes {
@@ -269,7 +269,7 @@ export function Footer() {
         .mujo-foot .foot-tribe-chip:hover {
           border-color: var(--orange);
           color: #fff;
-          background: rgba(184, 72, 26,0.12);
+          background: rgba(174, 67, 41,0.12);
         }
 
         /* Mobile/tablet: brand block centered, chips center too */

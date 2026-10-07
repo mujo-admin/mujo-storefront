@@ -19,20 +19,25 @@
 
   /* ----- Palette — Brand Guide v1.0 + brand-positioning §13 ----- */
 
-  /* Accent system — terracotta (Kinga 2026-09-29). The token is still
+  /* Accent system — clay court #AE4329 (Kinga 2026-10-07; was terracotta
+     #B8481A). On brown, accent text is bright orange (--accent-on-dark). The token is still
      called --orange so the ~1,700 existing uses keep working. Bright Mujo
-     orange (#F2682F) lives on only in the logo and on packaging.
+     orange (#F2682F) is now only a small accent (--spark, accent text on brown) and the Ritual packaging colour.
        --orange           fills, rules, dots, large display accents
        --accent-text      accent-coloured text on cream / sand / white (4.5:1)
        --accent-on-dark   accent on brown; dark sections re-point
                           --accent-text / --accent-display to it */
-  --orange:          #B8481A;
-  --orange-deep:     #9E3C14;
+  --orange:          #AE4329;
+  --orange-deep:     #9D3D25;
   --orange-soft:     #F3EAE0;
-  --accent-text:     #B34619;
-  --accent-display:  #B8481A;
-  --accent-on-dark:  #E05B24;
-  --accent-on-tint:  #A63F15;
+  --accent-text:     #AE4329;
+  --accent-display:  #AE4329;
+  --accent-on-dark:  #F2682F;
+  --accent-on-tint:  #AE4329;
+  /* Spark (Kinga 2026-10-07): bright Mujo orange in very small doses, for pep
+     against the muted terracotta: cart count, announcement highlights, link
+     hovers. Never for body text on cream (2.8:1). Pair with brown text. */
+  --spark:           #F2682F;
 
   /* Dark system — brown (was dark teal). --sage* names kept for the same
      reason; --brown* are the names to use in new work. */
@@ -48,14 +53,15 @@
   --beige:         #EFE6DA;
 
   /* Primary buttons (Kinga 2026-10-05): brown with cream text and no border on
-     light backgrounds; bright Mujo orange with brown text on dark ones. Button
+     light backgrounds; cream with brown text on dark ones (2026-10-07; was
+     bright orange). Button
      rules read these three; anything with a dark background re-points them
      (same place it re-points the accent text tokens). */
   --btn-bg:            var(--brown);
   --btn-bg-hover:      var(--brown-mid);
   --btn-fg:            var(--cream);
-  --btn-on-dark-bg:    #F2682F;
-  --btn-on-dark-hover: #F47C4A;
+  --btn-on-dark-bg:    #F3F2E9;
+  --btn-on-dark-hover: #FFFFFF;
   --btn-on-dark-fg:    #2A1810;
 
   /* Neutrals */

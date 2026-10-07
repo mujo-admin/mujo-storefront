@@ -52,7 +52,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
     >
       <div className="mm-head">
         <Link href="/" aria-label="Mujo home" onClick={onClose}>
-          <img src="/images/logo/mujo-logo-orange.png" alt="Mujo" />
+          <img src="/images/logo/mujo-logo-clay.png" alt="Mujo" />
         </Link>
         <button
           type="button"
@@ -149,7 +149,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
           border-bottom: 1px solid var(--line);
           transition: background 0.15s, color 0.15s;
         }
-        .mm-link:hover { color: var(--accent-text); background: rgba(184, 72, 26, 0.04); }
+        .mm-link:hover { color: var(--accent-text); background: rgba(174, 67, 41, 0.04); }
         .mm-link svg { width: 16px; height: 16px; opacity: 0.4; }
         .mm-foot {
           padding: 24px;
