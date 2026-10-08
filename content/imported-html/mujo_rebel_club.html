@@ -448,19 +448,14 @@ nav {
   margin-bottom: 18px;
 }
 .perk-icon {
-  /*
-    BRAND ICON SLOT — placeholder hand-drawn-style SVGs.
-    Per brand guide v1.1: sage (#2A1810) line work, 1.1–1.2px stroke,
-    round caps, organic imperfection, never filled, never orange,
-    no frame/shadow/rotation. Replace each <svg> below with Kinga's
-    Procreate-drawn SVG export when ready.
-  */
+  /* Solid clay icons, same family as /images/icons/tea-leaf.svg (2026-10-08). */
   width: 56px;
   height: 56px;
   margin-bottom: 20px;
   display: block;
   color: var(--sage);
 }
+.perk-icon img { width: 100%; height: 100%; display: block; }
 .perk-icon svg {
   width: 100%;
   height: 100%;
@@ -1152,16 +1147,7 @@ body.locked { overflow: hidden; }
       <div class="perk-card reveal">
         <div class="perk-num">01</div>
         <div class="perk-icon" aria-hidden="true">
-          <svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-            <!-- envelope body, slightly imperfect rectangle -->
-            <path d="M9.5 18.5 C 10 17.7, 11 17.2, 12 17.2 L 43.5 17.4 C 44.6 17.4, 45.6 18, 45.8 19 L 45.5 39.2 C 45.3 40.3, 44.4 41, 43.3 41 L 11.8 40.8 C 10.7 40.7, 9.8 40, 9.6 38.9 Z"/>
-            <!-- envelope flap fold -->
-            <path d="M9.7 19 C 16 25, 22 29.5, 27.6 30.2 C 33 29.5, 39 25, 45.7 19.2"/>
-            <!-- small sprig over the corner -->
-            <path d="M37 11 C 38.2 13, 39 15, 39.2 17.5"/>
-            <path d="M39 13.4 C 40.5 13.6, 41.8 13.2, 42.6 12.4"/>
-            <path d="M37.6 15.4 C 36.4 15.8, 35.4 15.6, 34.6 14.8"/>
-          </svg>
+          <img src="/images/icons/club-letter.svg" alt="" />
         </div>
         <div class="perk-title">Letters from Kinga, twice a month</div>
         <div class="perk-body">The unfiltered stuff. What I'm reading, what I'm testing on myself, what I'm wrong about. <strong>Written like a letter, not an email blast.</strong></div>
@@ -1169,16 +1155,7 @@ body.locked { overflow: hidden; }
       <div class="perk-card reveal d1">
         <div class="perk-num">02</div>
         <div class="perk-icon" aria-hidden="true">
-          <svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-            <!-- dropper bulb -->
-            <path d="M22.4 8.6 C 22.4 7.4, 23.4 6.4, 24.7 6.4 L 31.6 6.5 C 32.8 6.5, 33.8 7.5, 33.8 8.7 L 33.7 12.4 L 22.5 12.3 Z"/>
-            <!-- bottle neck -->
-            <path d="M24 12.5 L 24 16.4 C 21 17.4, 19.4 19.6, 19.5 22.6 L 19.7 44 C 19.7 47, 22 49.4, 25 49.5 L 31.4 49.6 C 34.4 49.6, 36.8 47.3, 36.8 44.3 L 36.7 22.8 C 36.7 19.8, 35.1 17.6, 32.1 16.5 L 32.2 12.6"/>
-            <!-- liquid line in bottle -->
-            <path d="M21.8 35.5 C 24.5 34.5, 27.5 34.6, 30.4 35.2 C 32 35.5, 33.4 35.7, 34.6 35.5"/>
-            <!-- droplet falling from neck -->
-            <path d="M28 19 C 27.4 20.4, 26.7 21.6, 26.5 22.6 C 26.4 23.4, 27 24, 27.8 24 C 28.6 24, 29.2 23.4, 29 22.6 C 28.8 21.6, 28.4 20.5, 28 19 Z"/>
-          </svg>
+          <img src="/images/icons/club-early-access.svg" alt="" />
         </div>
         <div class="perk-title">Early access to every drop</div>
         <div class="perk-body">New flavours, new products, limited runs. <strong>Rebels see everything 48–72 hours before the public does.</strong> The newest is our Protein Powder, made with Lemna leaf.</div>
@@ -1186,18 +1163,7 @@ body.locked { overflow: hidden; }
       <div class="perk-card reveal d2">
         <div class="perk-num">03</div>
         <div class="perk-icon" aria-hidden="true">
-          <svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-            <!-- left page -->
-            <path d="M7.5 16 C 13 14.5, 19.5 14.4, 24.8 16.6 C 26 17.1, 27.2 17.8, 28 18.6 L 28 43.4 C 27.2 42.6, 26 41.9, 24.8 41.4 C 19.5 39.2, 13 39.3, 7.5 40.8 Z"/>
-            <!-- right page -->
-            <path d="M28 18.6 C 28.8 17.8, 30 17.1, 31.2 16.6 C 36.5 14.4, 43 14.5, 48.5 16 L 48.5 40.8 C 43 39.3, 36.5 39.2, 31.2 41.4 C 30 41.9, 28.8 42.6, 28 43.4 Z"/>
-            <!-- text lines on left page -->
-            <path d="M11.5 22 C 14.8 21.4, 18 21.4, 21 22"/>
-            <path d="M11.5 26 C 14.8 25.4, 18 25.4, 21 26"/>
-            <!-- leaf bookmark hanging from top -->
-            <path d="M37 16.4 L 37 25 C 38.4 23.4, 40.5 22.4, 42.6 22.4 C 41.6 24.6, 39.6 26.2, 37.6 26.4"/>
-            <path d="M37 25 C 35.6 23.4, 33.5 22.4, 31.4 22.4 C 32.4 24.6, 34.4 26.2, 36.4 26.4"/>
-          </svg>
+          <img src="/images/icons/club-essays.svg" alt="" />
         </div>
         <div class="perk-title">Research-backed essays you won't find anywhere else</div>
         <div class="perk-body">Member-only deep-dives on the science we care about. Written to be read, not skimmed. Sometimes 600 words. Sometimes 4,000.</div>
@@ -1205,14 +1171,7 @@ body.locked { overflow: hidden; }
       <div class="perk-card reveal">
         <div class="perk-num">04</div>
         <div class="perk-icon" aria-hidden="true">
-          <svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-            <!-- speech bubble, organic curve -->
-            <path d="M9 18 C 9.4 13.6, 13 10.5, 17.4 10.4 L 39.2 10.6 C 43.6 10.7, 47 14, 47 18.4 L 47 31.4 C 47 35.8, 43.4 39, 39 39 L 22 39 L 14 46 L 15.4 38.6 C 11.6 37.6, 9 34.4, 9 30.6 Z"/>
-            <!-- leaf inside the bubble (vertical) -->
-            <path d="M28 16 C 32.4 18.6, 33.4 23, 31 27.6 C 29.4 30.6, 26.6 31.6, 23.4 31.6 C 23.4 26.4, 24.6 21.4, 28 16 Z"/>
-            <!-- leaf central vein -->
-            <path d="M28 16.4 C 27 21, 25.4 26, 23.6 31"/>
-          </svg>
+          <img src="/images/icons/club-qa.svg" alt="" />
         </div>
         <div class="perk-title">Founder Q&As. Real ones, live</div>
         <div class="perk-body">Quarterly. Small. Unscripted. I answer whatever you ask. Formulation, founder stuff, what I'm reading, what I'm rethinking.</div>
@@ -1220,25 +1179,7 @@ body.locked { overflow: hidden; }
       <div class="perk-card reveal d1">
         <div class="perk-num">05</div>
         <div class="perk-icon" aria-hidden="true">
-          <svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-            <!-- left sprig -->
-            <path d="M14 46 C 13.4 38, 13.6 30.5, 15.6 22.6"/>
-            <path d="M14 38 C 12 36.6, 10.4 35, 9.6 32.8"/>
-            <path d="M14.4 32.4 C 12.8 31, 11.6 29.2, 11 27"/>
-            <path d="M14.4 26.6 C 13.4 25, 12.8 23.2, 12.6 21.4"/>
-            <!-- middle sprig (taller) -->
-            <path d="M28 47 C 27.6 36, 28 25, 30 14"/>
-            <path d="M28 36 C 25.6 34.4, 23.6 32.4, 22.4 30"/>
-            <path d="M28.4 28 C 26.4 26.4, 25 24.4, 24.2 22"/>
-            <path d="M28.6 22 C 27 20, 26 17.8, 25.6 15.4"/>
-            <path d="M28.4 36 C 30.6 34.4, 32.4 32.4, 33.6 30"/>
-            <path d="M28.6 28 C 30.6 26.6, 32.2 24.6, 33 22.2"/>
-            <!-- right sprig -->
-            <path d="M42 46 C 42.4 38, 42 30.4, 40.4 22.4"/>
-            <path d="M42 38 C 44 36.6, 45.6 35, 46.4 32.8"/>
-            <path d="M41.6 32.4 C 43.2 31, 44.4 29.2, 45 27"/>
-            <path d="M41.6 26.6 C 42.6 25, 43.2 23.2, 43.4 21.4"/>
-          </svg>
+          <img src="/images/icons/club-community.svg" alt="" />
         </div>
         <div class="perk-title">A community that gets it</div>
         <div class="perk-body"><strong>Honest conversations with people choosing the same simpler, more human path.</strong> No performance, no pressure, no sell.</div>
@@ -1246,16 +1187,7 @@ body.locked { overflow: hidden; }
       <div class="perk-card reveal d2">
         <div class="perk-num">06</div>
         <div class="perk-icon" aria-hidden="true">
-          <svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-            <!-- hanging thread -->
-            <path d="M28 5 C 27.4 7, 26.4 8.6, 25 10"/>
-            <!-- tag body, slightly tilted -->
-            <path d="M22.6 11.4 L 41.4 22 C 42.6 22.6, 43.2 24, 42.6 25.2 L 32.6 44.4 C 32 45.6, 30.6 46.2, 29.4 45.6 L 10.6 35 C 9.4 34.4, 8.8 33, 9.4 31.8 L 19.4 12.6 C 20 11.4, 21.4 10.8, 22.6 11.4 Z"/>
-            <!-- eyelet hole -->
-            <path d="M22.4 17.6 C 21.4 17.4, 20.4 17.8, 19.8 18.6 C 19.2 19.6, 19.4 20.8, 20.2 21.4 C 21.2 22, 22.4 21.8, 23 20.8 C 23.6 20, 23.4 18.8, 22.6 18.2 Z"/>
-            <!-- small leaf curled near top of tag -->
-            <path d="M30 13.4 C 32.6 13, 35 14, 36 16.4 C 33.6 17, 31 16.6 30 14"/>
-          </svg>
+          <img src="/images/icons/club-pricing.svg" alt="" />
         </div>
         <div class="perk-title">Discounts that respect your time</div>
         <div class="perk-body">Occasional rebel-only pricing. No manufactured urgency. No "last chance" every week. When something's a deal, it's because it actually is.</div>
