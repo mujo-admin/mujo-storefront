@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <style>
+      .cls-1 { fill: #AE4329; }
+      .cls-2 { fill: none; stroke: #AE4329; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; }
+      .cut { fill: none; stroke: #000; stroke-width: 4.5; stroke-linecap: round; stroke-linejoin: round; }
+      .hole { fill: #000; }
+    </style>
+    <mask id="m">
+      <rect width="100" height="100" fill="#fff"/>
+      <circle class="hole" cx="31" cy="50" r="5.5" transform="rotate(-38 50 50)"/>
+      <path class="cut" d="M51,55L63,36"/>
+      <circle class="hole" cx="49" cy="40" r="3.8"/>
+      <circle class="hole" cx="65" cy="51" r="3.8"/>
+    </mask>
+  </defs>
+  <g mask="url(#m)">
+    <path class="cls-1" transform="rotate(-38 50 50)" d="M36,27H84A7,7 0 0 1 91,34V66A7,7 0 0 1 84,73H36L11,50Z" stroke="#AE4329" stroke-width="4" stroke-linejoin="round"/>
+  </g>
+</svg>
