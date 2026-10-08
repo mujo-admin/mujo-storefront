@@ -123,7 +123,7 @@ export default async function CheckoutSuccessPage(props: {
             {chargeOnShip ? (
               <p className="success-lede">
                 Nothing is charged today. Your card is saved and first charged on
-                November 15, when your first pouch ships.
+                November 19, when your first pouch ships.
               </p>
             ) : (
             <div className="success-amount">
@@ -147,7 +147,7 @@ export default async function CheckoutSuccessPage(props: {
             ) : null}
             <p className="success-fineprint">
               {hasPreorderItem
-                ? "Your Protein Powder ships from our US warehouse by November 15; anything else in your order ships within 1–2 business days. You'll receive a tracking email when it leaves the warehouse."
+                ? "Your Protein Powder ships from our US warehouse by November 19; anything else in your order ships within 1–2 business days. You'll receive a tracking email when it leaves the warehouse."
                 : "Your ritual ships from our US warehouse within 1–2 business days. You'll receive a tracking email when it leaves the warehouse."}
             </p>
           </>

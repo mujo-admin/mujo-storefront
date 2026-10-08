@@ -86,8 +86,8 @@ export type ProteinCadence = "2wk" | "4wk" | "6wk" | "8wk";
 // invoice lands on ship day. Stripe needs trial_end ≥ 48h in the future, so the
 // pre-order window closes automatically 2 days before (checkout falls back to
 // charging immediately once the date is too close or has passed).
-export const PROTEIN_PREORDER_CHARGE_AT = 1794754800; // 2026-11-15 15:00 UTC
-export const PROTEIN_PREORDER_SHIP_LABEL = "November 15";
+export const PROTEIN_PREORDER_CHARGE_AT = 1795100400; // 2026-11-19 15:00 UTC
+export const PROTEIN_PREORDER_SHIP_LABEL = "November 19";
 
 /** True if this Price ID is any Protein Powder subscription Price. */
 export function isProteinSubscriptionPrice(id: string): boolean {
