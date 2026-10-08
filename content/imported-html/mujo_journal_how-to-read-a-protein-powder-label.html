@@ -315,6 +315,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
 .post-body figure.jfig { margin: 36px 0; }
 .post-body figure.jfig.drawing { background: #FBF7EF; border: 1px solid var(--line); border-radius: var(--r-structural); padding: 12px 8px; }
 @media (min-width: 768px) { .post-body figure.jfig.drawing { padding: 18px; } }
+.post-body figure.jfig.sketch a { display: block; text-decoration: none; }
 .post-body figure.jfig svg { display: block; width: 100%; height: auto; font-family: var(--f-body); }
 .post-body figure.jfig img { display: block; width: 100%; height: auto; aspect-ratio: auto; opacity: 1; background: var(--sand); border-radius: var(--r-structural); font-size: inherit; }
 .post-body figure.jfig.tall { max-width: 480px; margin-left: auto; margin-right: auto; }
@@ -444,47 +445,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
   <p>Under US labelling rules, protein content can be worked out by measuring how much nitrogen is in the food and multiplying by 6.25.<a class="cite" href="#src-1">[1]</a> It's a sensible shortcut, because protein is the main source of nitrogen in food, and it's been standard practice for a very long time.</p>
   <p>But it means the test is counting nitrogen. It can't tell you which amino acids that nitrogen came from, or whether they're the nine your body needs. You learned in <a href="/journal/what-is-a-complete-protein">part two</a> why that matters.</p>
   <p>So the number on the front is a starting point. The useful information is on the back, and it takes about two minutes to read once you know where to look.</p>
-  <figure class="jfig drawing">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 346" role="img" aria-label="A drawing of a protein tub turned to show its back label, with six numbered arrows pointing to the facts panel, the protein line, the sweeteners, the gums, the natural flavors line and a blank space labelled 'what the label can't tell you'." fill="none" stroke="#2A1810" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <rect x="70" y="34" width="250" height="34" rx="10" fill="#B8481A" stroke="#2A1810"/>
-  <path d="M84 68 h222 q14 0 14 14 v230 q0 18 -18 18 h-214 q-18 0 -18 -18 v-230 q0 -14 14 -14 z" fill="#EEE9E0"/>
-  <rect x="100" y="92" width="190" height="212" fill="#F3F2E9"/>
-  <text x="110.0" y="118.0" font-size="14.5" text-anchor="start" fill="#2A1810" stroke="none" font-weight="700">Nutrition Facts</text>
-  <path d="M108 126 h174" stroke-width="4"/>
-  <text x="110.0" y="152.0" font-size="13.2" text-anchor="start" fill="#2A1810" stroke="none" font-weight="700">Protein 22g</text>
-  <text x="270.0" y="152.0" font-size="13.2" text-anchor="middle" fill="#B8481A" stroke="none" font-weight="700">%</text>
-  <path d="M110 176 h150" stroke="#D4C4A8" stroke-width="2"/>
-  <path d="M110 196 h120" stroke="#D4C4A8" stroke-width="2"/>
-  <path d="M110 216 h164" stroke="#D4C4A8" stroke-width="2"/>
-  <path d="M110 236 h100" stroke="#D4C4A8" stroke-width="2"/>
-  <path d="M110 256 h140" stroke="#D4C4A8" stroke-width="2"/>
-  <path d="M110 276 h90" stroke="#D4C4A8" stroke-width="2"/>
-  <path d="M296 112 Q340 112 372 60" stroke="#B8481A" stroke-width="1.8"/>
-  <circle cx="392" cy="60" r="17" fill="#B8481A" stroke="#B8481A"/>
-  <text x="392.0" y="67.0" font-size="17.2" text-anchor="middle" fill="#F3F2E9" stroke="none" font-weight="700">1</text>
-  <text x="420.0" y="68.0" font-size="17.2" text-anchor="start" fill="#2A1810" stroke="none" font-weight="500">Which box is it?</text>
-  <path d="M296 150 Q340 150 372 110" stroke="#B8481A" stroke-width="1.8"/>
-  <circle cx="392" cy="110" r="17" fill="#B8481A" stroke="#B8481A"/>
-  <text x="392.0" y="117.0" font-size="17.2" text-anchor="middle" fill="#F3F2E9" stroke="none" font-weight="700">2</text>
-  <text x="420.0" y="118.0" font-size="17.2" text-anchor="start" fill="#2A1810" stroke="none" font-weight="500">Protein, and the % next to it</text>
-  <path d="M296 190 Q340 190 372 160" stroke="#B8481A" stroke-width="1.8"/>
-  <circle cx="392" cy="160" r="17" fill="#B8481A" stroke="#B8481A"/>
-  <text x="392.0" y="167.0" font-size="17.2" text-anchor="middle" fill="#F3F2E9" stroke="none" font-weight="700">3</text>
-  <text x="420.0" y="168.0" font-size="17.2" text-anchor="start" fill="#2A1810" stroke="none" font-weight="500">What makes it sweet</text>
-  <path d="M296 216 Q340 216 372 210" stroke="#B8481A" stroke-width="1.8"/>
-  <circle cx="392" cy="210" r="17" fill="#B8481A" stroke="#B8481A"/>
-  <text x="392.0" y="217.0" font-size="17.2" text-anchor="middle" fill="#F3F2E9" stroke="none" font-weight="700">4</text>
-  <text x="420.0" y="218.0" font-size="17.2" text-anchor="start" fill="#2A1810" stroke="none" font-weight="500">The gums</text>
-  <path d="M296 242 Q340 242 372 260" stroke="#B8481A" stroke-width="1.8"/>
-  <circle cx="392" cy="260" r="17" fill="#B8481A" stroke="#B8481A"/>
-  <text x="392.0" y="267.0" font-size="17.2" text-anchor="middle" fill="#F3F2E9" stroke="none" font-weight="700">5</text>
-  <text x="420.0" y="268.0" font-size="17.2" text-anchor="start" fill="#2A1810" stroke="none" font-weight="500">“Natural flavors”</text>
-  <path d="M296 296 Q340 296 372 310" stroke="#B8481A" stroke-width="1.8"/>
-  <circle cx="392" cy="310" r="17" fill="#B8481A" stroke="#B8481A"/>
-  <text x="392.0" y="317.0" font-size="17.2" text-anchor="middle" fill="#F3F2E9" stroke="none" font-weight="700">6</text>
-  <text x="420.0" y="318.0" font-size="17.2" text-anchor="start" fill="#2A1810" stroke="none" font-weight="500">What the label can't tell you</text>
-  </svg>
-  <figcaption>Six stops. The first five are printed on the tub. The sixth you have to ask about.</figcaption></figure>
+  <figure class="jfig sketch"><a href="/images/responsive/journal/protein-series/drawings/p4-tub-full.webp" target="_blank" rel="noopener"><img src="/images/responsive/journal/protein-series/drawings/p4-tub-800.webp" srcset="/images/responsive/journal/protein-series/drawings/p4-tub-800.webp 800w, /images/responsive/journal/protein-series/drawings/p4-tub-full.webp 1168w" sizes="(min-width: 768px) 616px, calc(100vw - 40px)" width="800" height="603" alt="A drawing of a protein tub turned to show its back label, with six numbered arrows pointing to the facts panel, the protein line, the sweeteners, the gums, the natural flavors line and a blank space labelled 'what the label can't tell you'." loading="lazy"></a><figcaption>Six stops. The first five are printed on the tub. The sixth you have to ask about.</figcaption></figure>
   <h2>Stop 1: Which box is it?</h2>
   <p>Turn the tub round and find the panel with the numbers. Its title will be either <strong>Supplement Facts</strong> or <strong>Nutrition Facts</strong>, and that one word tells you which rulebook the product was made under.</p>
   <p>A product with a Supplement Facts panel is a dietary supplement. The FDA is blunt about what that means: it "does not have the authority to approve dietary supplements before they are marketed."<a class="cite" href="#src-2">[2]</a> A product with a Nutrition Facts panel is a conventional food and follows food labelling rules.</p>
@@ -521,20 +482,7 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
   <p>Before anyone panics, two things you need to know to read that properly.</p>
   <p><strong>First, why plants?</strong> Lead is in soil, and plants take it up as they grow. Concentrate a plant into a powder and you concentrate whatever came with it.<a class="cite" href="#src-7">[7]</a></p>
   <p><strong>Second, which yardstick?</strong> Consumer Reports used 0.5 micrograms of lead a day as its level of concern. That's the same figure California uses for its Proposition 65 warnings, and it's deliberately strict: it's set 1,000 times below the level at which no reproductive harm was observed.<a class="cite" href="#src-8">[8]</a> The FDA uses a different benchmark for lead from food, 8.8 micrograms a day for women of childbearing age and 2.2 for children, which already includes a tenfold safety margin.<a class="cite" href="#src-9">[9]</a></p>
-  <figure class="jfig drawing">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" role="img" aria-label="Three bars showing daily lead benchmarks in micrograms: 0.5 for California's Proposition 65 warning level, 2.2 for the FDA reference level for children, and 8.8 for the FDA reference level for women of childbearing age." fill="none" stroke="#2A1810" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <text x="360.0" y="34.0" font-size="25.2" text-anchor="middle" font-family="'Instrument Serif', Georgia, serif" font-style="italic" fill="#2A1810" stroke="none">lead per day, in micrograms: three official lines</text>
-  <text x="20.0" y="82.0" font-size="16.5" text-anchor="start" fill="#2A1810" stroke="none" font-weight="500">California Prop 65 warning line</text>
-  <rect x="20" y="92" width="31.8" height="30" fill="#B8481A"/>
-  <text x="61.8" y="116.0" font-size="18.5" text-anchor="start" fill="#B8481A" stroke="none" font-weight="700">0.5</text>
-  <text x="20.0" y="158.0" font-size="16.5" text-anchor="start" fill="#2A1810" stroke="none" font-weight="500">FDA level, children</text>
-  <rect x="20" y="168" width="140.0" height="30" fill="#2A1810"/>
-  <text x="170.0" y="192.0" font-size="18.5" text-anchor="start" fill="#B8481A" stroke="none" font-weight="700">2.2</text>
-  <text x="20.0" y="234.0" font-size="16.5" text-anchor="start" fill="#2A1810" stroke="none" font-weight="500">FDA level, women of childbearing age</text>
-  <rect x="20" y="244" width="560.0" height="30" fill="#2A1810"/>
-  <text x="590.0" y="268.0" font-size="18.5" text-anchor="start" fill="#B8481A" stroke="none" font-weight="700">8.8</text>
-  </svg>
-  <figcaption>Three official benchmarks for lead per day, in micrograms. The gap between them is why the same powder can pass one and fail another.</figcaption></figure>
+  <figure class="jfig sketch"><a href="/images/responsive/journal/protein-series/drawings/p4-lead-full.webp" target="_blank" rel="noopener"><img src="/images/responsive/journal/protein-series/drawings/p4-lead-800.webp" srcset="/images/responsive/journal/protein-series/drawings/p4-lead-800.webp 800w, /images/responsive/journal/protein-series/drawings/p4-lead-full.webp 1168w" sizes="(min-width: 768px) 616px, calc(100vw - 40px)" width="800" height="603" alt="Three bars showing daily lead benchmarks in micrograms: 0.5 for California's Proposition 65 warning level, 2.2 for the FDA reference level for children, and 8.8 for the FDA reference level for women of childbearing age." loading="lazy"></a><figcaption>Three official benchmarks for lead per day, in micrograms. The gap between them is why the same powder can pass one and fail another.</figcaption></figure>
   <p>Those two yardsticks are about 17 times apart. That's why one product can carry a California warning and sit well inside the FDA's level. Both facts can be true of the same tub.</p>
   <p>None of this is on the label, so here's what you can do:</p>
   <ul>
