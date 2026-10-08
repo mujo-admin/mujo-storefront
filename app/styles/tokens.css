@@ -287,6 +287,36 @@ h1 .serif-accent, h2 .serif-accent, h3 .serif-accent {
   letter-spacing: 0;
 }
 
+/* Editorial headings (Kinga, 2026-10-08). On content pages every h1 and h2 is
+   upright Instrument Serif, with italic for the emphasised words. Kept in Hanken
+   (sturdier): product names beside the buy box, and everything outside
+   .mujo-imported (cart, checkout, account). h3 and below are unchanged.
+   !important because each ported page ships its own heading rules. */
+.mujo-imported h1,
+.mujo-imported h2 {
+  font-family: var(--f-serif) !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.012em !important;
+  font-size-adjust: 0.5; /* the serif runs small: match Hanken's apparent size */
+}
+.mujo-imported h1 em, .mujo-imported h2 em,
+.mujo-imported h1 i, .mujo-imported h2 i,
+.mujo-imported h1 .serif-acc, .mujo-imported h2 .serif-acc,
+.mujo-imported h1 .serif-accent, .mujo-imported h2 .serif-accent {
+  font-family: var(--f-serif) !important;
+  font-style: italic !important;
+  font-weight: 400 !important;
+  letter-spacing: inherit !important;
+}
+.mujo-imported .info > h1,
+.mujo-imported h1.pdp-title,
+.mujo-imported h1.info-title {
+  font-family: var(--f-display) !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.02em !important;
+  font-size-adjust: none;
+}
+
 /* Eyebrow pattern — DM Mono 11px uppercase with 0.2em tracking */
 .eyebrow {
   display: inline-block;
