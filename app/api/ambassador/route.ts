@@ -7,20 +7,20 @@ export const dynamic = "force-dynamic";
 
 const requestSchema = z.object({
   // Honeypot — real people leave this blank; bots tend to fill every field.
-  website: z.string().max(200).optional(),
-  name: z.string().min(1).max(120),
-  email: z.string().email(),
-  country: z.string().min(1).max(80),
-  platform: z.string().min(1).max(60),
-  profileLink: z.string().min(1).max(300),
-  otherLinks: z.string().max(400).optional(),
-  whoYouAre: z.string().min(1).max(80),
-  audience: z.string().min(1).max(300),
-  audienceSize: z.string().min(1).max(40),
-  engagement: z.string().max(120).optional(),
-  usesMujo: z.string().min(1).max(60),
-  why: z.string().min(1).max(2000),
-  extra: z.string().max(2000).optional(),
+  website: z.string().trim().max(200).optional(),
+  name: z.string().trim().min(1).max(120),
+  email: z.string().trim().email(),
+  country: z.string().trim().min(1).max(80),
+  platform: z.string().trim().min(1).max(60),
+  profileLink: z.string().trim().min(1).max(300),
+  otherLinks: z.string().trim().max(400).optional(),
+  whoYouAre: z.string().trim().min(1).max(80),
+  audience: z.string().trim().min(1).max(300),
+  audienceSize: z.string().trim().min(1).max(40),
+  engagement: z.string().trim().max(120).optional(),
+  usesMujo: z.string().trim().min(1).max(60),
+  why: z.string().trim().min(1).max(2000),
+  extra: z.string().trim().max(2000).optional(),
 });
 
 /**

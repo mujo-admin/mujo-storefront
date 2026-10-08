@@ -39,11 +39,39 @@ const USES_MUJO = [
 
 type FormStatus = "idle" | "loading" | "sent" | "error";
 
+// Required fields in form order, with the words shown when one is missing.
+const REQUIRED_FIELDS: readonly (readonly [string, string])[] = [
+  ["name", "your full name"],
+  ["email", "your email"],
+  ["country", "your country"],
+  ["platform", "your primary platform"],
+  ["profileLink", "a link to your profile"],
+  ["whoYouAre", "who you are"],
+  ["audienceSize", "your audience size"],
+  ["audience", "who your audience is"],
+  ["usesMujo", "whether you already use Mujo"],
+  ["why", "why Mujo"],
+];
+
+const FIELD_WORDS: Record<string, string> = {
+  ...Object.fromEntries(REQUIRED_FIELDS),
+  otherLinks: "other platforms or links",
+  engagement: "typical engagement",
+  extra: "anything else",
+};
+
+function joinWords(words: string[]): string {
+  if (words.length <= 1) return words.join("");
+  return `${words.slice(0, -1).join(", ")} and ${words[words.length - 1]}`;
+}
+
 /** Resolve the splice mount marker once it's in the DOM. */
 function useMountTarget(mountId: string): HTMLElement | null {
   const [el, setEl] = useState<HTMLElement | null>(null);
   useEffect(() => {
-    setEl(document.querySelector<HTMLElement>(`[data-mujo-mount="${mountId}"]`));
+    setEl(
+      document.querySelector<HTMLElement>(`[data-mujo-mount="${mountId}"]`),
+    );
   }, [mountId]);
   return el;
 }
@@ -70,9 +98,29 @@ function Form() {
     // after `await` throws (which previously surfaced as a false "network
     // error" even though the request succeeded).
     const form = e.currentTarget;
+    // Trim everything: phone autofill often adds a trailing space, which
+    // the server's email check rejects.
+    const payload: Record<string, string> = {};
+    for (const [key, value] of new FormData(form).entries()) {
+      payload[key] = String(value).trim();
+    }
+    // The form is noValidate (the browser's own bubbles are unstyled), so
+    // check here. An unchosen dropdown is absent from FormData entirely.
+    const missing = REQUIRED_FIELDS.filter(([key]) => !payload[key]);
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email ?? "");
+    if (missing.length || !emailOk) {
+      const firstBad = missing[0]?.[0] ?? "email";
+      setErrorMsg(
+        missing.length
+          ? `Please add ${joinWords(missing.map(([, words]) => words))}.`
+          : "That email doesn't look right. Please check it.",
+      );
+      setStatus("error");
+      form.querySelector<HTMLElement>(`[name="${firstBad}"]`)?.focus();
+      return;
+    }
     setStatus("loading");
     setErrorMsg("");
-    const payload = Object.fromEntries(new FormData(form).entries());
     try {
       const res = await fetch("/api/ambassador", {
         method: "POST",
@@ -88,7 +136,24 @@ function Form() {
         setStatus("sent");
       } else {
         const data = await res.json().catch(() => ({}));
-        setErrorMsg(data.error ?? "Something went wrong. Please try again.");
+        // Name the fields the server rejected; never show a raw error code.
+        const fields: string[] = Array.isArray(data.details)
+          ? [
+              ...new Set<string>(
+                data.details
+                  .map(
+                    (d: { path?: unknown[] }) =>
+                      FIELD_WORDS[String(d.path?.[0])],
+                  )
+                  .filter(Boolean),
+              ),
+            ]
+          : [];
+        setErrorMsg(
+          fields.length
+            ? `Please check ${joinWords(fields)}. It may be missing or too long.`
+            : "Something went wrong. Please try again, or email hello@mujoworld.com.",
+        );
         setStatus("error");
       }
     } catch {
@@ -131,7 +196,12 @@ function Form() {
       </div>
       <div className="amb-row">
         <Field name="country" label="Country you're based in" required />
-        <Select name="platform" label="Primary platform" options={PLATFORMS} required />
+        <Select
+          name="platform"
+          label="Primary platform"
+          options={PLATFORMS}
+          required
+        />
       </div>
       <Field
         name="profileLink"
@@ -172,7 +242,12 @@ function Form() {
           label="Typical engagement (avg likes or views per post)"
           optional
         />
-        <Select name="usesMujo" label="Do you already use Mujo?" options={USES_MUJO} required />
+        <Select
+          name="usesMujo"
+          label="Do you already use Mujo?"
+          options={USES_MUJO}
+          required
+        />
       </div>
       <Field
         name="why"
@@ -186,7 +261,11 @@ function Form() {
         multiline
         optional
       />
-      <button type="submit" className="amb-submit" disabled={status === "loading"}>
+      <button
+        type="submit"
+        className="amb-submit"
+        disabled={status === "loading"}
+      >
         {status === "loading" ? "Sending…" : "Submit application →"}
       </button>
       {status === "error" && (
@@ -260,7 +339,12 @@ function Select({
         {label}
         {required && <span className="amb-req">*</span>}
       </span>
-      <select id={`amb-${name}`} name={name} required={required} defaultValue="">
+      <select
+        id={`amb-${name}`}
+        name={name}
+        required={required}
+        defaultValue=""
+      >
         <option value="" disabled>
           Choose one…
         </option>
