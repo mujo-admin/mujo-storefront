@@ -10,6 +10,7 @@
 // Pure: no network, no env. All amounts are integer cents.
 
 import type { CreateOrderInput, ShopifyTaxLineInput } from 'lib/shopify-admin';
+import { PROTEIN_PREORDER_CHARGE_AT } from 'lib/stripe-constants';
 
 export type FactTax = {
   title: string;
@@ -54,6 +55,22 @@ export function centsToAmount(cents: number): string {
 export function cleanLineTitle(raw: string): string {
   const match = raw.trim().match(/^\d+\s*×\s*(.+?)\s*\(at .*\)$/);
   return (match?.[1] ?? raw).trim();
+}
+
+/** Shopify tag on every order that holds the Protein Powder pre-order. */
+export const PRE_ORDER_PROTEIN_TAG = 'pre-order-protein';
+
+/**
+ * Tags an order needs because of what is in it.
+ *
+ * `pre-order-protein` (Kinga 2026-10-08): the powder ships later than the rest
+ * of the order, so Kinga filters on this tag to find what is still owed. It
+ * stops being added once the first batch ships (PROTEIN_PREORDER_CHARGE_AT).
+ */
+export function contentTags(facts: OrderFacts, now: Date = facts.paidAt ?? new Date()): string[] {
+  const preOrderOpen = now.getTime() < PROTEIN_PREORDER_CHARGE_AT * 1000;
+  const hasPowder = facts.lines.some((line) => /protein powder/i.test(cleanLineTitle(line.title)));
+  return preOrderOpen && hasPowder ? [PRE_ORDER_PROTEIN_TAG] : [];
 }
 
 function taxLines(taxes: FactTax[], currency: string): ShopifyTaxLineInput[] | undefined {

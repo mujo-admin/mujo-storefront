@@ -12,6 +12,7 @@ import {
   type ShopifyOrder,
 } from 'lib/shopify-admin';
 import {
+  contentTags,
   buildLineItems,
   buildOrderMoneyFields,
   centsToAmount,
@@ -123,7 +124,7 @@ export async function createMirroredOrder(args: {
   const isLive = process.env.STRIPE_SECRET_KEY?.startsWith('sk_live') ?? false;
   const { computedTotalCents, matches, ...moneyFields } = buildOrderMoneyFields(facts, { isLive });
 
-  let tags = base.tags ?? [];
+  let tags = Array.from(new Set([...(base.tags ?? []), ...contentTags(facts)]));
   let note = base.note ?? '';
   if (!matches) {
     console.error(`${context} order total check failed`, {
