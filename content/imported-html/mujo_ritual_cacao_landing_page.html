@@ -2765,6 +2765,74 @@ footer {
   .kit-img { aspect-ratio: auto; min-height: 140px; }
 }
 
+
+/* ── Landing v2 (2026-10-20) ── */
+.hero-trust, .scroll-cue { display: none; }
+.sec-h { text-align: center; max-width: 680px; margin: 0 auto 36px; }
+.sec-h h2 { margin: 14px 0 0; }
+.sec-sub { color: var(--ink-soft); margin: 12px auto 0; max-width: 520px; }
+.tstrip { background: var(--brown, #2A1810); color: var(--cream); padding: 22px 0; }
+.tstrip-row { display: flex; justify-content: center; gap: 40px; max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+.tstrip-item { display: flex; flex-direction: column; gap: 4px; text-align: center; font-size: 12.5px; line-height: 1.35; color: rgba(243,242,233,.78); max-width: 170px; }
+.tstrip-big { font-family: var(--f-serif); font-size: 26px; line-height: 1; color: var(--cream); }
+@media (max-width: 900px) {
+  .tstrip-row { justify-content: flex-start; overflow-x: auto; scroll-snap-type: x mandatory; gap: 28px; scrollbar-width: none; }
+  .tstrip-row::-webkit-scrollbar { display: none; }
+  .tstrip-item { flex: 0 0 130px; scroll-snap-align: start; }
+}
+.howto { padding: 80px 0; background: var(--cream); }
+.howto-video { position: relative; max-width: 880px; margin: 0 auto 28px; aspect-ratio: 16 / 9; border-radius: 4px;
+  background-size: cover; background-position: center 40%; overflow: hidden; }
+.howto-play { position: absolute; left: 50%; top: 50%; width: 72px; height: 72px; margin: -36px 0 0 -36px; border-radius: 50%;
+  background: rgba(243,242,233,.92); }
+.howto-play::after { content: ""; position: absolute; left: 29px; top: 23px; border-left: 20px solid var(--ink); border-top: 13px solid transparent; border-bottom: 13px solid transparent; }
+.howto-tag { position: absolute; left: 14px; bottom: 14px; font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase;
+  background: var(--ink); color: var(--cream); padding: 4px 9px; border-radius: 2px; }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 880px; margin: 0 auto; }
+.step-img { aspect-ratio: 1 / 1; background-size: cover; background-position: center; border-radius: 4px; margin-bottom: 12px; }
+.step-n { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; color: var(--accent-text, var(--orange)); }
+.step-t { font-family: var(--f-serif); font-size: 24px; color: var(--ink); margin: 2px 0 4px; }
+.step-d { font-size: 14px; color: var(--ink-soft); line-height: 1.45; }
+@media (max-width: 760px) {
+  .howto { padding: 56px 0; }
+  .howto-video { aspect-ratio: 4 / 5; }
+  .steps { gap: 10px; }
+  .step-t { font-size: 19px; }
+  .step-d { font-size: 12.5px; }
+}
+.vs { padding: 80px 0; background: var(--sand); }
+.vs-wrap { max-width: 880px; margin: 0 auto; overflow-x: auto; }
+.vs-table { width: 100%; border-collapse: separate; border-spacing: 0; background: #fff; border-radius: 4px; overflow: hidden; font-size: 14px; }
+.vs-table th, .vs-table td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--ink-soft); }
+.vs-table thead th { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--mute); font-weight: 500; }
+.vs-table tbody td:first-child { font-weight: 500; color: var(--ink); white-space: nowrap; }
+.vs-table .vs-us { background: var(--brown, #2A1810); color: var(--cream); }
+.vs-table thead .vs-us { color: var(--cream); }
+.vs-table tbody tr:last-child td { border-bottom: 0; }
+.vs-yes { color: var(--spark, #F2682F); margin-right: 6px; }
+@media (max-width: 640px) {
+  .vs-table { font-size: 12.5px; }
+  .vs-table th, .vs-table td { padding: 11px 9px; }
+  .vs-table tbody td:first-child { white-space: normal; }
+}
+.moments { padding: 80px 0 72px; background: var(--cream); }
+.moment-row { display: grid; grid-auto-flow: column; grid-auto-columns: 270px; gap: 16px; overflow-x: auto;
+  scroll-snap-type: x mandatory; padding: 0 max(24px, calc((100vw - 1180px) / 2)); scroll-padding-inline: max(24px, calc((100vw - 1180px) / 2)); scrollbar-width: none; }
+.moment-row::-webkit-scrollbar { display: none; }
+.moment { scroll-snap-align: start; }
+.moment-img { aspect-ratio: 4 / 5; background-size: cover; background-position: center; border-radius: 4px; margin-bottom: 12px; }
+.moment-t { font-family: var(--f-serif); font-size: 21px; color: var(--ink); }
+.moment-d { font-size: 13.5px; color: var(--ink-soft); margin-top: 2px; }
+@media (max-width: 760px) { .moments { padding: 56px 0; } .moment-row { grid-auto-columns: 72%; } }
+.next { padding: 0 0 96px; background: var(--cream); }
+.next-card { border: 1px solid var(--line); }
+.next-card { display: grid; grid-template-columns: 280px 1fr; gap: 0; max-width: 880px; margin: 0 auto; background: var(--cream); border-radius: 4px; overflow: hidden; }
+.next-img { background-size: cover; background-position: center; min-height: 240px; }
+.next-body { padding: 30px 32px; align-self: center; }
+.next-h { font-family: var(--f-serif); font-weight: 400; font-size: 26px; line-height: 1.15; color: var(--ink); margin: 10px 0 8px; }
+.next-p { color: var(--ink-soft); font-size: 14.5px; margin: 0 0 14px; }
+.next-link { color: var(--accent-text, var(--orange)); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 700px) { .next-card { grid-template-columns: 1fr; } .next-img { min-height: 220px; } .next-body { padding: 22px; } }
 </style>
 <style id="mujo-canonical-nav">
 :root {
@@ -2936,11 +3004,11 @@ body.locked { overflow: hidden; }
 <section class="hero">
   <div class="hero-grid">
     <div>
-      <div class="hero-eyebrow eyebrow reveal">Coffee alternative · Under 5mg caffeine</div>
+      <div class="hero-eyebrow eyebrow reveal">Mushroom coffee alternative · Under 5mg caffeine</div>
       <h1 class="reveal d1">
-        A coffee alternative that tastes like a smooth <span class="serif-accent">mocha.</span>
+        A mushroom coffee alternative that tastes like a smooth <span class="serif-accent">mocha.</span>
       </h1>
-      <p class="hero-sub reveal d2">Organic cacao and four mushroom extracts, frothed into a warm cup. Calm energy, no crash.</p>
+      <p class="hero-sub reveal d2">Organic cacao and four mushroom extracts, made with L-theanine and panax ginseng. Calm energy, no crash.</p>
       <div class="hero-rating reveal d2">
         <div class="hero-stars">★★★★★</div>
         <div class="hero-rating-text"><strong>4.9/5</strong> · 100+ verified reviews</div>
@@ -2951,12 +3019,6 @@ body.locked { overflow: hidden; }
         <!-- MUJO_RITUAL_BUYBOX_START -->
         <a href="/products/mujo-ritual" class="btn btn-primary">Shop the Ritual</a>
         <!-- MUJO_RITUAL_BUYBOX_END -->
-      </div>
-      <div class="hero-trust reveal d4">
-        <div class="trust-item"><span class="trust-dot"></span>Under 5mg caffeine</div>
-        <div class="trust-item"><span class="trust-dot"></span>Never mycelium on grain</div>
-        <div class="trust-item"><span class="trust-dot"></span>Sweetened with monk fruit</div>
-        <div class="trust-item"><span class="trust-dot"></span>30-day money back</div>
       </div>
     </div>
     <div class="hero-visual reveal d2">
@@ -2974,226 +3036,119 @@ body.locked { overflow: hidden; }
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════
-     STARTER KIT, what arrives
-     ═══════════════════════════════════════════ -->
-<section class="kit">
+<!-- ═══ TRUST STRIP ═══ -->
+<section class="tstrip" aria-label="Why people trust Mujo">
+  <div class="tstrip-row">
+    <div class="tstrip-item"><span class="tstrip-big">4.9★</span><span>100+ verified reviews</span></div>
+    <div class="tstrip-item"><span class="tstrip-big">&lt;5mg</span><span>Caffeine per cup</span></div>
+    <div class="tstrip-item"><span class="tstrip-big">Organic</span><span>Mushrooms, never mycelium on grain</span></div>
+    <div class="tstrip-item"><span class="tstrip-big">USA</span><span>Made and shipped from the US</span></div>
+    <div class="tstrip-item"><span class="tstrip-big">30 days</span><span>Money back on your first order</span></div>
+  </div>
+</section>
+
+<!-- ═══ HOW TO MAKE IT (video placeholder: swap the poster for the Thursday loop) ═══ -->
+<section class="howto">
   <div class="container">
-    <div class="kit-h">
-      <div class="eyebrow reveal">The starter kit</div>
-      <h2 class="reveal d1">Everything for your first <span class="serif-accent">cup.</span></h2>
-      <p class="reveal d2">$50 a pouch on subscription, about $2 a cup.</p>
+    <div class="sec-h">
+      <div class="eyebrow reveal">How to make it</div>
+      <h2 class="reveal d1">Three steps. About a <span class="serif-accent">minute.</span></h2>
     </div>
-    <div class="kit-grid">
-      <div class="kit-card reveal">
-        <div class="kit-img" role="img" aria-label="The Ritual pouch" style="background-image: url('/images/responsive/products/ritual/ritual-pouch-hero-monumental-editorial-2026-09-1x1-800.webp');"></div>
-        <div class="kit-body">
-          <div class="kit-name">The Ritual, 25 servings</div>
-          <div class="kit-txt">Tastes like a smooth mocha. One tablespoon, hot water, milk of choice.</div>
-        </div>
+    <div class="howto-video reveal" role="img" aria-label="Video: making the Ritual, from scoop to froth" style="background-image: url('/images/responsive/lifestyle/ritual-frother-action-editorial-4x5-800.webp');">
+      <!-- VIDEO PLACEHOLDER: replace with <video autoplay muted loop playsinline poster="..."> once filmed -->
+      <span class="howto-play" aria-hidden="true"></span>
+      <span class="howto-tag">Video coming soon</span>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-img" style="background-image: url('/images/responsive/lifestyle/ritual-pouch-scoop-spill-editorial-4x3-800.webp');"></div>
+        <div class="step-n">01</div>
+        <div class="step-t">Scoop</div>
+        <div class="step-d">One tablespoon into your mug.</div>
       </div>
-      <div class="kit-card reveal d1">
-        <div class="kit-img" role="img" aria-label="The Mujo rechargeable frother" style="background-image: url('/images/responsive/products/merch/mujo-frother-1-4x5-800.webp');"></div>
-        <div class="kit-body">
-          <div class="kit-name">A rechargeable frother, free</div>
-          <div class="kit-txt">Comes with your first subscription order. Silky foam in about ten seconds.</div>
-        </div>
+      <div class="step reveal d1">
+        <div class="step-img" style="background-image: url('/images/responsive/lifestyle/ritual-kettle-pour-editorial-4x5-800.webp');"></div>
+        <div class="step-n">02</div>
+        <div class="step-t">Pour</div>
+        <div class="step-d">A splash of hot water.</div>
       </div>
-      <div class="kit-card reveal d2">
-        <div class="kit-img" role="img" aria-label="A frothed mug of the Ritual" style="background-image: url('/images/responsive/products/ritual/ritual-mug-steam-cream-editorial-4x5-800.webp');"></div>
-        <div class="kit-body">
-          <div class="kit-name">Free shipping, every order</div>
-          <div class="kit-txt">Every 4, 6, 8 or 12 weeks. Two-order minimum, then pause, skip or cancel from your account.</div>
-        </div>
+      <div class="step reveal d2">
+        <div class="step-img" style="background-image: url('/images/responsive/lifestyle/ritual-frother-action-editorial-4x5-800.webp');"></div>
+        <div class="step-n">03</div>
+        <div class="step-t">Froth</div>
+        <div class="step-d">Froth, then top with warm milk of choice.</div>
       </div>
     </div>
-    <p class="kit-note reveal">Rather try it first? <a href="#buy">Buy one pouch for $60.</a></p>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════
-     PROBLEM, dark sage, NO borrowing language
-     ═══════════════════════════════════════════ -->
-<section class="problem">
+<!-- ═══ MUJO VS OTHERS ═══ -->
+<section class="vs">
   <div class="container">
-    <div class="problem-header">
-      <h2 class="reveal d1" style="margin-top: 28px;">Why we made a coffee alternative, <span class="serif-accent">not another coffee.</span></h2>
+    <div class="sec-h">
+      <div class="eyebrow reveal">Why it's different</div>
+      <h2 class="reveal d1">Not your usual mushroom <span class="serif-accent">coffee.</span></h2>
     </div>
-    <div class="problem-grid">
-      <div class="pitems">
-        <div class="pitem reveal">
-          <div class="pn">01</div>
-          <div class="pt"><strong>Coffee gives you a lift, then takes it back.</strong> The spike feels great, until the afternoon dip sends you back for another cup. And another.</div>
-        </div>
-        <div class="pitem reveal d1">
-          <div class="pn">02</div>
-          <div class="pt"><strong>It's easy to end up wired and tired at the same time.</strong> We wanted a morning drink that felt steady instead, the kind you reach for because you want to, not because you have to.</div>
-        </div>
-        <div class="pitem reveal d2">
-          <div class="pn">03</div>
-          <div class="pt"><strong>Most functional products are underdosed, with mycelium on grain instead of real mushrooms.</strong> We went the other way: whole-mushroom extracts, a few real ingredients, every one named on the label.</div>
-        </div>
-        <div class="pitem reveal d3">
-          <div class="pn">04</div>
-          <div class="pt"><strong>The best part of a morning ritual was never the caffeine.</strong> It's the ten quiet minutes that are actually yours. So we built the cup around that.</div>
-        </div>
-      </div>
-      <div class="paside reveal d2">
-        <div class="pa-h">This was never about more discipline. It was about a morning drink <em>worth keeping.</em></div>
-        <div class="pa-b">You've built the routine and read the labels. The missing piece was never more effort. It was a simpler ritual you actually enjoy. That's the whole reason Mujo exists.</div>
-        <div class="pa-stat">
-          <div class="pa-num">&lt;5mg</div>
-          <div class="pa-lbl">Caffeine per serving, roughly a twentieth of a cup of coffee. Calm energy, nothing to spike or crash.</div>
-          <div class="pa-src">Per serving, as made</div>
-        </div>
-      </div>
+    <div class="vs-wrap reveal">
+      <table class="vs-table">
+        <thead>
+          <tr><th></th><th class="vs-us">The Ritual</th><th>Typical mushroom coffee</th><th>Coffee</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Taste</td><td class="vs-us"><span class="vs-yes">✓</span>Smooth mocha</td><td>Often earthy or gritty</td><td>Bitter, roasted</td></tr>
+          <tr><td>Caffeine</td><td class="vs-us"><span class="vs-yes">✓</span>Under 5mg</td><td>Often blended with coffee</td><td>About 95mg a cup</td></tr>
+          <tr><td>Mushrooms</td><td class="vs-us"><span class="vs-yes">✓</span>Whole-mushroom extracts</td><td>Often mycelium grown on grain</td><td>None</td></tr>
+          <tr><td>L-theanine + ginseng</td><td class="vs-us"><span class="vs-yes">✓</span>Both, named on the label</td><td>Rarely</td><td>No</td></tr>
+          <tr><td>Label</td><td class="vs-us"><span class="vs-yes">✓</span>Every ingredient named</td><td>Often a proprietary blend</td><td>Just coffee</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
 
-
-<!-- ═══════════════════════════════════════════
-     FOUNDER VIDEO, 90 sec, earned moment
-     ═══════════════════════════════════════════ -->
-<!-- Founder video removed 2026-10-05 (Kinga): it names ingredients from the old recipe.
-     A new one is being shot; restore this block with the new file when it lands.
-<div class="video">
-  <div class="video-wrap">
-    <div class="video-label reveal">From Kinga · Founder</div>
-    <h2 class="video-h reveal d1">Before you buy, <em>hear why I made it.</em></h2>
-    <div class="video-sub reveal d2">A couple of minutes. No pitch. Just the honest reason Mujo Ritual exists, and why it's different from everything else you've tried.</div>
-    <div class="video-ph reveal d3">
-      <video controls playsinline preload="metadata"
-             poster="/videos/founder/kinga-founder.jpg"
-             src="/videos/founder/kinga-founder.mp4"></video>
-    </div>
-  </div>
-</div>
--->
-
-<!-- ═══════════════════════════════════════════
-     SOLUTION, the reveal
-     ═══════════════════════════════════════════ -->
-<section class="solution">
-  <div class="sol-grid">
-    <div class="sol-vis reveal">
-      <div class="sv-t">The different morning</div>
-      <div class="sv-s">What changes when your morning isn't built on caffeine</div>
-      <div class="ctbl">
-        <div class="crow chdr"><span></span><span>Coffee</span><span>Mujo Ritual</span></div>
-        <div class="crow"><span class="cl">Morning</span><span class="cbad">Spike then crash</span><span class="cgood">Steady</span></div>
-        <div class="crow"><span class="cl">3pm</span><span class="cbad">Reach for more</span><span class="cgood">Still going</span></div>
-        <div class="crow"><span class="cl">Jitters</span><span class="cbad">Often</span><span class="cgood">None (under 5mg)</span></div>
-        <div class="crow"><span class="cl">Taste</span><span class="cbad">Bitter, functional</span><span class="cgood">Rich cacao you look forward to</span></div>
-      </div>
-    </div>
-    <div>
-      <h2 class="reveal d1" style="margin-top: 28px;">A ritual that <span class="serif-accent">earns its place.</span></h2>
-      <p class="body-lg reveal d2" style="margin-top: 16px;">A warm cacao with mushrooms and adaptogens. A few real ingredients, each one mindfully chosen. Tastes so good you won't want to skip it.</p>
-      <div class="sol-pts">
-        <div class="sp reveal">
-          <div class="sp-i"><img src="/images/icons/science-backed-clay.svg" alt="" aria-hidden="true" /></div>
-          <div>
-            <div class="sp-t">Panax Ginseng, a classic adaptogen</div>
-            <div class="sp-b">Panax ginseng is considered an adaptogen. It has been part of traditional East Asian practice for centuries, where people value it as an everyday tonic. Named openly, never hidden in a blend.</div>
-          </div>
-        </div>
-        <div class="sp reveal d1">
-          <div class="sp-i"><img src="/images/icons/potent-mushrooms.svg" alt="" aria-hidden="true" /></div>
-          <div>
-            <div class="sp-t">Whole-mushroom extracts, never mycelium on grain</div>
-            <div class="sp-b">Beta-(1,3)(1,6)-glucans live in the fruiting body. Most brands use mycelium because it's cheaper. We use whole-mushroom extracts, three of them dual-extracted at 8:1.</div>
-          </div>
-        </div>
-        <div class="sp reveal d2">
-          <div class="sp-i"><img src="/images/icons/steady-energy.svg" alt="" aria-hidden="true" /></div>
-          <div>
-            <div class="sp-t">Steady, not stimulating</div>
-            <div class="sp-b">Under 5mg of caffeine, so the energy stays calm and steady, with nothing to crash from.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════
-     SOCIAL PROOF
-     ═══════════════════════════════════════════ -->
-<section class="proof" id="reviews">
-  <div class="container">
-    <div class="proof-header">
-      <h2 class="reveal d1" style="margin-top: 28px;">From people who also <span class="serif-accent">read the label</span> before they buy.</h2>
-    </div>
-    <div class="proof-grid">
-      <div class="pc reveal">
-        <div class="pstars">★★★★★</div>
-        <div class="pq">"Mujo is my top choice for a caffeine alternative. It offers the ideal combination of subtle, steady energy, all without the jitters. <strong>What truly distinguishes it from other options is its commitment to clean, well-chosen ingredients,</strong> with absolutely no fillers."</div>
-        <div class="pattr">Verified</div>
-        <div class="pau">
-          <img class="pav" src="/images/reviews/maria-m.webp" alt="Maria M." width="34" height="34" loading="lazy" style="object-fit: cover;">
-          <div>
-            <div class="pname">Maria M.</div>
-            <div class="prole">Verified buyer</div>
-          </div>
-        </div>
-      </div>
-      <div class="pc reveal d1">
-        <div class="pstars">★★★★★</div>
-        <div class="pq">"I used to be the 'don't talk to me until I've had my coffee' kind of person. I fell into the cycle of needing coffee just to function. <strong>Mujo decreased my reliance on coffee,</strong> and is that special ritual I really look forward to every morning. I love the ingredients inside too."</div>
-        <div class="pattr">Verified</div>
-        <div class="pau">
-          <img class="pav" src="/images/reviews/gabriela-w.webp" alt="Gabriela W." width="34" height="34" loading="lazy" style="object-fit: cover;">
-          <div>
-            <div class="pname">Gabriela W.</div>
-            <div class="prole">Verified buyer</div>
-          </div>
-        </div>
-      </div>
-      <div class="pc reveal d2">
-        <div class="pstars">★★★★★</div>
-        <div class="pq">"As a former soccer player and now entrepreneur, I'm always looking for something to give my day a strong start. <strong>Mujo gives me a calm, steady start I could never get with coffee.</strong> Zero jitters and great taste."</div>
-        <div class="pattr">Verified</div>
-        <div class="pau">
-          <img class="pav" src="/images/reviews/brandon-l.webp" alt="Brandon L." width="34" height="34" loading="lazy" style="object-fit: cover;">
-          <div>
-            <div class="pname">Brandon L.</div>
-            <div class="prole">Verified buyer</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="pstats reveal">
-      <div class="psc">
-        <div class="psn">4.9★</div>
-        <div class="psl">Average rating</div>
-        <div class="pss">100+ reviews</div>
-      </div>
-      <div class="psc">
-        <div class="psn">94%</div>
-        <div class="psl">Would recommend</div>
-        <div class="pss">Post-purchase · 30-day</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════════════════════
-     INGREDIENTS, with Panax Ginseng elevated
-     ═══════════════════════════════════════════ -->
 <section class="dossier" id="ingredients">
   <div class="container">
     <div class="dossier-header">
-      <h2 class="reveal d1" style="margin-top: 26px;">What's inside matters.</h2>
+      <div class="eyebrow reveal">What's inside</div>
+      <h2 class="reveal d1" style="margin-top: 14px;">Two ingredients you won't find in most mushroom <span class="serif-accent">coffees.</span></h2>
       <ul class="dossier-points reveal d2">
-        <li>Organic whole-mushroom extracts, never mycelium on grain</li>
-        <li>True adaptogens, openly named</li>
-        <li>No proprietary blends</li>
+        <li>L-theanine, the amino acid naturally found in green tea</li>
+        <li>Panax ginseng, considered an adaptogen</li>
+        <li>Four organic mushroom extracts, never mycelium on grain</li>
       </ul>
     </div>
 
     <div class="ing-compact-grid">
+
+      <!-- L-theanine -->
+      <div class="ing-compact reveal d1">
+        <div class="ing-compact-img" style="background-image: url('/images/responsive/ingredients/l-theanine-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
+        <div class="ing-compact-body">
+          <div class="ing-compact-top">
+            <div class="ing-compact-name">L-theanine</div>
+            <div class="ing-compact-badge">Calm</div>
+          </div>
+          <div class="ing-compact-sub"><em>Naturally found in green tea</em></div>
+          <div class="ing-compact-pills">
+            <span class="ing-pill">Amino acid</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panax Ginseng -->
+      <div class="ing-compact reveal">
+        <div class="ing-compact-img" style="background-image: url('/images/responsive/ingredients/panax-ginseng-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
+        <div class="ing-compact-body">
+          <div class="ing-compact-top">
+            <div class="ing-compact-name">Panax Ginseng</div>
+            <div class="ing-compact-badge">Adaptogen</div>
+          </div>
+          <div class="ing-compact-sub"><em>Panax ginseng</em></div>
+          <div class="ing-compact-pills">
+            <span class="ing-pill">Ginsenosides</span>
+          </div>
+        </div>
+      </div>
 
       <!-- Lion's Mane -->
       <div class="ing-compact reveal feat">
@@ -3260,35 +3215,6 @@ body.locked { overflow: hidden; }
           </div>
         </div>
       </div>
-      <!-- Panax Ginseng -->
-      <div class="ing-compact reveal">
-        <div class="ing-compact-img" style="background-image: url('/images/responsive/ingredients/panax-ginseng-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
-        <div class="ing-compact-body">
-          <div class="ing-compact-top">
-            <div class="ing-compact-name">Panax Ginseng</div>
-            <div class="ing-compact-badge">Adaptogen</div>
-          </div>
-          <div class="ing-compact-sub"><em>Panax ginseng</em></div>
-          <div class="ing-compact-pills">
-            <span class="ing-pill">Ginsenosides</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- L-theanine -->
-      <div class="ing-compact reveal d1">
-        <div class="ing-compact-img" style="background-image: url('/images/responsive/ingredients/l-theanine-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
-        <div class="ing-compact-body">
-          <div class="ing-compact-top">
-            <div class="ing-compact-name">L-theanine</div>
-            <div class="ing-compact-badge">Calm</div>
-          </div>
-          <div class="ing-compact-sub"><em>Naturally found in green tea</em></div>
-          <div class="ing-compact-pills">
-            <span class="ing-pill">Amino acid</span>
-          </div>
-        </div>
-      </div>
 
       <!-- Cacao -->
       <div class="ing-compact reveal d1">
@@ -3321,6 +3247,7 @@ body.locked { overflow: hidden; }
           </div>
         </div>
       </div>
+
       <!-- Maca -->
       <div class="ing-compact reveal d2">
         <div class="ing-compact-img" style="background-image: url('/images/responsive/ingredients/black-maca-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
@@ -3347,15 +3274,141 @@ body.locked { overflow: hidden; }
   </div>
 </section>
 
+<!-- ═══ FITS INTO YOUR LIFE ═══ -->
+<section class="moments">
+  <div class="container">
+    <div class="sec-h">
+      <div class="eyebrow reveal">Fits into your life</div>
+      <h2 class="reveal d1">A ritual made to make the moments a little <span class="serif-accent">better.</span></h2>
+      <p class="sec-sub reveal d2">Nothing to count or track. Just a cup you look forward to, wherever the day goes.</p>
+    </div>
+  </div>
+  <div class="moment-row">
+      <div class="moment">
+        <div class="moment-img" role="img" aria-label="The busy-parent morning" style="background-image: url('/images/responsive/lifestyle/world-kitchen-table-kids-drawing-2026-10-4x5-800.webp');"></div>
+        <div class="moment-t">The busy-parent morning</div>
+        <div class="moment-d">Between the toast and the crayons.</div>
+      </div>
+      <div class="moment">
+        <div class="moment-img" role="img" aria-label="The tennis match" style="background-image: url('/images/responsive/lifestyle/world-tennis-on-the-bench-2026-10-4x5-800.webp');"></div>
+        <div class="moment-t">The tennis match</div>
+        <div class="moment-d">On the bench between sets.</div>
+      </div>
+      <div class="moment">
+        <div class="moment-img" role="img" aria-label="The Pilates studio" style="background-image: url('/images/responsive/lifestyle/world-pilates-mat-2026-10-4x5-800.webp');"></div>
+        <div class="moment-t">The Pilates studio</div>
+        <div class="moment-d">Before class, or the slow walk home.</div>
+      </div>
+      <div class="moment">
+        <div class="moment-img" role="img" aria-label="The work session" style="background-image: url('/images/responsive/lifestyle/world-desk-cup-chocolate-2026-10-4x5-800.webp');"></div>
+        <div class="moment-t">The work session</div>
+        <div class="moment-d">The cup beside the notebook.</div>
+      </div>
+      <div class="moment">
+        <div class="moment-img" role="img" aria-label="The padel game" style="background-image: url('/images/responsive/lifestyle/world-padel-leaning-on-glass-2026-10-4x5-800.webp');"></div>
+        <div class="moment-t">The padel game</div>
+        <div class="moment-d">Iced, in the bag, after the last point.</div>
+      </div>
+      <div class="moment">
+        <div class="moment-img" role="img" aria-label="The errands run" style="background-image: url('/images/responsive/lifestyle/world-car-seat-ritual-2026-10-4x5-800.webp');"></div>
+        <div class="moment-t">The errands run</div>
+        <div class="moment-d">A pouch on the seat, flowers in the back.</div>
+      </div>
+  </div>
+</section>
 
+<section class="proof" id="reviews">
+  <div class="container">
+    <div class="proof-header">
+      <h2 class="reveal d1" style="margin-top: 28px;">From people who also <span class="serif-accent">read the label</span> before they buy.</h2>
+    </div>
+    <div class="proof-grid">
+      <div class="pc reveal">
+        <div class="pstars">★★★★★</div>
+        <div class="pq">"Mujo is my top choice for a caffeine alternative. It offers the ideal combination of subtle, steady energy, all without the jitters. <strong>What truly distinguishes it from other options is its commitment to clean, well-chosen ingredients,</strong> with absolutely no fillers."</div>
+        <div class="pattr">Verified</div>
+        <div class="pau">
+          <img class="pav" src="/images/reviews/maria-m.webp" alt="Maria M." width="34" height="34" loading="lazy" style="object-fit: cover;">
+          <div>
+            <div class="pname">Maria M.</div>
+            <div class="prole">Verified buyer</div>
+          </div>
+        </div>
+      </div>
+      <div class="pc reveal d1">
+        <div class="pstars">★★★★★</div>
+        <div class="pq">"I used to be the 'don't talk to me until I've had my coffee' kind of person. I fell into the cycle of needing coffee just to function. <strong>Mujo decreased my reliance on coffee,</strong> and is that special ritual I really look forward to every morning. I love the ingredients inside too."</div>
+        <div class="pattr">Verified</div>
+        <div class="pau">
+          <img class="pav" src="/images/reviews/gabriela-w.webp" alt="Gabriela W." width="34" height="34" loading="lazy" style="object-fit: cover;">
+          <div>
+            <div class="pname">Gabriela W.</div>
+            <div class="prole">Verified buyer</div>
+          </div>
+        </div>
+      </div>
+      <div class="pc reveal d2">
+        <div class="pstars">★★★★★</div>
+        <div class="pq">"As a former soccer player and now entrepreneur, I'm always looking for something to give my day a strong start. <strong>Mujo gives me a calm, steady start I could never get with coffee.</strong> Zero jitters and great taste."</div>
+        <div class="pattr">Verified</div>
+        <div class="pau">
+          <img class="pav" src="/images/reviews/brandon-l.webp" alt="Brandon L." width="34" height="34" loading="lazy" style="object-fit: cover;">
+          <div>
+            <div class="pname">Brandon L.</div>
+            <div class="prole">Verified buyer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pstats reveal">
+      <div class="psc">
+        <div class="psn">4.9★</div>
+        <div class="psl">Average rating</div>
+        <div class="pss">100+ reviews</div>
+      </div>
+      <div class="psc">
+        <div class="psn">94%</div>
+        <div class="psl">Would recommend</div>
+        <div class="pss">Post-purchase · 30-day</div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<section class="kit">
+  <div class="container">
+    <div class="kit-h">
+      <div class="eyebrow reveal">The starter kit</div>
+      <h2 class="reveal d1">Everything for your first <span class="serif-accent">cup.</span></h2>
+      <p class="reveal d2">$50 a pouch on subscription, about $2 a cup.</p>
+    </div>
+    <div class="kit-grid">
+      <div class="kit-card reveal">
+        <div class="kit-img" role="img" aria-label="The Ritual pouch" style="background-image: url('/images/responsive/products/ritual/ritual-pouch-hero-monumental-editorial-2026-09-1x1-800.webp');"></div>
+        <div class="kit-body">
+          <div class="kit-name">The Ritual, 25 servings</div>
+          <div class="kit-txt">Tastes like a smooth mocha. One tablespoon, hot water, milk of choice.</div>
+        </div>
+      </div>
+      <div class="kit-card reveal d1">
+        <div class="kit-img" role="img" aria-label="The Mujo rechargeable frother" style="background-image: url('/images/responsive/products/merch/mujo-frother-1-4x5-800.webp');"></div>
+        <div class="kit-body">
+          <div class="kit-name">A rechargeable frother, free</div>
+          <div class="kit-txt">Comes with your first subscription order. Silky foam in about ten seconds.</div>
+        </div>
+      </div>
+      <div class="kit-card reveal d2">
+        <div class="kit-img" role="img" aria-label="A Mujo box on a doorstep" style="background-image: url('/images/responsive/lifestyle/world-doorstep-delivery-box-2026-10-4x5-800.webp');"></div>
+        <div class="kit-body">
+          <div class="kit-name">Free shipping, every order</div>
+          <div class="kit-txt">Every 4, 6, 8 or 12 weeks. Two-order minimum, then pause, skip or cancel from your account.</div>
+        </div>
+      </div>
+    </div>
+    <p class="kit-note reveal">Rather try it first? <a href="#buy">Buy one pouch for $60.</a></p>
+  </div>
+</section>
 
-<!-- Mid-page email gate (full ingredient dossier) removed.
-     The quiz handles the primary email capture flow. -->
-
-<!-- ═══════════════════════════════════════════
-     FOUNDER
-     ═══════════════════════════════════════════ -->
 <section class="founder">
   <div class="fgrid">
     <div class="fimgw reveal">
@@ -3365,16 +3418,12 @@ body.locked { overflow: hidden; }
     <div>
       <div class="fpull reveal d1" style="margin-top: 44px;">"I built Mujo because I wanted <em>a morning ritual I actually looked forward to,</em> and could <em>feel good about.</em>"</div>
       <p class="fbody reveal d2">When I became a mom, I stopped treating my body like a machine to hack. Coffee had stopped working for me, so I went looking for something gentler to start the day with.</p>
-      <p class="fbody reveal d2">To fill the space coffee left, I started mixing the plants and mushrooms I loved into a warm, coffee-like drink. Real mushroom extracts. Ingredients I'd researched obsessively.</p>
       <p class="fbody reveal d3">I drank it every morning and never looked back. It became the ten minutes that were actually mine. So I made it to share. <em>This is that ritual.</em></p>
       <div class="fsig reveal d3">Kinga<div class="fsigs">Founder, Mujo</div></div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════
-     OBJECTIONS
-     ═══════════════════════════════════════════ -->
 <section class="obj">
   <div class="container">
     <h2 class="reveal d1" style="margin-top: 28px;">The questions we'd ask <span class="serif-accent">if we were you.</span></h2>
@@ -3391,10 +3440,6 @@ body.locked { overflow: hidden; }
         <div class="objq">Do I need to quit coffee to drink Mujo?</div>
         <div class="obja">No. Many people just drink less coffee over time. <strong>We suggest easing off caffeine over a week or two</strong> as you bring Mujo in. The first few mornings off coffee can be an adjustment, and that's completely normal.</div>
       </div>
-      <div class="objcard reveal d1">
-        <div class="objq">What's actually in it?</div>
-        <div class="obja">Everything, on the label, by its plain name and form. <strong>No "proprietary blend," nothing hidden.</strong> A few real ingredients, openly used, so you always know exactly what's in your cup.</div>
-      </div>
       <div class="objcard reveal d2">
         <div class="objq">Is it meant to be a daily ritual?</div>
         <div class="obja">Yes. <strong>Adaptogens are gentle and work best as a daily habit,</strong> not a one-off jolt. Our honest advice: make it your morning cup and enjoy it. The taste alone is reason enough to keep it.</div>
@@ -3407,66 +3452,6 @@ body.locked { overflow: hidden; }
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════
-     PRICING
-     ═══════════════════════════════════════════ -->
-<section class="pric" id="pricing">
-  <div class="container">
-    <h2 class="reveal d1" style="margin-top: 28px; max-width: 440px;">Your morning ritual, <span class="serif-accent">finally on your side.</span></h2>
-    <div class="panchor reveal d2"><strong>In perspective:</strong> A daily flat white is $5–7. Mujo Ritual on subscription is $2.00 per serving. One easy swap.</div>
-    <div class="priced">
-      <div>
-        <div class="pcard feat reveal">
-          <div class="pbpill">Most popular · Best value</div>
-          <div class="ptype">Subscribe & Save</div>
-          <div class="pprice"><sup>$</sup>50</div>
-          <div class="pwas">$60 one-time price</div>
-          <div class="pper">every 4–12 weeks · 2-order minimum · $2.00/serving</div>
-          <div class="pdiv"></div>
-          <div class="pfeats">
-            <div class="pfeat"><span class="pfck">✓</span>25-serving pouch, every 4, 6, 8 or 12 weeks</div>
-            <div class="pfeat"><span class="pfck">✓</span>Free rechargeable frother with your first order</div>
-            <div class="pfeat"><span class="pfck">✓</span>$10 off every order</div>
-            <div class="pfeat"><span class="pfck">✓</span>Free shipping on every order</div>
-            <div class="pfeat"><span class="pfck">✓</span>Two-order minimum, then cancel anytime</div>
-          </div>
-          <a class="btwh primary" href="#buy">Get the starter kit</a>
-          <div class="gbox">
-            <div class="gicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
-            <div class="gtxt">
-              <strong>30-day money-back guarantee</strong>
-              Not for you? Request a full refund within 30 days of your first order. We carry the risk.
-            </div>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="prrh reveal">One ritual. <em>Every morning.</em></div>
-        <div class="prrb reveal d1">The morning drink you actually look forward to. A few real ingredients, openly used, and nothing to spike or crash from.</div>
-        <div class="prcl reveal d1">
-          <div class="prcli"><span class="prclck">✓</span>Four organic mushroom extracts, three dual-extracted at 8:1</div>
-          <div class="prcli"><span class="prclck">✓</span>Panax Ginseng, a classic adaptogen</div>
-          <div class="prcli"><span class="prclck">✓</span>Tastes like a smooth mocha</div>
-          <div class="prcli"><span class="prclck">✓</span>Under 5mg of caffeine</div>
-          <div class="prcli"><span class="prclck">✓</span>30-day money-back guarantee</div>
-        </div>
-        <div class="ponet reveal d2">
-          <div class="ptype">One-time purchase</div>
-          <div class="pprice" style="font-size: 34px;"><sup>$</sup>60</div>
-          <div class="pper">25 servings · $5 shipping, free over $100</div>
-          <div class="pdiv"></div>
-          <a class="btwh" href="#buy">Buy once. No commitment</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
-<!-- ═══════════════════════════════════════════
-     FINAL CTA
-     ═══════════════════════════════════════════ -->
 <section class="fcta">
   <div class="container">
     <h2 class="fctah reveal d1" style="margin-top: 28px;">Less noise. <em>More honest ingredients.</em></h2>
@@ -3482,6 +3467,21 @@ body.locked { overflow: hidden; }
       <div class="fti">30-day money-back guarantee</div>
       <div class="fti">Two-order minimum</div>
       <div class="fti">Under 5mg caffeine</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ NEXT FROM MUJO ═══ -->
+<section class="next">
+  <div class="container">
+    <div class="next-card reveal">
+      <div class="next-img" role="img" aria-label="The Ritual and Protein Powder pouches side by side" style="background-image: url('/images/responsive/lifestyle/ritual-protein-duo-hero-2026-10-1x1-800.webp');"></div>
+      <div class="next-body">
+        <div class="eyebrow">Next from Mujo</div>
+        <h3 class="next-h">Protein Powder, made with Lemna leaf protein.</h3>
+        <p class="next-p">Vanilla, $45, ships by November 19. Pre-order now, or add it to your Ritual order.</p>
+        <a href="/products/protein-powder" class="next-link">See the Protein Powder →</a>
+      </div>
     </div>
   </div>
 </section>
