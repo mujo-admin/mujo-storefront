@@ -2833,6 +2833,36 @@ footer {
 .next-p { color: var(--ink-soft); font-size: 14.5px; margin: 0 0 14px; }
 .next-link { color: var(--accent-text, var(--orange)); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
 @media (max-width: 700px) { .next-card { grid-template-columns: 1fr; } .next-img { min-height: 220px; } .next-body { padding: 22px; } }
+
+/* ── Landing v3 (2026-10-21): four moments, swipe cue, FAQ accordion ── */
+.moment-row { grid-auto-columns: auto; grid-auto-flow: row; grid-template-columns: repeat(4, 1fr); overflow: visible;
+  max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+.moment-t { display: flex; align-items: center; gap: 8px; }
+.moment-ck { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 22px; height: 22px;
+  border-radius: 50%; background: var(--orange); color: var(--cream); font-family: var(--f-body); font-size: 12px; }
+.moment-swipe { display: none; }
+@media (max-width: 760px) {
+  .moment-row { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 78%; overflow-x: auto;
+    scroll-snap-type: x mandatory; scroll-padding-inline: 24px; }
+  .moment-swipe { display: block; text-align: right; padding: 14px 24px 0; font-family: var(--f-mono); font-size: 11px;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--accent-text, var(--orange)); }
+  .moment-swipe span { display: inline-block; animation: mujoNudge 1.6s ease-in-out infinite; }
+}
+@keyframes mujoNudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
+.faq-list { max-width: 760px; margin: 28px 0 0; border-top: 1px solid var(--line); }
+.faq-item { border-bottom: 1px solid var(--line); }
+.faq-item summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  padding: 20px 2px; font-weight: 500; font-size: 16px; color: var(--ink); }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-plus { position: relative; flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--line); }
+.faq-plus::before, .faq-plus::after { content: ""; position: absolute; left: 50%; top: 50%; width: 10px; height: 1.5px;
+  margin: -0.75px 0 0 -5px; background: var(--ink); transition: transform .2s; }
+.faq-plus::after { transform: rotate(90deg); }
+.faq-item[open] .faq-plus::after { transform: rotate(0deg); }
+.faq-a { padding: 0 40px 20px 2px; font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); }
+.faq-a strong { color: var(--ink); font-weight: 500; }
+.obj { padding: 88px 0; }
+@media (max-width: 760px) { .obj { padding: 60px 0; } .faq-item summary { font-size: 15px; padding: 17px 2px; } }
 </style>
 <style id="mujo-canonical-nav">
 :root {
@@ -3284,37 +3314,28 @@ body.locked { overflow: hidden; }
     </div>
   </div>
   <div class="moment-row">
-      <div class="moment">
-        <div class="moment-img" role="img" aria-label="The busy-parent morning" style="background-image: url('/images/responsive/lifestyle/world-kitchen-table-kids-drawing-2026-10-4x5-800.webp');"></div>
-        <div class="moment-t">The busy-parent morning</div>
-        <div class="moment-d">Between the toast and the crayons.</div>
-      </div>
-      <div class="moment">
-        <div class="moment-img" role="img" aria-label="The tennis match" style="background-image: url('/images/responsive/lifestyle/world-tennis-on-the-bench-2026-10-4x5-800.webp');"></div>
-        <div class="moment-t">The tennis match</div>
-        <div class="moment-d">On the bench between sets.</div>
-      </div>
-      <div class="moment">
-        <div class="moment-img" role="img" aria-label="The Pilates studio" style="background-image: url('/images/responsive/lifestyle/world-pilates-mat-2026-10-4x5-800.webp');"></div>
-        <div class="moment-t">The Pilates studio</div>
-        <div class="moment-d">Before class, or the slow walk home.</div>
-      </div>
-      <div class="moment">
-        <div class="moment-img" role="img" aria-label="The work session" style="background-image: url('/images/responsive/lifestyle/world-desk-cup-chocolate-2026-10-4x5-800.webp');"></div>
-        <div class="moment-t">The work session</div>
-        <div class="moment-d">The cup beside the notebook.</div>
-      </div>
-      <div class="moment">
-        <div class="moment-img" role="img" aria-label="The padel game" style="background-image: url('/images/responsive/lifestyle/world-padel-leaning-on-glass-2026-10-4x5-800.webp');"></div>
-        <div class="moment-t">The padel game</div>
-        <div class="moment-d">Iced, in the bag, after the last point.</div>
-      </div>
-      <div class="moment">
-        <div class="moment-img" role="img" aria-label="The errands run" style="background-image: url('/images/responsive/lifestyle/world-car-seat-ritual-2026-10-4x5-800.webp');"></div>
-        <div class="moment-t">The errands run</div>
-        <div class="moment-d">A pouch on the seat, flowers in the back.</div>
-      </div>
+    <div class="moment">
+      <div class="moment-img" role="img" aria-label="The busy-parent morning" style="background-image: url('/images/responsive/lifestyle/world-kitchen-table-kids-drawing-2026-10-4x5-800.webp');"></div>
+      <div class="moment-t"><span class="moment-ck" aria-hidden="true">✓</span>The busy-parent morning</div>
+      <div class="moment-d">Power up for school drop-off, between the toast and the crayons.</div>
+    </div>
+    <div class="moment">
+      <div class="moment-img" role="img" aria-label="The workout or match" style="background-image: url('/images/responsive/lifestyle/world-padel-leaning-on-glass-2026-10-4x5-800.webp');"></div>
+      <div class="moment-t"><span class="moment-ck" aria-hidden="true">✓</span>The workout or match</div>
+      <div class="moment-d">Power your session. Hot before, iced in the bag after.</div>
+    </div>
+    <div class="moment">
+      <div class="moment-img" role="img" aria-label="The work session" style="background-image: url('/images/responsive/lifestyle/world-desk-cup-chocolate-2026-10-4x5-800.webp');"></div>
+      <div class="moment-t"><span class="moment-ck" aria-hidden="true">✓</span>The work session</div>
+      <div class="moment-d">Get your flow on. Calm focus, one cup at a time.</div>
+    </div>
+    <div class="moment">
+      <div class="moment-img" role="img" aria-label="The travel day" style="background-image: url('/images/responsive/lifestyle/world-car-seat-ritual-2026-10-4x5-800.webp');"></div>
+      <div class="moment-t"><span class="moment-ck" aria-hidden="true">✓</span>The travel day</div>
+      <div class="moment-d">The perfect travel companion, your ritual between time zones.</div>
+    </div>
   </div>
+  <div class="moment-swipe" aria-hidden="true">Swipe to see more <span>→</span></div>
 </section>
 
 <section class="proof" id="reviews">
@@ -3427,27 +3448,27 @@ body.locked { overflow: hidden; }
 <section class="obj">
   <div class="container">
     <h2 class="reveal d1" style="margin-top: 28px;">The questions we'd ask <span class="serif-accent">if we were you.</span></h2>
-    <div class="obj-grid">
-      <div class="objcard reveal">
-        <div class="objq">How does the subscription work?</div>
-        <div class="obja">Pick every 4, 6, 8 or 12 weeks. <strong>You pay $50 a pouch, shipping is free,</strong> and your first order comes with a free rechargeable frother. There's a two-order minimum. After that, pause, skip or cancel anytime from your account.</div>
-      </div>
-      <div class="objcard reveal d1">
-        <div class="objq">Can I just buy one?</div>
-        <div class="obja">Yes. <strong>One pouch is $60,</strong> with no subscription. Shipping is $5, or free on orders over $100.</div>
-      </div>
-      <div class="objcard reveal">
-        <div class="objq">Do I need to quit coffee to drink Mujo?</div>
-        <div class="obja">No. Many people just drink less coffee over time. <strong>We suggest easing off caffeine over a week or two</strong> as you bring Mujo in. The first few mornings off coffee can be an adjustment, and that's completely normal.</div>
-      </div>
-      <div class="objcard reveal d2">
-        <div class="objq">Is it meant to be a daily ritual?</div>
-        <div class="obja">Yes. <strong>Adaptogens are gentle and work best as a daily habit,</strong> not a one-off jolt. Our honest advice: make it your morning cup and enjoy it. The taste alone is reason enough to keep it.</div>
-      </div>
-      <div class="objcard reveal d3">
-        <div class="objq">What does it taste like?</div>
-        <div class="obja">Warm, rich cacao latte, genuinely good, not something you're tolerating. <strong>No mushroom taste. No aftertaste.</strong> Any milk of choice will do. It's the first functional drink most people say they look forward to.</div>
-      </div>
+    <div class="faq-list">
+      <details class="faq-item" open>
+        <summary>How does the subscription work?<span class="faq-plus" aria-hidden="true"></span></summary>
+        <div class="faq-a">Pick every 4, 6, 8 or 12 weeks. <strong>You pay $50 a pouch, shipping is free,</strong> and your first order comes with a free rechargeable frother. There's a two-order minimum. After that, pause, skip or cancel anytime from your account.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Can I just buy one?<span class="faq-plus" aria-hidden="true"></span></summary>
+        <div class="faq-a">Yes. <strong>One pouch is $60,</strong> with no subscription. Shipping is $5, or free on orders over $100.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Do I need to quit coffee to drink Mujo?<span class="faq-plus" aria-hidden="true"></span></summary>
+        <div class="faq-a">No. Many people just drink less coffee over time. <strong>We suggest easing off caffeine over a week or two</strong> as you bring Mujo in. The first few mornings off coffee can be an adjustment, and that's completely normal.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Is it meant to be a daily ritual?<span class="faq-plus" aria-hidden="true"></span></summary>
+        <div class="faq-a">Yes. <strong>Adaptogens are gentle and work best as a daily habit,</strong> not a one-off jolt. Our honest advice: make it your morning cup and enjoy it. The taste alone is reason enough to keep it.</div>
+      </details>
+      <details class="faq-item">
+        <summary>What does it taste like?<span class="faq-plus" aria-hidden="true"></span></summary>
+        <div class="faq-a">Warm, rich cacao latte, genuinely good, not something you're tolerating. <strong>No mushroom taste. No aftertaste.</strong> Any milk of choice will do. It's the first functional drink most people say they look forward to.</div>
+      </details>
     </div>
   </div>
 </section>
