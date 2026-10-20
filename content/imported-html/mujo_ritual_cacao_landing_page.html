@@ -2280,6 +2280,491 @@ footer {
   }
 }
 
+
+/* ── Copied from ritual_cacao_shop_pdp.html (buy box + ingredient cards) ── */
+/* ── Size selector ── */
+.size-block{ margin-bottom: 20px; }
+.size-label{
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+.size-options{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.size-opt{
+  padding: 14px 14px 12px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--r-structural);
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  text-align: left;
+  overflow: visible;
+}
+.size-opt:hover{ border-color: var(--sage-light); }
+.size-opt.active{
+  border-color: var(--orange);
+  background: var(--orange-soft);
+}
+.size-opt-top{
+  margin-bottom: 4px;
+}
+.size-opt-count{
+  font-family: var(--f-display);
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.size-opt-badge{
+  position: absolute;
+  top: -10px;
+  right: 12px;
+  background: var(--sage);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: var(--r-tag);
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+  white-space: nowrap;
+  z-index: 2; --accent-text: var(--accent-on-dark); --accent-display: var(--accent-on-dark); --btn-bg: var(--btn-on-dark-bg); --btn-bg-hover: var(--btn-on-dark-hover); --btn-fg: var(--btn-on-dark-fg); }
+.size-opt-sub{
+  font-size: 12px;
+  color: var(--mute);
+  margin-bottom: 0;
+}
+.size-opt-price{ display: none; }
+/* ── Subscribe vs One-time toggle (DEFAULT: subscribe) ── */
+.purchase-block{ margin-bottom: 24px; }
+.purchase-label{
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+.purchase-options{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.pur-opt{
+  display: flex;
+  align-items: center;
+  padding: 18px 20px;
+  border: 2px solid var(--line);
+  border-radius: var(--r-structural);
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+.pur-opt:hover{ border-color: var(--sage-light); }
+.pur-opt.active{
+  border-color: var(--orange);
+  background: var(--orange-soft);
+}
+.pur-opt-radio{
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--line);
+  flex-shrink: 0;
+  margin-right: 16px;
+  position: relative;
+  transition: all 0.2s;
+}
+.pur-opt.active .pur-opt-radio{
+  border-color: var(--orange);
+}
+.pur-opt.active .pur-opt-radio::after{
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--orange);
+}
+.pur-opt-info{ flex: 1; }
+.pur-opt-name{
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.pur-opt-save{
+  background: var(--orange);
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: var(--r-tag);
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.pur-opt-desc{
+  font-size: 12px;
+  color: var(--mute);
+  line-height: 1.4;
+}
+.pur-opt-price{
+  text-align: right;
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+.pur-opt-price-now{
+  font-family: var(--f-display);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.pur-opt-price-was{
+  font-size: 12px;
+  color: var(--mute);
+  text-decoration: line-through;
+  margin-top: 2px;
+}
+.pur-opt-daily{
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: var(--sage);
+  margin-top: 3px;
+  letter-spacing: 0.04em;
+}
+/* ── Add to Cart ── */
+.atc-block{ margin-bottom: 20px; }
+.atc-btn{
+  width: 100%;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  border: none;
+  min-height: 58px;
+  padding: 0 24px;
+  border-radius: var(--r-pill);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--f-body);
+  letter-spacing: 0.01em;
+}
+.atc-btn:hover{
+  background: var(--btn-bg-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(174, 67, 41, 0.3);
+}
+.atc-btn-price{
+  font-weight: 700;
+  background: rgba(255,255,255,0.2);
+  padding: 4px 12px;
+  border-radius: var(--r-tag);
+  font-size: 13px;
+}
+/* ── Below ATC trust row ── */
+.atc-trust{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 16px 4px 0;
+  font-size: 12px;
+  color: var(--mute);
+}
+.atc-trust-item{
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--f-mono);
+  letter-spacing: 0.04em;
+}
+.atc-trust-item::before{
+  content: '✓';
+  color: var(--sage);
+  font-weight: 700;
+}
+@media (max-width: 900px){.size-options{ grid-template-columns: 1fr 1fr; }}
+/* ═══════════════════════════════════════════
+   STICKY MOBILE ATC, Appears on scroll
+   ═══════════════════════════════════════════ */
+.sticky-atc{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-top: 1px solid var(--line);
+  padding: 12px 20px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  z-index: 140;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+.sticky-atc.show{ transform: translateY(0); }
+.sticky-atc-info{
+  flex: 1;
+  min-width: 0;
+}
+.sticky-atc-name{
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sticky-atc-price{
+  font-family: var(--f-mono);
+  font-size: 12px;
+  color: var(--sage);
+  letter-spacing: 0.02em;
+}
+.sticky-atc-btn{
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  border: none;
+  padding: 12px 22px;
+  border-radius: var(--r-pill);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.sticky-atc-btn:hover{ background: var(--btn-bg-hover); }
+@media (min-width: 901px){.sticky-atc{ display: none !important; }}
+/* ═══════════════════════════════════════════
+   INGREDIENT DOSSIER, Full breakdown
+   Cards with expandable detail + citations
+   ═══════════════════════════════════════════ */
+.dossier{
+  background: var(--sand);
+  padding: 112px 0;
+}
+.dossier-header{
+  max-width: 720px;
+  margin-bottom: 56px;
+}
+.dossier-header h2{ margin-top: 16px; margin-bottom: 18px; }
+.dossier-points{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.dossier-points li{
+  position: relative;
+  padding-left: 30px;
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.dossier-points li::before{
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--sage-tint);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%232F3D33' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='3 8.5 6.5 12 13 5'/%3E%3C/svg%3E");
+  background-position: center;
+  background-size: 11px 11px;
+  background-repeat: no-repeat;
+}
+@media (min-width: 768px){.dossier-points li{ font-size: 17px; }}
+.ing-compact-grid{
+  /* One sideways rail at every width, same as the homepage and protein powder page. */
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: min(300px, 84%);
+  gap: 16px;
+  max-width: 1180px;
+  margin: 0 auto;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 4px 0 22px;
+  scrollbar-width: none;
+}
+.ing-compact-grid::-webkit-scrollbar{ display: none; }
+.ing-compact-grid > *{ scroll-snap-align: start; }
+/* Cards further along the rail must not wait for the scroll-reveal. */
+.ing-compact-grid > .reveal{ opacity: 1; transform: none; }
+.ing-compact{
+  background: #fff;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-structural);
+  padding: 0 0 26px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.ing-compact:hover{
+  transform: translateY(-2px);
+  box-shadow: var(--s1);
+  border-color: var(--sage-light);
+}
+.ing-compact.feat{
+  background: linear-gradient(135deg, #fff 0%, var(--orange-soft) 100%);
+  border-color: var(--orange);
+}
+.ing-compact.feat:hover{ border-color: var(--orange); }
+.ing-compact-img{
+  width: 100%;
+  aspect-ratio: 4/3;
+  background: var(--sand);
+  border-radius: 0;
+  margin-bottom: 20px;
+  background-size: cover;
+  background-position: center;
+}
+.ing-compact-emoji{ line-height: 1; }
+.ing-compact-body{ flex: 1; min-width: 0; margin: 0 24px; }
+.ing-compact-top{ display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+.ing-compact-name{
+  font-family: var(--f-display);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+}
+.ing-compact-badge{
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  background: var(--orange);
+  color: #fff;
+  padding: 3px 8px;
+  border-radius: var(--r-tag);
+  font-weight: 500;
+}
+.ing-compact-badge.sage{ background: var(--sage-tint); color: var(--sage); }
+.ing-compact-sub{
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin-bottom: 12px;
+}
+.ing-compact-pills{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.ing-pill{
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  background: var(--cream);
+  padding: 4px 10px;
+  border-radius: var(--r-tag);
+  border: 1px solid var(--line-soft);
+  font-weight: 500;
+}
+.ing-pill{
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sage);
+  background: var(--sage-tint);
+  padding: 3px 8px;
+  border-radius: var(--r-tag);
+  font-weight: 500;
+}
+.ing-compact-footer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 36px;
+  margin-top: 32px;
+  border-top: 1px solid var(--line);
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.ing-compact-footer-text{
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  max-width: 640px;
+}
+.ing-compact-footer-text strong{ color: var(--ink); font-weight: 500; }
+@media (max-width: 620px){.dossier{ padding: 80px 0; }.ing-compact-emoji{ font-size: 26px; }}
+/* ── Paid-traffic landing (2026-10): buy box in the hero + starter kit ── */
+.hero-grid { align-items: start; }
+.hero-buy { margin-top: 26px; scroll-margin-top: 96px; max-width: 480px; }
+.kit-head { font-size: 13.5px; line-height: 1.5; color: var(--ink-soft); margin-bottom: 14px; }
+.kit-tag { display: inline-block; font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .16em;
+  text-transform: uppercase; background: var(--ink); color: var(--cream); padding: 3px 8px; border-radius: 2px;
+  margin-right: 8px; vertical-align: 1px; }
+.hero-mobile-img { display: none; }
+.hero-buy .size-block { display: none; } /* one size only: the 25-serving pouch */
+@media (max-width: 900px) {
+  .hero { padding-top: 28px !important; }
+  .hero-visual { display: none; }
+  .hero-eyebrow { margin-bottom: 12px; }
+  .hero-sub { margin-bottom: 14px; }
+  .hero-mobile-img { display: block; width: 100%; aspect-ratio: 16 / 10; border-radius: 4px;
+    background-size: cover; background-position: center 62%; margin: 16px 0 0; }
+  .hero-buy { max-width: none; margin-top: 18px; }
+}
+.kit { padding: 72px 0; background: var(--cream); }
+.kit-h { text-align: center; max-width: 620px; margin: 0 auto 36px; }
+.kit-h h2 { margin: 14px 0 10px; }
+.kit-h p { color: var(--ink-soft); margin: 0; }
+.kit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1000px; margin: 0 auto; }
+.kit-card { background: #fff; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+.kit-img { aspect-ratio: 4 / 5; background-size: cover; background-position: center; }
+.kit-body { padding: 18px 18px 22px; }
+.kit-name { font-weight: 500; font-size: 16px; color: var(--ink); margin-bottom: 6px; }
+.kit-txt { font-size: 14px; line-height: 1.5; color: var(--ink-soft); }
+.kit-note { text-align: center; margin-top: 28px; font-size: 14px; color: var(--ink-soft); }
+.kit-note a { color: var(--accent-text, var(--orange)); text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 760px) {
+  .kit { padding: 56px 0; }
+  .kit-grid { grid-template-columns: 1fr; gap: 14px; }
+  .kit-card { display: grid; grid-template-columns: 116px 1fr; }
+  .kit-img { aspect-ratio: auto; min-height: 140px; }
+}
+
 </style>
 <style id="mujo-canonical-nav">
 :root {
@@ -2451,31 +2936,27 @@ body.locked { overflow: hidden; }
 <section class="hero">
   <div class="hero-grid">
     <div>
-      <div class="hero-eyebrow eyebrow reveal">Caffeine-light · Mushroom cacao</div>
+      <div class="hero-eyebrow eyebrow reveal">Coffee alternative · Under 5mg caffeine</div>
       <h1 class="reveal d1">
-        Morning rituals that <span class="serif-accent">actually fill your cup.</span>
+        A coffee alternative that tastes like a smooth <span class="serif-accent">mocha.</span>
       </h1>
-      <p class="hero-sub reveal d2">A mushroom-and-adaptogen cacao that tastes so good you won't want to skip it.</p>
+      <p class="hero-sub reveal d2">Organic cacao and four mushroom extracts, frothed into a warm cup. Calm energy, no crash.</p>
       <div class="hero-rating reveal d2">
         <div class="hero-stars">★★★★★</div>
         <div class="hero-rating-text"><strong>4.9/5</strong> · 100+ verified reviews</div>
       </div>
-      <div class="cta-stack reveal d3">
-        <a href="/products/mujo-ritual" class="btn btn-primary">
-          Shop the Ritual
-          <span class="btn-arrow">→</span>
-        </a>
-        <a href="#ingredients" class="btn btn-ghost">See what's inside</a>
+      <div class="hero-mobile-img" role="img" aria-label="Hot milk poured into a mug of the Ritual beside the pouch" style="background-image: url('/images/responsive/products/ritual/ritual-hero-pour-hot-with-pouch-editorial-2026-09-4x5-800.webp');"></div>
+      <div class="hero-buy" id="buy">
+        <div class="kit-head"><span class="kit-tag">Starter kit</span>Subscribe and your first order comes with a free rechargeable frother. Subscribers always ship free.</div>
+        <!-- MUJO_RITUAL_BUYBOX_START -->
+        <a href="/products/mujo-ritual" class="btn btn-primary">Shop the Ritual</a>
+        <!-- MUJO_RITUAL_BUYBOX_END -->
       </div>
       <div class="hero-trust reveal d4">
         <div class="trust-item"><span class="trust-dot"></span>Under 5mg caffeine</div>
         <div class="trust-item"><span class="trust-dot"></span>Never mycelium on grain</div>
-        <div class="trust-item"><span class="trust-dot"></span>A few real ingredients</div>
-        <div class="trust-item"><span class="trust-dot"></span>30-day guarantee</div>
-      </div>
-      <div class="scroll-cue reveal d4">
-        <span>Scroll to meet the Ritual</span>
-        <div class="scroll-arr">↓</div>
+        <div class="trust-item"><span class="trust-dot"></span>Sweetened with monk fruit</div>
+        <div class="trust-item"><span class="trust-dot"></span>30-day money back</div>
       </div>
     </div>
     <div class="hero-visual reveal d2">
@@ -2486,10 +2967,47 @@ body.locked { overflow: hidden; }
         <div class="hero-fact-lbl">Caffeine<br>per serving</div>
       </div>
       <div class="hero-fact bl">
-        <div class="hero-fact-num">8:1</div>
-        <div class="hero-fact-lbl">Dual extract<br>three of four mushrooms</div>
+        <div class="hero-fact-num">25</div>
+        <div class="hero-fact-lbl">Servings<br>per pouch</div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     STARTER KIT, what arrives
+     ═══════════════════════════════════════════ -->
+<section class="kit">
+  <div class="container">
+    <div class="kit-h">
+      <div class="eyebrow reveal">The starter kit</div>
+      <h2 class="reveal d1">Everything for your first <span class="serif-accent">cup.</span></h2>
+      <p class="reveal d2">$50 a pouch on subscription, about $2 a cup.</p>
+    </div>
+    <div class="kit-grid">
+      <div class="kit-card reveal">
+        <div class="kit-img" role="img" aria-label="The Ritual pouch" style="background-image: url('/images/responsive/products/ritual/ritual-pouch-hero-monumental-editorial-2026-09-1x1-800.webp');"></div>
+        <div class="kit-body">
+          <div class="kit-name">The Ritual, 25 servings</div>
+          <div class="kit-txt">Tastes like a smooth mocha. One tablespoon, hot water, milk of choice.</div>
+        </div>
+      </div>
+      <div class="kit-card reveal d1">
+        <div class="kit-img" role="img" aria-label="The Mujo rechargeable frother" style="background-image: url('/images/responsive/products/merch/mujo-frother-1-4x5-800.webp');"></div>
+        <div class="kit-body">
+          <div class="kit-name">A rechargeable frother, free</div>
+          <div class="kit-txt">Comes with your first subscription order. Silky foam in about ten seconds.</div>
+        </div>
+      </div>
+      <div class="kit-card reveal d2">
+        <div class="kit-img" role="img" aria-label="A frothed mug of the Ritual" style="background-image: url('/images/responsive/products/ritual/ritual-mug-steam-cream-editorial-4x5-800.webp');"></div>
+        <div class="kit-body">
+          <div class="kit-name">Free shipping, every order</div>
+          <div class="kit-txt">Every 4, 6, 8 or 12 weeks. Two-order minimum, then pause, skip or cancel from your account.</div>
+        </div>
+      </div>
+    </div>
+    <p class="kit-note reveal">Rather try it first? <a href="#buy">Buy one pouch for $60.</a></p>
   </div>
 </section>
 
@@ -2664,96 +3182,167 @@ body.locked { overflow: hidden; }
 <!-- ═══════════════════════════════════════════
      INGREDIENTS, with Panax Ginseng elevated
      ═══════════════════════════════════════════ -->
-<section class="ings" id="ingredients">
+<section class="dossier" id="ingredients">
   <div class="container">
-    <div class="iintro">
-      <div>
-        <h2 class="reveal d1" style="margin-top: 28px;">Every ingredient <span class="serif-accent">earned</span> its place.</h2>
-      </div>
-      <p class="body-lg reveal d2">A few real ingredients, each named with its form and source. Our mushrooms are whole-mushroom extracts, never mycelium on grain, three of them dual-extracted with water and alcohol to draw the full spectrum out from behind the cell walls, not just the one number that looks good on a label.</p>
+    <div class="dossier-header">
+      <h2 class="reveal d1" style="margin-top: 26px;">What's inside matters.</h2>
+      <ul class="dossier-points reveal d2">
+        <li>Organic whole-mushroom extracts, never mycelium on grain</li>
+        <li>True adaptogens, openly named</li>
+        <li>No proprietary blends</li>
+      </ul>
     </div>
 
-    <div class="igrid">
-      <div class="ic hero-ing reveal">
-        <span class="ie"><img src="/images/responsive/ingredients/lions-mane-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
-        <div class="in">Lion's Mane</div>
-        <div class="ia">Hericium erinaceus</div>
-        <div class="ipills">
-          <span class="ip-benefit">Focus</span>
-          <span class="id-tag">Fruiting body</span>
-          <span class="id-tag">Hericenones</span>
+    <div class="ing-compact-grid">
+
+      <!-- Lion's Mane -->
+      <div class="ing-compact reveal feat">
+        <div class="ing-compact-img" style="background-image: url('/images/responsive/ingredients/lions-mane-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
+        <div class="ing-compact-body">
+          <div class="ing-compact-top">
+            <div class="ing-compact-name">Lion's Mane</div>
+          </div>
+          <div class="ing-compact-sub"><em>Hericium erinaceus</em></div>
+          <div class="ing-compact-pills">
+            <span class="ing-pill">Organic</span>
+            <span class="ing-pill">Fruiting body</span>
+            <span class="ing-pill">Hericenones</span>
+          </div>
         </div>
       </div>
-      <div class="ic reveal">
-        <span class="ie"><img src="/images/responsive/ingredients/cordyceps-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
-        <div class="in">Cordyceps militaris</div>
-        <div class="ia">Cordyceps militaris</div>
-        <div class="ipills">
-          <span class="ip-benefit">Energy</span>
-          <span class="id-tag">Fruiting body</span>
-          <span class="id-tag">Cordycepins</span>
+
+      <!-- Cordyceps -->
+      <div class="ing-compact reveal d1">
+        <div class="ing-compact-img" style="background-image: url('/images/responsive/ingredients/cordyceps-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
+        <div class="ing-compact-body">
+          <div class="ing-compact-top">
+            <div class="ing-compact-name">Cordyceps militaris</div>
+            <div class="ing-compact-badge">Steady energy</div>
+          </div>
+          <div class="ing-compact-sub"><em>Cordyceps militaris</em></div>
+          <div class="ing-compact-pills">
+            <span class="ing-pill">Organic</span>
+            <span class="ing-pill">Fruiting body</span>
+            <span class="ing-pill">Cordycepins</span>
+          </div>
         </div>
       </div>
-      <div class="ic reveal d1">
-        <span class="ie"><img src="/images/responsive/ingredients/chaga-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
-        <div class="in">Chaga</div>
-        <div class="ia">Inonotus obliquus</div>
-        <div class="ipills">
-          <span class="ip-benefit">Mushroom King</span>
-          <span class="id-tag">Wild-harvested</span>
-          <span class="id-tag">Beta-(1,3)(1,6)-glucans</span>
+
+      <!-- Chaga -->
+      <div class="ing-compact reveal d2">
+        <div class="ing-compact-img" style="background-image: url('/images/responsive/ingredients/chaga-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
+        <div class="ing-compact-body">
+          <div class="ing-compact-top">
+            <div class="ing-compact-name">Chaga</div>
+            <div class="ing-compact-badge">Mushroom King</div>
+          </div>
+          <div class="ing-compact-sub"><em>Inonotus obliquus</em></div>
+          <div class="ing-compact-pills">
+            <span class="ing-pill">Organic</span>
+            <span class="ing-pill">Wild-harvested</span>
+            <span class="ing-pill">Beta-(1,3)(1,6)-glucans</span>
+          </div>
         </div>
       </div>
-      <div class="ic reveal d2">
-        <span class="ie"><img src="/images/responsive/ingredients/panax-ginseng-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
-        <div class="in">Panax Ginseng</div>
-        <div class="ia">Panax ginseng</div>
-        <div class="ipills">
-          <span class="ip-benefit">Adaptogen</span>
-          <span class="id-tag">Ginsenosides</span>
+
+      <!-- Golden Oyster -->
+      <div class="ing-compact reveal d3">
+        <div class="ing-compact-img" style="background-image: url('/images/responsive/ingredients/golden-oyster-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
+        <div class="ing-compact-body">
+          <div class="ing-compact-top">
+            <div class="ing-compact-name">Golden Oyster</div>
+            <div class="ing-compact-badge">1:1 extract</div>
+          </div>
+          <div class="ing-compact-sub"><em>Pleurotus citrinopileatus</em></div>
+          <div class="ing-compact-pills">
+            <span class="ing-pill">Organic</span>
+            <span class="ing-pill">Fruiting body</span>
+          </div>
         </div>
       </div>
-      <div class="ic reveal d3">
-        <span class="ie"><img src="/images/responsive/ingredients/l-theanine-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
-        <div class="in">L-theanine</div>
-        <div class="ia">Naturally found in green tea</div>
-        <div class="ipills">
-          <span class="ip-benefit">Calm</span>
-          <span class="id-tag">Amino acid</span>
+      <!-- Panax Ginseng -->
+      <div class="ing-compact reveal">
+        <div class="ing-compact-img" style="background-image: url('/images/responsive/ingredients/panax-ginseng-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
+        <div class="ing-compact-body">
+          <div class="ing-compact-top">
+            <div class="ing-compact-name">Panax Ginseng</div>
+            <div class="ing-compact-badge">Adaptogen</div>
+          </div>
+          <div class="ing-compact-sub"><em>Panax ginseng</em></div>
+          <div class="ing-compact-pills">
+            <span class="ing-pill">Ginsenosides</span>
+          </div>
         </div>
       </div>
-      <div class="ic reveal d4">
-        <span class="ie"><img src="/images/responsive/ingredients/carob-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
-        <div class="in">Carob</div>
-        <div class="ia">Ceratonia siliqua</div>
-        <div class="ipills">
-          <span class="ip-benefit">No caffeine</span>
-          <span class="id-tag">Naturally sweet</span>
+
+      <!-- L-theanine -->
+      <div class="ing-compact reveal d1">
+        <div class="ing-compact-img" style="background-image: url('/images/responsive/ingredients/l-theanine-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
+        <div class="ing-compact-body">
+          <div class="ing-compact-top">
+            <div class="ing-compact-name">L-theanine</div>
+            <div class="ing-compact-badge">Calm</div>
+          </div>
+          <div class="ing-compact-sub"><em>Naturally found in green tea</em></div>
+          <div class="ing-compact-pills">
+            <span class="ing-pill">Amino acid</span>
+          </div>
         </div>
       </div>
-      <div class="ic reveal d1">
-        <span class="ie"><img src="/images/responsive/ingredients/cacao-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
-        <div class="in">Cacao</div>
-        <div class="ia">Theobroma cacao</div>
-        <div class="ipills">
-          <span class="ip-benefit">Peruvian</span>
-          <span class="id-tag">Theobromine</span>
+
+      <!-- Cacao -->
+      <div class="ing-compact reveal d1">
+        <div class="ing-compact-img" style="background-image: url('/images/responsive/ingredients/cacao-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
+        <div class="ing-compact-body">
+          <div class="ing-compact-top">
+            <div class="ing-compact-name">Cacao</div>
+            <div class="ing-compact-badge">Peruvian</div>
+          </div>
+          <div class="ing-compact-sub"><em>Theobroma cacao</em></div>
+          <div class="ing-compact-pills">
+            <span class="ing-pill">Organic</span>
+            <span class="ing-pill">Theobromine</span>
+          </div>
         </div>
       </div>
-      <div class="ic reveal d2">
-        <span class="ie"><img src="/images/responsive/ingredients/black-maca-macro-editorial-1x1-800.webp" alt="" aria-hidden="true" /></span>
-        <div class="in">Black Maca</div>
-        <div class="ia">Lepidium meyenii</div>
-        <div class="ipills">
-          <span class="ip-benefit">Energy</span>
-          <span class="id-tag">Gelatinized</span>
+
+      <!-- Carob -->
+      <div class="ing-compact reveal d2">
+        <div class="ing-compact-img" style="background-image: url('/images/responsive/ingredients/carob-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
+        <div class="ing-compact-body">
+          <div class="ing-compact-top">
+            <div class="ing-compact-name">Carob</div>
+            <div class="ing-compact-badge">No caffeine</div>
+          </div>
+          <div class="ing-compact-sub"><em>Ceratonia siliqua</em></div>
+          <div class="ing-compact-pills">
+            <span class="ing-pill">Organic</span>
+            <span class="ing-pill">Naturally sweet</span>
+          </div>
         </div>
       </div>
+      <!-- Maca -->
+      <div class="ing-compact reveal d2">
+        <div class="ing-compact-img" style="background-image: url('/images/responsive/ingredients/black-maca-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
+        <div class="ing-compact-body">
+          <div class="ing-compact-top">
+            <div class="ing-compact-name">Black Maca</div>
+          </div>
+          <div class="ing-compact-sub"><em>Lepidium meyenii</em></div>
+          <div class="ing-compact-pills">
+            <span class="ing-pill">Organic</span>
+            <span class="ing-pill">Gelatinized</span>
+          </div>
+        </div>
+      </div>
+
     </div>
 
-    <div class="inote reveal">
-      <div class="ico"><img src="/images/icons/mushroom.svg" alt="" aria-hidden="true" /></div>
-      <div class="itxt"><strong>The mycelium problem:</strong> Most products use mycelium on grain, not actual mushrooms. Beta-(1,3)(1,6)-glucans live in the fruiting body. A product can legally say "mushroom extract" using mycelium with under 5% beta-(1,3)(1,6)-glucan content. The Ritual uses whole-mushroom extracts, three of them dual-extracted at 8:1, standardized for beta-(1,3)(1,6)-glucans. If a label doesn't say what part of the mushroom it uses, it's worth asking.</div>
+    <div class="ing-compact-footer reveal">
+      <div class="ing-compact-footer-text">
+        <strong>Plus organic MCT oil, organic Ceylon cinnamon and organic ginger, with monk fruit and sea salt.</strong> Every ingredient, with its form and sourcing, lives on one page.
+      </div>
+      <a href="/ingredients" class="btn btn-ghost">See full dossier <span class="btn-arrow">→</span></a>
     </div>
   </div>
 </section>
@@ -2791,6 +3380,14 @@ body.locked { overflow: hidden; }
     <h2 class="reveal d1" style="margin-top: 28px;">The questions we'd ask <span class="serif-accent">if we were you.</span></h2>
     <div class="obj-grid">
       <div class="objcard reveal">
+        <div class="objq">How does the subscription work?</div>
+        <div class="obja">Pick every 4, 6, 8 or 12 weeks. <strong>You pay $50 a pouch, shipping is free,</strong> and your first order comes with a free rechargeable frother. There's a two-order minimum. After that, pause, skip or cancel anytime from your account.</div>
+      </div>
+      <div class="objcard reveal d1">
+        <div class="objq">Can I just buy one?</div>
+        <div class="obja">Yes. <strong>One pouch is $60,</strong> with no subscription. Shipping is $5, or free on orders over $100.</div>
+      </div>
+      <div class="objcard reveal">
         <div class="objq">Do I need to quit coffee to drink Mujo?</div>
         <div class="obja">No. Many people just drink less coffee over time. <strong>We suggest easing off caffeine over a week or two</strong> as you bring Mujo in. The first few mornings off coffee can be an adjustment, and that's completely normal.</div>
       </div>
@@ -2824,20 +3421,21 @@ body.locked { overflow: hidden; }
           <div class="ptype">Subscribe & Save</div>
           <div class="pprice"><sup>$</sup>50</div>
           <div class="pwas">$60 one-time price</div>
-          <div class="pper">per month · 2-cycle min · $2.00/serving</div>
+          <div class="pper">every 4–12 weeks · 2-order minimum · $2.00/serving</div>
           <div class="pdiv"></div>
           <div class="pfeats">
-            <div class="pfeat"><span class="pfck">✓</span>25-serving bag, monthly delivery</div>
+            <div class="pfeat"><span class="pfck">✓</span>25-serving pouch, every 4, 6, 8 or 12 weeks</div>
+            <div class="pfeat"><span class="pfck">✓</span>Free rechargeable frother with your first order</div>
             <div class="pfeat"><span class="pfck">✓</span>$10 off every order</div>
             <div class="pfeat"><span class="pfck">✓</span>Free shipping on every order</div>
-            <div class="pfeat"><span class="pfck">✓</span>Min commitment of 2 delivery cycles</div>
+            <div class="pfeat"><span class="pfck">✓</span>Two-order minimum, then cancel anytime</div>
           </div>
-          <a class="btwh primary" href="/products/mujo-ritual">Subscribe and save. Start today</a>
+          <a class="btwh primary" href="#buy">Get the starter kit</a>
           <div class="gbox">
             <div class="gicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
             <div class="gtxt">
               <strong>30-day money-back guarantee</strong>
-              No difference after 30 days? Full refund. No forms. No questions. We carry the risk.
+              Not for you? Request a full refund within 30 days of your first order. We carry the risk.
             </div>
           </div>
         </div>
@@ -2854,36 +3452,17 @@ body.locked { overflow: hidden; }
         </div>
         <div class="ponet reveal d2">
           <div class="ptype">One-time purchase</div>
-          <div class="pprice" style="font-size: 34px;"><sup>$</sup>59<span style="font-size: 18px;">.99</span></div>
-          <div class="pper">25 servings · free shipping over $100</div>
+          <div class="pprice" style="font-size: 34px;"><sup>$</sup>60</div>
+          <div class="pper">25 servings · $5 shipping, free over $100</div>
           <div class="pdiv"></div>
-          <a class="btwh" href="/products/mujo-ritual">Buy once. No commitment</a>
+          <a class="btwh" href="#buy">Buy once. No commitment</a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════
-     GOES WELL WITH — mirrors the "Pair it with the Ritual" block on the
-     Protein Powder PDP (2026-10-05). Fully inline-styled so it needs no
-     page CSS.
-     ═══════════════════════════════════════════ -->
-<section style="background:var(--sand);padding:64px 0;">
-  <div class="container">
-    <div style="max-width:640px;margin:0 auto 28px;text-align:center;">
-      <span style="display:block;font-family:var(--f-mono);font-size:11px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--mute);margin-bottom:12px;">Goes well with</span>
-      <h2 style="margin:0 0 10px;color:var(--ink);">Pair it with the Protein Powder.</h2>
-      <p style="margin:0;color:var(--ink-soft);">Have them together or on their own. Order both and shipping is free.</p>
-    </div>
-    <div style="max-width:760px;margin:0 auto;background:#fff;border:1px solid rgba(26,26,26,0.06);border-radius:14px;padding:34px;text-align:center;">
-      <div role="img" aria-label="The Ritual and Protein Powder pouches lying side by side with an iced Ritual topped with protein cold foam" style="width:100%;max-width:420px;aspect-ratio:4/5;margin:0 auto 22px;border-radius:12px;background:url('/images/responsive/lifestyle/ritual-protein-flatlay-duo-2026-10-4x5-800.webp') center/cover no-repeat;"></div>
-      <div style="font-family:var(--f-display);font-weight:500;font-size:19px;color:var(--ink);">The Complete Ritual</div>
-      <div style="font-family:var(--f-mono);font-size:11.5px;color:var(--ink-soft);margin:8px 0 16px;letter-spacing:.06em;">MUJO RITUAL + PROTEIN POWDER</div>
-      <a href="/products/protein-powder" style="margin-top:18px;width:100%;max-width:320px;min-height:58px;padding:0 24px;display:inline-flex;align-items:center;justify-content:center;background:var(--brown);color:var(--cream);border-radius:100px;font-family:var(--f-display);font-size:15px;font-weight:600;text-decoration:none;">Pre-order the Protein Powder</a>
-    </div>
-  </div>
-</section>
+
 
 <!-- ═══════════════════════════════════════════
      FINAL CTA
@@ -2893,16 +3472,16 @@ body.locked { overflow: hidden; }
     <h2 class="fctah reveal d1" style="margin-top: 28px;">Less noise. <em>More honest ingredients.</em></h2>
     <p class="fctas reveal d2">30 days. If you don't love it, we'll refund you. No forms, no questions.</p>
     <div class="cta-stack reveal d3" style="justify-content: center;">
-      <a href="#pricing" class="btn btn-primary">
-        Subscribe and Save $10
+      <a href="#buy" class="btn btn-primary">
+        Get the starter kit
         <span class="btn-arrow">→</span>
       </a>
     </div>
     <div class="ftrust reveal d4">
-      <div class="fti">Free shipping over $100</div>
+      <div class="fti">Subscribers ship free</div>
       <div class="fti">30-day money-back guarantee</div>
-      <div class="fti">2-cycle minimum</div>
-      <div class="fti">Ships within 48hrs</div>
+      <div class="fti">Two-order minimum</div>
+      <div class="fti">Under 5mg caffeine</div>
     </div>
   </div>
 </section>
@@ -2922,40 +3501,14 @@ body.locked { overflow: hidden; }
   <div class="fcopy">© 2026 Mujo World.</div>
 </footer>
 
-<!-- ═══ STICKY BAR ═══ -->
-<div class="sbar" id="stickyBar">
-  <div class="sb-l">
-    <div class="sb-emoji">🍄</div>
-    <div>
-      <div class="sb-name">Mujo Ritual</div>
-      <div class="sb-sub"><span class="sb-stars">★★★★★</span> 4.9 · 100+ reviews</div>
-    </div>
-  </div>
-  <div class="sb-r">
-    <div class="sb-price"><s>$60</s>$50/mo</div>
-    <a href="#pricing" class="sb-btn" onclick="hideStickyTemp()">Try it, save $10 →</a>
-    <button class="sb-x" onclick="dismissSticky()">×</button>
-  </div>
-</div>
 
 
-<!-- ═══ EXIT POPUP, discount capture ═══ -->
-<div class="eov" id="exitOverlay">
-  <div class="epop">
-    <button class="ecl" onclick="closeExit()" aria-label="Close">✕</button>
-    <span class="eemoji">🎁</span>
-    <div class="eh">Wait. <em>15% off</em> on us.</div>
-    <div class="es">Drop your email and we'll send you a one-time discount code, plus founder notes from Kinga and early access to drops.</div>
-    <div class="eform">
-      <input type="email" class="einput" id="exitEmail" placeholder="your@email.com">
-      <button class="ebtn" onclick="submitExitDiscount()">Send my code →</button>
-    </div>
-    <div class="exit-success" id="exitSuccess" style="display:none;">
-      <strong>Check your inbox.</strong> Your code is on its way, plus a few notes from Kinga.
-    </div>
-    <div class="eskip" onclick="closeExit()">No thanks, I'll pass</div>
-  </div>
-</div>
+
+
+
+<!-- MUJO_RITUAL_STICKY_ATC_START -->
+<div class="sticky-atc" id="stickyATC"></div>
+<!-- MUJO_RITUAL_STICKY_ATC_END -->
 
 <script>
 // Scroll reveal
