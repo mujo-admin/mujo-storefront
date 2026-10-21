@@ -2823,7 +2823,13 @@ footer {
   .vs-table { font-size: 12.5px; }
   .vs-table th, .vs-table td { padding: 11px 9px; }
   .vs-table tbody td:first-child { white-space: normal; }
+  /* Phones: the table keeps readable columns and scrolls sideways (Kinga, 2026-10-21). */
+  .vs-wrap { margin: 0 -24px; padding: 0 24px 4px; -webkit-overflow-scrolling: touch; }
+  .vs-table { min-width: 620px; }
+  .vs-table thead th { white-space: nowrap; }
+  .vs-cue { margin: 0 0 12px; }
 }
+@media (min-width: 641px) { .vs-cue { display: none !important; } }
 .moments { padding: 80px 0 72px; background: var(--cream); }
 .moment-row { display: grid; grid-auto-flow: column; grid-auto-columns: 270px; gap: 16px; overflow-x: auto;
   scroll-snap-type: x mandatory; padding: 0 max(24px, calc((100vw - 1180px) / 2)); scroll-padding-inline: max(24px, calc((100vw - 1180px) / 2)); scrollbar-width: none; }
@@ -3131,6 +3137,7 @@ body.locked { overflow: hidden; }
       <div class="eyebrow reveal">Why it's different</div>
       <h2 class="reveal d1">Not your usual mushroom <span class="serif-accent">coffee.</span></h2>
     </div>
+    <div class="steps-cue vs-cue" aria-hidden="true">Swipe to compare <span>→</span></div>
     <div class="vs-wrap reveal">
       <table class="vs-table">
         <thead>
@@ -3152,10 +3159,11 @@ body.locked { overflow: hidden; }
   <div class="container">
     <div class="dossier-header">
       <div class="eyebrow reveal">What's inside</div>
-      <h2 class="reveal d1" style="margin-top: 14px;">Two ingredients you won't find in most mushroom <span class="serif-accent">coffees.</span></h2>
+      <h2 class="reveal d1" style="margin-top: 14px;">A few ingredients most mushroom coffees <span class="serif-accent">skip.</span></h2>
       <ul class="dossier-points reveal d2">
         <li>L-theanine, the amino acid naturally found in green tea</li>
         <li>Panax ginseng, considered an adaptogen</li>
+        <li>Gelatinized black maca, the rarest kind of maca, with the starches removed so it's easier to digest</li>
         <li>Four organic mushroom extracts, never mycelium on grain</li>
       </ul>
     </div>
@@ -3188,6 +3196,22 @@ body.locked { overflow: hidden; }
           <div class="ing-compact-sub"><em>Panax ginseng</em></div>
           <div class="ing-compact-pills">
             <span class="ing-pill">Ginsenosides</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Maca -->
+      <div class="ing-compact reveal">
+        <div class="ing-compact-img" style="background-image: url('/images/responsive/ingredients/black-maca-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
+        <div class="ing-compact-body">
+          <div class="ing-compact-top">
+            <div class="ing-compact-name">Black Maca</div>
+            <div class="ing-compact-badge">Gelatinized</div>
+          </div>
+          <div class="ing-compact-sub"><em>The rarest kind of maca</em></div>
+          <div class="ing-compact-pills">
+            <span class="ing-pill">Organic</span>
+            <span class="ing-pill">Gelatinized</span>
           </div>
         </div>
       </div>
@@ -3290,20 +3314,6 @@ body.locked { overflow: hidden; }
         </div>
       </div>
 
-      <!-- Maca -->
-      <div class="ing-compact reveal d2">
-        <div class="ing-compact-img" style="background-image: url('/images/responsive/ingredients/black-maca-macro-editorial-1x1-800.webp'); background-size: cover; background-position: center;"></div>
-        <div class="ing-compact-body">
-          <div class="ing-compact-top">
-            <div class="ing-compact-name">Black Maca</div>
-          </div>
-          <div class="ing-compact-sub"><em>Lepidium meyenii</em></div>
-          <div class="ing-compact-pills">
-            <span class="ing-pill">Organic</span>
-            <span class="ing-pill">Gelatinized</span>
-          </div>
-        </div>
-      </div>
 
     </div>
 
