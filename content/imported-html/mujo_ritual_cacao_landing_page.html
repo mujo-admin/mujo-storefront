@@ -2780,25 +2780,34 @@ footer {
   .tstrip-row::-webkit-scrollbar { display: none; }
   .tstrip-item { flex: 0 0 130px; scroll-snap-align: start; }
 }
+/* How to make it (2026-10-21): four step pictures. Desktop: one row of four. Phone: a sideways row that snaps card by
+   card, the next card peeking in, a "Swipe through the steps" cue and live dots (tap to jump), so it reads as scrollable. */
 .howto { padding: 80px 0; background: var(--cream); }
-.howto-video { position: relative; max-width: 880px; margin: 0 auto 28px; aspect-ratio: 16 / 9; border-radius: 4px;
-  background-size: cover; background-position: center 40%; overflow: hidden; }
-.howto-play { position: absolute; left: 50%; top: 50%; width: 72px; height: 72px; margin: -36px 0 0 -36px; border-radius: 50%;
-  background: rgba(243,242,233,.92); }
-.howto-play::after { content: ""; position: absolute; left: 29px; top: 23px; border-left: 20px solid var(--ink); border-top: 13px solid transparent; border-bottom: 13px solid transparent; }
-.howto-tag { position: absolute; left: 14px; bottom: 14px; font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase;
-  background: var(--ink); color: var(--cream); padding: 4px 9px; border-radius: 2px; }
-.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 880px; margin: 0 auto; }
-.step-img { aspect-ratio: 1 / 1; background-size: cover; background-position: center; border-radius: 4px; margin-bottom: 12px; }
-.step-n { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; color: var(--accent-text, var(--orange)); }
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; max-width: 1080px; margin: 0 auto; }
+.step { position: relative; }
+.step-img { position: relative; aspect-ratio: 4 / 5; background-size: cover; background-position: center; border-radius: 4px; margin-bottom: 12px; }
+.step-badge { position: absolute; left: 12px; top: 12px; display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; border-radius: 50%; background: var(--cream); color: var(--accent-text, var(--orange));
+  font-family: var(--f-mono); font-size: 12px; letter-spacing: .04em; font-weight: 500; }
+.step-n { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; color: var(--accent-text, var(--orange)); text-transform: uppercase; }
 .step-t { font-family: var(--f-serif); font-size: 24px; color: var(--ink); margin: 2px 0 4px; }
 .step-d { font-size: 14px; color: var(--ink-soft); line-height: 1.45; }
+.steps-cue { display: none; }
+.howto .steps-dots { display: none; }
 @media (max-width: 760px) {
   .howto { padding: 56px 0; }
-  .howto-video { aspect-ratio: 4 / 5; }
-  .steps { gap: 10px; }
-  .step-t { font-size: 19px; }
-  .step-d { font-size: 12.5px; }
+  .steps { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 72%; gap: 12px; overflow-x: auto;
+    scroll-snap-type: x mandatory; margin: 0 -24px; padding: 0 24px 4px; scroll-padding-inline: 24px; scrollbar-width: none; }
+  .steps::-webkit-scrollbar { display: none; }
+  .step { scroll-snap-align: start; }
+  .step-t { font-size: 20px; }
+  .step-d { font-size: 13px; }
+  .steps-cue { display: flex; justify-content: flex-start; gap: 10px; align-items: center; margin: -6px 0 16px;
+    font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent-text, var(--orange)); }
+  .steps-cue span { display: inline-block; animation: mujoNudge 1.6s ease-in-out infinite; }
+  /* dots synced by initReviewCarousels() in imported-page-runtime.tsx (.howto-grid + .reviews-dots) */
+  .howto .steps-dots { display: flex; justify-content: center; margin-top: 18px; }
+  .steps.howto-grid > .step { flex: 0 0 72%; scroll-snap-align: start; }
 }
 .vs { padding: 80px 0; background: var(--sand); }
 .vs-wrap { max-width: 880px; margin: 0 auto; overflow-x: auto; }
@@ -3077,38 +3086,41 @@ body.locked { overflow: hidden; }
   </div>
 </section>
 
-<!-- ═══ HOW TO MAKE IT (video placeholder: swap the poster for the Thursday loop) ═══ -->
+<!-- ═══ HOW TO MAKE IT: four step pictures (2026-10-21), a swipeable row on phones ═══ -->
 <section class="howto">
   <div class="container">
     <div class="sec-h">
       <div class="eyebrow reveal">How to make it</div>
-      <h2 class="reveal d1">Three steps. About a <span class="serif-accent">minute.</span></h2>
+      <h2 class="reveal d1">Four steps. About a <span class="serif-accent">minute.</span></h2>
     </div>
-    <div class="howto-video reveal" role="img" aria-label="Video: making the Ritual, from scoop to froth" style="background-image: url('/images/responsive/lifestyle/ritual-frother-action-editorial-4x5-800.webp');">
-      <!-- VIDEO PLACEHOLDER: replace with <video autoplay muted loop playsinline poster="..."> once filmed -->
-      <span class="howto-play" aria-hidden="true"></span>
-      <span class="howto-tag">Video coming soon</span>
-    </div>
-    <div class="steps">
-      <div class="step reveal">
-        <div class="step-img" style="background-image: url('/images/responsive/lifestyle/ritual-pouch-scoop-spill-editorial-4x3-800.webp');"></div>
-        <div class="step-n">01</div>
+    <div class="steps-cue" aria-hidden="true">Swipe through the steps <span>→</span></div>
+    <div class="steps howto-grid" role="list" aria-label="How to make the Ritual, four steps">
+      <div class="step" role="listitem">
+        <div class="step-img" role="img" aria-label="A scoop of Ritual powder pouring into a glass cup" style="background-image: url('/images/responsive/lifestyle/ritual-howto-1-scoop-2026-10-4x5-800.webp');"><span class="step-badge" aria-hidden="true">1</span></div>
+        <div class="step-n">Step 1</div>
         <div class="step-t">Scoop</div>
-        <div class="step-d">One tablespoon into your mug.</div>
+        <div class="step-d">One tablespoon into your cup.</div>
       </div>
-      <div class="step reveal d1">
-        <div class="step-img" style="background-image: url('/images/responsive/lifestyle/ritual-kettle-pour-editorial-4x5-800.webp');"></div>
-        <div class="step-n">02</div>
-        <div class="step-t">Pour</div>
-        <div class="step-d">A splash of hot water.</div>
-      </div>
-      <div class="step reveal d2">
-        <div class="step-img" style="background-image: url('/images/responsive/lifestyle/ritual-frother-action-editorial-4x5-800.webp');"></div>
-        <div class="step-n">03</div>
+      <div class="step" role="listitem">
+        <div class="step-img" role="img" aria-label="Frothing the Ritual in hot water" style="background-image: url('/images/responsive/lifestyle/ritual-howto-2-froth-2026-10-4x5-800.webp');"><span class="step-badge" aria-hidden="true">2</span></div>
+        <div class="step-n">Step 2</div>
         <div class="step-t">Froth</div>
-        <div class="step-d">Froth, then top with warm milk of choice.</div>
+        <div class="step-d">Add 8 to 10 oz of hot water and froth until smooth.</div>
+      </div>
+      <div class="step" role="listitem">
+        <div class="step-img" role="img" aria-label="Warm milk pouring into the cup" style="background-image: url('/images/responsive/lifestyle/ritual-howto-3-milk-2026-10-4x5-800.webp');"><span class="step-badge" aria-hidden="true">3</span></div>
+        <div class="step-n">Step 3</div>
+        <div class="step-t">Top it</div>
+        <div class="step-d">Pour in warm milk of choice.</div>
+      </div>
+      <div class="step" role="listitem">
+        <div class="step-img" role="img" aria-label="The finished Ritual beside the pouch and frother" style="background-image: url('/images/responsive/lifestyle/ritual-howto-4-enjoy-2026-10-4x5-800.webp');"><span class="step-badge" aria-hidden="true">4</span></div>
+        <div class="step-n">Step 4</div>
+        <div class="step-t">Enjoy</div>
+        <div class="step-d">Smooth, mocha-like and ready to sip.</div>
       </div>
     </div>
+    <div class="reviews-dots steps-dots"><button type="button" class="reviews-dot active" aria-label="Step 1"></button><button type="button" class="reviews-dot" aria-label="Step 2"></button><button type="button" class="reviews-dot" aria-label="Step 3"></button><button type="button" class="reviews-dot" aria-label="Step 4"></button></div>
   </div>
 </section>
 
