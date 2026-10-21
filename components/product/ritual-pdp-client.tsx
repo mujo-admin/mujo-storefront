@@ -316,7 +316,7 @@ function BuyBox({
               <circle cx="5.5" cy="18.5" r="1.6" />
               <circle cx="17.5" cy="18.5" r="1.6" />
             </svg>
-            Free shipping over $100
+            {isSubscribe ? "Free shipping" : "Free shipping over $100"}
           </div>
           <div
             className="atc-trust-item"
