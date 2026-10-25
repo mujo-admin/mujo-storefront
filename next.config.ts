@@ -44,6 +44,19 @@ const config: NextConfig = {
       },
     ];
   },
+  async rewrites() {
+    return [
+      // inlineCss puts next/font's CSS inline in each page, but its font URLs
+      // stay relative ("../media/x.woff2"), so from /ritual or /products/... the
+      // browser asks for /media/x.woff2 and gets a 404. Hanken Grotesk never
+      // loaded on the live site because of this (found 2026-10-25 in the speed
+      // pass). Serve those requests from the real build folder.
+      {
+        source: "/media/:file*",
+        destination: "/_next/static/media/:file*",
+      },
+    ];
+  },
   async redirects() {
     return [
       // /science retired 2026-06-19 (conventional-food path: no health-claim science page).

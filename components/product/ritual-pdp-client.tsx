@@ -1,7 +1,13 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
-import { createPortal } from "react-dom";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import {
   type RitualSize,
   type RitualPlan,
@@ -73,18 +79,6 @@ function formatStickyLine(size: RitualSize, plan: RitualPlan): string {
   const price = cell?.now ?? "";
   const tail = resolvedPlan === "subscription" ? "Subscribe" : "One-time";
   return `${price} · ${tail}`;
-}
-
-// Re-mount when the marker div appears in the DOM (after SSR hydration).
-function useMountTarget(mountId: string): HTMLElement | null {
-  const [el, setEl] = useState<HTMLElement | null>(null);
-  useEffect(() => {
-    const found = document.querySelector<HTMLElement>(
-      `[data-mujo-mount="${mountId}"]`,
-    );
-    setEl(found);
-  }, [mountId]);
-  return el;
 }
 
 type Shared = {
@@ -366,27 +360,34 @@ function StickyAtc({ size, plan, onAddToCart, pending, shown }: Shared) {
   );
 }
 
+const RitualContext = createContext<Shared | null>(null);
+
+function useRitual(): Shared {
+  const ctx = useContext(RitualContext);
+  if (!ctx) throw new Error("Ritual buy box used outside <RitualSelectionProvider>");
+  return ctx;
+}
+
 /**
- * Top-level client component for the Ritual PDP.
- * - Holds shared (size, plan) state.
- * - Mounts <BuyBox /> + <StickyAtc /> via Portals into the marker divs left
- *   by lib/imported-html.ts splices.
- * - Wires Add to Cart → POST /api/checkout with the right Stripe Price ID.
+ * Shared state for the Ritual buy box and sticky Add to cart bar.
+ *
+ * Wraps the whole imported page (components/imported-page.tsx `wrap`), so the
+ * buy box and the sticky bar, which sit in different places in the page, read
+ * the same (size, plan, cadence). Both render in place inside the server HTML
+ * via `slots` (2026-10-25 speed pass; they used to be portalled in after the
+ * page's code ran, so on a phone the buy box appeared 6–7 s late).
  *
  * Quantity is adjusted in the cart drawer (+/-); delivery frequency (4 / 6 / 8 /
  * 12 weeks) is picked in the subscribe box and defaults to 4 weeks. The PDP adds
  * a single bag of the chosen-cadence subscription Price (or the one-time Price).
  */
-export function RitualPdpClient() {
+export function RitualSelectionProvider({ children }: { children: ReactNode }) {
   const [size, setSize] = useState<RitualSize>("25");
   const [plan, setPlan] = useState<RitualPlan>("subscription");
   const [cadence, setCadence] = useState<RitualCadence>("4wk");
   const [pending, setPending] = useState(false);
   const [shown, setShown] = useState(false);
   const { addItem } = useCart();
-
-  const buyBoxTarget = useMountTarget("ritual-buybox");
-  const stickyAtcTarget = useMountTarget("ritual-sticky-atc");
 
   // Reveal the sticky ATC once the buy box has scrolled past (mobile only —
   // the bar is display:none ≥901px in CSS). The original show-on-scroll JS
@@ -401,10 +402,16 @@ export function RitualPdpClient() {
 
   // Drive the imported-HTML gallery off the selected size: 10 servings shows the
   // 10-serving bag, 25 servings the default hero. The gallery lives in the
-  // dangerouslySetInnerHTML'd markup (plain DOM), so reach it directly. Clearing
-  // srcset/sizes is essential — the main <img> ships a srcset that otherwise
-  // overrides .src (same gotcha the runtime thumb handler fixes).
+  // imported markup (plain DOM), so reach it directly. Clearing srcset/sizes is
+  // essential — the main <img> ships a srcset that otherwise overrides .src.
+  // Skipped on first render: the page already shows the 25-serving hero, and
+  // swapping it on load made phones download the main picture twice.
+  const firstSizeRun = useRef(true);
   useEffect(() => {
+    if (firstSizeRun.current) {
+      firstSizeRun.current = false;
+      return;
+    }
     if (typeof document === "undefined") return;
     const base =
       size === "10"
@@ -473,11 +480,15 @@ export function RitualPdpClient() {
     shown,
   };
 
-  return (
-    <>
-      {buyBoxTarget && createPortal(<BuyBox {...shared} />, buyBoxTarget)}
-      {stickyAtcTarget &&
-        createPortal(<StickyAtc {...shared} />, stickyAtcTarget)}
-    </>
-  );
+  return <RitualContext.Provider value={shared}>{children}</RitualContext.Provider>;
+}
+
+/** The buy box, rendered in place of the `ritual-buybox` marker. */
+export function RitualBuyBoxSlot() {
+  return <BuyBox {...useRitual()} />;
+}
+
+/** The mobile sticky Add to cart bar, rendered in place of `ritual-sticky-atc`. */
+export function RitualStickyAtcSlot() {
+  return <StickyAtc {...useRitual()} />;
 }

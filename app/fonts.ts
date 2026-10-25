@@ -15,7 +15,7 @@ export const hanken = Hanken_Grotesk({
   style: ["normal", "italic"],
   variable: "--font-hanken",
   display: "swap",
-  preload: true,
+  preload: false,
   fallback: [
     "-apple-system",
     "Segoe UI",

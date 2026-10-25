@@ -109,14 +109,29 @@ function buildShippingOptions(
 // Authoritative merchandise subtotal — fetched from Stripe Prices, never
 // trusted from the client (a spoofed cart can't unlock free shipping). Used
 // only in payment mode, where every line item is a one-time Price.
+//
+// A Stripe Price's unit_amount can never change after creation (a new price
+// means a new Price ID), so amounts are kept in memory per server instance:
+// a warm instance skips the Stripe round trip (~200–300 ms) on every checkout.
+const unitAmountCache = new Map<string, number>();
+
+async function unitAmountCents(priceId: string): Promise<number> {
+  const cached = unitAmountCache.get(priceId);
+  if (cached !== undefined) return cached;
+  const price = await stripe.prices.retrieve(priceId);
+  const amount = price.unit_amount ?? 0;
+  unitAmountCache.set(priceId, amount);
+  return amount;
+}
+
 async function computeSubtotalCents(
   items: { stripePriceId: string; quantity: number }[],
 ): Promise<number> {
-  const prices = await Promise.all(
-    items.map((i) => stripe.prices.retrieve(i.stripePriceId)),
+  const amounts = await Promise.all(
+    items.map((i) => unitAmountCents(i.stripePriceId)),
   );
-  return prices.reduce(
-    (sum, price, idx) => sum + (price.unit_amount ?? 0) * (items[idx]?.quantity ?? 0),
+  return amounts.reduce(
+    (sum, amount, idx) => sum + amount * (items[idx]?.quantity ?? 0),
     0,
   );
 }

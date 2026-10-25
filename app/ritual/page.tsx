@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { ImportedPage } from "components/imported-page";
 import { ProductAnalytics } from "components/integrations/product-analytics";
-import { RitualPdpClient } from "components/product/ritual-pdp-client";
+import {
+  RitualSelectionProvider,
+  RitualBuyBoxSlot,
+  RitualStickyAtcSlot,
+} from "components/product/ritual-pdp-client";
 import type { Splice } from "lib/imported-html";
 import { webPageSchema, mujoBrand, jsonLdScript } from "lib/schema";
 
@@ -58,8 +62,12 @@ export default function RitualLandingPage() {
       <ImportedPage
         filename="mujo_ritual_cacao_landing_page.html"
         splices={RITUAL_LANDING_SPLICES}
+        provider={RitualSelectionProvider}
+        slots={{
+          "ritual-buybox": <RitualBuyBoxSlot />,
+          "ritual-sticky-atc": <RitualStickyAtcSlot />,
+        }}
       />
-      <RitualPdpClient />
     </>
   );
 }

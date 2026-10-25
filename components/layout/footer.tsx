@@ -25,6 +25,8 @@ export function Footer() {
             <img
               src="/images/logo/mujo-logo-cream.png"
               alt="Mujo"
+              loading="lazy"
+              decoding="async"
               style={{ height: 28, width: "auto", marginBottom: 14 }}
             />
             <p

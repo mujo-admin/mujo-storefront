@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { createPortal } from "react-dom";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { PROTEIN_PREORDER_SHIP_LABEL } from "lib/stripe-constants";
 import { useCart } from "components/cart/cart-context";
 import { resolveProteinSelection } from "lib/cart/price-id-map";
@@ -13,14 +12,6 @@ import { resolveProteinSelection } from "lib/cart/price-id-map";
 // match the static design buy box in
 // content/imported-html/mujo_protein_powder_pdp.html, whose CSS styles it.
 const PRICE = { now: "$45", daily: "$3.00 a serving · 13.6¢/g protein" };
-
-function useMountTarget(mountId: string): HTMLElement | null {
-  const [el, setEl] = useState<HTMLElement | null>(null);
-  useEffect(() => {
-    setEl(document.querySelector<HTMLElement>(`[data-mujo-mount="${mountId}"]`));
-  }, [mountId]);
-  return el;
-}
 
 type Shared = {
   onAddToCart: () => void;
@@ -89,19 +80,24 @@ function StickyAtc({ onAddToCart, pending, shown }: Shared) {
   );
 }
 
+const ProteinContext = createContext<Shared | null>(null);
+
+function useProtein(): Shared {
+  const ctx = useContext(ProteinContext);
+  if (!ctx) throw new Error("Protein buy box used outside <ProteinSelectionProvider>");
+  return ctx;
+}
+
 /**
- * Top-level client component for the Protein Powder PDP. Portals the buy box
- * and the mobile sticky bar into the markers left by the import splices, and
- * adds one pouch of the chosen Price to the cart (quantity is changed in the
- * cart drawer).
+ * Shared state for the Protein Powder buy box and the mobile sticky bar. Wraps
+ * the imported page; both render in place inside the server HTML via `slots`
+ * (2026-10-25 speed pass, they used to be portalled in after the page's code
+ * ran). Adds one pouch to the cart (quantity is changed in the cart drawer).
  */
-export function ProteinPdpClient() {
+export function ProteinSelectionProvider({ children }: { children: ReactNode }) {
   const [pending, setPending] = useState(false);
   const [shown, setShown] = useState(false);
   const { addItem } = useCart();
-
-  const buyBoxTarget = useMountTarget("protein-buybox");
-  const stickyTarget = useMountTarget("protein-sticky-atc");
 
   useEffect(() => {
     const onScroll = () => setShown(window.scrollY > 520);
@@ -128,10 +124,15 @@ export function ProteinPdpClient() {
   }
 
   const shared: Shared = { onAddToCart, pending, shown };
-  return (
-    <>
-      {buyBoxTarget && createPortal(<BuyBox {...shared} />, buyBoxTarget)}
-      {stickyTarget && createPortal(<StickyAtc {...shared} />, stickyTarget)}
-    </>
-  );
+  return <ProteinContext.Provider value={shared}>{children}</ProteinContext.Provider>;
+}
+
+/** The buy box, rendered in place of the `protein-buybox` marker. */
+export function ProteinBuyBoxSlot() {
+  return <BuyBox {...useProtein()} />;
+}
+
+/** The mobile sticky bar, rendered in place of `protein-sticky-atc`. */
+export function ProteinStickyAtcSlot() {
+  return <StickyAtc {...useProtein()} />;
 }

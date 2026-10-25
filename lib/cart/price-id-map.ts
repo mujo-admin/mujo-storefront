@@ -43,6 +43,21 @@ const RITUAL_IMAGE_10 = {
   alt: "The Mujo Ritual pouch, 10 servings",
 };
 
+// The cart drawer shows a ~80px thumbnail. The masters above (450 KB / 336 KB)
+// stay the product image for Klaviyo emails and the feed; the drawer swaps in
+// the 400px versions (~20 KB) so it opens with its picture straight away.
+const CART_THUMBS: Record<string, string> = {
+  [RITUAL_IMAGE_25.url]:
+    "/images/responsive/products/ritual/ritual-pouch-hero-monumental-editorial-2026-09-1x1-400.webp",
+  [RITUAL_IMAGE_10.url]:
+    "/images/responsive/products/ritual/ritual-pouch-10-serving-hero-monumental-editorial-1x1-400.webp",
+};
+
+/** Small version of a cart line's picture for the drawer (falls back to the original). */
+export function cartThumbUrl(url: string): string {
+  return CART_THUMBS[url] ?? url;
+}
+
 type RitualKey = keyof typeof RITUAL_PRICE_IDS;
 
 // 10-serving is one-time only — small bag costs more to produce, so it

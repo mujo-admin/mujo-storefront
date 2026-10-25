@@ -22,6 +22,17 @@ export function useReveal(threshold = 0.1) {
       return;
     }
 
+    // Until this runs, CSS keeps every .reveal visible (see tokens.css,
+    // html:not([data-reveal-ready])), so a slow or failed script never leaves
+    // blank sections. Anything already on screen is marked shown first, then
+    // the flag turns the fade-in on for the rest (all off screen, no flicker).
+    const vh = window.innerHeight;
+    document.querySelectorAll<HTMLElement>(".reveal:not(.on)").forEach((el) => {
+      const r = el.getBoundingClientRect();
+      if (r.top < vh && r.bottom > 0) el.classList.add("on");
+    });
+    document.documentElement.setAttribute("data-reveal-ready", "");
+
     const obs = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {

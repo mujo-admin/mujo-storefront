@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import { ImportedPage } from "components/imported-page";
 import { ProductAnalytics } from "components/integrations/product-analytics";
 import type { Splice } from "lib/imported-html";
-import { RitualPdpClient } from "components/product/ritual-pdp-client";
+import {
+  RitualSelectionProvider,
+  RitualBuyBoxSlot,
+  RitualStickyAtcSlot,
+} from "components/product/ritual-pdp-client";
 import {
   productSchema,
   breadcrumbSchema,
@@ -72,8 +76,12 @@ export default function RitualPdpPage() {
       <ImportedPage
         filename="ritual_cacao_shop_pdp.html"
         splices={RITUAL_SPLICES}
+        provider={RitualSelectionProvider}
+        slots={{
+          "ritual-buybox": <RitualBuyBoxSlot />,
+          "ritual-sticky-atc": <RitualStickyAtcSlot />,
+        }}
       />
-      <RitualPdpClient />
     </>
   );
 }

@@ -4,7 +4,7 @@ import {
   EmbeddedCheckoutProvider,
   EmbeddedCheckout,
 } from "@stripe/react-stripe-js";
-import { loadStripe, type Stripe as StripeJs } from "@stripe/stripe-js";
+import { getStripePromise } from "lib/stripe-client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useCart } from "components/cart/cart-context";
 
@@ -21,24 +21,6 @@ import { trackingDeclined } from "lib/klaviyo-onsite";
 // /api/checkout-session). A tab left open longer would show a dead form, so
 // the session is replaced shortly before that.
 const SESSION_REFRESH_AFTER_MS = 55 * 60 * 1000;
-const PUBLISHABLE_KEY =
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? "";
-
-let stripePromiseSingleton: Promise<StripeJs | null> | null = null;
-function getStripePromise(): Promise<StripeJs | null> {
-  if (!stripePromiseSingleton) {
-    if (!PUBLISHABLE_KEY) {
-      console.error(
-        "[checkout] NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY not set; <EmbeddedCheckout> will fail.",
-      );
-      stripePromiseSingleton = Promise.resolve(null);
-    } else {
-      stripePromiseSingleton = loadStripe(PUBLISHABLE_KEY);
-    }
-  }
-  return stripePromiseSingleton;
-}
-
 /**
  * Stripe Embedded Checkout — Stripe-rendered checkout iframe pinned to
  * /checkout. Customer never sees stripe.com in the URL bar; the
@@ -70,6 +52,12 @@ export function EmbeddedCheckoutMount() {
         .join("|"),
     [cart.items],
   );
+
+  // Start downloading Stripe.js now, in parallel with the session request
+  // below (it used to start only once the session had come back).
+  useEffect(() => {
+    void getStripePromise();
+  }, []);
 
   useEffect(() => {
     if (!hydrated) return;
@@ -236,6 +224,7 @@ export function EmbeddedCheckoutMount() {
 
   return (
     <CheckoutShell>
+      <CheckoutReadySignal />
       <EmbeddedCheckoutProvider
         key={clientSecret}
         stripe={getStripePromise()}
@@ -245,6 +234,37 @@ export function EmbeddedCheckoutMount() {
       </EmbeddedCheckoutProvider>
     </CheckoutShell>
   );
+}
+
+/**
+ * Tells the tag loader (components/integrations/analytics-scripts.tsx) that
+ * Stripe's form has arrived, so held marketing tags can load without taking
+ * the bandwidth the form needs on a phone. Fires a moment after Stripe's frame
+ * has loaded (its inner frames follow it).
+ */
+function CheckoutReadySignal() {
+  useEffect(() => {
+    const w = window as Window & { __mujoCheckoutReady?: boolean };
+    if (w.__mujoCheckoutReady) return;
+    let timer: number | undefined;
+    const fire = () => {
+      timer = window.setTimeout(() => {
+        w.__mujoCheckoutReady = true;
+        window.dispatchEvent(new Event("mujo:checkout-ready"));
+      }, 1500);
+    };
+    const watch = window.setInterval(() => {
+      const frame = document.querySelector<HTMLIFrameElement>(".checkout-frame iframe");
+      if (!frame) return;
+      window.clearInterval(watch);
+      frame.addEventListener("load", fire, { once: true });
+    }, 100);
+    return () => {
+      window.clearInterval(watch);
+      window.clearTimeout(timer);
+    };
+  }, []);
+  return null;
 }
 
 function CheckoutShell({ children }: { children: React.ReactNode }) {
