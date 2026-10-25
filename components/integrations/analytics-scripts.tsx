@@ -1,15 +1,28 @@
 "use client";
 
 import Script from "next/script";
-import { GoogleTagManager } from "@next/third-parties/google";
 
 /**
- * <AnalyticsScripts /> — every third-party measurement tag, in load order.
+ * <AnalyticsScripts /> — every third-party measurement tag.
  *
- *   1. Consent Mode v2 defaults  (must run BEFORE GTM — hence beforeInteractive)
- *   2. Google Tag Manager        (hosts GA4; add future tags here, not in code)
- *   3. Klaviyo onsite
- *   4. Meta Pixel base
+ * Since 2026-10-25 (mobile speed pass, docs/performance.md) the tag *libraries*
+ * load after the page has loaded, so ~650 KB of tag code no longer competes
+ * with the hero picture and buy box on a phone. What runs up front is tiny:
+ *
+ *   1. Consent Mode v2 defaults + gtag()/dataLayer, and the GA4 config call
+ *   2. The Meta pixel queue (fbq) and its init call
+ *
+ * Every `track()` call made before the libraries arrive waits in those queues
+ * (and in Klaviyo's `_klOnsite` array, see lib/klaviyo-onsite.ts) and is sent
+ * when they land, so no event is lost. Then:
+ *
+ *   - after window `load` (next idle moment): gtag.js for GA4 (directly — the GTM container held
+ *     only this Google tag, so GTM's 125 KB wrapper is gone) and fbevents.js
+ *   - on the first tap/scroll/key, or 4 s after load: Klaviyo onsite
+ *
+ * Trade-off: a visitor who leaves before the page has finished loading is not
+ * counted as a GA4/Meta page view. Purchases are unaffected (the Stripe webhook
+ * sends them server-side to Meta and Klaviyo).
  *
  * Events are not fired here. Application code calls `track()` from
  * `lib/analytics.ts`; see `docs/measurement-plan.md`.
@@ -31,14 +44,26 @@ const CONSENT_DENIED_REGIONS = [
 export function AnalyticsScripts() {
   const klaviyoKey = process.env.NEXT_PUBLIC_KLAVIYO_PUBLIC_KEY;
   const pixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID;
-  const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
+  const ga4Id = process.env.NEXT_PUBLIC_GA4_ID;
+
+  const libs = {
+    ga4: ga4Id
+      ? `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(ga4Id)}`
+      : null,
+    meta: pixelId ? "https://connect.facebook.net/en_US/fbevents.js" : null,
+    klaviyo: klaviyoKey
+      ? `https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=${encodeURIComponent(klaviyoKey)}`
+      : null,
+  };
 
   return (
     <>
       {/*
-        Consent Mode v2 defaults. Runs before any tag so GA4 never measures
-        an EEA visitor before they've chosen. A stored choice in localStorage
-        is replayed immediately so returning visitors keep their decision.
+        Consent Mode v2 defaults, gtag() and the GA4 config, before any tag.
+        GA4 never measures an EEA visitor before they've chosen. A stored
+        choice in localStorage is replayed immediately so returning visitors
+        keep their decision. The config call sends GA4's page_view once
+        gtag.js arrives (GA4's history-change setting covers in-site moves).
       */}
       <Script id="consent-default" strategy="beforeInteractive">
         {`
@@ -71,38 +96,59 @@ export function AnalyticsScripts() {
             });
           }
         } catch (e) { /* private mode — defaults stand */ }
+        ${ga4Id ? `gtag('js', new Date()); gtag('config', ${JSON.stringify(ga4Id)});` : ""}
+        ${
+          pixelId
+            ? `!function(f){if(f.fbq)return;var n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];}(window);
+        fbq('init', ${JSON.stringify(pixelId)});`
+            : ""
+        }
         `}
       </Script>
 
-      {gtmId && <GoogleTagManager gtmId={gtmId} />}
-
-      {klaviyoKey && (
-        <Script
-          id="klaviyo-onsite"
-          strategy="lazyOnload"
-          src={`https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=${klaviyoKey}`}
-        />
-      )}
-
       {/*
-        Meta Pixel. `afterInteractive` rather than `lazyOnload`: on lazyOnload
-        the base PageView lost fast bounces, and `track()` calls could fire
-        before fbq existed. fbq queues calls made before the library lands, so
-        loading a little earlier costs little and stops dropping events.
+        The tag libraries themselves, after the page has loaded. Meta's base
+        PageView is sent by <RouteAnalytics /> through track(), queued in fbq
+        until fbevents.js lands.
       */}
-      {pixelId && (
-        <Script id="meta-pixel" strategy="afterInteractive">
-          {`!function(f,b,e,v,n,t,s)
-          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-          n.queue=[];t=b.createElement(e);t.async=!0;
-          t.src=v;s=b.getElementsByTagName(e)[0];
-          s.parentNode.insertBefore(t,s)}(window, document,'script',
-          'https://connect.facebook.net/en_US/fbevents.js');
-          fbq('init', '${pixelId}');`}
-        </Script>
-      )}
+      <Script id="tag-loader" strategy="afterInteractive">
+        {`
+        (function(){
+          var libs = ${JSON.stringify(libs)};
+          function add(src){
+            if (!src) return;
+            var s = document.createElement('script');
+            s.async = true; s.src = src;
+            document.head.appendChild(s);
+          }
+          var klDone = false;
+          function klaviyo(){
+            if (klDone) return; klDone = true;
+            ['pointerdown','keydown','scroll','touchstart'].forEach(function(e){
+              window.removeEventListener(e, klaviyo, { passive: true });
+            });
+            add(libs.klaviyo);
+          }
+          function afterLoad(){
+            add(libs.ga4);
+            add(libs.meta);
+            ['pointerdown','keydown','scroll','touchstart'].forEach(function(e){
+              window.addEventListener(e, klaviyo, { passive: true, once: true });
+            });
+            setTimeout(klaviyo, 4000);
+          }
+          // After load, at the browser's next idle moment (at most 1.5 s later).
+          function whenIdle(){
+            if ('requestIdleCallback' in window) requestIdleCallback(afterLoad, { timeout: 1500 });
+            else setTimeout(afterLoad, 200);
+          }
+          if (document.readyState === 'complete') whenIdle();
+          else window.addEventListener('load', whenIdle, { once: true });
+        })();
+        `}
+      </Script>
 
       {pixelId && (
         <noscript>
