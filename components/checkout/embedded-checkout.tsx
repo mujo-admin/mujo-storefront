@@ -224,6 +224,7 @@ export function EmbeddedCheckoutMount() {
 
   return (
     <CheckoutShell>
+      <CheckoutReadySignal />
       <EmbeddedCheckoutProvider
         key={clientSecret}
         stripe={getStripePromise()}
@@ -233,6 +234,37 @@ export function EmbeddedCheckoutMount() {
       </EmbeddedCheckoutProvider>
     </CheckoutShell>
   );
+}
+
+/**
+ * Tells the tag loader (components/integrations/analytics-scripts.tsx) that
+ * Stripe's form has arrived, so held marketing tags can load without taking
+ * the bandwidth the form needs on a phone. Fires a moment after Stripe's frame
+ * has loaded (its inner frames follow it).
+ */
+function CheckoutReadySignal() {
+  useEffect(() => {
+    const w = window as Window & { __mujoCheckoutReady?: boolean };
+    if (w.__mujoCheckoutReady) return;
+    let timer: number | undefined;
+    const fire = () => {
+      timer = window.setTimeout(() => {
+        w.__mujoCheckoutReady = true;
+        window.dispatchEvent(new Event("mujo:checkout-ready"));
+      }, 1500);
+    };
+    const watch = window.setInterval(() => {
+      const frame = document.querySelector<HTMLIFrameElement>(".checkout-frame iframe");
+      if (!frame) return;
+      window.clearInterval(watch);
+      frame.addEventListener("load", fire, { once: true });
+    }, 100);
+    return () => {
+      window.clearInterval(watch);
+      window.clearTimeout(timer);
+    };
+  }, []);
+  return null;
 }
 
 function CheckoutShell({ children }: { children: React.ReactNode }) {

@@ -18,7 +18,8 @@ import Script from "next/script";
  *
  *   - after window `load` (next idle moment): gtag.js for GA4 (directly — the GTM container held
  *     only this Google tag, so GTM's 125 KB wrapper is gone) and fbevents.js
- *   - on the first tap/scroll/key, or 4 s after load: Klaviyo onsite
+ *   - at an idle moment 5 s or more after load: Klaviyo onsite
+ *   - on /checkout, anything not yet loaded waits for Stripe's form (8 s max)
  *
  * Trade-off: a visitor who leaves before the page has finished loading is not
  * counted as a GA4/Meta page view. Purchases are unaffected (the Stripe webhook
@@ -123,29 +124,31 @@ export function AnalyticsScripts() {
             s.async = true; s.src = src;
             document.head.appendChild(s);
           }
-          var klDone = false;
-          function klaviyo(){
-            if (klDone) return; klDone = true;
-            ['pointerdown','keydown','scroll','touchstart'].forEach(function(e){
-              window.removeEventListener(e, klaviyo, { passive: true });
-            });
-            add(libs.klaviyo);
+          function idle(fn, timeout){
+            if ('requestIdleCallback' in window) requestIdleCallback(fn, { timeout: timeout });
+            else setTimeout(fn, 200);
+          }
+          // On /checkout, hold any tag not yet loaded until Stripe's form has
+          // arrived (or 8 s): on a phone connection the tags otherwise take the
+          // bandwidth the payment form needs (it was 6 s instead of 3.3 s).
+          function gate(fn){
+            if (location.pathname.indexOf('/checkout') !== 0 || window.__mujoCheckoutReady) return fn();
+            var done = false;
+            function go(){ if (done) return; done = true; fn(); }
+            window.addEventListener('mujo:checkout-ready', go, { once: true });
+            setTimeout(go, 8000);
           }
           function afterLoad(){
-            add(libs.ga4);
-            add(libs.meta);
-            ['pointerdown','keydown','scroll','touchstart'].forEach(function(e){
-              window.addEventListener(e, klaviyo, { passive: true, once: true });
-            });
-            setTimeout(klaviyo, 4000);
+            gate(function(){ add(libs.ga4); add(libs.meta); });
+            // Klaviyo (forms, identify, onsite events) is not needed early:
+            // a quiet moment 5 s or more after load. Not on the first tap: that
+            // is usually Add to cart, right before checkout.
+            setTimeout(function(){ idle(function(){ gate(function(){ add(libs.klaviyo); }); }, 3000); }, 5000);
           }
           // After load, at the browser's next idle moment (at most 1.5 s later).
-          function whenIdle(){
-            if ('requestIdleCallback' in window) requestIdleCallback(afterLoad, { timeout: 1500 });
-            else setTimeout(afterLoad, 200);
-          }
-          if (document.readyState === 'complete') whenIdle();
-          else window.addEventListener('load', whenIdle, { once: true });
+          function whenLoaded(){ idle(afterLoad, 1500); }
+          if (document.readyState === 'complete') whenLoaded();
+          else window.addEventListener('load', whenLoaded, { once: true });
         })();
         `}
       </Script>
