@@ -7,8 +7,9 @@
    Fonts: Hanken Grotesk loads via next/font/google (see app/fonts.ts) —
    Next emits the --font-hanken CSS variable that --f-display and --f-body
    consume below (Brand Guide v1.3; replaced the prior self-hosted display font).
-   Instrument Serif + DM Mono come from Google Fonts via <link> in layout.tsx
-   (italic accent + monospace eyebrow — not LCP-critical).
+   Instrument Serif + DM Mono are self-hosted (public/fonts, @font-face in
+   app/globals.css); Instrument Serif regular is preloaded in layout.tsx
+   because every h1/h2 uses it.
 */
 
 /* ==========================================================================

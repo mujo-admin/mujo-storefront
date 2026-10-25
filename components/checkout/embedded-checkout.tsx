@@ -4,7 +4,7 @@ import {
   EmbeddedCheckoutProvider,
   EmbeddedCheckout,
 } from "@stripe/react-stripe-js";
-import { loadStripe, type Stripe as StripeJs } from "@stripe/stripe-js";
+import { getStripePromise } from "lib/stripe-client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useCart } from "components/cart/cart-context";
 
@@ -21,24 +21,6 @@ import { trackingDeclined } from "lib/klaviyo-onsite";
 // /api/checkout-session). A tab left open longer would show a dead form, so
 // the session is replaced shortly before that.
 const SESSION_REFRESH_AFTER_MS = 55 * 60 * 1000;
-const PUBLISHABLE_KEY =
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? "";
-
-let stripePromiseSingleton: Promise<StripeJs | null> | null = null;
-function getStripePromise(): Promise<StripeJs | null> {
-  if (!stripePromiseSingleton) {
-    if (!PUBLISHABLE_KEY) {
-      console.error(
-        "[checkout] NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY not set; <EmbeddedCheckout> will fail.",
-      );
-      stripePromiseSingleton = Promise.resolve(null);
-    } else {
-      stripePromiseSingleton = loadStripe(PUBLISHABLE_KEY);
-    }
-  }
-  return stripePromiseSingleton;
-}
-
 /**
  * Stripe Embedded Checkout — Stripe-rendered checkout iframe pinned to
  * /checkout. Customer never sees stripe.com in the URL bar; the
@@ -70,6 +52,12 @@ export function EmbeddedCheckoutMount() {
         .join("|"),
     [cart.items],
   );
+
+  // Start downloading Stripe.js now, in parallel with the session request
+  // below (it used to start only once the session had come back).
+  useEffect(() => {
+    void getStripePromise();
+  }, []);
 
   useEffect(() => {
     if (!hydrated) return;

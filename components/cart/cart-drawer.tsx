@@ -8,6 +8,7 @@ import {
   subtotalCents,
 } from "lib/cart/pricing";
 import { FREE_SHIPPING_THRESHOLD_CENTS } from "lib/stripe-constants";
+import { cartThumbUrl } from "lib/cart/price-id-map";
 
 import { track, itemFromCartLine, itemsValue } from "lib/analytics";
 type CartDrawerProps = {
@@ -45,6 +46,16 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
     if (open) window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open, onClose]);
+
+  // Warm up checkout: start downloading Stripe.js as soon as the drawer opens
+  // with something in it, so the payment form is quicker after "Checkout".
+  // Loaded through a dynamic import so pages that never open the cart don't
+  // carry Stripe's loader. (The session itself is still created on /checkout:
+  // creating it here would send a checkout-started event on every drawer open.)
+  useEffect(() => {
+    if (!open || cart.items.length === 0) return;
+    void import("lib/stripe-client").then((m) => m.getStripePromise());
+  }, [open, cart.items.length]);
 
   // view_cart — GA4 only (no Meta equivalent worth sending).
   useEffect(() => {
@@ -154,7 +165,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
               <div className="cart-item-img">
                 {item.image?.url ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={item.image.url} alt={item.image.alt} />
+                  <img src={cartThumbUrl(item.image.url)} alt={item.image.alt} width={80} height={80} decoding="async" />
                 ) : null}
               </div>
               <div className="cart-item-info">

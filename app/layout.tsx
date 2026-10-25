@@ -40,21 +40,16 @@ export default async function RootLayout({
     <html lang="en" className={hanken.variable}>
       <head>
         {/*
-          Hanken Grotesk (display + body) loads via next/font/google (app/fonts.ts),
-          which emits a stable CSS variable (--font-hanken) that tokens.css consumes.
-
-          Instrument Serif (rare editorial italic) + DM Mono (eyebrow / footer) come
-          from Google Fonts via <link>, not LCP-critical.
+          Fonts: Hanken Grotesk via next/font/google (app/fonts.ts). Instrument
+          Serif + DM Mono are self-hosted (@font-face in app/globals.css);
+          Instrument Serif regular is preloaded because every h1/h2 uses it.
         */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
+          rel="preload"
+          href="/fonts/instrument-serif/instrument-serif-400.woff2"
+          as="font"
+          type="font/woff2"
           crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap"
-          rel="stylesheet"
         />
       </head>
       <body>
