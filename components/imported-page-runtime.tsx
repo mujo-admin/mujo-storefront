@@ -3,6 +3,7 @@
 import { useEffect, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import { useReveal } from "lib/hooks/use-reveal";
+import { useLazyMedia } from "lib/hooks/use-lazy-media";
 import { looxSlugFromPathname, renderLooxForSlug } from "lib/loox";
 import { useCart } from "components/cart/cart-context";
 import { resolvePriceId } from "lib/cart/price-id-map";
@@ -355,6 +356,7 @@ function initReelsMarquee(): () => void {
 export function ImportedPageRuntime({ children }: ImportedPageRuntimeProps) {
   useReveal();
   const pathname = usePathname();
+  useLazyMedia(pathname);
   const { addItem } = useCart();
 
   useEffect(() => {

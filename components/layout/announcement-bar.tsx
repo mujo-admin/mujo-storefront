@@ -77,23 +77,6 @@ export function AnnouncementBar({
           <span className="announce-secondary">{line.secondary}</span>
         </>
       )}
-      <style jsx>{`
-        :global(.announce strong) {
-          color: var(--spark);
-          font-weight: 600;
-        }
-        @media (max-width: 640px) {
-          :global(.announce-secondary) {
-            display: none;
-          }
-        }
-        @media (min-width: 768px) {
-          .announce {
-            padding: 10px 24px !important;
-            font-size: 13px !important;
-          }
-        }
-      `}</style>
     </div>
   );
 }

@@ -27,6 +27,8 @@ export type ImportedHtml = {
   styles: string;
   /** Inner body markup. Already deduped against layout-level chrome. */
   body: string;
+  /** The first-screen picture, for a high-priority preload (may be empty). */
+  heroImages: string[];
 };
 
 export type Splice = {
@@ -217,6 +219,174 @@ function applySplices(html: string, splices: Splice[]): string {
   }, html);
 }
 
+/* ───────────────────────── Mobile speed passes ─────────────────────────
+ * (2026-10-25, plans/2026-10-25-mobile-speed-fixes.md, docs/performance.md)
+ *
+ * The designed pages fade every block in with `.reveal` (opacity 0 until the
+ * runtime marks it `.on`) and give every picture an inline CSS background, so
+ * on a phone the hero stayed blank until the site's code had loaded and every
+ * picture on the page downloaded at once. These passes run last, on the final
+ * markup, so nothing above sees different input than before:
+ *
+ *   - first screen (the opening <section>s up to and including the first one
+ *     that holds a picture): `reveal` removed so it shows at first paint; its
+ *     first picture is reported back for a high-priority preload;
+ *   - the rest: inline background pictures move to `data-bg` (set by
+ *     useLazyMedia() when they come near the screen), <img> without a loading
+ *     attribute become lazy, and autoplay videos wait until they are on screen.
+ *
+ * A page whose first <section> starts far down (journal posts) has no first
+ * screen; only its lower pictures and videos are deferred, its first picture
+ * stays as written.
+ */
+
+/** A first <section> that starts later than this is not the hero. */
+const FIRST_SCREEN_MAX_START = 6000;
+/** Never treat more than this many opening sections as the first screen. */
+const FIRST_SCREEN_MAX_SECTIONS = 2;
+
+const PICTURE_RE = /<img\b|url\(/i;
+
+/** Index just past the `</section>` that closes the `<section` at `start`. */
+function sectionEnd(html: string, start: number): number {
+  const re = /<section\b|<\/section>/gi;
+  re.lastIndex = start;
+  let depth = 0;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(html))) {
+    if (m[0][1] === "/") {
+      depth--;
+      if (depth === 0) return m.index + m[0].length;
+    } else {
+      depth++;
+    }
+  }
+  return -1;
+}
+
+/** Split body markup into [firstScreen, rest]; null when there is no hero section. */
+export function splitFirstScreen(html: string): [string, string] | null {
+  const first = html.search(/<section\b/i);
+  if (first === -1 || first > FIRST_SCREEN_MAX_START) return null;
+  let start = first;
+  let end = first;
+  for (let n = 0; n < FIRST_SCREEN_MAX_SECTIONS; n++) {
+    if (n > 0) {
+      // Extend into the next section only when it follows right away (just
+      // tags or comments between, no text), e.g. the shop heading then its grid.
+      const offset = html.slice(end).search(/<section\b/i);
+      if (offset === -1) break;
+      const between = html.slice(end, end + offset).replace(/<!--[\s\S]*?-->/g, "");
+      if (between.length > 500 || between.replace(/<[^>]+>/g, "").trim() !== "") break;
+      start = end + offset;
+    }
+    const close = sectionEnd(html, start);
+    if (close === -1) break;
+    end = close;
+    if (PICTURE_RE.test(html.slice(start, close))) break;
+  }
+  return [html.slice(0, end), html.slice(end)];
+}
+
+/** Remove the `reveal` token from every class attribute. */
+function unreveal(html: string): string {
+  return html.replace(/\bclass="([^"]*)"/g, (whole, cls: string) => {
+    if (!/(^|\s)reveal(\s|$)/.test(cls)) return whole;
+    const next = cls.split(/\s+/).filter((c) => c && c !== "reveal").join(" ");
+    return `class="${next}"`;
+  });
+}
+
+const BG_URL_RE = /url\(\s*(['"]?)([^'")]+)\1\s*\)/i;
+
+/**
+ * The first-screen picture to preload, when it is a CSS background. A first
+ * <img> needs no preload (the browser sees it in the HTML and it gets
+ * fetchpriority="high"; preloading its src could even fetch the wrong srcset
+ * size), so then nothing is returned.
+ */
+function firstScreenPictures(html: string): string[] {
+  const re = /<img\b[^>]*>|<[a-z][a-z0-9-]*\b[^<>]*\sstyle="[^"]*url\([^"]*"[^<>]*>/gi;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(html))) {
+    const tag = m[0];
+    if (/display:\s*none/i.test(tag)) continue; // desktop-only twin, never shown on a phone
+    if (/^<img\b/i.test(tag)) return [];
+    const url = tag.match(BG_URL_RE)?.[2];
+    if (url && !url.startsWith("data:")) return [url];
+  }
+  return [];
+}
+
+/** Give the first-screen <img> priority and make sure none is lazy. */
+function prioritiseImgs(html: string): string {
+  let first = true;
+  return html.replace(/<img\b[^>]*>/gi, (tag) => {
+    let next = tag.replace(/\sloading="lazy"/i, "");
+    if (first && !/fetchpriority=/i.test(next)) {
+      next = next.replace(/^<img\b/i, '<img fetchpriority="high"');
+    }
+    first = false;
+    return next;
+  });
+}
+
+/**
+ * Move inline background pictures to data-bg, make plain <img> lazy, and stop
+ * autoplay videos from loading before they are on screen.
+ */
+function deferRest(html: string, keepFirstPicture: boolean): string {
+  let keptBg = !keepFirstPicture;
+  let keptImg = !keepFirstPicture;
+  return html.replace(/<([a-z][a-z0-9-]*)\b([^<>]*)>/gi, (tag, name: string, attrs: string) => {
+    const lower = name.toLowerCase();
+    if (lower === "img") {
+      if (!keptImg) {
+        keptImg = true;
+        return tag;
+      }
+      if (/\sloading=/i.test(attrs)) return tag;
+      return tag.replace(/^<img\b/i, '<img loading="lazy" decoding="async"');
+    }
+    if (lower === "video") {
+      if (!/\sautoplay\b/i.test(attrs)) return tag;
+      let next = tag.replace(/\sautoplay\b/i, "").replace(/\spreload="[^"]*"/i, "");
+      next = next.replace(/^<video\b/i, '<video preload="none" data-autoplay');
+      return next;
+    }
+    const style = attrs.match(/\sstyle="([^"]*)"/i);
+    if (!style || !BG_URL_RE.test(style[1]!)) return tag;
+    if (/data-bg=/i.test(attrs)) return tag;
+    const url = style[1]!.match(BG_URL_RE)![2]!;
+    if (url.startsWith("data:")) return tag;
+    if (!keptBg) {
+      keptBg = true;
+      return tag;
+    }
+    // background-image: url(X);  → dropped
+    // background: url(X) center/cover no-repeat;  → background: center/cover no-repeat;
+    const css = style[1]!
+      .replace(/background-image\s*:\s*url\([^)]*\)\s*;?/i, "")
+      .replace(/(background\s*:\s*)url\([^)]*\)\s*/i, "$1")
+      .trim();
+    const safeUrl = url.replace(/"/g, "&quot;");
+    const rebuilt = attrs.replace(style[0], css ? ` style="${css}"` : "");
+    return `<${name} data-bg="${safeUrl}"${rebuilt}>`;
+  });
+}
+
+/** Apply the first-screen and lazy passes. Returns markup + hero pictures. */
+export function applySpeedPasses(html: string): { body: string; heroImages: string[] } {
+  const split = splitFirstScreen(html);
+  if (!split) return { body: deferRest(html, true), heroImages: [] };
+  const [first, rest] = split;
+  const heroImages = firstScreenPictures(first);
+  return {
+    body: prioritiseImgs(unreveal(first)) + deferRest(rest, false),
+    heroImages,
+  };
+}
+
 export async function loadImportedHtml(
   filename: string,
   options: LoadOptions = {},
@@ -234,5 +404,6 @@ export async function loadImportedHtml(
   const deduped = stripScripts(dedupeChrome(body));
   const spliced = options.splices ? applySplices(deduped, options.splices) : deduped;
   const tagged = tagInteractionHooks(spliced);
-  return { styles: scopedStyles, body: tagged };
+  const { body: fast, heroImages } = applySpeedPasses(tagged);
+  return { styles: scopedStyles, body: fast, heroImages };
 }

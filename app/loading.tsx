@@ -3,12 +3,17 @@
  * Renders instantly while server components stream + RSC payload arrives,
  * preventing blank-screen-during-navigation. Replaces the previous-page UI
  * the moment the user clicks a Link.
+ *
+ * It also shows for a moment on a first visit, while the page body streams in
+ * after the header. It fills the whole screen (100svh) so the footer stays
+ * below it: at 60vh the footer showed underneath and then jumped down when the
+ * page arrived, a large layout shift on phones (2026-10-25 speed pass).
  */
 export default function Loading() {
   return (
     <div
       style={{
-        minHeight: "60vh",
+        minHeight: "100svh",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
