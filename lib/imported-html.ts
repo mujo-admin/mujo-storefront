@@ -17,6 +17,7 @@
  * Ritual PDP, Lemna landing) get surgical JSX refactors post-cutover.
  */
 
+import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 
@@ -351,6 +352,8 @@ function deferRest(html: string, keepFirstPicture: boolean): string {
     if (lower === "video") {
       if (!/\sautoplay\b/i.test(attrs)) return tag;
       let next = tag.replace(/\sautoplay\b/i, "").replace(/\spreload="[^"]*"/i, "");
+      // The cover image would still download up front; set it when near.
+      next = next.replace(/\sposter="([^"]*)"/i, ' data-poster="$1"');
       next = next.replace(/^<video\b/i, '<video preload="none" data-autoplay');
       return next;
     }
@@ -375,8 +378,23 @@ function deferRest(html: string, keepFirstPicture: boolean): string {
   });
 }
 
+/**
+ * Product gallery thumbnails are ~70–120px tiles but were pointed at the 800px
+ * pictures (40–90 KB each, all loading with the main photo). Use the 400px
+ * version when it exists on disk; the full-size photo on tap is unchanged.
+ */
+const PUBLIC_DIR = path.join(process.cwd(), "public");
+function smallThumbs(html: string): string {
+  return html.replace(/<[a-z]+\b[^<>]*class="[^"]*\bgallery-thumb\b[^"]*"[^<>]*>/gi, (tag) =>
+    tag.replace(/url\(\s*(['"]?)(\/images\/[^'")]+)-800\.webp\1\s*\)/gi, (whole, q: string, stem: string) =>
+      existsSync(path.join(PUBLIC_DIR, `${stem}-400.webp`)) ? `url(${q}${stem}-400.webp${q})` : whole,
+    ),
+  );
+}
+
 /** Apply the first-screen and lazy passes. Returns markup + hero pictures. */
-export function applySpeedPasses(html: string): { body: string; heroImages: string[] } {
+export function applySpeedPasses(input: string): { body: string; heroImages: string[] } {
+  const html = smallThumbs(input);
   const split = splitFirstScreen(html);
   if (!split) return { body: deferRest(html, true), heroImages: [] };
   const [first, rest] = split;

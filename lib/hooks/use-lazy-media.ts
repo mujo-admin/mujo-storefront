@@ -23,6 +23,9 @@ export function useLazyMedia(key?: string) {
     const videos = Array.from(
       document.querySelectorAll<HTMLVideoElement>("video[data-autoplay]"),
     );
+    const posters = Array.from(
+      document.querySelectorAll<HTMLVideoElement>("video[data-poster]:not([poster])"),
+    );
 
     const showBg = (el: HTMLElement) => {
       const url = el.dataset.bg;
@@ -35,8 +38,13 @@ export function useLazyMedia(key?: string) {
       if (p) p.catch(() => {});
     };
 
+    const showPoster = (v: HTMLVideoElement) => {
+      if (v.dataset.poster) v.poster = v.dataset.poster;
+    };
+
     if (!("IntersectionObserver" in window)) {
       bgEls.forEach(showBg);
+      posters.forEach(showPoster);
       videos.forEach(play);
       return;
     }
@@ -71,6 +79,31 @@ export function useLazyMedia(key?: string) {
     );
     groups.forEach((_els, target) => bgObs.observe(target));
 
+    // Video covers: the review strip is a moving marquee (two copies of the
+    // set, the second starting off screen) whose cards clip their own video,
+    // so a card only "intersects" once it slides in. Watch the section the
+    // strip sits in and give every video in it its cover at once.
+    const clipperOf = (el: HTMLElement): HTMLElement | null =>
+      el.closest<HTMLElement>("section") ?? el.parentElement;
+    const posterGroups = new Map<Element, HTMLVideoElement[]>();
+    for (const v of posters) {
+      const target = clipperOf(v) ?? v;
+      const list = posterGroups.get(target);
+      if (list) list.push(v);
+      else posterGroups.set(target, [v]);
+    }
+    const posterObs = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (!e.isIntersecting) continue;
+          posterGroups.get(e.target)?.forEach(showPoster);
+          posterObs.unobserve(e.target);
+        }
+      },
+      { rootMargin: "800px 0px" },
+    );
+    posterGroups.forEach((_v, target) => posterObs.observe(target));
+
     const vidObs = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
@@ -84,6 +117,7 @@ export function useLazyMedia(key?: string) {
     videos.forEach((v) => vidObs.observe(v));
 
     return () => {
+      posterObs.disconnect();
       bgObs.disconnect();
       vidObs.disconnect();
     };
