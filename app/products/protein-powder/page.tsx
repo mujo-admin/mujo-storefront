@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import { ImportedPage } from "components/imported-page";
 import { ProductAnalytics } from "components/integrations/product-analytics";
 import type { Splice } from "lib/imported-html";
-import { ProteinPdpClient } from "components/product/protein-pdp-client";
+import {
+  ProteinSelectionProvider,
+  ProteinBuyBoxSlot,
+  ProteinStickyAtcSlot,
+} from "components/product/protein-pdp-client";
 import {
   productSchema,
   breadcrumbSchema,
@@ -74,8 +78,12 @@ export default function ProteinPdpPage() {
       <ImportedPage
         filename="mujo_protein_powder_pdp.html"
         splices={PROTEIN_SPLICES}
+        provider={ProteinSelectionProvider}
+        slots={{
+          "protein-buybox": <ProteinBuyBoxSlot />,
+          "protein-sticky-atc": <ProteinStickyAtcSlot />,
+        }}
       />
-      <ProteinPdpClient />
     </>
   );
 }
