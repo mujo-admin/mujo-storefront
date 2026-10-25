@@ -63,12 +63,21 @@ not also POST to `/api/meta/convert`.
 ## How events reach GA4
 
 `track()` calls `gtag('event', name, { …, send_to: <GA4 id> })`, which goes
-straight to the GA4 property. It also pushes the same event to `dataLayer` so a
-future tag in GTM (Google Ads, for example) can use it.
+straight to the GA4 property. It also pushes the same event to `dataLayer`.
 
-The GTM container holds one tag: the Google tag for `G-7BFMH4PZRD`. **Do not
-add GA4 event tags in GTM for the events in the table above**; the code already
-sends them and each would be counted twice. Until 2026-10-06 only the
+**Since 2026-10-25 GTM is no longer loaded.** Its container held one tag, the
+Google tag for `G-7BFMH4PZRD`, so `gtag.js` is now loaded directly (with
+`gtag('config', …)`) after the page has loaded, from
+`components/integrations/analytics-scripts.tsx` (see `docs/performance.md`).
+A new tag (Google Ads, for example) is added there in code. If GTM is ever
+brought back, **do not add GA4 event tags in it for the events in the table
+above**; the code already sends them and each would be counted twice.
+
+Tag libraries load after the page (Meta and GA4 at the first idle moment after
+`load`, Klaviyo 5 s+ later; on `/checkout` they wait for Stripe's form). Calls
+made earlier wait in the `gtag`/`dataLayer`, `fbq` and `_klOnsite` queues, so
+nothing is lost, but a visitor who leaves before the page finishes loading is
+not counted as a page view. Until 2026-10-06 only the
 `dataLayer` push existed, the container forwarded nothing, and GA4 received page
 views only: there is no ecommerce history in GA4 before that date.
 
@@ -176,7 +185,7 @@ Measurement Protocol secret.
 
 ## Consent
 
-Google Consent Mode v2 is initialised **before** GTM loads.
+Google Consent Mode v2 is initialised **before** any tag loads.
 
 - Default outside the EEA/UK: granted (Mujo ships US-only)
 - Default inside the EEA/UK: denied until the visitor accepts
