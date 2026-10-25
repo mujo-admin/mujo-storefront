@@ -426,6 +426,14 @@ h1 .serif-accent, h2 .serif-accent, h3 .serif-accent {
 .reveal.on {
   transform: translateY(0);
 }
+/* Fail-safe: some page designs hide .reveal with opacity:0 until the script
+   adds .on. Before useReveal() has run (slow or failed script), keep them
+   visible so a page is never left with blank sections. */
+html:not([data-reveal-ready]) .reveal {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
 .reveal.d1 { transition-delay: 80ms; }
 .reveal.d2 { transition-delay: 160ms; }
 .reveal.d3 { transition-delay: 240ms; }
