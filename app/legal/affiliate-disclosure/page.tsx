@@ -4,7 +4,7 @@ import { ImportedPage } from "components/imported-page";
 export const metadata: Metadata = {
   title: "Affiliate Disclosure",
   description:
-    "FTC § 16 CFR 255 affiliate disclosure. 15% commission on referred sales.",
+    "FTC § 16 CFR 255 affiliate disclosure. 20% commission on first orders from new customers.",
   alternates: { canonical: "/legal/affiliate-disclosure" },
 };
 

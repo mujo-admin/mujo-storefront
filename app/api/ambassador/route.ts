@@ -10,7 +10,10 @@ const requestSchema = z.object({
   website: z.string().trim().max(200).optional(),
   name: z.string().trim().min(1).max(120),
   email: z.string().trim().email(),
-  country: z.string().trim().min(1).max(80),
+  state: z.string().trim().min(1).max(80),
+  // US-only program: the applicant must tick "I am a US-based creator with a
+  // US audience". The form blocks it too; this stops a direct POST.
+  usCreator: z.literal("yes"),
   platform: z.string().trim().min(1).max(60),
   profileLink: z.string().trim().min(1).max(300),
   otherLinks: z.string().trim().max(400).optional(),
@@ -66,7 +69,9 @@ export async function POST(req: NextRequest) {
           $first_name: parsed.name,
           ambassador_applicant: true,
           source: "Ambassador application",
-          AmbassadorCountry: parsed.country,
+          AmbassadorCountry: "United States",
+          AmbassadorState: parsed.state,
+          AmbassadorUSCreator: true,
           AmbassadorPlatform: parsed.platform,
           AmbassadorProfileLink: parsed.profileLink,
           AmbassadorOtherLinks: parsed.otherLinks ?? null,
@@ -95,7 +100,8 @@ export async function POST(req: NextRequest) {
       metric: "Submitted Ambassador Application",
       properties: {
         Name: parsed.name,
-        Country: parsed.country,
+        Country: "United States",
+        State: parsed.state,
         Platform: parsed.platform,
         ProfileLink: parsed.profileLink,
         OtherLinks: parsed.otherLinks ?? null,
@@ -123,7 +129,8 @@ export async function POST(req: NextRequest) {
         text: [
           `Name:           ${parsed.name}`,
           `Email:          ${parsed.email}`,
-          `Country:        ${parsed.country}`,
+          `State (US):     ${parsed.state}`,
+          `US creator:     yes (ticked)`,
           `Platform:       ${parsed.platform}`,
           `Profile link:   ${parsed.profileLink}`,
           parsed.otherLinks ? `Other links:    ${parsed.otherLinks}` : null,

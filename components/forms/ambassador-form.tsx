@@ -43,7 +43,7 @@ type FormStatus = "idle" | "loading" | "sent" | "error";
 const REQUIRED_FIELDS: readonly (readonly [string, string])[] = [
   ["name", "your full name"],
   ["email", "your email"],
-  ["country", "your country"],
+  ["state", "your US state"],
   ["platform", "your primary platform"],
   ["profileLink", "a link to your profile"],
   ["whoYouAre", "who you are"],
@@ -51,6 +51,7 @@ const REQUIRED_FIELDS: readonly (readonly [string, string])[] = [
   ["audience", "who your audience is"],
   ["usesMujo", "whether you already use Mujo"],
   ["why", "why Mujo"],
+  ["usCreator", "the US-based creator box"],
 ];
 
 const SELECT_FIELDS = new Set([
@@ -63,7 +64,7 @@ const SELECT_FIELDS = new Set([
 // Same limits as the server (app/api/ambassador/route.ts).
 const MAX_LENGTHS: Record<string, number> = {
   name: 120,
-  country: 80,
+  state: 80,
   profileLink: 300,
   otherLinks: 400,
   audience: 300,
@@ -76,7 +77,7 @@ const MAX_LENGTHS: Record<string, number> = {
 const FIELD_ORDER = [
   "name",
   "email",
-  "country",
+  "state",
   "platform",
   "profileLink",
   "otherLinks",
@@ -87,6 +88,7 @@ const FIELD_ORDER = [
   "usesMujo",
   "why",
   "extra",
+  "usCreator",
 ];
 
 /**
@@ -151,9 +153,12 @@ function Form() {
     const problems: Record<string, string> = {};
     for (const [key] of REQUIRED_FIELDS) {
       if (!payload[key]) {
-        problems[key] = SELECT_FIELDS.has(key)
-          ? "Please choose one."
-          : "Please fill this in.";
+        problems[key] =
+          key === "usCreator"
+            ? "Right now this program is for US-based creators only."
+            : SELECT_FIELDS.has(key)
+              ? "Please choose one."
+              : "Please fill this in.";
       }
     }
     if (payload.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) {
@@ -250,6 +255,10 @@ function Form() {
         </label>
       </div>
 
+      <p className="amb-notice">
+        At the moment, we&rsquo;re only able to offer affiliate partnerships
+        to US-based creators.
+      </p>
       <div className="amb-row">
         <Field errors={fieldErrors} name="name" label="Full name" required />
         <Field
@@ -263,8 +272,9 @@ function Form() {
       <div className="amb-row">
         <Field
           errors={fieldErrors}
-          name="country"
-          label="Country you're based in"
+          name="state"
+          label="US state you're based in"
+          placeholder="e.g. Illinois"
           required
         />
         <Select
@@ -342,6 +352,28 @@ function Form() {
         multiline
         optional
       />
+      <label
+        htmlFor="amb-usCreator"
+        className={`amb-check${fieldErrors.usCreator ? " amb-invalid" : ""}`}
+      >
+        <input
+          id="amb-usCreator"
+          name="usCreator"
+          type="checkbox"
+          value="yes"
+          required
+          aria-invalid={fieldErrors.usCreator ? true : undefined}
+        />
+        <span className="amb-label-text">
+          I am a US-based creator with a US audience.
+          <span className="amb-req">*</span>
+        </span>
+        {fieldErrors.usCreator && (
+          <span className="amb-field-error" role="alert">
+            {fieldErrors.usCreator}
+          </span>
+        )}
+      </label>
       <button
         type="submit"
         className="amb-submit"
@@ -499,6 +531,20 @@ const ambStyles = `
   @media (max-width: 599px) {
     .amb-form .amb-row label + label { margin-top: 26px; }
   }
+  .amb-notice {
+    font-family: var(--f-body); font-size: 15px; line-height: 1.5; font-weight: 600;
+    color: #fff; margin: 0; padding: 12px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.25); border-radius: var(--radius-input, 8px);
+  }
+  .amb-form label.amb-check {
+    display: grid; grid-template-columns: 22px 1fr; grid-template-rows: auto;
+    column-gap: 12px; row-gap: 6px; align-items: start; cursor: pointer;
+  }
+  .amb-form .amb-check input {
+    width: 22px; height: 22px; margin: 0; padding: 0; accent-color: var(--orange);
+  }
+  .amb-form .amb-check .amb-field-error { grid-column: 2; }
+  .amb-form .amb-check.amb-invalid input { outline: 2px solid #ff8a66; outline-offset: 2px; }
   .amb-hint { font-family: var(--f-body); font-size: 13px; line-height: 1.4; color: rgba(255, 255, 255, 0.7); }
   .amb-field-error { font-family: var(--f-body); font-size: 13.5px; line-height: 1.4; font-weight: 600; color: #ffb59e; }
   .amb-form .amb-invalid input,
