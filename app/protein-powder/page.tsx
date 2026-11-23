@@ -3,7 +3,7 @@ import { ImportedPage } from "components/imported-page";
 import { webPageSchema, mujoBrand, jsonLdScript } from "lib/schema";
 
 const DESCRIPTION =
-  "Meet Mujo Protein Powder: the first protein powder made with Lemna leaf. 22g of complete plant protein, 0g sugar, blended creamy like a milkshake. Pre-order now.";
+  "Meet Mujo Protein Powder: the first protein powder made with Lemna leaf. 22g of complete plant protein, 0g sugar, blended creamy like a milkshake. Now shipping.";
 
 export const metadata: Metadata = {
   title: "Plant-Based Protein Powder Made With Lemna Leaf",
