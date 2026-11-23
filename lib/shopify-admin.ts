@@ -377,6 +377,51 @@ export async function createOrder(
   return data.orderCreate.order;
 }
 
+/**
+ * The Shopify order already made for a Stripe charge, if there is one.
+ *
+ * Every mirrored order carries the charge id in the `mujo_commerce.
+ * stripe_charge_id` metafield. A webhook that is retried after Shopify made the
+ * order but before our own record of it was saved would otherwise create a
+ * second paid order; this lets the retry find the first one instead. Shopify
+ * cannot search orders by metafield, so we read the customer's most recent
+ * orders (a retry always comes soon after the original attempt).
+ */
+export async function findOrderByStripeChargeId(
+  customerGid: string,
+  chargeId: string,
+): Promise<ShopifyOrder | null> {
+  const data = await adminFetch<{
+    customer: {
+      orders: {
+        nodes: Array<ShopifyOrder & { stripeChargeId: { value: string } | null }>;
+      };
+    } | null;
+  }>({
+    query: /* GraphQL */ `
+      query OrdersForChargeLookup($id: ID!) {
+        customer(id: $id) {
+          orders(first: 25, sortKey: CREATED_AT, reverse: true) {
+            nodes {
+              id
+              name
+              legacyResourceId
+              stripeChargeId: metafield(namespace: "mujo_commerce", key: "stripe_charge_id") {
+                value
+              }
+            }
+          }
+        }
+      }
+    `,
+    variables: { id: customerGid },
+  });
+  const match = data.customer?.orders.nodes.find(
+    (order) => order.stripeChargeId?.value === chargeId,
+  );
+  return match ? { id: match.id, name: match.name, legacyResourceId: match.legacyResourceId } : null;
+}
+
 // --- Refunds ----------------------------------------------------------------
 
 export type ShopifyOrderForRefund = {
