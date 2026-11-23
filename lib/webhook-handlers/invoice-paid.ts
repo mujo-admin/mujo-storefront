@@ -17,6 +17,7 @@ import {
 } from 'lib/stripe-constants';
 import { trackOrderPlaced } from 'lib/klaviyo';
 import { sendCapiEvent } from 'lib/meta-capi';
+import { sendGa4Purchase } from 'lib/ga4-server';
 import {
   attributionFromMetadata,
   capiUserData,
@@ -347,6 +348,23 @@ export async function handleInvoicePaid(event: Stripe.Event) {
         ? sub.metadata.mujo_event_id
         : undefined;
     const sendPurchase = Boolean(eventId);
+
+    // GA4 transaction id = the Checkout Session id, as on the success page,
+    // so a subscription and a one-time order are keyed the same way. Falls
+    // back to the invoice id (e.g. a subscription made outside Checkout).
+    let ga4TransactionId = invoice.id ?? stripeSubscriptionId ?? 'unknown';
+    if (stripeSubscriptionId) {
+      try {
+        const sessions = await stripe.checkout.sessions.list({
+          subscription: stripeSubscriptionId,
+          limit: 1,
+        });
+        if (sessions.data[0]?.id) ga4TransactionId = sessions.data[0].id;
+      } catch (err) {
+        console.error('[invoice.paid] checkout session lookup for GA4 failed', err);
+      }
+    }
+
     await Promise.allSettled([
       trackOrderPlaced({
         email,
@@ -369,11 +387,21 @@ export async function handleInvoicePaid(event: Stripe.Event) {
             console.error('[invoice.paid] Meta CAPI Purchase failed', err),
           )
         : Promise.resolve(),
+      sendGa4Purchase({
+        transactionId: ga4TransactionId,
+        value,
+        currency,
+        tax: (invoice.total_taxes ?? []).reduce((s, t) => s + (t.amount ?? 0), 0) / 100,
+        items: analyticsItems,
+        attribution,
+        purchaseType: 'subscription',
+      }),
     ]);
     console.log('[invoice.paid] analytics sent', {
       invoice: invoice.id,
       klaviyo: true,
       metaPurchase: sendPurchase,
+      ga4: ga4TransactionId,
     });
   }
 }

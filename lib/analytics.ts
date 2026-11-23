@@ -229,6 +229,10 @@ function sendToGa4(
 ): void {
   const ga4Id = process.env.NEXT_PUBLIC_GA4_ID;
   if (!ga4Id || name === "page_view") return;
+  // purchase reaches GA4 from the Stripe webhook (lib/ga4-server.ts), which
+  // also counts buyers whose browser blocks GA. Sending it here as well would
+  // count those who don't block it twice.
+  if (name === "purchase") return;
   if (typeof window.gtag !== "function") return;
   window.gtag("event", name, { ...params, event_id: eventId, send_to: ga4Id });
 }

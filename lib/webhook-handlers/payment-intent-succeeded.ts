@@ -11,6 +11,7 @@ import { db, orderMirror } from 'db';
 import { stripe } from 'lib/stripe';
 import { trackOrderPlaced } from 'lib/klaviyo';
 import { sendCapiEvent } from 'lib/meta-capi';
+import { sendGa4Purchase } from 'lib/ga4-server';
 import {
   attributionFromMetadata,
   capiUserData,
@@ -226,5 +227,13 @@ export async function handlePaymentIntentSucceeded(event: Stripe.Event) {
           console.error('[pi.succeeded] Meta CAPI Purchase failed', err),
         )
       : Promise.resolve(),
+    sendGa4Purchase({
+      transactionId: pi.id,
+      value,
+      currency,
+      items: analyticsItems,
+      attribution,
+      purchaseType: 'onetime',
+    }),
   ]);
 }
