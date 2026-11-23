@@ -1,23 +1,30 @@
 import { NextRequest } from "next/server";
 import { z } from "zod";
-import { subscribeToList, trackEvent } from "lib/klaviyo";
+import { subscribeToList } from "lib/klaviyo";
 
 export const dynamic = "force-dynamic";
 
 const requestSchema = z.object({
   email: z.string().email(),
   /** Logical source — routed to a single master list with profile properties. */
-  list: z
-    .enum([
-      "lemna_waitlist",
-      "ambassador_applications",
-      "rebel_club",
-      "ritual_quiz",
-    ])
-    .optional(),
+  // Only the lists a signup form on the site actually uses (SIGNUP_FORMS in
+  // components/imported-page-runtime.tsx). Ambassador applications have their
+  // own route; the quiz was removed.
+  list: z.enum(["lemna_waitlist", "rebel_club"]).optional(),
   source: z.string().max(80).optional(),
-  properties: z.record(z.string(), z.unknown()).optional(),
+  // The one property a signup form sends. Anything else in the request is
+  // dropped: this endpoint is public, and free-form properties let anyone
+  // overwrite fields on any customer's Klaviyo profile.
+  properties: z.object({ mujo_tribe: z.string().trim().max(60).optional() }).optional(),
 });
+
+// Source labels the site's own forms send. An unknown label falls back to the
+// list's default, so the public endpoint cannot write arbitrary text.
+const KNOWN_SOURCES = new Set([
+  "Rebel Club signup",
+  "Lemna waitlist",
+  "Protein powder page",
+]);
 
 /**
  * Single-master-list pattern:
@@ -36,22 +43,10 @@ const PROPERTIES_BY_SOURCE: Record<string, Record<string, unknown>> = {
     signup_source: "lemna_landing",
     source: "Lemna waitlist",
   },
-  ambassador_applications: {
-    ambassador_applicant: true,
-    signup_source: "ambassador",
-    source: "Ambassador",
-  },
   rebel_club: {
     rebel_club_member: true,
     signup_source: "rebel_club",
     source: "Rebel Club",
-  },
-  // Default signup_source for the quiz is homepage_quiz; the quiz client
-  // overrides it to ritual_landing_quiz when opened from /ritual.
-  ritual_quiz: {
-    quiz_completed: true,
-    signup_source: "homepage_quiz",
-    source: "Ritual quiz",
   },
 };
 
@@ -77,13 +72,15 @@ export async function POST(req: NextRequest) {
 
   const sourceKey = parsed.list ?? "lemna_waitlist";
   const baseProperties = PROPERTIES_BY_SOURCE[sourceKey] ?? {};
-  const merged = {
+  const merged: Record<string, unknown> = {
     ...baseProperties,
-    ...((parsed.properties as Record<string, unknown>) ?? {}),
+    ...(parsed.properties?.mujo_tribe
+      ? { mujo_tribe: parsed.properties.mujo_tribe }
+      : {}),
   };
 
   const sourceLabel =
-    parsed.source ??
+    (parsed.source && KNOWN_SOURCES.has(parsed.source) ? parsed.source : undefined) ??
     (typeof baseProperties.source === "string"
       ? baseProperties.source
       : undefined) ??
@@ -96,20 +93,6 @@ export async function POST(req: NextRequest) {
       customSource: sourceLabel,
       properties: merged,
     });
-
-    // Quiz completions fire a distinct metric event so the quiz-result flow can
-    // trigger instantly (and be sequenced ahead of the welcome flow, which
-    // carries a small starting delay in Klaviyo). Fire-and-forget.
-    if (sourceKey === "ritual_quiz") {
-      await trackEvent({
-        email: parsed.email,
-        metric: "Completed Quiz",
-        properties: {
-          quiz_profile: merged.quiz_profile ?? null,
-          signup_source: merged.signup_source ?? "homepage_quiz",
-        },
-      });
-    }
   } catch (err) {
     console.error("[klaviyo/subscribe] failed", err);
   }

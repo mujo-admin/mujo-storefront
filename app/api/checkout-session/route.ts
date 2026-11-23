@@ -185,6 +185,8 @@ export async function POST(req: NextRequest) {
   const restorePath = buildRestorePath(parsed.items);
   const trackingMetadata: Record<string, string> = {
     ...attribution,
+    // Carried to the webhook so the server-sent Meta Purchase is skipped too.
+    ...(parsed.trackingDeclined ? { tracking_declined: '1' } : {}),
     ...(restorePath ? { restore: restorePath.slice(0, 480) } : {}),
   };
 
@@ -276,7 +278,13 @@ export async function POST(req: NextRequest) {
     // first_time_transaction only) rides on, plus any partner / press codes.
     params.allow_promotion_codes = true;
   } else if (mode === 'subscription') {
-    params.subscription_data = { metadata: { ...attribution, mujo_event_id: eventId } };
+    params.subscription_data = {
+      metadata: {
+        ...attribution,
+        ...(parsed.trackingDeclined ? { tracking_declined: '1' } : {}),
+        mujo_event_id: eventId,
+      },
+    };
     // The 15% subscriber discount is BAKED INTO the subscription Price (mirrored
     // at $55.25, not $65 + coupon — see scripts/mirror-shopify-to-stripe.ts). We
     // apply NO coupon here, which leaves Stripe Checkout's single discount slot
@@ -386,8 +394,11 @@ export async function POST(req: NextRequest) {
     // after(): runs once the response is sent and keeps the function alive
     // until it finishes. A bare fire-and-forget call can be cut off on serverless.
     const referer = req.headers.get('referer') ?? undefined;
+    // Not sent for a shopper who chose "No thanks" on the cookie bar.
     after(() =>
-      sendCapiEvent({
+      parsed.trackingDeclined
+        ? Promise.resolve()
+        : sendCapiEvent({
         eventName: 'InitiateCheckout',
         eventId,
         eventSourceUrl: referer,

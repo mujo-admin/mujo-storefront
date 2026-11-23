@@ -39,6 +39,12 @@ function persist(choice: "granted" | "denied") {
     ad_personalization: choice,
     analytics_storage: choice,
   });
+  // Meta's own consent switch, so the pixel library itself stops (or resumes)
+  // sending. track() in lib/analytics.ts also checks the stored choice.
+  (window as unknown as { fbq?: (...args: unknown[]) => void }).fbq?.(
+    "consent",
+    choice === "granted" ? "grant" : "revoke",
+  );
 }
 
 export function CookieConsent() {

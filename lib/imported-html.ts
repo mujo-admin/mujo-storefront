@@ -180,6 +180,8 @@ function tagInteractionHooks(html: string): string {
     // catch-all below so they win the rewrite.
     .replace(/onsubmit="handleJoin\(event\)"/g, 'data-mujo-form="rebel-club"')
     .replace(/onsubmit="return submit(?:HeroForm|FinalCta)\(event\);"/g, 'data-mujo-form="lemna-waitlist"')
+    // The /contact form posts to /api/contact (handled in the runtime).
+    .replace(/onsubmit="handleContact\(event\)"/g, 'data-mujo-form="contact"')
     // Any other inline onsubmit is made inert: the runtime preventDefaults
     // data-mujo-form="generic" (the original handler <script> was stripped, so
     // leaving the attribute would either throw or trigger a native page reload).

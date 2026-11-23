@@ -347,7 +347,8 @@ export async function handleInvoicePaid(event: Stripe.Event) {
       typeof sub.metadata?.mujo_event_id === 'string'
         ? sub.metadata.mujo_event_id
         : undefined;
-    const sendPurchase = Boolean(eventId);
+    // No Meta Purchase for a shopper who chose "No thanks" on the cookie bar.
+    const sendPurchase = Boolean(eventId) && sub.metadata?.tracking_declined !== '1';
 
     // GA4 transaction id = the Checkout Session id, as on the success page,
     // so a subscription and a one-time order are keyed the same way. Falls

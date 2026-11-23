@@ -28,6 +28,7 @@ import {
   klaviyoIdentify,
   klaviyoTrack,
   klaviyoViewedItem,
+  trackingDeclined,
   klaviyoViewedProductProps,
 } from "lib/klaviyo-onsite";
 
@@ -185,6 +186,9 @@ export function track(
   if (config.klaviyo) sendToKlaviyo(name, params, options, eventId);
 
   if (!config.meta) return;
+  // "No thanks" on the cookie bar covers Meta too: no browser pixel event and
+  // no server mirror for this visitor (the cookie policy promises that choice).
+  if (trackingDeclined()) return;
   const metaParams = toMetaParams(params);
 
   // 2. Browser pixel.
