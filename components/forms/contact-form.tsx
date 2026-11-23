@@ -16,7 +16,7 @@ type FormStatus = "idle" | "loading" | "sent" | "error";
 
 /**
  * <ContactForm /> — POST → /api/contact (sends a Resend notification to
- * kinga@mujoworld.com; adds the sender to the Klaviyo list only when they tick
+ * hello@mujoworld.com; adds the sender to the Klaviyo list only when they tick
  * the "send me Mujo news" box).
  */
 export function ContactForm() {

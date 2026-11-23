@@ -194,7 +194,7 @@ const SIGNUP_FORMS: Record<
 };
 
 /**
- * /contact form → /api/contact (emails the message to the Mujo inbox; adds the
+ * /contact form → /api/contact (emails the message to hello@mujoworld.com; adds the
  * sender to the email list only if they ticked the box). On success the form
  * is replaced by a thank-you line; on failure it stays filled in and points
  * the sender at the email address, so a message is never silently lost.

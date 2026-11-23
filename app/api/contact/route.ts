@@ -25,7 +25,7 @@ const oneLine = (s: string) => s.replace(/[\r\n]+/g, " ").trim();
  * POST target for <ContactForm />.
  * 1. Subscribes the email to the configured Klaviyo Contact list (with topic
  *    + orderNumber as profile properties).
- * 2. Sends a notification email via Resend to kinga@mujoworld.com.
+ * 2. Sends a notification email via Resend to hello@mujoworld.com.
  */
 export async function POST(req: NextRequest) {
   let parsed: z.infer<typeof requestSchema>;
@@ -77,7 +77,7 @@ export async function POST(req: NextRequest) {
       const resend = new Resend(resendKey);
       await resend.emails.send({
         from: "Mujo Contact Form <hello@mujoworld.com>",
-        to: ["kinga@mujoworld.com"],
+        to: ["hello@mujoworld.com"],
         replyTo: parsed.email,
         subject: oneLine(`[Contact] ${parsed.topic} — ${parsed.name}`),
         text: [
