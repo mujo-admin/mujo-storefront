@@ -77,7 +77,32 @@ async function cancelIfDuplicate(sub: Stripe.Subscription): Promise<boolean> {
     limit: 100,
   });
 
-  const olderKeeper = all.data.find((other) => {
+  // A guest checkout makes a new Stripe Customer on every attempt, so the three
+  // pay attempts of the May 2026 double-bill land on three DIFFERENT Customers
+  // and the list above only ever sees one of them. Look at the other Customers
+  // with the same email too.
+  const candidates = [...all.data];
+  try {
+    const self = await stripe.customers.retrieve(customerId);
+    const email = !self.deleted ? self.email : null;
+    if (email) {
+      const sameEmail = await stripe.customers.list({ email, limit: 10 });
+      for (const other of sameEmail.data) {
+        if (other.id === customerId) continue;
+        const theirs = await stripe.subscriptions.list({
+          customer: other.id,
+          status: "all",
+          limit: 20,
+        });
+        candidates.push(...theirs.data);
+      }
+    }
+  } catch (err) {
+    // Never let the wider look-up stop the same-Customer check below.
+    console.error("[sub.created/dedup] same-email customer lookup failed", err);
+  }
+
+  const olderKeeper = candidates.find((other) => {
     if (other.id === sub.id) return false;
     if (!LIVE_STATUSES.has(other.status)) return false;
     if (other.items.data[0]?.price.id !== thisPriceId) return false;

@@ -16,11 +16,11 @@
 // The customer's main subscription is unaffected — this is a one-time
 // PaymentIntent, not a sub-mgmt action.
 
-import type { NextRequest } from "next/server";
+import { after, type NextRequest } from "next/server";
 import { and, desc, eq, inArray } from "drizzle-orm";
 import Stripe from "stripe";
 import { z } from "zod";
-import { randomUUID } from "node:crypto";
+import { createHash } from "node:crypto";
 import { customers, db, subscriptions } from "db";
 import { stripe } from "lib/stripe";
 import { getSession } from "lib/session";
@@ -74,6 +74,13 @@ const ALLOWED_GIFT_PRICE_IDS: Set<string> = new Set(
     RITUAL_PRICE_IDS["25-subscription"],
   ].filter((id) => id.length > 0),
 );
+
+// A gift is an immediate charge on the saved card, so it gets two guards:
+//  - the same gift sent twice within a few minutes (double tap, retry after a
+//    slow response) is charged once;
+//  - a daily ceiling, so a stolen session cannot run up charges.
+const SAME_GIFT_WINDOW_SECONDS = 10 * 60;
+const MAX_GIFTS_PER_DAY = 3;
 
 export async function POST(req: NextRequest) {
   const session = await getSession();
@@ -212,11 +219,113 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const eventId = randomUUID();
+    // Sales tax, worked out by Stripe Tax for the address the gift ships to,
+    // exactly as checkout does for every other order. Until 2026-11-23 a gift
+    // was charged at the bare price with no tax at all.
+    const shipTo = {
+      line1: parsed.shippingAddress.line1,
+      line2: parsed.shippingAddress.line2,
+      city: parsed.shippingAddress.city,
+      state: parsed.shippingAddress.state,
+      postal_code: parsed.shippingAddress.postalCode,
+      country: "US",
+    };
+    let taxCalculation: Stripe.Tax.Calculation;
+    try {
+      taxCalculation = await stripe.tax.calculations.create({
+        currency,
+        line_items: [
+          {
+            amount: effectiveAmountCents,
+            reference: "gift",
+            tax_behavior: "exclusive",
+            ...(typeof giftPrice.product === "string"
+              ? { product: giftPrice.product }
+              : {}),
+          },
+        ],
+        customer_details: { address: shipTo, address_source: "shipping" },
+      });
+    } catch (err) {
+      console.error("[send-gift] tax calculation failed", err);
+      return Response.json(
+        {
+          error: "tax_unavailable",
+          message:
+            "We couldn't work out sales tax for that address. Please check the address and try again.",
+        },
+        { status: 400 },
+      );
+    }
+    const totalCents = taxCalculation.amount_total;
+    // Carried on the payment so the Shopify order shows the same tax lines.
+    const giftTaxes = (taxCalculation.tax_breakdown ?? [])
+      .filter((b) => b.amount > 0)
+      .map((b) => ({
+        t: `${b.tax_rate_details?.state ?? ""} Sales Tax`.trim(),
+        r: Number(b.tax_rate_details?.percentage_decimal ?? 0),
+        a: b.amount,
+      }));
+
+    // What makes two requests "the same gift": same product, same recipient,
+    // same address, same note.
+    const fingerprint = createHash("sha256")
+      .update(
+        JSON.stringify([
+          priceId,
+          parsed.recipientEmail,
+          parsed.shippingAddress,
+          parsed.giftMessage ?? "",
+        ]),
+      )
+      .digest("hex")
+      .slice(0, 32);
+    const nowSec = Math.floor(Date.now() / 1000);
+
+    const recent = await stripe.paymentIntents.list({
+      customer: customer.stripeCustomerId,
+      created: { gte: nowSec - 24 * 60 * 60 },
+      limit: 100,
+    });
+    const recentGifts = recent.data.filter(
+      (p) =>
+        p.metadata?.gift_order === "true" &&
+        (p.status === "succeeded" || p.status === "processing"),
+    );
+    const sameGift = recentGifts.find(
+      (p) =>
+        p.metadata?.gift_fingerprint === fingerprint &&
+        nowSec - p.created < SAME_GIFT_WINDOW_SECONDS,
+    );
+    if (sameGift) {
+      // Already charged a moment ago: report success, charge nothing more.
+      console.warn("[send-gift] repeat of a gift just sent, not charging again", {
+        paymentIntentId: sameGift.id,
+      });
+      return Response.json({ ok: true, paymentIntentId: sameGift.id });
+    }
+    if (recentGifts.length >= MAX_GIFTS_PER_DAY) {
+      return Response.json(
+        {
+          error: "gift_limit_reached",
+          message:
+            "That's the most gifts we can send in one day from your account. Email hello@mujoworld.com and we'll help with more.",
+        },
+        { status: 429 },
+      );
+    }
+
+    // The key and everything sent with it must be identical for two copies of
+    // the same request, or Stripe rejects the second instead of merging it. So
+    // the analytics event id is derived from the key, not random.
+    const idempotencyKey = `gift-${session.customerId}-${fingerprint}-${paymentMethodId}-${Math.floor(nowSec / SAME_GIFT_WINDOW_SECONDS)}`;
+    const eventId = createHash("sha256").update(idempotencyKey).digest("hex").slice(0, 32);
 
     // Create + confirm off-session. Stripe charges the saved card immediately.
+    // The idempotency key covers two identical requests arriving at the same
+    // instant (both would pass the check above): Stripe runs only one.
     const pi = await stripe.paymentIntents.create({
-      amount: effectiveAmountCents,
+      amount: totalCents,
       currency,
       customer: customer.stripeCustomerId,
       payment_method: paymentMethodId,
@@ -244,17 +353,25 @@ export async function POST(req: NextRequest) {
         mujo_event_id: eventId,
         line_items: JSON.stringify([{ price: priceId, quantity: 1 }]),
         gift_order: "true",
+        gift_fingerprint: fingerprint,
+        gift_subtotal_cents: String(effectiveAmountCents),
+        gift_taxes: JSON.stringify(giftTaxes).slice(0, 480),
+        tax_calculation: taxCalculation.id ?? "",
         gift_message: parsed.giftMessage ?? "",
         gift_sender_email: session.email,
         gift_recipient_email: parsed.recipientEmail,
       },
+    },
+    {
+      idempotencyKey,
     });
 
     if (pi.status === "succeeded") {
       console.log("[send-gift] PaymentIntent succeeded", {
         paymentIntentId: pi.id,
         recipient: parsed.shippingAddress.recipientName,
-        amount: effectiveAmountCents,
+        amount: totalCents,
+        tax: totalCents - effectiveAmountCents,
       });
 
       // Fire-and-forget: capture the recipient email into the gift-recipient
@@ -265,13 +382,17 @@ export async function POST(req: NextRequest) {
       const productLabel = meta
         ? `${meta.productTitle} · ${meta.variantTitle.replace(" · Subscribe & save", "").replace(" · One-time", "")}`
         : "Mujo product";
-      void addGiftRecipientIfNew({
-        email: parsed.recipientEmail,
-        giftedByEmail: session.email,
-        giftedProduct: productLabel,
-        giftMessage: parsed.giftMessage,
-      }).catch((err) =>
-        console.error("[send-gift] gift recipient capture failed", err),
+      // after(): runs once the response is sent and keeps the function alive
+      // until it finishes (a bare fire-and-forget call is cut off on serverless).
+      after(() =>
+        addGiftRecipientIfNew({
+          email: parsed.recipientEmail,
+          giftedByEmail: session.email,
+          giftedProduct: productLabel,
+          giftMessage: parsed.giftMessage,
+        }).catch((err) =>
+          console.error("[send-gift] gift recipient capture failed", err),
+        ),
       );
 
       return Response.json({ ok: true, paymentIntentId: pi.id });
@@ -299,6 +420,13 @@ export async function POST(req: NextRequest) {
       { status: 502 },
     );
   } catch (err) {
+    // Two copies of the same request arrived at the same instant and Stripe is
+    // still working on the first: the gift is being sent once, which is what
+    // the customer wanted.
+    if (err instanceof Stripe.errors.StripeIdempotencyError) {
+      console.warn("[send-gift] duplicate request while the first is in flight");
+      return Response.json({ ok: true });
+    }
     if (err instanceof Stripe.errors.StripeError) {
       // authentication_required, card_declined, etc.
       console.error("[send-gift] Stripe error", {

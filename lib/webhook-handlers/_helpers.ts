@@ -1,7 +1,7 @@
 // Shared helpers for Stripe webhook handlers — customer upserts, Shopify
 // linking, period extraction (dahlia API change: period is now per-item).
 
-import { eq } from 'drizzle-orm';
+import { and, eq, inArray, sql } from 'drizzle-orm';
 import type Stripe from 'stripe';
 import { customers, db, subscriptions } from 'db';
 import {
@@ -41,7 +41,10 @@ export async function upsertCustomerForStripe(args: {
   customerId: string;
   shopifyCustomerGid: string;
 }> {
-  const { email, stripeCustomerId, firstName, lastName } = args;
+  const { stripeCustomerId, firstName, lastName } = args;
+  // One spelling of an email everywhere. Login looks emails up in lower case,
+  // so a row saved as "Jane@Gmail.com" could never be logged in to.
+  const email = args.email.trim().toLowerCase();
 
   let row = (
     await db
@@ -53,8 +56,33 @@ export async function upsertCustomerForStripe(args: {
 
   if (!row) {
     row = (
-      await db.select().from(customers).where(eq(customers.email, email)).limit(1)
+      await db
+        .select()
+        .from(customers)
+        .where(sql`lower(${customers.email}) = ${email}`)
+        .limit(1)
     )[0];
+  }
+
+  // A guest checkout always makes a NEW Stripe Customer. When the email
+  // matches someone who already subscribes, their account must stay linked to
+  // the Stripe Customer that holds the subscription and saved card: re-pointing
+  // it made the subscription vanish from their account (and anyone could do
+  // that to a subscriber just by checking out with their email). The new order
+  // is still recorded against the same account row.
+  let keepExistingStripeLink = false;
+  if (row?.stripeCustomerId && row.stripeCustomerId !== stripeCustomerId) {
+    const live = await db
+      .select({ id: subscriptions.id })
+      .from(subscriptions)
+      .where(
+        and(
+          eq(subscriptions.customerId, row.id),
+          inArray(subscriptions.status, ['active', 'trialing', 'past_due', 'paused']),
+        ),
+      )
+      .limit(1);
+    keepExistingStripeLink = live.length > 0;
   }
 
   const shopifyCustomer = await findOrCreateCustomer({ email, firstName, lastName });
@@ -72,13 +100,13 @@ export async function upsertCustomerForStripe(args: {
     if (!newRow) throw new Error('Customer insert returned no row');
     row = newRow;
   } else if (
-    row.stripeCustomerId !== stripeCustomerId ||
+    (!keepExistingStripeLink && row.stripeCustomerId !== stripeCustomerId) ||
     row.shopifyCustomerId !== shopifyCustomer.id
   ) {
     await db
       .update(customers)
       .set({
-        stripeCustomerId,
+        ...(keepExistingStripeLink ? {} : { stripeCustomerId }),
         shopifyCustomerId: shopifyCustomer.id,
         updatedAt: new Date(),
       })
@@ -86,7 +114,9 @@ export async function upsertCustomerForStripe(args: {
   }
 
   try {
-    await setStripeCustomerIdOnCustomer(shopifyCustomer.id, stripeCustomerId);
+    if (!keepExistingStripeLink) {
+      await setStripeCustomerIdOnCustomer(shopifyCustomer.id, stripeCustomerId);
+    }
   } catch (err) {
     console.error('[upsertCustomer] failed to write stripe_customer_id metafield', err);
   }

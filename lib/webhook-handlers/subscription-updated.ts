@@ -24,13 +24,31 @@ export async function handleSubscriptionUpdated(event: Stripe.Event) {
   const stripeCustomerId =
     typeof sub.customer === 'string' ? sub.customer : sub.customer.id;
 
-  const customerRow = (
+  let customerRow = (
     await db
       .select()
       .from(customers)
       .where(eq(customers.stripeCustomerId, stripeCustomerId))
       .limit(1)
   )[0];
+
+  // An account can hold a subscription that sits on a second Stripe Customer
+  // (started as a guest with the same email). Find the account through the
+  // subscription we already recorded.
+  if (!customerRow) {
+    const known = (
+      await db
+        .select({ customerId: subscriptions.customerId })
+        .from(subscriptions)
+        .where(eq(subscriptions.stripeSubscriptionId, sub.id))
+        .limit(1)
+    )[0];
+    if (known) {
+      customerRow = (
+        await db.select().from(customers).where(eq(customers.id, known.customerId)).limit(1)
+      )[0];
+    }
+  }
 
   if (!customerRow) {
     console.error('[subscription.updated] no app-DB customer for stripe customer', {

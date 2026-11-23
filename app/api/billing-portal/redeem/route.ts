@@ -38,7 +38,8 @@ export async function GET(req: NextRequest) {
   try {
     const portal = await stripe.billingPortal.sessions.create({
       customer: stripeCustomerId,
-      return_url: `${siteUrl}/account/returned`,
+      // /account/returned never existed (404). Send them back to their account.
+      return_url: `${siteUrl}/account`,
     });
     return Response.redirect(portal.url, 302);
   } catch (err) {

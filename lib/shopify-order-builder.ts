@@ -140,7 +140,8 @@ export function buildOrderMoneyFields(
   const processedAt =
     facts.paidAt && facts.paidAt.getTime() <= Date.now() ? facts.paidAt.toISOString() : undefined;
 
-  const transactions: NonNullable<CreateOrderInput['transactions']> = [
+  // Nothing was charged on a fully discounted order: no payment to record.
+  const transactions: NonNullable<CreateOrderInput['transactions']> = facts.totalCents <= 0 ? [] : [
     {
       kind: 'SALE',
       status: 'SUCCESS',
@@ -170,7 +171,7 @@ export function buildOrderMoneyFields(
     lineItems,
     ...(shippingLines ? { shippingLines } : {}),
     ...(discountCode ? { discountCode } : {}),
-    transactions,
+    ...(transactions.length ? { transactions } : {}),
     ...(opts.isLive ? {} : { test: true }),
     ...(processedAt ? { processedAt } : {}),
     computedTotalCents,
