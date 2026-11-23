@@ -219,6 +219,54 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Sales tax, worked out by Stripe Tax for the address the gift ships to,
+    // exactly as checkout does for every other order. Until 2026-11-23 a gift
+    // was charged at the bare price with no tax at all.
+    const shipTo = {
+      line1: parsed.shippingAddress.line1,
+      line2: parsed.shippingAddress.line2,
+      city: parsed.shippingAddress.city,
+      state: parsed.shippingAddress.state,
+      postal_code: parsed.shippingAddress.postalCode,
+      country: "US",
+    };
+    let taxCalculation: Stripe.Tax.Calculation;
+    try {
+      taxCalculation = await stripe.tax.calculations.create({
+        currency,
+        line_items: [
+          {
+            amount: effectiveAmountCents,
+            reference: "gift",
+            tax_behavior: "exclusive",
+            ...(typeof giftPrice.product === "string"
+              ? { product: giftPrice.product }
+              : {}),
+          },
+        ],
+        customer_details: { address: shipTo, address_source: "shipping" },
+      });
+    } catch (err) {
+      console.error("[send-gift] tax calculation failed", err);
+      return Response.json(
+        {
+          error: "tax_unavailable",
+          message:
+            "We couldn't work out sales tax for that address. Please check the address and try again.",
+        },
+        { status: 400 },
+      );
+    }
+    const totalCents = taxCalculation.amount_total;
+    // Carried on the payment so the Shopify order shows the same tax lines.
+    const giftTaxes = (taxCalculation.tax_breakdown ?? [])
+      .filter((b) => b.amount > 0)
+      .map((b) => ({
+        t: `${b.tax_rate_details?.state ?? ""} Sales Tax`.trim(),
+        r: Number(b.tax_rate_details?.percentage_decimal ?? 0),
+        a: b.amount,
+      }));
+
     // What makes two requests "the same gift": same product, same recipient,
     // same address, same note.
     const fingerprint = createHash("sha256")
@@ -277,7 +325,7 @@ export async function POST(req: NextRequest) {
     // The idempotency key covers two identical requests arriving at the same
     // instant (both would pass the check above): Stripe runs only one.
     const pi = await stripe.paymentIntents.create({
-      amount: effectiveAmountCents,
+      amount: totalCents,
       currency,
       customer: customer.stripeCustomerId,
       payment_method: paymentMethodId,
@@ -306,6 +354,9 @@ export async function POST(req: NextRequest) {
         line_items: JSON.stringify([{ price: priceId, quantity: 1 }]),
         gift_order: "true",
         gift_fingerprint: fingerprint,
+        gift_subtotal_cents: String(effectiveAmountCents),
+        gift_taxes: JSON.stringify(giftTaxes).slice(0, 480),
+        tax_calculation: taxCalculation.id ?? "",
         gift_message: parsed.giftMessage ?? "",
         gift_sender_email: session.email,
         gift_recipient_email: parsed.recipientEmail,
@@ -319,7 +370,8 @@ export async function POST(req: NextRequest) {
       console.log("[send-gift] PaymentIntent succeeded", {
         paymentIntentId: pi.id,
         recipient: parsed.shippingAddress.recipientName,
-        amount: effectiveAmountCents,
+        amount: totalCents,
+        tax: totalCents - effectiveAmountCents,
       });
 
       // Fire-and-forget: capture the recipient email into the gift-recipient

@@ -184,6 +184,24 @@ export async function handlePaymentIntentSucceeded(event: Stripe.Event) {
     currency: (pi.currency ?? 'usd').toLowerCase(),
   });
 
+  // Record the tax with Stripe Tax so it shows in the tax reports and filings,
+  // like tax collected at checkout. Safe on a retry: Stripe refuses a second
+  // transaction with the same reference, which is caught and logged.
+  const taxCalculationId = pi.metadata?.tax_calculation;
+  if (taxCalculationId) {
+    try {
+      await stripe.tax.transactions.createFromCalculation({
+        calculation: taxCalculationId,
+        reference: pi.id,
+      });
+    } catch (err) {
+      console.error('[pi.succeeded] tax transaction not recorded', {
+        paymentIntentId: pi.id,
+        error: err instanceof Error ? err.message : String(err),
+      });
+    }
+  }
+
   console.log('[pi.succeeded] one-time order mirrored', {
     paymentIntentId: pi.id,
     shopifyOrder: shopifyOrder.name,

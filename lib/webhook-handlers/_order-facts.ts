@@ -209,8 +209,21 @@ export async function factsFromInvoice(
 
 // --- Gifts: PaymentIntent ----------------------------------------------------
 
-// Gifts are a flat off-session charge of the Price's unit amount: no tax, no
-// shipping, no discount (see /api/account/subscription/send-gift).
+// Gifts are an off-session charge of the Price's unit amount plus sales tax
+// for the recipient's address: no shipping, no discount. The tax lines ride on
+// the PaymentIntent metadata (see /api/account/subscription/send-gift); gifts
+// sent before 2026-11-23 carried no tax.
+function giftTaxes(pi: Stripe.PaymentIntent): FactTax[] {
+  try {
+    const raw = JSON.parse(pi.metadata?.gift_taxes ?? '[]') as Array<{ t: string; r: number; a: number }>;
+    return raw
+      .filter((x) => typeof x?.a === 'number' && x.a > 0)
+      .map((x) => ({ title: x.t || 'Sales Tax', ratePercent: Number(x.r) || 0, amountCents: x.a }));
+  } catch {
+    return [];
+  }
+}
+
 export function factsFromGiftPaymentIntent(
   pi: Stripe.PaymentIntent,
   chargeId: string,
@@ -225,12 +238,13 @@ export function factsFromGiftPaymentIntent(
     chargeId,
     totalCents: pi.amount_received || pi.amount,
     paidAt: new Date(pi.created * 1000),
-    lines: resolved.map((r) => ({
+    // A gift is always one line, so all of its tax belongs to that line.
+    lines: resolved.map((r, index) => ({
       variantId: r.price.metadata?.shopify_variant_id || undefined,
       title: r.productName,
       quantity: r.quantity,
       subtotalCents: (r.price.unit_amount ?? 0) * r.quantity,
-      taxes: [],
+      taxes: index === 0 ? giftTaxes(pi) : [],
     })),
   };
 }
