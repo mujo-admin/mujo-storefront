@@ -132,15 +132,37 @@ export async function handleInvoicePaid(event: Stripe.Event) {
   // Resolve charge id via payments → payment_intent → latest_charge
   const paymentIntentId = await extractInvoicePaymentIntentId(invoice, stripe);
   let chargeId: string | undefined;
+  let chargeFullyRefunded = false;
   if (paymentIntentId) {
     const pi = await stripe.paymentIntents.retrieve(paymentIntentId, {
       expand: ['latest_charge'],
     });
     const latest = pi.latest_charge;
     chargeId = typeof latest === 'string' ? latest : latest?.id;
+    chargeFullyRefunded = typeof latest === 'object' && latest !== null && latest.refunded === true;
+  }
+
+  // A fully discounted invoice (a 100%-off code) takes no payment, so there is
+  // no charge, but it is still an order that has to ship. Only when a discount
+  // is what made it free: a $0 invoice with nothing on it (a skipped delivery,
+  // a cadence change) is NOT an order.
+  if (!chargeId && invoice.id && invoice.total === 0 && invoice.subtotal > 0) {
+    chargeId = `free_${invoice.id}`;
   }
   if (!chargeId) {
     console.error('[invoice.paid] no charge id resolvable', { invoice: invoice.id });
+    return;
+  }
+
+  // The duplicate-subscription guard cancels a double-submitted subscription
+  // and refunds its charge within seconds. That payment must not turn into a
+  // normal-looking paid order (with a free frother) that then gets shipped.
+  if (chargeFullyRefunded) {
+    console.warn('[invoice.paid] charge already fully refunded, not creating an order', {
+      invoice: invoice.id,
+      chargeId,
+      subscription: stripeSubscriptionId,
+    });
     return;
   }
 

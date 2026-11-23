@@ -95,6 +95,16 @@ export async function handleCheckoutCompleted(event: Stripe.Event) {
     const latest = session.payment_intent.latest_charge;
     chargeId = typeof latest === 'string' ? latest : latest?.id;
   }
+  // A fully discounted checkout (a 100%-off code) takes no payment, so there is
+  // no charge, but it is still an order that has to ship.
+  if (
+    !chargeId &&
+    !session.payment_intent &&
+    session.amount_total === 0 &&
+    (session.payment_status === 'paid' || session.payment_status === 'no_payment_required')
+  ) {
+    chargeId = `free_${session.id}`;
+  }
   if (!chargeId) {
     console.error('[checkout.completed] no charge id resolvable', { sessionId: session.id });
     return;

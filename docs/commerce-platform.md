@@ -238,3 +238,13 @@ A mirrored Shopify order now carries everything Stripe charged: the payment itse
 - **`/api/contact`** is what the `/contact` form posts to; messages go to hello@mujoworld.com (wired in `imported-page-runtime.tsx`; before this the form was inert). The sender joins the email list only when they tick the box (`marketingConsent: true`). A filled hidden `company` field (bots) is answered `ok` and dropped.
 - **Cookie bar "No thanks"** stops Meta as well as GA4 and Klaviyo: no browser pixel event, no `/api/meta/convert` mirror, and (through `tracking_declined` on the Stripe session and subscription metadata) no server-sent `InitiateCheckout` or `Purchase`.
 - Flood protection for these endpoints is a set of Vercel Firewall rate-limit rules, not code.
+
+## Orders and subscriptions (2026-11-23, security batch 3a)
+
+- **Two-delivery minimum is enforced.** `/api/account/subscription/{cancel,pause,skip-next}` answer `409 minimum_not_met` until the subscription has two orders in `order_mirror` (first order, renewals and "send now" all count). Subscribers on legacy Prices or moved from Loop are never gated. Resume, send-now, swap and change-frequency are not gated.
+- **Gifts are charged once.** The same gift (product, recipient, address, note) within 10 minutes returns the first payment; Stripe's idempotency key covers simultaneous requests. At most 3 gifts per account per day.
+- **A refunded duplicate never becomes an order.** `invoice.paid` skips a charge that is already fully refunded; `charge.refunded` for a charge under 10 minutes old with no order yet throws so Stripe retries.
+- **Fully discounted orders ship.** A checkout or invoice made free by a discount (total 0, subtotal above 0) is mirrored with the key `free_<session or invoice id>` and no payment transaction. A $0 invoice with nothing on it (skip, cadence change) is still not an order.
+- **A guest purchase no longer re-links a subscriber.** `upsertCustomerForStripe` keeps the account's `stripe_customer_id` when the account has a live subscription; emails are stored in lower case and matched case-insensitively. `subscription-updated` finds the account through the recorded subscription when the Stripe Customer is not the linked one.
+- **The duplicate-subscription guard looks across Stripe Customers with the same email**, because every guest checkout makes a new Customer.
+- A card update reports failure if a subscription could not be switched to the new card. The billing portal returns to `/account`.

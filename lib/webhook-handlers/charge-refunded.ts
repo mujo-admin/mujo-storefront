@@ -21,6 +21,9 @@ import {
 } from 'lib/shopify-admin';
 import { centsToAmount } from 'lib/shopify-order-builder';
 
+// How long after a charge its order may still be on the way to Shopify.
+const RECENT_CHARGE_SECONDS = 10 * 60;
+
 export async function handleChargeRefunded(event: Stripe.Event) {
   if (event.type !== 'charge.refunded') return;
   const charge = event.data.object;
@@ -34,6 +37,17 @@ export async function handleChargeRefunded(event: Stripe.Event) {
   )[0];
 
   if (!row) {
+    // A refund can arrive while the order for a brand-new charge is still
+    // being created (the duplicate-subscription guard refunds within seconds).
+    // Skipping then would leave a paid-looking order with no refund on it, so
+    // for a recent charge ask Stripe to retry: by then the order exists, or
+    // the order was never made because the charge was already refunded.
+    const ageSeconds = Math.floor(Date.now() / 1000) - charge.created;
+    if (ageSeconds < RECENT_CHARGE_SECONDS) {
+      throw new Error(
+        `charge.refunded for ${charge.id} arrived before its order was recorded; retry`,
+      );
+    }
     console.log('[charge.refunded] no mirrored order for charge, skipping', {
       charge: charge.id,
     });

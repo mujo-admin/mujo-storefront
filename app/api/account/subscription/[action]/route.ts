@@ -13,17 +13,21 @@
 // is unaffected.
 
 import type { NextRequest } from "next/server";
-import { and, desc, eq, inArray } from "drizzle-orm";
+import { and, count, desc, eq, inArray } from "drizzle-orm";
 import Stripe from "stripe";
 import { z } from "zod";
-import { db, subscriptions } from "db";
+import { db, orderMirror, subscriptions } from "db";
 import { stripe } from "lib/stripe";
 import {
   getSubscriptionCycleSeconds,
   syncSubscriptionToDb,
 } from "lib/webhook-handlers/_helpers";
 import { getSession, refreshSession } from "lib/session";
-import { RITUAL_PRICE_IDS, isRitualSubscriptionPrice } from "lib/stripe-constants";
+import {
+  RITUAL_LEGACY_SUB_PRICE_IDS,
+  RITUAL_PRICE_IDS,
+  isRitualSubscriptionPrice,
+} from "lib/stripe-constants";
 
 export const dynamic = "force-dynamic";
 
@@ -44,6 +48,17 @@ const ACTIVE_SUB_STATUSES = [
   "past_due",
   "paused",
 ] as const;
+
+// The subscription terms: two deliveries before a subscription can be paused,
+// skipped or cancelled (it is what the subscriber price, free shipping and the
+// free frother are offered against). The pages say so; this enforces it, so
+// the minimum cannot be skipped by calling this route directly.
+const MINIMUM_DELIVERIES = 2;
+const MINIMUM_GATED_ACTIONS: ReadonlySet<Action> = new Set([
+  "pause",
+  "skip-next",
+  "cancel",
+]);
 
 const pauseSchema = z.object({
   cycles: z.number().int().min(1).max(3).default(1),
@@ -132,6 +147,33 @@ export async function POST(
         },
         { status: 409 },
       );
+    }
+  }
+
+  if (MINIMUM_GATED_ACTIONS.has(action)) {
+    // Long-standing subscribers (legacy Prices, or moved over from Loop) had
+    // their first deliveries before orders were recorded here: never gated.
+    const metadata = (subRow.metadata ?? {}) as Record<string, unknown>;
+    const longStanding =
+      RITUAL_LEGACY_SUB_PRICE_IDS.includes(subRow.stripePriceId) ||
+      Boolean(metadata.loop_migration);
+    if (!longStanding) {
+      const [delivered] = await db
+        .select({ n: count() })
+        .from(orderMirror)
+        // Every order made for this subscription counts: the first one, each
+        // renewal, and a "send my next box now".
+        .where(eq(orderMirror.stripeSubscriptionId, subRow.stripeSubscriptionId));
+      if ((delivered?.n ?? 0) < MINIMUM_DELIVERIES) {
+        return Response.json(
+          {
+            error: "minimum_not_met",
+            message:
+              "You can pause, skip or cancel after your second delivery. Need a hand before then? Email hello@mujoworld.com.",
+          },
+          { status: 409 },
+        );
+      }
     }
   }
 

@@ -174,22 +174,36 @@ export async function PATCH(req: NextRequest) {
       ACTIVE_SUB_STATUSES.includes(s.status),
     );
 
-    await Promise.all(
+    const results = await Promise.all(
       activeSubs.map((s) =>
         stripe.subscriptions
           .update(s.stripeSubscriptionId, {
             default_payment_method: parsed.paymentMethodId,
           })
+          .then(() => true)
           .catch((err) => {
             console.error("[payment-method/PATCH] sub update failed", {
               subId: s.stripeSubscriptionId,
               err: err instanceof Error ? err.message : String(err),
             });
+            return false;
           }),
       ),
     );
 
     await refreshSession();
+    // Never report success when a subscription is still on the old card: the
+    // customer would only find out when a renewal fails or charges that card.
+    if (results.includes(false)) {
+      return Response.json(
+        {
+          error: "subscription_not_updated",
+          message:
+            "Your new card is saved, but we couldn't switch your subscription to it. Email hello@mujoworld.com and we'll fix it.",
+        },
+        { status: 409 },
+      );
+    }
     return Response.json({ ok: true });
   } catch (err) {
     if (err instanceof Stripe.errors.StripeError) {
