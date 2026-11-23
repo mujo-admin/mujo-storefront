@@ -40,7 +40,7 @@ ever disagree about what happened, this file is the referee.
 | `remove_from_cart` | —                  | —                                 | A line is removed, or its quantity reduced               | no                                                 | `items[]`, `value`                                                       |
 | `view_cart`        | —                  | —                                 | Cart drawer opens                                        | no                                                 | `items[]`, `value`                                                       |
 | `begin_checkout`   | `InitiateCheckout` | **Started Checkout**              | A checkout session is created for a cart (once per cart) | **no**: `/api/checkout-session` already sends CAPI | `items[]`, `value`, `purchase_type`                                      |
-| `purchase`         | `Purchase`         | — (server sends **Order Placed**) | Success page renders                                     | **no**: Stripe webhook already sends CAPI          | `transaction_id`, `value`, `tax`, `shipping`, `items[]`, `purchase_type` |
+| `purchase`         | `Purchase`         | — (server sends **Order Placed**) | Success page renders (GA4: Stripe webhook, server only)  | **no**: Stripe webhook sends CAPI and GA4 purchase | `transaction_id`, `value`, `tax`, `shipping`, `items[]`, `purchase_type` |
 | `sign_up`          | `Lead`             | — (identify)                      | A signup form is submitted                               | **yes**                                            | `method` (form source)                                                   |
 | `generate_lead`    | `Lead`             | — (identify)                      | Ambassador application submitted                         | **yes**                                            | `method: 'ambassador'`                                                   |
 
@@ -83,6 +83,22 @@ views only: there is no ecommerce history in GA4 before that date.
 
 `page_view` is not sent by `track()` to GA4. Enhanced measurement sends it on
 every load and in-site navigation.
+
+**`purchase` reaches GA4 from the server only (since 2026-11-23).** The Stripe
+webhook handlers (`checkout-completed`, `invoice-paid` on `subscription_create`,
+`payment-intent-succeeded` for gifts) call `sendGa4Purchase()` in
+`lib/ga4-server.ts`, which posts to the GA4 Measurement Protocol with
+`GA4_API_SECRET` (secret "Website Orders" on the Mujo Storefront stream).
+`transaction_id` is the Checkout Session id (the PaymentIntent id for gifts).
+The browser no longer sends `purchase` to GA4 (`sendToGa4` skips it; Meta and
+Klaviyo still get it from the success page). Why: GA4 had heard of a sale only
+from the buyer's browser, so buyers with ad blockers or strict privacy settings
+were missing (it saw 1 of the 3 orders placed without a `_ga` cookie). When
+`ga_client_id` and `ga_session_id` were saved on the checkout, the sale joins
+the shopper's visit and keeps its source; otherwise it is counted with a fresh
+client id and no source. Test a payload change against
+`https://www.google-analytics.com/debug/mp/collect` first: the live endpoint
+answers 2xx even for malformed events.
 
 ## Event ID and deduplication
 

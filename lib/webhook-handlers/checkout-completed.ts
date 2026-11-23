@@ -12,6 +12,7 @@ import { db, orderMirror } from 'db';
 import { stripe } from 'lib/stripe';
 import { trackOrderPlaced } from 'lib/klaviyo';
 import { sendCapiEvent } from 'lib/meta-capi';
+import { sendGa4Purchase } from 'lib/ga4-server';
 import {
   attributionFromMetadata,
   capiUserData,
@@ -207,10 +208,23 @@ export async function handleCheckoutCompleted(event: Stripe.Event) {
           console.error('[checkout.completed] Meta CAPI Purchase failed', err),
         )
       : Promise.resolve(),
+    // GA4 hears about the sale from here only (the browser no longer sends
+    // purchase to GA4), so buyers with blockers are counted too.
+    sendGa4Purchase({
+      transactionId: session.id,
+      value,
+      currency,
+      tax: (session.total_details?.amount_tax ?? 0) / 100,
+      shipping: (session.shipping_cost?.amount_total ?? 0) / 100,
+      items: analyticsItems,
+      attribution,
+      purchaseType: 'onetime',
+    }),
   ]);
   console.log('[checkout.completed] analytics sent', {
     sessionId: session.id,
     klaviyo: true,
     metaPurchase: Boolean(eventId),
+    ga4: true,
   });
 }
