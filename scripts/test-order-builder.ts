@@ -183,20 +183,16 @@ check('a payment dated in the future is left for Shopify to date', () => {
   assert.equal('processedAt' in (b.transactions?.[0] ?? {}), false);
 });
 
-check('powder orders are tagged pre-order-protein until the first batch ships', () => {
+check('contentTags returns empty (pre-order tagging retired)', () => {
   const line = (title: string) => ({ title, quantity: 1, subtotalCents: 4500, taxes: [] });
-  const facts = (titles: string[], paidAt: Date): OrderFacts => ({
+  const facts = (titles: string[]): OrderFacts => ({
     ...base,
     totalCents: 0,
-    paidAt,
     lines: titles.map(line),
   });
-  const october = new Date('2026-10-08T12:00:00Z');
-  const december = new Date('2026-12-01T12:00:00Z');
-  assert.deepEqual(contentTags(facts(['Protein Powder'], october)), ['pre-order-protein']);
-  assert.deepEqual(contentTags(facts(['The Ritual', 'Protein Powder'], october)), ['pre-order-protein']);
-  assert.deepEqual(contentTags(facts(['1 × The Ritual (at $50.00 / every 4 weeks)'], october)), []);
-  assert.deepEqual(contentTags(facts(['Protein Powder'], december)), []);
+  assert.deepEqual(contentTags(facts(['Protein Powder'])), []);
+  assert.deepEqual(contentTags(facts(['The Ritual', 'Protein Powder'])), []);
+  assert.deepEqual(contentTags(facts(['The Ritual'])), []);
 });
 
 console.log(`\n${passed} checks passed`);

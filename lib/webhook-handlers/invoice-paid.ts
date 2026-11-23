@@ -82,11 +82,7 @@ export async function handleInvoicePaid(event: Stripe.Event) {
   const sub = await stripe.subscriptions.retrieve(stripeSubscriptionId);
   const period = extractSubscriptionPeriod(sub);
   const stripePriceId = sub.items.data[0]?.price.id ?? '';
-  // Protein Powder pre-order: the subscription starts in a trial until ship day
-  // (see /api/checkout-session), so signup produces a $0 invoice with no charge
-  // (handled by the no-charge early return below) and the FIRST real charge
-  // arrives as billing_reason=subscription_cycle. Treated as the initial order.
-  const isPreorder = sub.metadata?.preorder === 'protein-powder';
+  // Pre-order trial logic removed 2026-11-21 — powder now ships immediately.
 
   const existingSub = (
     await db
@@ -158,14 +154,7 @@ export async function handleInvoicePaid(event: Stripe.Event) {
     return;
   }
 
-  if (isPreorder && type === 'subscription_renewal') {
-    const priorOrders = await db
-      .select({ id: orderMirror.id })
-      .from(orderMirror)
-      .where(eq(orderMirror.stripeSubscriptionId, stripeSubscriptionId))
-      .limit(1);
-    if (priorOrders.length === 0) type = 'subscription_initial';
-  }
+  // (Pre-order reclassification block removed — powder charges immediately now.)
 
   // Build line items from the invoice
   const currencyCode = (invoice.currency ?? 'usd').toUpperCase();
@@ -357,10 +346,7 @@ export async function handleInvoicePaid(event: Stripe.Event) {
       typeof sub.metadata?.mujo_event_id === 'string'
         ? sub.metadata.mujo_event_id
         : undefined;
-    // Pre-orders already reported the conversion at signup (Pixel on
-    // /checkout/success); the ship-day charge is weeks later, outside Meta's
-    // dedup window, so re-sending Purchase would double count.
-    const sendPurchase = Boolean(eventId) && !isPreorder;
+    const sendPurchase = Boolean(eventId);
     await Promise.allSettled([
       trackOrderPlaced({
         email,

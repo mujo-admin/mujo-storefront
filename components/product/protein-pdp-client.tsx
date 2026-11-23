@@ -1,25 +1,61 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-import { PROTEIN_PREORDER_SHIP_LABEL } from "lib/stripe-constants";
+import { PROTEIN_PRICE_IDS, type ProteinCadence } from "lib/stripe-constants";
 import { useCart } from "components/cart/cart-context";
 import { resolveProteinSelection } from "lib/cart/price-id-map";
 
-// Protein Powder buy box (pre-order). One-time purchase only until the powder
-// is shipping (Kinga 2026-10-05); subscriptions get added then, copying the
-// Ritual buy box. The server-side subscription Prices and pre-order trial logic
-// stay in place but nothing here can select them. The markup and class names
-// match the static design buy box in
-// content/imported-html/mujo_protein_powder_pdp.html, whose CSS styles it.
-const PRICE = { now: "$45", daily: "$3.00 a serving · 13.6¢/g protein" };
+type ProteinPlan = "onetime" | "subscription";
+
+const PRICES: Record<ProteinPlan, { now: string; was?: string; daily: string }> = {
+  onetime: { now: "$45", daily: "$3.00/serving · 13.6¢/g protein" },
+  subscription: { now: "$40", was: "$45", daily: "$2.67/serving · 12.1¢/g protein" },
+};
+
+const SUB_BENEFITS = [
+  "Free shipping",
+  "Save $5 on every order",
+  "Minimum 2-order commitment",
+  "Cancel or pause anytime after 2 orders",
+];
+
+const CADENCE_LABELS: Record<ProteinCadence, string> = {
+  "2wk": "2 weeks",
+  "4wk": "4 weeks",
+  "6wk": "6 weeks",
+  "8wk": "8 weeks",
+};
+const AVAILABLE_CADENCES: ProteinCadence[] = (["4wk", "8wk"] as const).filter(
+  (c) => c === "4wk" || Boolean(PROTEIN_PRICE_IDS[`sub-${c}`]),
+);
+const HAS_SUBSCRIPTION = AVAILABLE_CADENCES.length > 0 && Boolean(PROTEIN_PRICE_IDS["sub-4wk"]);
 
 type Shared = {
+  plan: ProteinPlan;
+  cadence: ProteinCadence;
+  setPlan: (p: ProteinPlan) => void;
+  setCadence: (c: ProteinCadence) => void;
   onAddToCart: () => void;
   pending: boolean;
   shown: boolean;
 };
 
-function BuyBox({ onAddToCart, pending }: Shared) {
+function BenefitItem({ children }: { children: ReactNode }) {
+  return (
+    <li style={{ display: "flex", alignItems: "flex-start", gap: 7, fontSize: 12, lineHeight: 1.4, color: "var(--ink-soft)" }}>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: 2 }} aria-hidden="true">
+        <polyline points="20 6 9 17 4 12" />
+      </svg>
+      <span>{children}</span>
+    </li>
+  );
+}
+
+function BuyBox({ plan, cadence, setPlan, setCadence, onAddToCart, pending }: Shared) {
+  const sub = PRICES.subscription;
+  const once = PRICES.onetime;
+  const isSubscribe = HAS_SUBSCRIPTION && plan === "subscription";
+
   return (
     <>
       <div className="size-line">
@@ -27,16 +63,80 @@ function BuyBox({ onAddToCart, pending }: Shared) {
       </div>
 
       <div className="purchase-block">
-        <div className="purchase-label">Pre-order</div>
+        <div className="purchase-label">{HAS_SUBSCRIPTION ? "Choose your plan" : "Purchase"}</div>
         <div className="purchase-options">
-          <div className="pur-opt active">
+          {HAS_SUBSCRIPTION && (
+            <div className={`pur-opt${isSubscribe ? " active" : ""}`} style={{ display: "block" }}>
+              <div
+                style={{ display: "flex", alignItems: "flex-start", gap: 12, cursor: "pointer" }}
+                onClick={() => setPlan("subscription")}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && setPlan("subscription")}
+              >
+                <div className="pur-opt-radio" />
+                <div className="pur-opt-info" style={{ flex: 1 }}>
+                  <div className="pur-opt-name">
+                    Subscribe &amp; save <span className="pur-opt-save">Save $5</span>
+                  </div>
+                </div>
+                <div className="pur-opt-price">
+                  <div className="pur-opt-price-now">{sub.now}</div>
+                  <div className="pur-opt-price-was">{sub.was}</div>
+                  <div className="pur-opt-daily">{sub.daily}</div>
+                </div>
+              </div>
+              {isSubscribe && (
+                <ul style={{ listStyle: "none", margin: "6px 0 0", padding: 0, display: "grid", gap: 6 }}>
+                  {AVAILABLE_CADENCES.length > 1 && (
+                    <BenefitItem>
+                      <span style={{ display: "inline-flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
+                        Ships every
+                        <select
+                          value={cadence}
+                          onChange={(e) => setCadence(e.target.value as ProteinCadence)}
+                          onClick={(e) => e.stopPropagation()}
+                          aria-label="Delivery frequency"
+                          style={{
+                            font: "inherit",
+                            fontWeight: 600,
+                            color: "var(--ink)",
+                            background: "transparent",
+                            border: "1px solid var(--line, rgba(26,26,26,0.18))",
+                            borderRadius: 6,
+                            padding: "2px 24px 2px 8px",
+                            cursor: "pointer",
+                          }}
+                        >
+                          {AVAILABLE_CADENCES.map((c) => (
+                            <option key={c} value={c}>{CADENCE_LABELS[c]}</option>
+                          ))}
+                        </select>
+                      </span>
+                    </BenefitItem>
+                  )}
+                  {SUB_BENEFITS.map((b) => (
+                    <BenefitItem key={b}>{b}</BenefitItem>
+                  ))}
+                </ul>
+              )}
+            </div>
+          )}
+
+          <div
+            className={`pur-opt${!isSubscribe ? " active" : ""}`}
+            onClick={() => setPlan("onetime")}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && setPlan("onetime")}
+          >
             <div className="pur-opt-radio" />
             <div className="pur-opt-info">
               <div className="pur-opt-name">One-time purchase</div>
-              <div className="pur-opt-desc">{PRICE.daily}</div>
+              <div className="pur-opt-desc">{once.daily}</div>
             </div>
             <div className="pur-opt-price">
-              <div className="pur-opt-price-now">{PRICE.now}</div>
+              <div className="pur-opt-price-now">{once.now}</div>
             </div>
           </div>
         </div>
@@ -50,22 +150,36 @@ function BuyBox({ onAddToCart, pending }: Shared) {
           disabled={pending}
           aria-busy={pending}
         >
-          {pending ? "Adding…" : "Pre-order now"}
+          {pending ? "Adding…" : "Add to cart"}
         </button>
-        <div className="atc-shipline">Ships by {PROTEIN_PREORDER_SHIP_LABEL}</div>
+        <div className="atc-trust">
+          <div className="atc-trust-item" style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M1 5h13v11H1z" /><path d="M14 9h4l3 3v4h-7z" /><circle cx="5.5" cy="18.5" r="1.6" /><circle cx="17.5" cy="18.5" r="1.6" />
+            </svg>
+            {isSubscribe ? "Free shipping" : "Free shipping over $100"}
+          </div>
+          <div className="atc-trust-item" style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <circle cx="12" cy="9" r="6" /><path d="M9.5 9l1.8 1.8L15 7.2" /><path d="M8.6 14.2L7 22l5-2.8L17 22l-1.6-7.8" />
+            </svg>
+            30-day money back
+          </div>
+        </div>
       </div>
     </>
   );
 }
 
-function StickyAtc({ onAddToCart, pending, shown }: Shared) {
+function StickyAtc({ plan, onAddToCart, pending, shown }: Shared) {
+  const isSubscribe = HAS_SUBSCRIPTION && plan === "subscription";
+  const price = isSubscribe ? PRICES.subscription.now : PRICES.onetime.now;
+  const tail = isSubscribe ? "Subscribe" : "One-time";
   return (
     <div className={`sticky-atc${shown ? " show" : ""}`}>
       <div className="sticky-atc-info">
         <div className="sticky-atc-name">Protein Powder · Vanilla Bean</div>
-        <div className="sticky-atc-price">
-          Pre-order · {PRICE.now} · ships by {PROTEIN_PREORDER_SHIP_LABEL}
-        </div>
+        <div className="sticky-atc-price">{price} · {tail}</div>
       </div>
       <button
         type="button"
@@ -74,7 +188,7 @@ function StickyAtc({ onAddToCart, pending, shown }: Shared) {
         disabled={pending}
         aria-busy={pending}
       >
-        Pre-order
+        Add to cart
       </button>
     </div>
   );
@@ -88,13 +202,9 @@ function useProtein(): Shared {
   return ctx;
 }
 
-/**
- * Shared state for the Protein Powder buy box and the mobile sticky bar. Wraps
- * the imported page; both render in place inside the server HTML via `slots`
- * (2026-10-25 speed pass, they used to be portalled in after the page's code
- * ran). Adds one pouch to the cart (quantity is changed in the cart drawer).
- */
 export function ProteinSelectionProvider({ children }: { children: ReactNode }) {
+  const [plan, setPlan] = useState<ProteinPlan>(HAS_SUBSCRIPTION ? "subscription" : "onetime");
+  const [cadence, setCadence] = useState<ProteinCadence>("4wk");
   const [pending, setPending] = useState(false);
   const [shown, setShown] = useState(false);
   const { addItem } = useCart();
@@ -108,11 +218,10 @@ export function ProteinSelectionProvider({ children }: { children: ReactNode }) 
 
   function onAddToCart() {
     if (pending) return;
-    const resolved = resolveProteinSelection("onetime");
+    const resolvedPlan = HAS_SUBSCRIPTION ? plan : "onetime";
+    const resolved = resolveProteinSelection(resolvedPlan, resolvedPlan === "subscription" ? cadence : "4wk");
     if (!resolved) {
-      console.error(
-        "[protein-pdp] Missing Stripe Price ID. Check NEXT_PUBLIC_PROTEIN_PRICE_ONETIME.",
-      );
+      console.error("[protein-pdp] Missing Stripe Price ID. Check NEXT_PUBLIC_PROTEIN_PRICE_* env vars.");
       return;
     }
     setPending(true);
@@ -123,16 +232,14 @@ export function ProteinSelectionProvider({ children }: { children: ReactNode }) 
     }
   }
 
-  const shared: Shared = { onAddToCart, pending, shown };
+  const shared: Shared = { plan, cadence, setPlan, setCadence, onAddToCart, pending, shown };
   return <ProteinContext.Provider value={shared}>{children}</ProteinContext.Provider>;
 }
 
-/** The buy box, rendered in place of the `protein-buybox` marker. */
 export function ProteinBuyBoxSlot() {
   return <BuyBox {...useProtein()} />;
 }
 
-/** The mobile sticky bar, rendered in place of `protein-sticky-atc`. */
 export function ProteinStickyAtcSlot() {
   return <StickyAtc {...useProtein()} />;
 }

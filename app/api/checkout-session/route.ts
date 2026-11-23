@@ -20,9 +20,7 @@ import {
   SHIPPING_RATE_FREE_ID,
   SUPPRESS_EXPRESS_FOR_MERCH,
   SUPPORTED_COUNTRIES,
-  PROTEIN_PREORDER_CHARGE_AT,
   PROTEIN_PRICE_IDS,
-  PROTEIN_PREORDER_SHIP_LABEL,
   isProteinSubscriptionPrice,
   isRitualSubscriptionPrice,
 } from 'lib/stripe-constants';
@@ -153,27 +151,7 @@ export async function POST(req: NextRequest) {
 
   const mode = determineMode(parsed);
 
-  // Protein Powder pre-order subscriptions check out on their own: the whole
-  // subscription gets a trial until ship day, which must not delay another
-  // product, and a first invoice that bills other items now would mirror a
-  // Shopify order with an unshipped powder line on it.
-  const hasProteinSub = parsed.items.some((i) => isProteinSubscriptionPrice(i.stripePriceId));
-  if (hasProteinSub && parsed.items.some((i) => !isProteinSubscriptionPrice(i.stripePriceId))) {
-    return Response.json(
-      {
-        error: 'preorder_checkout_alone',
-        message:
-          'Protein Powder subscriptions are a pre-order, so they check out on their own. Please buy the other items separately, or switch the powder to a one-time purchase.',
-      },
-      { status: 400 },
-    );
-  }
-  // Charge-on-ship (Kinga 2026-09-30): card saved today, first invoice on ship
-  // day. Stripe requires trial_end ≥ 48h ahead; after that the pre-order window
-  // has closed and the subscription simply starts (and bills) today.
   const nowSec = Math.floor(Date.now() / 1000);
-  const proteinPreorder =
-    hasProteinSub && PROTEIN_PREORDER_CHARGE_AT - nowSec > 49 * 3600;
 
   const eventId = randomUUID();
 
@@ -247,12 +225,6 @@ export async function POST(req: NextRequest) {
     metadata: {
       ...trackingMetadata,
       mujo_event_id: eventId,
-      // Read by /checkout/success for pre-order copy (ships by the ship date,
-      // and for subscriptions nothing is charged today).
-      ...(parsed.items.some((i) => (Object.values(PROTEIN_PRICE_IDS) as string[]).includes(i.stripePriceId))
-        ? { preorder_item: 'protein-powder' }
-        : {}),
-      ...(proteinPreorder ? { preorder_charge: 'on-ship' } : {}),
     },
   };
 
@@ -276,35 +248,13 @@ export async function POST(req: NextRequest) {
     const hasMerch = parsed.items.some(
       (i) => resolveMerchPriceId(i.stripePriceId) !== null,
     );
-    // No Express on a pre-order: paying $15 for speed on something that ships
-    // on the ship date would mislead. Same switch as merch.
-    const hasPreorder = parsed.items.some((i) =>
-      (Object.values(PROTEIN_PRICE_IDS) as string[]).includes(i.stripePriceId),
-    );
-    params.shipping_options = buildShippingOptions(subtotalCents, hasMerch || hasPreorder);
+    params.shipping_options = buildShippingOptions(subtotalCents, hasMerch);
     // allow_promotion_codes lets customers type a code at checkout — this is the
     // path the first-buyer WELCOME10 code (coupon MUJO_FIRST_10, 10% off once,
     // first_time_transaction only) rides on, plus any partner / press codes.
     params.allow_promotion_codes = true;
   } else if (mode === 'subscription') {
-    params.subscription_data = proteinPreorder
-      ? {
-          trial_end: PROTEIN_PREORDER_CHARGE_AT,
-          metadata: {
-            ...attribution,
-            mujo_event_id: eventId,
-            preorder: 'protein-powder',
-          },
-        }
-      : { metadata: { ...attribution, mujo_event_id: eventId } };
-    if (proteinPreorder) {
-      params.custom_text = {
-        ...params.custom_text,
-        submit: {
-          message: `Pre-order: your card is saved today and first charged on ${PROTEIN_PREORDER_SHIP_LABEL}, when your first pouch ships. 30-day money-back guarantee. Cancel or change after two deliveries.`,
-        },
-      };
-    }
+    params.subscription_data = { metadata: { ...attribution, mujo_event_id: eventId } };
     // The 15% subscriber discount is BAKED INTO the subscription Price (mirrored
     // at $55.25, not $65 + coupon — see scripts/mirror-shopify-to-stripe.ts). We
     // apply NO coupon here, which leaves Stripe Checkout's single discount slot

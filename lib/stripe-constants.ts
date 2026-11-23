@@ -10,8 +10,7 @@ export const SHIPPING_RATE_FLAT_ID = process.env.STRIPE_SHIPPING_FLAT_ID ?? "";
 // + the env var is set; buildShippingOptions() only offers Express when present,
 // so checkout degrades gracefully (Free/Standard still work) before then.
 //
-// Switched OFF 2026-10-06 (Kinga): one shipping type only, so checkout reads the
-// same for every product (pre-orders never had Express). Set to true to offer
+// Switched OFF 2026-10-06 (Kinga): one shipping type only. Set to true to offer
 // it again; the rate and env var are left in place.
 export const EXPRESS_SHIPPING_ENABLED = false;
 export const SHIPPING_RATE_EXPRESS_ID = EXPRESS_SHIPPING_ENABLED
@@ -67,10 +66,9 @@ export const RITUAL_LEGACY_SUB_PRICE_IDS: string[] = (
   .map((id) => id.trim())
   .filter(Boolean);
 
-// Protein Powder (Vanilla Bean, 450g / 15 servings). $45 one-time pre-order.
-// No subscription is sold until the powder ships (Kinga 2026-10-05); the sub-*
-// keys stay so the dormant subscription path keeps compiling, and are simply
-// unset in every environment. Created Stripe-only by scripts/create-protein-prices.mjs.
+// Protein Powder (Vanilla Bean, 450g / 15 servings). $45 one-time, $40
+// subscription (save $5). Every 4 or 8 weeks, 2-order minimum.
+// Created Stripe-only by scripts/create-protein-prices.mjs.
 export const PROTEIN_PRICE_IDS = {
   onetime: process.env.NEXT_PUBLIC_PROTEIN_PRICE_ONETIME ?? "",
   "sub-2wk": process.env.NEXT_PUBLIC_PROTEIN_PRICE_SUB_2W ?? "",
@@ -80,14 +78,6 @@ export const PROTEIN_PRICE_IDS = {
 } as const;
 export type ProteinCadence = "2wk" | "4wk" | "6wk" | "8wk";
 
-// Pre-order (Kinga 2026-09-30): one-time buyers pay at checkout; subscribers
-// save their card and are FIRST charged when the first batch ships. The
-// subscription is created with trial_end at this moment, so the first real
-// invoice lands on ship day. Stripe needs trial_end ≥ 48h in the future, so the
-// pre-order window closes automatically 2 days before (checkout falls back to
-// charging immediately once the date is too close or has passed).
-export const PROTEIN_PREORDER_CHARGE_AT = 1795100400; // 2026-11-19 15:00 UTC
-export const PROTEIN_PREORDER_SHIP_LABEL = "November 19";
 
 /** True if this Price ID is any Protein Powder subscription Price. */
 export function isProteinSubscriptionPrice(id: string): boolean {
