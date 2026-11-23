@@ -7,6 +7,7 @@ import { customers, db, subscriptions } from 'db';
 import {
   createOrder,
   findOrCreateCustomer,
+  findOrderByStripeChargeId,
   ShopifyAdminError,
   type CreateOrderInput,
   type ShopifyOrder,
@@ -121,6 +122,31 @@ export async function createMirroredOrder(args: {
   context: string;
 }): Promise<ShopifyOrder> {
   const { base, facts, context } = args;
+
+  // A retried webhook must not make a second order. The handlers check our own
+  // order_mirror table first, but that row is written AFTER Shopify creates the
+  // order, so a crash in between leaves an order with no row. Ask Shopify too.
+  // If the lookup itself fails we carry on and create the order: a paid order
+  // must always reach Shopify, and a rare duplicate is easier to spot and
+  // cancel than a missing one.
+  if (base.customerId) {
+    try {
+      const existing = await findOrderByStripeChargeId(base.customerId, facts.chargeId);
+      if (existing) {
+        console.warn(`${context} Shopify order already exists for this charge, reusing it`, {
+          chargeId: facts.chargeId,
+          shopifyOrder: existing.name,
+        });
+        return existing;
+      }
+    } catch (err) {
+      console.error(`${context} existing-order lookup failed, creating the order`, {
+        chargeId: facts.chargeId,
+        err,
+      });
+    }
+  }
+
   const isLive = process.env.STRIPE_SECRET_KEY?.startsWith('sk_live') ?? false;
   const { computedTotalCents, matches, ...moneyFields } = buildOrderMoneyFields(facts, { isLive });
 

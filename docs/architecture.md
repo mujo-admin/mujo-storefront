@@ -74,7 +74,7 @@ Populated by `scripts/mirror-shopify-to-stripe.ts` (W2). Re-runnable.
 ### One-time purchase (W2)
 
 ```
-Browser  ─click "Buy"→  /api/checkout  ──→  Stripe Checkout Session
+Browser  ─click "Buy"→  /api/checkout-session  ──→  Stripe Checkout Session
                                                 │
 Browser  ←redirect────  Stripe-hosted UI  ←────┘
                                                 │

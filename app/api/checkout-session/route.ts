@@ -4,8 +4,8 @@
 // renders the form inside an iframe pinned to /checkout.
 //
 // Replaces the Phase 2 /api/payment-intent path (Stripe Elements). W2's legacy
-// /api/checkout (mode='hosted', returns url) stays alive as the 30-day stale-tab
-// compat shim.
+// /api/checkout (hosted) route was removed 2026-11-23: nothing called it and it
+// had weaker checks than this one.
 
 import { after, NextRequest } from 'next/server';
 import Stripe from 'stripe';
@@ -23,6 +23,7 @@ import {
   PROTEIN_PRICE_IDS,
   isProteinSubscriptionPrice,
   isRitualSubscriptionPrice,
+  isSellablePriceId,
 } from 'lib/stripe-constants';
 import { resolveMerchPriceId } from 'lib/cart/merch-config';
 import {
@@ -50,7 +51,10 @@ const cartLineItemSchema = z.object({
 
 const requestSchema = z.object({
   items: z.array(cartLineItemSchema).min(1).max(20),
-  /** Optional pre-fill (Phase 4 will pass it from session). */
+  /**
+   * Optional email pre-fill for a guest. It only ever pre-fills the email box:
+   * it is never used to look up or attach an existing customer (see below).
+   */
   customerEmail: z.string().email().optional(),
   /** Origin URL for return_url construction (server can read host header but client knows the canonical origin). */
   origin: z.string().url(),
@@ -149,6 +153,24 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  // Only Prices the storefront actually sells. Without this any active Price in
+  // the Stripe account could be bought by a hand-built request, including the
+  // $0 frother gift Price and old or internal Prices.
+  const unknownPrice = parsed.items.find((i) => !isSellablePriceId(i.stripePriceId));
+  if (unknownPrice) {
+    console.warn('[checkout-session] rejected a Price that is not for sale', {
+      priceId: unknownPrice.stripePriceId,
+    });
+    return Response.json(
+      {
+        error: 'price_not_for_sale',
+        message:
+          'Something in your cart is no longer available. Please remove it and add it again.',
+      },
+      { status: 400 },
+    );
+  }
+
   const mode = determineMode(parsed);
 
   const nowSec = Math.floor(Date.now() / 1000);
@@ -171,12 +193,12 @@ export async function POST(req: NextRequest) {
   // Phase 4 pre-fill: if the customer is signed in, hand Stripe the saved
   // Stripe customer ID. Embedded Checkout will then surface the customer's
   // saved cards (off-session payment methods) automatically and pre-fill the
-  // billing address from prior sessions. Falls back to customer_email so a
-  // session-less request from the same browser still gets email pre-fill.
+  // billing address from prior sessions. A signed-in shopper's own email always
+  // wins over one sent in the request.
   const session = await getSession();
   const customerId = session?.stripeCustomerId ?? null;
   const customerEmail =
-    parsed.customerEmail ?? session?.email ?? undefined;
+    session?.email ?? parsed.customerEmail ?? undefined;
 
   const params: SessionCreateParams = {
     // Dahlia API renamed: 'embedded' → 'embedded_page', 'hosted' → 'hosted_page'.
@@ -288,17 +310,23 @@ export async function POST(req: NextRequest) {
   // Stripe rejects passing both `customer` and `customer_email` on the same
   // session — `customer` wins when available because it unlocks saved cards.
   //
-  // For guests (no signed-in stripeCustomerId) we still try to REUSE an
-  // existing Stripe Customer matched by email, rather than letting Stripe spin
-  // up a brand-new Customer on every attempt. This is dedup layer 1 (the May
-  // 2026 double-bill root cause: 3 pay attempts → 3 Customers → 3 subs). Layer
-  // 2 — the duplicate-subscription guard in the customer.subscription.created
-  // webhook — needs all attempts on ONE Customer to recognize them as dupes.
+  // An existing Stripe Customer is attached ONLY when it comes from the signed-in
+  // session, i.e. the shopper has proven the account is theirs. Until
+  // 2026-11-23 a guest request was also matched to an existing Customer by the
+  // email in the request body. That email is unverified, so anyone who knew a
+  // subscriber's address could open a checkout on that subscriber's Customer and
+  // (through customer_update below) overwrite the saved shipping address their
+  // renewals ship to. The storefront itself never sent that email, so the
+  // lookup did nothing for real shoppers. Guests now always get a fresh Customer.
+  //
+  // A signed-in shopper whose account has no Stripe Customer linked yet (an
+  // older Shopify customer) is still matched by email, because the session
+  // email was verified by the login link.
   let resolvedCustomerId = customerId;
-  if (!resolvedCustomerId && customerEmail) {
+  if (!resolvedCustomerId && session?.email) {
     try {
       const existing = await stripe.customers.list({
-        email: customerEmail,
+        email: session.email,
         limit: 1,
       });
       resolvedCustomerId = existing.data[0]?.id ?? null;

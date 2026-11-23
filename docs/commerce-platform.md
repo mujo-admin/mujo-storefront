@@ -31,7 +31,7 @@ Stripe is the source of truth for payments and subscription state. Shopify is th
                      └─────────────┘      └─────────────┘
 ```
 
-1. Customer clicks "Buy" or "Subscribe" — the frontend POSTs cart shape to `/api/checkout`
+1. Customer clicks "Buy" or "Subscribe" — the frontend POSTs cart shape to `/api/checkout-session` (the older hosted `/api/checkout` route was removed 2026-11-23)
 2. We create a Stripe Checkout Session, return its hosted URL, customer redirects to Stripe
 3. Stripe handles card capture + tax + shipping + (for subs) recurring schedule. On any state change Stripe POSTs an event to `/api/webhooks/stripe`
 4. Webhook handler verifies signature, deduplicates via `webhook_events` table, and dispatches to a per-event handler that mirrors state into Postgres
@@ -69,7 +69,7 @@ Stripe Checkout has **one discount slot per session**: you can pass a coupon in 
 ## Sequence: One-time purchase
 
 ```
-Customer ──┬─▶ POST /api/checkout {line_items, success_url, cancel_url}
+Customer ──┬─▶ POST /api/checkout-session {items, origin}
            │   {mode: 'payment'}
            │
            ◀── { url: 'https://checkout.stripe.com/...' }
@@ -222,3 +222,10 @@ A mirrored Shopify order now carries everything Stripe charged: the payment itse
 - `docs/metafields.md` — `mujo_commerce` namespace spec
 - `docs/env-vars.md` — Full env-var inventory (W1 + W2 + W3)
 - `docs/architecture.md` — One-page Shopify ↔ Stripe ↔ Postgres ↔ Next.js diagram (W1)
+
+## Checkout and webhook safeguards (2026-11-23)
+
+- **Only sellable Prices.** `/api/checkout-session` rejects any Price ID that is not in `isSellablePriceId()` (`lib/stripe-constants.ts`: Ritual, Protein Powder and merch Prices). A new product's Prices must be added to one of those maps or checkout answers `price_not_for_sale`. The $0 frother gift Price is never accepted from the browser; only the server adds it.
+- **Existing customers are attached only for signed-in shoppers.** A guest request is never matched to a Stripe Customer by email (the email is unverified and Checkout would overwrite that customer's saved shipping address). Guests always get a new Customer.
+- **Unfinished webhook events are retried.** `webhook_events` rows with `processed_at` empty are attempts that were killed part-way. A retry within 2 minutes gets `409` (Stripe retries later); after that the retry takes the event over. Only a row with `processed_at` set answers "already processed". The route's `maxDuration` is 60 seconds.
+- **No second Shopify order on a retry.** Before creating an order, `createMirroredOrder()` asks Shopify whether the customer already has an order with this charge id (`findOrderByStripeChargeId`, metafield `mujo_commerce.stripe_charge_id`) and reuses it.

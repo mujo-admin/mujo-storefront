@@ -30,7 +30,7 @@ export const SUPPRESS_EXPRESS_FOR_MERCH = true;
 
 // Ritual Stripe Price IDs — populated by scripts/fetch-ritual-price-ids.mjs.
 // Mirrored to NEXT_PUBLIC_* for client-side consumption by the PDP buy box.
-// Price IDs are not secret (they're posted to /api/checkout from the browser).
+// Price IDs are not secret (they're posted to /api/checkout-session from the browser).
 //
 // The 10-serving bag is one-time only (no subscription Price). Smaller bag,
 // higher unit cost — never carries the MUJO_SUB_15 discount.
@@ -183,3 +183,22 @@ export const MERCH_PRICE_IDS = {
 } as const;
 
 export type MerchPriceKey = keyof typeof MERCH_PRICE_IDS;
+
+// Every Stripe Price a shopper may put through checkout: the Ritual, the
+// Protein Powder and the merch Prices above, and nothing else. The checkout
+// route rejects any other Price ID, so a hand-built request cannot buy at an
+// old, internal or $0 Price (the free-frother gift Price is deliberately NOT in
+// this list: only the server adds it). Legacy subscription Prices are renewed
+// on, never sold, so they are not sellable either.
+const SELLABLE_PRICE_IDS: ReadonlySet<string> = new Set(
+  [
+    ...Object.values(RITUAL_PRICE_IDS),
+    ...Object.values(PROTEIN_PRICE_IDS),
+    ...Object.values(MERCH_PRICE_IDS),
+  ].filter((id) => id && id !== FROTHER_GIFT_PRICE_ID),
+);
+
+/** True if this Price ID is one the storefront sells at checkout. */
+export function isSellablePriceId(id: string): boolean {
+  return SELLABLE_PRICE_IDS.has(id);
+}

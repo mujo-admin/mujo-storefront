@@ -24,7 +24,7 @@
 // After --apply:
 //   1. Add the printed STRIPE_SUBSCRIPTION_COUPON_RITUAL_ID to .env.local + Vercel.
 //   2. Wire the checkout routes to prefer it (see printed note) — one-line change
-//      in app/api/checkout-session/route.ts and app/api/checkout/route.ts.
+//      in app/api/checkout-session/route.ts.
 //   Run against sandbox now; re-run against LIVE at cutover.
 
 import 'dotenv/config';
@@ -156,7 +156,7 @@ function printFollowup(couponId: string) {
   console.log(`   import: SUBSCRIPTION_COUPON_RITUAL_ID  (new, from stripe-constants)`);
   console.log(`   in the subscription block: const coupon = SUBSCRIPTION_COUPON_RITUAL_ID || SUBSCRIPTION_COUPON_ID;`);
   console.log(`   params.discounts = [{ coupon }];`);
-  console.log(`   Files: app/api/checkout-session/route.ts, app/api/checkout/route.ts`);
+  console.log(`   Files: app/api/checkout-session/route.ts`);
   console.log(`3. DO NOT repoint STRIPE_SUBSCRIPTION_COUPON_ID — the Loop migration webhook + LOOPMIG2026`);
   console.log(`   promo stay on MUJO_SUB_15 (migration carts are Ritual-sub-only, so unscoped is harmless).`);
 }
