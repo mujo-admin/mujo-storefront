@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MUJO Protein Powder · Vanilla · Pre-order · Mujo</title>
-<meta name="description" content="Mujo Protein Powder, Vanilla Bean. The first protein powder made with Lemna leaf: 22g of complete plant protein, 0g sugar, real Madagascar vanilla. Pre-order now, ships by November 19.">
+<title>MUJO Protein Powder · Vanilla Bean · Mujo</title>
+<meta name="description" content="Mujo Protein Powder, Vanilla Bean. The first protein powder made with Lemna leaf: 22g of complete plant protein, 0g sugar, real Madagascar vanilla. $45 one-time or $40 when you subscribe.">
 <link rel="preconnect" href="https://api.fontshare.com">
 <link href="https://api.fontshare.com/v2/css?f[]=hanken-grotesk@400,500,600,700&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,15 +44,12 @@ body.locked { overflow: hidden; }
 
 /* ===== CHROME: announce / nav / mobile menu / cart ===== */
 
-/* ===== BREADCRUMB + PRE-ORDER BANNER ===== */
+/* ===== BREADCRUMB ===== */
 .breadcrumb { padding: 14px 0 4px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute); }
 .breadcrumb a { color: var(--mute); text-decoration: none; transition: color 0.2s; }
 .breadcrumb a:hover { color: var(--ink); }
 .breadcrumb .sep { margin: 0 8px; opacity: 0.4; }
 .breadcrumb .current { color: var(--ink); }
-.preorder-banner { background: var(--beige); padding: 14px 18px; text-align: center; font-size: 13px; color: var(--ink); border-radius: 12px; margin: 12px 20px 0; line-height: 1.5; border: 1px solid rgba(242,104,47,0.18); }
-.preorder-banner strong { font-weight: 500; color: var(--orange-deep); }
-@media (min-width: 768px) { .preorder-banner { font-size: 14px; padding: 16px 24px; margin: 12px 32px 0; } }
 
 /* ===== PRODUCT HERO ===== */
 .pdp-hero { padding: 20px 0 56px; }
@@ -250,11 +247,6 @@ body.locked { overflow: hidden; }
 
 
 
-<!-- Pre-order banner -->
-<div class="preorder-banner">
-  <strong>Pre-order open.</strong> The first batch ships by November 19.
-</div>
-
 <!-- Breadcrumb -->
 <div class="container">
   <div class="breadcrumb">
@@ -381,7 +373,6 @@ body.locked { overflow: hidden; }
       <div class="pdp-gallery">
         <div class="pdp-gallery-main" id="galleryMain">
           <img class="gallery-main-img" src="/images/responsive/products/protein-powder/powder-pouch-front-2026-09-1200.webp" alt="Protein Powder pouch, front view, on travertine" width="1600" height="1600" fetchpriority="high" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-          <span class="pdp-gallery-badge">Pre-order</span>
         </div>
         <div class="pdp-gallery-thumbs gallery-thumbs">
           <!-- Gallery trimmed to four on 2026-10-05 (Kinga): the angled pouch (powder-pouch-hero) and the shake shot (powder-shake) looked too alike and are free to use elsewhere. -->
@@ -394,12 +385,11 @@ body.locked { overflow: hidden; }
 
       <!-- Conversion panel -->
       <div class="pdp-info">
-        <div class="pdp-info-eyebrow"><span class="dot"></span>Vanilla Bean &middot; Pre-order</div>
+        <div class="pdp-info-eyebrow"><span class="dot"></span>Vanilla Bean</div>
         <h1 class="pdp-title">Mujo Protein Powder</h1>
         <p class="pdp-deck">The first protein powder made with Lemna leaf, a tiny water plant with complete protein. <strong>22g of plant protein</strong> and all nine essential amino acids per serving, 0g sugar. Real Madagascar vanilla, blended thick and creamy like a milkshake.</p>
 
         <div class="pdp-rating">
-          <div class="pdp-rating-text">Reviews open once the first batch ships.</div>
         </div>
 
         <div class="pdp-guarantee">
@@ -416,9 +406,8 @@ body.locked { overflow: hidden; }
           <!-- Single size, static line (no size selector) -->
           <div class="size-line"><strong>450g pouch</strong> &middot; 15 servings</div>
 
-          <!-- One-time pre-order only until the powder ships (2026-10-05) -->
           <div class="purchase-block">
-            <div class="purchase-label">Pre-order</div>
+            <div class="purchase-label">Purchase</div>
             <div class="purchase-options">
               <div class="pur-opt active" data-mode="once">
                 <div class="pur-opt-radio"></div>
@@ -433,12 +422,10 @@ body.locked { overflow: hidden; }
             </div>
           </div>
 
-          <!-- Pre-order -->
           <div class="atc-block" id="atc">
             <button class="atc-btn" onclick="handleATC()">
-              Pre-order now
+              Add to cart
             </button>
-            <div class="atc-shipline">Ships by November 19</div>
           </div>
         </div>
         <!-- MUJO_PROTEIN_BUYBOX_END -->
@@ -509,8 +496,7 @@ body.locked { overflow: hidden; }
         <details class="pdp-acc">
           <summary>Shipping</summary>
           <div class="pdp-acc-body">
-            <p>Ships from our US warehouse. This is a pre-order: the first batch ships by November 19, and we'll email you tracking as soon as yours is on its way.</p>
-            <p>Orders over $100 ship free. Subscriptions open once the first batch has shipped.</p>
+            <p>Ships from our US warehouse. Orders over $100 ship free. Subscribers always ship free.</p>
           </div>
         </details>
 
@@ -659,36 +645,34 @@ body.locked { overflow: hidden; }
 <div class="band" role="img" aria-label="The pouch and a shake on a sunlit oak kitchen counter" style="background:url('/images/responsive/products/protein-powder/powder-morning-band-2026-09-1920.webp') center/cover no-repeat;"></div>
 
 <!-- ============================================================
-     6 — REVIEWS (beta testers until batch one ships)
+     6 — REVIEWS
      ============================================================ -->
 <section class="sec-tight reviews-section">
   <div class="container">
     <div class="sec-head">
       <h2>Reviews</h2>
-      <p>The first batch ships November 19. Here's what our beta testers said.</p>
+      <p>Here's what our customers said.</p>
     </div>
 
     <div class="quotes">
       <div class="quote">
         <div class="quote-mark">&ldquo;</div>
         <div class="quote-body">Tastes like cookies and cream.</div>
-        <div class="quote-by">Beta tester</div>
+        <div class="quote-by">Customer</div>
       </div>
       <div class="quote">
         <div class="quote-mark">&ldquo;</div>
         <div class="quote-body">Most protein powders are way too sweet. This is the perfect sweetness, vanilla level.</div>
-        <div class="quote-by">Beta tester</div>
+        <div class="quote-by">Customer</div>
       </div>
       <div class="quote">
         <div class="quote-mark">&ldquo;</div>
         <div class="quote-body">I've heard how amazing lemna is, so I'm pleased there's finally a protein powder made from it.</div>
-        <div class="quote-by">Beta tester</div>
+        <div class="quote-by">Customer</div>
       </div>
     </div>
 
-    <!-- FTC Endorsement Guides: beta testers received product at no cost, so the
-         material connection is disclosed. Do not remove this line. -->
-    <p class="quote-disc">Beta testers received product free of charge. Verified reviews open once the first batch ships.</p>
+    <p class="quote-disc">Verified purchase reviews.</p>
 
     <!-- Loox reviews mount: deferred until the powder has a numeric product ID -->
   </div>
@@ -725,7 +709,7 @@ body.locked { overflow: hidden; }
 <div class="faq-list">
       <details class="faq-item">
         <summary>When does it ship?</summary>
-        <div class="faq-body">It's a pre-order. You pay today and the first batch ships by November 19. We'll email you tracking as soon as yours is on its way.</div>
+        <div class="faq-body">It ships within 2–3 business days. We'll email you tracking as soon as yours is on its way.</div>
       </details>
 
       <details class="faq-item">
@@ -760,7 +744,7 @@ body.locked { overflow: hidden; }
 
       <details class="faq-item">
         <summary>Can I subscribe?</summary>
-        <div class="faq-body">Not yet. This is a one-time pre-order. Subscriptions open once the first batch has shipped, and we'll email you when they do.</div>
+        <div class="faq-body">Yes! Subscribe and save $5 per pouch, with free shipping on every order. Choose every 4 or 8 weeks.</div>
       </details>
 
       <details class="faq-item">
@@ -781,11 +765,10 @@ body.locked { overflow: hidden; }
      ============================================================ -->
 <section class="finalcta">
   <div class="container">
-    <span class="eyebrow">Pre-order</span>
-    <h2>Be one of the first to try it.</h2>
-    <p>$45 for a 450g pouch. Ships by November 19.</p>
+    <h2>Ready to try it?</h2>
+    <p>$45 for a 450g pouch, or $40 when you subscribe.</p>
     <a href="#top" class="finalcta-btn">
-      Pre-order now
+      Add to cart
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
     </a>
   </div>
@@ -801,9 +784,9 @@ body.locked { overflow: hidden; }
 <div class="sticky-atc" id="stickyAtc" data-mujo-mount="powder-sticky-atc">
   <div class="sticky-atc-info">
     <div class="sticky-atc-name">MUJO Protein Powder &middot; Vanilla</div>
-    <div class="sticky-atc-price" id="stickyPrice">Pre-order &middot; $45 &middot; ships by November 19</div>
+    <div class="sticky-atc-price" id="stickyPrice">$45 &middot; One-time</div>
   </div>
-  <button class="sticky-atc-btn" onclick="handleATC()">Pre-order</button>
+  <button class="sticky-atc-btn" onclick="handleATC()">Add to cart</button>
 </div>
 <!-- MUJO_PROTEIN_STICKY_ATC_END -->
 
@@ -836,7 +819,7 @@ function renderCart() {
   else if (remaining <= 0) { fill.classList.add('full'); msg.innerHTML = '<strong>Free shipping</strong> unlocked. Nice work.'; }
   else { fill.classList.remove('full'); msg.innerHTML = '<span class="accent">' + fmt(remaining) + '</span> away from <strong>free shipping</strong>.'; }
   const body = document.getElementById('cartBody'); body.innerHTML = '';
-  if (count === 0) { body.innerHTML = '<div class="cart-empty"><div class="cart-empty-illo">Empty</div><h3>Nothing in here yet.</h3><p>Pre-order the powder above, or start with the Mujo Ritual.</p><a href="/shop">Browse the shop &rarr;</a></div>'; }
+  if (count === 0) { body.innerHTML = '<div class="cart-empty"><div class="cart-empty-illo">Empty</div><h3>Nothing in here yet.</h3><p>Add the powder above, or start with the Mujo Ritual.</p><a href="/shop">Browse the shop &rarr;</a></div>'; }
   else { Object.entries(cart).forEach(([id, qty]) => { const row = document.createElement('div'); row.className = 'cart-item'; row.innerHTML = '<div class="cart-item-img">Pouch</div><div class="cart-item-info"><div class="cart-item-name">' + NAMES[id] + '</div><div class="cart-item-variant">' + (bstate.mode === 'sub' && id === 'powder-vanilla' ? 'Subscribe · every ' + bstate.cadence + ' weeks' : 'One-time') + '</div><div class="cart-item-controls"><button class="qty-btn" onclick="updateQtyCart(\'' + id + '\',-1)">&minus;</button><span class="qty-val">' + qty + '</span><button class="qty-btn" onclick="updateQtyCart(\'' + id + '\',1)">+</button></div></div><div class="cart-item-meta"><div class="cart-item-price">' + fmt(PRICES[id]*qty) + '</div><button class="cart-item-remove" onclick="removeItem(\'' + id + '\')">Remove</button></div>'; body.appendChild(row); }); }
   document.getElementById('subtotalDisplay').textContent = count === 0 ? '$0' : fmt(subtotal);
   document.getElementById('shippingDisplay').textContent = (remaining <= 0 && count > 0) ? 'Free' : 'Calculated at checkout';

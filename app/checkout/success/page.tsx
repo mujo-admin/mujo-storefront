@@ -101,9 +101,6 @@ export default async function CheckoutSuccessPage(props: {
     typeof session?.invoice === 'string'
       ? session.invoice
       : session?.invoice?.id ?? null;
-  // Protein Powder pre-order (see /api/checkout-session metadata).
-  const hasPreorderItem = session?.metadata?.preorder_item === 'protein-powder';
-  const chargeOnShip = session?.metadata?.preorder_charge === 'on-ship';
 
   return (
     <div className="success-shell">
@@ -113,26 +110,19 @@ export default async function CheckoutSuccessPage(props: {
             <div className="success-glyph" aria-hidden>
               ✓
             </div>
-            <h1>{hasPreorderItem ? 'Pre-order confirmed' : 'Order received'}</h1>
-            {session && !chargeOnShip ? (
+            <h1>Order received</h1>
+            {session ? (
               <OrderNumber sessionId={session.id} invoiceId={invoiceId} />
             ) : null}
             <p className="success-lede">
               Thanks{email ? `, we'll send the receipt to ${email}` : ", we'll send the receipt to your email"}.
             </p>
-            {chargeOnShip ? (
-              <p className="success-lede">
-                Nothing is charged today. Your card is saved and first charged on
-                November 19, when your first pouch ships.
-              </p>
-            ) : (
             <div className="success-amount">
               {new Intl.NumberFormat("en-US", {
                 style: "currency",
                 currency,
               }).format(amount / 100)}
             </div>
-            )}
             <div className="success-actions">
               <Link href="/shop" className="success-btn">
                 Keep shopping →
@@ -146,9 +136,7 @@ export default async function CheckoutSuccessPage(props: {
               </p>
             ) : null}
             <p className="success-fineprint">
-              {hasPreorderItem
-                ? "Your Protein Powder ships from our US warehouse by November 19; anything else in your order ships within 1–2 business days. You'll receive a tracking email when it leaves the warehouse."
-                : "Your ritual ships from our US warehouse within 1–2 business days. You'll receive a tracking email when it leaves the warehouse."}
+              Your order ships from our US warehouse within 1–2 business days. You'll receive a tracking email when it leaves the warehouse.
             </p>
           </>
         ) : isProcessing ? (

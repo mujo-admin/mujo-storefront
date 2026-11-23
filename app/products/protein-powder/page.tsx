@@ -29,7 +29,7 @@ const PROTEIN_SPLICES: Splice[] = [
 ];
 
 const DESCRIPTION =
-  "The first protein powder made with Lemna leaf. 22g of complete plant protein, 0g sugar and real Madagascar vanilla. Pre-order now, ships by November 19.";
+  "The first protein powder made with Lemna leaf. 22g of complete plant protein, 0g sugar and real Madagascar vanilla.";
 
 export const metadata: Metadata = {
   title: "Plant-Based Protein Powder, Vanilla Bean",
@@ -54,12 +54,12 @@ export default function ProteinPdpPage() {
               url: "/products/protein-powder",
               name: "Mujo Protein Powder, Vanilla Bean",
               description:
-                "A plant-based protein powder made with Lemna leaf and yellow pea protein. 22g of protein and all nine essential amino acids per serving, 0g sugar, 120 calories, real Madagascar vanilla bean and monk fruit. Vegan, and free from gluten, dairy and soy. 450g pouch, 15 servings. Pre-order: ships by November 19, 2026.",
+                "A plant-based protein powder made with Lemna leaf and yellow pea protein. 22g of protein and all nine essential amino acids per serving, 0g sugar, 120 calories, real Madagascar vanilla bean and monk fruit. Vegan, and free from gluten, dairy and soy. 450g pouch, 15 servings.",
               image:
                 "https://mujoworld.com/images/responsive/products/protein-powder/powder-pouch-front-2026-09-1200.webp",
               lowPrice: "45.00",
               highPrice: "45.00",
-              inStock: false,
+              inStock: true,
             }),
           ),
         }}

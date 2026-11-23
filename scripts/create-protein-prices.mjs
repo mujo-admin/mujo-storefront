@@ -7,9 +7,8 @@
 //
 //   $45.00 one-time                 → NEXT_PUBLIC_PROTEIN_PRICE_ONETIME
 //
-// Pre-order is ONE-TIME ONLY until the powder ships (Kinga 2026-10-05). Pass
-// --with-subscriptions later to also create $38.25 every 2/4/6/8 weeks
-// (subscriber 15% baked into the Price, same model as the Ritual)
+// Pass --with-subscriptions to also create $40.00 every 2/4/6/8 weeks
+// (subscriber $5 discount baked into the Price)
 //                                   → NEXT_PUBLIC_PROTEIN_PRICE_SUB_{2,4,6,8}W
 //
 // Tax: copies the Ritual Product's tax_code (powdered drink mix) and the Ritual
@@ -34,7 +33,7 @@ const variantArg = process.argv.find((a) => a.startsWith("--variant-gid="));
 const VARIANT_GID = variantArg ? variantArg.split("=")[1] : "";
 
 const ONETIME_CENTS = 4500;
-const SUB_CENTS = 3825;
+const SUB_CENTS = 4000;
 const CADENCES = process.argv.includes("--with-subscriptions") ? [2, 4, 6, 8] : [];
 
 function loadEnv(path) {

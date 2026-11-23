@@ -128,9 +128,9 @@ function proteinSubLine(weeks: number): PriceIdResolution {
   return {
     productHandle: "protein-powder",
     productTitle: "Protein Powder",
-    variantTitle: `Vanilla Bean · Pre-order · every ${weeks} weeks`,
+    variantTitle: `Vanilla Bean · every ${weeks} weeks`,
     image: PROTEIN_IMAGE,
-    unitAmountCents: 3825,
+    unitAmountCents: 4000,
     currency: "usd",
     isSubscription: true,
   };
@@ -139,7 +139,7 @@ const PROTEIN_LINES: Record<ProteinKey, PriceIdResolution> = {
   onetime: {
     productHandle: "protein-powder",
     productTitle: "Protein Powder",
-    variantTitle: "Vanilla Bean · Pre-order · One-time",
+    variantTitle: "Vanilla Bean · One-time",
     image: PROTEIN_IMAGE,
     unitAmountCents: 4500,
     currency: "usd",
