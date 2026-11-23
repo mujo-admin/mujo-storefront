@@ -15,8 +15,9 @@ const TOPICS = [
 type FormStatus = "idle" | "loading" | "sent" | "error";
 
 /**
- * <ContactForm /> — server-action POST → /api/contact (subscribes to Klaviyo
- * Contact list + sends Resend notification to kinga@mujoworld.com).
+ * <ContactForm /> — POST → /api/contact (sends a Resend notification to
+ * kinga@mujoworld.com; adds the sender to the Klaviyo list only when they tick
+ * the "send me Mujo news" box).
  */
 export function ContactForm() {
   const [status, setStatus] = useState<FormStatus>("idle");
@@ -27,7 +28,8 @@ export function ContactForm() {
     setStatus("loading");
     setErrorMsg("");
     const fd = new FormData(e.currentTarget);
-    const payload = Object.fromEntries(fd.entries());
+    const { marketingConsent, ...fields } = Object.fromEntries(fd.entries());
+    const payload = { ...fields, marketingConsent: marketingConsent === "on" };
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -83,6 +85,17 @@ export function ContactForm() {
         multiline
         required
       />
+      <label className="consent" htmlFor="marketingConsent">
+        <input id="marketingConsent" name="marketingConsent" type="checkbox" />
+        <span>Also send me Mujo news and recipes by email (optional)</span>
+      </label>
+      {/* Honeypot: hidden from people and screen readers; only bots fill it. */}
+      <div aria-hidden="true" style={{ position: "absolute", left: "-9999px" }}>
+        <label htmlFor="company">
+          Company
+          <input id="company" name="company" type="text" tabIndex={-1} autoComplete="off" />
+        </label>
+      </div>
       <button
         type="submit"
         className="cta-primary"
@@ -130,6 +143,22 @@ export function ContactForm() {
           transition: border-color 0.2s;
         }
         .mujo-contact-form textarea { min-height: 140px; resize: vertical; }
+        .mujo-contact-form label.consent {
+          flex-direction: row;
+          align-items: flex-start;
+          gap: 10px;
+          font-size: 14px;
+          font-weight: 400;
+          cursor: pointer;
+        }
+        .mujo-contact-form label.consent input {
+          width: 18px;
+          height: 18px;
+          padding: 0;
+          margin: 2px 0 0;
+          flex: 0 0 auto;
+          accent-color: var(--brown, #2A1810);
+        }
         .mujo-contact-form input:focus-visible,
         .mujo-contact-form select:focus-visible,
         .mujo-contact-form textarea:focus-visible {

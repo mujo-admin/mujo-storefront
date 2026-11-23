@@ -194,6 +194,63 @@ const SIGNUP_FORMS: Record<
 };
 
 /**
+ * /contact form → /api/contact (emails the message to the Mujo inbox; adds the
+ * sender to the email list only if they ticked the box). On success the form
+ * is replaced by a thank-you line; on failure it stays filled in and points
+ * the sender at the email address, so a message is never silently lost.
+ */
+async function submitContactForm(form: HTMLFormElement): Promise<void> {
+  const value = (id: string) =>
+    (form.querySelector<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>(
+      `#${id}`,
+    )?.value ?? "").trim();
+  const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+  if (button?.disabled) return; // already sending
+
+  form.querySelector(".contact-error")?.remove();
+  if (button) button.disabled = true;
+
+  let ok = false;
+  try {
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: value("c-name"),
+        email: value("c-email"),
+        topic: value("c-reason"),
+        message: value("c-msg"),
+        marketingConsent:
+          form.querySelector<HTMLInputElement>("#c-consent")?.checked === true,
+        company: value("c-company"),
+      }),
+    });
+    ok = res.ok;
+  } catch {
+    ok = false;
+  }
+
+  if (ok) {
+    const done = document.createElement("p");
+    done.setAttribute("role", "status");
+    done.style.cssText =
+      "font-family: var(--f-body); font-size: 16px; line-height: 1.5; color: inherit; margin: 0;";
+    done.textContent =
+      "Thanks, we got it. A real human will reply within a working day.";
+    form.replaceWith(done);
+    return;
+  }
+
+  if (button) button.disabled = false;
+  const error = document.createElement("p");
+  error.className = "contact-error";
+  error.setAttribute("role", "alert");
+  error.textContent =
+    "That didn't send. Please try again, or email us at hello@mujoworld.com.";
+  form.appendChild(error);
+}
+
+/**
  * Reviews carousel (homepage + Ritual PDP) — on phones the CSS turns each
  * `.reviews-grid` (and the Ritual PDP recipe `.howto-grid`) into a horizontal
  * scroll-snap carousel; this syncs the orange `.reviews-dots` indicators to the
@@ -558,6 +615,14 @@ export function ImportedPageRuntime({ children }: ImportedPageRuntimeProps) {
       // Generic forms are intentionally inert (no native submit, no subscribe).
       if (formType === "generic") {
         ev.preventDefault();
+        return;
+      }
+
+      // The /contact form. Until 2026-11-23 it was one of the inert "generic"
+      // forms: pressing Send did nothing at all, so no message ever arrived.
+      if (formType === "contact") {
+        ev.preventDefault();
+        void submitContactForm(form);
         return;
       }
 

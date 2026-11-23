@@ -119,7 +119,7 @@ export async function POST(req: NextRequest) {
         from: "Mujo Ambassador Applications <hello@mujoworld.com>",
         to: ["kinga@mujoworld.com"],
         replyTo: parsed.email,
-        subject: `[Ambassador] ${parsed.name} — ${parsed.whoYouAre}`,
+        subject: `[Ambassador] ${parsed.name} — ${parsed.whoYouAre}`.replace(/[\r\n]+/g, " "),
         text: [
           `Name:           ${parsed.name}`,
           `Email:          ${parsed.email}`,

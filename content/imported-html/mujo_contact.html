@@ -157,6 +157,10 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
 .field-row { display: grid; grid-template-columns: 1fr; gap: 16px; }
 @media (min-width: 560px) { .field-row { grid-template-columns: 1fr 1fr; } }
 .field-row .field { margin-bottom: 0; }
+.field-consent { display: flex; align-items: flex-start; gap: 10px; margin: 4px 0 8px; font-family: var(--f-body); font-size: 14px; line-height: 1.45; color: var(--ink-soft); cursor: pointer; }
+.field-consent input { width: 18px; height: 18px; margin: 1px 0 0; flex: 0 0 auto; accent-color: var(--brown, #2A1810); }
+.field-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.contact-error { margin: 12px 0 0; font-family: var(--f-body); font-size: 14px; line-height: 1.5; color: var(--accent-text); }
 .contact-submit { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; background: var(--btn-bg); color: var(--btn-fg); border: none; border-radius: var(--r-pill); font-family: var(--f-body); font-size: 15px; font-weight: 500; cursor: pointer; transition: all 0.2s; margin-top: 8px; }
 .contact-submit:hover { background: var(--btn-bg-hover); }
 .contact-submit svg { width: 14px; height: 14px; }
@@ -286,6 +290,14 @@ footer.mujo-foot { background: var(--sage); color: rgba(255,255,255,0.5); paddin
         <div class="field">
           <label for="c-msg">Your message</label>
           <textarea id="c-msg" required placeholder="Tell us what's going on. The more detail, the faster we can help."></textarea>
+        </div>
+        <label class="field-consent" for="c-consent">
+          <input type="checkbox" id="c-consent">
+          <span>Also send me Mujo news and recipes by email (optional)</span>
+        </label>
+        <div class="field-hp" aria-hidden="true">
+          <label for="c-company">Company</label>
+          <input type="text" id="c-company" tabindex="-1" autocomplete="off">
         </div>
         <button type="submit" class="contact-submit">
           Send message

@@ -197,7 +197,8 @@ export async function handleCheckoutCompleted(event: Stripe.Event) {
     }).catch((err) =>
       console.error('[checkout.completed] Klaviyo Order Placed failed', err),
     ),
-    eventId
+    // No Meta Purchase for a shopper who chose "No thanks" on the cookie bar.
+    eventId && session.metadata?.tracking_declined !== '1'
       ? sendCapiEvent({
           eventName: 'Purchase',
           eventId,

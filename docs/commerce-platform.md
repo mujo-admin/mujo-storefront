@@ -229,3 +229,12 @@ A mirrored Shopify order now carries everything Stripe charged: the payment itse
 - **Existing customers are attached only for signed-in shoppers.** A guest request is never matched to a Stripe Customer by email (the email is unverified and Checkout would overwrite that customer's saved shipping address). Guests always get a new Customer.
 - **Unfinished webhook events are retried.** `webhook_events` rows with `processed_at` empty are attempts that were killed part-way. A retry within 2 minutes gets `409` (Stripe retries later); after that the retry takes the event over. Only a row with `processed_at` set answers "already processed". The route's `maxDuration` is 60 seconds.
 - **No second Shopify order on a retry.** Before creating an order, `createMirroredOrder()` asks Shopify whether the customer already has an order with this charge id (`findOrderByStripeChargeId`, metafield `mujo_commerce.stripe_charge_id`) and reuses it.
+
+## Public endpoints (2026-11-23, security batch 2)
+
+- **`/api/klaviyo/subscribe`** accepts only the lists the site's signup forms use (`rebel_club`, `lemna_waitlist`), the one property they send (`mujo_tribe`) and a known source label. Free-form profile properties are dropped.
+- **`/api/meta/convert`** accepts only `ViewContent`, `AddToCart` and `Lead` with a fixed set of fields. `Purchase` and `InitiateCheckout` are sent by the server only and are refused here.
+- **`/api/klaviyo/track`** accepts only "Order Confirmation Viewed", and only after Stripe confirms that checkout was completed by that email; the amount comes from Stripe.
+- **`/api/contact`** is what the `/contact` form posts to (wired in `imported-page-runtime.tsx`; before this the form was inert). The sender joins the email list only when they tick the box (`marketingConsent: true`). A filled hidden `company` field (bots) is answered `ok` and dropped.
+- **Cookie bar "No thanks"** stops Meta as well as GA4 and Klaviyo: no browser pixel event, no `/api/meta/convert` mirror, and (through `tracking_declined` on the Stripe session and subscription metadata) no server-sent `InitiateCheckout` or `Purchase`.
+- Flood protection for these endpoints is a set of Vercel Firewall rate-limit rules, not code.
