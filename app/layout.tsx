@@ -51,6 +51,17 @@ export default async function RootLayout({
           type="font/woff2"
           crossOrigin="anonymous"
         />
+        {/*
+          Ahrefs Web Analytics (added 2026-11-23). A real tag in the head, as
+          Ahrefs asks, so its "Recheck installation" finds it. 3 KB, async,
+          sets no cookies and sends no shop events: page views only. It follows
+          in-site moves by itself, so nothing else calls it.
+        */}
+        <script
+          src="https://analytics.ahrefs.com/analytics.js"
+          data-key="E+MZdcU1OvjGcprmfc5Mpw"
+          async
+        />
       </head>
       <body>
         <CartProvider session={sessionSnapshot}>

@@ -44,6 +44,7 @@ Every other page keeps the HTML-string path. The buy box used to be portalled in
 - **Klaviyo:** loads at an idle moment 5 s or more after load.
 - **On `/checkout`:** any tag not yet loaded waits for Stripe's form. `CheckoutReadySignal` in `embedded-checkout.tsx` fires `mujo:checkout-ready`, with an 8 s cap.
 - New tags go here in code, not in GTM.
+- **Ahrefs Web Analytics** (since 2026-11-23) is the one exception: a 3 KB async tag in the `<head>` of `app/layout.tsx`, because Ahrefs checks for it in the page source. No cookies, page views only.
 - **Trade-off:** a visitor who leaves before the page finishes loading is not counted as a GA4 or Meta page view. Purchases are unaffected (sent server-side from the Stripe webhook).
 
 ## Checkout
