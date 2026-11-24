@@ -193,6 +193,10 @@ export default async function AccountPage() {
         stripePriceId: stripeSub?.items.data[0]?.price.id ?? sub.stripePriceId,
         currentPeriodEnd: livePeriodEnd ?? sub.currentPeriodEnd,
         cancelAtPeriodEnd: liveCancelAtPeriodEnd || sub.cancelAtPeriodEnd,
+        cancelAfterMinimum:
+          !(liveCancelAtPeriodEnd || sub.cancelAtPeriodEnd) &&
+          (stripeSub?.metadata ?? (sub.metadata as Record<string, unknown>))
+            ?.cancel_after_minimum === "1",
         isPaused: liveIsPaused || Boolean(sub.pausedAt),
         intervalLabel,
       }

@@ -22,6 +22,7 @@ import { stripe } from "lib/stripe";
 import { getSession } from "lib/session";
 import { resolvePriceId } from "lib/cart/price-id-map";
 import { RITUAL_PRICE_IDS } from "lib/stripe-constants";
+import { hasSavedCancellation, isUnderMinimum } from "lib/subscription-minimum";
 import { AccountChrome } from "components/account/account-chrome";
 import {
   SubscriptionControls,
@@ -82,8 +83,8 @@ export default async function SubscriptionPage() {
           <h3>No active subscription</h3>
           <p>
             Subscribe and save $10 on every Ritual delivery. Free shipping
-            on every order. After your first 2 deliveries you can pause or
-            cancel here, with no cancellation fees.
+            on every order. Two-delivery minimum. Cancel here any time, with
+            no cancellation fees; pause or skip after your first 2 deliveries.
           </p>
           <Link href="/products/mujo-ritual" className="sub-empty-cta">
             Start a subscription →
@@ -119,7 +120,12 @@ export default async function SubscriptionPage() {
   const cancelAtPeriodEnd = stripeSub?.cancel_at_period_end ?? sub.cancelAtPeriodEnd;
   const pausedAt = stripeSub?.pause_collection ? new Date() : sub.pausedAt;
   const isPaused = Boolean(stripeSub?.pause_collection);
-  const isCanceling = cancelAtPeriodEnd;
+  // A cancellation made before the second delivery: saved, and it takes effect
+  // right after that delivery (see lib/subscription-minimum.ts).
+  const cancelAfterMinimum =
+    !cancelAtPeriodEnd && hasSavedCancellation(stripeSub?.metadata ?? (sub.metadata as Record<string, unknown>));
+  const underMinimum = await isUnderMinimum(sub);
+  const isCanceling = cancelAtPeriodEnd || cancelAfterMinimum;
 
   const periodInfo = stripeSub
     ? {
@@ -254,6 +260,8 @@ export default async function SubscriptionPage() {
     stripePriceId: livePriceId,
     currentPeriodEnd: periodInfo.end.toISOString(),
     cancelAtPeriodEnd,
+    cancelAfterMinimum,
+    underMinimum,
     pausedAt: pausedAt?.toISOString() ?? null,
     unitAmountCents,
     effectiveAmountCents,
@@ -294,7 +302,9 @@ export default async function SubscriptionPage() {
           </div>
           <div className="sub-promise-text">
             <strong>The promise.</strong>
-            After your first 2 deliveries, skip, pause or cancel in one click.
+            Cancel any time in one click (before your second delivery, it
+            takes effect right after that delivery). Skip or pause after your
+            first 2 deliveries.
             No salt, no five-step exit interview. We build subscriptions we&rsquo;d want
             to be on ourselves.
           </div>
@@ -309,7 +319,9 @@ export default async function SubscriptionPage() {
               <p>Active since {memberSinceLabel}</p>
             </div>
             <div className={`sub-status-pill ${pillClass(status, isPaused, isCanceling)}`}>
-              {pillLabel(status, isPaused, isCanceling)}
+              {cancelAfterMinimum && !isPaused
+                ? "Cancellation saved"
+                : pillLabel(status, isPaused, isCanceling)}
             </div>
           </div>
 
@@ -317,10 +329,22 @@ export default async function SubscriptionPage() {
           <div className="next-delivery">
             <div className="next-delivery-text">
               <span className="acc-eyebrow-orange">
-                {isCanceling ? "Ends" : isPaused ? "Paused until" : "Next delivery"}
+                {cancelAfterMinimum
+                  ? "Last delivery"
+                  : isCanceling
+                    ? "Ends"
+                    : isPaused
+                      ? "Paused until"
+                      : "Next delivery"}
               </span>
               <strong>{formatLongDate(periodInfo.end)}</strong>
-              {!isPaused && !isCanceling ? (
+              {cancelAfterMinimum ? (
+                <span>
+                  Your cancellation is saved. Your second delivery charges your
+                  card on {formatShortDate(chargeDate)} and ships as usual. Your
+                  subscription ends after it, with no further charges.
+                </span>
+              ) : !isPaused && !isCanceling ? (
                 <span>
                   Charges your card on {formatShortDate(chargeDate)}. Ships from
                   our US warehouse.

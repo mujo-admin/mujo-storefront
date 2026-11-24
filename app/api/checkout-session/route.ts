@@ -239,7 +239,11 @@ export async function POST(req: NextRequest) {
           'Free US shipping on orders over $100 (and on every subscription). Ships from our US fulfilment partners.',
       },
       submit: {
-        message: '30-day money-back guarantee. Cancel or change your subscription after two billing cycles.',
+        // The subscription terms belong on a subscription checkout only.
+        message:
+          mode === 'subscription'
+            ? '30-day money-back guarantee. Subscriptions have a two-delivery minimum. Cancel any time in your account: a cancellation made before your second delivery takes effect right after it.'
+            : '30-day money-back guarantee.',
       },
     },
     expires_at: nowSec + SESSION_TTL_SECONDS,

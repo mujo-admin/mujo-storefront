@@ -24,6 +24,10 @@ export type SubscriptionDetail = {
   stripePriceId: string;
   currentPeriodEnd: string; // ISO
   cancelAtPeriodEnd: boolean;
+  /** Cancelled before the second delivery: saved, takes effect after it. */
+  cancelAfterMinimum: boolean;
+  /** Fewer than two deliveries so far (the subscription minimum). */
+  underMinimum: boolean;
   pausedAt: string | null;
   unitAmountCents: number | null;
   /** Effective per-delivery price (post-coupon). Used for the gift charge total. */
@@ -89,7 +93,7 @@ export function SubscriptionControls({
   );
 
   const isPaused = detail.status === "paused" || detail.pausedAt !== null;
-  const isCanceling = detail.cancelAtPeriodEnd;
+  const isCanceling = detail.cancelAtPeriodEnd || detail.cancelAfterMinimum;
   const isResumable = isPaused || isCanceling;
 
   // Delivery-frequency switch (4 / 6 / 8 / 12 weeks). Offered for the Ritual
@@ -404,9 +408,11 @@ export function SubscriptionControls({
           <p>
             {isPaused
               ? "Pick up where you left off. We'll resume on your next cycle."
-              : "Cancel pending — change your mind anytime before " +
-                formatLongDate(detail.currentPeriodEnd) +
-                "."}
+              : detail.cancelAfterMinimum
+                ? "Your cancellation is saved. Your second delivery arrives as planned, then your subscription ends. Changed your mind? Resume any time."
+                : "Cancel pending — change your mind anytime before " +
+                  formatLongDate(detail.currentPeriodEnd) +
+                  "."}
           </p>
         ) : (
           <p>
@@ -549,15 +555,33 @@ export function SubscriptionControls({
             </>
           ) : (
             <>
-              <p className="modal-body-text">
-                That&rsquo;s fine. No questions, no five-step exit. You&rsquo;ll
-                keep access until{" "}
-                <strong>{formatLongDate(detail.currentPeriodEnd)}</strong>. Then
-                billing stops.
-              </p>
-              <p className="modal-secondary-text">
-                Change your mind? You can resume anytime before that date.
-              </p>
+              {detail.underMinimum ? (
+                <>
+                  <p className="modal-body-text">
+                    That&rsquo;s fine. We&rsquo;ll save your cancellation now.
+                    Your subscription has a two-delivery minimum, so your second
+                    delivery still ships and is charged around{" "}
+                    <strong>{formatLongDate(detail.currentPeriodEnd)}</strong>.
+                    Your subscription ends right after it, with no further
+                    charges.
+                  </p>
+                  <p className="modal-secondary-text">
+                    Change your mind? You can resume any time before then.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p className="modal-body-text">
+                    That&rsquo;s fine. No questions, no five-step exit.
+                    You&rsquo;ll keep access until{" "}
+                    <strong>{formatLongDate(detail.currentPeriodEnd)}</strong>.
+                    Then billing stops.
+                  </p>
+                  <p className="modal-secondary-text">
+                    Change your mind? You can resume anytime before that date.
+                  </p>
+                </>
+              )}
               {error ? <p className="modal-error">{error}</p> : null}
               <ModalFoot
                 onCancel={() => setCancelStep(1)}
