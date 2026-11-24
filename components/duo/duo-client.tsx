@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useCart } from "components/cart/cart-context";
+import { PressBar } from "components/press-bar";
 import { itemFromCartLine, itemsValue, track } from "lib/analytics";
 import {
   resolveProteinSelection,
@@ -160,6 +161,43 @@ export function DuoClient() {
         </div>
       </div>
 
+      <div className="duo-press">
+        <PressBar />
+      </div>
+
+      <div className="duo-diff">
+        <h2 className="duo-h2">
+          What makes Mujo <em>different</em>
+        </h2>
+        <ul className="duo-diff-grid">
+          <li>
+            <strong>Under 5mg of caffeine</strong>
+            <span>
+              The Ritual has about a twentieth of the caffeine in a cup of
+              coffee.
+            </span>
+          </li>
+          <li>
+            <strong>Real mushroom extracts</strong>
+            <span>Four of them. Never mycelium on grain.</span>
+          </li>
+          <li>
+            <strong>A complete protein from a leaf</strong>
+            <span>
+              Lemna leaf protein has all nine essential amino acids on its own.
+              22g of protein a serving.
+            </span>
+          </li>
+          <li>
+            <strong>No artificial sweeteners</strong>
+            <span>
+              Both are sweetened with monk fruit. The Protein Powder has 0g of
+              sugar.
+            </span>
+          </li>
+        </ul>
+      </div>
+
       <div className="duo-terms">
         <h2>How it works</h2>
         <p>
@@ -309,9 +347,39 @@ function DuoStyles() {
       }
       .duo-sub p { margin: 0; font-size: 15px; line-height: 1.5; color: var(--ink-soft); flex: 1 1 220px; }
       .duo-sub strong { color: var(--ink); font-weight: 600; }
+      .duo-press { max-width: 1120px; margin: 56px auto 0; }
+      .duo-diff { max-width: 1120px; margin: 56px auto 0; }
+      .duo-h2 {
+        font-family: var(--f-serif);
+        font-weight: 400;
+        font-size: clamp(30px, 3.6vw, 42px);
+        line-height: 1.05;
+        color: var(--brown);
+        text-align: center;
+        margin: 0 0 30px;
+      }
+      .duo-h2 em { font-style: italic; color: var(--accent-display); }
+      .duo-diff-grid {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 16px;
+      }
+      .duo-diff-grid li {
+        background: var(--sand);
+        border-radius: var(--radius-card);
+        padding: 22px 20px 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .duo-diff-grid strong { font-size: 17px; font-weight: 600; line-height: 1.25; color: var(--brown); }
+      .duo-diff-grid span { font-size: 14px; line-height: 1.55; color: var(--ink-soft); }
       .duo-terms {
         max-width: 760px;
-        margin: 64px auto 0;
+        margin: 56px auto 0;
         padding-top: 28px;
         border-top: 1px solid var(--line);
       }
@@ -333,6 +401,10 @@ function DuoStyles() {
         .duo { padding: 20px 16px 56px; }
         .duo-grid { grid-template-columns: 1fr; gap: 28px; }
         .duo-sub .duo-btn { width: 100%; }
+        .duo-press, .duo-diff { margin-top: 40px; }
+        .duo-diff-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+        .duo-diff-grid li { padding: 16px 14px 18px; }
+        .duo-diff-grid strong { font-size: 15px; }
       }
     `}</style>
   );
