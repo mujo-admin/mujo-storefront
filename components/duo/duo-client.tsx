@@ -14,7 +14,8 @@ import { duoOfferActive } from "lib/duo-offer";
 
 const RITUAL_HANDLE = "mujo-ritual";
 const PROTEIN_HANDLE = "protein-powder";
-const HERO = "/images/responsive/lifestyle/ritual-protein-duo-hero-2026-10-1x1";
+const HERO =
+  "/images/responsive/products/protein-powder/powder-iced-ritual-2026-09";
 
 const TASTES = [
   {
@@ -114,7 +115,7 @@ export function DuoClient() {
               src={`${HERO}-800.webp`}
               srcSet={`${HERO}-800.webp 800w, ${HERO}-1200.webp 1200w`}
               sizes="(max-width: 860px) 100vw, 560px"
-              alt="The Ritual pouch and the Protein Powder pouch on a wooden table, with an iced Ritual topped with vanilla cold foam in front"
+              alt="Vanilla protein cold foam being poured over an iced Ritual, with the Protein Powder and The Ritual pouches behind the glass"
               width={800}
               height={800}
               fetchPriority="high"
