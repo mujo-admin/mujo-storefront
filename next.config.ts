@@ -1,5 +1,96 @@
 import type { NextConfig } from "next";
 
+// Content-Security-Policy, watch-only for now (2026-11-24).
+//
+// Sent as `Content-Security-Policy-Report-Only`: nothing is blocked. Each
+// browser reports what WOULD be blocked to /api/csp-report, which writes one
+// line per report to the server log ("[csp-report]"). Once the log is quiet
+// for the services below, the same value moves to the enforcing header.
+//
+// No nonces on purpose: a nonce makes every page render per request, which
+// would switch off prerendering and the CDN cache. The price is
+// 'unsafe-inline' for scripts and styles (Next.js and the imported pages both
+// rely on inline ones); the policy still limits WHERE scripts, frames and
+// connections may come from.
+//
+// When a new outside service is added to the site, add its hosts here.
+const CSP_SOURCES: Record<string, string[]> = {
+  "default-src": ["'self'"],
+  "script-src": [
+    "'self'",
+    "'unsafe-inline'",
+    // Turbopack dev mode evaluates code; never in production.
+    ...(process.env.NODE_ENV === "development" ? ["'unsafe-eval'"] : []),
+    "https://js.stripe.com",
+    "https://*.js.stripe.com",
+    "https://www.googletagmanager.com",
+    "https://connect.facebook.net",
+    "https://static.klaviyo.com",
+    "https://static-tracking.klaviyo.com",
+    "https://loox.io",
+    "https://*.loox.io",
+    "https://analytics.ahrefs.com",
+    "https://vercel.live",
+  ],
+  "style-src": [
+    "'self'",
+    "'unsafe-inline'",
+    "https://fonts.googleapis.com",
+    "https://api.fontshare.com",
+    "https://static.klaviyo.com",
+    "https://loox.io",
+    "https://*.loox.io",
+  ],
+  "font-src": [
+    "'self'",
+    "data:",
+    "https://fonts.gstatic.com",
+    "https://cdn.fontshare.com",
+    "https://static.klaviyo.com",
+    "https://*.loox.io",
+  ],
+  // Pictures are low risk and come from many places (Shopify, Loox review
+  // photos, Klaviyo forms, tracking pixels).
+  "img-src": ["'self'", "data:", "blob:", "https:"],
+  "media-src": ["'self'", "blob:", "https://cdn.shopify.com", "https://*.loox.io"],
+  "connect-src": [
+    "'self'",
+    "https://api.stripe.com",
+    "https://*.stripe.com",
+    "https://m.stripe.network",
+    "https://maps.googleapis.com",
+    "https://www.googletagmanager.com",
+    "https://*.google-analytics.com",
+    "https://*.analytics.google.com",
+    "https://stats.g.doubleclick.net",
+    "https://www.google.com",
+    "https://www.facebook.com",
+    "https://connect.facebook.net",
+    "https://*.klaviyo.com",
+    "https://loox.io",
+    "https://*.loox.io",
+    "https://analytics.ahrefs.com",
+  ],
+  "frame-src": [
+    "'self'",
+    "https://js.stripe.com",
+    "https://*.js.stripe.com",
+    "https://hooks.stripe.com",
+    "https://www.facebook.com",
+    "https://loox.io",
+    "https://*.loox.io",
+    "https://vercel.live",
+  ],
+  "worker-src": ["'self'", "blob:"],
+  "object-src": ["'none'"],
+  "base-uri": ["'self'"],
+  "form-action": ["'self'"],
+  "report-uri": ["/api/csp-report"],
+};
+const CSP_REPORT_ONLY = Object.entries(CSP_SOURCES)
+  .map(([directive, sources]) => `${directive} ${sources.join(" ")}`)
+  .join("; ");
+
 const config: NextConfig = {
   experimental: {
     ppr: true,
@@ -43,12 +134,13 @@ const config: NextConfig = {
         //    full URL (checkout URLs carry session ids).
         //  - Permissions-Policy: the site never needs camera, microphone or
         //    location. Payment is deliberately NOT restricted (Apple/Google Pay).
-        // A full Content-Security-Policy is a separate, later step: the
-        // imported pages rely on inline styles and third-party tags, so it has
-        // to be rolled out in report-only mode first.
+        // The full Content-Security-Policy runs in REPORT-ONLY mode (see
+        // CSP_SOURCES above): browsers block nothing, they only report what
+        // the policy would have blocked to /api/csp-report.
         source: "/:path*",
         headers: [
           { key: "Content-Security-Policy", value: "frame-ancestors 'self'" },
+          { key: "Content-Security-Policy-Report-Only", value: CSP_REPORT_ONLY },
           { key: "X-Frame-Options", value: "SAMEORIGIN" },
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
