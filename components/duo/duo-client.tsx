@@ -16,6 +16,30 @@ const RITUAL_HANDLE = "mujo-ritual";
 const PROTEIN_HANDLE = "protein-powder";
 const HERO = "/images/responsive/lifestyle/ritual-protein-duo-hero-2026-10-1x1";
 
+const TASTES = [
+  {
+    name: "The Ritual",
+    like: "Tastes like a smooth mocha.",
+    how: "Peruvian cacao, sweetened with monk fruit. One tablespoon, hot water, milk of choice.",
+    img: "/images/responsive/products/ritual/ritual-hero-pour-hot-with-pouch-editorial-2026-09-4x5",
+    alt: "Milk being poured into a steaming glass mug of The Ritual, with the pouch beside it",
+  },
+  {
+    name: "Protein Powder",
+    like: "Tastes like cookies and cream.",
+    how: "Creamy vanilla, never gritty. Two scoops, something cold, a blender.",
+    img: "/images/responsive/products/protein-powder/powder-pour-2026-09",
+    alt: "A thick vanilla protein shake being poured from a blender into a glass",
+  },
+  {
+    name: "Together",
+    like: "An iced mocha under vanilla cold foam.",
+    how: "Blend a scoop of Protein Powder with cold milk and pour it over an iced Ritual.",
+    img: "/images/responsive/products/protein-powder/powder-iced-ritual-2026-09",
+    alt: "Vanilla protein cold foam being poured over an iced Ritual, with both Mujo pouches behind the glass",
+  },
+];
+
 type Plan = "onetime" | "subscription";
 
 function pairFor(plan: Plan): CartLineItem[] | null {
@@ -117,15 +141,15 @@ export function DuoClient() {
           <ul className="duo-list">
             <li>
               <span>
-                <strong>The Ritual</strong>, 25 servings. A smooth mocha with
-                under 5mg of caffeine.
+                <strong>The Ritual</strong>, 25 servings. Tastes like a smooth
+                mocha, with under 5mg of caffeine.
               </span>
               <span className="duo-val">$60</span>
             </li>
             <li>
               <span>
-                <strong>Protein Powder</strong>, 15 servings. Creamy vanilla
-                with 22g of protein, made with Lemna leaf.
+                <strong>Protein Powder</strong>, 15 servings. Tastes like
+                cookies and cream, with 22g of protein.
               </span>
               <span className="duo-val">$45</span>
             </li>
@@ -159,6 +183,37 @@ export function DuoClient() {
             </button>
           </div>
         </div>
+      </div>
+
+      <div className="duo-taste">
+        <h2 className="duo-h2">
+          What they <em>taste like</em>
+        </h2>
+        <ul className="duo-taste-grid">
+          {TASTES.map((t) => (
+            <li key={t.name}>
+              <picture>
+                <source
+                  type="image/avif"
+                  srcSet={`${t.img}-800.avif 800w, ${t.img}-1200.avif 1200w`}
+                  sizes="(max-width: 860px) 78vw, 360px"
+                />
+                <img
+                  src={`${t.img}-800.webp`}
+                  srcSet={`${t.img}-800.webp 800w, ${t.img}-1200.webp 1200w`}
+                  sizes="(max-width: 860px) 78vw, 360px"
+                  alt={t.alt}
+                  width={800}
+                  height={1000}
+                  loading="lazy"
+                />
+              </picture>
+              <p className="duo-taste-name">{t.name}</p>
+              <p className="duo-taste-like">{t.like}</p>
+              <p className="duo-taste-how">{t.how}</p>
+            </li>
+          ))}
+        </ul>
       </div>
 
       <div className="duo-press">
@@ -347,6 +402,40 @@ function DuoStyles() {
       }
       .duo-sub p { margin: 0; font-size: 15px; line-height: 1.5; color: var(--ink-soft); flex: 1 1 220px; }
       .duo-sub strong { color: var(--ink); font-weight: 600; }
+      .duo-taste { max-width: 1120px; margin: 72px auto 0; }
+      .duo-taste-grid {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 20px;
+      }
+      .duo-taste-grid img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4 / 5;
+        object-fit: cover;
+        border-radius: var(--radius-image);
+        margin-bottom: 16px;
+      }
+      .duo-taste-name {
+        font-family: var(--f-mono);
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--accent-text);
+        margin: 0 0 8px;
+      }
+      .duo-taste-like {
+        font-family: var(--f-serif);
+        font-size: 26px;
+        line-height: 1.12;
+        color: var(--brown);
+        margin: 0 0 8px;
+      }
+      .duo-taste-how { font-size: 14px; line-height: 1.55; color: var(--ink-soft); margin: 0; }
       .duo-press { max-width: 1120px; margin: 56px auto 0; }
       .duo-diff { max-width: 1120px; margin: 56px auto 0; }
       .duo-h2 {
@@ -402,6 +491,19 @@ function DuoStyles() {
         .duo-grid { grid-template-columns: 1fr; gap: 28px; }
         .duo-sub .duo-btn { width: 100%; }
         .duo-press, .duo-diff { margin-top: 40px; }
+        .duo-taste { margin-top: 48px; }
+        .duo-taste-grid {
+          display: flex;
+          gap: 12px;
+          overflow-x: auto;
+          scroll-snap-type: x mandatory;
+          margin: 0 -16px;
+          padding: 0 16px 4px;
+          scrollbar-width: none;
+        }
+        .duo-taste-grid::-webkit-scrollbar { display: none; }
+        .duo-taste-grid li { flex: 0 0 78%; scroll-snap-align: center; }
+        .duo-taste-like { font-size: 23px; }
         .duo-diff-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
         .duo-diff-grid li { padding: 16px 14px 18px; }
         .duo-diff-grid strong { font-size: 15px; }
