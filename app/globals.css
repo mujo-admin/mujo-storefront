@@ -200,9 +200,9 @@ body > section[aria-label] {
   max-width: 1040px;
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: center;
   justify-content: center;
-  gap: 12px 44px;
+  gap: 16px 44px;
 }
 .press-bar-list li {
   font-family: var(--f-display);
@@ -214,8 +214,14 @@ body > section[aria-label] {
   opacity: 0.42;
   white-space: nowrap;
 }
+.press-bar-list li:has(img) { opacity: 0.55; line-height: 0; }
+.press-logo { display: block; width: auto; }
+.press-logo--one { height: 19px; }
+.press-logo--two { height: 38px; }
 @media (max-width: 640px) {
   .press-bar { padding: 20px 16px 22px; }
   .press-bar-list { gap: 10px 26px; }
   .press-bar-list li { font-size: 16px; }
+  .press-logo--one { height: 15px; }
+  .press-logo--two { height: 30px; }
 }

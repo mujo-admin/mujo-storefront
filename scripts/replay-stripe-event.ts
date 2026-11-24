@@ -10,7 +10,7 @@
 // It skips the webhook_events idempotency table; the handlers' own
 // order_mirror guards still apply (so replaying twice must not duplicate).
 //
-// Refuses to run against a live key. Klaviyo + Meta are switched off unless
+// Refuses to run against a live key. Klaviyo, Meta and GA4 are switched off unless
 // --with-analytics is passed, so test orders never reach real reporting.
 // --print-analytics shows exactly what WOULD be sent to Klaviyo and Meta
 // without sending it: the way to check a tracking change against real orders.
@@ -47,6 +47,8 @@ async function main() {
     delete process.env.KLAVIYO_PRIVATE_API_KEY;
     delete process.env.KLAVIYO_PRIVATE_KEY;
     delete process.env.META_CONVERSIONS_API_TOKEN;
+    // GA4 purchases are sent by the server since 2026-11-23: keep test orders out of it too.
+    delete process.env.GA4_API_SECRET;
   }
 
   const { stripe } = await import('lib/stripe');
