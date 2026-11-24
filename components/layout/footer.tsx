@@ -109,6 +109,12 @@ export function Footer() {
               { href: "/products/mujo-ritual", label: "Mujo Ritual" },
               // Lemna bar pages are hidden (2026-09-30); the powder took their slot.
               { href: "/products/protein-powder", label: "Protein Powder" },
+              // Frother and merch were linked from /shop only, and Google had
+              // not found them (Search Console, 2026-11-24).
+              { href: "/products/mujo-frother", label: "Electric Frother" },
+              { href: "/products/mujo-tee", label: "Organic Tee" },
+              { href: "/products/mujo-hat", label: "Baseball Cap" },
+              { href: "/products/mujo-crew", label: "Crewneck" },
               { href: "/shop", label: "Subscribe & save" },
               { href: "/rebel-club", label: "Rebel Club" },
             ]}
@@ -163,6 +169,36 @@ export function Footer() {
               style={{ color: "rgba(255,255,255,0.62)", textDecoration: "none" }}
             >
               Terms &amp; Conditions
+            </Link>
+            <Link
+              href="/legal/returns"
+              style={{ color: "rgba(255,255,255,0.62)", textDecoration: "none" }}
+            >
+              Returns
+            </Link>
+            <Link
+              href="/legal/subscription-terms"
+              style={{ color: "rgba(255,255,255,0.62)", textDecoration: "none" }}
+            >
+              Subscription Terms
+            </Link>
+            <Link
+              href="/legal/cookies"
+              style={{ color: "rgba(255,255,255,0.62)", textDecoration: "none" }}
+            >
+              Cookies
+            </Link>
+            <Link
+              href="/legal/accessibility"
+              style={{ color: "rgba(255,255,255,0.62)", textDecoration: "none" }}
+            >
+              Accessibility
+            </Link>
+            <Link
+              href="/legal/affiliate-disclosure"
+              style={{ color: "rgba(255,255,255,0.62)", textDecoration: "none" }}
+            >
+              Affiliate Disclosure
             </Link>
           </div>
           <div

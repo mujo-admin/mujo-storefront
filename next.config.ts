@@ -138,6 +138,10 @@ const config: NextConfig = {
       { source: "/policies/subscription-policy", destination: "/legal/subscription-terms", permanent: true },
       { source: "/policies/contact-information", destination: "/contact", permanent: true },
       { source: "/cart", destination: "/shop", permanent: true },
+      // All eight journal posts now sit on /journal (2026-11-24): a post that
+      // lived alone on page 2 was never found by Google. Temporary, because
+      // page 2 comes back once there are more than nine posts.
+      { source: "/journal/page/2", destination: "/journal", permanent: false },
       // Journal posts unpublished in the 2026-06 compliance sweep. Send them to
       // the journal index instead of a 404. permanent:false so a rewritten post
       // can reclaim its address: delete its line here when it is republished.
