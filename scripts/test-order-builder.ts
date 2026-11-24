@@ -183,6 +183,19 @@ check('a payment dated in the future is left for Shopify to date', () => {
   assert.equal('processedAt' in (b.transactions?.[0] ?? {}), false);
 });
 
+check('contentTags tags Daily Ritual Duo orders, and only those', () => {
+  const withCode = (code?: string): OrderFacts => ({
+    ...base,
+    totalCents: 8900,
+    lines: [{ title: 'The Ritual', quantity: 1, subtotalCents: 6000, taxes: [] }],
+    ...(code ? { discount: { code, amountCents: 1600 } } : {}),
+  });
+  assert.deepEqual(contentTags(withCode('DAILY_RITUAL_DUO')), ['black-friday-duo-2026']);
+  assert.deepEqual(contentTags(withCode('DAILY_RITUAL_DUO_SUBSCRIBE')), ['black-friday-duo-2026']);
+  assert.deepEqual(contentTags(withCode('WELCOME10')), []);
+  assert.deepEqual(contentTags(withCode()), []);
+});
+
 check('contentTags returns empty (pre-order tagging retired)', () => {
   const line = (title: string) => ({ title, quantity: 1, subtotalCents: 4500, taxes: [] });
   const facts = (titles: string[]): OrderFacts => ({
