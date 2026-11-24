@@ -1,7 +1,8 @@
 // "As seen in": publications that have covered Mujo or the Protein Powder
 // launch. Quiet text wordmarks, no logo files. Styles: .press-bar in
-// app/globals.css. The imported pages (homepage, both Protein Powder pages)
-// carry the same list as plain HTML, so change the names in all four places.
+// app/globals.css. The imported pages (homepage, both Protein Powder pages,
+// both Ritual pages) carry the same list as plain HTML, so change the names
+// in all six places.
 const PUBLICATIONS = [
   "VEGPRENEUR",
   "Green Queen",
