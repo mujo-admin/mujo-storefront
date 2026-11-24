@@ -171,3 +171,57 @@ body > section[aria-label] {
   min-height: 0 !important;
   background: transparent !important;
 }
+
+/* ---------------------------------------------------------------------------
+   "As seen in" bar (2026-11-24): five publication names as quiet wordmarks.
+   Used on the homepage, both Protein Powder pages (imported HTML) and /duo
+   (components/press-bar.tsx). A div, not a section: imported pages give every
+   <section> large vertical padding.
+   --------------------------------------------------------------------------- */
+.press-bar {
+  padding: 26px 24px 28px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+}
+.press-bar-eyebrow {
+  margin: 0 0 14px;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+.press-bar-list {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 1040px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 16px 44px;
+}
+.press-bar-list li {
+  font-family: var(--f-display);
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: var(--ink);
+  opacity: 0.42;
+  white-space: nowrap;
+}
+.press-bar-list li:has(img) { opacity: 0.55; line-height: 0; }
+.press-logo { display: block; width: auto; }
+.press-logo--one { height: 19px; }
+.press-logo--two { height: 38px; }
+@media (max-width: 640px) {
+  .press-bar { padding: 20px 16px 22px; }
+  .press-bar-list { gap: 10px 26px; }
+  .press-bar-list li { font-size: 16px; }
+  .press-logo--one { height: 15px; }
+  .press-logo--two { height: 30px; }
+}

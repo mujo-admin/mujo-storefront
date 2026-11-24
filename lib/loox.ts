@@ -39,6 +39,7 @@ export const LOOX_SHOP_DOMAIN = process.env.NEXT_PUBLIC_LOOX_SHOP_DOMAIN ?? "";
  */
 export const LOOX_PRODUCT_IDS: Record<string, string> = {
   "mujo-ritual": "8855909597426",
+  "protein-powder": "15408474849522",
   "mujo-frother": "8907228840178",
   "mujo-crew": "8918766354674",
   "mujo-tee": "8919013359858",

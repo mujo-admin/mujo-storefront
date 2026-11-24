@@ -26,6 +26,7 @@ import {
   isSellablePriceId,
 } from 'lib/stripe-constants';
 import { resolveMerchPriceId } from 'lib/cart/merch-config';
+import { duoCouponId, duoKindForLines, duoOfferActive } from 'lib/duo-offer';
 import {
   itemsFromPriceIds,
   itemsValue,
@@ -173,6 +174,10 @@ export async function POST(req: NextRequest) {
 
   const mode = determineMode(parsed);
 
+  // Black Friday 2026: the Daily Ritual Duo (lib/duo-offer.ts). Decided here,
+  // on the server, from the Prices in the request and the clock.
+  const duoKind = duoOfferActive() ? duoKindForLines(parsed.items) : null;
+
   const nowSec = Math.floor(Date.now() / 1000);
 
   const eventId = randomUUID();
@@ -277,10 +282,27 @@ export async function POST(req: NextRequest) {
       (i) => resolveMerchPriceId(i.stripePriceId) !== null,
     );
     params.shipping_options = buildShippingOptions(subtotalCents, hasMerch);
-    // allow_promotion_codes lets customers type a code at checkout — this is the
-    // path the first-buyer WELCOME10 code (coupon MUJO_FIRST_10, 10% off once,
-    // first_time_transaction only) rides on, plus any partner / press codes.
-    params.allow_promotion_codes = true;
+    if (duoKind === 'onetime') {
+      // The duo: $16 off, the frother at $0 and free shipping. Stripe takes
+      // either a ready-made discount or the promo-code box, never both, so the
+      // box is absent here and WELCOME10 cannot be stacked on top.
+      params.discounts = [{ coupon: duoCouponId('onetime') }];
+      if (SHIPPING_RATE_FREE_ID) {
+        params.shipping_options = [{ shipping_rate: SHIPPING_RATE_FREE_ID }];
+      }
+      if (FROTHER_GIFT_PRICE_ID) {
+        params.line_items = [
+          ...(params.line_items ?? []),
+          { price: FROTHER_GIFT_PRICE_ID, quantity: 1 },
+        ];
+      }
+      params.metadata = { ...params.metadata, mujo_offer: 'daily-ritual-duo' };
+    } else {
+      // allow_promotion_codes lets customers type a code at checkout — this is the
+      // path the first-buyer WELCOME10 code (coupon MUJO_FIRST_10, 10% off once,
+      // first_time_transaction only) rides on, plus any partner / press codes.
+      params.allow_promotion_codes = true;
+    }
   } else if (mode === 'subscription') {
     params.subscription_data = {
       metadata: {
@@ -301,7 +323,15 @@ export async function POST(req: NextRequest) {
     // price and only the Ritual line carries its baked-in 15%. The old
     // Ritual-scoped twin coupon (SUBSCRIPTION_COUPON_RITUAL_ID) is therefore
     // obsolete for new checkouts.
-    params.allow_promotion_codes = true;
+    if (duoKind === 'subscription') {
+      // The duo for subscribers: $21 off the first delivery only (a coupon
+      // with duration 'once'), then the normal subscriber prices. No promo box,
+      // so nothing stacks.
+      params.discounts = [{ coupon: duoCouponId('subscription') }];
+      params.metadata = { ...params.metadata, mujo_offer: 'daily-ritual-duo-subscribe' };
+    } else {
+      params.allow_promotion_codes = true;
+    }
 
     // First-order subscriber gift: append the $0 frother as a one-time line item
     // so it shows on Stripe's order summary ("Electric Frother — $0.00"). In

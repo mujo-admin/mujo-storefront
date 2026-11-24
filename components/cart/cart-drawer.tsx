@@ -7,7 +7,17 @@ import {
   freeShippingProgress,
   subtotalCents,
 } from "lib/cart/pricing";
-import { FREE_SHIPPING_THRESHOLD_CENTS } from "lib/stripe-constants";
+import {
+  FREE_SHIPPING_THRESHOLD_CENTS,
+  PROTEIN_PRICE_IDS,
+  RITUAL_PRICE_IDS,
+} from "lib/stripe-constants";
+import {
+  duoDiscountCents,
+  duoKindForLines,
+  duoOfferActive,
+  duoOfferPublic,
+} from "lib/duo-offer";
 import { cartThumbUrl } from "lib/cart/price-id-map";
 
 import { track, itemFromCartLine, itemsValue } from "lib/analytics";
@@ -67,15 +77,32 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
   const subtotal = subtotalCents(cart);
   // Shipping is applied by Stripe at checkout — don't add a phantom flat fee
   // to the drawer Total (that was the "$27 item shows $32" confusion).
-  const total = subtotal;
   const { remainingCents, pct, unlocked } = freeShippingProgress(subtotal);
   const empty = totalQuantity === 0;
+  // Black Friday 2026, the Daily Ritual Duo (lib/duo-offer.ts). The checkout
+  // applies it by itself; the drawer shows the same sums so nothing surprises.
+  const duoKind = !empty && duoOfferActive() ? duoKindForLines(cart.items) : null;
+  const duoOff = duoDiscountCents(duoKind);
+  const total = subtotal - duoOff;
+  // One of the pair is in the cart as a one-time buy and the other is missing.
+  const hasRitualOnce = cart.items.some(
+    (i) => i.stripePriceId === RITUAL_PRICE_IDS["25-onetime"],
+  );
+  const hasProteinOnce = cart.items.some(
+    (i) => i.stripePriceId === PROTEIN_PRICE_IDS.onetime,
+  );
+  const duoMissing =
+    !duoKind && duoOfferPublic() && hasRitualOnce !== hasProteinOnce
+      ? hasRitualOnce
+        ? "Protein Powder"
+        : "Ritual"
+      : null;
   // Subscriber free-shipping perk: ANY cart containing a subscription ships
   // free (mixed carts run in subscription mode → no shipping_options), so skip
   // the "$X away from free shipping" nudge — they're already there. One-time
   // carts keep the $100 threshold + progress bar.
   const hasSubscription = !empty && cart.items.some((i) => i.isSubscription);
-  const shipsFree = unlocked || hasSubscription;
+  const shipsFree = unlocked || hasSubscription || duoKind === "onetime";
 
   // The on-site /checkout page (Phase 2) handles both one-time and
   // subscription modes via Stripe Elements. The legacy /api/checkout Hosted
@@ -116,9 +143,19 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
 
       <div className="cart-progress">
         <div className="cart-progress-msg">
-          {hasSubscription ? (
+          {duoKind === "onetime" ? (
+            <>
+              <strong>The Daily Ritual Duo.</strong> Free shipping and a free
+              frother, until November 30.
+            </>
+          ) : hasSubscription ? (
             <>
               <strong>Subscribers always ship free.</strong>
+            </>
+          ) : duoMissing ? (
+            <>
+              Add the <strong>{duoMissing}</strong> and the pair is{" "}
+              <strong>$89</strong>, with a free frother and free shipping.
             </>
           ) : unlocked ? (
             <>
@@ -139,7 +176,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
             </>
           )}
         </div>
-        {!hasSubscription && (
+        {!hasSubscription && !duoKind && !duoMissing && (
           <div className="cart-progress-track">
             <div
               className={`cart-progress-fill ${unlocked ? "full" : ""}`}
@@ -224,6 +261,22 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
             {empty ? "$0" : formatMoneyCents(subtotal)}
           </span>
         </div>
+        {duoKind && (
+          <div className="cart-row">
+            <span>
+              {duoKind === "onetime"
+                ? "Daily Ritual Duo"
+                : "Daily Ritual Duo, first delivery"}
+            </span>
+            <span className="price">−{formatMoneyCents(duoOff)}</span>
+          </div>
+        )}
+        {duoKind === "onetime" && (
+          <div className="cart-row">
+            <span>Electric frother</span>
+            <span className="price">Free</span>
+          </div>
+        )}
         <div className="cart-row">
           <span>Shipping</span>
           <span className={`price${empty || shipsFree ? "" : " ship-tbd"}`}>

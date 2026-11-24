@@ -9,6 +9,11 @@
 //
 // Pure: no network, no env. All amounts are integer cents.
 
+import {
+  DUO_ONETIME_COUPON_ID,
+  DUO_ORDER_TAG,
+  DUO_SUBSCRIPTION_COUPON_ID,
+} from 'lib/duo-offer-ids';
 import type { CreateOrderInput, ShopifyTaxLineInput } from 'lib/shopify-admin';
 
 export type FactTax = {
@@ -56,8 +61,12 @@ export function cleanLineTitle(raw: string): string {
   return (match?.[1] ?? raw).trim();
 }
 
-/** Tags an order needs because of what is in it. Currently none. */
-export function contentTags(_facts: OrderFacts): string[] {
+/** Tags an order needs because of what is in it or how it was bought. */
+export function contentTags(facts: OrderFacts): string[] {
+  const code = facts.discount?.code;
+  if (code === DUO_ONETIME_COUPON_ID || code === DUO_SUBSCRIPTION_COUPON_ID) {
+    return [DUO_ORDER_TAG];
+  }
   return [];
 }
 
