@@ -51,6 +51,9 @@ const ACTIVE_SUB_STATUSES = [
 // lib/subscription-minimum.ts.
 const MINIMUM_GATED_ACTIONS: ReadonlySet<Action> = new Set(["pause", "skip-next"]);
 
+// "Send my next box now" bills at most once in this window.
+const SEND_NOW_COOLDOWN_SECONDS = 10 * 60;
+
 const pauseSchema = z.object({
   cycles: z.number().int().min(1).max(3).default(1),
 });
@@ -251,18 +254,67 @@ export async function POST(
         },
       );
     } else if (action === "send-now") {
-      // Advance billing — bills immediately and resets the cycle anchor to now.
-      // `trial_end: 'now'` is required because skip-next uses trial_end to
-      // shift the next charge date forward; without clearing it, Stripe
-      // rejects the anchor change ("trial_end cannot be after
-      // billing_cycle_anchor"). Acts both as a customer-facing "Send my
-      // next box now" action AND as recovery from over-pausing during testing.
+      // "Send my next box now": charge one full box today and start a fresh
+      // cycle from today.
+      //
+      // Ending a trial is the one Stripe update that bills a full period on
+      // the spot (proven in the sandbox, 2026-11-24). Resetting
+      // `billing_cycle_anchor` does not: with prorations it charged nothing
+      // and left a stray item on the next renewal, without prorations it
+      // started a new period that was never invoiced.
+      //
+      // So an active subscription is first put on a trial that ends on its
+      // existing renewal date (a no-charge step, the same one change-frequency
+      // uses), and then the trial is ended now. If the card is declined the
+      // second step is refused and nothing else has changed: the next box
+      // still goes out on the original date.
+      const current = await stripe.subscriptions.retrieve(
+        subRow.stripeSubscriptionId,
+      );
+      const item = current.items.data[0];
+      if (!item) {
+        return Response.json({ error: "no_subscription_item" }, { status: 502 });
+      }
+      if (current.pause_collection) {
+        return Response.json(
+          {
+            error: "subscription_paused",
+            message:
+              "Your subscription is paused. Resume it first, then you can send a box right away.",
+          },
+          { status: 409 },
+        );
+      }
+      // A second tap, or a retry after a slow response, must not bill twice.
+      const secondsSincePeriodStart =
+        Math.floor(Date.now() / 1000) - item.current_period_start;
+      if (
+        current.status === "active" &&
+        secondsSincePeriodStart < SEND_NOW_COOLDOWN_SECONDS
+      ) {
+        return Response.json(
+          {
+            error: "already_sent",
+            message:
+              "We've just billed a box for you, so it's on its way. If you'd like another one, try again in a few minutes.",
+          },
+          { status: 409 },
+        );
+      }
+      if (current.status !== "trialing") {
+        await stripe.subscriptions.update(subRow.stripeSubscriptionId, {
+          trial_end: item.current_period_end,
+          proration_behavior: "none",
+        });
+      }
       updatedSub = await stripe.subscriptions.update(
         subRow.stripeSubscriptionId,
         {
-          billing_cycle_anchor: "now",
           trial_end: "now",
-          proration_behavior: "create_prorations",
+          proration_behavior: "none",
+          // A declined card refuses the update instead of leaving an unpaid
+          // invoice and a box that never ships.
+          payment_behavior: "error_if_incomplete",
         },
       );
     } else if (action === "change-frequency") {

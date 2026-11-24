@@ -104,7 +104,7 @@ Server-only events key. Scopes: Events Full Access, Profiles Full Access. Get fr
 > **Deprecated:** `NEXT_PUBLIC_KLAVIYO_QUIZ_LIST_ID` is no longer used. The homepage/Ritual quiz previously posted client-side to a separate quiz list; it now routes through `/api/klaviyo/subscribe` onto the master list and fires a `Completed Quiz` event. Do not reintroduce it.
 
 `KLAVIYO_GIFT_RECIPIENT_LIST_ID`
-6-char code for the "Gift Recipients" Klaviyo list. Used by `/api/account/subscription/send-gift`: when a customer sends a gift, the recipient's email gets added to this list IF they're not already in any Mujo list (dedupe avoids spamming returning customers). Profile properties attached: `gifted_by_email`, `gifted_product`, `gifted_at`, `gift_message`. Powers a "How was your gift?" follow-up flow built on the Klaviyo side. Set up: create a list named "Gift Recipients" in Klaviyo, copy its 6-char ID from the dashboard URL into this var. Without this var the gift route still works (PI succeeds, Shopify order ships) — just no recipient capture.
+No longer read since 2026-11-24: gift recipients are not added to Klaviyo (they never asked to hear from Mujo). The variable can be removed from Vercel.
 
 ## Meta (W3 — empty in W1)
 

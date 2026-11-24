@@ -16,7 +16,7 @@
 // The customer's main subscription is unaffected — this is a one-time
 // PaymentIntent, not a sub-mgmt action.
 
-import { after, type NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 import { and, desc, eq, inArray } from "drizzle-orm";
 import Stripe from "stripe";
 import { z } from "zod";
@@ -25,8 +25,6 @@ import { customers, db, subscriptions } from "db";
 import { stripe } from "lib/stripe";
 import { publicStripeMessage } from "lib/public-error";
 import { getSession } from "lib/session";
-import { addGiftRecipientIfNew } from "lib/klaviyo";
-import { resolvePriceId } from "lib/cart/price-id-map";
 import { RITUAL_PRICE_IDS } from "lib/stripe-constants";
 
 export const dynamic = "force-dynamic";
@@ -375,26 +373,10 @@ export async function POST(req: NextRequest) {
         tax: totalCents - effectiveAmountCents,
       });
 
-      // Fire-and-forget: capture the recipient email into the gift-recipient
-      // Klaviyo list IF they're not already in any Mujo list. Powers a
-      // "How was your gift?" follow-up flow without spamming returning
-      // customers. Never blocks the response.
-      const meta = resolvePriceId(priceId, { isSubscription: true });
-      const productLabel = meta
-        ? `${meta.productTitle} · ${meta.variantTitle.replace(" · Subscribe & save", "").replace(" · One-time", "")}`
-        : "Mujo product";
-      // after(): runs once the response is sent and keeps the function alive
-      // until it finishes (a bare fire-and-forget call is cut off on serverless).
-      after(() =>
-        addGiftRecipientIfNew({
-          email: parsed.recipientEmail,
-          giftedByEmail: session.email,
-          giftedProduct: productLabel,
-          giftMessage: parsed.giftMessage,
-        }).catch((err) =>
-          console.error("[send-gift] gift recipient capture failed", err),
-        ),
-      );
+      // The recipient's email is NOT added to Klaviyo. They never asked to hear
+      // from Mujo, so subscribing them would be marketing without consent. The
+      // gift itself is recorded on the PaymentIntent (gift_recipient_email) and
+      // on the Shopify order.
 
       return Response.json({ ok: true, paymentIntentId: pi.id });
     }
