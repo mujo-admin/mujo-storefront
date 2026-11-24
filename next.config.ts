@@ -128,6 +128,16 @@ const config: NextConfig = {
       { source: "/products/vitality-brew", destination: "/products/mujo-ritual", permanent: true },
       { source: "/products/mujo-hoodie", destination: "/shop", permanent: true },
       { source: "/blogs/news/tagged/:tag*", destination: "/journal", permanent: true },
+      // More old Shopify addresses that still answered "not found" (audited
+      // 2026-11-24: Ahrefs broken links + a link in our own terms page).
+      { source: "/pages/ingredients", destination: "/ingredients", permanent: true },
+      { source: "/policies/refund-policy", destination: "/legal/returns", permanent: true },
+      { source: "/policies/privacy-policy", destination: "/legal/privacy", permanent: true },
+      { source: "/policies/terms-of-service", destination: "/legal/terms", permanent: true },
+      { source: "/policies/shipping-policy", destination: "/legal/shipping", permanent: true },
+      { source: "/policies/subscription-policy", destination: "/legal/subscription-terms", permanent: true },
+      { source: "/policies/contact-information", destination: "/contact", permanent: true },
+      { source: "/cart", destination: "/shop", permanent: true },
       // Journal posts unpublished in the 2026-06 compliance sweep. Send them to
       // the journal index instead of a 404. permanent:false so a rewritten post
       // can reclaim its address: delete its line here when it is republished.

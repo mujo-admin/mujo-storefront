@@ -3,7 +3,7 @@ import { ImportedPage } from "components/imported-page";
 
 export const metadata: Metadata = {
   title: "Shipping Policy",
-  description: "Shipping rates, timelines, and customs disclosure.",
+  description: "Shipping rates and delivery times for orders within the United States.",
   alternates: { canonical: "/legal/shipping" },
 };
 

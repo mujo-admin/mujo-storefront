@@ -31,12 +31,12 @@ const RITUAL_SPLICES: Splice[] = [
 export const metadata: Metadata = {
   title: "The Ritual · Mushroom Coffee Alternative",
   description:
-    "An organic mushroom coffee alternative that tastes like a smooth mocha, with a cacao undertone. Under 5mg of caffeine for calm energy, no crash.",
+    "A mushroom coffee alternative that tastes like a smooth mocha, with a cacao undertone. Four mushroom extracts, L-theanine and under 5mg of caffeine.",
   alternates: { canonical: "/products/mujo-ritual" },
   openGraph: {
     type: "website",
     title: "The Ritual",
-    description: "An organic mushroom coffee alternative that tastes like a smooth mocha, with a cacao undertone. Under 5mg of caffeine for calm energy, no crash.",
+    description: "A mushroom coffee alternative that tastes like a smooth mocha, with a cacao undertone. Four mushroom extracts, L-theanine and under 5mg of caffeine.",
   },
 };
 
@@ -52,7 +52,7 @@ export default function RitualPdpPage() {
               url: "/products/mujo-ritual",
               name: "The Ritual",
               description:
-                "The Ritual is a warm coffee alternative made with organic Peruvian cacao, carob and four organic mushroom extracts. It tastes like a smooth mocha: roasted and coffee-like, with an undertone of cacao and a hint of Ceylon cinnamon. With under 5mg of caffeine, roughly a twentieth of a coffee, it's made for calm energy with no crash. Inside: organic lion's mane, chaga, cordyceps and golden oyster (never mycelium on grain), plus L-theanine, panax ginseng, gelatinized black maca, MCT oil, ginger, monk fruit and a pinch of sea salt. Froth a tablespoon into hot water and top with milk. 25 servings.",
+                "The Ritual is a warm coffee alternative made with organic Peruvian cacao, carob and four organic mushroom extracts. It tastes like a smooth mocha: roasted and coffee-like, with an undertone of cacao and a hint of Ceylon cinnamon. It has under 5mg of caffeine, roughly a twentieth of a coffee. Inside: organic lion's mane, chaga, cordyceps and golden oyster (never mycelium on grain), plus L-theanine, panax ginseng, gelatinized black maca, MCT oil, ginger, monk fruit and a pinch of sea salt. Froth a tablespoon into hot water and top with milk. 25 servings.",
               image:
                 "https://mujoworld.com/images/responsive/products/ritual/ritual-pouch-hero-monumental-editorial-2026-09-1x1-1200.webp",
               lowPrice: "60.00",

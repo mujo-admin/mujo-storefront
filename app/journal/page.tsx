@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { ImportedPage } from "components/imported-page";
 
 export const metadata: Metadata = {
-  title: "Journal",
+  title: "Journal · Protein, Mushrooms and Morning Rituals",
   description:
-    "Field notes on rituals, recovery, motherhood, and modern performance.",
+    "Plain-English explainers on protein, functional mushrooms, coffee and everyday rituals, from the Mujo kitchen.",
   alternates: { canonical: "/journal" },
 };
 
