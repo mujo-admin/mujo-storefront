@@ -32,7 +32,8 @@ export default function HatPdpPage() {
               name: "Baseball Cap",
               description:
                 "A low-profile cap with the Mujo mark embroidered on the front. A soft, unstructured six-panel crown, an adjustable strap at the back, one size that fits most. The logo is stitched, not printed, so it won't peel or crack. Made to order in White or Stone.",
-              image: "https://mujoworld.com/images/logo/mujo-logo-clay.png",
+              image:
+                "https://mujoworld.com/images/responsive/products/merch/mujo-hat-hero-editorial-1x1-1200.webp",
               lowPrice: "25",
               highPrice: "25",
               offerCount: 2,
