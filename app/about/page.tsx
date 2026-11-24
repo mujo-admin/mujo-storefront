@@ -5,7 +5,7 @@ import { ImportedPage } from "components/imported-page";
 export const metadata: Metadata = {
   title: "About Mujo · Our Story",
   description:
-    "Mujo was built by Kinga. The story behind stubborn standards, family origins, and modern performance without the crash.",
+    "Mujo was built by Kinga. The story behind our stubborn standards, the family origins, and food made for people who read the label.",
   alternates: { canonical: "/about" },
 };
 

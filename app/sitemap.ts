@@ -48,10 +48,10 @@ const PUBLIC_ROUTES: { path: string; changeFrequency?: "daily" | "weekly" | "mon
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date().toISOString();
+  // No lastModified: it used to be the deploy time, so every deploy told
+  // Google all 33 pages had changed, which teaches it to ignore the field.
   return PUBLIC_ROUTES.map((r) => ({
     url: `${baseUrl}${r.path}`,
-    lastModified,
     changeFrequency: r.changeFrequency,
     priority: r.priority,
   }));
