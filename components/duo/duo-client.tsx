@@ -21,21 +21,21 @@ const TASTES = [
   {
     name: "The Ritual",
     like: "Tastes like a smooth mocha.",
-    how: "Peruvian cacao, sweetened with monk fruit. One tablespoon, hot water, milk of choice.",
+    how: "Peruvian cacao, sweetened with monk fruit.",
     img: "/images/responsive/lifestyle/ritual-latte-glass-hero-2026-10-4x5",
     alt: "A steaming Ritual latte with a thick layer of foam in a glass mug, with the pouch beside it",
   },
   {
     name: "Protein Powder",
     like: "Tastes like smooth vanilla.",
-    how: "No artificial aftertaste, and never gritty. Two scoops, something cold, a blender.",
+    how: "Real Madagascar vanilla bean. No artificial aftertaste.",
     img: "/images/responsive/products/protein-powder/powder-shake-2026-09",
     alt: "A glass of creamy vanilla protein shake beside the Protein Powder pouch",
   },
   {
     name: "Together",
     like: "An iced mocha under vanilla cold foam.",
-    how: "Blend a scoop of Protein Powder with cold milk and pour it over an iced Ritual.",
+    how: "The Ritual over ice, topped with blended Protein Powder.",
     img: "/images/responsive/lifestyle/world-iced-ritual-cold-foam-2026-10-4x5",
     alt: "A hand pouring vanilla protein cold foam over an iced Ritual in a tall glass",
   },
@@ -186,6 +186,10 @@ export function DuoClient() {
         </div>
       </div>
 
+      <div className="duo-press">
+        <PressBar />
+      </div>
+
       <div className="duo-taste">
         <h2 className="duo-h2">
           What they <em>taste like</em>
@@ -197,12 +201,12 @@ export function DuoClient() {
                 <source
                   type="image/avif"
                   srcSet={`${t.img}-800.avif 800w, ${t.img}-1200.avif 1200w`}
-                  sizes="(max-width: 860px) 78vw, 360px"
+                  sizes="(max-width: 860px) 120px, 240px"
                 />
                 <img
                   src={`${t.img}-800.webp`}
                   srcSet={`${t.img}-800.webp 800w, ${t.img}-1200.webp 1200w`}
-                  sizes="(max-width: 860px) 78vw, 360px"
+                  sizes="(max-width: 860px) 120px, 240px"
                   alt={t.alt}
                   width={800}
                   height={1000}
@@ -215,10 +219,6 @@ export function DuoClient() {
             </li>
           ))}
         </ul>
-      </div>
-
-      <div className="duo-press">
-        <PressBar />
       </div>
 
       <div className="duo-diff">
@@ -403,40 +403,49 @@ function DuoStyles() {
       }
       .duo-sub p { margin: 0; font-size: 15px; line-height: 1.5; color: var(--ink-soft); flex: 1 1 220px; }
       .duo-sub strong { color: var(--ink); font-weight: 600; }
-      .duo-taste { max-width: 1120px; margin: 72px auto 0; }
+      .duo-taste { max-width: 920px; margin: 88px auto 0; }
+      .duo-taste .duo-h2 { font-size: clamp(26px, 2.8vw, 34px); margin-bottom: 44px; }
       .duo-taste-grid {
         list-style: none;
         margin: 0;
         padding: 0;
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 20px;
+        gap: 56px;
       }
+      .duo-taste-grid li { text-align: center; }
       .duo-taste-grid img {
         display: block;
         width: 100%;
+        max-width: 220px;
         height: auto;
         aspect-ratio: 4 / 5;
         object-fit: cover;
-        border-radius: var(--radius-image);
-        margin-bottom: 16px;
+        border-radius: 2px;
+        margin: 0 auto 22px;
       }
       .duo-taste-name {
         font-family: var(--f-mono);
-        font-size: 11px;
-        letter-spacing: 0.16em;
+        font-size: 10px;
+        letter-spacing: 0.2em;
         text-transform: uppercase;
-        color: var(--accent-text);
-        margin: 0 0 8px;
+        color: var(--mute);
+        margin: 0 0 10px;
       }
       .duo-taste-like {
         font-family: var(--f-serif);
-        font-size: 26px;
-        line-height: 1.12;
+        font-size: 22px;
+        line-height: 1.15;
         color: var(--brown);
         margin: 0 0 8px;
       }
-      .duo-taste-how { font-size: 14px; line-height: 1.55; color: var(--ink-soft); margin: 0; }
+      .duo-taste-how {
+        font-size: 13px;
+        line-height: 1.6;
+        color: var(--ink-soft);
+        margin: 0 auto;
+        max-width: 22em;
+      }
       .duo-press { max-width: 1120px; margin: 56px auto 0; }
       .duo-diff { max-width: 1120px; margin: 56px auto 0; }
       .duo-h2 {
@@ -492,19 +501,24 @@ function DuoStyles() {
         .duo-grid { grid-template-columns: 1fr; gap: 28px; }
         .duo-sub .duo-btn { width: 100%; }
         .duo-press, .duo-diff { margin-top: 40px; }
-        .duo-taste { margin-top: 48px; }
-        .duo-taste-grid {
-          display: flex;
-          gap: 12px;
-          overflow-x: auto;
-          scroll-snap-type: x mandatory;
-          margin: 0 -16px;
-          padding: 0 16px 4px;
-          scrollbar-width: none;
+        .duo-taste { margin-top: 56px; }
+        .duo-taste .duo-h2 { margin-bottom: 28px; }
+        .duo-taste-grid { grid-template-columns: 1fr; gap: 0; }
+        .duo-taste-grid li {
+          display: grid;
+          grid-template-columns: 104px 1fr;
+          column-gap: 20px;
+          align-items: center;
+          text-align: left;
+          padding: 18px 0;
+          border-top: 1px solid var(--line);
         }
-        .duo-taste-grid::-webkit-scrollbar { display: none; }
-        .duo-taste-grid li { flex: 0 0 78%; scroll-snap-align: center; }
-        .duo-taste-like { font-size: 23px; }
+        .duo-taste-grid li:last-child { border-bottom: 1px solid var(--line); }
+        .duo-taste-grid picture { grid-row: 1 / span 3; }
+        .duo-taste-grid img { max-width: 104px; margin: 0; }
+        .duo-taste-name { margin-bottom: 6px; align-self: end; }
+        .duo-taste-like { font-size: 20px; margin-bottom: 4px; }
+        .duo-taste-how { margin: 0; align-self: start; }
         .duo-diff-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
         .duo-diff-grid li { padding: 16px 14px 18px; }
         .duo-diff-grid strong { font-size: 15px; }
