@@ -1,3 +1,4 @@
+import { jsonLdScript } from "lib/schema";
 import type { Metadata } from "next";
 import { ImportedPage } from "components/imported-page";
 
@@ -20,7 +21,7 @@ export default function AboutPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdScript(aboutJsonLd) }}
       />
       <ImportedPage filename="mujo_about.html" />
     </>

@@ -21,7 +21,7 @@ const REASON_COPY: Record<string, { title: string; body: string }> = {
   },
   expired: {
     title: "Link expired",
-    body: "Sign-in links expire after 7 days. Request a fresh one and it'll land in your inbox in a minute.",
+    body: "Sign-in links expire after 30 minutes. Request a fresh one and it'll land in your inbox in a minute.",
   },
   used: {
     title: "Link already used",

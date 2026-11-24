@@ -5,6 +5,8 @@
 // Cookie: mujo_session, HTTP-only, Secure (prod), SameSite=Lax. Signed with
 // MUJO_SESSION_SECRET. Verifying decodes + checks expiry.
 
+import { eq } from 'drizzle-orm';
+import { customers, db } from 'db';
 import { cookies } from 'next/headers';
 import { SignJWT, jwtVerify } from 'jose';
 
@@ -81,7 +83,12 @@ export async function getSession(): Promise<Session | null> {
         ? payload.stripeCustomerId
         : null;
     const exp = typeof payload.exp === 'number' ? payload.exp : 0;
+    const iat = typeof payload.iat === 'number' ? payload.iat : 0;
     if (!customerId || !email) return null;
+
+    // A signed cookie alone is not enough: the account must still exist and
+    // the session must not have been ended since (logout, email change).
+    if (!(await sessionStillValid(customerId, iat))) return null;
 
     return {
       customerId,
@@ -108,6 +115,35 @@ export async function refreshSession(): Promise<void> {
     email: current.email,
     stripeCustomerId: current.stripeCustomerId,
   });
+}
+
+/**
+ * True if a session or login link issued at `issuedAtSeconds` is still good
+ * for this customer. Compared in whole seconds, so a session created in the
+ * same second as the cut-off (the fresh one after an email change) survives.
+ */
+export async function sessionStillValid(
+  customerId: string,
+  issuedAtSeconds: number,
+): Promise<boolean> {
+  const row = (
+    await db
+      .select({ validAfter: customers.sessionsValidAfter })
+      .from(customers)
+      .where(eq(customers.id, customerId))
+      .limit(1)
+  )[0];
+  if (!row) return false;
+  if (!row.validAfter) return true;
+  return issuedAtSeconds >= Math.floor(row.validAfter.getTime() / 1000);
+}
+
+/** End every session and unused login link for this customer, on all devices. */
+export async function revokeSessions(customerId: string): Promise<void> {
+  await db
+    .update(customers)
+    .set({ sessionsValidAfter: new Date() })
+    .where(eq(customers.id, customerId));
 }
 
 export async function clearSession(): Promise<void> {

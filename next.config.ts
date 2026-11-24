@@ -34,6 +34,28 @@ const config: NextConfig = {
   async headers() {
     return [
       {
+        // Baseline security headers on every page and API response.
+        //  - frame-ancestors / X-Frame-Options: no other site may embed Mujo
+        //    pages (clickjacking). Stripe's checkout is an iframe INSIDE our
+        //    page, which this does not affect.
+        //  - nosniff: browsers must not guess a file's type.
+        //  - Referrer-Policy: other sites see only "mujoworld.com", never a
+        //    full URL (checkout URLs carry session ids).
+        //  - Permissions-Policy: the site never needs camera, microphone or
+        //    location. Payment is deliberately NOT restricted (Apple/Google Pay).
+        // A full Content-Security-Policy is a separate, later step: the
+        // imported pages rely on inline styles and third-party tags, so it has
+        // to be rolled out in report-only mode first.
+        source: "/:path*",
+        headers: [
+          { key: "Content-Security-Policy", value: "frame-ancestors 'self'" },
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+        ],
+      },
+      {
         // Self-hosted fonts in public/fonts/ — cache aggressively.
         // Filenames don't change, so 1-year cache is safe.
         source: "/fonts/:path*",

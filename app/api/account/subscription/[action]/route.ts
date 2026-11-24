@@ -18,6 +18,7 @@ import Stripe from "stripe";
 import { z } from "zod";
 import { db, subscriptions } from "db";
 import { stripe } from "lib/stripe";
+import { publicStripeMessage } from "lib/public-error";
 import {
   getSubscriptionCycleSeconds,
   syncSubscriptionToDb,
@@ -362,7 +363,7 @@ export async function POST(
         message: err.message,
       });
       return Response.json(
-        { error: err.code ?? "stripe_error", message: err.message },
+        { error: err.code ?? "stripe_error", message: publicStripeMessage(err) },
         { status: err.statusCode ?? 502 },
       );
     }

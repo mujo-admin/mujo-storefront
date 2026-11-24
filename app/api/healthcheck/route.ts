@@ -13,11 +13,11 @@ async function timed<T>(fn: () => Promise<T>): Promise<{ ok: boolean; latency_ms
     await fn();
     return { ok: true, latency_ms: Date.now() - start };
   } catch (err) {
-    return {
-      ok: false,
-      latency_ms: Date.now() - start,
-      error: err instanceof Error ? err.message : String(err),
-    };
+    // The detail goes to the server log only. This endpoint is public, and
+    // raw errors from the database, Stripe or Shopify do not belong in a
+    // response anyone can read.
+    console.error('[healthcheck] check failed', err instanceof Error ? err.message : String(err));
+    return { ok: false, latency_ms: Date.now() - start };
   }
 }
 

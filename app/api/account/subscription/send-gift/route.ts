@@ -23,6 +23,7 @@ import { z } from "zod";
 import { createHash } from "node:crypto";
 import { customers, db, subscriptions } from "db";
 import { stripe } from "lib/stripe";
+import { publicStripeMessage } from "lib/public-error";
 import { getSession } from "lib/session";
 import { addGiftRecipientIfNew } from "lib/klaviyo";
 import { resolvePriceId } from "lib/cart/price-id-map";
@@ -441,7 +442,7 @@ export async function POST(req: NextRequest) {
               ? "Your bank requires extra verification. Try a different card."
               : err.code === "card_declined"
                 ? "Your saved card was declined. Try updating it."
-                : err.message,
+                : publicStripeMessage(err),
         },
         { status: err.statusCode ?? 502 },
       );

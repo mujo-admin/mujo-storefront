@@ -41,7 +41,7 @@ export default async function LoginSentPage(props: {
               minute or two.
             </>
           )}{" "}
-          The link works for 7 days.
+          The link works for 30 minutes.
         </p>
 
         <div className="login-fineprint">

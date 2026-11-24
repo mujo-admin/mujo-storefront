@@ -9,12 +9,12 @@
 //    2. If not found, search Shopify Admin by email — if found there,
 //       lazy-create customers row with shopifyCustomerId set + send link
 //    3. If neither, log silently and return 200 anyway
-//  - Token audience: 'session' (7-day TTL, signed with MUJO_SESSION_SECRET)
+//  - Token audience: 'session' (30-minute TTL, signed with MUJO_SESSION_SECRET)
 //
 // On click: customer lands on /api/auth/redeem which sets the session cookie
 // and 302-redirects to /account.
 
-import { eq } from 'drizzle-orm';
+import { sql } from 'drizzle-orm';
 import type { NextRequest } from 'next/server';
 import { z } from 'zod';
 import { customers, db } from 'db';
@@ -41,22 +41,23 @@ export async function POST(req: NextRequest) {
   const { email } = parsed;
   const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? null;
 
-  const allowed = await checkRateLimit(email);
-  if (!allowed) {
-    return Response.json(
-      { error: 'rate_limited', message: 'Too many requests. Try again in an hour.' },
-      { status: 429 },
-    );
-  }
-
   // Anti-enumeration: always 200, even if no account exists.
   const genericResponse = Response.json({
     message: 'If that email is on file, you will receive a login link shortly.',
   });
 
+  // Over the limit: the SAME answer as always. A different answer here told
+  // anyone which emails are customers (only real accounts ever hit the limit).
+  // The person already has unused links in their inbox.
+  const allowed = await checkRateLimit(email);
+  if (!allowed) {
+    console.log('[auth/magic-link] rate limited (silent ack)');
+    return genericResponse;
+  }
+
   // Path 1: customer exists in app DB.
   let row = (
-    await db.select().from(customers).where(eq(customers.email, email)).limit(1)
+    await db.select().from(customers).where(sql`lower(${customers.email}) = ${email}`).limit(1)
   )[0];
 
   // Path 2: lazy-create from Shopify Admin if not in app DB.

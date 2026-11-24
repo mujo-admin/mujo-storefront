@@ -16,6 +16,10 @@ export const customers = pgTable(
     email: text('email').notNull().unique(),
     stripeCustomerId: text('stripe_customer_id').unique(),
     shopifyCustomerId: text('shopify_customer_id').unique(),
+    // Login sessions and login links issued before this moment are no longer
+    // valid. Set on logout and on an email change, so "log out" really ends
+    // every session, on every device.
+    sessionsValidAfter: timestamp('sessions_valid_after'),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().notNull(),
   },
