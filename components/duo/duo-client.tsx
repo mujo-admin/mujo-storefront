@@ -21,22 +21,22 @@ const TASTES = [
     name: "The Ritual",
     like: "Tastes like a smooth mocha.",
     how: "Peruvian cacao, sweetened with monk fruit. One tablespoon, hot water, milk of choice.",
-    img: "/images/responsive/products/ritual/ritual-hero-pour-hot-with-pouch-editorial-2026-09-4x5",
-    alt: "Milk being poured into a steaming glass mug of The Ritual, with the pouch beside it",
+    img: "/images/responsive/lifestyle/ritual-latte-glass-hero-2026-10-4x5",
+    alt: "A steaming Ritual latte with a thick layer of foam in a glass mug, with the pouch beside it",
   },
   {
     name: "Protein Powder",
-    like: "Tastes like cookies and cream.",
-    how: "Creamy vanilla, never gritty. Two scoops, something cold, a blender.",
-    img: "/images/responsive/products/protein-powder/powder-pour-2026-09",
-    alt: "A thick vanilla protein shake being poured from a blender into a glass",
+    like: "Tastes like smooth vanilla.",
+    how: "No artificial aftertaste, and never gritty. Two scoops, something cold, a blender.",
+    img: "/images/responsive/products/protein-powder/powder-shake-2026-09",
+    alt: "A glass of creamy vanilla protein shake beside the Protein Powder pouch",
   },
   {
     name: "Together",
     like: "An iced mocha under vanilla cold foam.",
     how: "Blend a scoop of Protein Powder with cold milk and pour it over an iced Ritual.",
-    img: "/images/responsive/products/protein-powder/powder-iced-ritual-2026-09",
-    alt: "Vanilla protein cold foam being poured over an iced Ritual, with both Mujo pouches behind the glass",
+    img: "/images/responsive/lifestyle/world-iced-ritual-cold-foam-2026-10-4x5",
+    alt: "A hand pouring vanilla protein cold foam over an iced Ritual in a tall glass",
   },
 ];
 
@@ -148,8 +148,8 @@ export function DuoClient() {
             </li>
             <li>
               <span>
-                <strong>Protein Powder</strong>, 15 servings. Tastes like
-                cookies and cream, with 22g of protein.
+                <strong>Protein Powder</strong>, 15 servings. Tastes like smooth
+                vanilla, with no artificial aftertaste. 22g of protein.
               </span>
               <span className="duo-val">$45</span>
             </li>
