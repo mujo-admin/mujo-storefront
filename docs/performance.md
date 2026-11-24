@@ -35,7 +35,7 @@ Every other page keeps the HTML-string path. The buy box used to be portalled in
 
 - Hanken Grotesk comes through `next/font/google` (`app/fonts.ts`), with `preload: false`, so it doesn't compete with the hero. The text swaps in from a size-matched stand-in.
 - Instrument Serif and DM Mono are self-hosted in `public/fonts/`, with `@font-face` in `app/globals.css`. Instrument Serif regular is preloaded in `app/layout.tsx`.
-- **`/media/*` rewrite (`next.config.ts`):** with `inlineCss: true`, next/font's font URLs stay relative (`../media/x.woff2`) and 404'd from every page. Hanken never loaded on the live site until 2026-10-25. Keep the rewrite while `inlineCss` is on.
+- **`/media/*` rewrite (`next.config.ts`):** with `inlineCss: true`, next/font's font URLs stay relative (`../media/x.woff2`) and 404'd from every page. Hanken never loaded on the live site until 2026-10-25. Keep the rewrite while `inlineCss` is on. (Since Next 16 the inlined CSS carries the full `/_next/static/media/...` address, so the rewrite is no longer used by current pages; it stays as a safety net.)
 
 ## Marketing tags (`components/integrations/analytics-scripts.tsx`)
 
@@ -58,6 +58,13 @@ Every other page keeps the HTML-string path. The buy box used to be portalled in
 - `app/loading.tsx` fills the screen (`100svh`). At 60vh the footer showed under it on a first visit, then jumped.
 - The announcement bar's phone rules live in `app/globals.css`, not styled-jsx. styled-jsx only arrives with the code, so the page jumped 17px.
 - Cart drawer thumbnails use 400px pictures (`cartThumbUrl()` in `lib/cart/price-id-map.ts`). Emails and the product feed keep the full-size pictures.
+
+## Next 16 (2026-11-24)
+
+- `experimental.ppr` no longer exists (it became `cacheComponents`, which is not switched on). Pages were already rendered per request, because the root layout reads the session cookie, so page HTML is unchanged. What changed: moving between pages inside the site is no longer served from a prebuilt copy. Each move asks the server, and `app/loading.tsx` shows for a moment.
+- The main stylesheet is now carried twice in each page's HTML (once as `<style>`, once inside the page data): about 60 KB more before compression. Title, description and canonical now sit in `<head>` instead of arriving later in the body.
+- Real 404s for unknown journal addresses come from two rewrites in `next.config.ts`, fed by `lib/journal-routes.ts`. A new post goes into that list and into `PUBLISHED`; the build fails if they differ.
+- Getting the prebuilt page copies back means adopting Cache Components: a separate project (remove every `dynamic` / `revalidate` export, move the session read in the root layout under `<Suspense>`).
 
 ## Re-measuring
 

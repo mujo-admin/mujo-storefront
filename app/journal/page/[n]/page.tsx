@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { ImportedPage } from "components/imported-page";
+import { JOURNAL_INDEX_PAGES, assertSameJournalRoutes } from "lib/journal-routes";
 
 /**
  * /journal/page/[n] — paginated journal index (9 posts/page).
@@ -15,8 +16,16 @@ const PAGES: Record<string, { file: string; title: string }> = {
   "2": { file: "mujo_journal_page-2.html", title: "Journal, Page 2" },
 };
 
-// Only the pages listed above exist. Without this, /journal/page/999 was
+// Only the pages listed above exist. Without a real 404, /journal/page/999 was
 // served as a "soft 404" (a 200 page) and given its own canonical address.
+// Since the Next 16 upgrade the real 404 comes from a rewrite in
+// next.config.ts, built from lib/journal-routes.ts (see the note there);
+// dynamicParams=false alone is no longer enforced for this route.
+assertSameJournalRoutes(
+  "PAGES in app/journal/page/[n]/page.tsx",
+  Object.keys(PAGES),
+  JOURNAL_INDEX_PAGES,
+);
 export const dynamicParams = false;
 
 export function generateStaticParams() {

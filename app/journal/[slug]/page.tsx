@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ImportedPage } from "components/imported-page";
 import { articleSchema, jsonLdScript } from "lib/schema";
+import { JOURNAL_POST_SLUGS, assertSameJournalRoutes } from "lib/journal-routes";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -92,10 +93,18 @@ const PUBLISHED: Record<string, Post> = {
   },
 };
 
-// Only the slugs in PUBLISHED are valid routes. dynamicParams=false makes
-// every other slug return a true HTTP 404 at the routing layer (not a soft 404)
-// — required because PPR is on globally, which would otherwise stream a 200
-// shell before notFound() runs. Published posts get statically pre-rendered.
+// Only the slugs in PUBLISHED are valid routes. Since the Next 16 upgrade the
+// true HTTP 404 for every other slug comes from a rewrite in next.config.ts,
+// built from lib/journal-routes.ts (see the note there): this page is streamed,
+// so its own notFound() would arrive after a 200 status (a soft 404).
+// dynamicParams=false is kept, but Next no longer enforces it for a route that
+// is rendered per request. The line below fails the build if the two lists
+// differ.
+assertSameJournalRoutes(
+  "PUBLISHED in app/journal/[slug]/page.tsx",
+  Object.keys(PUBLISHED),
+  JOURNAL_POST_SLUGS,
+);
 export const dynamicParams = false;
 
 export function generateStaticParams() {

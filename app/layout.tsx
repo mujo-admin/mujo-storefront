@@ -37,7 +37,11 @@ export default async function RootLayout({
     : null;
 
   return (
-    <html lang="en" className={hanken.variable}>
+    // data-scroll-behavior: several imported pages set `html { scroll-behavior:
+    // smooth }`. Next 16 no longer switches that off while moving between
+    // pages unless this attribute is present; without it a page change would
+    // scroll visibly to the top instead of jumping there, as it always has.
+    <html lang="en" className={hanken.variable} data-scroll-behavior="smooth">
       <head>
         {/*
           Fonts: Hanken Grotesk via next/font/google (app/fonts.ts). Instrument

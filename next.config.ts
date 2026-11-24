@@ -1,8 +1,20 @@
 import type { NextConfig } from "next";
+import { JOURNAL_INDEX_PAGES, JOURNAL_POST_SLUGS } from "./lib/journal-routes";
+
+// A path no route answers: rewriting to it gives the real 404 page and status.
+const NOT_FOUND_PATH = "/_no-such-page";
+const anythingBut = (allowed: readonly string[]) =>
+  `((?!(?:${allowed.join("|")})$)[^/]+)`;
 
 const config: NextConfig = {
   experimental: {
-    ppr: true,
+    // Next 16 (2026-11-24): `ppr: true` is gone. The flag was merged into
+    // `cacheComponents` and Next 16 refuses to start with it. Cache Components
+    // is NOT switched on here: it is a separate migration (every `dynamic` /
+    // `revalidate` export has to go and the session read in the root layout
+    // has to move under <Suspense>). Nothing visible depended on PPR: the root
+    // layout reads the session cookie, so the prerendered shell was empty and
+    // every page was already rendered per request.
     // inlineCss kept on (Vercel Commerce default). Tested both settings;
     // inlineCss=false dropped HTML payload from 728KB → 312KB but added a
     // critical-path CSS fetch that hurt FCP equally. Net wash for now.
@@ -11,6 +23,9 @@ const config: NextConfig = {
     // (see lighthouse-pre-cutover.md "Surgical refactors of high-traffic
     // pages" follow-up).
     inlineCss: true,
+    // Still needed for the "use cache" functions in lib/shopify/index.ts
+    // (product feed, catalog). Next 16 marks it deprecated in favour of
+    // `cacheComponents` and prints a warning at build; see the note above.
     useCache: true,
   },
   images: {
@@ -76,6 +91,19 @@ const config: NextConfig = {
       {
         source: "/media/:file*",
         destination: "/_next/static/media/:file*",
+      },
+      // Real HTTP 404 for journal addresses that don't exist (an unknown
+      // /journal/<slug>, /journal/page/999). These run before the dynamic
+      // journal routes, whose own notFound() can only produce a soft 404
+      // (status 200) because pages are streamed. Before Next 16 this came from
+      // PPR + `dynamicParams = false`. The lists live in lib/journal-routes.ts.
+      {
+        source: `/journal/:slug${anythingBut(JOURNAL_POST_SLUGS)}`,
+        destination: NOT_FOUND_PATH,
+      },
+      {
+        source: `/journal/page/:n${anythingBut(JOURNAL_INDEX_PAGES)}`,
+        destination: NOT_FOUND_PATH,
       },
     ];
   },
