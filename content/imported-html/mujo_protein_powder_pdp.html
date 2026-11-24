@@ -71,7 +71,8 @@ body.locked { overflow: hidden; }
 .pdp-deck { font-size: 18px; color: var(--ink-soft); line-height: 1.5; margin-bottom: 18px; max-width: 480px; }
 .pdp-deck strong { color: var(--ink); font-weight: 500; }
 @media (min-width: 768px) { .pdp-deck { font-size: 19px; } }
-.pdp-rating { display: flex; align-items: center; gap: 8px; margin-bottom: 24px; }
+.pdp-rating { display: flex; align-items: center; gap: 8px; margin-bottom: 24px; min-height: 22px; text-decoration: none; color: inherit; }
+#looxReviews { scroll-margin-top: 110px; }
 .pdp-rating-text { font-family: var(--f-body); font-size: 13px; color: var(--ink-soft); }
 
 /* Quick feature highlights (Ritual quick-feats) */
@@ -389,8 +390,12 @@ body.locked { overflow: hidden; }
         <h1 class="pdp-title">Mujo Protein Powder</h1>
         <p class="pdp-deck">The first protein powder made with Lemna leaf, a tiny water plant with complete protein. <strong>22g of plant protein</strong> and all nine essential amino acids per serving, 0g sugar. Smooth vanilla from real, fair trade Madagascar vanilla bean, with no artificial aftertaste. Blended thick and creamy like a milkshake.</p>
 
-        <div class="pdp-rating">
-        </div>
+        <!-- Live Loox star rating (average + count), above the buy box. The product ID is
+             stamped and the badge rendered by imported-page-runtime.tsx via lib/loox.ts.
+             The link jumps to the reviews feed lower on the page. -->
+        <a class="pdp-rating" href="#looxReviews" aria-label="Read the reviews">
+          <div class="loox-rating" data-fetch></div>
+        </a>
 
         <div class="pdp-guarantee">
           <span class="pdp-guarantee-icon">
