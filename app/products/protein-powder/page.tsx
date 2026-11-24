@@ -59,6 +59,7 @@ export default function ProteinPdpPage() {
                 "https://mujoworld.com/images/responsive/products/protein-powder/powder-pouch-front-2026-09-1200.webp",
               lowPrice: "45.00",
               highPrice: "45.00",
+              offerCount: 1,
               inStock: true,
             }),
           ),

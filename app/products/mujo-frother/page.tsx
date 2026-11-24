@@ -32,9 +32,11 @@ export default function FrotherPdpPage() {
               name: "Electric Frother",
               description:
                 "A slim, rechargeable wand frother that makes your Ritual silky in about ten seconds. The double-spring whisk blends cacao and mushrooms smoothly into warm milk, with no clumps. A cap slides over the whisk so it stays clean in a drawer or a bag. It spins at 9,000 to 12,000 RPM and lasts up to 50 uses per charge. Rinse it in warm water and it's ready for tomorrow. Works in any mug, hot or iced.",
-              image: "https://mujoworld.com/images/logo/mujo-logo-clay.png",
+              image:
+                "https://mujoworld.com/images/responsive/products/merch/mujo-frother-pdp-editorial-4x5-1200.webp",
               lowPrice: "20",
               highPrice: "20",
+              offerCount: 1,
               inStock: true,
             }),
           ),

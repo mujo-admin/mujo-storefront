@@ -54,9 +54,10 @@ export default function RitualPdpPage() {
               description:
                 "The Ritual is a warm coffee alternative made with organic Peruvian cacao, carob and four organic mushroom extracts. It tastes like a smooth mocha: roasted and coffee-like, with an undertone of cacao and a hint of Ceylon cinnamon. With under 5mg of caffeine, roughly a twentieth of a coffee, it's made for calm energy with no crash. Inside: organic lion's mane, chaga, cordyceps and golden oyster (never mycelium on grain), plus L-theanine, panax ginseng, gelatinized black maca, MCT oil, ginger, monk fruit and a pinch of sea salt. Froth a tablespoon into hot water and top with milk. 25 servings.",
               image:
-                "https://mujoworld.com/images/logo/mujo-logo-clay.png",
+                "https://mujoworld.com/images/responsive/products/ritual/ritual-pouch-hero-monumental-editorial-2026-09-1x1-1200.webp",
               lowPrice: "60.00",
               highPrice: "60.00",
+              offerCount: 1,
               inStock: true,
             }),
           ),

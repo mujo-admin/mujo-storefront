@@ -32,7 +32,8 @@ export default function CrewPdpPage() {
               name: "Crewneck",
               description:
                 "A medium-heavyweight crewneck in soft, cotton-rich fleece: 80% cotton and 20% polyester, with a 100% cotton face. Smooth outside, cozy inside, with ribbed cuffs and hem and a regular unisex fit. The label tears away. Made to order in Bone or Sandstone, sizes XS to XL.",
-              image: "https://mujoworld.com/images/logo/mujo-logo-clay.png",
+              image:
+                "https://mujoworld.com/images/responsive/products/merch/mujo-crew-hero-editorial-1x1-1200.webp",
               lowPrice: "40",
               highPrice: "40",
               offerCount: 9,
