@@ -260,3 +260,10 @@ A mirrored Shopify order now carries everything Stripe charged: the payment itse
 - **Security headers on every response** (`next.config.ts`): `frame-ancestors 'self'`, `X-Frame-Options`, `nosniff`, `Referrer-Policy`, `Permissions-Policy`. A full Content-Security-Policy is a later, report-only-first step.
 - **`/api/healthcheck`** no longer returns raw error text. **Account routes** return a plain message for non-card Stripe errors (`lib/public-error.ts`).
 - JSON-LD escapes `<`; `/journal/page/[n]` 404s for unknown pages; Klaviyo logs mask emails; the Shopify customer lookup is quoted and must match exactly.
+
+## Leftovers from the security review (2026-11-24)
+
+- **"Send my next box now" charges one full box and restarts the cycle from today.** Ending a trial is the Stripe update that bills a full period on the spot, so `send-now` puts an active subscription on a trial that ends on its existing renewal date (no charge), then ends the trial now with `payment_behavior: error_if_incomplete`. A declined card refuses the request and the next box still goes out on the original date. Do not use `billing_cycle_anchor: "now"` for this: with prorations it billed nothing and left a stray item on the next renewal, without prorations it opened a new period that was never invoiced (sandbox, 2026-11-24). The paid invoice (`billing_reason: subscription_update`) becomes a Shopify order like a renewal and counts as a delivery. A second request within 10 minutes of the last charge answers `409 already_sent`; a paused subscription answers `409 subscription_paused`.
+- **Gift recipients are not added to Klaviyo.** They never asked to hear from Mujo. The recipient email stays on the PaymentIntent metadata (`gift_recipient_email`). `KLAVIYO_GIFT_RECIPIENT_LIST_ID` is no longer read.
+- **Ambassador applications are emailed to hello@mujoworld.com** (were kinga@), the same inbox as the contact form.
+

@@ -117,7 +117,7 @@ function useMountTarget(mountId: string): HTMLElement | null {
 /**
  * <AmbassadorForm /> — portal-mounted into the /ambassador apply section
  * (replaces the dead Tally button). POSTs to /api/ambassador (Klaviyo
- * `ambassador_applicant` tag + Resend notification to kinga@mujoworld.com).
+ * `ambassador_applicant` tag + Resend notification to hello@mujoworld.com).
  */
 export function AmbassadorForm() {
   const target = useMountTarget("ambassador-form");

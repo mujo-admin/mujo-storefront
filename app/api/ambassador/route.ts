@@ -28,7 +28,7 @@ const requestSchema = z.object({
  * 1. Subscribes the applicant to the Klaviyo master list with
  *    `ambassador_applicant: true` + every answer as a profile property, so
  *    the segment is ready for an approval / welcome-kit flow.
- * 2. Sends the full application to kinga@mujoworld.com via Resend, reply-to
+ * 2. Sends the full application to hello@mujoworld.com via Resend, reply-to
  *    set to the applicant so Kinga can reply in one tap.
  */
 export async function POST(req: NextRequest) {
@@ -117,7 +117,7 @@ export async function POST(req: NextRequest) {
       const resend = new Resend(resendKey);
       await resend.emails.send({
         from: "Mujo Ambassador Applications <hello@mujoworld.com>",
-        to: ["kinga@mujoworld.com"],
+        to: ["hello@mujoworld.com"],
         replyTo: parsed.email,
         subject: `[Ambassador] ${parsed.name} — ${parsed.whoYouAre}`.replace(/[\r\n]+/g, " "),
         text: [
