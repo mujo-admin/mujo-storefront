@@ -241,7 +241,7 @@ A mirrored Shopify order now carries everything Stripe charged: the payment itse
 
 ## Orders and subscriptions (2026-11-23, security batch 3a)
 
-- **Two-delivery minimum is enforced.** `/api/account/subscription/{cancel,pause,skip-next}` answer `409 minimum_not_met` until the subscription has two orders in `order_mirror` (first order, renewals and "send now" all count). Subscribers on legacy Prices or moved from Loop are never gated. Resume, send-now, swap and change-frequency are not gated.
+- **Two-delivery minimum (lib/subscription-minimum.ts).** Cancel is always accepted online. Under two orders in `order_mirror`, the cancellation is saved on the Stripe subscription (`metadata.cancel_after_minimum = 1`, plus the reason) and the `invoice.paid` handler sets `cancel_at_period_end` once the second order is recorded, so there is no third charge; `resume` withdraws it. Pause and skip answer `409 minimum_not_met` until the second order. Subscribers on legacy Prices or moved from Loop are never under the minimum. Decided 2026-11-23 after the state auto-renewal law review (AIOS `outputs/legal-and-compliance/subscription-minimum-2026-11/`): a cancel button that refuses online is the riskiest design.
 - **Gifts charge sales tax.** `send-gift` asks Stripe Tax for the tax on the recipient's address (`stripe.tax.calculations`), charges price + tax, and carries the tax lines on the PaymentIntent metadata (`gift_taxes`, `tax_calculation`) so the Shopify order matches; the `payment_intent.succeeded` handler records the tax transaction for Stripe Tax reporting. An address Stripe Tax cannot place is refused.
 - **Gifts are charged once.** The same gift (product, recipient, address, note) within 10 minutes returns the first payment; Stripe's idempotency key covers simultaneous requests. At most 3 gifts per account per day.
 - **A refunded duplicate never becomes an order.** `invoice.paid` skips a charge that is already fully refunded; `charge.refunded` for a charge under 10 minutes old with no order yet throws so Stripe retries.
@@ -249,3 +249,14 @@ A mirrored Shopify order now carries everything Stripe charged: the payment itse
 - **A guest purchase no longer re-links a subscriber.** `upsertCustomerForStripe` keeps the account's `stripe_customer_id` when the account has a live subscription; emails are stored in lower case and matched case-insensitively. `subscription-updated` finds the account through the recorded subscription when the Stripe Customer is not the linked one.
 - **The duplicate-subscription guard looks across Stripe Customers with the same email**, because every guest checkout makes a new Customer.
 - A card update reports failure if a subscription could not be switched to the new card. The billing portal returns to `/account`.
+
+## Login and site hardening (2026-11-23, security batch 3b)
+
+- **Login links last 30 minutes** (were 7 days) and are single-use by one atomic database statement.
+- **Logout is real.** `customers.sessions_valid_after` (migration `0002`) is set on logout and on an email change; `getSession()` and login-link redeem refuse anything issued before it (`sessionStillValid`, `revokeSessions` in `lib/session.ts`). Logging out ends every session on every device.
+- **No hints about who is a customer.** A rate-limited login or billing-portal request gets the same 200 as any other; an email change to an address another account owns answers `ok` and sends nothing. Per-IP flood limits are Vercel Firewall rules.
+- **Email change notifies the current address** as well as asking the new one to confirm.
+- **Emails are matched case-insensitively** on login, billing portal and email change.
+- **Security headers on every response** (`next.config.ts`): `frame-ancestors 'self'`, `X-Frame-Options`, `nosniff`, `Referrer-Policy`, `Permissions-Policy`. A full Content-Security-Policy is a later, report-only-first step.
+- **`/api/healthcheck`** no longer returns raw error text. **Account routes** return a plain message for non-card Stripe errors (`lib/public-error.ts`).
+- JSON-LD escapes `<`; `/journal/page/[n]` 404s for unknown pages; Klaviyo logs mask emails; the Shopify customer lookup is quoted and must match exactly.

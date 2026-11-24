@@ -15,6 +15,10 @@ const PAGES: Record<string, { file: string; title: string }> = {
   "2": { file: "mujo_journal_page-2.html", title: "Journal, Page 2" },
 };
 
+// Only the pages listed above exist. Without this, /journal/page/999 was
+// served as a "soft 404" (a 200 page) and given its own canonical address.
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return Object.keys(PAGES).map((n) => ({ n }));
 }

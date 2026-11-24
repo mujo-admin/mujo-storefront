@@ -28,7 +28,7 @@ export function LoginLinkEmail({ href, email }: Props) {
   return (
     <Html>
       <Head />
-      <Preview>Your Mujo login link — works for 7 days</Preview>
+      <Preview>Your Mujo login link — works for 30 minutes</Preview>
       <Body
         style={{
           backgroundColor: CREAM,
@@ -85,7 +85,7 @@ export function LoginLinkEmail({ href, email }: Props) {
                 margin: '0 0 8px 0',
               }}
             >
-              This link works for 7 days and can only be used once.
+              This link works for 30 minutes and can only be used once.
             </Text>
             <Text
               style={{

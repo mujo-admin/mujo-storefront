@@ -15,6 +15,13 @@
       "when": 1778178646608,
       "tag": "0001_carts",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1795478400000,
+      "tag": "0002_sessions_valid_after",
+      "breakpoints": true
     }
   ]
 }

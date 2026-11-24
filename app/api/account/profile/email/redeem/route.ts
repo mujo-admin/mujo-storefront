@@ -11,12 +11,12 @@
 // shows a banner confirming the change).
 
 import type { NextRequest } from "next/server";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import Stripe from "stripe";
 import { customers, db } from "db";
 import { stripe } from "lib/stripe";
 import { verifyAndConsumeToken } from "lib/magic-link";
-import { clearSession } from "lib/session";
+import { clearSession, revokeSessions } from "lib/session";
 import { changeProfileEmail } from "lib/klaviyo";
 
 export const dynamic = "force-dynamic";
@@ -76,7 +76,7 @@ export async function GET(req: NextRequest) {
     await db
       .select({ id: customers.id })
       .from(customers)
-      .where(eq(customers.email, newEmail))
+      .where(sql`lower(${customers.email}) = ${newEmail.toLowerCase()}`)
       .limit(1)
   )[0];
   if (conflict && conflict.id !== customerId) {
@@ -93,7 +93,7 @@ export async function GET(req: NextRequest) {
   // 1. Postgres
   await db
     .update(customers)
-    .set({ email: newEmail, updatedAt: new Date() })
+    .set({ email: newEmail.toLowerCase(), updatedAt: new Date() })
     .where(eq(customers.id, customerId));
 
   // 2. Stripe Customer
@@ -127,6 +127,9 @@ export async function GET(req: NextRequest) {
   // This is intentional: the session token still carries the old email in
   // its payload, and rotating credentials on email change is a standard
   // account-security pattern.
+  // Ends every session and unused login link, on every device: an old cookie
+  // or a login link still sitting in the OLD inbox must stop working now.
+  await revokeSessions(customerId);
   await clearSession();
 
   return Response.redirect(

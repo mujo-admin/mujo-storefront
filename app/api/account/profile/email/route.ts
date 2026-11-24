@@ -12,7 +12,7 @@
 // session magic-link).
 
 import type { NextRequest } from "next/server";
-import { eq } from "drizzle-orm";
+import { sql } from "drizzle-orm";
 import { z } from "zod";
 import { customers, db } from "db";
 import { checkRateLimit, generateToken } from "lib/magic-link";
@@ -55,31 +55,9 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // Reject if newEmail already belongs to another account in our DB.
-  const conflict = (
-    await db
-      .select({ id: customers.id })
-      .from(customers)
-      .where(eq(customers.email, parsed.newEmail))
-      .limit(1)
-  )[0];
-  if (conflict && conflict.id !== session.customerId) {
-    // Use generic message — we don't want to leak account-existence at the
-    // new address. Customer can still get a "Something went wrong" experience.
-    console.log("[profile/email] address already in use by another account", {
-      customerId: session.customerId,
-      newEmail: parsed.newEmail,
-    });
-    return Response.json(
-      {
-        error: "email_in_use",
-        message: "This email is not available. Try a different address.",
-      },
-      { status: 409 },
-    );
-  }
-
-  // Rate-limit by current session email (the requesting customer).
+  // Rate-limit by current session email (the requesting customer). This runs
+  // BEFORE the "is that address taken" check, so that check cannot be used to
+  // test an unlimited number of addresses.
   const allowed = await checkRateLimit(session.email);
   if (!allowed) {
     return Response.json(
@@ -89,6 +67,23 @@ export async function POST(req: NextRequest) {
       },
       { status: 429 },
     );
+  }
+
+  // If the new address already belongs to another account, answer exactly as
+  // on success and send nothing. A distinct "not available" reply told any
+  // logged-in customer which addresses are Mujo customers.
+  const conflict = (
+    await db
+      .select({ id: customers.id })
+      .from(customers)
+      .where(sql`lower(${customers.email}) = ${parsed.newEmail}`)
+      .limit(1)
+  )[0];
+  if (conflict && conflict.id !== session.customerId) {
+    console.log("[profile/email] address already in use by another account", {
+      customerId: session.customerId,
+    });
+    return Response.json({ ok: true });
   }
 
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? null;
@@ -129,6 +124,29 @@ export async function POST(req: NextRequest) {
   } catch (err) {
     console.error("[profile/email] unexpected error", err);
     return Response.json({ error: "internal_error" }, { status: 500 });
+  }
+
+  // Tell the CURRENT address too. If someone else got into the account and
+  // is moving it to their own email, this is how the real owner finds out.
+  try {
+    const [local = "", domain = ""] = parsed.newEmail.split("@");
+    const masked = `${local.slice(0, 2)}***@${domain}`;
+    await resend.emails.send({
+      from: RESEND_FROM,
+      to: session.email,
+      subject: uniqueSubject("Your Mujo email address is being changed"),
+      text: [
+        `Someone asked to change the email on your Mujo account to ${masked}.`,
+        "",
+        "If that was you, there is nothing to do here: confirm the change from your new inbox.",
+        "",
+        "If it was not you, reply to this email straight away and we will secure your account. Nothing changes unless the link sent to the new address is opened.",
+        "",
+        "Mujo",
+      ].join("\n"),
+    });
+  } catch (err) {
+    console.error("[profile/email] notice to current address failed", err);
   }
 
   return Response.json({ ok: true });

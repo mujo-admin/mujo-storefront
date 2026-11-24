@@ -8,7 +8,7 @@ const ISSUER = 'mujo-storefront';
 /**
  * Three audiences with different security domains:
  *  - 'billing-portal': 15-min single-use deep-link to Stripe Customer Portal
- *  - 'session':        7-day session cookie redeem (account login)
+ *  - 'session':        30-minute login link (redeemed once for a session cookie)
  *  - 'email-change':   24-hour confirm-link sent to *new* email address
  *
  * Each audience has its own HMAC secret so rotating one cannot invalidate
@@ -19,7 +19,8 @@ export type MagicLinkAudience = 'billing-portal' | 'session' | 'email-change';
 
 const TTL_BY_AUDIENCE: Record<MagicLinkAudience, number> = {
   'billing-portal': 15 * 60,
-  'session': 7 * 24 * 60 * 60,
+  // Was 7 days: a login link sitting in an inbox for a week is a spare key.
+  'session': 30 * 60,
   'email-change': 24 * 60 * 60,
 };
 
@@ -89,7 +90,7 @@ export async function generateToken<A extends MagicLinkAudience>(
 }
 
 export type VerifyResult<A extends MagicLinkAudience> =
-  | { ok: true; payload: MagicLinkPayloadByAudience[A] }
+  | { ok: true; payload: MagicLinkPayloadByAudience[A]; issuedAt: number }
   | { ok: false; reason: 'invalid' | 'expired' | 'used' | 'unknown' };
 
 export async function verifyAndConsumeToken<A extends MagicLinkAudience>(
@@ -99,11 +100,13 @@ export async function verifyAndConsumeToken<A extends MagicLinkAudience>(
   const secret = getSecret(audience);
 
   let payload: MagicLinkPayloadByAudience[A];
+  let issuedAt = 0;
   try {
     const { payload: jwt } = await jwtVerify(token, secret, {
       issuer: ISSUER,
       audience,
     });
+    issuedAt = typeof jwt.iat === 'number' ? jwt.iat : 0;
     if (audience === 'billing-portal') {
       const email = typeof jwt.email === 'string' ? jwt.email : '';
       const stripeCustomerId =
@@ -146,24 +149,36 @@ export async function verifyAndConsumeToken<A extends MagicLinkAudience>(
 
   // DB consume — audience-agnostic. Reuses the existing magic_link_tokens
   // table; idempotency comes from the unique tokenHash + usedAt mark-on-use.
+  // One statement marks the link used ONLY if it has not been used yet, so two
+  // clicks at the same instant cannot both get in (the old read-then-write
+  // let both through).
   const hash = hashToken(token);
-  const rows = await db
-    .select()
-    .from(magicLinkTokens)
-    .where(eq(magicLinkTokens.tokenHash, hash))
-    .limit(1);
-
-  const row = rows[0];
-  if (!row) return { ok: false, reason: 'unknown' };
-  if (row.usedAt) return { ok: false, reason: 'used' };
-  if (row.expiresAt.getTime() < Date.now()) return { ok: false, reason: 'expired' };
-
-  await db
+  const consumed = await db
     .update(magicLinkTokens)
     .set({ usedAt: new Date() })
-    .where(eq(magicLinkTokens.id, row.id));
+    .where(
+      and(
+        eq(magicLinkTokens.tokenHash, hash),
+        isNull(magicLinkTokens.usedAt),
+        gte(magicLinkTokens.expiresAt, new Date()),
+      ),
+    )
+    .returning({ id: magicLinkTokens.id });
 
-  return { ok: true, payload };
+  if (consumed.length === 0) {
+    const row = (
+      await db
+        .select()
+        .from(magicLinkTokens)
+        .where(eq(magicLinkTokens.tokenHash, hash))
+        .limit(1)
+    )[0];
+    if (!row) return { ok: false, reason: 'unknown' };
+    if (row.usedAt) return { ok: false, reason: 'used' };
+    return { ok: false, reason: 'expired' };
+  }
+
+  return { ok: true, payload, issuedAt };
 }
 
 /**

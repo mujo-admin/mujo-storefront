@@ -6,7 +6,9 @@
 
 import type { NextRequest } from 'next/server';
 import { verifyAndConsumeToken } from 'lib/magic-link';
-import { setSession } from 'lib/session';
+import { eq } from 'drizzle-orm';
+import { customers, db } from 'db';
+import { sessionStillValid, setSession } from 'lib/session';
 
 export const dynamic = 'force-dynamic';
 
@@ -41,10 +43,24 @@ export async function GET(req: NextRequest) {
     );
   }
 
+  // The link was made a while ago: use the account as it is NOW (the email or
+  // Stripe link may have changed), and refuse a link issued before the
+  // customer logged out or changed their email.
+  const row = (
+    await db
+      .select()
+      .from(customers)
+      .where(eq(customers.id, result.payload.customerId))
+      .limit(1)
+  )[0];
+  if (!row || !(await sessionStillValid(row.id, result.issuedAt))) {
+    return Response.redirect(`${siteUrl}/account/login/error?reason=expired`, 302);
+  }
+
   await setSession({
-    customerId: result.payload.customerId,
-    email: result.payload.email,
-    stripeCustomerId: result.payload.stripeCustomerId,
+    customerId: row.id,
+    email: row.email,
+    stripeCustomerId: row.stripeCustomerId ?? null,
   });
 
   // Same-origin guard on the optional redirect param. Reject anything that

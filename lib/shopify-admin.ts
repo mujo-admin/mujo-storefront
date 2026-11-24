@@ -223,9 +223,14 @@ export async function findCustomerByEmail(email: string): Promise<ShopifyCustome
         }
       }
     `,
-    variables: { query: `email:${email}` },
+    // Quoted, and the answer is checked: Shopify search can return a near
+    // match, and attaching an order or a login to the wrong person is worse
+    // than finding nobody.
+    variables: { query: `email:"${email.replace(/["\\]/g, "")}"` },
   });
-  return data.customers.edges[0]?.node ?? null;
+  const node = data.customers.edges[0]?.node ?? null;
+  if (node && node.email?.toLowerCase() !== email.trim().toLowerCase()) return null;
+  return node;
 }
 
 export async function createCustomer(input: {

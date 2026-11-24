@@ -15,6 +15,7 @@ import Stripe from "stripe";
 import { z } from "zod";
 import { customers, db, subscriptions } from "db";
 import { stripe } from "lib/stripe";
+import { publicStripeMessage } from "lib/public-error";
 import { getSession, refreshSession } from "lib/session";
 
 export const dynamic = "force-dynamic";
@@ -75,7 +76,7 @@ export async function POST(_req: NextRequest) {
         message: err.message,
       });
       return Response.json(
-        { error: err.code ?? "stripe_error", message: err.message },
+        { error: err.code ?? "stripe_error", message: publicStripeMessage(err) },
         { status: err.statusCode ?? 502 },
       );
     }
@@ -133,7 +134,7 @@ export async function PATCH(req: NextRequest) {
         message: err.message,
       });
       return Response.json(
-        { error: err.code ?? "stripe_error", message: err.message },
+        { error: err.code ?? "stripe_error", message: publicStripeMessage(err) },
         { status: err.statusCode ?? 502 },
       );
     }
@@ -212,7 +213,7 @@ export async function PATCH(req: NextRequest) {
         message: err.message,
       });
       return Response.json(
-        { error: err.code ?? "stripe_error", message: err.message },
+        { error: err.code ?? "stripe_error", message: publicStripeMessage(err) },
         { status: err.statusCode ?? 502 },
       );
     }

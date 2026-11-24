@@ -13,21 +13,19 @@
 // is unaffected.
 
 import type { NextRequest } from "next/server";
-import { and, count, desc, eq, inArray } from "drizzle-orm";
+import { and, desc, eq, inArray } from "drizzle-orm";
 import Stripe from "stripe";
 import { z } from "zod";
-import { db, orderMirror, subscriptions } from "db";
+import { db, subscriptions } from "db";
 import { stripe } from "lib/stripe";
+import { publicStripeMessage } from "lib/public-error";
 import {
   getSubscriptionCycleSeconds,
   syncSubscriptionToDb,
 } from "lib/webhook-handlers/_helpers";
 import { getSession, refreshSession } from "lib/session";
-import {
-  RITUAL_LEGACY_SUB_PRICE_IDS,
-  RITUAL_PRICE_IDS,
-  isRitualSubscriptionPrice,
-} from "lib/stripe-constants";
+import { RITUAL_PRICE_IDS, isRitualSubscriptionPrice } from "lib/stripe-constants";
+import { CANCEL_AFTER_MINIMUM_KEY, isUnderMinimum } from "lib/subscription-minimum";
 
 export const dynamic = "force-dynamic";
 
@@ -49,16 +47,9 @@ const ACTIVE_SUB_STATUSES = [
   "paused",
 ] as const;
 
-// The subscription terms: two deliveries before a subscription can be paused,
-// skipped or cancelled (it is what the subscriber price, free shipping and the
-// free frother are offered against). The pages say so; this enforces it, so
-// the minimum cannot be skipped by calling this route directly.
-const MINIMUM_DELIVERIES = 2;
-const MINIMUM_GATED_ACTIONS: ReadonlySet<Action> = new Set([
-  "pause",
-  "skip-next",
-  "cancel",
-]);
+// Pause and skip open after the second delivery. Cancel is never refused: see
+// lib/subscription-minimum.ts.
+const MINIMUM_GATED_ACTIONS: ReadonlySet<Action> = new Set(["pause", "skip-next"]);
 
 const pauseSchema = z.object({
   cycles: z.number().int().min(1).max(3).default(1),
@@ -150,31 +141,16 @@ export async function POST(
     }
   }
 
-  if (MINIMUM_GATED_ACTIONS.has(action)) {
-    // Long-standing subscribers (legacy Prices, or moved over from Loop) had
-    // their first deliveries before orders were recorded here: never gated.
-    const metadata = (subRow.metadata ?? {}) as Record<string, unknown>;
-    const longStanding =
-      RITUAL_LEGACY_SUB_PRICE_IDS.includes(subRow.stripePriceId) ||
-      Boolean(metadata.loop_migration);
-    if (!longStanding) {
-      const [delivered] = await db
-        .select({ n: count() })
-        .from(orderMirror)
-        // Every order made for this subscription counts: the first one, each
-        // renewal, and a "send my next box now".
-        .where(eq(orderMirror.stripeSubscriptionId, subRow.stripeSubscriptionId));
-      if ((delivered?.n ?? 0) < MINIMUM_DELIVERIES) {
-        return Response.json(
-          {
-            error: "minimum_not_met",
-            message:
-              "You can pause, skip or cancel after your second delivery. Need a hand before then? Email hello@mujoworld.com.",
-          },
-          { status: 409 },
-        );
-      }
-    }
+  const underMinimum = await isUnderMinimum(subRow);
+  if (underMinimum && MINIMUM_GATED_ACTIONS.has(action)) {
+    return Response.json(
+      {
+        error: "minimum_not_met",
+        message:
+          "You can pause or skip after your second delivery. You can cancel any time: your subscription then ends after that second delivery. Need a hand? Email hello@mujoworld.com.",
+      },
+      { status: 409 },
+    );
   }
 
   let body: Record<string, unknown> = {};
@@ -233,13 +209,28 @@ export async function POST(
       const feedback = STRIPE_FEEDBACK_MAP[parsed.reason] ?? "other";
       updatedSub = await stripe.subscriptions.update(
         subRow.stripeSubscriptionId,
-        {
-          cancel_at_period_end: true,
-          cancellation_details: {
-            feedback,
-            comment: parsed.comment,
-          },
-        },
+        underMinimum
+          ? {
+              // Before the second delivery: the cancellation is accepted and
+              // saved now, and takes effect right after that delivery (the
+              // invoice.paid handler then ends the subscription). Ending "at
+              // period end" here would stop it before the second delivery.
+              // (Stripe only accepts cancellation_details on a subscription
+              // that is set to cancel, so the reason waits in metadata.)
+              metadata: {
+                [CANCEL_AFTER_MINIMUM_KEY]: "1",
+                cancel_requested_at: new Date().toISOString(),
+                cancel_feedback: feedback,
+                cancel_comment: (parsed.comment ?? "").slice(0, 480),
+              },
+            }
+          : {
+              cancel_at_period_end: true,
+              cancellation_details: {
+                feedback,
+                comment: parsed.comment,
+              },
+            },
       );
     } else if (action === "resume") {
       // Clear pause_collection AND cancel_at_period_end in one call. Stripe
@@ -250,6 +241,13 @@ export async function POST(
         {
           pause_collection: "",
           cancel_at_period_end: false,
+          // Also withdraws a cancellation saved before the second delivery.
+          metadata: {
+            [CANCEL_AFTER_MINIMUM_KEY]: "",
+            cancel_requested_at: "",
+            cancel_feedback: "",
+            cancel_comment: "",
+          },
         },
       );
     } else if (action === "send-now") {
@@ -365,7 +363,7 @@ export async function POST(
         message: err.message,
       });
       return Response.json(
-        { error: err.code ?? "stripe_error", message: err.message },
+        { error: err.code ?? "stripe_error", message: publicStripeMessage(err) },
         { status: err.statusCode ?? 502 },
       );
     }

@@ -36,6 +36,7 @@ import {
   upsertCustomerForStripe,
 } from './_helpers';
 import { factsFromInvoice } from './_order-facts';
+import { applySavedCancellation } from 'lib/subscription-minimum';
 
 type OrderType = 'subscription_initial' | 'subscription_renewal' | 'subscription_update';
 
@@ -174,6 +175,8 @@ export async function handleInvoicePaid(event: Stripe.Event) {
     .limit(1);
   if (existingOrder.length > 0) {
     console.log('[invoice.paid] order already mirrored, skipping', { chargeId });
+    // A retry after the order was recorded must still finish this step.
+    await applySavedCancellation(sub);
     return;
   }
 
@@ -337,6 +340,10 @@ export async function handleInvoicePaid(event: Stripe.Event) {
     type,
     shopifyOrder: shopifyOrder.name,
   });
+
+  // A cancellation saved before the second delivery takes effect now that the
+  // two-delivery minimum is met: no further charge after this order.
+  await applySavedCancellation(sub);
 
   // Server-fired analytics for the subscription initial purchase. Matches the
   // one-time path in checkout-completed.ts / payment-intent-succeeded.ts so

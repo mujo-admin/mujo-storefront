@@ -20,6 +20,12 @@ const SITE_ORIGIN = "https://mujoworld.com";
 const KLAVIYO_API_BASE = "https://a.klaviyo.com/api";
 const KLAVIYO_REVISION = "2024-10-15";
 
+/** "ja***@example.com": enough to recognise in a log, not a full address. */
+function maskEmail(email: string): string {
+  const [local = "", domain = ""] = email.split("@");
+  return `${local.slice(0, 2)}***@${domain}`;
+}
+
 function privateKey(): string | null {
   return (
     process.env.KLAVIYO_PRIVATE_API_KEY?.trim() ||
@@ -545,7 +551,7 @@ export async function addGiftRecipientIfNew(args: {
     const memberships = await getProfileListMemberships(args.email);
     if (memberships.length > 0) {
       console.log("[klaviyo] gift recipient already in Mujo lists — skipping", {
-        email: args.email,
+        email: maskEmail(args.email),
         lists: memberships.map((l) => l.name),
       });
       return {
@@ -567,7 +573,7 @@ export async function addGiftRecipientIfNew(args: {
       },
     });
     console.log("[klaviyo] gift recipient added to list", {
-      email: args.email,
+      email: maskEmail(args.email),
       product: args.giftedProduct,
     });
     return { added: true };
@@ -632,7 +638,7 @@ export async function changeProfileEmail(args: {
   const sourceProfile = await getProfileByEmail(args.oldEmail);
   if (!sourceProfile) {
     console.warn("[klaviyo] changeProfileEmail: no source profile", {
-      oldEmail: args.oldEmail,
+      oldEmail: maskEmail(args.oldEmail),
     });
     return;
   }

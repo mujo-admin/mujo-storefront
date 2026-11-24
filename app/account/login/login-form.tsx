@@ -75,7 +75,7 @@ export function LoginForm({
       </button>
 
       <p className="login-secure">
-        Secure &middot; one-time use &middot; 7-day expiry
+        Secure &middot; one-time use &middot; link lasts 30 minutes
       </p>
 
       <style>{`

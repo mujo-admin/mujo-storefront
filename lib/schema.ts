@@ -140,5 +140,7 @@ export function articleSchema(args: {
 }
 
 export function jsonLdScript(schema: unknown): string {
-  return JSON.stringify(schema);
+  // "<" is escaped so text inside the data (a product title or description
+  // from Shopify) can never close the <script> tag and start its own.
+  return JSON.stringify(schema).replace(/</g, "\\u003c");
 }

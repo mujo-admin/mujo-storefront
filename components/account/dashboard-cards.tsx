@@ -15,6 +15,8 @@ export type DashboardSubscription = {
   stripePriceId: string;
   currentPeriodEnd: Date;
   cancelAtPeriodEnd: boolean;
+  /** Cancelled before the second delivery: saved, takes effect after it. */
+  cancelAfterMinimum?: boolean;
   isPaused: boolean;
   /** "Every 4 weeks", "Every 3 months", etc. — derived from price.recurring (live). */
   intervalLabel: string;
@@ -375,7 +377,7 @@ function ActiveSubscriptionCard({
         </div>
         <p className="sub-empty">
           No active subscription. Subscribe and save on every Ritual delivery
-          — pause or cancel after your first 2 deliveries.
+          — two-delivery minimum, then pause, skip or cancel any time.
         </p>
         <Link href="/products/mujo-ritual" className="sub-cta">
           Start a subscription
@@ -389,7 +391,9 @@ function ActiveSubscriptionCard({
     ? `${meta.productTitle} · ${meta.variantTitle.replace(" · Subscribe & save", "")}`
     : "Mujo subscription";
 
-  const nextLine = subscription.cancelAtPeriodEnd
+  const nextLine = subscription.cancelAfterMinimum
+    ? `Last delivery · ${formatShortDate(subscription.currentPeriodEnd)} · cancellation saved`
+    : subscription.cancelAtPeriodEnd
     ? `Ends · ${formatShortDate(subscription.currentPeriodEnd)}`
     : subscription.isPaused
       ? "Paused · resume anytime"

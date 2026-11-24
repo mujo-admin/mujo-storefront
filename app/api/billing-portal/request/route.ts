@@ -10,7 +10,7 @@
 //
 // Returns 200 with a generic confirmation message in all valid-input cases.
 
-import { eq } from 'drizzle-orm';
+import { sql } from 'drizzle-orm';
 import type { NextRequest } from 'next/server';
 import { z } from 'zod';
 import { customers, db } from 'db';
@@ -36,22 +36,18 @@ export async function POST(req: NextRequest) {
   const { email } = parsed;
   const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? null;
 
-  const allowed = await checkRateLimit(email);
-  if (!allowed) {
-    return Response.json(
-      { error: 'rate_limited', message: 'Too many requests. Try again in an hour.' },
-      { status: 429 },
-    );
-  }
-
-  const customer = (
-    await db.select().from(customers).where(eq(customers.email, email)).limit(1)
-  )[0];
-
   // Anti-enumeration: always return 200, even if no customer exists.
   const genericResponse = Response.json({
     message: 'If that email is on file, you will receive a link shortly.',
   });
+
+  // Over the limit: the same answer (a different one reveals who is a customer).
+  const allowed = await checkRateLimit(email);
+  if (!allowed) return genericResponse;
+
+  const customer = (
+    await db.select().from(customers).where(sql`lower(${customers.email}) = ${email.toLowerCase()}`).limit(1)
+  )[0];
 
   if (!customer || !customer.stripeCustomerId) {
     console.log('[billing-portal/request] no customer for email (silent ack)', { email });
